@@ -2,66 +2,65 @@
 var Config = require('./config.js');
 var start = new Date().getTime();
 
-var trailData = (function (){
-    var trailheads = {};
+var trailData = function() {
+    var that = {};
+    var fetchingTrailSegments = false;
+    var fetchingTrailHeads = false;
+    var fetchingTrailNames = false;
 
-    var _fetchTrails = function(trailMap, page) {
+    var _fetchData = function (endpoint, callback, fetchingData, page) {
+        fetchingData = true;
         if (page === undefined) {
             page = 1
         }
 
-        $.getJSON(Config.trailsEndpoint + "/?page=" + page, function(trailsResponse){
-            var paging = trailsResponse.paging;
-            var geoJson = trailsResponse.data.features;
+        $.getJSON(endpoint + "/?page=" + page, function (response) {
+            var paging = response.paging;
+            var geoJson = response.data;
 
-            trailMap.addTrailsData(geoJson);
-
-            if (!paging.last_page) {
-                page++;
-                _fetchTrails(trailMap, page);
-            }
-        })
-        .fail(function( jqxhr, textStatus, error ) {
-            var err = textStatus + ", " + error;
-            console.log( "Request Failed: " + err );
-        });
-    };
-
-    var _fetchTrailheads = function(trailMap, page) {
-        if (page === undefined) {
-            page = 1
-        }
-
-        if (page == 1) {
-            trailMap.clearTrailheads();
-        }
-
-        $.getJSON(Config.trailheadEndpoint + "/?page=" + page, function(trailheadResponse){
-            var paging = trailheadResponse.paging;
-            var geoJson = trailheadResponse.data;
-
-            for (var i = 0; i < geoJson.length; i++) {
-                geoJson[i].type = 'Feature'
-            }
-
-            trailMap.buildTrailheads(geoJson);
+            callback(geoJson);
 
             if (!paging.last_page) {
                 page++;
-                _fetchTrailheads(trailMap, page);
+                _fetchData(endpoint, callback, fetchingData, page);
+            }
+            else {
+                fetchingData = false;
             }
         })
-        .fail(function( jqxhr, textStatus, error ) {
-            var err = textStatus + ", " + error;
-            console.log( "Request Failed: " + err );
-        });
+            .fail(function (jqxhr, textStatus, error) {
+                var err = textStatus + ", " + error;
+                console.log("Request for '" + endpoint + "' Failed: " + err);
+            });
     };
 
-    return {
-        fetchTrailheads: _fetchTrailheads,
-        fetchTrails: _fetchTrails
-    }
-})();
+    that.fetchTrailSegments = function (callback, page) {
+        _fetchData(Config.trailSegmentsEndpoint, callback, fetchingTrailSegments);
+    };
+
+    that.fetchTrailheads = function (callback, page) {
+        _fetchData(Config.trailheadEndpoint, callback, fetchingTrailHeads);
+    };
+
+    that.fetchTrailNames = function (callback, page) {
+        _fetchData(Config.trailsEndpoint, callback, fetchingTrailNames);
+
+    };
+
+    that.isFetchingTrailheads = function () {
+        return fetchingTrailHeads == true;
+    };
+
+    that.isFetchingTrailSegments = function () {
+        return fetchingTrailSegments == true;
+    };
+
+    that.isFetchingTrailNames = function () {
+        return fetchingTrailNames == true;
+    };
+
+    return that;
+};
 
 module.exports = trailData;
 

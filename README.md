@@ -54,6 +54,28 @@ files that are packaged together into 'bundle.js', do the following:
 # Caveats
 Since the conversion to using OpenTrails is a WIP, expect some functionality to be missing.
 
+## Deployment
+
+[webpacksite]:(http://webpack.github.io/docs/webpack-dev-server.html)
+With RHEL / CentOS / Fedora
+
+Switch to the root user
+(e.g. On an AWS instance after you log in execute `sudo su -`)
+
+Install git via yum
+Clone this repository
+
+Add the '--host [IP Address]' option into the 'start' line within the package.json file so trailsy is accessible
+outside of localhost. 
+
+* [Webpack Server][webpacksite], documentation for webpack server
+
+Install NodeJS and npm via the instructions here:
+https://github.com/joyent/node/wiki/installing-node.js-via-package-manager
+
+Once NodeJS and npm are installed follow instructions from Building and then Running.
+
+
 ## Contributing
 In the spirit of [free software][free-sw], **everyone** is encouraged to help
 improve this project. 

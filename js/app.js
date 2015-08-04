@@ -1,2 +1,3 @@
-window.trailMap = require('./map.js');
+var trailMap = require('./trailMap.js');
+window.trailMap = trailMap();
 window.trailMap.fetchTrailheads();

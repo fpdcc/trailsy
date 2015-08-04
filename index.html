@@ -62,6 +62,7 @@
                         <input id="search" type="text" class="form-control" placeholder="Search Trails">
                         <span class="input-group-btn">
                             <button class="btn btn-default slate-thin-border glyphicon glyphicon-search very-top" type="button" onclick="trailMap.filterTrailheads($('#search').val())"/>
+                            <button class="btn btn-default slate-thin-border very-top" type="button" onclick="$('#search').val(''); trailMap.clearFilters()">Clear Search</button>
                         </span>
                     </div>
                 </span>
