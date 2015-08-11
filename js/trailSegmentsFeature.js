@@ -37,21 +37,37 @@ var trailSegmentsFeature = function() {
     var _addTrailName = function(segment, trailName) {
         var properties = segment.properties;
 
-        if (properties.trailNames == null) {
-            properties.trailNames = [];
+        if (properties.trails == null) {
+            properties.trails = [];
         }
 
-        var trailNames = properties.trailNames;
+        var trails = properties.trails;
 
         var index = -1;
-        for (var i in trailNames) {
-            if (trailNames[i] == trailName) {
+        for (var i in trails) {
+            if (trails[i].name == trailName) {
                 index = i;
+                var found = false;
+                for (var j in trails[i].distances_in_meters) {
+                    if (trails[i].distances_in_meters[j].segmentId == segment.properties.id) {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found) {
+                    trails[i].distances_in_meters.push(
+                        {segmentId: segment.properties.id, distance_in_meters: segment.properties.distance_in_meters}
+                    );
+                }
             }
         }
 
         if (index == -1) {
-            trailNames.push(trailName);
+            trails.push({
+                name: trailName,
+                distances_in_meters: [{segmentId: segment.properties.id, distance_in_meters: segment.properties.distance_in_meters }]
+            });
         }
 
         return segment;

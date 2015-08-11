@@ -49,7 +49,18 @@ var trailSegmentsLayer = function() {
     };
 
     var _generatePopupContent = function (segment) {
-        var content = "<h5>" + segment.properties.trailNames + "</h5>";
+        var content = "";
+
+        for (var i in segment.properties.trails) {
+            content += "<h5>" + segment.properties.trails[i].name + "</h5>";
+            var distance = 0;
+            for (var j in segment.properties.trails[i].distances_in_meters) {
+                distance += segment.properties.trails[i].distances_in_meters[j].distance_in_meters;
+            }
+            content += "<p>Distance " + (distance * 0.000621371).toFixed(2) + " miles</p>"
+        }
+
+        content += "</h5>";
 
         var access = segment.properties.trail_segment_attributes;
         for (var i = 0; i < access.length; i++) {

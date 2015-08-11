@@ -54,10 +54,8 @@ var trailMap = function() {
     filter.setCurrentValue(text);
     thLayer.setFilter(filter.byName);
 
-    var filter2 = geoJsonFilter();
-    filter2.setCurrentValue(text);
-    filter2.setCurrentKey("trailNames");
-    tsLayer.setFilter(filter2.byProperty);
+    tSegmentsFilter.setCurrentTrailName(text);
+    tsLayer.setFilter(tSegmentsFilter.filterByTrailName);
 
     _buildTrailheadLayers();
     _buildTrailSegments();
