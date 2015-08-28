@@ -1,5 +1,6 @@
 "use strict";
 
+var L = require('leaflet');
 var openTrailLayer = require('./openTrailLayer.js');
 
 var trailSegmentsLayer = function() {
@@ -9,7 +10,31 @@ var trailSegmentsLayer = function() {
                 return false;
             },
             onEachFeature: function (feature, layer) {
-                layer.bindPopup(_generatePopupContent(feature));
+                var popupContent = _generatePopupContent(feature);
+                layer.bindPopup(popupContent);
+                layer.on('mouseover', function(e) {
+                    e.target.openPopup();
+                });
+                layer.on('popupopen', function(e) {
+                    var l = e.target;
+                    l.setStyle({
+                        color: "#FCDF00",
+                            weight: 5,
+                            opacity: 1,
+                            smoothFactor: 1.0
+                    });
+                });
+
+                layer.on('popupclose', function(e) {
+                    var l = e.target;
+                    l.setStyle({
+                        color: "#678729",
+                        weight: 3,
+                        opacity: 1,
+                        smoothFactor: 1.0
+                    });
+                });
+
             },
             style: {
                 color: "#678729",
@@ -17,7 +42,8 @@ var trailSegmentsLayer = function() {
                 opacity: 1,
                 smoothFactor: 1.0
             }
-        }
+        },
+        L: L
     };
 
     var trailHeads;
@@ -52,10 +78,12 @@ var trailSegmentsLayer = function() {
         var content = "";
 
         for (var i in segment.properties.trails) {
-            content += "<h5>" + segment.properties.trails[i].name + "</h5>";
+            content += "<h5>" + segment.properties.trails[i].name + " trail id " + segment.properties.trails[i].id + "</h5>";
             var distance = 0;
             for (var j in segment.properties.trails[i].distances_in_meters) {
-                distance += segment.properties.trails[i].distances_in_meters[j].distance_in_meters;
+                if (segment.properties.trails[i].distances_in_meters[j].distance_in_meters != null) {
+                    distance += segment.properties.trails[i].distances_in_meters[j].distance_in_meters;
+                }
             }
             content += "<p>Distance " + (distance * 0.000621371).toFixed(2) + " miles</p>"
         }

@@ -37,6 +37,12 @@ All remaining instructions assume you have:
 
 * Executing `npm install` at the command prompt will install dependencies and make trails ready to run
 
+### Testing
+
+* Test files can be found in the `spec` directory
+* Testing is done with [jasmine](http://jasmine.github.io/)
+* Execute tests by running the command `jasmine` at the prompt, use npm to install it if you get a `command not found` error
+
 ### Running
 
 * Executing `npm start` at the command prompt will launch a development server

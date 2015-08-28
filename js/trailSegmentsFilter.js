@@ -23,7 +23,7 @@ var trailSegmentsFilter = function() {
     var currentTrailName = "";
     that.setCurrentTrailName = function(trailName) {
         currentTrailName = trailName;
-    }
+    };
 
     that.filterByTrailName = function(feature, layer) {
         if (feature.properties == null ||

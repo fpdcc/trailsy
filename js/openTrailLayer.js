@@ -1,12 +1,11 @@
 "use strict";
 
-var L = require('leaflet');
-
 var openTrailLayer = function(spec) {
     var that = {};
 
     var layers = [];
     var openTrailFeature;
+    var L = spec.L;
 
     that.build = function () {
         var geoJsonArray = openTrailFeature.getGeoJson();

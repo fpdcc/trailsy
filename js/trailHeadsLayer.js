@@ -31,7 +31,8 @@ var trailHeadsLayer = function() {
                     click: that.clickHandler
                 });
             }
-        }
+        },
+        L : L
     };
 
     var that = openTrailLayer(spec);

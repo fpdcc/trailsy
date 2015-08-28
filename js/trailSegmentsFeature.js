@@ -1,16 +1,31 @@
 "use strict";
 
 var openTrailFeature = require('./openTrailFeature.js');
+var gis = require('./gis.js');
 
 var trailSegmentsFeature = function() {
+    var segmentIdSet = new Set();
     var geoJsonMap = {};
     var segmentCollections = [];
     var currentTrailIds = [];
 
     var that = openTrailFeature();
+    var g = gis();
 
     that.updateGeoJson = function(data) {
-        segmentCollections.push({features: data});
+        var featuresArray = [];
+        for (var i in data) {
+            var feature = data[i];
+            var id = feature.properties.id;
+            if (segmentIdSet.has(id)) {
+                continue;
+            }
+
+            segmentIdSet.add(id);
+            featuresArray.push(feature);
+        }
+
+        segmentCollections.push({features: featuresArray});
         _updateGeoJsonMap(segmentCollections);
     };
 
@@ -34,7 +49,7 @@ var trailSegmentsFeature = function() {
         return geoJsonMap[trailId];
     };
 
-    var _addTrailName = function(segment, trailName) {
+    var _addTrailName = function(segment, trailName, trailId) {
         var properties = segment.properties;
 
         if (properties.trails == null) {
@@ -42,6 +57,21 @@ var trailSegmentsFeature = function() {
         }
 
         var trails = properties.trails;
+
+        var calculatedDistance = 0;
+        for (var i in segment.geometry.coordinates) {
+            var lineString = segment.geometry.coordinates[i];
+            calculatedDistance += g.pathDistance(lineString);
+        }
+
+        if (segment.properties.distance_in_meters == null) {
+            segment.properties.distance_in_meters = calculatedDistance;
+        }
+        else if (segment.properties.distance_in_meters != calculatedDistance) {
+            for (var i in segment.geometry.coordinates) {
+                g.pathDistance(segment.geometry.coordinates[i], true);
+            }
+        }
 
         var index = -1;
         for (var i in trails) {
@@ -66,6 +96,7 @@ var trailSegmentsFeature = function() {
         if (index == -1) {
             trails.push({
                 name: trailName,
+                id: trailId,
                 distances_in_meters: [{segmentId: segment.properties.id, distance_in_meters: segment.properties.distance_in_meters }]
             });
         }
@@ -84,7 +115,7 @@ var trailSegmentsFeature = function() {
 
             for (var j in mapEntry.features) {
                 var segment = mapEntry.features[j];
-                _addTrailName(segment, trailName);
+                _addTrailName(segment, trailName, trailId);
             }
         }
     };
@@ -102,7 +133,7 @@ var trailSegmentsFeature = function() {
                     var mapEntry = getMapEntry(trailId);
 
                     if (mapEntry.name != null) {
-                        _addTrailName(segment, mapEntry.name);
+                        _addTrailName(segment, mapEntry.name, trailId);
                     }
 
                     mapEntry.features.push(segment);

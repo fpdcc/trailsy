@@ -13,12 +13,19 @@
     "leaflet-usermarker": "^1.0.0"
   },
   "devDependencies": {
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.13.9",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-firefox-launcher": "^0.1.6",
+    "karma-jasmine": "^0.3.6",
+    "karma-requirejs": "^0.2.2",
+    "requirejs": "^2.1.20",
     "script-loader": "^0.6.1",
     "webpack": "^1.9.10",
     "webpack-dev-server": "^1.9.0"
   },
   "scripts": {
-    "start": "webpack-dev-server --progress --colors --port 8080 --config webpack.config.js",
+    "start": "webpack-dev-server --progress --colors --port 9000 --config webpack.config.js",
     "build": "webpack --progress --colors --profile --config webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   }

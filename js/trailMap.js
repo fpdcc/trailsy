@@ -29,13 +29,16 @@ var trailMap = function() {
   map.removeControl(map.zoomControl);
   map.addControl(L.control.zoom({position: 'topright'}));
 
-  L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
-    maxZoom: 18,
+  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-    '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-    'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-    id: 'examples.map-i875mjb7'
+      '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+      'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox.streets',
+    accessToken: 'pk.eyJ1IjoidHJldm9yYWNrZXJtYW4iLCJhIjoiMjM0NWIwNWRkMTBlM2Y0MmMyYmZiNzIwZjk2ZTVhMmYifQ.BhzAYibXfiqRHkRdNKKmGQ'
   }).addTo(map);
+
+  L.control.scale({maxWidth:500}).addTo(map);
 
   that.fetchTrailheads = function () {
     thLayer.removeFrom(map);
