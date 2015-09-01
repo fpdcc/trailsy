@@ -1,28 +1,51 @@
-Trailsy
-=======
+![alt text](https://github.com/CodeForBoulder/trailsy/blob/master/img/logo-bc.png "Trailsy")
 
 This version of Trailsy is a Code for Boulder project that uses [OuterSpatial](http://outerspatial.com) API calls to
-retrieve OpenTrails data. 
+retrieve OpenTrails data published by [Boulder County Parks and Open Space](http://www.bouldercounty.org/dept/openspace/pages/default.aspx). 
 
 It has been forked from the original Code for America 2013 Trailsy project found [here](https://github.com/codeforamerica/trailsy).
 
-#### Credits
+In a nutshell it is a pure client side JavaScript browser app to show the trails in and around Boulder, Colorado based on data from our parks and open space.
 
-The team includes
-* [Mario Barrenechea][mbarrenecheajr], developer
-* [Robert Soden][rsoden], developer
-* [Sean Garborg][garborg], developer
-* [James Gould][JamesGould123], developer
-* [Trevor Ackerman][trevorackerman], developer
-* You, if you're interested in volunteering!
+**Q:** _What is OpenTrails data?_
 
-[mbarrenecheajr]: https://github.com/mbarrenecheajr
-[rsoden]: https://github.com/rsoden
-[garborg]: https://github.com/garborg
-[JamesGould123]: https://github.com/JamesGould123
-[trevorackerman]: https://github.com/trevorackerman
+**A:** OpenTrails data is a data specification that can be used to build apps to help people know about trails. 
 
-You can contact us here if you would like to get involved.
+The goal is to allow public agencies around the United States to publish their data in the same way so apps can be developed for the public to use to explore trails.
+Much much more may be found at the [OpenTrail Data Website](http://www.opentraildata.org/)
+
+## Getting Involved
+---
+### Use it!
+* Please try the application at http://52.25.183.113 and send us feedback via [issues](https://github.com/CodeForBoulder/trailsy/issues).
+ 
+### Get Familiar with what we're doing
+* Peruse the OpenTrails working draft specification at https://docs.google.com/document/d/1KF8KAio-SqGHhh9oFY_KjfwIi3PePOHg7KfTSPh27fc/edit
+* Check out the Trello Board https://trello.com/b/qzDMDsVJ/trails
+
+## Ways *you* can contribute!
+---
+### Project Management
+* Helping to prioritize features and issues by coordinating between Boulder County Parks and Open Space and Trailhead Labs, the producer of OuterSpatial
+
+### Software Development
+* Fork this repo's master branch
+* Pick up a work item from the "To Do" column of the trello board and place it in the "Doing" column and make a comment that you're working on it.
+* Do your best to use some TDD sweetness for the work item you implement, once you're convinced you're done commit and push to your repo and submit a pull request
+
+### Data Detective
+* Examine the data produced by OuterSpatial to discover what relationships exist within. 
+
+### Specification
+* Contribute your thoughts to the OpenTrails specification
+
+### Financially
+* [financially](https://secure.codeforamerica.org/page/contribute/default?source_codes=footer-donate-link/)
+
+
+
+## Software Development How-To
+---
 
 ## Setup
 This project depends on Node.js (for dependency management, the build step, and a dev server), which we will assume 
@@ -57,7 +80,7 @@ files that are packaged together into 'bundle.js', do the following:
 * Execute `npm run-script sourcemap`
 * Start your local version of Trailsy just as in the above 'Running' section
 
-# Caveats
+## Caveats
 Since the conversion to using OpenTrails is a WIP, expect some functionality to be missing.
 
 ## Deployment
@@ -81,46 +104,38 @@ https://github.com/joyent/node/wiki/installing-node.js-via-package-manager
 
 Once NodeJS and npm are installed follow instructions from Building and then Running.
 
-
-## Contributing
+---
+### Contributing
 In the spirit of [free software][free-sw], **everyone** is encouraged to help
 improve this project. 
 
 [free-sw]: http://www.fsf.org/licensing/essays/free-sw.html
 
-Here are some ways *you* can contribute:
-
-* by reporting bugs
-* by suggesting new features
-* by translating to a new language
-* by writing or editing documentation
-* by writing specifications
-* by writing code (**no patch is too small**: fix typos, add comments, clean up
-  inconsistent whitespace)
-* by refactoring code
-* by closing [issues](https://github.com/CodeForBoulder/trailsy/issues)
-* by reviewing patches
-* [financially](https://secure.codeforamerica.org/page/contribute/default?source_codes=footer-donate-link/)
-
-## Submitting an Issue
-Please note that this application is still an in-development prototype. 
-
-We use the GitHub issue tracker to track bugs and features. Before
-submitting a bug report or feature request, check to make sure it hasn't
-already been submitted. You can indicate support for an existing issue by
-voting it up. When submitting a bug report, please include any details that might 
-be necessary to reproduce the bug.
-
-## Submitting a Pull Request
-1. Fork the project.
-2. Create a topic branch.
-3. Implement your feature or bug fix.
-4. Commit and push your changes.
-5. Submit a pull request.
-
-## Copyright
+### Copyright
 This fork complies with the same copyright notice as derived from the original project. 
 This project does not use Code for America and its contributors to promote or endorse other products.
 
-## Licensing
+### Licensing
 This project is licensed under a BSD 3-clause license, which can be found [here](./License.md)
+
+
+#### Acknowledgements
+This project would not be possible without the support of the Boulder County Parks and Open Space department and Trailhead Labs. *Thank you!*
+ 
+#### Credits
+---
+The team includes
+* [Mario Barrenechea][mbarrenecheajr], developer
+* [Robert Soden][rsoden], developer
+* [Sean Garborg][garborg], developer
+* [James Gould][JamesGould123], developer
+* [Trevor Ackerman][trevorackerman], developer
+* You, if you're interested in volunteering!
+
+[mbarrenecheajr]: https://github.com/mbarrenecheajr
+[rsoden]: https://github.com/rsoden
+[garborg]: https://github.com/garborg
+[JamesGould123]: https://github.com/JamesGould123
+[trevorackerman]: https://github.com/trevorackerman
+
+You can contact us here if you would like to get involved.
