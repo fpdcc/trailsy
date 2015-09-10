@@ -78,14 +78,14 @@ var trailSegmentsLayer = function() {
         var content = "";
 
         for (var i in segment.properties.trails) {
-            content += "<h5>" + segment.properties.trails[i].name + " trail id " + segment.properties.trails[i].id + "</h5>";
-            var distance = 0;
-            for (var j in segment.properties.trails[i].distances_in_meters) {
-                if (segment.properties.trails[i].distances_in_meters[j].distance_in_meters != null) {
-                    distance += segment.properties.trails[i].distances_in_meters[j].distance_in_meters;
+            content += "<h5>" + segment.properties.trails[i].name + "</h5>";
+            var length = 0;
+            for (var j in segment.properties.trails[i].lengths) {
+                if (segment.properties.trails[i].lengths[j].length != null) {
+                    length += segment.properties.trails[i].lengths[j].length;
                 }
             }
-            content += "<p>Distance " + (distance * 0.000621371).toFixed(2) + " miles</p>"
+            content += "<p>Length " + (length * 0.000621371).toFixed(2) + " miles</p>"
         }
 
         content += "</h5>";

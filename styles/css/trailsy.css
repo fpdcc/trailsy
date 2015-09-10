@@ -2,6 +2,26 @@
     background-image: url("../../img/Boulder_Pass_Trailhead.jpg");
 }
 
+.old-boot-bg {
+    background-image: url("../../img/Neglected_boot.jpg");
+    min-height: 440px;
+    background-size: 850px;
+    padding: 100px;
+}
+
+.obvious-hyperlink {
+    color:  #B1FB17;
+}
+
+.dark-neutral-bg {
+    background-color: rgba(150,150,150,.5);
+}
+
+.inner-jumbo {
+    padding: 50px;
+    margin: 20px;
+}
+
 .white-bg {
   background-color: ghostwhite;
 }
