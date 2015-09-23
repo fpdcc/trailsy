@@ -158,3 +158,11 @@
 .popup-icon {
     height: 2.5em;
 }
+
+#twitter-feed {
+    width:200px;
+    position:fixed;
+    top:70px;
+    left:25px;
+    z-index:2000;
+}
