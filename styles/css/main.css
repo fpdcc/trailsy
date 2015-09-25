@@ -1,12 +1,12 @@
 /********************************/
-/*			Imports				*/
+/*      Imports       */
 /********************************/
-/*			Less
+/*      Less
 *********************************/
-/*			Full Document		*/
+/*      Full Document   */
 /*@import "crossbrowser.less";*/
 /*@import "less/mediaqueries.less";*/
-/*			Tools				*/
+/*      Tools       */
 /*========*/
 /* Colors */
 /*========*/
@@ -49,25 +49,28 @@
 /*========*/
 /* Timing */
 /*========*/
+
+/*here*//*find-replace #7E9137 with #7E9137*/
+
 /* Typography */
 @font-face {
   font-family: 'mission_gothicbold';
-  src: url('fonts/missiongothic/mission_gothic_bold-webfont.eot');
-  src: url('fonts/missiongothic/mission_gothic_bold-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/missiongothic/mission_gothic_bold-webfont.woff') format('woff'), url('fonts/missiongothic/mission_gothic_bold-webfont.ttf') format('truetype'), url('fonts/missiongothic/mission_gothic_bold-webfont.svg#/mission_gothicbold') format('svg');
+  src: url('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_bold-webfont.eot');
+  src: url('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_bold-webfont.eot?#iefix') format('embedded-opentype'), url('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_bold-webfont.woff') format('woff'), url('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_bold-webfont.ttf') format('truetype'), url('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_bold-webfont.svg#/mission_gothicbold') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'mission_gothiclight';
-  src: url('fonts/missiongothic/mission_gothic_light-webfont.eot');
-  src: url('fonts/missiongothic/mission_gothic_light-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/missiongothic/mission_gothic_light-webfont.woff') format('woff'), url('fonts/missiongothic/mission_gothic_light-webfont.ttf') format('truetype'), url('fonts/missiongothic/mission_gothic_light-webfont.svg#/mission_gothiclight') format('svg');
+  src: url('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_light-webfont.eot');
+  src: url('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_light-webfont.eot?#iefix') format('embedded-opentype'), url('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_light-webfont.woff') format('woff'), url('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_light-webfont.ttf') format('truetype'), url('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_light-webfont.svg#/mission_gothiclight') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: '/mission_gothicregular';
-  src: local('fonts/missiongothic/mission_gothic_regular-webfont.eot');
-  src: url('fonts/missiongothic/mission_gothic_regular-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/missiongothic/mission_gothic_regular-webfont.woff') format('woff'), url('fonts/missiongothic/mission_gothic_regular-webfont.ttf') format('truetype'), url('fonts/missiongothic/mission_gothic_regular-webfont.svg#/mission_gothicregular') format('svg');
+  src: local('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_regular-webfont.eot');
+  src: url('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_regular-webfont.eot?#iefix') format('embedded-opentype'), url('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_regular-webfont.woff') format('woff'), url('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_regular-webfont.ttf') format('truetype'), url('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_regular-webfont.svg#/mission_gothicregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -80,7 +83,7 @@ At some point, update mediaqueries to be in EMS
 33.125 EMS = 530 divided by 16px (default font size *
 59.375 EMS = 950 divided by 16px
 70.5 EMS = 1128 divided by 16px *//*@import "mixins.less";*/
-/*			Modules				*/
+/*      Modules       */
 /* Look into justification for overriding styles*/
 /* Make sure you need the semicolons inside and outside of the {} on the pseudo-class lines*/
 /* Variables used: color, typography */
@@ -126,7 +129,7 @@ At some point, update mediaqueries to be in EMS
     position: relative;
     width: 100%;
     height: 3em;
-    background-color: #523d32;
+    background-color: #9E0B0F;
     border: none;
     box-shadow: none;
     text-align: justify;
@@ -135,29 +138,30 @@ At some point, update mediaqueries to be in EMS
   }
   .title-row header .navbar-inner .hamburgerBox {
     cursor: pointer;
-    display: inline-block;
-    height: 100%;
-    padding: .85em .75em .75em .75em;
-    position: relative;
-    width: 3em;
+display: inline-block;
+padding: 0.35em 0.75em 0.75em;
+position: relative;
+width: 3em;
+height: 100%;
   }
   .title-row header .navbar-inner .hamburgerBox .hamburgerLine {
-    background-color: #ffffff;
-    border: 1px solid #ffffff;
-    height: .1em;
-    margin-top: 20%;
-    width: 100%;
-    padding-left: .25em;
-    padding-right: .25em;
-    cursor: pointer;
+    background-color: #FFF;
+height: 0.1em;
+width: 100%;
+padding-left: 0.25em;
+padding-right: 0.25em;
+cursor: pointer;
+border: 2px solid rgb(255, 255, 255);
+margin-top: 20%;
   }
   .title-row header .navbar-inner .logo {
     /* height: 100%; * This causes Safari issues */
   
-    width: 18em;
-    margin-bottom: .5em;
-    margin-left: -3.25em;
     display: inline-block;
+margin-bottom: 0.5em;
+margin-top: 0.35em;
+width: 12em;
+margin-left: 0.25em;
   }
   .title-row header .navbar-inner .geolocateBox {
     float: right;
@@ -171,8 +175,8 @@ At some point, update mediaqueries to be in EMS
     text-align: center;
     line-height: 3em;
     cursor: pointer;
-    color: #91c73d;
-    background: url("../../img/target-white.png") center center no-repeat;
+    color: #7E9137;
+    background: url("http://www.tothetrails.com/img/target-white.png") center center no-repeat;
   }
   .title-row header .navbar-inner .geolocateBox a:hover {
     background-color: rgba(255, 255, 255, 0.25);
@@ -191,31 +195,32 @@ At some point, update mediaqueries to be in EMS
     margin-bottom: 0;
     padding: 0;
   }
-  .title-row header .navbar-inner {
+  /*here*/  .title-row header .navbar-inner {
     position: relative;
-    background-color: #523d32;
     border: none;
     box-shadow: none;
+  border-left: 15px solid #444;
+    border-right: 15px solid #444;
     text-align: justify;
     padding: .75em .25em .5em 1em;
+  width:272px;
   }
-  .title-row header .navbar-inner:after {
+  /*here*/.title-row header .navbar-inner:after {
     content: '';
-    display: inline-block;
+   /* display: inline-block;*/
   }
-  .title-row header .navbar-inner .logo {
+  /*here*/.title-row header .navbar-inner .logo {
     /* height: 100%; */
   
-    width: 18em;
+    width: 242px;
     margin-left: -1em;
   }
   .title-row header .navbar-inner .about {
     position: relative;
     margin-left: 11em;
-    display: inline-block;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    display: inline-block;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     font-size: 12px;
     text-decoration: none;
@@ -248,10 +253,9 @@ At some point, update mediaqueries to be in EMS
     padding: 1em 1.75em 0 1.75em;
   }
   .searchbar .search-key {
-    display: inline-block;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    display: inline-block;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     font-size: 13px;
     color: #bbbdbf;
@@ -280,11 +284,11 @@ At some point, update mediaqueries to be in EMS
   
     width: 2.5em;
     padding: 0;
-    background: #d9f0fc url(/img/icon_mag_blue.png) no-repeat;
+    background: #EBE7CE url(http://fpdcc.net/wp-content/themes/fpdcc3/images/icon_mag_brown.png) no-repeat;
     background-size: 100% 100%;
   }
   .searchbar .search-submit:hover {
-    background: #00adef url(/img/icon_mag_white.png) no-repeat;
+    background: #674B2A url(http://www.tothetrails.com/img/icon_mag_white.png) no-repeat;
     background-size: 100% 100%;
   }
 }
@@ -294,10 +298,9 @@ At some point, update mediaqueries to be in EMS
     line-height: 1;
   }
   .searchbar .search-key {
-    display: inline-block;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    display: inline-block;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     color: #bbbdbf;
     width: 73%;
@@ -332,11 +335,11 @@ At some point, update mediaqueries to be in EMS
     margin-left: -1em;
     margin-right: 1.75em;
     cursor: pointer;
-    background: #d9f0fc url(/img/icon_mag_blue.png) no-repeat;
+    background: #EBE7CE url(http://fpdcc.net/wp-content/themes/fpdcc3/images/icon_mag_brown.png) no-repeat;
     background-size: 100% 100%;
   }
   .searchbar .search-submit:hover {
-    background: #96daf8 url(/img/icon_mag_blue.png) no-repeat;
+    background: #674B2A url(http://fpdcc.net/wp-content/themes/fpdcc3/images/icon_mag_white.png) no-repeat;
     background-size: 100% 100%;
   }
 }
@@ -398,21 +401,21 @@ At some point, update mediaqueries to be in EMS
     -moz-transition: 0.1s all ease-in-out;
     -o-transition: 0.1s all ease-in-out;
     transition: 0.1s all ease-in-out;
-    /*			background: @color-white;*/
+    /*      background: @color-white;*/
   
     font-color: #bbbdbf;
   }
   .accordion .icon {
-    color: #00adef;
+    color: #7E9137;
   }
   .accordion .accordion-innerwrap {
-    margin: 0;
+    margin: 0;background-color:#ffffff;
   }
 }
 @media only screen and (min-width: 769px) {
   .accordion {
-    /*		display: none;*/
-  
+    /*    display: none;*/
+  border-top:8px solid #7E9137;
     background-color: transparent;
     max-height: 35em;
   }
@@ -427,15 +430,15 @@ At some point, update mediaqueries to be in EMS
     -moz-transition: 0.1s all ease-in-out;
     -o-transition: 0.1s all ease-in-out;
     transition: 0.1s all ease-in-out;
-    /*			background: @color-white;*/
+    /*      background: @color-white;*/
   
     font-color: #bbbdbf;
   }
   .accordion .icon {
-    color: #00adef;
+    color: #7E9137;
   }
   .accordion .accordion-innerwrap {
-    margin: 0;
+    margin: 0;background-color:#ffffff;
   }
 }
 @media only screen and (max-width: 768px) {
@@ -453,13 +456,11 @@ At some point, update mediaqueries to be in EMS
     outline: none;
   }
   .panel-container .trigger2 {
-    padding: .5em 2.33em 0em .5em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    padding: .5em 2.33em 0em .5em;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
-    color: #bbbdbf;
-    font-size: 12px;
+    color:#7E9137;
     width: 100%;
     text-align: right;
   }
@@ -467,10 +468,9 @@ At some point, update mediaqueries to be in EMS
     text-decoration: underline;
   }
   .panel-container .trails-count {
-    padding: .5em 1em 0em 1.75em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    padding: .5em 1em 0em 1.75em;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     color: #ffffff;
     width: auto;
@@ -496,33 +496,29 @@ At some point, update mediaqueries to be in EMS
   }
   .panel-container .trigger1 {
     margin: 0;
-    padding: .5em 2em 1em 1.75em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    padding: .5em 2em 1em 1.75em;    font-family: Georgia, Times, "Times New Roman", serif;
     font-weight: 100;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 22px;
     position: relative;
     display: inline-block;
   }
   .panel-container .trigger2 {
-    padding: .5em 2.1em .5em .5em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    padding: .5em 2.1em .5em 2em;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
-    color: #bbbdbf;
-    font-size: 12px;
+    color:#333;
     width: 100%;
-    text-align: right;
+  margin:1em 0;
   }
   .panel-container .trigger2:hover {
     text-decoration: underline;
   }
   .panel-container .trails-count {
-    padding: .5em 1em 0em 1.75em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    padding: .5em 1em 0em 1.75em;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     color: #ffffff;
     width: auto;
@@ -534,16 +530,16 @@ At some point, update mediaqueries to be in EMS
 }
 @media only screen and (max-width: 768px) {
   .searchSection {
-    /*		margin-left:.42em !important;*/
+    /*    margin-left:.42em !important;*/
   
     height: 2em;
     width: 100%;
-    background-color: #91c73d;
+    background-color: #7E9137;
     transition: all 0.25s ease;
     border-bottom: .1em white solid;
   }
   .searchSection:hover {
-    background-color: #b0d576;
+    background-color: #A5BB4D;
   }
   .searchSection .icon {
     font-size: 12px;
@@ -553,10 +549,9 @@ At some point, update mediaqueries to be in EMS
     color: white;
   }
   .searchSection .searchHeader {
-    padding: .5em 1em 0em 1.75em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    padding: .5em 1em 0em 1.75em;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     color: #ffffff;
     width: auto;
@@ -564,10 +559,9 @@ At some point, update mediaqueries to be in EMS
   }
 }
 @media only screen and (min-width: 769px) {
-  .searchSection {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .searchSection {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     color: #58595b;
     cursor: default;
@@ -580,11 +574,11 @@ At some point, update mediaqueries to be in EMS
     height: 2em;
     width: 100%;
     border-bottom: .1em white solid;
-    background-color: #91c73d;
+    background-color: #7E9137;
     transition: all 0.25s ease;
   }
   .aboutSection:hover {
-    background-color: #b0d576;
+    background-color: #A5BB4D;
   }
   .aboutSection .icon {
     font-size: 12px;
@@ -594,10 +588,9 @@ At some point, update mediaqueries to be in EMS
     color: white;
   }
   .aboutSection .aboutHeader {
-    padding: .5em 1em 0em 1.75em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    padding: .5em 1em 0em 1.75em;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     color: #ffffff;
     width: auto;
@@ -618,13 +611,12 @@ At some point, update mediaqueries to be in EMS
   .aboutPage .aboutPageBanner {
     position: relative;
     width: 100%;
-    background-color: #91c73d;
+    background-color: #7E9137;
     padding: .5em 1.75em .5em 1.75em;
   }
-  .aboutPage span {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .aboutPage span {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     color: #ffffff;
   }
@@ -657,40 +649,41 @@ At some point, update mediaqueries to be in EMS
 @media only screen and (min-width: 769px) {
   .aboutLink {
     margin: 0;
-    padding: 1em 2em 0em 2.66em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    padding: 1em 2em 0em 2.66em;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
-    line-height: 20px;
     font-size: 12px;
-    color: #00adef;
     position: relative;
     display: inline-block;
     float: right;
     text-decoration: none;
+    color: #fff;
+background: #7E9137;
+padding: 4px 6px;
+text-transform: uppercase;
+border-radius: 0 0 3px 3px;
+margin:0 2em 0 0;
   }
+  .aboutLink:hover{background:#C4D28A}
 }
 @media only screen and (max-width: 768px) {
   .aboutCopy {
-    margin: .25em 1.5em .5em 1.5em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    margin: .25em 1.5em .5em 1.5em;    font-family: Georgia, Times, "Times New Roman", serif;
     font-weight: 100;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 22px;
     color: #58595b;
     max-height: 15em;
     overflow: scroll;
     -webkit-overflow-scrolling: touch;
   }
   .aboutCopy .aboutHeadline {
-    color: #91c73d;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    color: #7E9137;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
   }
   .aboutCopy a {
-    color: #00adef;
+    color: #7E9137;
     text-decoration: none;
   }
   .aboutCopy a:hover {
@@ -702,24 +695,23 @@ At some point, update mediaqueries to be in EMS
 }
 @media only screen and (min-width: 769px) {
   .aboutCopy {
-    padding: .25em 1.5em .5em 1.5em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    padding: .25em 1.5em .5em 1.5em;    font-family: Georgia, Times, "Times New Roman", serif;
     font-weight: 100;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 22px;
     color: #58595b;
     overflow: scroll;
     max-height: 24em;
   }
   .aboutCopy .aboutHeadline {
-    color: #91c73d;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    color: #333;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 20px;
+  text-transform:uppercase;
   }
   .aboutCopy a {
-    color: #00adef;
+    color: #7E9137;
     text-decoration: none;
   }
   .aboutCopy a:hover {
@@ -733,11 +725,11 @@ At some point, update mediaqueries to be in EMS
   .trailsNearYouResults {
     height: 2em;
     width: 100%;
-    background-color: #91c73d;
+    background-color: #7E9137;
     transition: all 0.25s ease;
   }
   .trailsNearYouResults:hover {
-    background-color: #b0d576;
+    background-color: #A5BB4D;
   }
   .trailsNearYouResults .icon {
     font-size: 12px;
@@ -751,11 +743,11 @@ At some point, update mediaqueries to be in EMS
   .trailsNearYouResults {
     height: 2em;
     width: 100%;
-    background-color: #91c73d;
+    background-color: #7E9137;
     transition: all 0.25s ease;
   }
   .trailsNearYouResults:hover {
-    background-color: #b0d576;
+    background-color: #A5BB4D;
   }
   .trailsNearYouResults .icon {
     font-size: 12px;
@@ -921,13 +913,11 @@ At some point, update mediaqueries to be in EMS
     margin-top: 1em;
     margin-bottom: -1.5em;
   }
-  .trailLength-title h2 {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .trailLength-title h2 {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 20px;
-    font-size: 12px;
-    color: #bbbdbf;
+    color: #333;
   }
 }
 @media only screen and (min-width: 769px) {
@@ -939,13 +929,11 @@ At some point, update mediaqueries to be in EMS
     margin-bottom: .5em;
     margin-top: 1.5em;
   }
-  .trailLength-title h2 {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .trailLength-title h2 {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
     line-height: 20px;
-    font-size: 12px;
-    color: #bbbdbf;
+    font-size: 13px;
+    color: #333;
   }
 }
 @media only screen and (max-width: 768px) {
@@ -957,13 +945,11 @@ At some point, update mediaqueries to be in EMS
     margin-top: 1.75em;
     margin-bottom: -0.5em;
   }
-  .trailUse-title h2 {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .trailUse-title h2 {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
     line-height: 20px;
-    font-size: 12px;
-    color: #bbbdbf;
+    font-size: 14px;
+    color: #333;
   }
 }
 @media only screen and (min-width: 769px) {
@@ -975,13 +961,12 @@ At some point, update mediaqueries to be in EMS
     margin-top: 2.5em;
     margin-bottom: -0.25em;
   }
-  .trailUse-title h2 {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .trailUse-title h2 {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
-    font-size: 12px;
-    color: #bbbdbf;
+    font-size: 13px;
+    color: #333;
   }
 }
 .trailFilters {
@@ -1012,24 +997,24 @@ At some point, update mediaqueries to be in EMS
     display: none;
   }
   .trailFilters .lengthRow .trailLength .visuallyhidden_2 input[type=checkbox]:checked + div {
-    background-color: #00adef;
+    background-color: #674B2A;
   }
   .trailFilters .lengthRow .trailLength .visuallyhidden_2 input[type=checkbox]:checked + div p {
     color: #ffffff;
   }
   .trailFilters .lengthRow .trailLength .visuallyhidden_2 div {
-    background-color: #d9f0fc;
+    background-color: #EBE7CE;
     width: 100%;
     vertical-align: middle;
     cursor: pointer;
     transition: all 0.25s ease;
   }
   .trailFilters .lengthRow .trailLength .visuallyhidden_2 div p {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
     line-height: 20px;
     font-size: 16px;
-    color: #00adef;
+    color: #674B2A;
     text-align: center;
     vertical-align: middle;
     line-height: 2em;
@@ -1038,7 +1023,7 @@ At some point, update mediaqueries to be in EMS
     color: #ffffff;
   }
   .trailFilters .lengthRow .trailLength .visuallyhidden_2 div:hover {
-    background-color: #96daf8;
+    background-color: #CAA77B;
   }
   .trailFilters ul:after {
     content: "";
@@ -1073,11 +1058,11 @@ At some point, update mediaqueries to be in EMS
     height: auto;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 input[type=checkbox].hikeFilter:checked + div.hikeFilter {
-    background: #00adef url(/img/mobile_hike_white.png) no-repeat;
+    background: #674B2A url(http://www.tothetrails.com/img/mobile_hike_white.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 div.hikeFilter {
-    background: #d9f0fc url(/img/mobile_hike_blue.png) no-repeat;
+    background: #EBE7CE url(http://fpdcc.net/wp-content/themes/fpdcc3/images/mobile_hike_brown.png) no-repeat;
     background-size: 100% 100%;
     text-align: center;
     width: 100%;
@@ -1086,7 +1071,7 @@ At some point, update mediaqueries to be in EMS
     transition: all 0.25s ease;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 div.hikeFilter:hover {
-    background: #96daf8 url(/img/mobile_hike_blue.png) no-repeat;
+    background: #CAA77B url(http://fpdcc.net/wp-content/themes/fpdcc3/images/mobile_hike_brown.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 input[type=checkbox].cycleFilter {
@@ -1095,11 +1080,11 @@ At some point, update mediaqueries to be in EMS
     height: auto;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 input[type=checkbox].cycleFilter:checked + div.cycleFilter {
-    background: #00adef url(/img/mobile_cycle_white.png) no-repeat;
+    background: #674B2A url(http://www.tothetrails.com/img/mobile_cycle_white.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 div.cycleFilter {
-    background: #d9f0fc url(/img/mobile_cycle_blue.png) no-repeat;
+    background: #EBE7CE url(http://fpdcc.net/wp-content/themes/fpdcc3/images/mobile_cycle_brown.png) no-repeat;
     background-size: 100% 100%;
     width: 100%;
     height: 100%;
@@ -1107,7 +1092,7 @@ At some point, update mediaqueries to be in EMS
     transition: all 0.25s ease;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 div.cycleFilter:hover {
-    background: #96daf8 url(/img/mobile_cycle_blue.png) no-repeat;
+    background: #CAA77B url(http://fpdcc.net/wp-content/themes/fpdcc3/images/mobile_cycle_brown.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 input[type=checkbox].handicapFilter {
@@ -1116,11 +1101,11 @@ At some point, update mediaqueries to be in EMS
     height: auto;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 input[type=checkbox].handicapFilter:checked + div.handicapFilter {
-    background: #00adef url(/img/mobile_handicap_white.png) no-repeat;
+    background: #674B2A url(http://www.tothetrails.com/img/mobile_handicap_white.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 div.handicapFilter {
-    background: #d9f0fc url(/img/mobile_handicap_blue.png) no-repeat;
+    background: #EBE7CE url(http://fpdcc.net/wp-content/themes/fpdcc3/images/mobile_handicap_brown.png) no-repeat;
     background-size: 100% 100%;
     width: 100%;
     height: 100%;
@@ -1128,7 +1113,7 @@ At some point, update mediaqueries to be in EMS
     transition: all 0.25s ease;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 div.handicapFilter:hover {
-    background: #96daf8 url(/img/mobile_handicap_blue.png) no-repeat;
+    background: #CAA77B url(http://fpdcc.net/wp-content/themes/fpdcc3/images/mobile_handicap_brown.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 input[type=checkbox].horseFilter {
@@ -1137,11 +1122,11 @@ At some point, update mediaqueries to be in EMS
     height: auto;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 input[type=checkbox].horseFilter:checked + div.horseFilter {
-    background: #00adef url(/img/mobile_horse_white.png) no-repeat;
+    background: #674B2A url(http://www.tothetrails.com/img/mobile_horse_white.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 div.horseFilter {
-    background: #d9f0fc url(/img/mobile_horse_blue.png) no-repeat;
+    background: #EBE7CE url(http://fpdcc.net/wp-content/themes/fpdcc3/images/mobile_horse_brown.png) no-repeat;
     background-size: 100% 100%;
     width: 100%;
     height: 100%;
@@ -1149,7 +1134,7 @@ At some point, update mediaqueries to be in EMS
     transition: all 0.25s ease;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 div.horseFilter:hover {
-    background: #96daf8 url(/img/mobile_horse_blue.png) no-repeat;
+    background: #CAA77B url(http://fpdcc.net/wp-content/themes/fpdcc3/images/mobile_horse_brown.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 input[type=checkbox].xcountryskiFilter {
@@ -1158,19 +1143,19 @@ At some point, update mediaqueries to be in EMS
     height: auto;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 input[type=checkbox].xcountryskiFilter:checked + div.xcountryskiFilter {
-    background: #00adef url(/img/mobile_xcountryski_white.png) no-repeat;
+    background: #674B2A url(http://www.tothetrails.com/img/mobile_xcountryski_white.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 div.xcountryskiFilter {
-    background: #d9f0fc url(/img/mobile_xcountryski_blue.png) no-repeat;
+    background: #EBE7CE url(http://fpdcc.net/wp-content/themes/fpdcc3/images/mobile_xcountryski_brown.png) no-repeat;
     background-size: 100% 100%;
     width: 100%;
     height: 100%;
-    cursor: text;
+    cursor: pointer;
     transition: all 0.25s ease;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 div.xcountryskiFilter:hover {
-    background: #96daf8 url(/img/mobile_xcountryski_blue.png) no-repeat;
+    background: #CAA77B url(http://fpdcc.net/wp-content/themes/fpdcc3/images/mobile_xcountryski_brown.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 input[type=checkbox].mtnbikeFilter {
@@ -1179,11 +1164,11 @@ At some point, update mediaqueries to be in EMS
     height: auto;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 input[type=checkbox].mtnbikeFilter:checked + div.mtnbikeFilter {
-    background: #e3e3e1 url(/img/mobile_mtnbike_gray.png) no-repeat;
+    background: #e3e3e1 url(http://www.tothetrails.com/img/mobile_mtnbike_gray.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 div.mtnbikeFilter {
-    background: #e3e3e1 url(/img/mobile_mtnbike_gray.png) no-repeat;
+    background: #e3e3e1 url(http://www.tothetrails.com/img/mobile_mtnbike_gray.png) no-repeat;
     background-size: 100% 100%;
     width: 100%;
     height: 100%;
@@ -1191,7 +1176,7 @@ At some point, update mediaqueries to be in EMS
     transition: all 0.25s ease;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 div.mtnbikeFilter:hover {
-    background: #e3e3e1 url(/img/mobile_mtnbike_gray.png) no-repeat;
+    background: #e3e3e1 url(http://www.tothetrails.com/img/mobile_mtnbike_gray.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 div {
@@ -1217,13 +1202,14 @@ At some point, update mediaqueries to be in EMS
     height: 2em;
     cursor: pointer;
     text-align: center;
+  margin-bottom:1em
   }
-  .trailFilters .trailSelection .clearSelection {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .trailFilters .trailSelection .clearSelection {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 14px;
+text-decoration: underline;
     line-height: 20px;
-    color: #00adef;
+    color: #7E9137;
     text-align: center;
     vertical-align: middle;
     line-height: 2em;
@@ -1255,31 +1241,30 @@ At some point, update mediaqueries to be in EMS
     display: none;
   }
   .trailFilters .trailLength .visuallyhidden_2 input[type=checkbox]:checked + div {
-    background-color: #00adef;
+    background-color: #674B2A;
   }
   .trailFilters .trailLength .visuallyhidden_2 input[type=checkbox]:checked + div p {
     color: #ffffff;
   }
   .trailFilters .trailLength .visuallyhidden_2 div {
-    background-color: #d9f0fc;
+    background-color: #EBE7CE;
     width: 100%;
     vertical-align: middle;
     cursor: pointer;
     transition: all 0.25s ease;
   }
-  .trailFilters .trailLength .visuallyhidden_2 div p {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .trailFilters .trailLength .visuallyhidden_2 div p {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     font-size: 12px;
-    color: #00adef;
+    color: #674B2A;
     text-align: center;
     vertical-align: middle;
     line-height: 2.75em;
   }
   .trailFilters .trailLength .visuallyhidden_2 div:hover {
-    background-color: #96daf8;
+    background-color: #CAA77B;
   }
   .trailFilters ul:after {
     content: "";
@@ -1307,11 +1292,11 @@ At some point, update mediaqueries to be in EMS
     height: auto;
   }
   .trailFilters .trailUse .visuallyhidden_3 input[type=checkbox].hikeFilter:checked + div.hikeFilter {
-    background: #00adef url(/img/icon_hike_white2.png) no-repeat;
+    background: #674B2A url(http://www.tothetrails.com/img/icon_hike_white2.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .trailUse .visuallyhidden_3 div.hikeFilter {
-    background: #d9f0fc url(/img/icon_hike_blue.png) no-repeat;
+    background: #EBE7CE url(http://fpdcc.net/wp-content/themes/fpdcc3/images/icon_hike_brown.png) no-repeat;
     background-size: 100% 100%;
     width: 100%;
     height: 100%;
@@ -1319,7 +1304,7 @@ At some point, update mediaqueries to be in EMS
     transition: all 0.25s ease;
   }
   .trailFilters .trailUse .visuallyhidden_3 div.hikeFilter:hover {
-    background: #96daf8 url(/img/icon_hike_blue.png) no-repeat;
+    background: #CAA77B url(http://fpdcc.net/wp-content/themes/fpdcc3/images/icon_hike_brown.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .trailUse .visuallyhidden_3 input[type=checkbox].cycleFilter {
@@ -1328,11 +1313,11 @@ At some point, update mediaqueries to be in EMS
     height: auto;
   }
   .trailFilters .trailUse .visuallyhidden_3 input[type=checkbox].cycleFilter:checked + div.cycleFilter {
-    background: #00adef url(/img/icon_cycle_white.png) no-repeat;
+    background: #674B2A url(http://www.tothetrails.com/img/icon_cycle_white.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .trailUse .visuallyhidden_3 div.cycleFilter {
-    background: #d9f0fc url(/img/icon_cycle_blue.png) no-repeat;
+    background: #EBE7CE url(http://fpdcc.net/wp-content/themes/fpdcc3/images/icon_cycle_brown.png) no-repeat;
     background-size: 100% 100%;
     width: 100%;
     height: 100%;
@@ -1340,7 +1325,7 @@ At some point, update mediaqueries to be in EMS
     transition: all 0.25s ease;
   }
   .trailFilters .trailUse .visuallyhidden_3 div.cycleFilter:hover {
-    background: #96daf8 url(/img/icon_cycle_blue.png) no-repeat;
+    background: #CAA77B url(http://fpdcc.net/wp-content/themes/fpdcc3/images/icon_cycle_brown.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .trailUse .visuallyhidden_3 input[type=checkbox].handicapFilter {
@@ -1349,11 +1334,11 @@ At some point, update mediaqueries to be in EMS
     height: auto;
   }
   .trailFilters .trailUse .visuallyhidden_3 input[type=checkbox].handicapFilter:checked + div.handicapFilter {
-    background: #00adef url(/img/icon_handicap_white.png) no-repeat;
+    background: #674B2A url(http://www.tothetrails.com/img/icon_handicap_white.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .trailUse .visuallyhidden_3 div.handicapFilter {
-    background: #d9f0fc url(/img/icon_handicap_blue.png) no-repeat;
+    background: #EBE7CE url(http://fpdcc.net/wp-content/themes/fpdcc3/images/icon_handicap_brown.png) no-repeat;
     background-size: 100% 100%;
     width: 100%;
     height: 100%;
@@ -1361,7 +1346,7 @@ At some point, update mediaqueries to be in EMS
     transition: all 0.25s ease;
   }
   .trailFilters .trailUse .visuallyhidden_3 div.handicapFilter:hover {
-    background: #96daf8 url(/img/icon_handicap_blue.png) no-repeat;
+    background: #CAA77B url(http://fpdcc.net/wp-content/themes/fpdcc3/images/icon_handicap_brown.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .trailUse .visuallyhidden_3 input[type=checkbox].horseFilter {
@@ -1370,11 +1355,11 @@ At some point, update mediaqueries to be in EMS
     height: auto;
   }
   .trailFilters .trailUse .visuallyhidden_3 input[type=checkbox].horseFilter:checked + div.horseFilter {
-    background: #00adef url(/img/icon_horse_white.png) no-repeat;
+    background: #674B2A url(http://www.tothetrails.com/img/icon_horse_white.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .trailUse .visuallyhidden_3 div.horseFilter {
-    background: #d9f0fc url(/img/icon_horse_blue.png) no-repeat;
+    background: #EBE7CE url(http://fpdcc.net/wp-content/themes/fpdcc3/images/icon_horse_brown.png) no-repeat;
     background-size: 100% 100%;
     width: 100%;
     height: 100%;
@@ -1382,7 +1367,7 @@ At some point, update mediaqueries to be in EMS
     transition: all 0.25s ease;
   }
   .trailFilters .trailUse .visuallyhidden_3 div.horseFilter:hover {
-    background: #96daf8 url(/img/icon_horse_blue.png) no-repeat;
+    background: #CAA77B url(http://fpdcc.net/wp-content/themes/fpdcc3/images/icon_horse_brown.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .trailUse .visuallyhidden_3 input[type=checkbox].xcountryskiFilter {
@@ -1391,11 +1376,11 @@ At some point, update mediaqueries to be in EMS
     height: auto;
   }
   .trailFilters .trailUse .visuallyhidden_3 input[type=checkbox].xcountryskiFilter:checked + div.xcountryskiFilter {
-    background: #00adef url(/img/icon_xcountryski_white.png) no-repeat;
+    background: #674B2A url(http://www.tothetrails.com/img/icon_xcountryski_white.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .trailUse .visuallyhidden_3 div.xcountryskiFilter {
-    background: #d9f0fc url(/img/icon_xcountryski_blue.png) no-repeat;
+    background: #EBE7CE url(http://fpdcc.net/wp-content/themes/fpdcc3/images/icon_xcountryski_brown.png) no-repeat;
     background-size: 100% 100%;
     width: 100%;
     height: 100%;
@@ -1403,7 +1388,7 @@ At some point, update mediaqueries to be in EMS
     transition: all 0.25s ease;
   }
   .trailFilters .trailUse .visuallyhidden_3 div.xcountryskiFilter:hover {
-    background: #96daf8 url(/img/icon_xcountryski_blue.png) no-repeat;
+    background: #CAA77B url(http://fpdcc.net/wp-content/themes/fpdcc3/images/icon_xcountryski_brown.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .trailUse .visuallyhidden_3 input[type=checkbox].mtnbikeFilter {
@@ -1413,11 +1398,11 @@ At some point, update mediaqueries to be in EMS
     cursor: pointer;
   }
   .trailFilters .trailUse .visuallyhidden_3 input[type=checkbox].mtnbikeFilter:checked + div.mtnbikeFilter {
-    background: #e3e3e1 url(/img/icon_mtnbike_gray.png) no-repeat;
+    background: #e3e3e1 url(http://www.tothetrails.com/img/icon_mtnbike_gray.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .trailUse .visuallyhidden_3 div.mtnbikeFilter {
-    background: #e3e3e1 url(/img/icon_mtnbike_gray.png) no-repeat;
+    background: #e3e3e1 url(http://www.tothetrails.com/img/icon_mtnbike_gray.png) no-repeat;
     background-size: 100% 100%;
     width: 100%;
     height: 100%;
@@ -1425,7 +1410,7 @@ At some point, update mediaqueries to be in EMS
     transition: all 0.25s ease;
   }
   .trailFilters .trailUse .visuallyhidden_3 div.mtnbikeFilter:hover {
-    background: #e3e3e1 url(/img/icon_mtnbike_gray.png) no-repeat;
+    background: #e3e3e1 url(http://www.tothetrails.com/img/icon_mtnbike_gray.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters ul:after {
@@ -1442,18 +1427,18 @@ At some point, update mediaqueries to be in EMS
     cursor: pointer;
     text-align: center;
   }
-  .trailFilters .trailSelection .clearSelection {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .trailFilters .trailSelection .clearSelection {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
-    line-height: 20px;
-    color: #00adef;
+    font-size: 14px;
     text-align: center;
     vertical-align: middle;
     line-height: 2em;
+  color:#7E9137;
+  text-decoration:underline;
   }
   .trailFilters .trailSelection .clearSelection:hover {
-    text-decoration: underline;
+  text-decoration:none;
+
   }
 }
 /*@import "search.less";*/
@@ -1483,16 +1468,16 @@ At some point, update mediaqueries to be in EMS
     display: none;
   }
 }
-/*	@media @desktop {
-		position: absolute;
-		height: auto;
-		.sansSerif-light();
-		line-height: 20px;
-		color: @color-dark-blue;
-		top: 10px;
-		left: 14px;
-		cursor: pointer;
-	}
+/*  @media @desktop {
+    position: absolute;
+    height: auto;
+    .sansSerif-light();
+    line-height: 20px;
+    color: @color-dark-blue;
+    top: 10px;
+    left: 14px;
+    cursor: pointer;
+  }
 }
 */
 @media only screen and (max-width: 768px) {
@@ -1516,7 +1501,7 @@ At some point, update mediaqueries to be in EMS
     display: inline-block;
     position: relative;
     padding: 10px 0 0 16px;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
     line-height: 20px;
     font-weight: 300;
@@ -1551,47 +1536,43 @@ At some point, update mediaqueries to be in EMS
     vertical-align: top;
     margin: 0em 0 0 0em;
     height: 2em;
-    width: 1.667em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    width: 1.667em;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     font-size: 12px;
-    color: #b0d576;
+    color:#674B2A;
     text-align: center;
     line-height: 2em;
-    background-color: #ebf4df;
+    background-color:#EBE7CE;
   }
   .trail-box .trailInfo .trail {
     position: relative;
     display: inline-block;
-    margin: .5em 0 0 .5em;
+    margin: .5em .5em 0 .5em;
     height: auto;
     width: auto;
-    max-width: 50%;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
-    font-weight: 100;
-    font-size: 16px;
+max-width: 75%;    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
     line-height: 20px;
     line-height: 1.25em;
-    color: #00adef;
+    color: #2B491C;
     cursor: pointer;
   }
   .trail-box .trailInfo .trailLength {
     position: relative;
-    margin: .25em 2.33em 0 0em;
-    float: right;
+    margin: .25em 2.33em 0 2.5em;
     height: auto;
     width: auto;
     max-width: 50%;
-    display: inline-block;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    font-family: Georgia, Times, "Times New Roman", serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     font-size: 12px;
     line-height: 2.667em;
-    color: #91c73d;
+    color: #7E9137;
     cursor: pointer;
   }
   .trail-box .trailInfo .parkName {
@@ -1599,10 +1580,9 @@ At some point, update mediaqueries to be in EMS
     display: inline-block;
     padding: 0em 0 0 2.4em;
     width: 100%;
-    height: 1em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    height: 1em;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     font-size: 12px;
     color: #58595b;
@@ -1612,7 +1592,7 @@ At some point, update mediaqueries to be in EMS
     display: inline-block;
     width: 100%;
     height: auto;
-    margin-top: .25em;
+    margin:.25em 0 .5em;
   }
   .trail-box .trailheadInfo .trailheadIcon {
     position: relative;
@@ -1625,27 +1605,22 @@ At some point, update mediaqueries to be in EMS
   .trail-box .trailheadInfo .trailheadName {
     position: relative;
     display: inline-block;
-    margin: 0em 0 0 .75em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    margin: 0em 0 0 .75em;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     font-size: 12px;
     color: #58595b;
-    max-width: 45%;
+    max-width: 80%;
   }
   .trail-box .trailheadInfo .trailheadDistance {
     position: relative;
-    display: inline-block;
-    float: right;
-    margin: .2em 2.33em 0 0em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    margin: .2em 2.33em 0 2.5em;    font-family:Georgia, Times, "Times New Roman", serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     font-size: 12px;
-    text-align: right;
-    color: #bbbdbf;
+    color: #999;
   }
 }
 @media only screen and (min-width: 769px) {
@@ -1674,16 +1649,15 @@ At some point, update mediaqueries to be in EMS
     vertical-align: top;
     margin: 0em 0 0 0em;
     height: 2em;
-    width: 1.667em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    width: 1.667em;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     font-size: 12px;
-    color: #91c73d;
+    color:#674B2A;
     text-align: center;
     line-height: 2em;
-    background-color: #ebf4df;
+    background-color:#EBE7CE;
   }
   .trail-box .trailInfo .trail {
     position: relative;
@@ -1691,13 +1665,12 @@ At some point, update mediaqueries to be in EMS
     margin: .5em 0 0 .5em;
     height: auto;
     width: auto;
-    max-width: 70%;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
-    font-weight: 100;
-    font-size: 16px;
+    max-width: 70%;    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
     line-height: 20px;
     line-height: 1.25em;
-    color: #00adef;
+    color: #2B491C;
     cursor: pointer;
   }
   .trail-box .trailInfo .trailLength {
@@ -1707,14 +1680,13 @@ At some point, update mediaqueries to be in EMS
     height: auto;
     width: auto;
     max-width: 50%;
-    display: inline-block;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    display: inline-block;    font-family: Georgia, Times, "Times New Roman", serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     font-size: 12px;
     line-height: 2.667em;
-    color: #91c73d;
+    color: #7E9137;
     cursor: pointer;
   }
   .trail-box .trailInfo .parkName {
@@ -1723,10 +1695,9 @@ At some point, update mediaqueries to be in EMS
     padding: 0em 0 0 1.33em;
     margin-left: 1em;
     width: 100%;
-    height: 1em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    height: 1em;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     font-size: 12px;
     color: #58595b;
@@ -1750,10 +1721,9 @@ At some point, update mediaqueries to be in EMS
   .trail-box .trailheadInfo .trailheadName {
     position: relative;
     display: inline-block;
-    margin: -0.1em 0 0 0.75em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    margin: -0.1em 0 0 0.75em;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     font-size: 12px;
     color: #58595b;
@@ -1763,14 +1733,13 @@ At some point, update mediaqueries to be in EMS
     position: relative;
     display: inline-block;
     float: right;
-    margin: -0.1em 1.5em 0 0em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    margin: -0.1em 1.5em 0 0em;    font-family: Georgia, Times, "Times New Roman", serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     font-size: 12px;
     text-align: right;
-    color: #bbbdbf;
+    color: #999;
   }
 }
 @media only screen and (max-width: 768px) {
@@ -1855,10 +1824,9 @@ At some point, update mediaqueries to be in EMS
     max-width: 200px;
     overflow-y: hidden;
     min-width: 12em;
-    padding: .5em 0em .39em 1.75em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    padding: .5em 0em .39em 1.75em;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     color: #58595b;
     text-decoration: none;
@@ -1877,7 +1845,7 @@ At some point, update mediaqueries to be in EMS
     min-width: 12em;
     width: 100%;
     border-top: 1px solid #e3e3e1;
-    /*						padding: .5em 0em .25em .5em;*/
+    /*            padding: .5em 0em .25em .5em;*/
   
   }
   .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .status {
@@ -1885,16 +1853,16 @@ At some point, update mediaqueries to be in EMS
   }
   .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname.not-selected {
     background: #ffffff;
-    color: #00adef;
+    color: #7E9137;
     padding-bottom: .3em;
   }
   .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname.not-selected:hover {
     background: rgba(227, 227, 225, 0.4);
-    color: #00adef;
+    color: #7E9137;
   }
   .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname.selected {
     background: #ffffff;
-    color: #00adef;
+    color: #7E9137;
     text-transform: capitalize;
     padding-bottom: .2em;
   }
@@ -1904,8 +1872,8 @@ At some point, update mediaqueries to be in EMS
   }
   .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname.selected.detail-open {
     color: #ffffff;
-    background: #00adef;
-    border: 1px solid #00adef;
+    background: #7E9137;
+    border: 1px solid #7E9137;
   }
   .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname.selected b {
     display: none;
@@ -1917,11 +1885,10 @@ At some point, update mediaqueries to be in EMS
     max-width: 200px;
     overflow-y: hidden;
     vertical-align: top;
-    padding: .5em 1em .25em .5em;
-    display: inline-block;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    padding: .5em 1.75em .25em .5em;
+    display: inline-block;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     text-decoration: none;
     line-height: 1.5em;
@@ -1929,10 +1896,9 @@ At some point, update mediaqueries to be in EMS
   .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup b {
     position: absolute;
     margin: 1em .5em 0 .25em;
-    right: .3em;
-    border-bottom: .6em solid transparent;
+    right: .3em; border-bottom: .6em solid transparent;
     border-top: .6em solid transparent;
-    border-left: 0.6em solid #00adef;
+    border-left: 0.6em solid #7E9137;
     display: inline-block;
     height: 0;
   }
@@ -1986,10 +1952,9 @@ At some point, update mediaqueries to be in EMS
     max-width: 200px;
     overflow-y: hidden;
     min-width: 12em;
-    padding: .5em 0em .39em 1.75em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    padding: .5em .5em .39em 1.75em;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 20px;
     color: #58595b;
     text-decoration: none;
@@ -2009,7 +1974,7 @@ At some point, update mediaqueries to be in EMS
     width: 100%;
     padding-right: 25%;
     border-top: 1px solid #e3e3e1;
-    /*						padding: .5em 0em .25em .5em;*/
+    /*            padding: .5em 0em .25em .5em;*/
   
   }
   .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .status {
@@ -2017,27 +1982,27 @@ At some point, update mediaqueries to be in EMS
   }
   .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname.not-selected {
     background: #ffffff;
-    color: #00adef;
+    color: #7E9137;
     padding-bottom: .3em;
   }
   .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname.not-selected:hover {
     background: rgba(227, 227, 225, 0.4);
-    color: #00adef;
+    color: #2B491C;
   }
   .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname.selected {
     background: #ffffff;
-    color: #00adef;
+    color: #2B491C;
     text-transform: capitalize;
     padding-bottom: .2em;
   }
   .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname.selected:hover {
-    color: #ffffff;
-    background: #96daf8;
+    color: #2B491C;
+    background: #C4D28A;
   }
   .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname.selected.detail-open {
     color: #ffffff;
-    background: #00adef;
-    border: 1px solid #00adef;
+    background: #7E9137;
+    border: 1px solid #7E9137;
   }
   .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .popupTrailNames {
     position: relative;
@@ -2047,20 +2012,18 @@ At some point, update mediaqueries to be in EMS
     overflow-y: hidden;
     vertical-align: top;
     padding: .5em 1em .25em .5em;
-    display: inline-block;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    display: inline-block;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 20px;
     line-height: 1.5em;
   }
   .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box b {
     position: absolute;
     margin: 1em .5em 0 .25em;
-    right: .3em;
-    border-bottom: .6em solid transparent;
+    right: .3em; border-bottom: .6em solid transparent;
     border-top: .6em solid transparent;
-    border-left: 0.6em solid #00adef;
+    border-left: 0.6em solid #7E9137;
     display: inline-block;
     height: 0;
   }
@@ -2087,17 +2050,16 @@ At some point, update mediaqueries to be in EMS
   position: relative;
   min-width: 14em;
   height: auto;
-  line-height: 1em;
-  font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
-  font-weight: 100;
-  font-size: 16px;
+  line-height: 1em;    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 100;
+    font-size: 14px;
   line-height: 20px;
   text-decoration: none;
   margin: 0em 0em 0em 0em;
 }
 .trail-popup .trail-popup-line-named {
   cursor: pointer;
-  color: #00adef !important;
+  color: #7E9137 !important;
   padding: .7em 25% .5em .5em;
   border-top: 1px solid #e3e3e1;
 }
@@ -2105,16 +2067,15 @@ At some point, update mediaqueries to be in EMS
   background: rgba(227, 227, 225, 0.4);
 }
 .trail-popup .trail-popup-line-named:hover b {
-  /*			border-left: .6em solid @color-white;*/
+  /*      border-left: .6em solid @color-white;*/
 
 }
 .trail-popup b {
   position: absolute;
   margin: 0em .5em 0 .25em;
-  right: .3em;
-  border-bottom: .6em solid transparent;
-  border-top: .6em solid transparent;
-  border-left: 0.6em solid #00adef;
+  right: .3em; border-bottom: .6em solid transparent;
+    border-top: .6em solid transparent;
+    border-left: 0.6em solid #7E9137;
   display: inline-block;
   height: 0;
 }
@@ -2259,7 +2220,7 @@ At some point, update mediaqueries to be in EMS
     /*margin-left: -8px;*/
   
     display: block;
-    background: url(../../img/crosshair.gif);
+    background: url(http://www.tothetrails.com/img/crosshair.gif);
     background-position: center center;
     background-repeat: no-repeat;
     z-index: 1;
@@ -2295,7 +2256,7 @@ At some point, update mediaqueries to be in EMS
   background-color: #bbbdbf;
 }
 .offsetZoomControl .offsetGeolocate {
-  background: url("../../img/target-black.png") #ffffff center center no-repeat;
+  background: url("http://www.tothetrails.com/img/target-black.png") #ffffff center center no-repeat;
 }
 .overlay {
   width: 100%;
@@ -2304,7 +2265,7 @@ At some point, update mediaqueries to be in EMS
   top: 0;
   left: 0;
   z-index: 2000;
-  background: url('/img/overlay.png') repeat 0 0;
+  background: url('http://www.tothetrails.com/img/overlay.png') repeat 0 0;
   display: none;
   text-align: center;
 }
@@ -2312,7 +2273,7 @@ At some point, update mediaqueries to be in EMS
   padding: 1em 1.5em 1em 1.5em;
 }
 .overlay h1 {
-  color: #91c73d;
+  color: #7E9137;
   font-family: mission_gothicbold, Helvetica, Arial, sans-serif;
   font-weight: 100;
   font-size: 16px;
@@ -2320,16 +2281,15 @@ At some point, update mediaqueries to be in EMS
   font-size: 22px;
 }
 .overlay p {
-  color: #58595b;
-  font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
-  font-weight: 100;
-  font-size: 16px;
+  color: #58595b;    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 100;
+    font-size: 13px;
   line-height: 20px;
   text-align: left;
   font-size: 14px;
 }
 .overlay a {
-  color: #00adef;
+  color: #7E9137;
   text-decoration: none;
   font-size: 14px;
 }
@@ -2379,28 +2339,28 @@ At some point, update mediaqueries to be in EMS
     position: absolute;
     top: 2em;
     left: 3em;
-    width: 24em;
+    width: 384px;
     max-height: 90%;
     min-height: 14em;
     padding: 0;
-    background: #ffffff;
+  /*  background: #ffffff; */
     z-index: 999;
     overflow: visible;
   }
 }
 /* Deprecated detailPanelColumn (No longer necessary due to new arrangement)
 .detailPanelColumn {
-	@media @mobile {
-		display: none;	
-	}
-	@media @desktop {
-		display: none;
-		position: relative;
-		height: 500px;
-		padding: 0;
-		webkit-transition: width 0.3s ease, margin 0.3s ease;
-		transition: width 0.3s ease, margin 0.3s ease;
-	}
+  @media @mobile {
+    display: none;  
+  }
+  @media @desktop {
+    display: none;
+    position: relative;
+    height: 500px;
+    padding: 0;
+    webkit-transition: width 0.3s ease, margin 0.3s ease;
+    transition: width 0.3s ease, margin 0.3s ease;
+  }
 }
 }
 */
@@ -2411,7 +2371,7 @@ At some point, update mediaqueries to be in EMS
     background-color: #ffffff;
     /*transition: all 0.25s ease;*/
   
-    /*		-webkit-transition: all 0.25s;*/
+    /*    -webkit-transition: all 0.25s;*/
   
     z-index: 9000;
   }
@@ -2430,7 +2390,7 @@ At some point, update mediaqueries to be in EMS
     top: -1.5em;
     left: 45%;
     position: absolute;
-    background-color: #00adef;
+    background-color: #7E9137;
     z-index: 999;
     cursor: pointer ;
   }
@@ -2467,7 +2427,7 @@ At some point, update mediaqueries to be in EMS
     top: -1.5em;
     left: 45%;
     position: absolute;
-    background-color: #00adef;
+    background-color: #7E9137;
     z-index: 999;
     cursor: pointer ;
   }
@@ -2485,14 +2445,13 @@ At some point, update mediaqueries to be in EMS
   .detailPanel .detailPanelBanner {
     position: relative;
     width: 100%;
-    background-color: #00adef;
+    background-color: #7E9137;
     padding: .5em 1em .5em 2em;
     min-height: 2em;
   }
-  .detailPanel .detailPanelBanner .trailName {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
-    font-weight: 100;
-    font-size: 16px;
+  .detailPanel .detailPanelBanner .trailName {    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
     line-height: 20px;
     color: #ffffff;
     position: relative;
@@ -2502,10 +2461,9 @@ At some point, update mediaqueries to be in EMS
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .detailPanel .detailPanelBanner .trailIndex {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBanner .trailIndex {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     color: #ffffff;
     font-size: 12px;
@@ -2519,7 +2477,7 @@ At some point, update mediaqueries to be in EMS
     display: inline-block;
     height: 100%;
     position: absolute;
-    background-color: #00adef;
+    background-color: #7E9137;
     z-index: 999;
     cursor: pointer ;
   }
@@ -2573,7 +2531,7 @@ At some point, update mediaqueries to be in EMS
     height: auto;
     width: 100%;
     z-index: 999;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
     line-height: 20px;
     font-size: 16px;
@@ -2624,8 +2582,8 @@ At some point, update mediaqueries to be in EMS
     height: auto;
     background-color: #ffffff;
     /*border-bottom-style: dotted;
-  			border-width: 1px;
-  			border-color: @color-light-gray;*/
+        border-width: 1px;
+        border-color: @color-light-gray;*/
   
     cursor: pointer;
   }
@@ -2641,13 +2599,12 @@ At some point, update mediaqueries to be in EMS
     vertical-align: top;
     margin: 0em 0 0 0em;
     height: 2em;
-    width: 1.667em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    width: 1.667em;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     font-size: 12px;
-    color: #b0d576;
+    color: #A5BB4D;
     text-align: center;
     line-height: 2em;
     background-color: #ebf4df;
@@ -2658,13 +2615,12 @@ At some point, update mediaqueries to be in EMS
     margin: 0em 0 0 .5em;
     height: auto;
     width: auto;
-    max-width: 50%;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    max-width: 50%;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     line-height: 2.25em;
-    color: #00adef;
+    color: #7E9137;
     cursor: pointer;
   }
   .detailPanel .trail-box .trailInfo .trailLength {
@@ -2675,14 +2631,13 @@ At some point, update mediaqueries to be in EMS
     height: auto;
     width: auto;
     max-width: 50%;
-    display: inline-block;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    display: inline-block;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     font-size: 12px;
     line-height: 2.667em;
-    color: #91c73d;
+    color: #7E9137;
     cursor: pointer;
   }
   .detailPanel .trail-box .trailheadInfo {
@@ -2699,10 +2654,9 @@ At some point, update mediaqueries to be in EMS
   
     padding: 0em 0 0 2.7em;
     width: 100%;
-    height: 1em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    height: 1em;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     font-size: 12px;
     color: #58595b;
@@ -2717,10 +2671,9 @@ At some point, update mediaqueries to be in EMS
   .detailPanel .trail-box .trailheadInfo .trailheadName {
     position: relative;
     display: inline-block;
-    margin: 0em 0 0 .2em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    margin: 0em 0 0 .2em;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     font-size: 12px;
     color: #58595b;
@@ -2730,10 +2683,9 @@ At some point, update mediaqueries to be in EMS
     position: relative;
     display: inline-block;
     float: right;
-    margin: .2em 2.8em 0 0em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    margin: .2em 2.8em 0 0em;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     font-size: 12px;
     text-align: right;
@@ -2748,68 +2700,58 @@ At some point, update mediaqueries to be in EMS
     overflow-x: hidden;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
-    background-color: #ffffff;
+    background: #ffffff;
   }
   .detailPanel .detailPanelBody .detailLengthRow {
     position: relative;
     display: inline-block;
     height: 2em;
     width: 100%;
-    padding: .5em 0em 0em 1em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    padding: .5em 0em 0em 1.25em;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
   }
-  .detailPanel .detailPanelBody .detailLengthRow .detailLengthHeader {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailLengthRow .detailLengthHeader {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
-    color: #bbbdbf;
-    font-size: 12px;
+    color:#7E9137;
     margin-right: 1em;
   }
   .detailPanel .detailPanelBody .detailLengthRow .detailLength {
-    position: relative;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    position: relative;    font-family: Georgia, Times, "Times New Roman", serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
-    color: #91c73d;
+    color: #58595B;
   }
   .detailPanel .detailPanelBody .detailLengthRow .detailSurfaceHeader {
-    margin: 0 1em 0em 1em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    margin: 0 1em 0em 1em;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
-    color: #bbbdbf;
-    font-size: 12px;
+    color:#7E9137;
   }
   .detailPanel .detailPanelBody .detailLengthRow .detailSurface {
-    position: relative;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    position: relative;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
-    color: #91c73d;
+    color: #7E9137;
   }
   .detailPanel .detailPanelBody .detailActivityRow {
     position: relative;
     display: inline-block;
-    height: 2em;
     width: 100%;
-    padding: .5em 0em 0em 1em;
-    margin: 0 0 2em 0;
+    padding: .75em 0em 0em 1em;
   }
-  .detailPanel .detailPanelBody .detailActivityRow .detailActivityHeader {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailActivityRow .detailActivityHeader {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
-    color: #bbbdbf;
-    font-size: 12px;
+  margin-right:1em;
+    color:#7E9137;
   }
   .detailPanel .detailPanelBody .detailActivityRow .activity-icon-row {
     height: 100%;
@@ -2831,6 +2773,12 @@ At some point, update mediaqueries to be in EMS
     width: auto;
     position: relative;
     display: inline-block;
+  background: #674B2A;
+height: 30px;
+width: auto;
+margin-top:7px;
+border-radius: 3px;
+
   }
   .detailPanel .detailPanelBody .detailConditionsRow {
     position: relative;
@@ -2840,38 +2788,32 @@ At some point, update mediaqueries to be in EMS
     padding: .5em 1em 0em 1em;
     margin-bottom: 1em;
   }
-  .detailPanel .detailPanelBody .detailConditionsRow .detailConditionsHeader {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailConditionsRow .detailConditionsHeader {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
-    color: #bbbdbf;
-    font-size: 12px;
+    color:#7E9137;
     margin-bottom: -0.5em;
   }
   .detailPanel .detailPanelBody .detailConditionsRow .detailConditionsDescription {
-    margin-bottom: 1.5em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    margin-bottom: 1.5em;    font-family: Georgia, Times, "Times New Roman", serif;
     font-weight: 100;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 22px;
     color: #58595b;
   }
-  .detailPanel .detailPanelBody .detailConditionsRow .detailTrailSurfaceHeader {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailConditionsRow .detailTrailSurfaceHeader {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
-    color: #bbbdbf;
-    font-size: 12px;
+    color:#7E9137;
     margin-bottom: -0.5em;
     margin-top: 1em;
   }
-  .detailPanel .detailPanelBody .detailConditionsRow .detailTrailSurface {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailConditionsRow .detailTrailSurface {   font-family: Georgia, Times, "Times New Roman", serif;
     font-weight: 100;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 22px;
     color: #58595b;
   }
   .detailPanel .detailPanelBody .detailMiddleRow {
@@ -2882,24 +2824,21 @@ At some point, update mediaqueries to be in EMS
     padding: .5em 1em 0em 1em;
     margin-bottom: 1em;
   }
-  .detailPanel .detailPanelBody .detailMiddleRow .detailPanelHeader {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+ /*here*/ .detailPanel .detailPanelBody .detailMiddleRow .detailPanelHeader {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
-    color: #bbbdbf;
-    font-size: 12px;
+    color:#7E9137;
     margin-bottom: -0.5em;
   }
-  .detailPanel .detailPanelBody .detailMiddleRow .detailDescription {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailMiddleRow .detailDescription {    font-family: Georgia, Times, "Times New Roman", serif;
     font-weight: 100;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 22px;
     color: #58595b;
   }
   .detailPanel .detailPanelBody .detailMiddleRow .detailDescription a {
-    color: #00adef;
+    color: #7E9137;
     text-decoration: none;
     display: inline !important;
   }
@@ -2918,10 +2857,9 @@ At some point, update mediaqueries to be in EMS
     left: 0;
     height: auto;
     width: auto;
-    margin: .08em 1.6em .08em 1.6em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    margin: .08em 1.6em .08em 1.6em;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     font-size: 10px;
     font-style: italic;
@@ -2934,24 +2872,21 @@ At some point, update mediaqueries to be in EMS
     width: 100%;
     padding: .5em 1em 0em 1em;
   }
-  .detailPanel .detailPanelBody .detailBottomRow .detailPanelHeader {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailBottomRow .detailPanelHeader {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
-    color: #bbbdbf;
-    font-size: 12px;
+    color:#7E9137;
   }
   .detailPanel .detailPanelBody .detailBottomRow img {
     height: 1em;
     margin-left: -0.27em;
   }
-  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadDistance {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadDistance {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
-    color: #91c73d;
+    color: #7E9137;
     float: right;
   }
   .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo {
@@ -2961,55 +2896,48 @@ At some point, update mediaqueries to be in EMS
     display: inline-block;
     margin-bottom: 1em;
   }
-  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo .detailTrailheadDistance {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo .detailTrailheadDistance {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     color: #58595b;
   }
-  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo .detailTrailheadName {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo .detailTrailheadName {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
-    line-height: 20px;
-    color: #58595b;
-    display: block;
-  }
-  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo .detailTrailheadPark {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
-    font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     color: #58595b;
     display: block;
   }
-  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo .detailTrailheadAddress {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo .detailTrailheadPark {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     color: #58595b;
     display: block;
   }
-  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo .detailTrailheadCity {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo .detailTrailheadAddress {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
+    line-height: 20px;
+    color: #58595b;
+    display: block;
+  }
+  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo .detailTrailheadCity {    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 100;
+    font-size: 13px;
     line-height: 20px;
     color: #58595b;
   }
-  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo .detailTrailheadState {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo .detailTrailheadState {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     color: #58595b;
   }
-  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo .detailTrailheadZip {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo .detailTrailheadZip {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     color: #58595b;
   }
@@ -3019,14 +2947,14 @@ At some point, update mediaqueries to be in EMS
     width: 100%;
     height: auto;
     margin-bottom: 1em;
-    margin-top: .75em;
+    margin-top: 1.5em;
     padding: 0em 0em 0em 0em;
   }
   .detailPanel .detailPanelBody .detailBottomRow .detailLinksToMore .detailDirections {
     width: 48%;
     position: relative;
     display: inline-block;
-    background-color: #d9f0fc;
+    background-color: #EBE7CE;
     margin: 0em 0em .5em 0em;
     text-align: center;
     cursor: pointer;
@@ -3037,15 +2965,15 @@ At some point, update mediaqueries to be in EMS
     display: block;
     vertical-align: middle;
     text-decoration: none;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
     line-height: 20px;
     font-size: 16px;
-    color: #00adef;
+    color: #674B2A;
     line-height: 2.667em;
   }
   .detailPanel .detailPanelBody .detailBottomRow .detailLinksToMore .detailDirections:hover {
-    background-color: #00adef;
+    background-color: #674B2A;
   }
   .detailPanel .detailPanelBody .detailBottomRow .detailLinksToMore .detailDirections:hover > a {
     color: #ffffff;
@@ -3055,7 +2983,7 @@ At some point, update mediaqueries to be in EMS
     float: right;
     position: relative;
     display: inline-block;
-    background-color: #d9f0fc;
+    background-color: #EBE7CE;
     margin: 0em 0em 0em 0em;
     text-align: center;
     cursor: pointer;
@@ -3065,15 +2993,15 @@ At some point, update mediaqueries to be in EMS
     display: block;
     vertical-align: middle;
     text-decoration: none;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
     line-height: 20px;
     font-size: 16px;
-    color: #00adef;
+    color: #674B2A;
     line-height: 2.667em;
   }
   .detailPanel .detailPanelBody .detailBottomRow .detailLinksToMore .detailPrintMap:hover {
-    background-color: #00adef;
+    background-color: #674B2A;
   }
   .detailPanel .detailPanelBody .detailBottomRow .detailLinksToMore .detailPrintMap:hover > a {
     color: #ffffff;
@@ -3106,6 +3034,11 @@ At some point, update mediaqueries to be in EMS
     width: auto;
     position: relative;
     display: inline-block;
+    background: #674B2A;
+height: 30px;
+width: auto;
+border-radius: 3px;
+margin-right:.25em;
   }
   .detailPanel .detailPanelBody .detailBottomRow .detailLinksToSocial {
     position: relative;
@@ -3125,10 +3058,9 @@ At some point, update mediaqueries to be in EMS
     padding: 0 .5em 0em 0em;
     cursor: pointer;
     transition: all 0.25s ease;
-    vertical-align: middle;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    vertical-align: middle;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     font-size: 12px;
     color: #ffffff;
@@ -3181,10 +3113,9 @@ At some point, update mediaqueries to be in EMS
   }
   .detailPanel .detailPanelBody .detailFooter .detailStewardInfo .detailPanelHeader {
     margin-top: 1em;
-    display: block;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    display: block;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     color: #bbbdbf;
     position: relative;
@@ -3198,8 +3129,8 @@ At some point, update mediaqueries to be in EMS
   .detailPanel .detailPanelBody .detailFooter .detailStewardInfo .detailSource {
     text-decoration: none;
     display: block;
-    color: #00adef;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    color: #7E9137;
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
     line-height: 20px;
     font-size: 16px;
@@ -3212,7 +3143,7 @@ At some point, update mediaqueries to be in EMS
   .detailPanel .detailPanelBody .detailFooter .detailStewardInfo .detailSourcePhone,
   .detailPanel .detailPanelBody .detailFooter .detailStewardInfo .detailSourcePhone a {
     display: block;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
     line-height: 20px;
     color: #58595b;
@@ -3220,33 +3151,31 @@ At some point, update mediaqueries to be in EMS
   }
 }
 @media only screen and (min-width: 769px) {
-  .detailPanel {
+  /*here*/.detailPanel {
     position: relative;
     display: none;
     width: 100%;
     max-height: 26.5em;
-    background-color: #ffffff;
+    background-color: #7E9137;
   }
-  .detailPanel .detailPanelBanner {
+  /*here*/.detailPanel .detailPanelBanner {
     position: relative;
     width: 100%;
-    background-color: #00adef;
+    background-color: #7E9137;
     padding: .5em 1.75em .5em 1.75em;
-    max-height: 3.5em;
+    max-height: 4.75em;
   }
   .detailPanel .detailPanelBanner .trailName {
     display: inline-block;
-    max-width: 70%;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
-    font-weight: 100;
-    font-size: 16px;
+    max-width: 70%;    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 18px;
     line-height: 20px;
     color: #ffffff;
   }
-  .detailPanel .detailPanelBanner .trailIndex {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBanner .trailIndex {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     color: #ffffff;
     font-size: 12px;
@@ -3263,7 +3192,7 @@ At some point, update mediaqueries to be in EMS
     max-height: 56px;
     /* This is a magic number */
   
-    background-color: #00adef;
+    background-color: #7E9137;
     z-index: 999;
     cursor: pointer ;
   }
@@ -3305,6 +3234,7 @@ At some point, update mediaqueries to be in EMS
     width: 24em;
     overflow-x: hidden;
     overflow-y: scroll;
+  background:#ffffff;
     -webkit-overflow-scrolling: touch;
   }
   .detailPanel .detailPanelBody .detailPanelPictureContainer {
@@ -3319,7 +3249,7 @@ At some point, update mediaqueries to be in EMS
     height: auto;
     width: 100%;
     z-index: 999;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
     line-height: 20px;
     font-size: 16px;
@@ -3364,56 +3294,44 @@ At some point, update mediaqueries to be in EMS
     left: 0;
     height: auto;
     width: auto;
-    margin: .08em 2.75em .08em 2.75em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    margin: .08em 2.75em .08em 2.75em;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     font-size: 10px;
     font-style: italic;
     color: #bbbdbf;
   }
   .detailPanel .detailPanelBody .detailTopRow#left {
-    position: relative;
-    display: inline-block;
-    height: 2em;
-    width: auto;
-    padding: .5em 0em 0em 1.75em;
-    float: left;
+width: auto;
+padding: 0.5em 0 1em 1.75em;
+display: block;
   }
   .detailPanel .detailPanelBody .detailTopRow#left .detailLength {
-    position: relative;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    position: relative;    font-family: Georgia, Times, "Times New Roman", serif;
     font-weight: 100;
-    font-size: 16px;
-    line-height: 20px;
-    color: #91c73d;
+    font-size: 14px;
+    line-height: 22px;
+    color: #58595b;
   }
-  .detailPanel .detailPanelBody .detailTopRow#left .detailLengthHeader {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailTopRow#left .detailLengthHeader {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
-    color: #bbbdbf;
-    font-size: 12px;
+    color:#7E9137;
     margin-right: 1em;
   }
   .detailPanel .detailPanelBody .detailTopRow#right {
-    position: relative;
-    display: inline-block;
-    height: 2em;
-    width: auto;
-    margin: 0 1em 0 0;
-    float: right;
+width: auto;
+margin: 0 1em 1em .75em;
+display: block;
   }
-  .detailPanel .detailPanelBody .detailTopRow#right .detailActivityHeader {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailTopRow#right .detailActivityHeader {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 20px;
-    color: #bbbdbf;
-    font-size: 12px;
-    margin-left: 1em;
+    color:#7E9137;
+    margin:0 .75em 0 1em;
     line-height: 38px;
   }
   .detailPanel .detailPanelBody .detailTopRow#right .activity-icon-row {
@@ -3435,51 +3353,48 @@ At some point, update mediaqueries to be in EMS
     width: auto;
     position: relative;
     display: inline-block;
-  }
+  background: #674B2A;
+height: 30px;
+width: auto;
+border-radius: 3px;
+}
   .detailPanel .detailPanelBody .detailConditionsRow {
-    position: relative;
-    display: inline-block;
-    height: auto;
-    width: 100%;
-    padding: .5em 1.75em 0em 1.75em;
-    margin-bottom: 1em;
+  position: relative;
+display: inline-block;
+height: auto;
+width: 100%;
+padding: 0.5em 1.75em 0em;
+margin-bottom: 1em;
   }
-  .detailPanel .detailPanelBody .detailConditionsRow .detailConditionsHeader {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailConditionsRow .detailConditionsHeader {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
-    color: #bbbdbf;
-    font-size: 12px;
+    color:#7E9137;
     margin-bottom: -0.5em;
   }
   .detailPanel .detailPanelBody .detailConditionsRow .detailConditionsDescription {
     /*margin: .25em 0 .5em 0; */
   
-    margin-bottom: 1.5em;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    margin-bottom: 1.5em; font-family: Georgia, Times, "Times New Roman", serif;
     font-weight: 100;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 22px;
     color: #58595b;
   }
-  .detailPanel .detailPanelBody .detailConditionsRow .detailTrailSurfaceHeader {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailConditionsRow .detailTrailSurfaceHeader {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
-    color: #bbbdbf;
-    font-size: 12px;
+    color:#7E9137;
     margin-bottom: -0.5em;
     margin-top: 1em;
   }
   .detailPanel .detailPanelBody .detailConditionsRow .detailTrailSurface {
-    /*margin: .25em 0 .5em 0; */
-  
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    /*margin: .25em 0 .5em 0; */    font-family: Georgia, Times, "Times New Roman", serif;
     font-weight: 100;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 22px;
     color: #58595b;
   }
   .detailPanel .detailPanelBody .detailMiddleRow {
@@ -3490,26 +3405,22 @@ At some point, update mediaqueries to be in EMS
     padding: .5em 1.75em 0em 1.75em;
     margin-bottom: 1em;
   }
-  .detailPanel .detailPanelBody .detailMiddleRow .detailPanelHeader {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailMiddleRow .detailPanelHeader {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
-    color: #bbbdbf;
-    font-size: 12px;
+    color:#7E9137;
     margin-bottom: -0.5em;
   }
   .detailPanel .detailPanelBody .detailMiddleRow .detailDescription {
-    /*margin-top: .75em; */
-  
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    /*margin-top: .75em; */    font-family: Georgia, Times, "Times New Roman", serif;
     font-weight: 100;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 22px;
     color: #58595b;
   }
   .detailPanel .detailPanelBody .detailMiddleRow .detailDescription a {
-    color: #00adef;
+    color: #7E9137;
     text-decoration: none;
   }
   .detailPanel .detailPanelBody .detailMiddleRow .detailDescription a:hover {
@@ -3522,24 +3433,21 @@ At some point, update mediaqueries to be in EMS
     width: 100%;
     padding: 0em 1.75em 0em .5em;
   }
-  .detailPanel .detailPanelBody .detailBottomRow .detailPanelHeader {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailBottomRow .detailPanelHeader {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
-    color: #bbbdbf;
-    font-size: 12px;
+    color:#7E9137;
     margin-left: .25em;
   }
   .detailPanel .detailPanelBody .detailBottomRow img {
     height: 1em;
   }
-  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadDistance {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadDistance {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
-    color: #91c73d;
+    color: #7E9137;
     float: right;
   }
   .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo {
@@ -3550,56 +3458,49 @@ At some point, update mediaqueries to be in EMS
     margin-bottom: 1em;
     margin-left: 1.33em;
   }
-  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo .detailTrailheadDistance {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo .detailTrailheadDistance {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     color: #58595b;
   }
-  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo .detailTrailheadName {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo .detailTrailheadName {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     color: #58595b;
     display: block;
   }
-  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo .detailTrailheadPark {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo .detailTrailheadPark {    font-family: Georgia, Times, "Times New Roman", serif;
     font-weight: 100;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 22px;
     color: #58595b;
     display: block;
   }
-  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo .detailTrailheadAddress {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo .detailTrailheadAddress {    font-family: Georgia, Times, "Times New Roman", serif;
     font-weight: 100;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 22px;
     color: #58595b;
     display: block;
   }
-  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo .detailTrailheadCity {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo .detailTrailheadCity {    font-family: Georgia, Times, "Times New Roman", serif;
     font-weight: 100;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 22px;
     color: #58595b;
   }
-  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo .detailTrailheadState {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo .detailTrailheadState {    font-family: Georgia, Times, "Times New Roman", serif;
     font-weight: 100;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 22px;
     color: #58595b;
   }
-  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo .detailTrailheadZip {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadInfo .detailTrailheadZip {    font-family: Georgia, Times, "Times New Roman", serif;
     font-weight: 100;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 22px;
     color: #58595b;
   }
   .detailPanel .detailPanelBody .detailBottomRow .detailLinksToMore {
@@ -3617,7 +3518,7 @@ At some point, update mediaqueries to be in EMS
     height: 2em;
     position: relative;
     display: inline-block;
-    background-color: #d9f0fc;
+    background-color: #EBE7CE;
     margin: 0em 0em .5em 0em;
     text-align: center;
     cursor: pointer;
@@ -3627,17 +3528,16 @@ At some point, update mediaqueries to be in EMS
     display: block;
     width: 100%;
     vertical-align: middle;
-    text-decoration: none;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    text-decoration: none;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     font-size: 12px;
-    color: #00adef;
+    color: #674B2A;
     line-height: 2.667em;
   }
   .detailPanel .detailPanelBody .detailBottomRow .detailLinksToMore .detailDirections:hover {
-    background-color: #00adef;
+    background-color: #674B2A;
   }
   .detailPanel .detailPanelBody .detailBottomRow .detailLinksToMore .detailDirections:hover > a {
     color: #ffffff;
@@ -3647,7 +3547,7 @@ At some point, update mediaqueries to be in EMS
     height: 2em;
     position: relative;
     display: inline-block;
-    background-color: #d9f0fc;
+    background-color: #EBE7CE;
     margin: 0em 0em 0em 0em;
     text-align: center;
     cursor: pointer;
@@ -3657,17 +3557,16 @@ At some point, update mediaqueries to be in EMS
     display: block;
     width: 100%;
     vertical-align: middle;
-    text-decoration: none;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    text-decoration: none;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     font-size: 12px;
-    color: #00adef;
+    color: #674B2A;
     line-height: 2.667em;
   }
   .detailPanel .detailPanelBody .detailBottomRow .detailLinksToMore .detailPrintMap:hover {
-    background-color: #00adef;
+    background-color: #674B2A;
   }
   .detailPanel .detailPanelBody .detailBottomRow .detailLinksToMore .detailPrintMap:hover > a {
     color: #ffffff;
@@ -3678,6 +3577,7 @@ At some point, update mediaqueries to be in EMS
     width: 100%;
     height: 2em;
     margin-left: 1.25em;
+  margin-top: 1em;
   }
   .detailPanel .detailPanelBody .detailBottomRow .detailTrailheadAmenities .detailTrailheadIcons {
     position: relative;
@@ -3700,6 +3600,11 @@ At some point, update mediaqueries to be in EMS
     width: auto;
     position: relative;
     display: inline-block;
+  background: #674B2A;
+height: 30px;
+width: auto;
+border-radius: 3px;
+
   }
   .detailPanel .detailPanelBody .detailBottomRow .detailLinksToSocial {
     position: relative;
@@ -3725,10 +3630,9 @@ At some point, update mediaqueries to be in EMS
   .detailPanel .detailPanelBody .detailBottomRow .detailLinksToSocial .social-icon:hover {
     background-color: #58595b;
   }
-  .detailPanel .detailPanelBody .detailBottomRow .detailLinksToSocial .social-icon a {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+  .detailPanel .detailPanelBody .detailBottomRow .detailLinksToSocial .social-icon a {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
     font-size: 12px;
     color: #ffffff;
@@ -3754,10 +3658,10 @@ At some point, update mediaqueries to be in EMS
     height: auto;
     width: 100%;
     /* not needed? .detailSourceURL {
-  					.sansSerif-light;
-  					color: @color-mid-gray;
-  					font-size: 12px;
-  				}*/
+            .sansSerif-light;
+            color: @color-mid-gray;
+            font-size: 12px;
+          }*/
   
   }
   .detailPanel .detailPanelBody .detailFooter .icon-large {
@@ -3780,12 +3684,11 @@ At some point, update mediaqueries to be in EMS
     margin-right: 1em;
   }
   .detailPanel .detailPanelBody .detailFooter .detailStewardInfo .detailPanelHeader {
-    display: block;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    display: block;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
-    color: #bbbdbf;
+    color: #333;
     position: relative;
     font-size: 12px;
     width: auto;
@@ -3795,10 +3698,9 @@ At some point, update mediaqueries to be in EMS
   .detailPanel .detailPanelBody .detailFooter .detailStewardInfo .detailSource {
     text-decoration: none;
     display: block;
-    color: #00adef;
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    color: #7E9137;    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
   }
   .detailPanel .detailPanelBody .detailFooter .detailStewardInfo .detailStewardInfo a:hover,
@@ -3806,7 +3708,7 @@ At some point, update mediaqueries to be in EMS
     text-decoration: underline;
   }
   .detailPanel .detailPanelBody .detailFooter .detailStewardInfo .detailSourcePhone {
-    font-family: mission_gothiclight, Helvetica, Arial, sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
     line-height: 20px;
     color: #58595b;
@@ -3852,16 +3754,16 @@ At some point, update mediaqueries to be in EMS
 }
 /* Map Overrides */
 /*@import "leaflet-overrides.less";*/
-/*			Bootstrap-Select
+/*      Bootstrap-Select
 *********************************/
 /*@import "bootstrap-select.less";*/
-/*			Bootstrap
+/*      Bootstrap
 *********************************/
 /*@import "bootstrap3.less";*/
-/*			Leaflet
+/*      Leaflet
 *********************************/
 /*@import "leaflet.usermarker.less";*/
-/*			Reset
+/*      Reset
 *********************************/
 /*! normalize.css v2.1.0 | MIT License | git.io/normalize */
 /* ==========================================================================
