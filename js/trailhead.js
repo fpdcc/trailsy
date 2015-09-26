@@ -1147,6 +1147,7 @@ function startup() {
             if (checkSegmentsForTrailname(trail.properties.name, trail.properties.source) || !USE_LOCAL) {
               dataAvailable = true;
             } else {
+              dataAvailable = true;
               console.log("skipping " + trail.properties.name + "/" + trail.properties.source + ": no segment data");
             }
             if (filterResults(trail, trailhead)) {
@@ -2171,6 +2172,7 @@ function startup() {
     console.log("getAllTrailPathsForTrailheadLocal end");
 
     responses = mergeResponses(trailFeatureArray);
+
     drawMultiTrailLayer(responses);
     setCurrentTrail(highlightedTrailIndex);
   }
@@ -2222,23 +2224,29 @@ function startup() {
       map.removeLayer(currentMultiTrailLayer);
       currentTrailLayers = [];
     }
-    if (response.features[0].geometry === null) {
-      alert("No trail segment data found.");
-    }
-    currentMultiTrailLayer = L.geoJson(response, {
-      style: {
-        weight: NORMAL_SEGMENT_WEIGHT,
-        color: NORMAL_SEGMENT_COLOR,
-        opacity: 1,
-        clickable: false,
-        smoothFactor: customSmoothFactor
-      },
-      onEachFeature: function(feature, layer) {
-        currentTrailLayers.push(layer);
+
+    // Add check to see if there are segment features
+    if (response.features) {
+      if (response.features[0].geometry === null) {
+        alert("No trail segment data found.");
       }
-    }).addTo(map);
-    //.bringToFront();
-    zoomToLayer(currentMultiTrailLayer);
+      else {
+        currentMultiTrailLayer = L.geoJson(response, {
+          style: {
+            weight: NORMAL_SEGMENT_WEIGHT,
+            color: NORMAL_SEGMENT_COLOR,
+            opacity: 1,
+            clickable: false,
+            smoothFactor: customSmoothFactor
+          },
+          onEachFeature: function(feature, layer) {
+            currentTrailLayers.push(layer);
+          }
+        }).addTo(map);
+        //.bringToFront();
+        zoomToLayer(currentMultiTrailLayer);
+      }
+    }
   }
 
 
