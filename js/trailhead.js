@@ -40,8 +40,9 @@ function startup() {
   // var API_HOST = "http://trailsyserver-prod.herokuapp.com";
   // var API_HOST = "http://10.0.1.102:3000";
   // var API_HOST = "http://10.0.2.2:3000" // for virtualbox IE
-  // if (window.location.hostname.split(".")[0] == "trailsy-dev") {
-  //   // API_HOST = "http://trailsyserver-dev.herokuapp.com";
+  if (window.location.hostname.split(".")[0] == "trailsy-dev") {
+    API_HOST = "http://localhost:3000";
+  }
   //   API_HOST = window.location.protocol + "//" + window.location.host;
   // } else if (window.location.hostname.split(".")[0] == "trailsyserver-dev") {
   //   API_HOST = window.location.protocol + "//" + window.location.host;
@@ -1373,6 +1374,7 @@ function startup() {
       var trailhead = myTrailheads[j];
 
       var trailheadName = trailhead.properties.name;
+      var trailheadType = trailhead.properties.poi_type;
       var trailheadID = trailhead.properties.id;
       var parkName = trailhead.properties.park;
       var trailheadTrailIDs = trailhead.trails;
@@ -1405,7 +1407,7 @@ function startup() {
         
         var trailheadInfoText = "<div class='trailheadInfo'>" + 
         "<img class='trailheadIcon' src='img/icon_trailhead_active.png'/>" +
-        "<div class='trailheadName' >" + trailheadName + " Trailhead" + "</div>" +
+        "<div class='trailheadName' >" + trailheadName + " " + trailheadType + "</div>" +
         "<div class='trailheadDistance' >" + trailheadDistance + " miles away" + "</div>" + 
         "</div>";
 
