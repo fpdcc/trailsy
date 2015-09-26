@@ -1412,8 +1412,10 @@ function startup() {
         var mileString = trailLength == 1 ? "mile" : "miles";
         var trailInfoText = "<div class='trailInfo'>" + 
         "<div class='trailCurrentIndex' >" + trailCurrentIndex + "</div>" + 
-        "<div class='trail' >" + trailName + "</div>" +
-        "<div class='trailLength' >" + trailLength + " " + mileString + " long" + "</div>";
+        "<div class='trail' >" + trailName + "</div>";
+        if (trailLength > 0) {
+          trailInfoText = trailInfoText + "<div class='trailLength' >" + trailLength + " " + mileString + " long" + "</div>";
+        }
         if (parkName) {
           trailInfoText = trailInfoText + "<div class='parkName' >" + trailhead.properties.park + "</div>";
         }
