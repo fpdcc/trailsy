@@ -25,7 +25,7 @@ function startup() {
   var TOUCH = $('html').hasClass('touch');
   // Map generated in CfA Account
   var MAPBOX_MAP_ID = "codeforamerica.map-j35lxf9d";
-  var AKRON = {
+  var MAPCENTERPOINT = {
     lat: 41.87,
     lng: -87.67
   };
@@ -569,10 +569,10 @@ function startup() {
         },
         options);
     } else {
-      // for now, just returns Akron
+      // for now, just returns MAPCENTERPOINT
       // should use browser geolocation,
-      // and only return Akron if we're far from home base
-      currentUserLocation = AKRON;
+      // and only return MAPCENTERPOINT if we're far from home base
+      currentUserLocation = MAPCENTERPOINT;
       showGeoOverlay();
       handleGeoError("no geolocation", callback);
     }
@@ -581,20 +581,20 @@ function startup() {
 
   function handleGeoSuccess(position, callback) {
     currentUserLocation = new L.LatLng(position.coords.latitude, position.coords.longitude);
-    var distanceToAkron = currentUserLocation.distanceTo(AKRON) / 1000;
+    var distanceToMapCenterPoint = currentUserLocation.distanceTo(MAPCENTERPOINT) / 1000;
     // if no map, set it up
     if (!map) {
       var startingMapLocation;
       var startingMapZoom;
-      // if we're close to Akron, start the map and the trailhead distances from 
-      // the current location, otherwise just use AKRON for both
-      if (distanceToAkron < LOCAL_LOCATION_THRESHOLD) {
+      // if we're close to Cook County, start the map and the trailhead distances from 
+      // the current location, otherwise just use MAPCENTERPOINT for both
+      if (distanceToMapCenterPoint < LOCAL_LOCATION_THRESHOLD) {
         anchorLocation = currentUserLocation;
         startingMapLocation = currentUserLocation;
         startingMapZoom = 13;
       } else {
-        anchorLocation = AKRON;
-        startingMapLocation = AKRON;
+        anchorLocation = MAPCENTERPOINT;
+        startingMapLocation = MAPCENTERPOINT;
         startingMapZoom = 11;
       }
       map = createMap(startingMapLocation, startingMapZoom);
@@ -623,8 +623,8 @@ function startup() {
     console.log(error);
     if (!map) {
       console.log("making map anyway");
-      map = createMap(AKRON, 11);
-      currentUserLocation = AKRON;
+      map = createMap(MAPCENTERPOINT, 11);
+      currentUserLocation = MAPCENTERPOINT;
       if (error.code === 1) {
         showGeoOverlay();
       }
@@ -639,7 +639,7 @@ function startup() {
   }
 
   function showGeoOverlay() {
-    var noGeolocationOverlayHTML = "<span class='closeOverlay'>x</span><p>We weren't able to get your current location, so we'll give you trailhead distances from downtown Akron.";
+    var noGeolocationOverlayHTML = "<span class='closeOverlay'>x</span><p>We weren't able to get your current location, so we'll give you trailhead distances from the center of Cook County.";
     $(".overlay-panel").html(noGeolocationOverlayHTML);
     $(".overlay").show();
     $(".overlay-panel").click(function() {
