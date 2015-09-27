@@ -1393,7 +1393,7 @@ function startup() {
         var trailID = trailheadTrailIDs[i];
         var trail = currentTrailData[trailID];
         var trailName = currentTrailData[trailID].properties.name;
-        var trailLength = currentTrailData[trailID].properties.length;
+        var trailLength = Number(Math.round(currentTrailData[trailID].properties.length +'e2')+'e-2');
         var trailCurrentIndex = divCount++;
 
         var trailDivText = "<div class='trail-box' " + 
@@ -1748,10 +1748,11 @@ function startup() {
     }
 
     $('.detailPanel .detailSource').html(trailhead.properties.source);
-
-    if (trail.properties.length) {
-      var mileString = trail.properties.length == "1" ? "mile" : "miles";
-      $('.detailPanel .detailLength').html(trail.properties.length + " " + mileString);
+    
+    var trailLength = Number(Math.round(trail.properties.length +'e2')+'e-2');
+    if (trailLength) {
+      var mileString = trailLength == "1" ? "mile" : "miles";
+      $('.detailPanel .detailLength').html(trailLength + " " + mileString);
     } else {
       $('.detailPanel .detailLength').html("--");
     }
