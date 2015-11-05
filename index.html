@@ -16,6 +16,7 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="http://getbootstrap.com/examples/sticky-footer-navbar/sticky-footer-navbar.css">
+    <link rel="stylesheet" href="node_modules/bootstrap-drawer/dist/css/bootstrap-drawer.css">
     <link rel="stylesheet" href="styles/css/trailsy.css"/>
 
 
@@ -63,18 +64,25 @@
     </div>
 </nav>
 
-<div id="container" class="row brown-bg">
-    <div class="col-lg-2">
-        <div id="twitter-feed">
-            <a class="twitter-timeline" height="1000" style="overflow:hidden;" href="https://twitter.com/mbarrenecheajr/lists/trailsy" data-chrome="noheader noscrollbar" data-widget-id="646503043454799872"></a>
-            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+<div id="container" class="brown-bg has-inner-drawer">
+    <div id="twitter-feed" class="drawer drawer-inside dw-xs-10 dw-sm-6 dw-md-4 fold" aria-labelledby="drawerExample">
+        <div class="drawer-controls">
+            <a href="#twitter-feed" data-toggle="drawer" href="#drawerExample" aria-foldedopen="false" aria-controls="drawerExample" class="btn btn-primary btn-sm green-button">Twitter</a>
+        </div>
+        <div class="drawer-contents brown-bg">
+            <div class="drawer-body">
+                <a class="twitter-timeline" height="1000" style="overflow:hidden;" href="https://twitter.com/mbarrenecheajr/lists/trailsy" data-chrome="noheader noscrollbar" data-widget-id="646503043454799872"></a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+            </div>
         </div>
     </div>
-    <div class="col-lg-10" id="trailMapLarge"/>
+    <div id="trailMapLarge"/>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+<script src="node_modules/bootstrap-drawer/dist/js/drawer.js"></script>
 <script src="bundle.js"></script>
 
 </body>

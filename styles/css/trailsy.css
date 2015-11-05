@@ -1,3 +1,11 @@
+/*@media screen and (max-width: 424px) {*/
+    /*#twitter-feed { display: none; }  /!* show it on small screens *!/*/
+/*}*/
+
+/*@media screen and (min-width: 425px) {*/
+    /*#twitter-feed { display: block; }   /!* hide it elsewhere *!/*/
+/*}*/
+
 .trailhead-bg {
     background-image: url("../../img/Boulder_Pass_Trailhead.jpg");
 }
@@ -159,12 +167,6 @@
     height: 2.5em;
 }
 
-#twitter-feed {
-    position:fixed;
-    z-index:2000;
-    width: 15.75%;
-}
-
 html, body, #container {
     height: 100%;
     width: 100%;
@@ -182,3 +184,14 @@ html, body, #container {
 .brown-bg {
     background-color: #523d32;
 }
+
+.green-button {
+    background-color: #91C73D;
+    color: ghostwhite;
+}
+
+.green-button:hover {
+    background-color: #91C73D;
+    color: ghostwhite;
+}
+
