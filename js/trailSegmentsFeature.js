@@ -68,11 +68,11 @@ var trailSegmentsFeature = function() {
             segment.properties.length = calculatedLength;
         }
         else if (segment.properties.length != calculatedLength && segment.properties.id == 79415) {
-            console.log("recorded length " + segment.properties.length + " calculated length " + calculatedLength);
+            //console.log("recorded length " + segment.properties.length + " calculated length " + calculatedLength);
             for (var i in segment.geometry.coordinates) {
                 g.pathDistance(segment.geometry.coordinates[i], segment.properties.id == 79415);
             }
-            console.log("");
+            //console.log("");
         }
 
         var index = -1;

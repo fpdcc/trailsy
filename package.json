@@ -7,6 +7,7 @@
   "dependencies": {
     "async": "^1.2.1",
     "bootstrap": "^3.3.5",
+    "bootstrap-drawer": "^1.0.4",
     "jquery": "^2.1.4",
     "leaflet": "^0.7.3",
     "leaflet-providers": "^1.1.0",

@@ -83,7 +83,21 @@ files that are packaged together into 'bundle.js', do the following:
 ## Caveats
 Since the conversion to using OpenTrails is a WIP, expect some functionality to be missing.
 
-## Deployment
+## Creating a Distribution for running as a pure static site
+* cd to the project directory and run the following commands
+* `rm bundle.js bundle.js.map`
+* `webpack`
+* `mkdir dist`
+* `cp index.html dist`
+* `cp error.html dist`
+* `cp bundle.js dist`
+* `cp bundle.js.map dist`
+* `cp -r styles dist`
+* `cp -r img dist`
+* `mkdir dist/node_modules`
+* `cp -r node_modules/bootstrap-drawer dist/node_modules`
+
+## Deployment via webpack server
 
 [webpacksite]:(http://webpack.github.io/docs/webpack-dev-server.html)
 With RHEL / CentOS / Fedora
