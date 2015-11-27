@@ -1,10 +1,5 @@
-/*@media screen and (max-width: 424px) {*/
-    /*#twitter-feed { display: none; }  /!* show it on small screens *!/*/
-/*}*/
 
-/*@media screen and (min-width: 425px) {*/
-    /*#twitter-feed { display: block; }   /!* hide it elsewhere *!/*/
-/*}*/
+
 
 .trailhead-bg {
     background-image: url("../../img/Boulder_Pass_Trailhead.jpg");
@@ -121,9 +116,11 @@
 .trailsy-brand {
     background-color:  #91C73D;
     color: #523d32;
-    padding: 0.75em;
     font-style: italic;
     font-size: 14px;
+    display: inline-block;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
 }
 
 .trailsy-brand > span {
@@ -133,7 +130,9 @@
 .trailsy-brand-inverse {
     background-color:#523d32;
     color:  #91C73D;
-    font-size: 14px;
+    font-size: 1.25em;
+    vertical-align: middle;
+    display: inline-block;
 }
 
 .fancy-serif {
@@ -145,11 +144,12 @@
 #triangle-right {
     width: 0;
     height: 0;
-    border-top: 1.6em solid transparent;
+    border-top: 1.3em solid transparent;
     border-left: 1em solid #91C73D;
-    border-bottom: 1.6em solid transparent;
+    border-bottom: 1.3em solid transparent;
     display: inline-block;
-    margin-bottom: -1.1em;
+    margin-bottom: -1.0em;
+    margin-left: -0.3em;
 }
 
 
@@ -173,10 +173,6 @@ html, body, #container {
     overflow: hidden;
 }
 
-#container {
-    margin-top: 50px;
-}
-
 #trailMapLarge {
     height: 100%;
 }
@@ -195,3 +191,69 @@ html, body, #container {
     color: ghostwhite;
 }
 
+ul.nav span.input-group-btn {
+    width: auto;
+}
+
+.navbar-inverse.brown-bg {
+    border-color: transparent;
+}
+
+.navbar-form-tight {
+    padding: 0;
+    margin: 0;
+}
+
+.navbar-tight {
+    min-height: 0;
+    margin: 0;
+}
+
+@media only screen and (min-width: 375px) {
+    .trailsy-brand {
+        font-size:1.4em;
+    }
+
+    .trailsy-brand-inverse {
+        font-size: 1.4em;
+    }
+
+    #triangle-right {
+        border-top: 1.8em solid transparent;
+        border-left: 1.2em solid #91C73D;
+        border-bottom: 1.8em solid transparent;
+        display: inline-block;
+        margin-bottom: -1.3em;
+        margin-left: -0.3em;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .navbar.navbar-inverse {
+        display: inline-block;
+    }
+
+    .masthead.brown-bg {
+        width: 100%;
+        padding: 0.5em 0 0.5em 0;
+    }
+
+    .masthead-brand {
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    .navbar-tight {
+        margin: 0.5em;
+    }
+
+    .drawer {
+        top: 4.5em;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .cover-container {
+        padding-left: 0;
+    }
+}

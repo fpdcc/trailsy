@@ -17,8 +17,8 @@
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="http://getbootstrap.com/examples/sticky-footer-navbar/sticky-footer-navbar.css">
     <link rel="stylesheet" href="node_modules/bootstrap-drawer/dist/css/bootstrap-drawer.css">
+    <link rel="stylesheet" href="styles/css/cover.css"/>
     <link rel="stylesheet" href="styles/css/trailsy.css"/>
-
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -27,46 +27,62 @@
     <![endif]-->
 </head>
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top brown-bg" role="navigation">
-    <div class="masthead">
-                <span class="trailsy-brand">
-                    <span>TO THE</span>
-                    <span class="fancy-serif">TRAILS</span>
-                </span>
-                <span>
-                    <span id="triangle-right"></span>
-                </span>
-        <span class="trailsy-brand-inverse">Boulder County</span>
-                <span class="navbar-form">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-success">Find by Length</button>
-                        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Up to 2 Miles</a></li>
-                            <li><a href="#">2 to 5 Miles</a></li>
-                            <li><a href="#">5 to 10 Miles</a></li>
-                            <li><a href="#">Over 10 Miles</a></li>
-                        </ul>
-                    </div>
-                </span>
-                <span class="navbar-form" role="search">
-                    <div class="input-group">
-                        <input id="search" type="text" class="form-control" placeholder="Search Trails">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default slate-thin-border glyphicon glyphicon-search very-top" type="button" onclick="trailMap.filterTrailheads($('#search').val())"/>
-                            <button class="btn btn-default slate-thin-border very-top" type="button" onclick="$('#search').val(''); trailMap.clearFilters()">Clear Search</button>
-                        </span>
-                    </div>
-                </span>
-    </div>
-</nav>
+    <div class="site-wrapper">
+        <div class="site-wrapper-inner brown-bg" style="padding-top: 0">
+            <div class="cover-container">
 
+              <div class="masthead clearfix brown-bg">
+                      <div class="masthead-brand">
+                          <div class="trailsy-brand">
+                              <span>TO THE</span>
+                              <span class="fancy-serif">TRAILS</span>
+                          </div>
+                          <div id="triangle-right"></div>
+                          <div class="trailsy-brand-inverse">Boulder County</div>
+                      </div>
+
+                      <nav class="navbar navbar-inverse navbar-tight brown-bg" role="navigation">
+                          <ul class="nav masthead-nav">
+                              <li>
+                                  <span class="navbar-form navbar-form-tight" role="search">
+                                      <div class="input-group">
+                                          <input id="search" type="text" class="form-control" placeholder="Search Trails">
+                                            <span class="input-group-btn">
+                                              <button class="btn btn-default slate-thin-border glyphicon glyphicon-search very-top"
+                                                      type="button" onclick="trailMap.filterTrailheads($('#search').val())"/>
+                                              <button class="btn btn-default slate-thin-border very-top" type="button"
+                                                      onclick="$('#search').val(''); trailMap.clearFilters()">Clear Search</button>
+                                              </span>
+                                      </div>
+                                  </span>
+                              </li>
+                          </ul>
+                      </nav>
+                <!--<span class="navbar-form">-->
+                    <!--<div class="btn-group">-->
+                        <!--<button type="button" class="btn btn-success">Find by Length</button>-->
+                        <!--<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                            <!--<span class="caret"></span>-->
+                            <!--<span class="sr-only">Toggle Dropdown</span>-->
+                        <!--</button>-->
+                        <!--<ul class="dropdown-menu">-->
+                            <!--<li><a href="#">Up to 2 Miles</a></li>-->
+                            <!--<li><a href="#">2 to 5 Miles</a></li>-->
+                            <!--<li><a href="#">5 to 10 Miles</a></li>-->
+                            <!--<li><a href="#">Over 10 Miles</a></li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+                <!--</span>-->
+
+                          <!--</div>-->
+                      <!--</nav>-->
+              </div>
+
+
+            </div>
 
 <div id="container" class="brown-bg has-inner-drawer">
-    <div id="twitter-feed" class="drawer drawer-inside dw-xs-10 dw-sm-6 dw-md-4 fold" aria-labelledby="drawerExample">
+    <div id="twitter-feed" class="drawer drawer-inside brown-bg dw-xs-10 dw-sm-6 dw-md-4 fold" aria-labelledby="drawerExample">
         <div class="drawer-controls">
             <a href="#twitter-feed" data-toggle="drawer" href="#drawerExample" aria-foldedopen="false" aria-controls="drawerExample" class="btn btn-primary btn-sm green-button">Twitter</a>
         </div>
@@ -84,6 +100,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="node_modules/bootstrap-drawer/dist/js/drawer.js"></script>
 <script src="bundle.js"></script>
+
+        </div>
+</div>
 
 </body>
 </html>
