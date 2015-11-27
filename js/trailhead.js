@@ -34,7 +34,8 @@ function startup() {
   // test to check whether we're using the Heroky dev app or the Heroku production app
   // and reassign API_HOST if necessary
   // var API_HOST = window.location.protocol + "//" + window.location.host;
-  var API_HOST = "http://52.7.102.166";
+  //var API_HOST = "http://52.7.102.166";
+  var API_HOST = "http://localhost:3000";
   //var API_HOST = "http://trailsy.herokuapp.com";
   // var API_HOST = "http://trailsyserver-dev.herokuapp.com";
   // var API_HOST = "http://trailsyserver-prod.herokuapp.com";
@@ -171,6 +172,7 @@ function startup() {
   var currentTrailheadHover = null;
   var geoSetupDone = false;
   var segmentTrailnameCache = {};
+  var segmentTrailIdCache = {}; // For OpenTrails 1.1. This is the equivalent of segmentTrailnameCache.
   var currentTrailData;
   var searchKeyTimeout = null;
   var trailheadsFetched = false;
@@ -866,7 +868,6 @@ function startup() {
   }
 
   // this creates a lookup object so we can quickly look up if a trail has any segment data available
-
   function createSegmentTrailnameCache() {
     console.log("createSegmentTrailnameCache");
     for (var segmentIndex = 0; segmentIndex < trailSegments.features.length; segmentIndex++) {
@@ -880,8 +881,24 @@ function startup() {
       }
     }
   }
-  // returns true if trailname is in trailData
 
+  // this creates a lookup object so we can quickly look up if a trail has any segment data available 
+  // This might not be needed with 1.1 structure. [OpenTrails 1.1]
+  function createSegmentTrailIdCache() {
+    console.log("createSegmentTrailIdCache");
+    for (var segmentIndex = 0; segmentIndex < trailSegments.features.length; segmentIndex++) {
+      // var segment = $.extend(true, {}, trailSegments.features[segmentIndex]);
+      var segment = trailSegments.features[segmentIndex];
+      for (var i = 0; i < 6; i++) {
+        var fieldName = "trail" + i;
+        if (segment.properties[fieldName]) {
+          segmentTrailnameCache[segment.properties[fieldName]] = true;
+        }
+      }
+    }
+  }
+
+  // returns true if trailname is in trailData
   var trailNameLookup = null;
   function trailnameInListOfTrails(trailname) {
     // console.log("trailnameInListOfTrails");
@@ -1126,12 +1143,14 @@ function startup() {
       var trailhead = myTrailheads[j];
       trailhead.trails = [];
       // for each original trailhead trail name
-      for (var trailNum = 1; trailNum <= 6; trailNum++) {
+      var trailheadTrailIDs = trailhead.properties.trail_ids
+      for (var trailNum = 0; trailNum < trailheadTrailIDs.length; trailNum++) {
         var trailWithNum = "trail" + trailNum;
-        if (trailhead.properties[trailWithNum] === "") {
+        if (trailheadTrailIDs[trailNum] === "") {
           continue;
         }
-        var trailheadTrailName = trailhead.properties[trailWithNum];
+        var trailheadTrailID = trailheadTrailIDs[trailNum];
+        console.log("[addTrailsToTrailheads] trailheadTrailID: " + trailheadTrailID)
         // TODO: add a test for the case of duplicate trail names.
         // Right now this
         // loop through all of the trailData objects, looking for trail names that match
@@ -1142,15 +1161,18 @@ function startup() {
         // to do that, we'll need to either query the DB for the trail segment info,
         // or check distance against the pre-loaded trail segment info
         $.each(myTrailData, function(trailID, trail) {
+          //console.log("HERE!!!!!!!!!!!!!!!!!!!!!!!!")
           var wanted = false;
           var dataAvailable = false;
-          if (trailhead.properties[trailWithNum] == trail.properties.name) {
-            if (checkSegmentsForTrailname(trail.properties.name, trail.properties.source) || !USE_LOCAL) {
-              dataAvailable = true;
-            } else {
-              dataAvailable = true;
-              console.log("skipping " + trail.properties.name + "/" + trail.properties.source + ": no segment data");
-            }
+          if (trailheadTrailID == trail.properties.trail_id) {
+            console.log("[addTrailsToTrailheads] trail.properties.trail_id: " + trail.properties.trail_id)
+            // if (checkSegmentsForTrailname(trail.properties.name, trail.properties.source) || !USE_LOCAL) {
+            //   dataAvailable = true;
+            // } else {
+            //   dataAvailable = true;
+            //   console.log("skipping " + trail.properties.name + "/" + trail.properties.source + ": no segment data");
+            // }
+            dataAvailable = true;
             if (filterResults(trail, trailhead)) {
               wanted = true;
             }
