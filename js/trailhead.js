@@ -344,6 +344,8 @@ function startup() {
     // console.log("waitForDataAndSegments");
     if (traildataFetched && trailsegmentsFetched) {
       createSegmentTrailnameCache();
+      //console.log("[waitForDataAndSegments] createSegmentTrailIdCache")
+      //createSegmentTrailIdCache();
     }
     else {
       setTimeout(waitForDataAndSegments, 100);
@@ -829,9 +831,24 @@ function startup() {
 
   function populateTrailData(trailDataGeoJSON) {
     for (var i = 0; i < trailDataGeoJSON.features.length; i++) {
-      originalTrailData[trailDataGeoJSON.features[i].properties.id] = trailDataGeoJSON.features[i];
+      originalTrailData[trailDataGeoJSON.features[i].properties.trail_id] = trailDataGeoJSON.features[i];
+      var segments = trailDataGeoJSON.features[i].properties.segment_ids;
+      console.log("[populateTrailData] segments = " + segments);
+      for (var segmentIndex = 0; segmentIndex < segments.length; segmentIndex++) {
+        var segment = segments[segmentIndex];
+        console.log("[populateTrailData] segment = " + segment);
+        console.log("[populateTrailData] trail_id = " + trailDataGeoJSON.features[i].properties.trail_id)
+        if ( segmentTrailIdCache[segment] === undefined ) {
+          segmentTrailIdCache[segment] = [trailDataGeoJSON.features[i].properties.trail_id];
+        }
+        else {
+          segmentTrailIdCache[segment].push(trailDataGeoJSON.features[i].properties.trail_id);
+        }
+        console.log("segmentTrailIdCache = " + segmentTrailIdCache[segment] + " for segment " + segment);
+      }
     }
     currentTrailData = $.extend(true, {}, originalTrailData);
+
   }
 
   function fetchTrailsegments(callback) {
@@ -882,18 +899,23 @@ function startup() {
     }
   }
 
-  // this creates a lookup object so we can quickly look up if a trail has any segment data available 
+  // this creates a lookup object so we can quickly find trail information for a segment
   // This might not be needed with 1.1 structure. [OpenTrails 1.1]
   function createSegmentTrailIdCache() {
     console.log("createSegmentTrailIdCache");
-    for (var segmentIndex = 0; segmentIndex < trailSegments.features.length; segmentIndex++) {
+    console.log("originalTrailData length" + originalTrailData.length);
+    for (var prop in originalTrailData) {
+    //for (var trailIndex = 0; trailIndex < originalTrailData.length; trailIndex++) {
+    //for (var segmentIndex = 0; segmentIndex < trailSegments.features.length; segmentIndex++) {
       // var segment = $.extend(true, {}, trailSegments.features[segmentIndex]);
-      var segment = trailSegments.features[segmentIndex];
-      for (var i = 0; i < 6; i++) {
-        var fieldName = "trail" + i;
-        if (segment.properties[fieldName]) {
-          segmentTrailnameCache[segment.properties[fieldName]] = true;
-        }
+      console.log("IN THE LOOP");
+      var trailID = originalTrailData[trailIndex].features.trail_id;
+      console.log("trailID = " + trailID);
+      var segments = originalTrailData[trailIndex].features.segment_ids;
+      for (var segmentIndex = 0; segmentIndex < segments.length; segmentIndex++) {
+        var segment = segments[segmentIndex];
+        segmentTrailIdCache[segment].push(trailID);
+        console.log("segmentTrailIdCache = " + segmentTrailIdCache);
       }
     }
   }
@@ -981,27 +1003,32 @@ function startup() {
   
       var popupHTML = "<div class='trail-popup'>";
       var atLeastOne = false;
-      for (var j = 1; j <= 6; j++) {
+      console.log("invisLayer = " + invisLayer.feature.properties.segment_id);
+      var segmentTrailIDs = segmentTrailIdCache[invisLayer.feature.properties.segment_id];
+      console.log("segmentTrailIDs = " + segmentTrailIDs);
+      for (var trailIndex = 0; trailIndex < segmentTrailIDs.length; trailIndex++) {
         // console.log("trailHTML start");
-
-        var trailField = "trail" + j;
-        if (invisLayer.feature.properties[trailField]) {
+        var trail = segmentTrailIDs[trailIndex];
+        console.log("trail = " + trail);
+        console.log("originalTrailData = " + originalTrailData[trail]);
+        //var trailField = "trail" + j;
+        //if (invisLayer.feature.properties[trailField]) {
           var trailPopupLineDiv;
-          if (trailnameInListOfTrails(invisLayer.feature.properties[trailField])) {
+        //if (trailnameInListOfTrails(invisLayer.feature.properties[trailField])) {
             trailPopupLineDiv = "<div class='trail-popup-line trail-popup-line-named' " + 
             "data-steward='" + invisLayer.feature.properties.steward + "' " + 
-            "data-source='" + invisLayer.feature.properties.source + "' " +
-            "data-trailname='" + invisLayer.feature.properties[trailField] + "'> " +
-            invisLayer.feature.properties[trailField] + 
+            "data-source='" + invisLayer.feature.properties.source + "'> " +
+            // "data-trailname='" + originalTrailData[trail].properties.name + "'> " +
+            originalTrailData[trail].properties.name + 
             "<b></b></div>";
             atLeastOne = true;
-          } else {   
-            trailPopupLineDiv = "<div class='trail-popup-line trail-popup-line-unnamed'>" + 
-            invisLayer.feature.properties[trailField] + 
-            "</div>";
-          }
+          // } else {   
+          //   trailPopupLineDiv = "<div class='trail-popup-line trail-popup-line-unnamed'>" + 
+          //   invisLayer.feature.properties[segmentTrailIDs] + 
+          //   "</div>";
+          // }
           popupHTML = popupHTML + trailPopupLineDiv;
-        }
+        
         // console.log("trailHTML end");
 
       }
