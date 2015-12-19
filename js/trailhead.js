@@ -1676,6 +1676,11 @@ function startup() {
   }
 
   function resetDetailPanel() {
+      $('.detailPanel .detailPanelBanner .entranceName').html("");
+      $('.detailPanel .fpccEntranceAddress').html("");
+      $('.detailPanel .fpccAmenities').html("");
+      $('.detailPanel .fpccDirections a').attr("href", "").attr("target", "_blank");
+
       $('.detailPanel .detailPanelPicture').attr("src", "img/ImagePlaceholder.jpg");
       $('.detailPanel .detailPanelPictureCredits').remove();
       $('.detailPanel .detailConditionsDescription').html("");
