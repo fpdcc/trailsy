@@ -2265,7 +2265,7 @@ max-width: 75%;    font-family: Helvetica, Arial, sans-serif;
   top: 0;
   left: 0;
   z-index: 2000;
-  background: url('http://www.tothetrails.com/img/overlay.png') repeat 0 0;
+  /*background: url('http://www.tothetrails.com/img/overlay.png') repeat 0 0;*/
   display: none;
   text-align: center;
 }

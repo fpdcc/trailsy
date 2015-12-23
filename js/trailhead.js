@@ -24,7 +24,8 @@ function startup() {
 
   var TOUCH = $('html').hasClass('touch');
   // Map generated in CfA Account
-  var MAPBOX_MAP_ID = "codeforamerica.map-j35lxf9d";
+  //var MAPBOX_MAP_ID = "codeforamerica.map-j35lxf9d";
+  var MAPBOX_MAP_ID = "mapbox.streets";
   var MAPCENTERPOINT = {
     lat: 42.0723,
     lng: -87.87
@@ -37,8 +38,8 @@ function startup() {
   // and reassign API_HOST if necessary
   // var API_HOST = window.location.protocol + "//" + window.location.host;
   //var API_HOST = "http://fpcc-staging.smartchicagoapps.org/";
-  //var API_HOST = "http://52.7.102.166"
-  var API_HOST = "http://localhost:3000";
+  var API_HOST = "http://52.7.102.166"
+  //var API_HOST = "http://localhost:3000";
   //var API_HOST = "http://trailsy.herokuapp.com";
   // var API_HOST = "http://trailsyserver-dev.herokuapp.com";
   // var API_HOST = "http://trailsyserver-prod.herokuapp.com";
@@ -697,7 +698,15 @@ function startup() {
       zoomControl: false,
       scrollWheelZoom: false
     });
-    L.tileLayer.provider('MapBox.' + MAPBOX_MAP_ID).addTo(map);
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+      '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+      'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox.run-bike-hike',
+    accessToken: 'sk.eyJ1Ijoic21hcnRjaGljYWdvY29sbGFib3JhdGl2ZSIsImEiOiJjaWlqOGU2dmMwMTA2dWNrcHM0d21qNDhzIn0.2twD0eBu4UKHu-3JZ0vt0w'
+  }).addTo(map);
+    // L.tileLayer.provider('MapBox.' + MAPBOX_MAP_ID).addTo(map);
     map.setView(startingMapLocation, startingMapZoom);
     map.fitBounds(map.getBounds(), {
       paddingTopLeft: centerOffset
