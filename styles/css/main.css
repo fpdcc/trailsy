@@ -55,22 +55,22 @@
 /* Typography */
 @font-face {
   font-family: 'mission_gothicbold';
-  src: url('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_bold-webfont.eot');
-  src: url('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_bold-webfont.eot?#iefix') format('embedded-opentype'), url('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_bold-webfont.woff') format('woff'), url('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_bold-webfont.ttf') format('truetype'), url('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_bold-webfont.svg#/mission_gothicbold') format('svg');
+  src: url('styles/css/fonts/missiongothic/mission_gothic_bold-webfont.eot');
+  src: url('styles/css/fonts/missiongothic/mission_gothic_bold-webfont.eot?#iefix') format('embedded-opentype'), url('styles/css/fonts/missiongothic/mission_gothic_bold-webfont.woff') format('woff'), url('styles/css/fonts/missiongothic/mission_gothic_bold-webfont.ttf') format('truetype'), url('styles/css/fonts/missiongothic/mission_gothic_bold-webfont.svg#/mission_gothicbold') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'mission_gothiclight';
-  src: url('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_light-webfont.eot');
-  src: url('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_light-webfont.eot?#iefix') format('embedded-opentype'), url('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_light-webfont.woff') format('woff'), url('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_light-webfont.ttf') format('truetype'), url('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_light-webfont.svg#/mission_gothiclight') format('svg');
+  src: url('styles/css/fonts/missiongothic/mission_gothic_light-webfont.eot');
+  src: url('styles/css/fonts/missiongothic/mission_gothic_light-webfont.eot?#iefix') format('embedded-opentype'), url('styles/css/fonts/missiongothic/mission_gothic_light-webfont.woff') format('woff'), url('styles/css/fonts/missiongothic/mission_gothic_light-webfont.ttf') format('truetype'), url('styles/css/fonts/missiongothic/mission_gothic_light-webfont.svg#/mission_gothiclight') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: '/mission_gothicregular';
-  src: local('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_regular-webfont.eot');
-  src: url('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_regular-webfont.eot?#iefix') format('embedded-opentype'), url('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_regular-webfont.woff') format('woff'), url('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_regular-webfont.ttf') format('truetype'), url('http://www.tothetrails.com/fonts/missiongothic/mission_gothic_regular-webfont.svg#/mission_gothicregular') format('svg');
+  src: local('styles/css/fonts/missiongothic/mission_gothic_regular-webfont.eot');
+  src: url('styles/css/fonts/missiongothic/mission_gothic_regular-webfont.eot?#iefix') format('embedded-opentype'), url('styles/css/fonts/missiongothic/mission_gothic_regular-webfont.woff') format('woff'), url('styles/css/fonts/missiongothic/mission_gothic_regular-webfont.ttf') format('truetype'), url('styles/css/fonts/missiongothic/mission_gothic_regular-webfont.svg#/mission_gothicregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -176,7 +176,7 @@ margin-left: 0.25em;
     line-height: 3em;
     cursor: pointer;
     color: #7E9137;
-    background: url("http://www.tothetrails.com/img/target-white.png") center center no-repeat;
+    background: url("img/target-white.png") center center no-repeat;
   }
   .title-row header .navbar-inner .geolocateBox a:hover {
     background-color: rgba(255, 255, 255, 0.25);
@@ -288,7 +288,7 @@ margin-left: 0.25em;
     background-size: 100% 100%;
   }
   .searchbar .search-submit:hover {
-    background: #674B2A url(http://www.tothetrails.com/img/icon_mag_white.png) no-repeat;
+    background: #674B2A url(img/icon_mag_white.png) no-repeat;
     background-size: 100% 100%;
   }
 }
@@ -1058,7 +1058,7 @@ margin:0 2em 0 0;
     height: auto;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 input[type=checkbox].hikeFilter:checked + div.hikeFilter {
-    background: #674B2A url(http://www.tothetrails.com/img/mobile_hike_white.png) no-repeat;
+    background: #674B2A url(img/mobile_hike_white.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 div.hikeFilter {
@@ -1080,7 +1080,7 @@ margin:0 2em 0 0;
     height: auto;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 input[type=checkbox].cycleFilter:checked + div.cycleFilter {
-    background: #674B2A url(http://www.tothetrails.com/img/mobile_cycle_white.png) no-repeat;
+    background: #674B2A url(img/mobile_cycle_white.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 div.cycleFilter {
@@ -1101,7 +1101,7 @@ margin:0 2em 0 0;
     height: auto;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 input[type=checkbox].handicapFilter:checked + div.handicapFilter {
-    background: #674B2A url(http://www.tothetrails.com/img/mobile_handicap_white.png) no-repeat;
+    background: #674B2A url(img/mobile_handicap_white.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 div.handicapFilter {
@@ -1122,7 +1122,7 @@ margin:0 2em 0 0;
     height: auto;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 input[type=checkbox].horseFilter:checked + div.horseFilter {
-    background: #674B2A url(http://www.tothetrails.com/img/mobile_horse_white.png) no-repeat;
+    background: #674B2A url(img/mobile_horse_white.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 div.horseFilter {
@@ -1143,7 +1143,7 @@ margin:0 2em 0 0;
     height: auto;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 input[type=checkbox].xcountryskiFilter:checked + div.xcountryskiFilter {
-    background: #674B2A url(http://www.tothetrails.com/img/mobile_xcountryski_white.png) no-repeat;
+    background: #674B2A url(img/mobile_xcountryski_white.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 div.xcountryskiFilter {
@@ -1164,11 +1164,11 @@ margin:0 2em 0 0;
     height: auto;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 input[type=checkbox].mtnbikeFilter:checked + div.mtnbikeFilter {
-    background: #e3e3e1 url(http://www.tothetrails.com/img/mobile_mtnbike_gray.png) no-repeat;
+    background: #e3e3e1 url(img/mobile_mtnbike_gray.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 div.mtnbikeFilter {
-    background: #e3e3e1 url(http://www.tothetrails.com/img/mobile_mtnbike_gray.png) no-repeat;
+    background: #e3e3e1 url(img/mobile_mtnbike_gray.png) no-repeat;
     background-size: 100% 100%;
     width: 100%;
     height: 100%;
@@ -1176,7 +1176,7 @@ margin:0 2em 0 0;
     transition: all 0.25s ease;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 div.mtnbikeFilter:hover {
-    background: #e3e3e1 url(http://www.tothetrails.com/img/mobile_mtnbike_gray.png) no-repeat;
+    background: #e3e3e1 url(img/mobile_mtnbike_gray.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .activityRow .trailUse .visuallyhidden_3 div {
@@ -1292,7 +1292,7 @@ text-decoration: underline;
     height: auto;
   }
   .trailFilters .trailUse .visuallyhidden_3 input[type=checkbox].hikeFilter:checked + div.hikeFilter {
-    background: #674B2A url(http://www.tothetrails.com/img/icon_hike_white2.png) no-repeat;
+    background: #674B2A url(img/icon_hike_white2.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .trailUse .visuallyhidden_3 div.hikeFilter {
@@ -1313,7 +1313,7 @@ text-decoration: underline;
     height: auto;
   }
   .trailFilters .trailUse .visuallyhidden_3 input[type=checkbox].cycleFilter:checked + div.cycleFilter {
-    background: #674B2A url(http://www.tothetrails.com/img/icon_cycle_white.png) no-repeat;
+    background: #674B2A url(img/icon_cycle_white.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .trailUse .visuallyhidden_3 div.cycleFilter {
@@ -1334,7 +1334,7 @@ text-decoration: underline;
     height: auto;
   }
   .trailFilters .trailUse .visuallyhidden_3 input[type=checkbox].handicapFilter:checked + div.handicapFilter {
-    background: #674B2A url(http://www.tothetrails.com/img/icon_handicap_white.png) no-repeat;
+    background: #674B2A url(img/icon_handicap_white.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .trailUse .visuallyhidden_3 div.handicapFilter {
@@ -1355,7 +1355,7 @@ text-decoration: underline;
     height: auto;
   }
   .trailFilters .trailUse .visuallyhidden_3 input[type=checkbox].horseFilter:checked + div.horseFilter {
-    background: #674B2A url(http://www.tothetrails.com/img/icon_horse_white.png) no-repeat;
+    background: #674B2A url(img/icon_horse_white.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .trailUse .visuallyhidden_3 div.horseFilter {
@@ -1376,7 +1376,7 @@ text-decoration: underline;
     height: auto;
   }
   .trailFilters .trailUse .visuallyhidden_3 input[type=checkbox].xcountryskiFilter:checked + div.xcountryskiFilter {
-    background: #674B2A url(http://www.tothetrails.com/img/icon_xcountryski_white.png) no-repeat;
+    background: #674B2A url(img/icon_xcountryski_white.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .trailUse .visuallyhidden_3 div.xcountryskiFilter {
@@ -1398,11 +1398,11 @@ text-decoration: underline;
     cursor: pointer;
   }
   .trailFilters .trailUse .visuallyhidden_3 input[type=checkbox].mtnbikeFilter:checked + div.mtnbikeFilter {
-    background: #e3e3e1 url(http://www.tothetrails.com/img/icon_mtnbike_gray.png) no-repeat;
+    background: #e3e3e1 url(img/icon_mtnbike_gray.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters .trailUse .visuallyhidden_3 div.mtnbikeFilter {
-    background: #e3e3e1 url(http://www.tothetrails.com/img/icon_mtnbike_gray.png) no-repeat;
+    background: #e3e3e1 url(img/icon_mtnbike_gray.png) no-repeat;
     background-size: 100% 100%;
     width: 100%;
     height: 100%;
@@ -1410,7 +1410,7 @@ text-decoration: underline;
     transition: all 0.25s ease;
   }
   .trailFilters .trailUse .visuallyhidden_3 div.mtnbikeFilter:hover {
-    background: #e3e3e1 url(http://www.tothetrails.com/img/icon_mtnbike_gray.png) no-repeat;
+    background: #e3e3e1 url(img/icon_mtnbike_gray.png) no-repeat;
     background-size: 100% 100%;
   }
   .trailFilters ul:after {
@@ -2220,7 +2220,7 @@ max-width: 75%;    font-family: Helvetica, Arial, sans-serif;
     /*margin-left: -8px;*/
   
     display: block;
-    background: url(http://www.tothetrails.com/img/crosshair.gif);
+    background: url(img/crosshair.gif);
     background-position: center center;
     background-repeat: no-repeat;
     z-index: 1;
@@ -2256,7 +2256,7 @@ max-width: 75%;    font-family: Helvetica, Arial, sans-serif;
   background-color: #bbbdbf;
 }
 .offsetZoomControl .offsetGeolocate {
-  background: url("http://www.tothetrails.com/img/target-black.png") #ffffff center center no-repeat;
+  background: url("img/target-black.png") #ffffff center center no-repeat;
 }
 .overlay {
   width: 100%;
@@ -2265,7 +2265,7 @@ max-width: 75%;    font-family: Helvetica, Arial, sans-serif;
   top: 0;
   left: 0;
   z-index: 2000;
-  /*background: url('http://www.tothetrails.com/img/overlay.png') repeat 0 0;*/
+  /*background: url('img/overlay.png') repeat 0 0;*/
   display: none;
   text-align: center;
 }

@@ -37,8 +37,8 @@ function startup() {
   // test to check whether we're using the Heroky dev app or the Heroku production app
   // and reassign API_HOST if necessary
   // var API_HOST = window.location.protocol + "//" + window.location.host;
-  //var API_HOST = "http://fpcc-staging.smartchicagoapps.org/";
-  var API_HOST = "http://52.7.102.166"
+  var API_HOST = "http://fpcc-staging.smartchicagoapps.org/";
+  //var API_HOST = "http://52.7.102.166"
   //var API_HOST = "http://localhost:3000";
   //var API_HOST = "http://trailsy.herokuapp.com";
   // var API_HOST = "http://trailsyserver-dev.herokuapp.com";
@@ -239,7 +239,7 @@ function startup() {
   // =====================================================================//
   // Kick things off
 
-  showOverlay();
+  // showOverlay();
 
   if ($("html").hasClass("lt-ie8")) {
      return;  //abort, dont load
