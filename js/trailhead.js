@@ -1417,6 +1417,8 @@ function startup() {
           var trailNameHTML = "<div class='popupTrailNames'>" + trail.properties.name + "</div><b></b>";
           var popupTrailDivHTML = popupTrailDivHTMLStart + statusHTML + trailNameHTML + "</div>";
           popupContentMainDivHTML = popupContentMainDivHTML + popupTrailDivHTML;
+
+          //var detailPanelContentMainDivHTML = 
         }
       }
       popupContentMainDivHTML = popupContentMainDivHTML + "</div>";
@@ -1688,6 +1690,7 @@ function startup() {
       $('.detailPanel .detailPanelBanner .entranceName').html("");
       $('.detailPanel .fpccEntranceAddress').html("");
       $('.detailPanel .fpccAmenities').html("");
+      $('.detailPanel .fpccTrails').html("");
       $('.detailPanel .fpccDirections a').attr("href", "").attr("target", "_blank");
 
       $('.detailPanel .detailPanelPicture').attr("src", "img/ImagePlaceholder.jpg");
@@ -1918,7 +1921,32 @@ function startup() {
       $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-scenic-overlook'><use xlink:href='icons/defs.svg#icon-scenic-overlook'></use></svg> <span class='fpccAmenityTitle'>Scenic Overlook</span></div>");
     }
 
-    
+    if (trail != null) {
+      // $('.detailPanel .fpccTrails').append("<div class='fpccTrail'>");
+      $('.detailPanel .fpccTrails').append("<svg class='icon icon-trail-marker'>");
+      $('.detailPanel .fpccTrails').append("<use xlink:href='icons/defs.svg#icon-trail-marker'></use></svg>");
+      $('.detailPanel .fpccTrails').append("<div class='fpccTrailHeader'><span class='fpccLabel fpccBlock'>Trail System Access</span>");
+      $('.detailPanel .fpccTrails').append("<span class='fpccTrailName'>");
+      $('.detailPanel .fpccTrails').append( trail.properties.name );
+      $('.detailPanel .fpccTrails').append("</span></div>");
+      $('.detailPanel .fpccTrails').append('<div class="fpccDescription">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>');
+      $('.detailPanel .fpccTrails').append('<div class="fpccTrailSegment">');
+      $('.detailPanel .fpccTrails').append('<div class="fpccSegmentOverview fpccYellow clearfix">');
+      $('.detailPanel .fpccTrails').append('<span class="fpccSegmentName">Yellow Trail</span><span class="fpccTrailUse">');
+      $('.detailPanel .fpccTrails').append('<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>');
+      $('.detailPanel .fpccTrails').append('<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>');
+      $('.detailPanel .fpccTrails').append('<svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg>');
+      $('.detailPanel .fpccTrails').append('<svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg>');
+      $('.detailPanel .fpccTrails').append('</span></div>');
+      $('.detailPanel .fpccTrails').append('<div class="fpccSegmentDetails clearfix">');
+      $('.detailPanel .fpccTrails').append('<span class="fpccLabel fpccLeft">Length<span>17.2 mi</span></span>');
+      $('.detailPanel .fpccTrails').append('<span class="fpccLabel fpccRight">Surface<span>unpaved</span></span></div></div>');
+
+
+
+
+      // $('.detailPanel .fpccTrails').append("</div>");
+    }
 
     // $('.detailPanel .trailheadName').html(trailhead.properties.name + " Trailhead");
     // $('.detailPanel .trailheadDistance').html(metersToMiles(trailhead.properties.distance) + " miles away");
@@ -2255,7 +2283,7 @@ function startup() {
 
     $trailheadPopupContent.find(".trailhead-trailname").removeClass("selected").addClass("not-selected");
     if (highlightedTrailIndex != -1) {
-      if (trailhead.tails) {
+      if (trailhead.trails) {
         var trailID = trailhead.trails[highlightedTrailIndex];
         var selector = '[data-trailid="' + trailID + '"]';
         var $trailnameItem = $trailheadPopupContent.find(selector);
@@ -2416,7 +2444,7 @@ function startup() {
     var trailFeatureArray = [];
     // got trailhead.trails, now get the segment collection for all of them
     // get segment collection for each
-    if (trailhead.tails) {
+    if (trailhead.trails) {
       for (var i = 0; i < trailhead.trails.length; i++) {
         var trailID = trailhead.trails[i];
         var trail = currentTrailData[trailID];
