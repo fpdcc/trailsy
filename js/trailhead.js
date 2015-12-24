@@ -750,7 +750,7 @@ function startup() {
     var callData = {
       loc: location.lat + "," + location.lng,
       type: "GET",
-      path: "/trailheads.json?loc=" + location.lat + "," + location.lng
+      path: "/trailheads.json"
     };
     makeAPICall(callData, function(response) {
       populateOriginalTrailheads(response);
@@ -762,20 +762,20 @@ function startup() {
 
   // get all trailhead info, in order of distance from "location"
 
-  function fetchTrailheads(location, callback) {
-    console.log("fetchTrailheads");
-    var callData = {
-      loc: location.lat + "," + location.lng,
-      type: "GET",
-      path: "/trailheads.json?loc=" + location.lat + "," + location.lng
-    };
-    makeAPICall(callData, function(response) {
-      populateOriginalTrailheads(response);
-      if (typeof callback == "function") {
-        callback(response);
-      }
-    });
-  }
+  // function fetchTrailheads(location, callback) {
+  //   console.log("fetchTrailheads");
+  //   var callData = {
+  //     loc: location.lat + "," + location.lng,
+  //     type: "GET",
+  //     path: "/trailheads.json?loc=" + location.lat + "," + location.lng
+  //   };
+  //   makeAPICall(callData, function(response) {
+  //     populateOriginalTrailheads(response);
+  //     if (typeof callback == "function") {
+  //       callback(response);
+  //     }
+  //   });
+  // }
 
 
 
@@ -1920,7 +1920,9 @@ function startup() {
     if (trailhead.properties.trailacces) {
       $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-scenic-overlook'><use xlink:href='icons/defs.svg#icon-scenic-overlook'></use></svg> <span class='fpccAmenityTitle'>Scenic Overlook</span></div>");
     }
+   
 
+    // FOR REWRITE: Loop through trail_ids to get Trail info
     if (trail != null) {
       // $('.detailPanel .fpccTrails').append("<div class='fpccTrail'>");
       $('.detailPanel .fpccTrails').append("<svg class='icon icon-trail-marker'>");
