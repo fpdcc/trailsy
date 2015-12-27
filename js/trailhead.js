@@ -37,9 +37,9 @@ function startup() {
   // test to check whether we're using the Heroky dev app or the Heroku production app
   // and reassign API_HOST if necessary
   // var API_HOST = window.location.protocol + "//" + window.location.host;
-  var API_HOST = "http://fpcc-staging.smartchicagoapps.org/";
+  // "http://fpcc-staging.smartchicagoapps.org/";
   //var API_HOST = "http://52.7.102.166"
-  //var API_HOST = "http://localhost:3000";
+  var API_HOST = "http://localhost:3000";
   //var API_HOST = "http://trailsy.herokuapp.com";
   // var API_HOST = "http://trailsyserver-dev.herokuapp.com";
   // var API_HOST = "http://trailsyserver-prod.herokuapp.com";
@@ -1929,20 +1929,30 @@ function startup() {
       $('.detailPanel .fpccTrails').append("<use xlink:href='icons/defs.svg#icon-trail-marker'></use></svg>");
       $('.detailPanel .fpccTrails').append("<div class='fpccTrailHeader'><span class='fpccLabel fpccBlock'>Trail System Access</span>");
       $('.detailPanel .fpccTrails').append("<span class='fpccTrailName'>");
-      $('.detailPanel .fpccTrails').append( trail.properties.name );
-      $('.detailPanel .fpccTrails').append("</span></div>");
+      $('.detailPanel .fpccTrails').append( trail.properties.trail_system );
+      $('.detailPanel .fpccTrails').append(" Trail</span></div>");
       $('.detailPanel .fpccTrails').append('<div class="fpccDescription">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>');
       $('.detailPanel .fpccTrails').append('<div class="fpccTrailSegment">');
-      $('.detailPanel .fpccTrails').append('<div class="fpccSegmentOverview fpccYellow clearfix">');
-      $('.detailPanel .fpccTrails').append('<span class="fpccSegmentName">Yellow Trail</span><span class="fpccTrailUse">');
-      $('.detailPanel .fpccTrails').append('<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>');
-      $('.detailPanel .fpccTrails').append('<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>');
-      $('.detailPanel .fpccTrails').append('<svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg>');
-      $('.detailPanel .fpccTrails').append('<svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg>');
+      $('.detailPanel .fpccTrails').append('<div class="fpccSegmentOverview fpcc' + trail.properties.trail_color + ' clearfix">');
+      $('.detailPanel .fpccTrails').append('<span class="fpccSegmentName">');
+      $('.detailPanel .fpccTrails').append(trail.properties.trail_color);
+      $('.detailPanel .fpccTrails').append('</span><span class="fpccTrailUse">');
+      if (trail.properties.hike == 'y') {
+        $('.detailPanel .fpccTrails').append('<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>');
+      }
+      if (trail.properties.equestrian == 'y') {
+        $('.detailPanel .fpccTrails').append('<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>');
+      }
+      if (trail.properties.roadbike == 'y') {
+        $('.detailPanel .fpccTrails').append('<svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg>');
+      }
+      if (trail.properties.xcntryski == 'y') {
+        $('.detailPanel .fpccTrails').append('<svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg>');
+      }
       $('.detailPanel .fpccTrails').append('</span></div>');
       $('.detailPanel .fpccTrails').append('<div class="fpccSegmentDetails clearfix">');
-      $('.detailPanel .fpccTrails').append('<span class="fpccLabel fpccLeft">Length<span>17.2 mi</span></span>');
-      $('.detailPanel .fpccTrails').append('<span class="fpccLabel fpccRight">Surface<span>unpaved</span></span></div></div>');
+      $('.detailPanel .fpccTrails').append('<span class="fpccLabel fpccLeft">Length<span> '+ trail.properties.length + 'mi</span></span>');
+      $('.detailPanel .fpccTrails').append('<span class="fpccLabel fpccRight">Surface<span> ' + trail.properties.trlsurface + '</span></span></div></div>');
 
 
 
