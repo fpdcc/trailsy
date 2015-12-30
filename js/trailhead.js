@@ -88,74 +88,20 @@ function startup() {
 
   var originalTrailData = {}; // all of the trails metadata (from traildata table), with trail ID as key
   // for yes/no features, check for first letter "y" or "n".
-  // { *id*: { geometry: point(0,0), unused for now  
-  //                  properties: { id: *uniqueID* (same as key),
-  //                                accessible: *disabled access. yes/no*,
-  //                                dogs: *dog access. yes/no*,
-  //                                equestrian: *horse access. yes/no*,
-  //                                hike: *hiking access. yes/no*,
-  //                                mtnbike: *mountain bike access. yes/no*,
-  //                                roadbike: *street bike access. yes/no*,
-  //                                xcntryski: *cross-country skiing access. yes/no*
-  //                                conditions: *text field of qualifications to above access/use fields*,
-  //                                description: *text description of trail*,
-  //                                length: *length of trail in miles*,
-  //                                map_url: *URL of trail map*,
-  //                                name: *name of trail*,
-  //                                source: *whose data this info came from (abbreviation)*,
-  //                                source_fullname: *full name of source org*,                
-  //                                source_phone: *phone for source org*,
-  //                                source_url: *URL of source org*,
-  //                                status: *trail status. 0=open; 1=notice/warning; 2=closed*,
-  //                                statustext: *trail status text. only displayed if status != 0
-  //                                steward: *org to contact for more information (abbrev)*,
-  //                                steward_fullname: *full name of steward org*,
-  //                                steward_phone: *phone for steward org*,
-  //                                steward_url: *URL of steward org*,
-  //                                trlsurface: *not currently used*
-  //                              }
-  //                }
-  // }
 
   var originalTrailheads = []; // all trailheads (from trailsegments)
+  var originalActivities = [];
   // for yes/no features, check for first letter "y" or "n".
-  //
-  // [ {  marker: *Leaflet marker*,
-  //      trails: *[array of matched trail IDs],
-  //      popupContent: *HTML of Leaflet popup*,
-  //      properties: { id: *uniqueID*,
-  //                    drinkwater: *water available at this trailhead. yes/no*
-  //                    distance: *from current location in meters*,
-  //                    kiosk: *presence of informational kiosk. yes/no*,
-  //                    name: *name*,
-  //                    parking: *availability of parking. yes/no*,
-  //                    restrooms: *availability of restrooms. yes/no*,
-  //                    source: *whose data this info came from (abbreviation)*,
-  //                    source_fullname: *full name of source org*,
-  //                    source_phone: *phone number of source org*,
-  //                    source_url: *URL of source org*,
-  //                    steward: *org to contact for more information (abbrev)*,
-  //                    steward_fullname: *full name of steward org*,
-  //                    steward_phone: *phone number of steward org*,
-  //                    steward_url: *URL of steward org*,
-  //                    trail1: *trail at this trailhead*,
-  //                    trail2: *trail at this trailhead*,
-  //                    trail3: *trail at this trailhead*,
-  //                    trail4: *trail at this trailhead*,
-  //                    trail5: *trail at this trailhead*,
-  //                    trail6: *trail at this trailhead*,                    
-  //                    updated_at: *update time*,
-  //                    created_at: *creation time*
-  //                  }, 
-  //   }[, ...}]
-  // ]
+  
   var trailSegments = [];
   var currentMultiTrailLayer = {}; // We have to know if a trail layer is already being displayed, so we can remove it
   var currentTrailLayers = [];
   var currentHighlightedTrailLayer = {};
+  var currentActivities = [];
   var currentUserLocation = {};
   var anchorLocation = {};
   var currentTrailheadLayerGroup;
+  var currentActivityLayerGroup;
   var currentFilters = {
     lengthFilter: [],
     activityFilter: [],
@@ -182,6 +128,7 @@ function startup() {
   var trailheadsFetched = false;
   var traildataFetched = false;
   var trailsegmentsFetched = false;
+  var activitiesFetched = false;
   var allInvisibleSegmentsArray = [];
   var allVisibleSegmentsArray = [];
   // Trailhead Variables
@@ -321,6 +268,7 @@ function startup() {
       fetchTrailheads(currentUserLocation, function() { trailheadsFetched = true; });
       fetchTraildata(function() { traildataFetched = true; });
       fetchTrailsegments(function() { trailsegmentsFetched = true; });
+      fetchActivities(function() { activitiesFetched = true; });
       if (USE_LOCAL) {
         setTimeout(waitForTrailSegments, 0);
         setTimeout(waitForDataAndSegments, 0);
@@ -760,6 +708,56 @@ function startup() {
     });
   }
 
+  // =====================================================================//
+  // Getting activity data
+  
+  function fetchActivities(callback) {
+    console.log("fetchActivities");
+    var callData = {
+      type: "GET",
+      path: "/activities.json"
+    };
+    makeAPICall(callData, function(response) {
+      populateOriginalActivities(response);
+      if (typeof callback == "function") {
+        callback(response);
+      }
+    });
+  }
+
+  function populateOriginalActivities(ActivityDataGeoJSON) {
+    console.log("populateOriginalActivities");
+    originalActivities = [];
+    for (var i = 0; i < ActivityDataGeoJSON.features.length; i++) {
+      var currentFeature = ActivityDataGeoJSON.features[i];
+      var currentFeatureLatLng = new L.LatLng(currentFeature.geometry.coordinates[1], currentFeature.geometry.coordinates[0]);
+      // var newMarker = L.marker(currentFeatureLatLng, ({
+      //   icon: trailheadIcon1
+      // }));
+     var newMarker = new L.CircleMarker(currentFeatureLatLng, {
+        color: "#0000FF",
+        fillOpacity: 0.5,
+        opacity: 0.8
+      }).setRadius(MARKER_RADIUS);
+     // if curentFeature.properties.activity_type == "Fishing Lake" {
+     //    newMarker = L.marker(currentFeatureLatLng, ({
+     //      icon: 
+     //    }));
+     // }
+      var activity = {
+        properties: currentFeature.properties,
+        geometry: currentFeature.geometry,
+        marker: newMarker,
+        popupContent: ""
+      };
+      //setTrailheadEventHandlers(trailhead);
+      originalActivities.push(activity);
+      //console.log("[populateOriginalTrailheads] trails " + trailhead.trails);
+    }
+    //console.log("[populateOriginalTrailheads] originalTrailheads count " + originalTrailheads.length );
+  }
+
+
   // get all trailhead info, in order of distance from "location"
 
   // function fetchTrailheads(location, callback) {
@@ -831,6 +829,7 @@ function startup() {
   function trailheadMarkerClick(id) {
     console.log("trailheadMarkerClick");
     highlightTrailhead(id, 0);
+    showActivities(id);
     var trailhead = getTrailheadById(id);
     if (trailhead.trails) {
       showTrailDetails(originalTrailData[trailhead.trails[0]], trailhead);
@@ -838,6 +837,27 @@ function startup() {
       showTrailDetails(null, trailhead);
     }
   }
+
+  function showActivities(id) {
+    console.log("[showActivties] id= " + id);
+    var currentActivityMarkerArray = [];
+    for (var i = 0; i < originalActivities.length; i++) {
+      console.log("[showActivties] originalActivities.trailhead_id is " + originalActivities[i].properties.trailhead_id);
+      if (originalActivities[i].properties.trailhead_id == id) {
+        console.log("[showActivties] originalActivities.trailhead_id= " + id);
+        currentActivityMarkerArray.push(originalActivities[i].marker);
+      } else {
+        console.log("[showActivties] originalActivities.trailhead_id <> " + id);
+      }
+    }
+    if (currentActivityLayerGroup) {
+      map.removeLayer(currentActivityLayerGroup);
+    }
+    currentActivityLayerGroup = L.layerGroup(currentActivityMarkerArray);
+    map.addLayer(currentActivityLayerGroup);
+    console.log("showActivities end");
+  }
+
 
   function popupCloseHandler(e) {
     currentTrailPopup = null;
@@ -1447,6 +1467,7 @@ function startup() {
     map.addLayer(currentTrailheadLayerGroup);
     console.log("mapActiveTrailheads end");
   }
+
 
   // given trailheads, now populated with matching trail names,
   // make the trail/trailhead combination divs
@@ -2356,7 +2377,10 @@ function startup() {
     setTrailheadEventHandlers(currentTrailhead);
 
     getAllTrailPathsForTrailhead(trailhead, highlightedTrailIndex);
+    //getAllActivitiesForTrailhead(trailhead);
     highlightTrailInPopup(trailhead, highlightedTrailIndex);
+
+
     var popup = new L.Popup({
       offset: [0, -12],
       autoPanPadding: [10, 10],
@@ -2625,6 +2649,7 @@ function startup() {
     console.log("zoomToLayer");
     // figure out what zoom is required to display the entire trail layer
     var layerBoundsZoom = map.getBoundsZoom(layer.getBounds());
+    var currentZoom = map.getZoom();
     // console.log(layer.getLayers().length);
 
     // var layerBoundsZoom = map.getZoom();
