@@ -664,7 +664,7 @@ function startup() {
     map.on('dragend', unhideUiOnMapDrag);
 
     map.on("zoomend", function(e) {
-      console.log("zoomend start");
+      console.log("zoomend start " + map.getZoom());
       if (SHOW_ALL_TRAILS && allSegmentLayer) {
         if (map.getZoom() >= SECONDARY_TRAIL_ZOOM && !(map.hasLayer(allSegmentLayer))) {
           // console.log(allSegmentLayer);
@@ -681,7 +681,7 @@ function startup() {
           map.removeLayer(allSegmentLayer);
         }
       }
-      console.log("zoomend end");
+      console.log("zoomend end " + map.getZoom());
     });
     map.on('popupclose', popupCloseHandler);
     map.on('popupopen', popupOpenHandler);
@@ -842,12 +842,12 @@ function startup() {
     console.log("[showActivties] id= " + id);
     var currentActivityMarkerArray = [];
     for (var i = 0; i < originalActivities.length; i++) {
-      console.log("[showActivties] originalActivities.trailhead_id is " + originalActivities[i].properties.trailhead_id);
+      //console.log("[showActivties] originalActivities.trailhead_id is " + originalActivities[i].properties.trailhead_id);
       if (originalActivities[i].properties.trailhead_id == id) {
-        console.log("[showActivties] originalActivities.trailhead_id= " + id);
+        //console.log("[showActivties] originalActivities.trailhead_id= " + id);
         currentActivityMarkerArray.push(originalActivities[i].marker);
       } else {
-        console.log("[showActivties] originalActivities.trailhead_id <> " + id);
+        //console.log("[showActivties] originalActivities.trailhead_id <> " + id);
       }
     }
     if (currentActivityLayerGroup) {
@@ -2650,31 +2650,34 @@ function startup() {
     // figure out what zoom is required to display the entire trail layer
     var layerBoundsZoom = map.getBoundsZoom(layer.getBounds());
     var currentZoom = map.getZoom();
+    console.log("zoomToLayer - currentZoom = " + currentZoom);
+    console.log("zoomToLayer - layerBoundsZoom = " + layerBoundsZoom);
     // console.log(layer.getLayers().length);
 
     // var layerBoundsZoom = map.getZoom();
     // console.log(["layerBoundsZoom:", layerBoundsZoom]);
+    if (currentZoom < layerBoundsZoom) {
+      // if the entire trail layer will fit in a reasonable zoom full-screen, 
+      // use fitBounds to place the entire layer onscreen
+      if (!SMALL && layerBoundsZoom <= MAX_ZOOM && layerBoundsZoom >= MIN_ZOOM) {
+        map.fitBounds(layer.getBounds(), {
+          paddingTopLeft: centerOffset
+        });
+      }
 
-    // if the entire trail layer will fit in a reasonable zoom full-screen, 
-    // use fitBounds to place the entire layer onscreen
-    if (!SMALL && layerBoundsZoom <= MAX_ZOOM && layerBoundsZoom >= MIN_ZOOM) {
-      map.fitBounds(layer.getBounds(), {
-        paddingTopLeft: centerOffset
-      });
-    }
-
-    // otherwise, center on trailhead, with offset, and use MAX_ZOOM or MIN_ZOOM
-    // with setView
-    else {
-      var newZoom = layerBoundsZoom > MAX_ZOOM ? MAX_ZOOM : layerBoundsZoom;
-      newZoom = newZoom < MIN_ZOOM ? MIN_ZOOM : newZoom;
-      // setTimeout(function() {
-        var originalLatLng = currentTrailhead.marker.getLatLng();
-        var projected = map.project(originalLatLng, newZoom);
-        var offsetProjected = projected.subtract(centerOffset.divideBy(2));
-        var newLatLng = map.unproject(offsetProjected, newZoom);
-        map.setView(newLatLng, newZoom);
-      // }, 0);
+      // otherwise, center on trailhead, with offset, and use MAX_ZOOM or MIN_ZOOM
+      // with setView
+      else {
+        var newZoom = layerBoundsZoom > MAX_ZOOM ? MAX_ZOOM : layerBoundsZoom;
+        newZoom = newZoom < MIN_ZOOM ? MIN_ZOOM : newZoom;
+        // setTimeout(function() {
+          var originalLatLng = currentTrailhead.marker.getLatLng();
+          var projected = map.project(originalLatLng, newZoom);
+          var offsetProjected = projected.subtract(centerOffset.divideBy(2));
+          var newLatLng = map.unproject(offsetProjected, newZoom);
+          map.setView(newLatLng, newZoom);
+        // }, 0);
+      }
     }
     console.log("zoomToLayer end");
   }
