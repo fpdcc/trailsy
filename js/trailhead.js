@@ -845,6 +845,11 @@ function startup() {
       //console.log("[showActivties] originalActivities.trailhead_id is " + originalActivities[i].properties.trailhead_id);
       if (originalActivities[i].properties.trailhead_id == id) {
         //console.log("[showActivties] originalActivities.trailhead_id= " + id);
+        originalActivities[i].marker.on("click", function(trailheadID) {
+          return function() {
+            trailheadMarkerClick(trailheadID);
+          };
+        }(originalActivities[i].properties.trailhead_id));
         currentActivityMarkerArray.push(originalActivities[i].marker);
       } else {
         //console.log("[showActivties] originalActivities.trailhead_id <> " + id);
