@@ -37,9 +37,9 @@ function startup() {
   // test to check whether we're using the Heroky dev app or the Heroku production app
   // and reassign API_HOST if necessary
   // var API_HOST = window.location.protocol + "//" + window.location.host;
-  // "http://fpcc-staging.smartchicagoapps.org/";
+  var API_HOST = "http://fpcc-staging.smartchicagoapps.org";
   //var API_HOST = "http://52.7.102.166"
-  var API_HOST = "http://localhost:3000";
+  //var API_HOST = "http://localhost:3000";
   //var API_HOST = "http://trailsy.herokuapp.com";
   // var API_HOST = "http://trailsyserver-dev.herokuapp.com";
   // var API_HOST = "http://trailsyserver-prod.herokuapp.com";
@@ -147,9 +147,9 @@ function startup() {
   });
   var trailheadIcon1 = L.icon(trailheadIcon1Options);
   var trailheadIcon2Options = $.extend(trailheadIconOptions, {
-    iconUrl: 'img/icon_trailhead_active.png'
+    className: 'icon icon-sign'
   });
-  var trailheadIcon2 = L.icon(trailheadIcon2Options);
+  var trailheadIcon2 = L.divIcon(trailheadIcon2Options);
 
 
   // =====================================================================//
@@ -1951,6 +1951,7 @@ function startup() {
     // FOR REWRITE: Loop through trail_ids to get Trail info
     if (trail != null) {
       // $('.detailPanel .fpccTrails').append("<div class='fpccTrail'>");
+      //var trailname = trail.properties.name;
       $('.detailPanel .fpccTrails').append("<svg class='icon icon-trail-marker'>");
       $('.detailPanel .fpccTrails').append("<use xlink:href='icons/defs.svg#icon-trail-marker'></use></svg>");
       $('.detailPanel .fpccTrails').append("<div class='fpccTrailHeader'><span class='fpccLabel fpccBlock'>Trail System Access</span>");
