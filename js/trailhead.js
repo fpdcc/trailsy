@@ -1620,9 +1620,10 @@ function startup() {
 
   function openDetailPanel() {
     console.log("openDetailPanel");
+    $('.accordion').hide();
     $('.detailPanel').show();
     if (!SMALL) {
-      $('.accordion').hide();
+      //$('.accordion').hide();
     }
     if (SMALL) {
       if ($(".slideDrawer").hasClass("openDrawer")) {
@@ -2225,7 +2226,7 @@ function startup() {
     console.log("openAboutPage");
     $(".aboutPage").show();
     if (!SMALL) {
-      $('.accordion').hide();
+      //$('.accordion').hide();
     }
   }
 
