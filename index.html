@@ -5,8 +5,11 @@
   <title>Forest Preserves of Cook County Mapping Prototype</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <link rel="stylesheet" href="styles/css/leaflet.css"/>
-  <!-- <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" /> -->
-  <script src="js/jquery-1.10.2.min.js"></script>
+  <!-- <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" /> 
+  <script src="js/jquery-1.10.2.min.js"></script>-->
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+  <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
      <!--[if lte IE 8]>
      <link rel="stylesheet" href="styles/css/leaflet.ie.css" />
      <![endif]-->
@@ -76,52 +79,65 @@
               <!-- First Accordion Panel (No Title) -->
               <div class="panel-container list-reset" tabindex="1">
                 <a class="aboutLink" href="#">ABOUT</a>
-                <h4 class="trigger1 searchHeader panel-title active" aria-hidden="true">Explore trails using the map or narrow your search using these filters.</h4>
-                <div class="panel content list-reset" aria-expanded="false">
-                  <div class="searchbar">
-                    <input data-filter="searchFilter" placeholder="search trail name or keyword" class="search-key">
-                    <div class="search-submit"></div>
+                  <div class="fpccUnit fpccSearch">
+       
+
+                  <div role="main" class="ui-content">
+
+                <label for="select-choice-0" class="select hidden">Filter by:</label>
+                <select name="select-choice-0" id="select-choice-0" multiple="multiple" data-native-menu="false">
+                <option data-placeholder="true">Filter: Activity / Amenity</option>
+                <optgroup label="Popular">
+                <option value="hiking">Hiking/Walking</option>
+                <option value="biking">Biking</option>
+                <option value="picnic">Picnic/Event Space</option>
+                <option value="camping">Camping</option>
+                <option value="camping">Nature Center</option>
+                <option value="leash-dog">Dog Friendly Trails (On-leash)</option>
+                <option value="off-leash-dog">Off-Leash Dog Areas</option>
+                </optgroup>
+                <optgroup label="Everything">
+                <option value="">ADA Restroom</option>
+                <option value="">Aquatic Center</option>
+                <option value="">Bicycling</option>
+                <option value="">Bike Rental</option>
+                <option value="">Birding Hotspot</option>
+                <option value="">Boat Launch</option>
+                <option value="">Boat Rental</option>
+                <option value="">Campground</option>
+                <option value="">Canoe Landing</option>
+                <option value="">Cross-Country Skiing</option>
+                <option value="">Disc Golf</option>
+                <option value="">Equestrian</option>
+                <option value="">Facility*</option>
+                <option value="">Fishing</option>
+                <option value="">Golf</option>
+                <option value="">Hiking</option>
+                <option value="">Ice Fishing</option>
+                <option value="">Ice Skating</option>
+                <option value="">Model Airplane Field</option>
+                <option value="">Model Sailboat</option>
+                <option value="">Nature Center</option>
+                <option value="">Off-Leash Dog Area</option>
+                <option value="">Parking</option>
+                <option value="">Picnic Grove/Sheltered Picnic Grove</option>
+                <option value="">Sledding</option>
+                <option value="">Snowmobiling</option>
+                <option value="">Trail System Access</option>
+                </optgroup>
+                </select>
+                </div>
+      
+                <div class="fpccSearchbar">
+                <label for="search-box" class="hidden">Search:</label>
+                    <input name="search-box" data-filter="searchFilter" placeholder="search by location name or keyword" class="fpccSearchbox">
+                    <button class="fpccSearchsubmit">Search</button>
                   </div>
-                  <!-- <div class="trailLength-title">
-                    <h2>FIND TRAILS BY LENGTH (IN MILES)</h2>
-                  </div>
-                  <div class="trailFilters">
-                    <ul class="trailLength">
-                      <li class="visuallyhidden_2" data-listItemNumber="1">
-                        <label>
-                          <input type="checkbox" value="short" data-filter="lengthFilter" class="filter"/>
-                          <div>
-                            <p>0 - 2 mi</p>
-                          </div>
-                        </label>
-                      </li>
-                      <li class="visuallyhidden_2" data-listItemNumber="2">
-                        <label>
-                          <input type="checkbox" value="medium" data-filter="lengthFilter" class="filter"/>
-                          <div>
-                            <p>2 - 5 mi</p>
-                          </div>
-                        </label>
-                      </li>
-                      <li class="visuallyhidden_2" data-listItemNumber="3">
-                        <label>
-                          <input type="checkbox" value="long" data-filter="lengthFilter" class="filter"/>
-                          <div>
-                            <p>5 - 10 mi</p>
-                          </div>
-                        </label>
-                      </li>
-                      <li class="visuallyhidden_2" data-listItemNumber="4">
-                        <label>
-                          <input type="checkbox" value="verylong" data-filter="lengthFilter" class="filter"/>
-                          <div>
-                            <p>10+ mi</p>
-                          </div>
-                        </label>
-                      </li>
-                    </ul>
-                  </div> <!-- trailFilters --> 
-                </div> <!-- panel-content -->
+                </div>
+                
+                
+                </div>
+
               </div> <!-- panel-container -->
               <!-- Second Accordion Panel (More Options) -->
               <div class="panel-container list-reset" tabindex="2" id="MoreFilters">
@@ -184,7 +200,7 @@
               </div> <!--panel-container-->
               <!-- Third Accordion Panel / The List -->
               <div class="panel-container list-reset" tabindex="3">
-                <div class="trailsNearYouResults trigger3">
+                <div class="trailsNearYouResults fpccResults trigger3">
                   <h4 class="panel-title trails-count" aria-hidden="true">LOADING...</h4><span class="icon">&nbsp;&#x25BC;</span>
                 </div>
                 <div class="panel-content visuallyhidden list-reset" aria-expanded="false">

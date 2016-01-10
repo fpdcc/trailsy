@@ -1100,12 +1100,12 @@ function startup() {
       popupHTML = popupHTML + "</div>";
 
       invisLayer.feature.properties.popupHTML = popupHTML;
-      var eventType;
-      if (TOUCH) {
-        eventType = "click";
-      } else {
-        eventType = "mouseover";
-      }
+      var eventType = "click";
+      // if (TOUCH) {
+      //   eventType = "click";
+      // } else {
+      //   eventType = "mouseover";
+      // }
 
       newTrailFeatureGroup.addEventListener(eventType, function featureGroupEventListener(invisLayer) {
         return function newMouseover(e) {
@@ -1159,6 +1159,8 @@ function startup() {
           };
         }(e), 1250);
       });
+
+      //newTrailFeatureGroup.addEventListener("onClick", function)
 
       allSegmentLayer.addLayer(newTrailFeatureGroup);
     }
