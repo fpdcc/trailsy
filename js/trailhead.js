@@ -308,6 +308,7 @@ function startup() {
   function waitForAllTrailData() {
     // console.log("waitForAllTrailData");
     if (traildataFetched && trailsegmentsFetched && trailheadsFetched) {
+
       addTrailsToTrailheads(originalTrailData, originalTrailheads);
       // if we haven't added the segment layer yet, add it.
       if (map.getZoom() >= SECONDARY_TRAIL_ZOOM && !(map.hasLayer(allSegmentLayer))) {
@@ -701,7 +702,7 @@ function startup() {
       path: "/trailheads.json"
     };
     makeAPICall(callData, function(response) {
-      populateOriginalTrailheads(response);
+      populateOriginalTrailheads(response, location);
       if (typeof callback == "function") {
         callback(response);
       }
@@ -781,13 +782,15 @@ function startup() {
   // populate trailheads[] with the each trailhead's stored properties, a Leaflet marker, 
   // and a place to put the trails for that trailhead.
 
-  function populateOriginalTrailheads(trailheadsGeoJSON) {
+  function populateOriginalTrailheads(trailheadsGeoJSON, location) {
     console.log("populateOriginalTrailheads");
     originalTrailheads = [];
     for (var i = 0; i < trailheadsGeoJSON.features.length; i++) {
       var currentFeature = trailheadsGeoJSON.features[i];
       console.log("[populateOriginalTrailheads] trailheadID = " + currentFeature.properties.id + " trail_ids = " + currentFeature.properties.trail_ids);
       var currentFeatureLatLng = new L.LatLng(currentFeature.geometry.coordinates[1], currentFeature.geometry.coordinates[0]);
+      var distance = currentFeatureLatLng.distanceTo(location);
+      currentFeature.properties.distance = distance;
       // var newMarker = L.marker(currentFeatureLatLng, ({
       //   icon: trailheadIcon1
       // }));
@@ -1485,6 +1488,9 @@ function startup() {
     orderedTrails = [];
     var divCount = 1;
     if(myTrailheads.length === 0) return;
+    myTrailheads.sort(function(a, b){
+     return a.properties.distance-b.properties.distance
+    })
     var topLevelID = SMALL ? "mobile" : "desktop";
     var trailListElementList = document.getElementById(topLevelID).getElementsByClassName("fpccResults");
     trailListElementList[0].innerHTML = "";
@@ -1512,10 +1518,10 @@ function startup() {
       
 
       // Making a new div for text / each trail
-      var trailIDsLength = trailheadTrailIDs.length; 
-      for (var i = 0; i < trailIDsLength; i++) {
+      //var trailIDsLength = trailheadTrailIDs.length; 
+      //for (var i = 0; i < trailIDsLength; i++) {
         // console.log("makeTrailDivs " + i);
-        var trailID = trailheadTrailIDs[i];
+        var trailID = trailheadTrailIDs[0];
         var trail = currentTrailData[trailID];
         var trailName = currentTrailData[trailID].properties.name;
         var trailLength = Number(Math.round(currentTrailData[trailID].properties.length +'e2')+'e-2');
@@ -1528,7 +1534,7 @@ function startup() {
         "data-trail-length='" + trailLength + "' " +
         "data-trailheadName='" + trailheadName + "' " +
         "data-trailheadid='" + trailheadID + "' " +
-        "data-index='" + i + "'>";
+        "data-index='" + 0 + "'>";
         
 
         var trailheadInfoText = "<span class='fpccEntryName'>" + 
@@ -1563,14 +1569,14 @@ function startup() {
           trail: trail,
           trailheadID: trailheadID,
           trailhead: trailhead,
-          index: i
+          index: 0
         };
         orderedTrails.push(trailInfoObject);
         // newTimeStamp = Date.now();
         // time = newTimeStamp - lastTimeStamp;
         // lastTimeStamp = newTimeStamp;
         // console.log(time + ": " + "end loop");
-      }
+      //}
     }
     trailListElementList[0].innerHTML = trailListContents;
     $(".fpccEntry").click(populateTrailsForTrailheadDiv).click(trailDivClickHandler);
