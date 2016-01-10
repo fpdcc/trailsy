@@ -1486,7 +1486,7 @@ function startup() {
     var divCount = 1;
     if(myTrailheads.length === 0) return;
     var topLevelID = SMALL ? "mobile" : "desktop";
-    var trailListElementList = document.getElementById(topLevelID).getElementsByClassName("trailList");
+    var trailListElementList = document.getElementById(topLevelID).getElementsByClassName("fpccResults");
     trailListElementList[0].innerHTML = "";
     var myTrailheadsLength = myTrailheads.length;
     var trailListContents = "";
@@ -1521,7 +1521,7 @@ function startup() {
         var trailLength = Number(Math.round(currentTrailData[trailID].properties.length +'e2')+'e-2');
         var trailCurrentIndex = divCount++;
 
-        var trailDivText = "<div class='trail-box' " + 
+        var trailDivText = "<a href='#' class='fpccEntry clearfix' " + 
         "data-source='list' " +
         "data-trailid='" + trailID + "' " +
         "data-trailname='" + trailName + "' " +
@@ -1530,26 +1530,27 @@ function startup() {
         "data-trailheadid='" + trailheadID + "' " +
         "data-index='" + i + "'>";
         
-        var trailheadInfoText = "<div class='trailheadInfo'>" + 
-        "<img class='trailheadIcon' src='img/icon_trailhead_active.png'/>" +
-        "<div class='trailheadName' >" + trailheadName + " " + trailheadType + "</div>" +
-        "<div class='trailheadDistance' >" + trailheadDistance + " miles away" + "</div>" + 
+
+        var trailheadInfoText = "<span class='fpccEntryName'>" + 
+        '<svg class="icon icon-sign"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>' + 
+        '<span class="fpccEntryNameText">' + trailheadName + '</span></span>' +
+        '<span class="fpccEntryDis">' + trailheadDistance + ' mi away</span></a>' +
         "</div>";
 
         var mileString = trailLength == 1 ? "mile" : "miles";
-        var trailInfoText = "<div class='trailInfo'>" + 
-        "<div class='trailCurrentIndex' >" + trailCurrentIndex + "</div>" + 
-        "<div class='trail' >" + trailName + "</div>";
-        if (trailLength > 0) {
-          trailInfoText = trailInfoText + "<div class='trailLength' >" + trailLength + " " + mileString + " long" + "</div>";
-        }
-        if (parkName) {
-          trailInfoText = trailInfoText + "<div class='parkName' >" + trailhead.properties.park + "</div>";
-        }
-        trailInfoText = trailInfoText + "</div>";
+        // var trailInfoText = "<div class='trailInfo'>" + 
+        // "<div class='trailCurrentIndex' >" + trailCurrentIndex + "</div>" + 
+        // "<div class='trail' >" + trailName + "</div>";
+        // if (trailLength > 0) {
+        //   trailInfoText = trailInfoText + "<div class='trailLength' >" + trailLength + " " + mileString + " long" + "</div>";
+        // }
+        // if (parkName) {
+        //   trailInfoText = trailInfoText + "<div class='parkName' >" + trailhead.properties.park + "</div>";
+        // }
+        // trailInfoText = trailInfoText + "</div>";
 
         var trailSourceText = "<div class='trailSource' id='" + trailheadSource + "'>" + trailheadSource + "</div></div>";
-        var trailDivComplete = trailDivText + trailInfoText + trailheadInfoText + trailSourceText;
+        var trailDivComplete = trailDivText + trailheadInfoText + trailSourceText;
 
         trailListContents = trailListContents + trailDivComplete;
         // var trailDivWrapper = document.createElement('div');
@@ -1572,7 +1573,7 @@ function startup() {
       }
     }
     trailListElementList[0].innerHTML = trailListContents;
-    $(".trail-box").click(populateTrailsForTrailheadDiv).click(trailDivClickHandler);
+    $(".fpccEntry").click(populateTrailsForTrailheadDiv).click(trailDivClickHandler);
     $(".trails-count").html(orderedTrails.length + " RESULTS FOUND");
     console.log("end makeTrailDivs 4");
   }
