@@ -1,731 +1,241 @@
-<!DOCTYPE html>
-<html lang="en">
-<!--<![endif]-->
+<!doctype html>
+<html>
 <head>
-  <title>Forest Preserves of Cook County Mapping Prototype</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <link rel="stylesheet" href="styles/css/leaflet.css"/>
-  <!-- <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" /> 
-  <script src="js/jquery-1.10.2.min.js"></script>-->
-  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
-  <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-  <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-     <!--[if lte IE 8]>
-     <link rel="stylesheet" href="styles/css/leaflet.ie.css" />
-     <![endif]-->
-     <link rel="stylesheet" href="styles/css/leaflet.usermarker.css"/>
-     <link rel="stylesheet" type="text/css" href="styles/css/main.css"/>
-     <link rel="stylesheet" type="text/css" href="styles/css/newguts.css" />
-  <!-- bookmark icons -->
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/AppIcons/AppIcons-Icon-144x144.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/AppIcons/AppIcons-Icon-114x114.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/AppIcons/AppIcons-Icon-72x72.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="img/AppIcons/AppIcons-Icon-57x57.png" />
-  <meta name="msapplication-TileImage" content="img/AppIcons/AppIcons-Icon-144x144.png"/>
-  <meta name="msapplication-TileColor" content="#00adef"/>
-  <!--favicon-->
-  <link rel="icon" type="image/ico" href="img/AppIcons/favicon.ico"/>
-  <script>  L_PREFER_CANVAS = true;</script>
-  <!--[if lt IE 9]>
-  <script src="js/html5shiv.js"></script>
-  <![endif]-->
+	<meta charset="utf-8">
+	<title>SVG-CSS test</title>
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  	<link rel="stylesheet" href="styles/css/leaflet.css"/>
+	<!-- Needed START -->
+	<link rel="stylesheet" href="newguts.css">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+  	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+  	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+   	<script language="javascript">
+		$(document).on( "mobileinit", function() {$.mobile.selectmenu.prototype.options.nativeMenu = false;});
+		$( ".selector" ).selectmenu({inline: true});
+	</script>
+	<link rel="stylesheet" href="styles/css/leaflet.usermarker.css"/>
+    <link rel="stylesheet" type="text/css" href="styles/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="styles/css/newguts.css" />
+	<!-- bookmark icons -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/AppIcons/AppIcons-Icon-144x144.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/AppIcons/AppIcons-Icon-114x114.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/AppIcons/AppIcons-Icon-72x72.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="57x57" href="img/AppIcons/AppIcons-Icon-57x57.png" />
+	<meta name="msapplication-TileImage" content="img/AppIcons/AppIcons-Icon-144x144.png"/>
+	<meta name="msapplication-TileColor" content="#00adef"/>
+    <!--favicon-->
+    <link rel="icon" type="image/ico" href="img/AppIcons/favicon.ico"/>
+    <script>  L_PREFER_CANVAS = true;</script>
+	  <!--[if lt IE 9]>
+	  <script src="js/html5shiv.js"></script>
+	  <![endif]-->
     <script src="js/modernizr.custom.97978.js"></script>
-  <script>
-  if (window.location.hostname == "www.tothetrails.com") {
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	<!-- Use this to fix for IE later: https://github.com/jonathantneal/svg4everybody -->
+	<!-- Needed END -->
 
-    ga('create', 'UA-42870551-1', 'tothetrails.com');
-    ga('send', 'pageview');
-  }
-  </script>
+	<!-- Unneeded START -->
+	<link rel="stylesheet" href="http://fpcc-staging.smartchicagoapps.org/styles/css/main.css">
+	<style type="text/css">body{background:url(unneeded/bg.gif) center center repeat}</style>
+	<!-- Unneeded END -->
 
 </head>
+
 <body>
+	<div id="desktop">
+    	<div class="container">
+    		<div id="main" class="row">
+    			<!-- Map -->
+		        <section class="trailMapContainer">
+		          <!-- <div id="crosshair"></div> -->
+		          <div id="trailMapLarge"></div>
+		          <div class="offsetZoomControl">
+		            <a class="offsetZoomIn">+</a>
+		            <a class="offsetZoomOut">&mdash;</a>
+		            <a class="offsetGeolocate" style="display:none;">&nbsp;</a>
+		          </div>
+		        </section>
+				<section class="trailListColumn">
+					<div class="title-row desktopTitle">
+						<header>
+							<div class="navbar-inner">
+								<a class="hamburger" href="#">
+									<div class="hamburgerLine"></div>
+									<div class="hamburgerLine"></div>
+									<div class="hamburgerLine"></div>
+								</a>
+								<img class="logo" src="http://fpdcc.net/wp-content/themes/fpdcc3/images/fpcc-map-logo.gif">
+							</div>
+						</header>
+					</div>
+					<div class="accordion clearfix" style="display: block;">
+            			<!-- new guts START -->
+            			<div class="accordion-innerwrap">
+			            	<!-- First Accordion Panel (No Title) -->
+			            	<div class="panel-container list-reset" tabindex="1">
+            					<a class="aboutLink" href="#">ABOUT</a>
+               					<div class="fpccUnit fpccSearch">
+	       							<div role="main" class="ui-content">
+										<label for="select-choice-0" class="select hidden">Filter by:</label>
+										<select name="select-choice-0" id="select-choice-0" multiple="multiple" data-native-menu="false">
+										<option data-placeholder="true">Filter: Activity / Amenity</option>
+										<optgroup label="Popular">
+										<option value="hiking">Hiking/Walking</option>
+										<option value="biking">Biking</option>
+										<option value="picnic">Picnic/Event Space</option>
+										<option value="camping">Camping</option>
+										<option value="camping">Nature Center</option>
+										<option value="leash-dog">Dog Friendly Trails (On-leash)</option>
+										<option value="off-leash-dog">Off-Leash Dog Areas</option>
+										</optgroup>
+										<optgroup label="Everything">
+										<option value="">ADA Restroom</option>
+										<option value="">Aquatic Center</option>
+										<option value="">Bicycling</option>
+										<option value="">Bike Rental</option>
+										<option value="">Birding Hotspot</option>
+										<option value="">Boat Launch</option>
+										<option value="">Boat Rental</option>
+										<option value="">Campground</option>
+										<option value="">Canoe Landing</option>
+										<option value="">Cross-Country Skiing</option>
+										<option value="">Disc Golf</option>
+										<option value="">Equestrian</option>
+										<option value="">Facility*</option>
+										<option value="">Fishing</option>
+										<option value="">Golf</option>
+										<option value="">Hiking</option>
+										<option value="">Ice Fishing</option>
+										<option value="">Ice Skating</option>
+										<option value="">Model Airplane Field</option>
+										<option value="">Model Sailboat</option>
+										<option value="">Nature Center</option>
+										<option value="">Off-Leash Dog Area</option>
+										<option value="">Parking</option>
+										<option value="">Picnic Grove/Sheltered Picnic Grove</option>
+										<option value="">Sledding</option>
+										<option value="">Snowmobiling</option>
+										<option value="">Trail System Access</option>
+										</optgroup>
+										</select>
+									</div>
+                					<div class="fpccSearchbar">
+                						<label for="search-box" class="hidden">Search:</label>
+					                    <input name="search-box" data-filter="searchFilter" placeholder="search by location name or keyword" class="fpccSearchbox">
+					                    <button class="fpccSearchsubmit">Search</button>
+                  					</div>
+                				</div>
+                			</div>
+                			<div class="fpccUnit fpccResults">
+        						<h4>150 RESULTS FOUND</h4>             
+                			</div>
+              			</div> 
+             		</div>
+					<div class="detailPanel">
+						<div class="detailPanelBanner">
+							<span class="entranceName"> </span>
+ 							<!--<span class="trailIndex">10 of 580</span>-->
+ 							<img class="closeDetail" src="http://fpcc-staging.smartchicagoapps.org/img/close-btn.png">
+							<div class="detailPanelControls controlLeft enabled">
+								<b class="controlLeft enabled"></b>
+							</div>
+							<div class="detailPanelControls controlRight enabled">
+								<b class="controlRight enabled"></b>
+							</div>
+						</div>
+						<div class="detailPanelBody">
+							<!-- NEW GUTS START -->
+							<div class="fpccContainer">  
+								<!-- ENTRANCE START -->
+								<div class="fpccEntrance fpccUnit clearfix">
+									<div class="fpccSign clearfix">
+										<svg class="icon icon-sign"><use xlink:href="icons/defs.svg#icon-sign"></use></svg>
+										<div class="fpccAddress">
+											<span class="fpccLabel fpccBlock">Entrance</span>
+											<span class="fpccEntranceAddress"></span>
+											<span class="fpccEntranceCity"></span>
+											<span class="fpccEntranceState"></span>
+											<span class="fpccEntranceZip"></span>
+										</div>
+									</div>
+									<div class="fpccDirections"><a href="#DIRECTIONS" target="_blank">Directions</a></div>
+									<div class="fpccMap"><!-- IF A PDF MAP EXISTS --><a href="#PDFMAP">PDF Map</a></div>
+								</div>          
+								<!--ENTRANCE END -->
+								<!-- DESCRIPTION START -->
+								<div class="fpccDescription fpccUnit">
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo. <!-- IF A WEBSITE PAGE EXISTS --><a href="#" class="fpccMore">Read more &gt;</a>
+								</div>
+								<!-- DESCRIPTION END -->
+								<!-- AMENITIES START -->
+								<div class="fpccAmenities fpccUnit clearfix">
+									<!-- LOCATIONS (will also appear on map) -->
+								</div>
+								<!-- AMENITIES END -->
+								<!-- TRAILS SYSTEM ACCESS START -->
+								<div class="fpccTrails fpccUnit clearfix">
+									<svg class="icon icon-trail-marker"><use xlink:href="icons/defs.svg#icon-trail-marker"></use></svg>
+									<div class="fpccTrailHeader">
+										<span class="fpccLabel fpccBlock">Trail System Access</span>
+										<span class="fpccTrailName">Des Plaines Trail</span>
+									</div>
+									<div class="fpccDescription">
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+									</div>
+									<div class="fpccTrailSegment">
+										<div class="fpccSegmentOverview fpccYellow clearfix"><span class="fpccSegmentName">Yellow Trail</span><span class="fpccTrailUse"><svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg><svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg><svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg><svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg></span></div>
+										<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>17.2 mi</span></span><span class="fpccLabel fpccRight">Surface<span>unpaved</span></span></div>
+									</div>
+									<div class="fpccTrailSegment">
+										<div class="fpccSegmentOverview fpccGreen clearfix"><span class="fpccSegmentName">Green Spur</span><span class="fpccTrailUse"><svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg><svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg><svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg><svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg></span></div>
+										<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>0.2 mi</span></span><span class="fpccLabel fpccRight">Surface<span>unpaved</span></span></div>
+									</div>
+								</div>
+								<!-- TRAILS SYSTEM ACCESS END -->
+								<!-- SOCIAL START -->
+								<div class="fpccSocial fpccUnit clearfix">
+									<div class="fpccShare">Share Your Plans:</div>
+									<a href="#EMAIL" class="fpccSocialIcon">
+										<svg class="icon icon-email"><use xlink:href="icons/defs.svg#icon-email"></use></svg> 
+										<span>Email</span>
+									</a>
+									<a href="#TWITTER" class="fpccSocialIcon">
+										<svg class="icon icon-twitter"><use xlink:href="icons/defs.svg#icon-twitter"></use></svg> 
+										<span>Twitter</span>
+									</a>
+									<a href="#FACEBOOK" class="fpccSocialIcon">
+										<svg class="icon icon-facebook"><use xlink:href="icons/defs.svg#icon-facebook"></use></svg> 
+										<span>Facebook</span>
+									</a>
+								</div>
+								<!-- SOCIAL END -->
+							</div>
+							<!-- NEW GUTS END -->
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
 
-
-  <div id="desktop">
-    <div class="container">
-      <div id="main" class="row">
-        <!-- Map -->
-        <section class="trailMapContainer">
-          <!-- <div id="crosshair"></div> -->
-          <div id="trailMapLarge"></div>
-          <div class="offsetZoomControl">
-            <a class="offsetZoomIn">+</a>
-            <a class="offsetZoomOut">&mdash;</a>
-            <a class="offsetGeolocate" style="display:none;">&nbsp;</a>
-          </div>
-        </section>
-        <!-- UI Column to be renamed. -->
-        <section class="trailListColumn">
-          <div class="title-row desktopTitle">
-            <header>
-              <div class="navbar-inner">
-                <a class="hamburger" href="#">
-                  <div class="hamburgerLine"></div>
-                  <div class="hamburgerLine"></div>
-                  <div class="hamburgerLine"></div>
-                </a>
-                <img class="logo" src="http://fpdcc.net/wp-content/themes/fpdcc3/images/fpcc-map-logo.gif">
-              </div>
-            </header>
-          </div>
-          <!-- Accordion / Toggles entirely to become Detail Panel -->
-          <div class="accordion clearfix">
-            <div class="accordion-innerwrap">
-              <!-- First Accordion Panel (No Title) -->
-              <div class="panel-container list-reset" tabindex="1">
-                <a class="aboutLink" href="#">ABOUT</a>
-                  <div class="fpccUnit fpccSearch">
-       
-
-                  <div role="main" class="ui-content">
-
-                <label for="select-choice-0" class="select hidden">Filter by:</label>
-                <select name="select-choice-0" id="select-choice-0" multiple="multiple" data-native-menu="false">
-                <option data-placeholder="true">Filter: Activity / Amenity</option>
-                <optgroup label="Popular">
-                <option value="hiking">Hiking/Walking</option>
-                <option value="biking">Biking</option>
-                <option value="picnic">Picnic/Event Space</option>
-                <option value="camping">Camping</option>
-                <option value="camping">Nature Center</option>
-                <option value="leash-dog">Dog Friendly Trails (On-leash)</option>
-                <option value="off-leash-dog">Off-Leash Dog Areas</option>
-                </optgroup>
-                <optgroup label="Everything">
-                <option value="">ADA Restroom</option>
-                <option value="">Aquatic Center</option>
-                <option value="">Bicycling</option>
-                <option value="">Bike Rental</option>
-                <option value="">Birding Hotspot</option>
-                <option value="">Boat Launch</option>
-                <option value="">Boat Rental</option>
-                <option value="">Campground</option>
-                <option value="">Canoe Landing</option>
-                <option value="">Cross-Country Skiing</option>
-                <option value="">Disc Golf</option>
-                <option value="">Equestrian</option>
-                <option value="">Facility*</option>
-                <option value="">Fishing</option>
-                <option value="">Golf</option>
-                <option value="">Hiking</option>
-                <option value="">Ice Fishing</option>
-                <option value="">Ice Skating</option>
-                <option value="">Model Airplane Field</option>
-                <option value="">Model Sailboat</option>
-                <option value="">Nature Center</option>
-                <option value="">Off-Leash Dog Area</option>
-                <option value="">Parking</option>
-                <option value="">Picnic Grove/Sheltered Picnic Grove</option>
-                <option value="">Sledding</option>
-                <option value="">Snowmobiling</option>
-                <option value="">Trail System Access</option>
-                </optgroup>
-                </select>
-                </div>
-      
-                <div class="fpccSearchbar">
-                <label for="search-box" class="hidden">Search:</label>
-                    <input name="search-box" data-filter="searchFilter" placeholder="search by location name or keyword" class="fpccSearchbox">
-                    <button class="fpccSearchsubmit">Search</button>
-                  </div>
-                </div>
-                
-                
-                </div>
-
-              </div> <!-- panel-container -->
-              <!-- Second Accordion Panel (More Options) -->
-              <div class="panel-container list-reset" tabindex="2" id="MoreFilters">
-                <div class="panel-content visuallyhidden list-reset" aria-expanded="false">
-                  <div class="trailFilters">
-                    <div class="trailUse-title"><h2>POPULAR TRAIL TYPES</h2></div>
-                    <ul class="trailUse" id="activityFilter"> <!-- why an id? -->
-                      <li class="visuallyhidden_3" data-listItemNumber="1">
-                        <label>
-                          <input rel="0" type="checkbox" title="Good for hiking" value="hike" class="filter hikeFilter" data-filter="activityFilter" />
-                          <div class="hikeFilter"></div>
-
-                        </label>
-                      </li>
-                      <li class="visuallyhidden_3" data-listItemNumber="2">
-                        <label>
-                          <input rel="1" type="checkbox" title="Good for cycling" value="roadbike" class="filter cycleFilter" data-filter="activityFilter"/>
-                          <div class="cycleFilter">
-                          </div>
-                        </label>
-                      </li>
-                      <li class="visuallyhidden_3" data-listItemNumber="3">
-                        <label>
-                          <input rel="3" type="checkbox" title="Wheelchair accessible" value="accessible" class="filter handicapFilter" data-filter="activityFilter"/>
-                          <div class="handicapFilter">
-                          </div>
-                        </label>
-                      </li>
-                      <li class="visuallyhidden_3" data-listItemNumber="4">
-                        <label>
-                          <input rel="4" type="checkbox" title="Equestrian or bridle trails" value="equestrian" class="filter horseFilter" data-filter="activityFilter" />
-                          <div class="horseFilter">
-                          </div>
-                        </label>
-                      </li>
-                      <li class="visuallyhidden_3" data-listItemNumber="5">
-                        <label>
-                          <input rel="5" type="checkbox" title="Cross-country skiing trails" value="xcntryski" class="filter xcountryskiFilter" data-filter="activityFilter"/>
-                          <div class="xcountryskiFilter">
-                          </div>
-                        </label>
-                      </li>
-                      <li class="visuallyhidden_3" data-listItemNumber="6">
-                        <label>
-                          <input rel="6" type="checkbox" title="Mountain bike tracks" value="mtnbike" class="filter mtnbikeFilter" data-filter="activityFilter" disabled="disabled"/>
-                          <div class="mtnbikeFilter">
-                          </div>
-                        </label>
-                      </li>
-                    </ul>
-                      <!-- Select All & Clear Selection -->
-                    <div class="trailSelection">
-                      <span class="clearSelection">Clear Search Criteria</span>
-                    </div>
-                  </div> <!-- trailFilters -->
-                </div> <!--panel-content-->
-                <h4 class="trigger2 panel-title" aria-hidden="true">FIND TRAILS BY ACTIVITIES
-                  <span class="icon">&nbsp;&#x25BC;</span>
-                </h4>
-              </div> <!--panel-container-->
-              <!-- Third Accordion Panel / The List -->
-              <div class="panel-container list-reset" tabindex="3">
-                <div class="trailsNearYouResults fpccResults trigger3">
-                  <h4 class="panel-title trails-count" aria-hidden="true">LOADING...</h4><span class="icon">&nbsp;&#x25BC;</span>
-                </div>
-                <div class="panel-content visuallyhidden list-reset" aria-expanded="false">
-                  <div class="trailList"></div>
-                </div> <!--panel-content -->
-              </div> <!--panel-container -->
-            </div> <!-- accordion inner wrap -->
-          </div> <!-- accordion clearfix -->
-          <!-- Detail Panel / Toggles entirely to become Accordion -->
-          <div class="aboutPage">
-            <div class="aboutPageBanner">
-              <span>ABOUT</span>
-              <img class="closeAbout" src="img/close-btn.png">
-            </div>
-            <div class="aboutCopy">
-              <p class="aboutHeadline">About This Map</p>
-<p>How do I get to Busse Woods? Where is the closest trail I can take my bike? Is there a bathroom near my picnic grove? </p>
- <p>This map will eventually provide answers to these questions and more, allowing visitors to discover, and travel to, amenities within the Forest Preserves of Cook County.</p>
- <p>Right now this map is a prototype, meaning there is still work to be done before it's ready for public consumption. Contact <a href="mailto:fpdcc.info@cookcountyil.gov">fpdcc.info@cookcountyil.gov</a> for more information about this project.</p>
-<p>This project is built using the <a href="http://www.codeforamerica.org/specifications/trails/spec.html" target="_blank">OpenTrails specification</a> and <a href="https://github.com/codeforamerica/trailsy" target="_blank">To The Trails</a> web application. It is made possible with  funding from the Centers for Disease Control and Prevention through the Healthy  HotSpot initiative led by the Cook County Department of Public Health.</p>
-            </div>
-          </div>
-          <div class="detailPanel">
-            <div class="detailPanelBanner">
-              <span class="entranceName"></span>
-              <span class="trailIndex"></span>
-              <img class="closeDetail" src="img/close-btn.png">
-              <div class="detailPanelControls controlLeft">
-                <b class="controlLeft"></b>
-              </div>
-              <div class="detailPanelControls controlRight">
-                <b class="controlRight"></b>
-              </div>
-            </div>
-            <div class="detailPanelBody">
-
-<div class="fpccContainer">  
-
-
-<!-- ENTRANCE START -->
-<div class="fpccEntrance fpccUnit clearfix">
-<div class="fpccSign clearfix">
-<svg class="icon icon-sign"><use xlink:href="icons/defs.svg#icon-sign"></use></svg>
-<div class="fpccAddress">
-<span class="fpccLabel fpccBlock">Entrance</span>
-<span class="fpccEntranceAddress"></span>
-<span class="fpccEntranceCity"></span>
-<span class="fpccEntranceState"></span>
-<span class="fpccEntranceZip"></span>
-</div>
-</div>
-<div class="fpccDirections"><a href="#DIRECTIONS" target="_blank">Directions</a></div>
-<div class="fpccMap"><!-- IF A PDF MAP EXISTS --><a href="#PDFMAP">PDF Map</a></div>
-</div>          
-<!--ENTRANCE END -->
-
-
-<!-- DESCRIPTION START -->
-<div class="fpccDescription fpccUnit">
-Is this going to be a description associated with the Entrance? <!-- IF A WEBSITE PAGE EXISTS --><a href="#" class="fpccMore">Read more &gt;</a>
-</div>
-<!-- DESCRIPTION END -->
-
-
-<!-- AMENITIES START -->
-<div class="fpccAmenities fpccUnit clearfix">
-<!-- LOCATIONS (will also appear on map) -->
-<!-- 
-
-<!-- ACTIVITIES - not on map
- --></div>
-<!-- AMENITIES END -->
-
-
-
-<!-- TRAILS SYSTEM ACCESS START -->
-<div class="fpccTrails fpccUnit clearfix">
-
-</div>
-</div>
-<!-- TRAILS SYSTEM ACCESS END -->
-
-
-<!-- SOCIAL START -->
-<div class="fpccSocial fpccUnit clearfix">
-
-<div class="fpccShare">Share Your Plans:</div>
-
-<a href="#EMAIL" class="fpccSocialIcon">
-<svg class="icon icon-email"><use xlink:href="icons/defs.svg#icon-email"></use></svg> 
-<span>Email</span>
-</a>
-
-<a href="#TWITTER" class="fpccSocialIcon">
-<svg class="icon icon-twitter"><use xlink:href="icons/defs.svg#icon-twitter"></use></svg> 
-<span>Twitter</span>
-</a>
-
-<a href="#FACEBOOK" class="fpccSocialIcon">
-<svg class="icon icon-facebook"><use xlink:href="icons/defs.svg#icon-facebook"></use></svg> 
-<span>Facebook</span>
-</a>
-
-</div>
-<!-- SOCIAL END -->
-
-</div>
-
-<!-- NEW GUTS END -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-              <!-- <div class="detailPanelPictureContainer">
-                <img class="detailPanelPicture" src="img/ImagePlaceholder.jpg">
-                <div class="detailPanelPictureCredits"></div>
-              </div> -->
-            <!--   <div class="detailTopRow" id="left">
-                <span class="detailLengthHeader">LENGTH</span>
-                <span class="detailLength"></span>
-                <br/>
-              </div>
-              <div class="detailTopRow" id="right">
-                <span class="detailActivityHeader">USE</span>
-                <div class="activity-icon-row">
-                  <div class="icon hike"></div>
-                  <div class="icon cycle"></div>
-                  <div class="icon handicap"></div>
-                  <div class="icon horse"></div>
-                  <div class="icon xcountryski"></div>
-                </div>
-              </div>
-              <div class="detailMiddleRow">
-              <span class="detailPanelHeader">OVERVIEW</span>
-              <div class="detailDescription"> </div>
-              </div>
-              <div class="detailConditionsRow">
-                <span class="detailConditionsHeader">ADDITIONAL TRAIL CONDITIONS</span>
-                <div class="detailConditionsDescription"></div>
-                <span class="detailTrailSurfaceHeader">TRAIL SURFACE</span>
-                <div class="detailTrailSurface"></div>
-              </div>
-              <div class="detailBottomRow">
-                <img src="img/icon_trailhead_active.png">
-                <span class="detailPanelHeader">CLOSEST ENTRANCE </span>
-                <span class="detailTrailheadDistance"></span><br/>
-                <div class="detailTrailheadInfo">
-                  <span class="detailTrailheadName"></span>
-                  <span class="detailTrailheadPark">Park Name Variable</span>
-                  <span class="detailTrailheadAddress"></span>
-                  <span class="detailTrailheadCity"></span>
-                  <span class="detailTrailheadState"></span>
-                  <span class="detailTrailheadZip"></span>
-               </div>
-                <div class="detailLinksToMore">
-                  <div class="detailDirections"><a href="#">Get Directions</a></div>
-                  <div class="detailPrintMap"><a href="#">Official Trail Map</a></div>
-                </div>
-                <div class="detailTrailheadAmenities">
-                  <span class="detailPanelHeader">AMENITIES</span>
-                  <div class="detailTrailheadIcons">
-                    <div class="icon parking"></div>
-                    <div class="icon water"></div>
-                    <div class="icon restrooms"></div>
-                    <div class="icon kiosk"></div>
-                  </div>
-                </div>
-                <div class="detailLinksToSocial">
-                  <div class="social-icon facebook">
-                    <a>
-                      facebook
-                    </a>
-                  </div>
-                  <div class="social-icon twitter">
-                    <a>
-                      twitter
-                    </a>
-                  </div>
-                  <div class="social-icon email">
-                    <a>
-                      email
-                    </a>
-                  </div>
-                </div>
-              </div>
-             -->  <div class="extraLine"></div>
-              <!-- <div class="extraLine2"></div>
-              <div class="detailFooter">
-                <img class="detailStewardLogo icon-large" src="img/mpssc.jpg"/>
-                <div class="detailStewardInfo">
-                  <span class="detailPanelHeader">For MORE INFORMATION on this trail</span>
-                  <a class="detailSource" href=""></a>
-                  <span class="detailSourcePhone">XXX-XXX-XXX</span>
-                </div>
-              </div> -->
-            </div>
-          </div>
-        </section> <!-- trailListColumn -->
-      </div> <!-- main / row -->
-    </div> <!-- container -->
-  </div> <!-- end desktop -->
-  <div id="mobile">
-    <div class="title-row mobileTitle">
-      <header>
-        <div class="navbar-inner">
-          <a class="hamburger hamburgerBox" href="#">
-            <div class="hamburger hamburgerLine"></div>
-            <div class="hamburger hamburgerLine"></div>
-            <div class="hamburger hamburgerLine"></div>
-          </a>
-          <img class="logo" src="http://fpdcc.net/wp-content/themes/fpdcc3/images/fpcc-new-logo-mobile.png">
-          <div class="geolocateBox">
-            <a class="geolocateButton"></a>
-          </div>
-        </div>
-      </header>
-    </div>
-    <section class="trailMapContainer">
-      <div id="trailMapSmall"></div>
-    </section>
-    <section class="trailListColumn">
-      <div class="detailPanel contracted">
-        <div class="detailPanelSlider slider">
-          <div class="controlTop"></div>
-        </div>
-        <div class="detailPanelBanner">
-          <span class="entranceName">Loading Nearest Trail...</span>
-          <!-- <span class="trailIndex"></span> -->
-          <div class="detailPanelControls controlLeft" style="display:block;">
-            <b class="controlLeft"></b>
-          </div>
-          <div class="detailPanelControls controlRight" style="display:block;">
-            <b class="controlRight"></b>
-          </div>
-        </div>
-        <div class="trail-box">
-          <div class="trailheadInfo">
-            <img class="trailheadIcon" src="img/icon_trailhead_active.png">
-            <div class="trailheadName">Trailhead</div>
-            <div class="trailheadDistance">Distance Away</div>
-          </div>
-        </div>
-        <div class="detailPanelBody">
-          <div class="detailLengthRow">
-            <span class="detailLengthHeader">LENGTH</span>
-            <span class="detailLength">300 Miles</span>
-          </div>
-          <div class="detailActivityRow">
-            <span class="detailActivityHeader">TRAIL USE</span>
-              <div class="activity-icon-row">
-                <div class="icon hike"></div>
-                <div class="icon cycle"></div>
-                <div class="icon handicap"></div>
-                <div class="icon horse"></div>
-                <div class="icon xcountryski"></div>
-              </div>
-          </div>
-          <div class="detailMiddleRow">
-            <span class="detailPanelHeader">OVERVIEW</span>
-            <div class="detailDescription"></div>
-          </div>
-          <div class="detailConditionsRow">
-            <span class="detailConditionsHeader">ADDITIONAL TRAIL CONDITIONS</span>
-            <div class="detailConditionsDescription"></div>
-            <span class="detailTrailSurfaceHeader">TRAIL SURFACE</span>
-            <div class="detailTrailSurface"></div>
-          </div>
-          <div class="detailPanelPictureContainer">
-            <img class="detailPanelPicture" src="img/falls.JPG">
-            <div class="detailPanelPictureCredits">
-            </div>
-          </div>
-          <div class="detailBottomRow">
-            <img src="img/icon_trailhead_active.png">
-            <span class="detailPanelHeader">CLOSEST ENTRANCE </span>
-            <span class="detailTrailheadDistance"></span><br/>
-            <div class="detailTrailheadInfo">
-              <span class="detailTrailheadName">Springfield Bog</span>
-
-              <span class="detailTrailheadPark">Park Name</span>
-              
-              <span class="detailTrailheadAddress"></span>
-              
-              <span class="detailTrailheadCity"></span>
-              <span class="detailTrailheadState"></span>
-              <span class="detailTrailheadZip"></span>
-            </div>
-            <div class="detailTrailheadAmenities">
-            <span class="detailPanelHeader">TRAILHEAD AMENITIES</span>
-              <div class="detailTrailheadIcons">
-                  <div class="icon parking"></div>
-                  <div class="icon water"></div>
-                  <div class="icon restrooms"></div>
-                  <div class="icon kiosk"></div>
-              </div>
-            </div>
-            <div class="detailLinksToMore">
-              <div class="detailDirections"><a href="#">Get Directions</a></div>
-              <div class="detailPrintMap"><a href="#">Official Trail Map</a></div>
-            </div>
-
-              <div class="detailLinksToSocial">
-                <div class="social-icon facebook">
-                  <a>
-                    facebook
-                  </a>
-                </div>
-                <div class="social-icon twitter">
-                  <a>
-                    twitter
-                  </a>
-                </div>
-                <div class="social-icon email">
-                  <a>
-                    email
-                  </a>
-                </div>
-              </div>
-          </div>
-          <div class="extraLine"></div>
-          <div class="extraLine2"></div>
-          <div class="detailFooter">
-            <img class="detailStewardLogo icon-large" src="img/logoPlaceholder.jpg">
-            <div class="detailStewardInfo">
-              <span class="detailPanelHeader">FOR MORE INFORMATION:</span>
-              <a class="detailSource" href></a>
-              <span class="detailSourcePhone">XXX-XXX-XXXX</span>
-            </div>
-          </div>
-        </div>
-      </div>
-  </section>
-    <section class="slideDrawer closedDrawer">
-      <div class="accordion clearfix">
-        <div class="accordion-innerwrap">
-          <!-- First Accordion Panel (No Title) mobile-->
-          <div class="panel-container list-reset" tabindex="">
-            <div class="aboutSection triggerAbout">
-              <h4 class="panel-title aboutHeader" aria-hidden="true">ABOUT</h4><span class="icon">&nbsp;&#x25BC;</span>
-            </div>
-            <div class="panel-content list-reset visuallyhidden" aria-expanded="false">
-            <div class="aboutCopy">
-              <p class="aboutHeadline">About This Map</p>
-<p>How do I get to Busse Woods? Where is the closest trail I can take my bike? Is there a bathroom near my picnic grove? </p>
- <p>This map will eventually provide answers to these questions and more, allowing visitors to discover, and travel to, amenities within the Forest Preserves of Cook County.</p>
- <p>Right now this map is a prototype, meaning there is still work to be done before it's ready for public consumption. Contact <a href="mailto:fpdcc.info@cookcountyil.gov">fpdcc.info@cookcountyil.gov</a> for more information about this project.</p>
-<p>This project is built using the <a href="http://www.codeforamerica.org/specifications/trails/spec.html" target="_blank">OpenTrails specification</a> and <a href="https://github.com/codeforamerica/trailsy" target="_blank">To The Trails</a> web application. It is made possible with  funding from the Centers for Disease Control and Prevention through the Healthy  HotSpot initiative led by the Cook County Department of Public Health.</p>
-            </div>
-            </div>
-          </div>
-          <div class="panel-container list-reset" tabindex="1">
-            <div class="trigger1 searchSection">
-              <h4 class="panel-title searchHeader active" aria-hidden="false">FIND TRAILS</h4><span class="icon">&nbsp;&#x25BC;</span>
-            </div>
-            <div class="panel-content list-reset" aria-expanded="true">
-             <!--<h4 class="trigger1 searchHeader panel-title active" aria-hidden="true">Explore trails using the map or narrow your search here.</h4>-->
-             <form onSubmit="return false;">
-              <div class="searchbar">
-                <input data-filter="searchFilter" placeholder="search by trail or keyword" class="search-key">
-                </input>
-                <div class="search-submit"></div>
-              </div>
-              </form>
-              <div class="trailLength-title">
-                <h2>FIND TRAILS BY LENGTH</h2>
-              </div>
-              <div class="trailFilters">
-                <div class="lengthRow">
-                  <ul class="trailLength">
-                    <li class="visuallyhidden_2" data-listItemNumber="1">
-                      <label>
-                        <input type="checkbox" value="short" data-filter="lengthFilter" class="filter"/>
-                        <div>
-                          <p>0 - 2 mi</p>
-                        </div>
-                      </label>
-                    </li>
-                    <li class="visuallyhidden_2" data-listItemNumber="2">
-                      <label>
-                        <input type="checkbox" value="medium" data-filter="lengthFilter" class="filter"/>
-                        <div>
-                          <p>2 - 5 mi</p>
-                        </div>
-                      </label>
-                    </li>
-                  </ul>
-                </div>
-                <div class="lengthRow">
-                  <ul class="trailLength">
-                    <li class="visuallyhidden_2" data-listItemNumber="3">
-                      <label>
-                        <input type="checkbox" value="long" data-filter="lengthFilter" class="filter"/>
-                        <div>
-                          <p>5 - 10 mi</p>
-                        </div>
-                      </label>
-                    </li>
-                    <li class="visuallyhidden_2" data-listItemNumber="4">
-                      <label>
-                        <input type="checkbox" value="verylong" data-filter="lengthFilter" class="filter"/>
-                        <div>
-                          <p>10+ mi</p>
-                        </div>
-                      </label>
-                    </li>
-                  </ul>
-                </div>
-              </div> <!-- trailFilters Length-->
-              <div class="trailFilters">
-                <div class="trailUse-title"><h2>POPULAR TRAIL TYPES</h2></div>
-                  
-                <div class="activityRow">
-                  <ul class="trailUse" id="activityFilter"> <!-- why an id? -->
-                    <li class="visuallyhidden_3" data-listItemNumber="1">
-                      <label>
-                        <input rel="0" type="checkbox" title="Good for hiking" value="hike" class="filter hikeFilter" data-filter="activityFilter" />
-                        <div class="hikeFilter"></div>
-
-                      </label>
-                    </li>
-                    <li class="visuallyhidden_3" data-listItemNumber="2">
-                      <label>
-                        <input rel="1" type="checkbox" title="Good for cycling" value="roadbike" class="filter cycleFilter" data-filter="activityFilter"/>
-                        <div class="cycleFilter">
-                        </div>
-                      </label>
-                    </li>
-                    <li class="visuallyhidden_3" data-listItemNumber="3">
-                      <label>
-                        <input rel="3" type="checkbox" title="Wheelchair accessible" value="accessible" class="filter handicapFilter" data-filter="activityFilter"/>
-                        <div class="handicapFilter">
-                        </div>
-                      </label>
-                    </li>
-
-                  </ul>
-                </div>
-
-                <div class="activityRow">
-                  <ul class="trailUse" id="activityFilter"> 
-                    <li class="visuallyhidden_3" data-listItemNumber="4">
-                      <label>
-                        <input rel="4" type="checkbox" title="Equestrian or bridle trails" value="equestrian" class="filter horseFilter" data-filter="activityFilter" />
-                        <div class="horseFilter">
-                        </div>
-                      </label>
-                    </li>
-                    <li class="visuallyhidden_3" data-listItemNumber="5">
-                      <label>
-                        <input rel="5" type="checkbox" title="Cross-country skiing trails" value="xcntryski" class="filter xcountryskiFilter" data-filter="activityFilter"/>
-                        <div class="xcountryskiFilter">
-                        </div>
-                      </label>
-                    </li>
-                    <li class="visuallyhidden_3" data-listItemNumber="6">
-                      <label>
-                        <input rel="6" type="checkbox" title="Mountain bike tracks" value="mtnbike" class="filter mtnbikeFilter" data-filter="activityFilter"/>
-                        <div class="mtnbikeFilter">
-                        </div>
-                      </label>
-                    </li>
-                  </ul>
-                </div>
-                
-                  <!-- Select All & Clear Selection -->
-                <div class="trailSelection">
-                  <span class="clearSelection">Clear Search Criteria</span>
-                </div>
-              </div> <!-- trailFilters -->
-            </div> <!--panel-content-->
-          </div> <!--panel-container-->
-          <!-- Third Accordion Panel / The List -->
-          <div class="panel-container list-reset" tabindex="3">
-            <div class="trailsNearYouResults trigger3">
-              <h4 class="panel-title trails-count" aria-hidden="true">LOADING...</h4><span class="icon">&nbsp;&#x25BC;</span>
-            </div>
-            <div class="panel-content list-reset" aria-expanded="true">
-              <div class="trailList"></div>
-            </div> <!--panel-content -->
-          </div> <!--panel-container -->
-        </div> <!-- accordion inner wrap -->
-      </div> <!-- accordion clearfix -->
-    </section>
-  </div>
-  <div class="overlay">
-    <div class="overlay-panel">  
-    </div>
-  </div>
-
-
-  <script src="js/trailhead.js"></script>
-  <!-- leaflet build from trailsyFix branch of github repo fork danavery/Leaflet -->
-  <script src="js/leaflet-custom.js"></script>
-  <!-- <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script> -->
-  <script src="js/wicket.js"></script>
-  <script src="js/leaflet-providers.js"></script>
-  <script src="js/async.js"></script>
-  <script src="js/leaflet.usermarker.js"></script>
-  <script src="js/xdr.js"></script>
-  <script src="js/respond.min.js"></script>
-  <script src="js/accordion.js"></script>
-  <noscript>
-    <div class="noscript">
-      <div class="message">
-        To The Trails requires a web browser that supports Javascript. To learn more about web browers that are compatible with this site, <a href="http://browsehappy.com/">click here</a>.
-      </div>
-    </div>
-  </noscript>
+	<script src="js/trailhead.js"></script>
+	<!-- leaflet build from trailsyFix branch of github repo fork danavery/Leaflet -->
+	<script src="js/leaflet-custom.js"></script>
+	<!-- <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script> -->
+	<script src="js/wicket.js"></script>
+	<script src="js/leaflet-providers.js"></script>
+	<script src="js/async.js"></script>
+	<script src="js/leaflet.usermarker.js"></script>
+	<script src="js/xdr.js"></script>
+	<script src="js/respond.min.js"></script>
+	<script src="js/accordion.js"></script>
+	<noscript>
+		<div class="noscript">
+	    	<div class="message">
+	        To The Trails requires a web browser that supports Javascript. To learn more about web browers that are compatible with this site, <a href="http://browsehappy.com/">click here</a>.
+	      	</div>
+	    </div>
+	 </noscript>
 </body>
-</html>
 
-<!--
-              <div id="redoSearch">
-                <a href='#'>Refresh search from new map location</a>
-              </div>
- -->
+</html>
