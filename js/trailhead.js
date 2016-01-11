@@ -162,9 +162,14 @@ function startup() {
   $('.filter').change(filterChangeHandler);
 
   $(".clearSelection").click(clearSelectionHandler);
-  $(".search-key").keyup(function(e) { processSearch(e); });
+  $(".fpccSearchbox").keyup(function(e) { processSearch(e); });
   $(".offsetZoomControl").click(offsetZoomIn);
-  $(".search-submit").click(processSearch);
+  $(".fpccSearchsubmit").click(processSearch);
+
+  //$(".fpccSearchsubmit").click(processSearch);
+  //$(".fpccSearchbox").keyup(function(e) { processSearch(e); });
+  
+
   $(".geolocateButton").click(centerOnLocation);
 
   //  Detail Panel Navigation UI events
@@ -359,6 +364,7 @@ function startup() {
   //  Filter function + helper functions, triggered by UI events declared above.
 
   function applyFilterChange(currentFilters) {
+    console.log("[applyFilterChange]");
     currentTrailData = $.extend(true, {}, originalTrailData);
     $.each(originalTrailData, function(trail_id, trail) {
       if (currentFilters.activityFilter) {
@@ -372,7 +378,7 @@ function startup() {
       }
  
     });
-    //addTrailsToTrailheads(currentTrailData, originalTrailheads);
+    addTrailsToTrailheads(currentTrailData, originalTrailheads);
   }
 
   function filterChangeHandler(e) {
@@ -386,14 +392,15 @@ function startup() {
   function processSearch(e) {
     var $currentTarget = $(e.currentTarget);
     var filterType = "searchFilter";
-
+    console.log("[processSearch]");
     var currentUIFilterState;
     if (SMALL) {
-      currentUIFilterState = $('#mobile .search-key').val();
+      currentUIFilterState = $('#mobile .fpccSearchbox').val();
     } else {
-      currentUIFilterState = $('#desktop .search-key').val();
+      //currentUIFilterState = $('#desktop .fpccSearchbox').val();
+      currentUIFilterState = $('#desktop .fpccSearchbox').val();
     }
-    if (($currentTarget).hasClass('search-key')) {
+    if (($currentTarget).hasClass('fpccSearchbox')) {
       if (SMALL) {
         if (e.keyCode === 13) {
           updateFilterObject(filterType, currentUIFilterState);
@@ -401,18 +408,20 @@ function startup() {
       } else {
         clearTimeout(searchKeyTimeout);
         searchKeyTimeout = setTimeout(function () {
+          console.log("[processSearch] searchKeyTimeout currentUIFilterState = " + currentUIFilterState);
           updateFilterObject(filterType, currentUIFilterState);
         }, 300);
       }
-    } else if (($currentTarget).hasClass('search-submit')) {
+    } else if (($currentTarget).hasClass('fpccSearchsubmit')) {
       updateFilterObject(filterType, currentUIFilterState);
     }
   }
 
   function updateFilterObject(filterType, currentUIFilterState) {
-    console.log(currentUIFilterState);
+    console.log("[updateFilterObject] currentUIFilterState = " + currentUIFilterState);
     var matched = 0;
     if (filterType == "activityFilter") {
+      console.log("[updateFilterObject] activityFilter");
       var activityFilterLength = currentFilters.activityFilter.length;
       for (var i = 0; i < activityFilterLength; i++) {
         var activity = currentFilters.activityFilter[i];
@@ -446,7 +455,8 @@ function startup() {
     }
 
     if (filterType == "searchFilter") {
-      // console.log("searchFilter");
+      console.log("[updateFilterObject] searchFilter currentUIFilterState= " + currentUIFilterState);
+      //console.log("searchFilter");
       currentFilters.searchFilter = currentUIFilterState;
     }
     // currentFilters[filterType] = currentUIFilterState;
@@ -458,7 +468,7 @@ function startup() {
     console.log("clearSelectionHandler");
     $(".visuallyhidden_2 input").attr("checked", false);
     $(".visuallyhidden_3 input").attr("checked", false);
-    $(".search-key").val("");
+    $(".fpccSearchbox").val("");
     currentFilters = {
       lengthFilter: [],
       activityFilter: [],
@@ -1240,56 +1250,58 @@ function startup() {
 
   function addTrailsToTrailheads(myTrailData, myTrailheads) {
     console.log("addTrailsToTrailheads");
-    // for (var j = 0; j < myTrailheads.length; j++) {
-    //   var trailhead = myTrailheads[j];
-    //   trailhead.trails = [];
-    //   // for each original trailhead trail name
-    //   var trailheadTrailIDs = trailhead.properties.trail_ids
-    //   for (var trailNum = 0; trailNum < trailheadTrailIDs.length; trailNum++) {
-    //     var trailWithNum = "trail" + trailNum;
-    //     if (trailheadTrailIDs[trailNum] === "") {
-    //       continue;
-    //     }
-    //     var trailheadTrailID = trailheadTrailIDs[trailNum];
-    //     console.log("[addTrailsToTrailheads] trailheadTrailID: " + trailheadTrailID)
-    //     // TODO: add a test for the case of duplicate trail names.
-    //     // Right now this
-    //     // loop through all of the trailData objects, looking for trail names that match
-    //     // the trailhead trailname.
-    //     // this works great, except for things like "Ledges Trail," which get added twice,
-    //     // one for the CVNP instance and one for the MPSSC instance.
-    //     // we should test for duplicate names and only use the nearest one.
-    //     // to do that, we'll need to either query the DB for the trail segment info,
-    //     // or check distance against the pre-loaded trail segment info
-    //     $.each(myTrailData, function(trailID, trail) {
-    //       //console.log("HERE!!!!!!!!!!!!!!!!!!!!!!!!")
-    //       var wanted = false;
-    //       var dataAvailable = false;
-    //       if (trailheadTrailID == trail.properties.trail_id) {
-    //         console.log("[addTrailsToTrailheads] trail.properties.trail_id: " + trail.properties.trail_id)
-    //         // if (checkSegmentsForTrailname(trail.properties.name, trail.properties.source) || !USE_LOCAL) {
-    //         //   dataAvailable = true;
-    //         // } else {
-    //         //   dataAvailable = true;
-    //         //   console.log("skipping " + trail.properties.name + "/" + trail.properties.source + ": no segment data");
-    //         // }
-    //         dataAvailable = true;
-    //         if (filterResults(trail, trailhead)) {
-    //           wanted = true;
-    //         }
-    //       }
-    //       if (dataAvailable && wanted) {
-    //         trailhead.trails.push(trailID);
-    //       }
-    //     });
-    //   }
-    // }
+    var currentTrailheads = [];
+    for (var j = 0; j < myTrailheads.length; j++) {
+      var trailhead = myTrailheads[j];
+      var trailheadWanted = false;
+      // for each original trailhead trail name
+      // if (trailhead.properties.trail_ids) {
+      //   var trailheadTrailIDs = trailhead.properties.trail_ids;
+      //   for (var trailNum = 0; trailNum < trailheadTrailIDs.length; trailNum++) {
+      //     var trailheadTrailID = trailheadTrailIDs[trailNum];
+      //     console.log("[addTrailsToTrailheads] trailheadTrailID: " + trailheadTrailID);
+      //     $.each(myTrailData, function(trailID, trail) {
+      //       console.log("HERE!!!!!!!!!!!!!!!!!!!!!!!!")
+      //       var wanted = false;
+      //       var dataAvailable = false;
+      //       if (trailheadTrailID == trail.properties.trail_id) {
+      //         console.log("[addTrailsToTrailheads] trail.properties.trail_id: " + trail.properties.trail_id);
+      //          // if (checkSegmentsForTrailname(trail.properties.name, trail.properties.source) || !USE_LOCAL) {
+      //          //   dataAvailable = true;
+      //          // } else {
+      //          //   dataAvailable = true;
+      //          //   console.log("skipping " + trail.properties.name + "/" + trail.properties.source + ": no segment data");
+      //          // }
+      //         dataAvailable = true;
+      //         if (filterResults(trail, trailhead)) {
+      //           wanted = true;
+      //           trailheadWanted = true;
+      //         }
+      //       }
+      //     });
+      //   }
+      // }
+      // else {
+      //   if (filterResults(null, trailhead)) {
+      //     trailheadWanted = true;
+      //   }
+      // }
+      if (filterResults(null, trailhead)) {
+        console.log("filterResults is good");
+        trailheadWanted = true;
+        currentTrailheads.push(trailhead);
+      }
+      // if (trailheadWanted) {
+      //   myTrailheads.splice(j, 1);
+      // }
+    }
+
     setTimeout(function() {
       //fixDuplicateTrailheadTrails(myTrailheads);
-      makeTrailheadPopups(myTrailheads);
-      mapActiveTrailheads(myTrailheads);
+      makeTrailheadPopups(currentTrailheads);
+      mapActiveTrailheads(currentTrailheads);
       setTimeout(function() {
-        makeTrailDivs(myTrailheads);
+        makeTrailDivs(currentTrailheads);
         setTimeout(function() {
           if (SMALL && USE_LOCAL) {
             highlightTrailhead(orderedTrails[0].trailheadID, 0);
@@ -1304,26 +1316,32 @@ function startup() {
   function filterResults(trail, trailhead) {
     var wanted = false;
     var lengthMatched = false;
-    if (currentFilters.lengthFilter) {
-      if (currentFilters.lengthFilter.length === 0) {
-        lengthMatched = true;
-      }
-      for (var j = 0; j < currentFilters.lengthFilter.length; j++) {
-        var distance = currentFilters.lengthFilter[j];
-        var trailDist = trail.properties["length"];
-        if ((distance.toLowerCase() == "short" && trailDist <= SHORT_MAX_DISTANCE) ||
-          (distance.toLowerCase() == "medium" && trailDist > SHORT_MAX_DISTANCE && trailDist <= MEDIUM_MAX_DISTANCE) ||
-          (distance.toLowerCase() == "long" && trailDist > MEDIUM_MAX_DISTANCE && trailDist <= LONG_MAX_DISTANCE) ||
-          (distance.toLowerCase() == "verylong" && trailDist > LONG_MAX_DISTANCE)) {
-          lengthMatched = true;
-        break;
-        }
-      }
-    }
+    // if (currentFilters.lengthFilter) {
+    //   if (currentFilters.lengthFilter.length === 0) {
+    //     lengthMatched = true;
+    //   }
+    //   for (var j = 0; j < currentFilters.lengthFilter.length; j++) {
+    //     var distance = currentFilters.lengthFilter[j];
+    //     var trailDist = trail.properties["length"];
+    //     if ((distance.toLowerCase() == "short" && trailDist <= SHORT_MAX_DISTANCE) ||
+    //       (distance.toLowerCase() == "medium" && trailDist > SHORT_MAX_DISTANCE && trailDist <= MEDIUM_MAX_DISTANCE) ||
+    //       (distance.toLowerCase() == "long" && trailDist > MEDIUM_MAX_DISTANCE && trailDist <= LONG_MAX_DISTANCE) ||
+    //       (distance.toLowerCase() == "verylong" && trailDist > LONG_MAX_DISTANCE)) {
+    //       lengthMatched = true;
+    //     break;
+    //     }
+    //   }
+    // }
     var searchMatched = true;
     if (currentFilters.searchFilter) {
+      console.log("searchfilter is not null = " + currentFilters.searchfilter);
       searchMatched = false;
-      var normalizedTrailName = trail.properties.name.toLowerCase();
+      var normalizedTrailName = "";
+      var normalizedDescription = null;
+      if (trail) {
+        normalizedTrailName = trail.properties.name.toLowerCase();
+        normalizedDescription = trail.properties.description.toLowerCase();
+      }
       var normalizedSearchFilter = currentFilters.searchFilter.toLowerCase();
       var equivalentWords = [
       [" and ", " & "],
@@ -1331,19 +1349,17 @@ function startup() {
       ];
       $.each(equivalentWords, function(i, el) {
         var regexToken = "(" + el[0] + "|" + el[1] + ")";
-
         normalizedSearchFilter = normalizedSearchFilter.replace(el[0], regexToken);
         normalizedSearchFilter = normalizedSearchFilter.replace(el[1], regexToken);
       });
-
       var searchRegex = new RegExp(normalizedSearchFilter);
       var nameMatched = !! normalizedTrailName.match(searchRegex);
       
       var descriptionMatched;
-      if (trail.properties.description === null) {
+      if (normalizedDescription === null) {
         descriptionMatched = false;
       } else {
-        var normalizedDescription = trail.properties.description.toLowerCase();
+        
         descriptionMatched = !! normalizedDescription.match(searchRegex);
       }
 
@@ -1365,7 +1381,7 @@ function startup() {
       }
     }
     
-    if (lengthMatched && searchMatched) {
+    if (searchMatched) {
       wanted = true;
     }
     else {
