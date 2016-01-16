@@ -1675,10 +1675,10 @@ function startup() {
   }
 
   function detailPanelHoverOut(e) {
-    if(!SMALL){
-      $(".controlRight").removeClass("enabled").addClass("disabled");
-      $(".controlLeft").removeClass("enabled").addClass("disabled");
-    }
+    // if(!SMALL){
+    //   $(".controlRight").removeClass("enabled").addClass("disabled");
+    //   $(".controlLeft").removeClass("enabled").addClass("disabled");
+    // }
   }
 
   function changeDetailPanel(e) {
@@ -1695,14 +1695,14 @@ function startup() {
       }
     }
     var trailChanged = false;
-    if ($(e.target).hasClass("controlRight")) {
-      orderedTrailIndex = orderedTrailIndex + 1;
-      trailChanged = true;
-    }
-    if ($(e.target).hasClass("controlLeft") && orderedTrailIndex > 0) {
-      orderedTrailIndex = orderedTrailIndex - 1;
-      trailChanged = true;
-    }
+    // if ($(e.target).hasClass("controlRight")) {
+    //   orderedTrailIndex = orderedTrailIndex + 1;
+    //   trailChanged = true;
+    // }
+    // if ($(e.target).hasClass("controlLeft") && orderedTrailIndex > 0) {
+    //   orderedTrailIndex = orderedTrailIndex - 1;
+    //   trailChanged = true;
+    // }
     if (trailChanged) {
       var orderedTrail = orderedTrails[orderedTrailIndex];
       // console.log(orderedTrail);
@@ -1724,17 +1724,17 @@ function startup() {
 
   function enableTrailControls() {
 
-    if (orderedTrailIndex === 0) {
-      $(".controlLeft").removeClass("enabled").addClass("disabled");
-    } else {
-      $(".controlLeft").removeClass("disabled").addClass("enabled");
-    }
+    // if (orderedTrailIndex === 0) {
+    //   $(".controlLeft").removeClass("enabled").addClass("disabled");
+    // } else {
+    //   $(".controlLeft").removeClass("disabled").addClass("enabled");
+    // }
 
-    if (orderedTrailIndex == orderedTrails.length - 1) {
-      $(".controlRight").removeClass("enabled").addClass("disabled");
-    } else {
-      $(".controlRight").removeClass("disabled").addClass("enabled");
-    }
+    // if (orderedTrailIndex == orderedTrails.length - 1) {
+    //   $(".controlRight").removeClass("enabled").addClass("disabled");
+    // } else {
+    //   $(".controlRight").removeClass("disabled").addClass("enabled");
+    // }
     return orderedTrailIndex;
   }
 
