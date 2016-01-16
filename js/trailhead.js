@@ -149,7 +149,21 @@ function startup() {
   var trailheadIcon2Options = $.extend(trailheadIconOptions, {
     className: 'icon icon-sign'
   });
-  var trailheadIcon2 = L.divIcon(trailheadIcon2Options);
+  // var trailheadIcon2 = L.icon({
+  //       iconUrl: 'icons/defs.svg#icon-sign',
+  //       iconAnchor: [13 * 0.60, 33 * 0.60],
+  //       popupAnchor: [0, -3],
+  //       iconSize: [52 * 0.60, 66 * 0.60] // size of the icon
+  //       });
+
+  var trailheadIcon2 = L.divIcon({
+    className: 'icon-sign',
+    html: '<svg class="icon icon-sign"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>',
+    iconAnchor: [13 * 0.60, 33 * 0.60],
+    popupAnchor: [0, -3],
+    iconSize: [52 * 0.60, 66 * 0.60] // size of the icon
+  });
+  //L.divIcon(trailheadIcon2Options);
 
 
   // =====================================================================//
@@ -2404,7 +2418,7 @@ function startup() {
 
     map.removeLayer(currentTrailhead.marker);
     currentTrailhead.marker = new L.Marker(currentTrailhead.marker.getLatLng(), {
-      icon: trailheadIcon1
+      icon: trailheadIcon2
     }).addTo(map);
     setTrailheadEventHandlers(currentTrailhead);
 
