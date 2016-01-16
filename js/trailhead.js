@@ -1044,14 +1044,24 @@ function startup() {
     allInvisibleSegmentsArray = [];
     var allSegmentLayer = new L.FeatureGroup();
     // console.log("visibleAllTrailLayer start");
+
     // make a normal visible layer for the segments, and add each of those layers to the allVisibleSegmentsArray
     var visibleAllTrailLayer = L.geoJson(response, {
-      style: {
-        color: NORMAL_SEGMENT_COLOR,
-        weight: NORMAL_SEGMENT_WEIGHT,
-        opacity: 1,
-        clickable: false,
-        smoothFactor: customSmoothFactor     
+      style: function(feature) {
+        console.log(feature.properties.trail_names[0] + " " + feature.properties.trail_colors[0]);
+        switch (feature.properties.trail_colors[0]) {
+            case 'RED': return {color: "#EE2D2F", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            case 'ORANGE': return {color: "#F7941E", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            case 'PURPLE': return {color: "#7F58A5", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            case 'GREY': return {color: "#58595B", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            case 'YELLOW': return {color: "#FFF450", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            case 'GREEN': return {color: "#006129", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            case 'TAN': return {color: "#969161", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            case 'BROWN': return {color: "#6C503F", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            case 'BLUE': return {color: "#26B8EB", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            case 'BLACK': return {color: "#333132", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            default:   return {color: NORMAL_SEGMENT_COLOR, weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+        }
       },
       onEachFeature: function visibleOnEachFeature(feature, layer) {
         // console.log("visibleAllTrailLayer onEachFeature");
@@ -1148,15 +1158,13 @@ function startup() {
           openTimeout = setTimeout(function openTimeoutFunction(originalEvent, target) {
             return function() {
               target.setStyle({
-                weight: HOVER_SEGMENT_WEIGHT,
-                color: HOVER_SEGMENT_COLOR
+                weight: HOVER_SEGMENT_WEIGHT
               });
               // set currentWeightedSegment back to normal
               if (target != currentWeightedSegment) {
                 if (currentWeightedSegment) {
                   currentWeightedSegment.setStyle({
-                    weight: NORMAL_SEGMENT_WEIGHT,
-                    color: NORMAL_SEGMENT_COLOR
+                    weight: NORMAL_SEGMENT_WEIGHT
                   });
                 }
               }
@@ -2555,7 +2563,8 @@ function startup() {
               // (segment.properties.source == trailSource || trailName == "Ohio & Erie Canal Towpath Trail")) {
               1) {
               trailFeatureCollection.features[0].properties = {
-                trailname: trailName
+                trailname: trailName,
+                trail_colors: segment.properties.trail_colors
               };
               valid = 1;
               // console.log("match");
@@ -2633,12 +2642,22 @@ function startup() {
       }
       else {
         currentMultiTrailLayer = L.geoJson(response, {
-          style: {
-            weight: NORMAL_SEGMENT_WEIGHT,
-            color: NORMAL_SEGMENT_COLOR,
-            opacity: 1,
-            clickable: false,
-            smoothFactor: customSmoothFactor
+          style: function(feature) {
+            console.log(feature);
+        switch (feature.properties.trail_colors[0]) {
+            case 'RED': return {color: "#EE2D2F", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            case 'ORANGE': return {color: "#F7941E", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            case 'PURPLE': return {color: "#7F58A5", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            case 'GREY': return {color: "#58595B", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            case 'YELLOW': return {color: "#FFF450", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            case 'GREEN': return {color: "#006129", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            case 'TAN': return {color: "#969161", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            case 'BROWN': return {color: "#6C503F", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            case 'BLUE': return {color: "#26B8EB", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            case 'BLACK': return {color: "#333132", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            default:   return {color: NORMAL_SEGMENT_COLOR, weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+        }
+           
           },
           onEachFeature: function(feature, layer) {
             currentTrailLayers.push(layer);
@@ -2669,15 +2688,13 @@ function startup() {
     console.log("setCurrentTrail");
     if (currentHighlightedTrailLayer && typeof currentHighlightedTrailLayer.setStyle == "Function") {
       currentHighlightedTrailLayer.setStyle({
-        weight: NORMAL_SEGMENT_WEIGHT,
-        color: NORMAL_SEGMENT_COLOR
+        weight: NORMAL_SEGMENT_WEIGHT
       });
     }
     if (currentTrailLayers[index]) {
       currentHighlightedTrailLayer = currentTrailLayers[index];
       currentHighlightedTrailLayer.setStyle({
-        weight: ACTIVE_TRAIL_WEIGHT,
-        color: ACTIVE_TRAIL_COLOR
+        weight: ACTIVE_TRAIL_WEIGHT
       });
       currentHighlightedTrailLayer.bringToFront();
     } else {
