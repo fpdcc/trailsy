@@ -2691,6 +2691,14 @@ function startup() {
         weight: NORMAL_SEGMENT_WEIGHT
       });
     }
+
+    if (currentHighlightedTrailLayer) {
+      console.log(currentHighlightedTrailLayer);
+      // currentHighlightedTrailLayer.setStyle({
+      //   weight: NORMAL_SEGMENT_WEIGHT
+      // });
+    }
+
     if (currentTrailLayers[index]) {
       currentHighlightedTrailLayer = currentTrailLayers[index];
       currentHighlightedTrailLayer.setStyle({
