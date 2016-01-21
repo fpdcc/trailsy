@@ -1552,7 +1552,7 @@ function startup() {
     var trailListElementList = document.getElementById(topLevelID).getElementsByClassName("fpccResults");
     trailListElementList[0].innerHTML = "";
     var myTrailheadsLength = myTrailheads.length;
-    var trailListContents = "";
+    var trailListContents = "<h4>" + myTrailheadsLength + " RESULTS FOUND</h4>";
     for (var j = 0; j < myTrailheadsLength; j++) {
       // console.log("makeTrailDivs trailhead: " + j);
       // newTimeStamp = Date.now();
@@ -1566,9 +1566,6 @@ function startup() {
       var trailheadID = trailhead.properties.id;
       var parkName = trailhead.properties.park;
       var trailheadTrailIDs = trailhead.trails;
-      if (trailheadTrailIDs == null) {
-        continue;
-      }
       var trailheadSource = trailhead.properties.source;
       var trailheadDistance = metersToMiles(trailhead.properties.distance);
 
@@ -1578,13 +1575,21 @@ function startup() {
       //var trailIDsLength = trailheadTrailIDs.length; 
       //for (var i = 0; i < trailIDsLength; i++) {
         // console.log("makeTrailDivs " + i);
+      if (trailheadTrailIDs) {
         var trailID = trailheadTrailIDs[0];
         var trail = currentTrailData[trailID];
         var trailName = currentTrailData[trailID].properties.name;
         var trailLength = Number(Math.round(currentTrailData[trailID].properties.length +'e2')+'e-2');
-        var trailCurrentIndex = divCount++;
+      }
+      else {
+        var trailID = null;
+        var trail = null;
+        var trailName = null;
+        var trailLength = null;
+      }
+      var trailCurrentIndex = divCount++;
 
-        var trailDivText = "<a href='#' class='fpccEntry clearfix' " + 
+       var trailDivText = "<a href='#' class='fpccEntry clearfix' " + 
         "data-source='list' " +
         "data-trailid='" + trailID + "' " +
         "data-trailname='" + trailName + "' " +
@@ -1598,26 +1603,14 @@ function startup() {
         '<svg class="icon icon-sign"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>' + 
         '<span class="fpccEntryNameText">' + trailheadName + '</span></span>' +
         '<span class="fpccEntryDis">' + trailheadDistance + ' mi away</span></a>' +
-        "</div>";
+        "</div>"
 
-        var mileString = trailLength == 1 ? "mile" : "miles";
-        // var trailInfoText = "<div class='trailInfo'>" + 
-        // "<div class='trailCurrentIndex' >" + trailCurrentIndex + "</div>" + 
-        // "<div class='trail' >" + trailName + "</div>";
-        // if (trailLength > 0) {
-        //   trailInfoText = trailInfoText + "<div class='trailLength' >" + trailLength + " " + mileString + " long" + "</div>";
-        // }
-        // if (parkName) {
-        //   trailInfoText = trailInfoText + "<div class='parkName' >" + trailhead.properties.park + "</div>";
-        // }
-        // trailInfoText = trailInfoText + "</div>";
+      var trailSourceText = "<div class='trailSource' id='" + trailheadSource + "'>" + trailheadSource + "</div></div>";
+      var trailDivComplete = trailDivText + trailheadInfoText + trailSourceText;
 
-        var trailSourceText = "<div class='trailSource' id='" + trailheadSource + "'>" + trailheadSource + "</div></div>";
-        var trailDivComplete = trailDivText + trailheadInfoText + trailSourceText;
-
-        trailListContents = trailListContents + trailDivComplete;
-        // var trailDivWrapper = document.createElement('div');
-        // var trailDivComplete = trailDivText + trailInfoText + trailheadInfoText + trailSourceText;
+      trailListContents = trailListContents + trailDivComplete;
+      //var trailDivWrapper = document.createElement('div');
+      //var trailDivComplete = trailDivText + trailInfoText + trailheadInfoText + trailSourceText;
         // trailDivWrapper.innerHTML = trailDivComplete;
         // trailListElementList[0].insertAdjacentHTML('beforeend', trailDivWrapper.firstChild.outerHTML);
 
@@ -2317,7 +2310,7 @@ function startup() {
 
   function parseTrailElementData($element) {
     var trailheadID = $element.data("trailheadid");
-    var highlightedTrailIndex = $element.data("index") || 0;
+    var highlightedTrailIndex = $element.data("index") || null;
     var trailID = $element.data("trailid");
     var results = {
       trailheadID: trailheadID,
@@ -2343,6 +2336,7 @@ function startup() {
       $myTarget = $(e.target);
     }
     var parsed = parseTrailElementData($myTarget);
+    console.log("parsed.trailheadID = " + parsed.trailheadID + " parsed.highlightedTrailIndex = " + parsed.highlightedTrailIndex);
     highlightTrailhead(parsed.trailheadID, parsed.highlightedTrailIndex);
     var trail = currentTrailData[parsed.trailID];
     var trailhead = getTrailheadById(parsed.trailheadID);
