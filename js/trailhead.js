@@ -878,6 +878,7 @@ function startup() {
     var currentActivityMarkerArray = [];
     for (var i = 0; i < originalActivities.length; i++) {
       //console.log("[showActivties] originalActivities.trailhead_id is " + originalActivities[i].properties.trailhead_id);
+      var trailheadID = originalActivities[i].properties.trailhead_id;
       originalActivities[i].marker.on("click", function(trailheadID) {
           return function() {
             trailheadMarkerClick(trailheadID);
