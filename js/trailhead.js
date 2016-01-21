@@ -62,6 +62,7 @@ function startup() {
   var MAX_ZOOM = SMALL ? 16 : 17;
   var MIN_ZOOM = SMALL ? 13 : 14;
   var SECONDARY_TRAIL_ZOOM = 13;
+  var SHOW_ALL_ACTIVITIES_ZOOM = 15; //Show all activity points starting at this zoom level
   var SHORT_MAX_DISTANCE = 2.0;
   var MEDIUM_MAX_DISTANCE = 5.0;
   var LONG_MAX_DISTANCE = 10.0;
@@ -690,6 +691,7 @@ function startup() {
 
     map.on("zoomend", function(e) {
       console.log("zoomend start " + map.getZoom());
+      var zoomLevel = map.getZoom();
       if (SHOW_ALL_TRAILS && allSegmentLayer) {
         if (map.getZoom() >= SECONDARY_TRAIL_ZOOM && !(map.hasLayer(allSegmentLayer))) {
           // console.log(allSegmentLayer);
@@ -705,6 +707,12 @@ function startup() {
           }
           map.removeLayer(allSegmentLayer);
         }
+      }
+      if (zoomLevel >= SHOW_ALL_ACTIVITIES_ZOOM) {
+        showActivities();
+      }
+      else {
+        removeActivities();
       }
       console.log("zoomend end " + map.getZoom());
     });
@@ -870,16 +878,21 @@ function startup() {
     var currentActivityMarkerArray = [];
     for (var i = 0; i < originalActivities.length; i++) {
       //console.log("[showActivties] originalActivities.trailhead_id is " + originalActivities[i].properties.trailhead_id);
-      if (originalActivities[i].properties.trailhead_id == id) {
-        //console.log("[showActivties] originalActivities.trailhead_id= " + id);
-        originalActivities[i].marker.on("click", function(trailheadID) {
+      originalActivities[i].marker.on("click", function(trailheadID) {
           return function() {
             trailheadMarkerClick(trailheadID);
           };
         }(originalActivities[i].properties.trailhead_id));
+      // if there is an entrance id, only add that entrance's activities to the current Array
+      if (id) {
+        if (originalActivities[i].properties.trailhead_id == id) {
+          //console.log("[showActivties] originalActivities.trailhead_id= " + id);
+          currentActivityMarkerArray.push(originalActivities[i].marker);
+        }
+      }
+      // If entrance id is null, add all activities to current activity array
+      else {
         currentActivityMarkerArray.push(originalActivities[i].marker);
-      } else {
-        //console.log("[showActivties] originalActivities.trailhead_id <> " + id);
       }
     }
     if (currentActivityLayerGroup) {
@@ -890,6 +903,11 @@ function startup() {
     console.log("showActivities end");
   }
 
+  function removeActivities() {
+    if (currentActivityLayerGroup) {
+      map.removeLayer(currentActivityLayerGroup);
+    }
+  }
 
   function popupCloseHandler(e) {
     currentTrailPopup = null;
