@@ -62,7 +62,7 @@ function startup() {
   var MAX_ZOOM = SMALL ? 16 : 17;
   var MIN_ZOOM = SMALL ? 13 : 14;
   var SECONDARY_TRAIL_ZOOM = 13;
-  var SHOW_ALL_ACTIVITIES_ZOOM = 15; //Show all activity points starting at this zoom level
+  var SHOW_ALL_ACTIVITIES_ZOOM = 14; //Show all activity points starting at this zoom level
   var SHORT_MAX_DISTANCE = 2.0;
   var MEDIUM_MAX_DISTANCE = 5.0;
   var LONG_MAX_DISTANCE = 10.0;
@@ -767,11 +767,22 @@ function startup() {
       // var newMarker = L.marker(currentFeatureLatLng, ({
       //   icon: trailheadIcon1
       // }));
-     var newMarker = new L.CircleMarker(currentFeatureLatLng, {
-        color: "#0000FF",
-        fillOpacity: 0.5,
-        opacity: 0.8
-      }).setRadius(MARKER_RADIUS);
+     // var newMarker = new L.CircleMarker(currentFeatureLatLng, {
+     //    color: "#0000FF",
+     //    fillOpacity: 0.5,
+     //    opacity: 0.8
+     //  }).setRadius(MARKER_RADIUS);
+ 
+    var newIcon = L.divIcon({
+      html: '<h4>HELLO</h4>',
+      iconAnchor: [13 * 0.60, 33 * 0.60],
+      popupAnchor: [0, -3],
+      iconSize: [52 * 0.60, 66 * 0.60] // size of the icon
+    });
+    var newIcon = L.divIcon({className: 'my-div-icon'});
+    var newMarker = new L.Marker(currentTrailhead.marker.getLatLng(), {
+      icon: newIcon
+    }).setRadius(MARKER_RADIUS);
      // if curentFeature.properties.activity_type == "Fishing Lake" {
      //    newMarker = L.marker(currentFeatureLatLng, ({
      //      icon: 
@@ -1660,15 +1671,15 @@ function startup() {
       currentDetailTrail = trail;
       currentDetailTrailhead = trailhead;
     } else {
-      if (currentDetailTrail == trail && currentDetailTrailhead == trailhead) {
-        currentDetailTrail = null;
-        currentDetailTrailhead = null;
-        closeDetailPanel();
-      } else {
+      // if (currentDetailTrail == trail && currentDetailTrailhead == trailhead) {
+      //   currentDetailTrail = null;
+      //   currentDetailTrailhead = null;
+      //   closeDetailPanel();
+      // } else {
         decorateDetailPanel(trail, trailhead);
         currentDetailTrail = trail;
         currentDetailTrailhead = trailhead;
-      }
+      //}
     }
   }
 
@@ -2312,6 +2323,10 @@ function startup() {
     var trailheadID = $element.data("trailheadid");
     var highlightedTrailIndex = $element.data("index") || null;
     var trailID = $element.data("trailid");
+    if (trailID == "null") {
+      trailID = null;
+      highlightedTrailIndex = null;
+    }
     var results = {
       trailheadID: trailheadID,
       highlightedTrailIndex: highlightedTrailIndex,
@@ -2338,8 +2353,12 @@ function startup() {
     var parsed = parseTrailElementData($myTarget);
     console.log("parsed.trailheadID = " + parsed.trailheadID + " parsed.highlightedTrailIndex = " + parsed.highlightedTrailIndex);
     highlightTrailhead(parsed.trailheadID, parsed.highlightedTrailIndex);
-    var trail = currentTrailData[parsed.trailID];
+    var trail = null;
+    if (parsed.trailID) {
+      trail = currentTrailData[parsed.trailID];
+    }
     var trailhead = getTrailheadById(parsed.trailheadID);
+    console.log("trail= " + trail + " trailhead= " + trailhead);
     showTrailDetails(trail, trailhead);
   }
 
