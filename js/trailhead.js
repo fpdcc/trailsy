@@ -830,7 +830,7 @@ function startup() {
     originalTrailheads = [];
     for (var i = 0; i < trailheadsGeoJSON.features.length; i++) {
       var currentFeature = trailheadsGeoJSON.features[i];
-      console.log("[populateOriginalTrailheads] trailheadID = " + currentFeature.properties.id + " trail_ids = " + currentFeature.properties.trail_ids);
+      //console.log("[populateOriginalTrailheads] trailheadID = " + currentFeature.properties.id + " trail_ids = " + currentFeature.properties.trail_ids);
       var currentFeatureLatLng = new L.LatLng(currentFeature.geometry.coordinates[1], currentFeature.geometry.coordinates[0]);
       var distance = currentFeatureLatLng.distanceTo(location);
       currentFeature.properties.distance = distance;
@@ -1078,7 +1078,7 @@ function startup() {
     // make a normal visible layer for the segments, and add each of those layers to the allVisibleSegmentsArray
     var visibleAllTrailLayer = L.geoJson(response, {
       style: function(feature) {
-        console.log(feature.properties.trail_names[0] + " " + feature.properties.trail_colors[0]);
+        //console.log(feature.properties.trail_names[0] + " " + feature.properties.trail_colors[0]);
         switch (feature.properties.trail_colors[0]) {
             case 'RED': return {color: "#EE2D2F", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
             case 'ORANGE': return {color: "#F7941E", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
@@ -2564,6 +2564,10 @@ function startup() {
     console.log("getAllTrailPathsForTrailheadLocal");
     var responses = [];
     var trailFeatureArray = [];
+    var trailFeatureCollection = {
+          type: "FeatureCollection",
+          features: []
+        };
     // got trailhead.trails, now get the segment collection for all of them
     // get segment collection for each
     if (trailhead.trails) {
@@ -2573,50 +2577,43 @@ function startup() {
         var trailSource = trail.properties.source;
         var trailName = trail.properties.name;
 
-        var trailFeatureCollection = {
-          type: "FeatureCollection",
-          features: [{
-            geometry: {
-              geometries: [],
-              type: "GeometryCollection"
-            },
-            type: "Feature"
-          }]
-        };
+        
         var valid = 0;
         var segmentsLength = trailSegments.features.length;
+        var segmentsUsedIndex = 0;
         for (var segmentIndex = 0; segmentIndex < segmentsLength; segmentIndex++) {
           var segment = trailSegments.features[segmentIndex];
           var segmentTrailsLength = segment.properties.trail_ids.length;
+          
           for (var segmentTrailIndex = 0; segmentTrailIndex < segmentTrailsLength; segmentTrailIndex++) {
             if ((segment.properties.trail_ids[segmentTrailIndex] == trailID) &&
               // this was intended to use only trailhead source's data for a trail, but 
               // it causes more problems than it solves.
               // (segment.properties.source == trailSource || trailName == "Ohio & Erie Canal Towpath Trail")) {
               1) {
-              trailFeatureCollection.features[0].properties = {
-                trailname: trailName,
-                trail_colors: segment.properties.trail_colors
-              };
+              trailFeatureArray.push(segment);
               valid = 1;
-              // console.log("match");
-              trailFeatureCollection.features[0].geometry.geometries.push(segment.geometry);
+              console.log("trail_colors = " + segment.properties.trail_colors + " segmentsUsedIndex = " + segmentsUsedIndex);
+              segmentsUsedIndex += 1;
             } else {
               // console.log("invalid!");
             }
           }
         }
-        if (valid) {
-          trailFeatureArray.push(trailFeatureCollection);
-        }
+        // if (valid) {
+        //   trailFeatureArray.push(trailFeatureCollection);
+        // }
       }
+      trailFeatureCollection.features = trailFeatureArray;
+      
     }
     console.log("getAllTrailPathsForTrailheadLocal end");
-
-    responses = mergeResponses(trailFeatureArray);
-
-    drawMultiTrailLayer(responses);
-    setCurrentTrail(highlightedTrailIndex);
+    console.log("trailFeatureArray count = " + trailFeatureArray.length);
+    //console.log("trailFeatureCollection count = " + trailFeatureCollection.length);
+    //responses = mergeResponses(trailFeatureArray);
+    responses = trailFeatureCollection;
+      drawMultiTrailLayer(responses);
+      setCurrentTrail(highlightedTrailIndex);
   }
 
 
@@ -2639,9 +2636,12 @@ function startup() {
     var combined = $.extend(true, {}, responses[0]);
     if (combined.features) {
       combined.features[0].properties.order = 0;
+      console.log("combined.features = true");
       for (var i = 1; i < responses.length; i++) {
+        console.log("combined.features i = " + i);
         combined.features = combined.features.concat(responses[i].features);
         combined.features[i].properties.order = i;
+        console.log("combined.features[i].properties.trail_color= " + combined.features[i].properties.trail_colors);
       }
     } else {
       console.log("ERROR: missing segment data for trail.");
@@ -2663,33 +2663,30 @@ function startup() {
   function drawMultiTrailLayer(response) {
     console.log("drawMultiTrailLayer");
     if (currentMultiTrailLayer) {
+      console.log("[drawMultiTrailLayer] Remove currentMultiTrailLayer");
       map.removeLayer(currentMultiTrailLayer);
       currentTrailLayers = [];
     }
-
+    console.log("[drawMultiTrailLayer] response.features = " + response.features);
     // Add check to see if there are segment features
-    if (response.features) {
-      if (response.features[0].geometry === null) {
-        alert("No trail segment data found.");
-      }
-      else {
-        currentMultiTrailLayer = L.geoJson(response, {
-          style: function(feature) {
-            console.log(feature);
-        switch (feature.properties.trail_colors[0]) {
-            case 'RED': return {color: "#EE2D2F", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-            case 'ORANGE': return {color: "#F7941E", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-            case 'PURPLE': return {color: "#7F58A5", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-            case 'GREY': return {color: "#58595B", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-            case 'YELLOW': return {color: "#FFF450", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-            case 'GREEN': return {color: "#006129", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-            case 'TAN': return {color: "#969161", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-            case 'BROWN': return {color: "#6C503F", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-            case 'BLUE': return {color: "#26B8EB", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-            case 'BLACK': return {color: "#333132", weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-            default:   return {color: NORMAL_SEGMENT_COLOR, weight: NORMAL_SEGMENT_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-        }
-           
+    if (response.features.length > 0) {
+      console.log("response.features count = " + response.features.length);
+      currentMultiTrailLayer = L.geoJson(response, {
+        style: function(feature) {
+            //console.log(feature.properties.trail_colors);
+          switch (feature.properties.trail_colors[0]) {
+            case 'RED': return {color: "#EE2D2F", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            case 'ORANGE': return {color: "#F7941E", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            case 'PURPLE': return {color: "#7F58A5", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            case 'GREY': return {color: "#58595B", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            case 'YELLOW': return {color: "#FFF450", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            case 'GREEN': return {color: "#006129", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            case 'TAN': return {color: "#969161", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            case 'BROWN': return {color: "#6C503F", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            case 'BLUE': return {color: "#26B8EB", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            case 'BLACK': return {color: "#333132", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            default:   return {color: NORMAL_SEGMENT_COLOR, weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+        }  
           },
           onEachFeature: function(feature, layer) {
             currentTrailLayers.push(layer);
@@ -2697,7 +2694,6 @@ function startup() {
         }).addTo(map);
         //.bringToFront();
         zoomToLayer(currentMultiTrailLayer);
-      }
     }
   }
 
