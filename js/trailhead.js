@@ -947,25 +947,39 @@ function startup() {
   }
 
   function populateTrailData(trailDataGeoJSON) {
+    var secondaryTrails = [];
     for (var i = 0; i < trailDataGeoJSON.features.length; i++) {
-      originalTrailData[trailDataGeoJSON.features[i].properties.id] = trailDataGeoJSON.features[i];
-      var segments = trailDataGeoJSON.features[i].properties.segment_ids;
-      //console.log("[populateTrailData] segments = " + segments);
-      // for (var segmentIndex = 0; segmentIndex < segments.length; segmentIndex++) {
-      //   var segment = segments[segmentIndex];
-      //   console.log("[populateTrailData] segment = " + segment);
-      //   console.log("[populateTrailData] trail_id = " + trailDataGeoJSON.features[i].properties.id)
-      //   if ( segmentTrailIdCache[segment] === undefined ) {
-      //     segmentTrailIdCache[segment] = [trailDataGeoJSON.features[i].properties.id];
-      //   }
-      //   else {
-      //     segmentTrailIdCache[segment].push(trailDataGeoJSON.features[i].properties.id);
-      //   }
-      //   console.log("segmentTrailIdCache = " + segmentTrailIdCache[segment] + " for segment " + segment);
-      // }
+      if (trailDataGeoJSON.features[i].properties.part_of[0]) {
+        secondaryTrails.push(trailDataGeoJSON.features[i]);
+      } else {
+        originalTrailData[trailDataGeoJSON.features[i].properties.id] = trailDataGeoJSON.features[i];
+        originalTrailData[trailDataGeoJSON.features[i].properties.id].properties.detailHTML = '';
+      }
+    }
+
+    for (var secondaryNum = 0; secondaryNum < secondaryTrails.length; secondaryNum++) {
+      var thisSecondaryTrail = secondaryTrails[secondaryNum];
+      console.log("thisSecondaryTrail= " + thisSecondaryTrail);
+      var secondaryHTML = '<div class="fpccTrailSegment"><div class="fpccSegmentOverview fpcc';
+      secondaryHTML += thisSecondaryTrail.properties.trail_color;
+      secondaryHTML += ' clearfix"><span class="fpccSegmentName">';
+      secondaryHTML += thisSecondaryTrail.properties.trail_color;
+      secondaryHTML += '</span><span class="fpccTrailUse">';
+      secondaryHTML += '<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>';
+      secondaryHTML += '<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>';
+      secondaryHTML += '<svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg>';
+      secondaryHTML += '<svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg>';
+      secondaryHTML += '</span></div>';
+      secondaryHTML += '<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>';
+      secondaryHTML += (Math.round(thisSecondaryTrail.properties.length * 100) / 100);
+      secondaryHTML += ' mi</span></span>';
+      secondaryHTML += '<span class="fpccLabel fpccRight">Surface<span>';
+      secondaryHTML += 'SURFACETYPE';
+      secondaryHTML += '</span></span></div></div>';
+      console.log(thisSecondaryTrail.properties);
+      originalTrailData[thisSecondaryTrail.properties.part_of[0]].properties.detailHTML += secondaryHTML;
     }
     currentTrailData = $.extend(true, {}, originalTrailData);
-
   }
 
   function fetchTrailsegments(callback) {
@@ -2023,34 +2037,36 @@ function startup() {
     if (trail != null) {
       // $('.detailPanel .fpccTrails').append("<div class='fpccTrail'>");
       //var trailname = trail.properties.name;
-      $('.detailPanel .fpccTrails').append("<svg class='icon icon-trail-marker'>");
-      $('.detailPanel .fpccTrails').append("<use xlink:href='icons/defs.svg#icon-trail-marker'></use></svg>");
-      $('.detailPanel .fpccTrails').append("<div class='fpccTrailHeader'><span class='fpccLabel fpccBlock'>Trail System Access</span>");
-      $('.detailPanel .fpccTrails').append("<span class='fpccTrailName'>");
-      $('.detailPanel .fpccTrails').append( trail.properties.trail_system );
-      $('.detailPanel .fpccTrails').append(" Trail</span></div>");
-      $('.detailPanel .fpccTrails').append('<div class="fpccDescription">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>');
-      $('.detailPanel .fpccTrails').append('<div class="fpccTrailSegment">');
-      $('.detailPanel .fpccTrails').append('<div class="fpccSegmentOverview fpcc' + trail.properties.trail_color + ' clearfix">');
-      $('.detailPanel .fpccTrails').append('<span class="fpccSegmentName">');
-      $('.detailPanel .fpccTrails').append(trail.properties.trail_color);
-      $('.detailPanel .fpccTrails').append('</span><span class="fpccTrailUse">');
-      if (trail.properties.hike == 'y') {
-        $('.detailPanel .fpccTrails').append('<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>');
-      }
-      if (trail.properties.equestrian == 'y') {
-        $('.detailPanel .fpccTrails').append('<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>');
-      }
-      if (trail.properties.roadbike == 'y') {
-        $('.detailPanel .fpccTrails').append('<svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg>');
-      }
-      if (trail.properties.xcntryski == 'y') {
-        $('.detailPanel .fpccTrails').append('<svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg>');
-      }
-      $('.detailPanel .fpccTrails').append('</span></div>');
-      $('.detailPanel .fpccTrails').append('<div class="fpccSegmentDetails clearfix">');
-      $('.detailPanel .fpccTrails').append('<span class="fpccLabel fpccLeft">Length<span> '+ trail.properties.length + 'mi</span></span>');
-      $('.detailPanel .fpccTrails').append('<span class="fpccLabel fpccRight">Surface<span> ' + trail.properties.trlsurface + '</span></span></div></div>');
+      $('.detailPanel .fpccTrails').append(trail.properties.detailHTML);
+      $('.detailPanel .fpccTrails').append("</div>");
+      // $('.detailPanel .fpccTrails').append("<svg class='icon icon-trail-marker'>");
+      // $('.detailPanel .fpccTrails').append("<use xlink:href='icons/defs.svg#icon-trail-marker'></use></svg>");
+      // $('.detailPanel .fpccTrails').append("<div class='fpccTrailHeader'><span class='fpccLabel fpccBlock'>Trail System Access</span>");
+      // $('.detailPanel .fpccTrails').append("<span class='fpccTrailName'>");
+      // $('.detailPanel .fpccTrails').append( trail.properties.trail_system );
+      // $('.detailPanel .fpccTrails').append(" Trail</span></div>");
+      // $('.detailPanel .fpccTrails').append('<div class="fpccDescription">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>');
+      // $('.detailPanel .fpccTrails').append('<div class="fpccTrailSegment">');
+      // $('.detailPanel .fpccTrails').append('<div class="fpccSegmentOverview fpcc' + trail.properties.trail_color + ' clearfix">');
+      // $('.detailPanel .fpccTrails').append('<span class="fpccSegmentName">');
+      // $('.detailPanel .fpccTrails').append(trail.properties.trail_color);
+      // $('.detailPanel .fpccTrails').append('</span><span class="fpccTrailUse">');
+      // if (trail.properties.hike == 'y') {
+      //   $('.detailPanel .fpccTrails').append('<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>');
+      // }
+      // if (trail.properties.equestrian == 'y') {
+      //   $('.detailPanel .fpccTrails').append('<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>');
+      // }
+      // if (trail.properties.roadbike == 'y') {
+      //   $('.detailPanel .fpccTrails').append('<svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg>');
+      // }
+      // if (trail.properties.xcntryski == 'y') {
+      //   $('.detailPanel .fpccTrails').append('<svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg>');
+      // }
+      // $('.detailPanel .fpccTrails').append('</span></div>');
+      // $('.detailPanel .fpccTrails').append('<div class="fpccSegmentDetails clearfix">');
+      // $('.detailPanel .fpccTrails').append('<span class="fpccLabel fpccLeft">Length<span> '+ trail.properties.length + 'mi</span></span>');
+      // $('.detailPanel .fpccTrails').append('<span class="fpccLabel fpccRight">Surface<span> ' + trail.properties.trlsurface + '</span></span></div></div>');
 
 
 
