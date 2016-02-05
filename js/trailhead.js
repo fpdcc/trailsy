@@ -98,6 +98,7 @@ function startup() {
   var currentMultiTrailLayer = {}; // We have to know if a trail layer is already being displayed, so we can remove it
   var currentTrailLayers = [];
   var currentHighlightedTrailLayer = {};
+  var currentTrailheads = [];
   var currentActivities = [];
   var currentUserLocation = {};
   var anchorLocation = {};
@@ -381,18 +382,7 @@ function startup() {
   function applyFilterChange(currentFilters) {
     console.log("[applyFilterChange]");
     currentTrailData = $.extend(true, {}, originalTrailData);
-    $.each(originalTrailData, function(trail_id, trail) {
-      if (currentFilters.activityFilter) {
-        for (var i = 0; i < currentFilters.activityFilter.length; i++) {
-          var activity = currentFilters.activityFilter[i];
-          var trailActivity = trail.properties[activity];
-          if (!trailActivity || trailActivity.toLowerCase().charAt(0) !== "y") {
-            delete currentTrailData[trail_id];
-          }
-        }
-      }
- 
-    });
+    currentTrailheads = [];
     addTrailsToTrailheads(currentTrailData, originalTrailheads);
   }
 
@@ -959,7 +949,7 @@ function startup() {
 
     for (var secondaryNum = 0; secondaryNum < secondaryTrails.length; secondaryNum++) {
       var thisSecondaryTrail = secondaryTrails[secondaryNum];
-      console.log("thisSecondaryTrail= " + thisSecondaryTrail);
+      //console.log("thisSecondaryTrail= " + thisSecondaryTrail);
       var secondaryHTML = '<div class="fpccTrailSegment"><div class="fpccSegmentOverview fpcc';
       secondaryHTML += thisSecondaryTrail.properties.trail_color;
       secondaryHTML += ' clearfix"><span class="fpccSegmentName">';
@@ -976,7 +966,7 @@ function startup() {
       secondaryHTML += '<span class="fpccLabel fpccRight">Surface<span>';
       secondaryHTML += 'SURFACETYPE';
       secondaryHTML += '</span></span></div></div>';
-      console.log(thisSecondaryTrail.properties);
+      //console.log(thisSecondaryTrail.properties);
       originalTrailData[thisSecondaryTrail.properties.part_of[0]].properties.detailHTML += secondaryHTML;
     }
     currentTrailData = $.extend(true, {}, originalTrailData);
@@ -1316,7 +1306,7 @@ function startup() {
 
   function addTrailsToTrailheads(myTrailData, myTrailheads) {
     console.log("addTrailsToTrailheads");
-    var currentTrailheads = [];
+    currentTrailheads = [];
     for (var j = 0; j < myTrailheads.length; j++) {
       var trailhead = myTrailheads[j];
       var trailheadWanted = false;
@@ -1385,6 +1375,16 @@ function startup() {
     //     }
     //   }
     // }
+    var activityMatched = true;
+    if (currentFilters.activityFilter) {
+      for (var i = 0; i < currentFilters.activityFilter.length; i++) {
+        var activity = currentFilters.activityFilter[i];
+        var trailheadActivity = trailhead.properties[activity];
+        if (!trailheadActivity) {
+          activityMatched = false;
+        }
+      }
+    }
     var searchMatched = true;
     if (currentFilters.searchFilter) {
       console.log("searchfilter is not null = " + currentFilters.searchfilter);
@@ -1435,7 +1435,7 @@ function startup() {
       }
     }
     
-    if (searchMatched) {
+    if (searchMatched && activityMatched) {
       wanted = true;
     }
     else {
