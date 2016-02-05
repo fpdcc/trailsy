@@ -1321,40 +1321,27 @@ function startup() {
       var trailhead = myTrailheads[j];
       var trailheadWanted = false;
       // for each original trailhead trail name
-      // if (trailhead.properties.trail_ids) {
-      //   var trailheadTrailIDs = trailhead.properties.trail_ids;
-      //   for (var trailNum = 0; trailNum < trailheadTrailIDs.length; trailNum++) {
-      //     var trailheadTrailID = trailheadTrailIDs[trailNum];
-      //     console.log("[addTrailsToTrailheads] trailheadTrailID: " + trailheadTrailID);
-      //     $.each(myTrailData, function(trailID, trail) {
-      //       console.log("HERE!!!!!!!!!!!!!!!!!!!!!!!!")
-      //       var wanted = false;
-      //       var dataAvailable = false;
-      //       if (trailheadTrailID == trail.properties.trail_id) {
-      //         console.log("[addTrailsToTrailheads] trail.properties.trail_id: " + trail.properties.trail_id);
-      //          // if (checkSegmentsForTrailname(trail.properties.name, trail.properties.source) || !USE_LOCAL) {
-      //          //   dataAvailable = true;
-      //          // } else {
-      //          //   dataAvailable = true;
-      //          //   console.log("skipping " + trail.properties.name + "/" + trail.properties.source + ": no segment data");
-      //          // }
-      //         dataAvailable = true;
-      //         if (filterResults(trail, trailhead)) {
-      //           wanted = true;
-      //           trailheadWanted = true;
-      //         }
-      //       }
-      //     });
-      //   }
-      // }
-      // else {
-      //   if (filterResults(null, trailhead)) {
-      //     trailheadWanted = true;
-      //   }
-      // }
-      if (filterResults(null, trailhead)) {
+      if (trailhead.properties.trail_ids) {
+        var trailheadTrailIDs = trailhead.properties.trail_ids;
+        for (var trailNum = 0; trailNum < trailheadTrailIDs.length; trailNum++) {
+          var trailheadTrailID = trailheadTrailIDs[trailNum];
+          console.log("[addTrailsToTrailheads] trailheadTrailID: " + trailheadTrailID);
+          var trail = myTrailData[trailheadTrailID];
+          console.log("[addTrailsToTrailheads] trail: " + trail);
+          if (filterResults(trail, trailhead)) {
+            //wanted = true;
+            trailheadWanted = true;
+          }
+        }
+      } else {
+        if (filterResults(null, trailhead)) {
+          trailheadWanted = true;
+          //wanted = true;
+        }
+      }
+      if (trailheadWanted) {
         console.log("filterResults is good");
-        trailheadWanted = true;
+        //trailheadWanted = true;
         currentTrailheads.push(trailhead);
       }
       // if (trailheadWanted) {
@@ -1407,6 +1394,7 @@ function startup() {
       if (trail) {
         normalizedTrailName = trail.properties.name.toLowerCase();
         normalizedDescription = trail.properties.description.toLowerCase();
+        console.log("normalizedTrailName= " + normalizedTrailName);
       }
       var normalizedSearchFilter = currentFilters.searchFilter.toLowerCase();
       var equivalentWords = [
