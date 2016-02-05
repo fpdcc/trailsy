@@ -390,7 +390,7 @@ function startup() {
     var $currentTarget = $(e.currentTarget);
     var filterType = $currentTarget.attr("data-filter");
     var currentUIFilterState = $currentTarget.val();
-    console.log(currentUIFilterState);
+    console.log(currentUIFilterState + " filterType = " + filterType);
     updateFilterObject(filterType, currentUIFilterState);
   }
 
@@ -428,17 +428,25 @@ function startup() {
     if (filterType == "activityFilter") {
       console.log("[updateFilterObject] activityFilter");
       var activityFilterLength = currentFilters.activityFilter.length;
-      for (var i = 0; i < activityFilterLength; i++) {
-        var activity = currentFilters.activityFilter[i];
-        if (activity === currentUIFilterState) {
-          currentFilters.activityFilter.splice(i, 1);
-          matched = 1;
-          break;
+      console.log("[updateFilterObject] activityFilterLength = " + activityFilterLength);
+      console.log("[updateFilterObject] currentFilters.activityFilter = " + currentFilters.activityFilter);
+      if (currentUIFilterState) {
+        for (var i = 0; i < activityFilterLength; i++) {
+          var activity = currentFilters.activityFilter[i];
+          if (activity === currentUIFilterState) {
+            currentFilters.activityFilter.splice(i, 1);
+            matched = 1;
+            break;
+          }
         }
+        if (matched === 0) {
+          currentFilters.activityFilter.push(currentUIFilterState);
+        }
+      } else {
+        currentFilters.activityFilter = [];
       }
-      if (matched === 0) {
-        currentFilters.activityFilter.push(currentUIFilterState);
-      }
+      console.log("[updateFilterObject] activityFilterLength = " + activityFilterLength);
+      console.log("[updateFilterObject] currentFilters.activityFilter = " + currentFilters.activityFilter);
     }
 
     if (filterType == "lengthFilter") {
@@ -1338,7 +1346,7 @@ function startup() {
       //   myTrailheads.splice(j, 1);
       // }
     }
-
+    console.log("curentTrailheads count = " + currentTrailheads.length);
     setTimeout(function() {
       //fixDuplicateTrailheadTrails(myTrailheads);
       makeTrailheadPopups(currentTrailheads);
