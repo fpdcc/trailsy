@@ -951,7 +951,7 @@ function startup() {
         secondaryTrails.push(trailDataGeoJSON.features[i]);
       } else {
         originalTrailData[trailDataGeoJSON.features[i].properties.id] = trailDataGeoJSON.features[i];
-        originalTrailData[trailDataGeoJSON.features[i].properties.id].properties.detailHTML = '';
+        originalTrailData[trailDataGeoJSON.features[i].properties.id].properties.secondaryHTML = '';
       }
     }
 
@@ -975,7 +975,7 @@ function startup() {
       secondaryHTML += 'SURFACETYPE';
       secondaryHTML += '</span></span></div></div>';
       //console.log(thisSecondaryTrail.properties);
-      originalTrailData[thisSecondaryTrail.properties.part_of[0]].properties.detailHTML += secondaryHTML;
+      originalTrailData[thisSecondaryTrail.properties.part_of[0]].properties.secondaryHTML += secondaryHTML;
     }
     currentTrailData = $.extend(true, {}, originalTrailData);
   }
@@ -2031,17 +2031,23 @@ function startup() {
 
     // FOR REWRITE: Loop through trail_ids to get Trail info
     if (trail != null) {
-      // $('.detailPanel .fpccTrails').append("<div class='fpccTrail'>");
-      //var trailname = trail.properties.name;
-      $('.detailPanel .fpccTrails').append(trail.properties.detailHTML);
+      $('.detailPanel .fpccTrails').append("<div class='fpccTrail'>");
+      var trailname = trail.properties.name;
+      
       $('.detailPanel .fpccTrails').append("</div>");
-      // $('.detailPanel .fpccTrails').append("<svg class='icon icon-trail-marker'>");
-      // $('.detailPanel .fpccTrails').append("<use xlink:href='icons/defs.svg#icon-trail-marker'></use></svg>");
-      // $('.detailPanel .fpccTrails').append("<div class='fpccTrailHeader'><span class='fpccLabel fpccBlock'>Trail System Access</span>");
-      // $('.detailPanel .fpccTrails').append("<span class='fpccTrailName'>");
-      // $('.detailPanel .fpccTrails').append( trail.properties.trail_system );
-      // $('.detailPanel .fpccTrails').append(" Trail</span></div>");
-      // $('.detailPanel .fpccTrails').append('<div class="fpccDescription">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>');
+      $('.detailPanel .fpccTrails').append("<svg class='icon icon-trail-marker'>");
+      $('.detailPanel .fpccTrails').append("<use xlink:href='icons/defs.svg#icon-trail-marker'></use></svg>");
+      $('.detailPanel .fpccTrails').append("<div class='fpccTrailHeader'><span class='fpccLabel fpccBlock'>Trail System Access</span>");
+      $('.detailPanel .fpccTrails').append("<span class='fpccTrailName'>");
+      $('.detailPanel .fpccTrails').append( trailname );
+      $('.detailPanel .fpccTrails').append(" Trail</span></div>");
+      $('.detailPanel .fpccTrails').append('<div class="fpccDescription">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>');
+      $('.detailPanel .fpccTrails').append(trail.properties.secondaryHTML);
+      var pdfHTML = '<div class="fpccTrailMaps fpccUnit clearfix">';
+      pdfHTML += '<span class="fpccLabel">PDF Trail Map:</span>';
+      pdfHTML += '<div class="fpccMap"><a href="#PDFMAP">English</a></div>';
+      pdfHTML += '<div class="fpccMap"><a href="#PDFMAP">Espa&ntilde;ol</a></div></div>';
+      $('.detailPanel .fpccTrails').append(pdfHTML);
       // $('.detailPanel .fpccTrails').append('<div class="fpccTrailSegment">');
       // $('.detailPanel .fpccTrails').append('<div class="fpccSegmentOverview fpcc' + trail.properties.trail_color + ' clearfix">');
       // $('.detailPanel .fpccTrails').append('<span class="fpccSegmentName">');
