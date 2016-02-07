@@ -2205,14 +2205,20 @@ function startup() {
     }
     var parsed = parseTrailElementData($myTarget);
     console.log("parsed.trailheadID = " + parsed.trailheadID + " parsed.highlightedTrailIndex = " + parsed.highlightedTrailIndex);
-    highlightTrailhead(parsed.trailheadID, parsed.highlightedTrailIndex);
+    
     var trail = null;
     var trailhead = null;
+    var trailIDs = [];
     if (parsed.trailID) {
       trail = currentTrailData[parsed.trailID];
+      trailIDs.push(parsed.trailID);
     }
-    if (parsed.trailheadID){
+    if (parsed.trailheadID) {
       trailhead = getTrailheadById(parsed.trailheadID);
+      highlightTrailhead(parsed.trailheadID, parsed.highlightedTrailIndex);
+    }
+    else {
+      highlightTrailhead(parsed.trailheadID, parsed.highlightedTrailIndex, trailIDs);
     }
     console.log("trail= " + trail + " trailhead= " + trailhead);
     showTrailDetails(trail, trailhead);
@@ -2281,7 +2287,7 @@ function startup() {
 
   var currentTrailheadMarker;
 
-  function highlightTrailhead(trailheadID, highlightedTrailIndex) {
+  function highlightTrailhead(trailheadID, highlightedTrailIndex, trailIDs) {
     console.log("highlightTrailhead");
     highlightedTrailIndex = highlightedTrailIndex || 0;
     var trailhead = null;
@@ -2319,29 +2325,35 @@ function startup() {
         icon: trailheadIcon2
       }).addTo(map);
       setTrailheadEventHandlers(currentTrailhead);
-    }
-
-    getAllTrailPathsForTrailhead(trailhead, highlightedTrailIndex);
-    //getAllActivitiesForTrailhead(trailhead);
-    highlightTrailInPopup(trailhead, highlightedTrailIndex);
-
-
-    var popup = new L.Popup({
-      offset: [0, -12],
-      autoPanPadding: [10, 10],
-      autoPan: SMALL ? false : true
-    })
+      highlightTrailInPopup(trailhead, highlightedTrailIndex);
+      var popup = new L.Popup({
+        offset: [0, -12],
+        autoPanPadding: [10, 10],
+        autoPan: SMALL ? false : true
+      })
       .setContent(trailhead.popupContent)
       .setLatLng(trailhead.marker.getLatLng())
       .openOn(map);
+      
+    } else {
+
+    }
+
+    getAllTrailPathsForTrailhead(trailhead, highlightedTrailIndex, trailIDs);
+    
+    //getAllActivitiesForTrailhead(trailhead);
+    
+
+
+   
   }
 
 
 
-  function getAllTrailPathsForTrailhead(trailhead, highlightedTrailIndex) {
+  function getAllTrailPathsForTrailhead(trailhead, highlightedTrailIndex, trailIDs) {
     console.log("getAllTrailPathsForTrailhead");
     if (trailSegments.type == "FeatureCollection" && USE_LOCAL) {
-      getAllTrailPathsForTrailheadLocal(trailhead, highlightedTrailIndex);
+      getAllTrailPathsForTrailheadLocal(trailhead, highlightedTrailIndex, trailIDs);
     } else {
       getAllTrailPathsForTrailheadRemote(trailhead, highlightedTrailIndex);
     }
@@ -2412,6 +2424,11 @@ function startup() {
   }
 
 
+  function getAllTrailPathsForTrailLocal(trail) {
+
+
+  }
+
   // LOCAL EDITION:
   // given a trailhead and a trail index within that trailhead
   // get the paths for any associated trails,
@@ -2419,7 +2436,7 @@ function startup() {
   // (it's a little convoluted because it's trying to return identical GeoJSON to what
   // CartoDB would return)
 
-  function getAllTrailPathsForTrailheadLocal(trailhead, highlightedTrailIndex) {
+  function getAllTrailPathsForTrailheadLocal(trailhead, highlightedTrailIndex, trailIDs) {
     console.log("getAllTrailPathsForTrailheadLocal");
     var responses = [];
     var trailFeatureArray = [];
@@ -2429,10 +2446,19 @@ function startup() {
         };
     // got trailhead.trails, now get the segment collection for all of them
     // get segment collection for each
-    if (trailhead.trails) {
-      for (var i = 0; i < trailhead.trails.length; i++) {
-        var trailID = trailhead.trails[i];
+    var trails = [];
+    if (trailhead) {
+      trails = trailhead.trails;
+    } else {
+      trails = trailIDs;
+    }     
+    console.log("[getAllTrailPathsForTrailheadLocal] trails = " + trails);
+    if (trails) {
+      for (var i = 0; i < trails.length; i++) {
+        var trailID = trails[i];
+        console.log("[getAllTrailPathsForTrailheadLocal] trailID = " + trailID);
         var trail = currentTrailData[trailID];
+        console.log("[getAllTrailPathsForTrailheadLocal] trail = " + trail);
         var trailSource = trail.properties.source;
         var trailName = trail.properties.name;
 
