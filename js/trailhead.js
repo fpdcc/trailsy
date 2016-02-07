@@ -1854,17 +1854,20 @@ function startup() {
 
     if (trail) {
         var trailname = trail.properties.name + " Trail";
+
         $('.detailPanel .fpccTrailName').html(trailname);
         $('.detailPanel .trailheadTrailMaps').show();
         $('.detailPanel .fpccTrailHeader').show();
         $('.detailPanel .fpccTrailDescription').show();
         $('.detailPanel .fpccTrailSegments').show();
         $('.detailPanel .fpccTrailSegments').html(trail.properties.secondaryHTML);
+        $('.detailPanel .fpccTrails').show();
     } else {
       $('.detailPanel .trailheadTrailMaps').hide();
       $('.detailPanel .fpccTrailHeader').hide();
       $('.detailPanel .fpccTrailSegments').hide();
       $('.detailPanel .fpccTrailDescription').hide();
+      $('.detailPanel .fpccTrails').hide();
     }
 
     if (trailhead) {
