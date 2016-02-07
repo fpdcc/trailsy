@@ -1,17 +1,12 @@
 Trailsy
 =======
 
-Trailsy is the front-end component of To The Trails, a project developed by Code for America fellows working with partners in Summit County, Ohio.
+Trailsy is the front-end component for Cook County Forest Preserves Mapping Application. It is a fork of the Trailsy component of To The Trails, a project developed by Code for America fellows working with partners in Summit County, Ohio.
 
-To The Trails is a web application where citizens can find information about the trail network of their region.
-The app incorporates data from multiple agencies and park stewards, including the Cuyahoga Valley National Park and Metro Parks, Serving Summit County.
-To The Trails helps citizens find trails that fit their needs based on attributes like length, amenities and activities.
-
-The current production version is at [http://tothetrails.com]().
 
 #### Credits
 
-The team includes
+Original Trailsy Code for America team includes
 
 * [Dan Avery][danavery], developer
 * [Katie Lewis][katie], designer
