@@ -293,7 +293,8 @@ function startup() {
       if (USE_LOCAL) {
         setTimeout(waitForTrailSegments, 0);
         setTimeout(waitForDataAndSegments, 0);
-        setTimeout(waitForAllTrailData, 0);       
+        setTimeout(waitForAllTrailData, 0); 
+        //setTimeout(waitForActivities, 0);        
       } else {
         setTimeout(waitForDataAndTrailHeads, 0);     
         setTimeout(waitForTrailSegments, 0);   
@@ -757,35 +758,36 @@ function startup() {
   }
 
   function populateOriginalActivities(ActivityDataGeoJSON) {
-    console.log("populateOriginalActivities");
+    console.log("[populateOriginalActivities] features count = " + ActivityDataGeoJSON.features.length);
     originalActivities = [];
     for (var i = 0; i < ActivityDataGeoJSON.features.length; i++) {
       var currentFeature = ActivityDataGeoJSON.features[i];
       var currentFeatureLatLng = new L.LatLng(currentFeature.geometry.coordinates[1], currentFeature.geometry.coordinates[0]);
-      // var newMarker = L.marker(currentFeatureLatLng, ({
-      //   icon: trailheadIcon1
-      // }));
-     // var newMarker = new L.CircleMarker(currentFeatureLatLng, {
-     //    color: "#0000FF",
-     //    fillOpacity: 0.5,
-     //    opacity: 0.8
-     //  }).setRadius(MARKER_RADIUS);
- 
-    var newIcon = L.divIcon({
-      html: '<h4>HELLO</h4>',
-      iconAnchor: [13 * 0.60, 33 * 0.60],
-      popupAnchor: [0, -3],
-      iconSize: [52 * 0.60, 66 * 0.60] // size of the icon
-    });
-    var newIcon = L.divIcon({className: 'my-div-icon'});
-    var newMarker = new L.Marker(currentTrailhead.marker.getLatLng(), {
-      icon: newIcon
-    }).setRadius(MARKER_RADIUS);
-     // if curentFeature.properties.activity_type == "Fishing Lake" {
-     //    newMarker = L.marker(currentFeatureLatLng, ({
-     //      icon: 
-     //    }));
-     // }
+      var iconType = null;
+      if (currentFeature.properties.activity_type == "Fishing Lake") {
+        iconType = "icon-fishing";
+      }
+
+      var activityIcon = L.divIcon({
+        className: iconType,
+        html: '<svg class="icon icon-map ' + iconType + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg>',
+        iconAnchor: [13 * 0.60, 33 * 0.60],
+        popupAnchor: [0, -3],
+        iconSize: [52 * 0.60, 66 * 0.60] // size of the icon
+      });
+
+      var newMarker = new L.CircleMarker(currentFeatureLatLng, {
+          color: "#0000FF",
+          fillOpacity: 0.5,
+          opacity: 0.8
+        }).setRadius(MARKER_RADIUS);
+
+      if (iconType) {
+        newMarker = new L.Marker(currentFeatureLatLng, {
+          icon: activityIcon
+        });
+      }
+    
       var activity = {
         properties: currentFeature.properties,
         geometry: currentFeature.geometry,
@@ -886,7 +888,7 @@ function startup() {
     console.log("[showActivties] id= " + id);
     var currentActivityMarkerArray = [];
     for (var i = 0; i < originalActivities.length; i++) {
-      //console.log("[showActivties] originalActivities.trailhead_id is " + originalActivities[i].properties.trailhead_id);
+      console.log("[showActivties] originalActivities.trailhead_id is " + originalActivities[i].properties.trailhead_id);
       var trailheadID = originalActivities[i].properties.trailhead_id;
       originalActivities[i].marker.on("click", function(trailheadID) {
           return function() {
@@ -895,8 +897,9 @@ function startup() {
         }(originalActivities[i].properties.trailhead_id));
       // if there is an entrance id, only add that entrance's activities to the current Array
       if (id) {
+        //console.log("[showActivties] if id=true for  " + id);
         if (originalActivities[i].properties.trailhead_id == id) {
-          //console.log("[showActivties] originalActivities.trailhead_id= " + id);
+          console.log("[showActivties] originalActivities.trailhead_id= " + id);
           currentActivityMarkerArray.push(originalActivities[i].marker);
         }
       }
@@ -2222,6 +2225,7 @@ function startup() {
     if (parsed.trailheadID) {
       trailhead = getTrailheadById(parsed.trailheadID);
       highlightTrailhead(parsed.trailheadID, parsed.highlightedTrailIndex);
+      showActivities(parsed.trailheadID); // show activities!
     }
     else {
       highlightTrailhead(parsed.trailheadID, parsed.highlightedTrailIndex, trailIDs);
