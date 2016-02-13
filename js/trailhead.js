@@ -1862,6 +1862,8 @@ function startup() {
         $('.detailPanel .fpccTrailSegments').show();
         $('.detailPanel .fpccTrailSegments').html(trail.properties.secondaryHTML);
         $('.detailPanel .fpccTrails').show();
+        $('.detailPanel .fpccLinks').hide();
+
     } else {
       $('.detailPanel .trailheadTrailMaps').hide();
       $('.detailPanel .fpccTrailHeader').hide();
@@ -1875,6 +1877,7 @@ function startup() {
       $('.detailPanel .fpccEntrance').show();
       $('.detailPanel .fpccEntranceDescription').show();
       $('.detailPanel .fpccAmenities').show();
+      $('.detailPanel .fpccLinks').show();
       
       if (trailhead.properties.name) {
         $('.detailPanel .detailPanelBanner .entranceName').html(trailhead.properties.name);
