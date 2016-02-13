@@ -764,8 +764,41 @@ function startup() {
       var currentFeature = ActivityDataGeoJSON.features[i];
       var currentFeatureLatLng = new L.LatLng(currentFeature.geometry.coordinates[1], currentFeature.geometry.coordinates[0]);
       var iconType = null;
-      if (currentFeature.properties.activity_type == "Fishing Lake") {
+      var activityType = currentFeature.properties.activity_type;
+      if (activityType == "Fishing Lake") {
         iconType = "icon-fishing";
+      } else if (activityType == "trailhead") {
+        iconType = "icon-trail-marker";
+      } else if (activityType == "boat launch") {
+        iconType = "icon-boat-launch";
+      } else if (activityType == "dog park") {
+        iconType = "icon-off-leash-dog-area";
+      } else if (activityType == "golf") {
+        iconType = "icon-golf-course-driving-range";
+      } else if (activityType == "rental bike") {
+        iconType = "icon-bike-rental";
+      } else if (activityType == "boating center") {
+        iconType = "icon-model-sailboat";
+      } else if (activityType == "equestrian parking") {
+        iconType = "icon-equestrian";
+      } else if (activityType == "pool") {
+        iconType = "icon-aquatic-center";
+      } else if (activityType == "education center") {
+        iconType = "icon-nature-center";
+      } else if (activityType == "bicycle lot") {
+        iconType = "icon-bicycling";
+      } else if (activityType == "golf-driving range") {
+        iconType = "icon-golf-course-driving-range";
+      } else if (activityType == "equestrian") {
+        iconType = "icon-equestrian";
+      } else if (activityType == "canoe landing") {
+        iconType = "icon-canoe-landing";
+      } else if (activityType == "birding") {
+        iconType = "icon-birding-hotspot";
+      } else if  (activityType == "maff") {
+        iconType = "icon-model-airplane";
+      } else if  (activityType == "snowmobiling") {
+        iconType = "icon-snowmobiling";
       }
 
       var activityIcon = L.divIcon({
@@ -773,7 +806,7 @@ function startup() {
         html: '<svg class="icon icon-map ' + iconType + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg>' + currentFeature.properties.name,
         iconAnchor: [13 * 0.60, 33 * 0.60],
         popupAnchor: [0, -3],
-        iconSize: [52 * 0.60, 66 * 0.60] // size of the icon
+        iconSize: [90 * 0.60, 66 * 0.60] // size of the icon
       });
 
       var newMarker = new L.CircleMarker(currentFeatureLatLng, {
