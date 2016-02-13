@@ -765,6 +765,7 @@ function startup() {
       var currentFeatureLatLng = new L.LatLng(currentFeature.geometry.coordinates[1], currentFeature.geometry.coordinates[0]);
       var iconType = null;
       var activityType = currentFeature.properties.activity_type;
+      var activityName = "";
       if (activityType == "Fishing Lake") {
         iconType = "icon-fishing";
       } else if (activityType == "trailhead") {
@@ -803,7 +804,7 @@ function startup() {
 
       var activityIcon = L.divIcon({
         className: iconType,
-        html: '<svg class="icon icon-map ' + iconType + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg>' + currentFeature.properties.name,
+        html: '<svg class="icon icon-map ' + iconType + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg>' + activityName,
         iconAnchor: [13 * 0.60, 33 * 0.60],
         popupAnchor: [0, -3],
         iconSize: [90 * 0.60, 66 * 0.60] // size of the icon
@@ -2533,15 +2534,19 @@ function startup() {
         // }
       }
       trailFeatureCollection.features = trailFeatureArray;
+      responses = trailFeatureCollection;
+      drawMultiTrailLayer(responses);
       
+    } else {
+      zoomToTrailhead(trailhead);
+
     }
     console.log("getAllTrailPathsForTrailheadLocal end");
     console.log("trailFeatureArray count = " + trailFeatureArray.length);
     //console.log("trailFeatureCollection count = " + trailFeatureCollection.length);
     //responses = mergeResponses(trailFeatureArray);
-    responses = trailFeatureCollection;
-      drawMultiTrailLayer(responses);
-      setCurrentTrail(highlightedTrailIndex);
+    
+    setCurrentTrail(highlightedTrailIndex);
   }
 
 
@@ -2707,6 +2712,25 @@ function startup() {
       }
     }
     console.log("zoomToLayer end");
+  }
+
+  function zoomToTrailhead(trailhead) {
+    console.log("zoomToTrailhead");
+    // figure out what zoom is required to display the entire trail layer
+    var layerBoundsZoom = 15;
+    var currentZoom = map.getZoom();
+    var newZoom = layerBoundsZoom;
+    var newLatLng = currentTrailhead.marker.getLatLng();
+    console.log("zoomToLayer - currentZoom = " + currentZoom);
+    console.log("zoomToLayer - layerBoundsZoom = " + layerBoundsZoom);
+    
+    if (!SMALL && layerBoundsZoom <= MAX_ZOOM && layerBoundsZoom >= MIN_ZOOM) {
+        
+    }
+    map.setView(newLatLng, newZoom);
+    
+    console.log("zoomToTrailhead end");
+
   }
 
   function makeAPICall(callData, doneCallback) {
