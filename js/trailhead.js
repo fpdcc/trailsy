@@ -770,7 +770,7 @@ function startup() {
 
       var activityIcon = L.divIcon({
         className: iconType,
-        html: '<svg class="icon icon-map ' + iconType + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg>',
+        html: '<svg class="icon icon-map ' + iconType + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg>' + currentFeature.properties.name,
         iconAnchor: [13 * 0.60, 33 * 0.60],
         popupAnchor: [0, -3],
         iconSize: [52 * 0.60, 66 * 0.60] // size of the icon
