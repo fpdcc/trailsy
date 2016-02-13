@@ -59,7 +59,6 @@ a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 .trailListColumn .fpccContainer a {display:inline-block;}
 
 
-
 /* ICONS */
 .icon{display:inline-block;width:1em;height:1em;fill:currentColor}
 #icon-ada-restroom .path1{fill:#684c2b}
@@ -159,6 +158,9 @@ a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 .trailListColumn .fpccUnit.fpccResults a span.fpccEntryDis,.trailListColumn .fpccUnit.fpccResults a span.fpccEntryName{color:#333;font-weight:normal}
 .trailListColumn .fpccUnit.fpccResults a span.fpccEntryName{font-size:1em;font-weight:bold;float:left;width:70%}
 .fpccEntryDis{font-size:.9125em;font-family:Georgia,"Times New Roman",serif;float:right;width:30%;text-align:right}
+
+/* Trail map icons */
+.icon-map{display:inline-block;width:2em;height:2em}
 
 /*jquery mobile override */
 .fpccUnit .ui-content{padding:0}

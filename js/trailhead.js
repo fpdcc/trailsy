@@ -160,7 +160,7 @@ function startup() {
 
   var trailheadIcon2 = L.divIcon({
     className: 'icon-sign',
-    html: '<svg class="icon icon-sign"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>',
+    html: '<svg class="icon icon-map icon-sign"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>',
     iconAnchor: [13 * 0.60, 33 * 0.60],
     popupAnchor: [0, -3],
     iconSize: [52 * 0.60, 66 * 0.60] // size of the icon
@@ -1323,9 +1323,9 @@ function startup() {
         var trailheadTrailIDs = trailhead.properties.trail_ids;
         for (var trailNum = 0; trailNum < trailheadTrailIDs.length; trailNum++) {
           var trailheadTrailID = trailheadTrailIDs[trailNum];
-          console.log("[addTrailsToTrailheads] trailheadTrailID: " + trailheadTrailID);
+          //console.log("[addTrailsToTrailheads] trailheadTrailID: " + trailheadTrailID);
           var trail = myTrailData[trailheadTrailID];
-          console.log("[addTrailsToTrailheads] trail: " + trail);
+          //console.log("[addTrailsToTrailheads] trail: " + trail);
           if (filterResults(trail, trailhead)) {
             //wanted = true;
             trailheadWanted = true;
@@ -1338,7 +1338,7 @@ function startup() {
         }
       }
       if (trailheadWanted) {
-        console.log("filterResults is good");
+        //console.log("filterResults is good");
         //trailheadWanted = true;
         currentTrailheads.push(trailhead);
       }
