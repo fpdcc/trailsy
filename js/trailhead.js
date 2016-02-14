@@ -682,7 +682,7 @@ function startup() {
     // L.tileLayer.provider('MapBox.' + MAPBOX_MAP_ID).addTo(map);
     map.setView(startingMapLocation, startingMapZoom);
     map.fitBounds(map.getBounds(), {
-      paddingTopLeft: centerOffset
+      //paddingTopLeft: centerOffset
     });
     // L.control.scale().addTo(map);
     map.on('dragstart', hideUiOnMapDrag);
