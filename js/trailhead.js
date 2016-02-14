@@ -75,7 +75,7 @@ function startup() {
   var HOVER_SEGMENT_COLOR = "#678729";
   var HOVER_SEGMENT_WEIGHT = 6;
   var ACTIVE_TRAIL_COLOR = "#445617";
-  var ACTIVE_TRAIL_WEIGHT = 9;
+  var ACTIVE_TRAIL_WEIGHT = 6;
   var NOTRAIL_SEGMENT_COLOR = "#FF0000";
   var NOTRAIL_SEGMENT_WEIGHT = 3;
   var LOCAL_LOCATION_THRESHOLD = 100; // distance in km. less than this, use actual location for map/userLocation 
@@ -133,6 +133,7 @@ function startup() {
   var activitiesFetched = false;
   var allInvisibleSegmentsArray = [];
   var allVisibleSegmentsArray = [];
+  var secondaryTrails = {};
   // Trailhead Variables
   // Not sure if these should be global, but hey whatev
 
@@ -982,38 +983,44 @@ function startup() {
   }
 
   function populateTrailData(trailDataGeoJSON) {
-    var secondaryTrails = [];
+    secondaryTrails = {};
     for (var i = 0; i < trailDataGeoJSON.features.length; i++) {
       if (trailDataGeoJSON.features[i].properties.part_of[0]) {
-        secondaryTrails.push(trailDataGeoJSON.features[i]);
+        secondaryTrails[trailDataGeoJSON.features[i].properties.id] = trailDataGeoJSON.features[i];
       } else {
         originalTrailData[trailDataGeoJSON.features[i].properties.id] = trailDataGeoJSON.features[i];
         originalTrailData[trailDataGeoJSON.features[i].properties.id].properties.secondaryHTML = '';
       }
     }
 
-    for (var secondaryNum = 0; secondaryNum < secondaryTrails.length; secondaryNum++) {
-      var thisSecondaryTrail = secondaryTrails[secondaryNum];
-      //console.log("thisSecondaryTrail= " + thisSecondaryTrail);
-      var secondaryHTML = '<div class="fpccTrailSegment"><div class="fpccSegmentOverview fpcc';
-      secondaryHTML += thisSecondaryTrail.properties.trail_color;
-      secondaryHTML += ' clearfix"><span class="fpccSegmentName">';
-      secondaryHTML += thisSecondaryTrail.properties.trail_color;
-      secondaryHTML += '</span><span class="fpccTrailUse">';
-      secondaryHTML += '<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>';
-      secondaryHTML += '<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>';
-      secondaryHTML += '<svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg>';
-      secondaryHTML += '<svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg>';
-      secondaryHTML += '</span></div>';
-      secondaryHTML += '<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>';
-      secondaryHTML += (Math.round(thisSecondaryTrail.properties.length * 100) / 100);
-      secondaryHTML += ' mi</span></span>';
-      secondaryHTML += '<span class="fpccLabel fpccRight">Surface<span>';
-      secondaryHTML += 'SURFACETYPE';
-      secondaryHTML += '</span></span></div></div>';
-      //console.log(thisSecondaryTrail.properties);
-      originalTrailData[thisSecondaryTrail.properties.part_of[0]].properties.secondaryHTML += secondaryHTML;
-    }
+    Object.keys(secondaryTrails).forEach(function (key) { 
+      var thisSecondaryTrail = secondaryTrails[key];
+        // iteration code
+      if (thisSecondaryTrail.properties.length > .9) {
+        //console.log("thisSecondaryTrail= " + thisSecondaryTrail);
+        var secondaryHTML = '<div class="fpccTrailSegment"><div class="fpccSegmentOverview fpcc';
+        secondaryHTML += thisSecondaryTrail.properties.trail_color 
+        if (thisSecondaryTrail.properties.trail_type == "Unpaved" || thisSecondaryTrail.properties.trail_type == "Primitive") {
+          secondaryHTML += " fpcc" + thisSecondaryTrail.properties.trail_type;
+        }
+        secondaryHTML += ' clearfix"><span class="fpccSegmentName">';
+        secondaryHTML += thisSecondaryTrail.properties.trail_color + ' ' + thisSecondaryTrail.properties.trail_type;
+        secondaryHTML += '</span><span class="fpccTrailUse">';
+        secondaryHTML += '<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>';
+        secondaryHTML += '<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>';
+        secondaryHTML += '<svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg>';
+        secondaryHTML += '<svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg>';
+        secondaryHTML += '</span></div>';
+        secondaryHTML += '<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>';
+        secondaryHTML += (Math.round(thisSecondaryTrail.properties.length * 100) / 100);
+        secondaryHTML += ' mi</span></span>';
+        secondaryHTML += '<span class="fpccLabel fpccRight">Surface<span>';
+        secondaryHTML += 'SURFACETYPE';
+        secondaryHTML += '</span></span></div></div>';
+        //console.log(thisSecondaryTrail.properties);
+        originalTrailData[thisSecondaryTrail.properties.part_of[0]].properties.secondaryHTML += secondaryHTML;
+      }
+    })
     currentTrailData = $.extend(true, {}, originalTrailData);
   }
 
@@ -1181,7 +1188,7 @@ function startup() {
       var popupHTML = "<div class='trail-popup'>";
       var atLeastOne = false;
       // console.log("[makeAllSegmentLayer] invisLayer ID = " + invisLayer.feature.properties.id);
-      var segmentTrailIDs = invisLayer.feature.properties.trail_ids;
+      var segmentTrailIDs = invisLayer.feature.properties.trail_ids || [];
       var segmentTrailNames = invisLayer.feature.properties.trail_names;
       //console.log("[makeAllSegmentLayer] segmentTrailIDs = " + segmentTrailIDs);
       for (var trailIndex = 0; trailIndex < segmentTrailIDs.length; trailIndex++) {
@@ -2533,8 +2540,9 @@ function startup() {
         var segmentsLength = trailSegments.features.length;
         var segmentsUsedIndex = 0;
         for (var segmentIndex = 0; segmentIndex < segmentsLength; segmentIndex++) {
-          var segment = trailSegments.features[segmentIndex];
-          var segmentTrailsLength = segment.properties.trail_ids.length;
+          var segment = trailSegments.features[segmentIndex] || [];
+          var segmentTrailIds = segment.properties.trail_ids || [];
+          var segmentTrailsLength = segmentTrailIds.length || 0;
           
           for (var segmentTrailIndex = 0; segmentTrailIndex < segmentTrailsLength; segmentTrailIndex++) {
             if ((segment.properties.trail_ids[segmentTrailIndex] == trailID) &&
@@ -2634,29 +2642,48 @@ function startup() {
       if (response.features.length > 0) {
         console.log("response.features count = " + response.features.length);
         currentMultiTrailLayer = L.geoJson(response, {
+          
           style: function(feature) {
-              //console.log(feature.properties.trail_colors);
-            switch (feature.properties.trail_colors[0]) {
-              case 'RED': return {color: "#EE2D2F", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-              case 'ORANGE': return {color: "#F7941E", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-              case 'PURPLE': return {color: "#7F58A5", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-              case 'GREY': return {color: "#58595B", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-              case 'YELLOW': return {color: "#FFF450", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-              case 'GREEN': return {color: "#006129", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-              case 'TAN': return {color: "#969161", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-              case 'BROWN': return {color: "#6C503F", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-              case 'BLUE': return {color: "#26B8EB", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-              case 'BLACK': return {color: "#333132", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-              default:   return {color: NORMAL_SEGMENT_COLOR, weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-          }  
-            },
+            console.log(feature.properties.trail_colors);
+            //var thisColor = NORMAL_SEGMENT_COLOR;
+            var thisWeight = ACTIVE_TRAIL_WEIGHT;
+            // switch (feature.properties.trail_colors[0]) {
+            //   case 'RED':  thisColor = "#EE2D2F";
+            //   case 'ORANGE': thisColor = "#F7941E";
+            //   case 'PURPLE': thisColor = "#7F58A5";
+            //   case 'GREY': thisColor = "#58595B";
+            //   case 'YELLOW': thisColor = "#FFF450";
+            //   case 'GREEN': thisColor = "#006129";
+            //   case 'TAN': thisColor = "#969161";
+            //   case 'BROWN': thisColor = "#6C503F";
+            //   case 'BLUE': thisColor = "#26B8EB";
+            //   case 'BLACK': thisColor = "#333132";
+            //}
+            //return {color: thisColor, weight: thisWeight, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            var thisClassName = "fpcc" + feature.properties.trail_colors[0];
+            console.log(thisClassName);
+            return {className: "fpccYellowMap", weight: thisWeight, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            // switch (feature.properties.trail_colors[0]) {
+            //   case 'RED': return {color: "#EE2D2F", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            //   case 'ORANGE': return {color: "#F7941E", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            //   case 'PURPLE': return {color: "#7F58A5", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            //   case 'GREY': return {color: "#58595B", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            //   case 'YELLOW': return {color: "#FFF450", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            //   case 'GREEN': return {color: "#006129", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            //   case 'TAN': return {color: "#969161", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            //   case 'BROWN': return {color: "#6C503F", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            //   case 'BLUE': return {color: "#26B8EB", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            //   case 'BLACK': return {color: "#333132", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            //   default:   return {color: NORMAL_SEGMENT_COLOR, weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+            // }  
+          },
             onEachFeature: function(feature, layer) {
               currentTrailLayers.push(layer);
             }
           }).addTo(map);
           //.bringToFront();
           //zoomToLayer(currentMultiTrailLayer);
-      }
+        }
     }
   }
 
