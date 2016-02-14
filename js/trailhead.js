@@ -922,7 +922,7 @@ function startup() {
     console.log("[showActivties] id= " + id);
     var currentActivityMarkerArray = [];
     for (var i = 0; i < originalActivities.length; i++) {
-      console.log("[showActivties] originalActivities.trailhead_id is " + originalActivities[i].properties.trailhead_id);
+      //console.log("[showActivties] originalActivities.trailhead_id is " + originalActivities[i].properties.trailhead_id);
       var trailheadID = originalActivities[i].properties.trailhead_id;
       originalActivities[i].marker.on("click", function(trailheadID) {
           return function() {
@@ -1236,20 +1236,25 @@ function startup() {
           }
           openTimeout = setTimeout(function openTimeoutFunction(originalEvent, target) {
             return function() {
-              target.setStyle({
-                weight: HOVER_SEGMENT_WEIGHT
-              });
-              // set currentWeightedSegment back to normal
-              if (target != currentWeightedSegment) {
-                if (currentWeightedSegment) {
-                  currentWeightedSegment.setStyle({
-                    weight: NORMAL_SEGMENT_WEIGHT
-                  });
-                }
-              }
-              var popupHTML = invisLayer.feature.properties.popupHTML;
-              currentTrailPopup = new L.Popup({ autoPan: SMALL ? false : true}).setContent(popupHTML).setLatLng(originalEvent.latlng).openOn(map);
-              currentWeightedSegment = target;
+              var trailIDs = invisLayer.feature.properties.trail_ids;
+              console.log("[trail click] " + trailIDs);
+              highlightTrailhead(null, null, trailIDs);
+              //var trail = target.
+              //showTrailDetails(trail, trailhead);
+              // target.setStyle({
+              //   weight: HOVER_SEGMENT_WEIGHT
+              // });
+              // // set currentWeightedSegment back to normal
+              // if (target != currentWeightedSegment) {
+              //   if (currentWeightedSegment) {
+              //     currentWeightedSegment.setStyle({
+              //       weight: NORMAL_SEGMENT_WEIGHT
+              //     });
+              //   }
+              // }
+              // var popupHTML = invisLayer.feature.properties.popupHTML;
+              // currentTrailPopup = new L.Popup({ autoPan: SMALL ? false : true}).setContent(popupHTML).setLatLng(originalEvent.latlng).openOn(map);
+              // currentWeightedSegment = target;
             };
           }(e, e.target), 250);
         };
@@ -1535,7 +1540,7 @@ function startup() {
     console.log("makeTrailheadPopups start");
     for (var trailheadIndex = 0; trailheadIndex < originalTrailheads.length; trailheadIndex++) {
       var trailhead = originalTrailheads[trailheadIndex];
-      console.log("[makeTrailheadPopups] trailhead " + trailhead);
+      //console.log("[makeTrailheadPopups] trailhead " + trailhead);
 
       var popupContentMainDivHTML = "<div class='trailhead-popup'>";
       var popupTrailheadDivHTML = "<div class='trailhead-box'><div class='popupTrailheadNames'>" + trailhead.properties.name + "</div>" +
@@ -2537,13 +2542,13 @@ function startup() {
       }
       trailFeatureCollection.features = trailFeatureArray;
       responses = trailFeatureCollection;
-      drawMultiTrailLayer(responses);
+      
       
     } else {
       //zoomToCurrentTrailhead();
 
     }
-
+    drawMultiTrailLayer(responses);
     if (zoomType == "trailhead") {
       zoomToCurrentTrailhead();
     } else {
@@ -2610,31 +2615,33 @@ function startup() {
     }
     console.log("[drawMultiTrailLayer] response.features = " + response.features);
     // Add check to see if there are segment features
-    if (response.features.length > 0) {
-      console.log("response.features count = " + response.features.length);
-      currentMultiTrailLayer = L.geoJson(response, {
-        style: function(feature) {
-            //console.log(feature.properties.trail_colors);
-          switch (feature.properties.trail_colors[0]) {
-            case 'RED': return {color: "#EE2D2F", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-            case 'ORANGE': return {color: "#F7941E", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-            case 'PURPLE': return {color: "#7F58A5", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-            case 'GREY': return {color: "#58595B", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-            case 'YELLOW': return {color: "#FFF450", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-            case 'GREEN': return {color: "#006129", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-            case 'TAN': return {color: "#969161", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-            case 'BROWN': return {color: "#6C503F", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-            case 'BLUE': return {color: "#26B8EB", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-            case 'BLACK': return {color: "#333132", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-            default:   return {color: NORMAL_SEGMENT_COLOR, weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
-        }  
-          },
-          onEachFeature: function(feature, layer) {
-            currentTrailLayers.push(layer);
-          }
-        }).addTo(map);
-        //.bringToFront();
-        //zoomToLayer(currentMultiTrailLayer);
+    if (response.features) {
+      if (response.features.length > 0) {
+        console.log("response.features count = " + response.features.length);
+        currentMultiTrailLayer = L.geoJson(response, {
+          style: function(feature) {
+              //console.log(feature.properties.trail_colors);
+            switch (feature.properties.trail_colors[0]) {
+              case 'RED': return {color: "#EE2D2F", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+              case 'ORANGE': return {color: "#F7941E", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+              case 'PURPLE': return {color: "#7F58A5", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+              case 'GREY': return {color: "#58595B", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+              case 'YELLOW': return {color: "#FFF450", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+              case 'GREEN': return {color: "#006129", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+              case 'TAN': return {color: "#969161", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+              case 'BROWN': return {color: "#6C503F", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+              case 'BLUE': return {color: "#26B8EB", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+              case 'BLACK': return {color: "#333132", weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+              default:   return {color: NORMAL_SEGMENT_COLOR, weight: ACTIVE_TRAIL_WEIGHT, opacity: 1, clickable: false, smoothFactor: customSmoothFactor};
+          }  
+            },
+            onEachFeature: function(feature, layer) {
+              currentTrailLayers.push(layer);
+            }
+          }).addTo(map);
+          //.bringToFront();
+          //zoomToLayer(currentMultiTrailLayer);
+      }
     }
   }
 
@@ -2699,25 +2706,25 @@ function startup() {
     if (1==1) {
       // if the entire trail layer will fit in a reasonable zoom full-screen, 
       // use fitBounds to place the entire layer onscreen
-      if (!SMALL && layerBoundsZoom <= MAX_ZOOM && layerBoundsZoom >= MIN_ZOOM) {
+      //if (!SMALL && layerBoundsZoom <= MAX_ZOOM && layerBoundsZoom >= MIN_ZOOM) {
         map.fitBounds(layer.getBounds(), {
           paddingTopLeft: centerOffset
         });
-      }
+      //}
 
       // otherwise, center on trailhead, with offset, and use MAX_ZOOM or MIN_ZOOM
       // with setView
-      else {
-        var newZoom = layerBoundsZoom > MAX_ZOOM ? MAX_ZOOM : layerBoundsZoom;
-        newZoom = newZoom < MIN_ZOOM ? MIN_ZOOM : newZoom;
-        // setTimeout(function() {
-          var originalLatLng = currentTrailhead.marker.getLatLng();
-          var projected = map.project(originalLatLng, newZoom);
-          var offsetProjected = projected.subtract(centerOffset.divideBy(2));
-          var newLatLng = map.unproject(offsetProjected, newZoom);
-          map.setView(newLatLng, newZoom);
+      //else {
+        // var newZoom = layerBoundsZoom > MAX_ZOOM ? MAX_ZOOM : layerBoundsZoom;
+        // newZoom = newZoom < MIN_ZOOM ? MIN_ZOOM : newZoom;
+        // // setTimeout(function() {
+        //   var originalLatLng = currentTrailhead.marker.getLatLng();
+        //   var projected = map.project(originalLatLng, newZoom);
+        //   var offsetProjected = projected.subtract(centerOffset.divideBy(2));
+        //   var newLatLng = map.unproject(offsetProjected, newZoom);
+        //   map.setView(newLatLng, newZoom);
         // }, 0);
-      }
+      //}
     }
     console.log("zoomToLayer end");
   }
