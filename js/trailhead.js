@@ -1787,6 +1787,15 @@ function startup() {
     $('.detailPanel').hide();
     $('.accordion').show();
     $('.trailhead-trailname.selected').removeClass("detail-open");
+    highlightTrailhead(null,null);
+    map.closePopup();
+    //map.removeLayer(currentTrailhead.marker);
+    //map.removeLayer(currentMultiTrailLayer);
+
+    //currentTrailhead = null;
+    //currentHighlightedTrailLayer = {};
+    //currentMultiTrailLayer = {};
+
     // map.invalidateSize();
   }
 
@@ -2343,6 +2352,7 @@ function startup() {
 
   function highlightTrailhead(trailheadID, highlightedTrailIndex, trailIDs) {
     console.log("highlightTrailhead");
+    map.closePopup();
     highlightedTrailIndex = highlightedTrailIndex || 0;
     var trailhead = null;
     trailhead = getTrailheadById(trailheadID);
