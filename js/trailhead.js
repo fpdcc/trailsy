@@ -1906,6 +1906,7 @@ function startup() {
         $('.detailPanel .fpccTrailSegments').show();
         $('.detailPanel .fpccTrailSegments').html(trail.properties.secondaryHTML);
         $('.detailPanel .fpccTrails').show();
+        $('.detailPanel .fpccTrails .icon-trail-marker').show();
         $('.detailPanel .fpccLinks').hide();
 
     } else {
@@ -1914,6 +1915,7 @@ function startup() {
       $('.detailPanel .fpccTrailSegments').hide();
       $('.detailPanel .fpccTrailDescription').hide();
       $('.detailPanel .fpccTrails').hide();
+      $('.detailPanel .fpccTrails .icon-trail-marker').hide();
     }
 
     if (trailhead) {
@@ -2112,6 +2114,7 @@ function startup() {
       $('.detailPanel .fpccEntrance').hide();
       $('.detailPanel .fpccEntranceDescription').hide();
       $('.detailPanel .fpccTrailHeader').hide();
+      $('.detailPanel .fpccTrails .icon-trail-marker').hide();
       $('.detailPanel .trailheadTrailMaps').hide();
       $('.detailPanel .fpccAmenities').hide();
       $('.detailPanel .detailPanelBanner .entranceName').html(trail.properties.name);
