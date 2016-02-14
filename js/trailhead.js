@@ -1239,6 +1239,8 @@ function startup() {
               var trailIDs = invisLayer.feature.properties.trail_ids;
               console.log("[trail click] " + trailIDs);
               highlightTrailhead(null, null, trailIDs);
+              var trail = originalTrailData[trailIDs];
+              showTrailDetails(trail, null);
               //var trail = target.
               //showTrailDetails(trail, trailhead);
               // target.setStyle({
