@@ -2540,7 +2540,7 @@ function startup() {
       drawMultiTrailLayer(responses);
       
     } else {
-      zoomToCurrentTrailhead();
+      //zoomToCurrentTrailhead();
 
     }
 
