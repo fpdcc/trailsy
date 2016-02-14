@@ -2490,11 +2490,13 @@ function startup() {
         };
     // got trailhead.trails, now get the segment collection for all of them
     // get segment collection for each
+    var zoomType = "trailhead";
     var trails = [];
     if (trailhead) {
       trails = trailhead.trails;
     } else {
       trails = trailIDs;
+      zoomType = "trail";
     }     
     console.log("[getAllTrailPathsForTrailheadLocal] trails = " + trails);
     if (trails) {
@@ -2538,8 +2540,14 @@ function startup() {
       drawMultiTrailLayer(responses);
       
     } else {
-      zoomToTrailhead(trailhead);
+      zoomToCurrentTrailhead();
 
+    }
+
+    if (zoomType == "trailhead") {
+      zoomToCurrentTrailhead();
+    } else {
+      zoomToLayer(currentMultiTrailLayer);
     }
     console.log("getAllTrailPathsForTrailheadLocal end");
     console.log("trailFeatureArray count = " + trailFeatureArray.length);
@@ -2626,7 +2634,7 @@ function startup() {
           }
         }).addTo(map);
         //.bringToFront();
-        zoomToLayer(currentMultiTrailLayer);
+        //zoomToLayer(currentMultiTrailLayer);
     }
   }
 
@@ -2688,7 +2696,7 @@ function startup() {
 
     // var layerBoundsZoom = map.getZoom();
     // console.log(["layerBoundsZoom:", layerBoundsZoom]);
-    if (currentZoom < layerBoundsZoom) {
+    if (1==1) {
       // if the entire trail layer will fit in a reasonable zoom full-screen, 
       // use fitBounds to place the entire layer onscreen
       if (!SMALL && layerBoundsZoom <= MAX_ZOOM && layerBoundsZoom >= MIN_ZOOM) {
@@ -2714,7 +2722,7 @@ function startup() {
     console.log("zoomToLayer end");
   }
 
-  function zoomToTrailhead(trailhead) {
+  function zoomToCurrentTrailhead() {
     console.log("zoomToTrailhead");
     // figure out what zoom is required to display the entire trail layer
     var layerBoundsZoom = 15;
