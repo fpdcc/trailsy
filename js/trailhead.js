@@ -1000,18 +1000,18 @@ function startup() {
         //console.log("thisSecondaryTrail= " + thisSecondaryTrail);
         var secondaryHTML = '<div class="fpccTrailSegment"><div class="fpccSegmentOverview fpcc';
         secondaryHTML += thisSecondaryTrail.properties.trail_color 
-        if (thisSecondaryTrail.properties.trail_type == "Unpaved" || thisSecondaryTrail.properties.trail_type == "Primitive") {
+        if (thisSecondaryTrail.properties.trail_type == "Unpaved" || thisSecondaryTrail.properties.trail_type == "Primitive" ) {
           secondaryHTML += " fpcc" + thisSecondaryTrail.properties.trail_type;
         }
         secondaryHTML += ' clearfix"><span class="fpccSegmentName">';
         secondaryHTML += thisSecondaryTrail.properties.trail_color + ' ' + thisSecondaryTrail.properties.trail_type;
         secondaryHTML += '</span><span class="fpccTrailUse">';
         secondaryHTML += '<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>';
-        if (thisSecondaryTrail.properties.trail_type == "Unpaved" || thisSecondaryTrail.properties.trail_type == "Paved") {
+        if (thisSecondaryTrail.properties.trail_type == "Unpaved" || thisSecondaryTrail.properties.trail_type == "Paved" || thisSecondaryTrail.properties.trail_type == "") {
           secondaryHTML += '<svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg>';
           secondaryHTML += '<svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg>';
         }
-        if (thisSecondaryTrail.properties.trail_type == "Unpaved") {
+        if (thisSecondaryTrail.properties.trail_type == "Unpaved" || thisSecondaryTrail.properties.trail_type == "") {
           secondaryHTML += '<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>';
         }
         secondaryHTML += '</span></div>';
@@ -1153,6 +1153,7 @@ function startup() {
         }
         switch (thisTrailType) {
           case 'Unpaved': thisDash = "5,10"; break;
+          case '': thisDash = "5,10"; break;
           case 'Primitive': thisDash = "5,10"; break;
         }
         switch (feature.properties.trail_colors[0]) {
@@ -2687,6 +2688,7 @@ function startup() {
             }
             switch (thisTrailType) {
               case 'Unpaved': thisDash = "5,10"; break;
+              case '': thisDash = "5,10"; break;
               case 'Primitive': thisDash = "5,10"; break;
             }
             switch (feature.properties.trail_colors[0]) {
