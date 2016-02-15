@@ -683,7 +683,7 @@ function startup() {
     // L.tileLayer.provider('MapBox.' + MAPBOX_MAP_ID).addTo(map);
     map.setView(startingMapLocation, startingMapZoom);
     map.fitBounds(map.getBounds(), {
-      //paddingTopLeft: centerOffset
+      paddingTopLeft: centerOffset
     });
     // L.control.scale().addTo(map);
     map.on('dragstart', hideUiOnMapDrag);
@@ -2806,7 +2806,13 @@ function startup() {
     var layerBoundsZoom = 15;
     var currentZoom = map.getZoom();
     var newZoom = layerBoundsZoom;
-    var newLatLng = currentTrailhead.marker.getLatLng();
+    //var newLatLng = currentTrailhead.marker.getLatLng();
+
+    var originalLatLng = currentTrailhead.marker.getLatLng();
+    var projected = map.project(originalLatLng, newZoom);
+    var offsetProjected = projected.subtract(centerOffset.divideBy(2));
+    var newLatLng = map.unproject(offsetProjected, newZoom);
+
     console.log("zoomToLayer - currentZoom = " + currentZoom);
     console.log("zoomToLayer - layerBoundsZoom = " + layerBoundsZoom);
     
