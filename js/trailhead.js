@@ -1007,9 +1007,13 @@ function startup() {
         secondaryHTML += thisSecondaryTrail.properties.trail_color + ' ' + thisSecondaryTrail.properties.trail_type;
         secondaryHTML += '</span><span class="fpccTrailUse">';
         secondaryHTML += '<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>';
-        secondaryHTML += '<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>';
-        secondaryHTML += '<svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg>';
-        secondaryHTML += '<svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg>';
+        if (thisSecondaryTrail.properties.trail_type == "Unpaved" || thisSecondaryTrail.properties.trail_type == "Paved") {
+          secondaryHTML += '<svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg>';
+          secondaryHTML += '<svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg>';
+        }
+        if (thisSecondaryTrail.properties.trail_type == "Unpaved") {
+          secondaryHTML += '<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>';
+        }
         secondaryHTML += '</span></div>';
         secondaryHTML += '<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>';
         secondaryHTML += (Math.round(thisSecondaryTrail.properties.length * 100) / 100);
