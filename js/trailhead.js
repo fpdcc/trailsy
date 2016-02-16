@@ -2777,7 +2777,7 @@ function startup() {
 
     // var layerBoundsZoom = map.getZoom();
     // console.log(["layerBoundsZoom:", layerBoundsZoom]);
-    if (1==1) {
+    if (currentZoom < layerBoundsZoom) {
       // if the entire trail layer will fit in a reasonable zoom full-screen,
       // use fitBounds to place the entire layer onscreen
       //if (!SMALL && layerBoundsZoom <= MAX_ZOOM && layerBoundsZoom >= MIN_ZOOM) {
