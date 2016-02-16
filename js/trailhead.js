@@ -673,7 +673,7 @@ function startup() {
     console.log(mapDivName);
     var map = L.map(mapDivName, {
       zoomControl: false,
-      scrollWheelZoom: false
+      scrollWheelZoom: true
     });
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
