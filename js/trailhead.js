@@ -965,7 +965,7 @@ function startup() {
   }
 
   function popupOpenHandler(e) {
-    $(".trail-popup-line-named").click(trailPopupLineClick);
+    //$(".trail-popup-line-named").click(trailPopupLineClick);
     $(".trailhead-trailname").click(trailnameClick); // Open the detail panel!
   }
 
@@ -1230,8 +1230,8 @@ function startup() {
             "data-source='" + invisLayer.feature.properties.source + "' " +
             "data-trailid='" + trailID + "' " +
             "data-trailname='" + trailName + "'> " +
-            trailName +
-            "<b></b></div>";
+            trailName + " Trail System" +
+            "</div>";
             atLeastOne = true;
           // } else {
           //   trailPopupLineDiv = "<div class='trail-popup-line trail-popup-line-unnamed'>" +
@@ -1286,8 +1286,8 @@ function startup() {
               //     });
               //   }
               // }
-              // var popupHTML = invisLayer.feature.properties.popupHTML;
-              // currentTrailPopup = new L.Popup({ autoPan: SMALL ? false : true}).setContent(popupHTML).setLatLng(originalEvent.latlng).openOn(map);
+              var popupHTML = invisLayer.feature.properties.popupHTML;
+              currentTrailPopup = new L.Popup({ autoPan: SMALL ? false : true}).setContent(popupHTML).setLatLng(originalEvent.latlng).openOn(map);
               // currentWeightedSegment = target;
             };
           }(e, e.target), 250);
