@@ -3,6 +3,9 @@ Trailsy
 
 Trailsy is the front-end component for Cook County Forest Preserves Mapping Application. It is a fork of the Trailsy component of To The Trails, a project developed by Code for America fellows working with partners in Summit County, Ohio.
 
+## Development
+
+This site uses SVG graphics which do not display when viewing the page locally. It is recommended to utilize a local web server such as [SimpleHTTPServer](http://www.pythonforbeginners.com/modules-in-python/how-to-use-simplehttpserver/) to view locally.
 
 #### Credits
 
@@ -30,7 +33,7 @@ The app is lightly customized for use in Summit County, but can be repurposed fo
 
 ## Contributing
 In the spirit of [free software][free-sw], **everyone** is encouraged to help
-improve this project. 
+improve this project.
 
 [free-sw]: http://www.fsf.org/licensing/essays/free-sw.html
 
@@ -53,12 +56,12 @@ Here are some ways *you* can contribute:
 
 ## Submitting an Issue
 
-Please note that this application is still an in-development prototype. 
+Please note that this application is still an in-development prototype.
 
 We use the [GitHub issue tracker][issues] to track bugs and features. Before
 submitting a bug report or feature request, check to make sure it hasn't
 already been submitted. You can indicate support for an existing issue by
-voting it up. When submitting a bug report, please include any details that might 
+voting it up. When submitting a bug report, please include any details that might
 be necessary to reproduce the bug.
 
 ## Submitting a Pull Request
