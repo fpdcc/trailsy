@@ -1937,6 +1937,28 @@ max-width: 75%;    font-family: Helvetica, Arial, sans-serif;
     min-width: 14em;
     position: relative;
   }
+  .leaflet-popup-content-wrapper .leaflet-popup-content .activity-popup {
+    width: auto;
+    min-width: 14em;
+    position: relative;
+    display: inline-block;
+    background-color: #ffffff;
+    height: auto;
+    /*width: 100%;*/
+    max-width: 200px;
+    overflow-y: hidden;
+    min-width: 12em;
+    padding: .5em .5em .39em 1.75em;    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 100;
+    font-size: 14px;
+    line-height: 20px;
+    color: #58595b;
+    text-decoration: none;
+    text-transform: capitalize;
+    vertical-align: bottom;
+    border-bottom: 1px solid #58595b;
+
+  }
   .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box {
     width: 100%;
     position: relative;

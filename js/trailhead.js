@@ -769,7 +769,9 @@ function startup() {
       var currentFeatureLatLng = new L.LatLng(currentFeature.geometry.coordinates[1], currentFeature.geometry.coordinates[0]);
       var iconType = null;
       var activityType = currentFeature.properties.activity_type;
-      var activityName = "";
+      var activityName = currentFeature.properties.name || activityType;
+      var popupContentMainDivHTML = "<div class='activity-popup'>";
+      popupContentMainDivHTML += activityName + "</div>";
       if (activityType == "Fishing Lake") {
         iconType = "icon-fishing";
       } else if (activityType == "trailhead") {
@@ -830,8 +832,9 @@ function startup() {
         properties: currentFeature.properties,
         geometry: currentFeature.geometry,
         marker: newMarker,
-        popupContent: ""
+        popupContent: popupContentMainDivHTML
       };
+
       //setTrailheadEventHandlers(trailhead);
       originalActivities.push(activity);
       //console.log("[populateOriginalTrailheads] trails " + trailhead.trails);
@@ -927,12 +930,14 @@ function startup() {
     var currentActivityMarkerArray = [];
     for (var i = 0; i < originalActivities.length; i++) {
       //console.log("[showActivties] originalActivities.trailhead_id is " + originalActivities[i].properties.trailhead_id);
+      originalActivities[i].marker.bindPopup(originalActivities[i].popupContent);
       var trailheadID = originalActivities[i].properties.trailhead_id;
-      originalActivities[i].marker.on("click", function(trailheadID) {
-          return function() {
-            trailheadMarkerClick(trailheadID);
-          };
-        }(originalActivities[i].properties.trailhead_id));
+      // originalActivities[i].marker.on("click", function(activityID) {
+      //     return function() {
+      //       originalActivities[i].marker.bindPopup(popupContent).openPopup();
+      //       activityMarkerClick(activityID);
+      //     };
+      //   }(originalActivities[i].properties.id));
       // if there is an entrance id, only add that entrance's activities to the current Array
       if (id) {
         //console.log("[showActivties] if id=true for  " + id);
@@ -953,6 +958,8 @@ function startup() {
     map.addLayer(currentActivityLayerGroup);
     console.log("showActivities end");
   }
+
+
 
   function removeActivities() {
     if (currentActivityLayerGroup) {
