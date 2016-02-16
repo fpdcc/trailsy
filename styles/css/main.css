@@ -176,7 +176,7 @@ margin-left: 0.25em;
     line-height: 3em;
     cursor: pointer;
     color: #7E9137;
-    background: url("img/target-white.png") center center no-repeat;
+    background: url("../../img/target-white.png") center center no-repeat;
   }
   .title-row header .navbar-inner .geolocateBox a:hover {
     background-color: rgba(255, 255, 255, 0.25);
@@ -2256,7 +2256,7 @@ max-width: 75%;    font-family: Helvetica, Arial, sans-serif;
   background-color: #bbbdbf;
 }
 .offsetZoomControl .offsetGeolocate {
-  background: url("img/target-black.png") #ffffff center center no-repeat;
+  background: url("../../img/target-black.png") #ffffff center center no-repeat;
 }
 .overlay {
   width: 100%;
