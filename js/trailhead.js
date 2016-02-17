@@ -1542,7 +1542,17 @@ function startup() {
         parkNameMatched = !! normalizedParkName.match(searchRegex);
       }
 
-      if (descriptionMatched || nameMatched || trailheadNameMatched || parkNameMatched) {
+      var addressMatched;
+      if (trailhead.properties.address === null) {
+        addressMatched = false;
+      }
+      else {
+        var normalizedAddress = trailhead.properties.address.toLowerCase();
+        addressMatched = !! normalizedAddress.match(searchRegex);
+      }
+
+
+      if (descriptionMatched || nameMatched || trailheadNameMatched || parkNameMatched || addressMatched) {
         searchMatched = true;
       }
     }
