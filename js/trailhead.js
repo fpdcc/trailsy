@@ -1605,8 +1605,7 @@ function startup() {
       //console.log("[makeTrailheadPopups] trailhead " + trailhead);
 
       var popupContentMainDivHTML = "<div class='trailhead-popup'>";
-      var popupTrailheadDivHTML = "<div class='trailhead-box'><div class='popupTrailheadNames'>" + trailhead.properties.name + "</div>" +
-      "<img class='calloutTrailheadIcon' src='img/icon_trailhead_active.png'>";
+      var popupTrailheadDivHTML = "<div class='trailhead-box'><div class='popupTrailheadNames'>" + trailhead.properties.name + "</div>";
       popupContentMainDivHTML = popupContentMainDivHTML + popupTrailheadDivHTML;
       if (trailhead.trails)  {
         for (var trailsIndex = 0; trailsIndex < trailhead.trails.length; trailsIndex++) {
@@ -2294,7 +2293,21 @@ function startup() {
 
   function trailnameClick(e) {
     console.log("trailnameClick");
-    populateTrailsForTrailheadTrailName(e);
+    //populateTrailsForTrailheadDiv(e);
+
+    var $myTarget;
+    //
+    // // this makes trailname click do the same thing as general div click
+    // // (almost certainly a better solution exists)
+    if (e.target !== this) {
+      $myTarget = $(this);
+    } else {
+      $myTarget = $(e.target);
+    }
+    var parsed = parseTrailElementData($myTarget);
+    var trail = currentTrailData[parsed.trailID];
+    console.log("trail id = " + parsed.trailID);
+    showTrailDetails(trail, null);
   }
 
   // given jquery
