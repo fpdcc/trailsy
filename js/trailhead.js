@@ -835,13 +835,34 @@ function startup() {
         popupContent: popupContentMainDivHTML
       };
 
-      //setTrailheadEventHandlers(trailhead);
+      setActivityEventHandlers(activity);
       originalActivities.push(activity);
       //console.log("[populateOriginalTrailheads] trails " + trailhead.trails);
     }
     //console.log("[populateOriginalTrailheads] originalTrailheads count " + originalTrailheads.length );
   }
 
+  function setActivityEventHandlers(activity) {
+    activity.marker.on("click", function(activity) {
+      return function() {
+        activityMarkerClick(activity);
+      };
+    }(activity));
+  }
+
+  function activityMarkerClick(activity) {
+    console.log("activityMarkerClick");
+    //highlightTrailhead(id, 0);
+    //showActivities(id);
+    var trailhead = getTrailheadById(activity.properties.trailhead_id);
+    if (trailhead) {
+      if (trailhead.trails) {
+        showTrailDetails(originalTrailData[trailhead.trails[0]], trailhead);
+      } else {
+        showTrailDetails(null, trailhead);
+      }
+    }
+  }
 
   // get all trailhead info, in order of distance from "location"
 
@@ -1946,6 +1967,8 @@ function startup() {
     enableTrailControls();
 
     resetDetailPanel();
+    var myDiv = document.getElementById('detailPanelBodySection');
+    myDiv.scrollTop = 0;
 
     if (trail) {
         var trailname = trail.properties.name + " Trail";
