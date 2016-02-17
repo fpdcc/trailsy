@@ -12,7 +12,7 @@
 .fpccAmenity span.fpccAmenityTitle{line-height:1.2;display:inline-block;vertical-align:middle;max-width:7.5em;font-size:.9125em;color:#585747}
 .fpccAmenities .icon{width:2em;height:2em;margin-right:.5em;vertical-align:middle}
 .fpccSign{float:left;width:65%;margin:0 7% 0 0}
-.fpccSign .icon{width:12%;height:2.25em;margin-right:3%;vertical-align:top}
+.fpccSign .icon{width:12%;height:2.25em;margin-right:3%;vertical-align:top;}
 .fpccAddress{display:inline-block;width:82%}
 .fpccEntranceAddress{display:block}
 .fpccDirections,.fpccMap{font-family:Helvetica, Arial, sans-serif;font-size:.8125em;text-transform:uppercase;width:28%;float:right;margin-bottom:.75em}
@@ -40,7 +40,6 @@
 .fpccGrey, .fpccGREY{border-bottom:8px solid #58595B}
 .fpccRed, .fpccRED{border-bottom:8px solid #EE2D2F}
 .fpccYellow, .fpccYELLOW{border-bottom:8px solid #FFF450}
-.fpccYellowMap{color:#FFF450; stroke-dasharray:5,5;}
 .fpccGreen, .fpccGREEN{border-bottom:8px solid #006129}
 .fpccTan, .fpccTAN,.fpccOlive, .fpccOLIVE{border-bottom:8px solid #969161}
 .fpccBrown, .fpccBROWN{border-bottom:8px solid #6C503F}
@@ -58,6 +57,7 @@ a:link.fpccMore, a:visited.fpccMore{color:#7E9137}
 a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 /* Needed to override the main stylesheet or it disappears links on mobile: */
 .trailListColumn .fpccContainer a {display:inline-block;}
+
 
 
 /* ICONS */
@@ -142,14 +142,16 @@ a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 #icon-facebook .path2{fill:#fff}
 #icon-twitter .path1{fill:#55acee}
 #icon-twitter .path2{fill:#fff}
+.icon-map{display:inline-block;width:2em;height:2em}
 
-/* new */ 
+
+/* new */
 .detailPanel .detailPanelBanner span.entranceName{color:#FFF;font-weight:bold;font-size:1.15em}
 .fpccSearchbar{margin-top:1.5em}
 .hidden{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;}
 .fpccResults h4{font-size:1em;text-transform:uppercase;padding:.5em 1em;margin:0;background:#7E9137;color:#FFF}
 .fpccResults.fpccUnit{padding:.5em 0 0 0}
-.fpccSearch.fpccUnit{padding-top:.5em}
+.fpccSearch.fpccUnit{padding-top:.5em;clear:both}
 .fpccEntry{background:#EFF2DF;padding:1em;width:100%;display:block;border-top:1px solid #7E9137}
 .fpccEntry .icon{width:15%;height:1.5em;vertical-align:top;margin-right:2%;}
 .fpccEntryNameText{display:inline-block;width:83%;}
@@ -160,8 +162,7 @@ a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 .trailListColumn .fpccUnit.fpccResults a span.fpccEntryName{font-size:1em;font-weight:bold;float:left;width:70%}
 .fpccEntryDis{font-size:.9125em;font-family:Georgia,"Times New Roman",serif;float:right;width:30%;text-align:right}
 
-/* Trail map icons */
-.icon-map{display:inline-block;width:2em;height:2em}
+
 
 /*jquery mobile override */
 .fpccUnit .ui-content{padding:0}
@@ -169,3 +170,4 @@ a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 .ui-page-theme-a .trailListColumn a,.ui-page-theme-a .trailListColumn{text-shadow:none;}
 html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 .ui-mobile label.fpccLabel{font-size:.9125em;font-weight:normal}
+.trailListColumn .ui-page-theme-a a{font-weight:normal}
