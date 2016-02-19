@@ -171,3 +171,32 @@ a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 .ui-mobile label.fpccLabel{font-size:.9125em;font-weight:normal}
 .trailListColumn .ui-page-theme-a a{font-weight:normal}
+
+/* hack css for select2 demo */
+.select2Searchbox{padding:8px;display:block;border:none;border-bottom:1px solid #808080;width:100%}
+.select2-border{border:1px solid #ccc !important}
+.select2-btn:hover{background-color: #ededed;
+    border-color: #ddd;
+    color: #333;
+    text-shadow: 0 1px 0 #f3f3f3;}
+.select2-btn{background-color: #f6f6f6;
+    border-color: #ddd;
+    color: #333;
+    text-shadow: 0 1px 0 #f3f3f3;
+	border-radius: .3125em;
+	box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 100%;
+    font-size: 16px;
+    margin: .5em 0;
+    padding: .7em 1em;
+    display: block;
+    position: relative;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    -webkit-user-select: none;
+}

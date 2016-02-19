@@ -1,0 +1,277 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>SVG-CSS test</title>
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  	<link rel="stylesheet" href="styles/css/leaflet.css"/>
+    <!--<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />-->
+	<!-- Needed START -->
+	<!-- <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"> -->
+	<!-- Latest compiled and minified CSS -->
+
+  	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  	<!-- <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
+   	<script language="javascript">
+		$(document).on( "mobileinit", function() {$.mobile.selectmenu.prototype.options.nativeMenu = false;});
+		$( ".selector" ).selectmenu({inline: true});
+	</script>
+	<link rel="stylesheet" href="styles/css/leaflet.usermarker.css"/>
+    <link rel="stylesheet" type="text/css" href="styles/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="styles/css/newguts.css" />
+	<!-- bookmark icons -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/AppIcons/AppIcons-Icon-144x144.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/AppIcons/AppIcons-Icon-114x114.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/AppIcons/AppIcons-Icon-72x72.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="57x57" href="img/AppIcons/AppIcons-Icon-57x57.png" />
+	<meta name="msapplication-TileImage" content="img/AppIcons/AppIcons-Icon-144x144.png"/>
+	<meta name="msapplication-TileColor" content="#00adef"/>
+    <!--favicon-->
+    <link rel="icon" type="image/ico" href="img/AppIcons/favicon.ico"/>
+    <script>  L_PREFER_CANVAS = false;
+    	L_DISABLE_3D = true;
+    </script>
+	  <!--[if lt IE 9]>
+	  <script src="js/html5shiv.js"></script>
+	  <![endif]-->
+    <script src="js/modernizr.custom.97978.js"></script>
+	<!-- Use this to fix for IE later: https://github.com/jonathantneal/svg4everybody -->
+	<!-- Needed END -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/css/select2.min.css" rel="stylesheet" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js"></script>
+</head>
+
+<body>
+	
+	<div id="desktop">
+    	<div class="container">
+    		<div id="main" class="row">
+    			<!-- Map -->
+		        <section class="trailMapContainer">
+		          <!-- <div id="crosshair"></div> -->
+		          <div id="trailMapLarge"></div>
+		          <div class="offsetZoomControl">
+		            <a class="offsetZoomIn">+</a>
+		            <a class="offsetZoomOut">&mdash;</a>
+		            <a class="offsetGeolocate" style="display:none;">&nbsp;</a>
+		          </div>
+		        </section>
+				<section class="trailListColumn">
+					<div class="title-row desktopTitle">
+						<header>
+							<div class="navbar-inner">
+								<a class="hamburger" href="#">
+									<div class="hamburgerLine"></div>
+									<div class="hamburgerLine"></div>
+									<div class="hamburgerLine"></div>
+								</a>
+								<a href="javascript:window.location.reload(true)"><img class="logo" src="http://fpdcc.net/wp-content/themes/fpdcc3/images/fpcc-map-logo.gif"></a>
+							</div>
+						</header>
+					</div>
+					<div class="accordion clearfix" style="display: block;">
+            			<!-- new guts START -->
+            			<div class="accordion-innerwrap">
+			            	<!-- First Accordion Panel (No Title) -->
+			            	<div class="panel-container list-reset" tabindex="1">
+            					<a class="aboutLink" href="#">ABOUT</a>
+               					<div class="fpccUnit fpccSearch">
+	       							<div role="main" class="ui-content">
+										<label for="js-example-basic-multiple" class="select hidden">Filter by:</label>
+										<form>
+										<select class="js-example-basic-multiple" multiple="multiple">
+										<optgroup label="Popular">
+										<option value="hiking">Hiking/Walking</option>
+										<option value="biking">Biking</option>
+										<option value="picnic">Picnic/Event Space</option>
+										<option value="camping">Camping</option>
+										<option value="camping">Nature Center</option>
+										<option value="leash-dog">Dog Friendly Trails (On-leash)</option>
+										<option value="off-leash-dog">Off-Leash Dog Areas</option>
+										</optgroup>
+										<optgroup label="Everything">
+										<option value="">ADA Restroom</option>
+										<option value="">Aquatic Center</option>
+										<option value="">Bicycling</option>
+										<option value="">Bike Rental</option>
+										<option value="">Birding Hotspot</option>
+										<option value="">Boat Launch</option>
+										<option value="">Boat Rental</option>
+										<option value="">Campground</option>
+										<option value="">Canoe Landing</option>
+										<option value="">Cross-Country Skiing</option>
+										<option value="">Disc Golf</option>
+										<option value="">Equestrian</option>
+										<option value="">Facility*</option>
+										<option value="">Fishing</option>
+										<option value="">Golf</option>
+										<option value="">Hiking</option>
+										<option value="">Ice Fishing</option>
+										<option value="">Ice Skating</option>
+										<option value="">Model Airplane Field</option>
+										<option value="">Model Sailboat</option>
+										<option value="">Nature Center</option>
+										<option value="">Off-Leash Dog Area</option>
+										<option value="">Parking</option>
+										<option value="">Picnic Grove/Sheltered Picnic Grove</option>
+										<option value="">Sledding</option>
+										<option value="">Snowmobiling</option>
+										<option value="">Trail System Access</option>
+										</optgroup>
+										</select>
+										</form>
+										<script type="text/javascript">
+											$(".js-example-basic-multiple").select2({
+													placeholder: "Filter: Activity / Amenity"
+												});
+										</script>
+									</div>
+                					<div class="fpccSearchbar">
+                						<label for="search-box" class="hidden">Search:</label>
+					                    <input name="search-box" data-filter="searchFilter" placeholder="search by location name or keyword" class="fpccSearchbox select2Searchbox select2-border" >
+					                    <button class="fpccSearchsubmit select2-btn">Search</button>
+                  					</div>
+                				</div>
+                			</div>
+                			<div class="fpccUnit fpccResults">
+                			</div>
+              			</div>
+             		</div>
+					<div class="detailPanel">
+						<div class="detailPanelBanner">
+							<span class="entranceName"> </span>
+ 							<!--<span class="trailIndex">10 of 580</span>-->
+ 							<img class="closeDetail" src="http://fpcc-staging.smartchicagoapps.org/img/close-btn.png">
+							<div class="detailPanelControls controlLeft disabled">
+								<b class="controlLeft disabled"></b>
+							</div>
+							<div class="detailPanelControls controlRight disabled">
+								<b class="controlRight disabled"></b>
+							</div>
+						</div>
+						<div class="detailPanelBody" id="detailPanelBodySection">
+							<!-- NEW GUTS START -->
+							<div class="fpccContainer">
+								<!-- ENTRANCE START -->
+								<div class="fpccEntrance fpccUnit clearfix">
+									<div class="fpccSign clearfix">
+										<svg class="icon icon-sign"><use xlink:href="icons/defs.svg#icon-sign"></use></svg>
+										<div class="fpccAddress">
+											<span class="fpccLabel fpccBlock">Entrance</span>
+											<span class="fpccEntranceAddress"></span>
+											<span class="fpccEntranceCity"></span>
+											<span class="fpccEntranceState"></span>
+											<span class="fpccEntranceZip"></span>
+										</div>
+									</div>
+									<div class="fpccDirections"><a href="#DIRECTIONS" target="_blank">Directions</a></div>
+								</div>
+								<!--ENTRANCE END -->
+
+								<!-- TRAILMAPS START (IF THEY EXIST) -->
+								<div class="fpccTrailMaps fpccUnit clearfix trailMaps">
+									<span class="fpccLabel">PDF Trail Map:</span>
+									<div class="fpccMap"><a href="#PDFMAP">English</a></div>
+									<div class="fpccMap"><a href="#PDFMAP">Espa&ntilde;ol</a></div>
+								</div>
+								<!-- TRAILMAPS END -->
+
+								<!-- DESCRIPTION START -->
+								<div class="fpccDescription fpccUnit fpccEntranceDescription">
+									This is an ENTRANCE description section. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo. <!-- IF A WEBSITE PAGE EXISTS --><a href="#" class="fpccMore">Read more &gt;</a>
+								</div>
+								<!-- DESCRIPTION END -->
+
+								<!-- AMENITIES START -->
+								<div class="fpccAmenities fpccUnit clearfix">
+									<!-- LOCATIONS (will also appear on map) -->
+								</div>
+								<!-- AMENITIES END -->
+
+								<!-- TRAILS SYSTEM ACCESS START -->
+								<div class="fpccTrails fpccUnit clearfix">
+                  <svg class="icon icon-trail-marker"><use xlink:href="icons/defs.svg#icon-trail-marker"></use></svg>
+									<div class="fpccTrailHeader">
+										<span class="fpccLabel fpccBlock">Trail System Access</span>
+										<span class="fpccTrailName">Des Plaines Trail</span>
+									</div>
+									<div class="fpccDescription fpccTrailDescription">
+									This is a TRAIL description section. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+									</div>
+
+									<div class="fpccTrailSegments"></div>
+								</div>
+								<!-- TRAILS SYSTEM ACCESS END -->
+
+								<!-- TRAILMAPS START (IF THEY EXIST) for Trailhead view -->
+								<div class="fpccTrailMaps fpccUnit clearfix trailheadTrailMaps">
+									<span class="fpccLabel">PDF Trail Map:</span>
+									<div class="fpccMap"><a href="#PDFMAP">English</a></div>
+									<div class="fpccMap"><a href="#PDFMAP">Espa&ntilde;ol</a></div>
+								</div>
+								<!-- TRAILMAPS END -->
+
+                <!-- EXTRA LINKS START -->
+                <div class="fpccLinks fpccUnit clearfix">
+                  <div class="fpccMoreHeader">
+                    <span class="fpccMoreName">More Information</span>
+                  </div>
+                  <ul>
+                    <li><a class="fpccMore" href="web_link" target="_blank">Webpage</a></li>
+                    <li><a class="fpccMore" href="map_link" target="_blank">English Map (PDF)</a></li>
+                    <li><a class="fpccMore" href="map_link_spanish" target="_blank">Spanish Map (PDF)</a></li>
+                    <li><a class="fpccMore" href="picnic_link" target="_blank">Picnic Grove Map (PDF)</a></li>
+                    <li><a class="fpccMore" href="vol_link" target="_blank">Volunteer Opportunity</a></li>
+                    <li><a class="fpccMore" href="vol_link2" target="_blank">Volunteer Opportunity</a></li>
+                  </ul>
+                </div>
+                <!-- EXTRA LINKS END -->
+
+								<!-- SOCIAL START -->
+								<div class="fpccSocial fpccUnit clearfix">
+									<div class="fpccShare">Share Your Plans:</div>
+									<a href="#EMAIL" class="fpccSocialIcon">
+										<svg class="icon icon-email"><use xlink:href="icons/defs.svg#icon-email"></use></svg>
+										<span>Email</span>
+									</a>
+									<a href="#TWITTER" class="fpccSocialIcon">
+										<svg class="icon icon-twitter"><use xlink:href="icons/defs.svg#icon-twitter"></use></svg>
+										<span>Twitter</span>
+									</a>
+									<a href="#FACEBOOK" class="fpccSocialIcon">
+										<svg class="icon icon-facebook"><use xlink:href="icons/defs.svg#icon-facebook"></use></svg>
+										<span>Facebook</span>
+									</a>
+								</div>
+								<!-- SOCIAL END -->
+							</div>
+							<!-- NEW GUTS END -->
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+
+
+	<script src="js/trailhead.js"></script>
+	<!-- leaflet build from trailsyFix branch of github repo fork danavery/Leaflet -->
+	<script src="js/leaflet-custom.js"></script>
+	<!--<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>-->
+	<script src="js/wicket.js"></script>
+	<script src="js/leaflet-providers.js"></script>
+	<script src="js/async.js"></script>
+	<script src="js/leaflet.usermarker.js"></script>
+	<script src="js/xdr.js"></script>
+	<script src="js/respond.min.js"></script>
+	<script src="js/accordion.js"></script>
+	<noscript>
+		<div class="noscript">
+	    	<div class="message">
+	        To The Trails requires a web browser that supports Javascript. To learn more about web browers that are compatible with this site, <a href="http://browsehappy.com/">click here</a>.
+	      	</div>
+	    </div>
+	 </noscript>
+</body>
+
+</html>
