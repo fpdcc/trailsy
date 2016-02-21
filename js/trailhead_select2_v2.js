@@ -1960,6 +1960,7 @@ function filterResults(trail, trailhead) {
       $('.detailPanel .detailDescription').html("");
       $('.detailPanel .fpccTrailDescription').html("");
       $('.detailPanel .fpccEntranceDescription').html("");
+      $('.detailPanel .fpccLinks').html("");
 
       $('.detailPanel .detailStewardLogo').attr("src", "/img/logoPlaceholder.jpg");
   }
