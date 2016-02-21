@@ -35,16 +35,16 @@
 .fpccTrailUse .icon{width:1.5em;height:1.5em;margin-left:.25em}
 .fpccSegmentOverview{}
 .fpccSegmentDetails{margin-top:.35em}
-.fpccOrange, .fpccORANGE{border-bottom:8px solid #F7941E}
-.fpccPurple, .fpccPURPLE{border-bottom:8px solid #7F58A5}
-.fpccGrey, .fpccGREY{border-bottom:8px solid #58595B}
-.fpccRed, .fpccRED{border-bottom:8px solid #EE2D2F}
-.fpccYellow, .fpccYELLOW{border-bottom:8px solid #FFF450}
-.fpccGreen, .fpccGREEN{border-bottom:8px solid #006129}
-.fpccTan, .fpccTAN,.fpccOlive, .fpccOLIVE{border-bottom:8px solid #969161}
-.fpccBrown, .fpccBROWN{border-bottom:8px solid #6C503F}
-.fpccBlue, .fpccBLUE{border-bottom:8px solid #26B8EB}
-.fpccBlack, .fpccBLACK{border-bottom:8px solid #333132}
+.fpccorange, .fpccORANGE{border-bottom:8px solid #F7941E}
+.fpccpurple, .fpccPURPLE{border-bottom:8px solid #7F58A5}
+.fpccgrey, .fpccGREY{border-bottom:8px solid #58595B}
+.fpccred, .fpccRED{border-bottom:8px solid #EE2D2F}
+.fpccyellow, .fpccYELLOW{border-bottom:8px solid #FFF450}
+.fpccgreen, .fpccGREEN{border-bottom:8px solid #006129}
+.fpcctan, .fpccTAN,.fpccolive, .fpccOLIVE{border-bottom:8px solid #969161}
+.fpccbrown, .fpccBROWN{border-bottom:8px solid #6C503F}
+.fpccblue, .fpccBLUE{border-bottom:8px solid #26B8EB}
+.fpccblack, .fpccBLACK{border-bottom:8px solid #333132}
 .fpccUNPAVED,.fpccUnpaved,.fpccPrimitive,.fpccPRIMITIVE{border-bottom-style:dotted}
 .fpccSocial{border-top:1px solid #585746;background:#F1F1ED}
 .fpccShare{font-size:1.15em;line-height:1;text-align:center;margin-bottom:.5em}
