@@ -7,9 +7,11 @@
   	<link rel="stylesheet" href="styles/css/leaflet.css"/>
     <!--<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />-->
 	<!-- Needed START -->
-	<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+	<!-- <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"> -->
+	<!-- Latest compiled and minified CSS -->
+
   	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-  	<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  	<!-- <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
    	<script language="javascript">
 		$(document).on( "mobileinit", function() {$.mobile.selectmenu.prototype.options.nativeMenu = false;});
 		$( ".selector" ).selectmenu({inline: true});
@@ -35,10 +37,12 @@
     <script src="js/modernizr.custom.97978.js"></script>
 	<!-- Use this to fix for IE later: https://github.com/jonathantneal/svg4everybody -->
 	<!-- Needed END -->
-
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/css/select2.min.css" rel="stylesheet" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js"></script>
 </head>
 
 <body>
+	
 	<div id="desktop">
     	<div class="container">
     		<div id="main" class="row">
@@ -73,9 +77,9 @@
             					<a class="aboutLink" href="#">ABOUT</a>
                					<div class="fpccUnit fpccSearch">
 	       							<div role="main" class="ui-content">
-										<label for="select-choice-0" class="select hidden">Filter by:</label>
-										<select name="select-choice-0" id="select-choice-0" multiple="multiple" data-native-menu="false" data-filter="activityFilter" class="filter">
-										<option data-placeholder="true">Filter: Activity / Amenity</option>
+										<label for="js-example-basic-multiple" class="select hidden">Filter by:</label>
+										<form>
+										<select class="js-example-basic-multiple select2Searchbox select2-border filter" data-filter="activityFilter" multiple="multiple">
 										<optgroup label="Popular">
 										<option value="hiking">Hiking</option>
 										<option value="cycling">Bicycling</option>
@@ -108,11 +112,18 @@
 										<option value="parking">Parking</option>
 										</optgroup>
 										</select>
+										</form>
+										<!--<script type="text/javascript">
+											$(".js-example-basic-multiple").select2({
+													placeholder: "Filter: Activity / Amenity",
+													tags: true
+												});
+										</script>-->
 									</div>
                 					<div class="fpccSearchbar">
-                						<label for="search-box" class="hidden">Search:</label>
-					                    <input name="search-box" data-filter="searchFilter" placeholder="search by location name or keyword" class="fpccSearchbox">
-					                    <button class="fpccSearchsubmit">Search</button>
+                						<!-- <label for="search-box" class="hidden">Search:</label>
+					                    <input name="search-box" data-filter="searchFilter" placeholder="search by location name or keyword" class="fpccSearchbox select2Searchbox select2-border" > -->
+					                    <button class="fpccSearchsubmit select2-btn">Search</button>
                   					</div>
                 				</div>
                 			</div>
@@ -236,7 +247,9 @@
 		</div>
 	</div>
 
-	<script src="js/trailhead.js"></script>
+	
+
+	<script src="js/trailhead_select2_v3.js"></script>
 	<!-- leaflet build from trailsyFix branch of github repo fork danavery/Leaflet -->
 	<script src="js/leaflet-custom.js"></script>
 	<!--<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>-->

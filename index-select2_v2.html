@@ -79,56 +79,50 @@
 	       							<div role="main" class="ui-content">
 										<label for="js-example-basic-multiple" class="select hidden">Filter by:</label>
 										<form>
-										<select class="js-example-basic-multiple" multiple="multiple">
+										<select class="js-example-basic-multiple select2Searchbox select2-border filter" data-filter="activityFilter" multiple="multiple">
 										<optgroup label="Popular">
-										<option value="hiking">Hiking/Walking</option>
-										<option value="biking">Biking</option>
-										<option value="picnic">Picnic/Event Space</option>
-										<option value="camping">Camping</option>
-										<option value="camping">Nature Center</option>
-										<option value="leash-dog">Dog Friendly Trails (On-leash)</option>
-										<option value="off-leash-dog">Off-Leash Dog Areas</option>
+										<option value="hiking">Hiking</option>
+										<option value="cycling">Bicycling</option>
+										<option value="dog_friendly">Off-Leash Dog Area</option>
+										<option value="camping">Campground</option>
+										<option value="nature_center">Nature Center</option>
+										<option value="picnic_event_space">Picnic/Event Space</option>
+										<option value="Dog Friendly (on-leash)">Dog Friendly (on-leash)</option>
 										</optgroup>
 										<optgroup label="Everything">
-										<option value="">ADA Restroom</option>
-										<option value="">Aquatic Center</option>
-										<option value="">Bicycling</option>
-										<option value="">Bike Rental</option>
-										<option value="">Birding Hotspot</option>
-										<option value="">Boat Launch</option>
-										<option value="">Boat Rental</option>
-										<option value="">Campground</option>
-										<option value="">Canoe Landing</option>
-										<option value="">Cross-Country Skiing</option>
-										<option value="">Disc Golf</option>
-										<option value="">Equestrian</option>
-										<option value="">Facility*</option>
-										<option value="">Fishing</option>
-										<option value="">Golf</option>
-										<option value="">Hiking</option>
-										<option value="">Ice Fishing</option>
-										<option value="">Ice Skating</option>
-										<option value="">Model Airplane Field</option>
-										<option value="">Model Sailboat</option>
-										<option value="">Nature Center</option>
-										<option value="">Off-Leash Dog Area</option>
-										<option value="">Parking</option>
-										<option value="">Picnic Grove/Sheltered Picnic Grove</option>
-										<option value="">Sledding</option>
-										<option value="">Snowmobiling</option>
-										<option value="">Trail System Access</option>
+										<option value="boat_rental">Boat Rental</option>
+										<option value="picnic_grove">Picnic Grove</option>
+										<option value="shelter">Picnic Grove (with shelter)</option>
+										<option value="cross_country">Cross-Country Skiing</option>
+										<option value="equestrian">Equestrian</option>
+										<option value="birding">Birding Hotspot</option>
+										<option value="fishing">Fishing</option>
+										<option value="canoe">Canoe Landing</option>
+										<option value="snowmobile">Snowmobile Area</option>
+										<option value="m_boat">Model Sailboat</option>
+										<option value="m_airplane">Model Airplane Flying Field</option>
+										<option value="sledding">Sledding</option>
+										<option value="boat_ramp">Boat Launch</option>
+										<option value="swimming">Aquatic Center</option>
+										<option value="golf">Golf</option>
+										<option value="comfortstation">Public Bathroom</option>
+										<option value="pavilion">Indoor Event Space</option>
+<!-- 										<option value="bicycle rental">Bike Rental</option>
+ 										<option value="frisbee golf">Disc Golf</option> -->
+										<option value="parking">Parking</option>
 										</optgroup>
 										</select>
 										</form>
-										<script type="text/javascript">
+										<!--<script type="text/javascript">
 											$(".js-example-basic-multiple").select2({
-													placeholder: "Filter: Activity / Amenity"
+													placeholder: "Filter: Activity / Amenity",
+													tags: true
 												});
-										</script>
+										</script>-->
 									</div>
                 					<div class="fpccSearchbar">
-                						<label for="search-box" class="hidden">Search:</label>
-					                    <input name="search-box" data-filter="searchFilter" placeholder="search by location name or keyword" class="fpccSearchbox select2Searchbox select2-border" >
+                						<!-- <label for="search-box" class="hidden">Search:</label>
+					                    <input name="search-box" data-filter="searchFilter" placeholder="search by location name or keyword" class="fpccSearchbox select2Searchbox select2-border" > -->
 					                    <button class="fpccSearchsubmit select2-btn">Search</button>
                   					</div>
                 				</div>
@@ -253,8 +247,9 @@
 		</div>
 	</div>
 
+	
 
-	<script src="js/trailhead.js"></script>
+	<script src="js/trailhead_select2_v2.js"></script>
 	<!-- leaflet build from trailsyFix branch of github repo fork danavery/Leaflet -->
 	<script src="js/leaflet-custom.js"></script>
 	<!--<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>-->
