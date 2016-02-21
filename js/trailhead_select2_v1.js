@@ -774,7 +774,9 @@ function filterResults(trail, trailhead) {
     console.log(mapDivName);
     var map = L.map(mapDivName, {
       zoomControl: false,
-      scrollWheelZoom: true
+      scrollWheelZoom: true,
+      minZoom: 9,
+      maxBounds: [[41.16211, -90.89539], [42.61577, -85.62195]]
     });
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
