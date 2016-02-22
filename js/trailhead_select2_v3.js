@@ -18,7 +18,8 @@ function startup() {
   $(".js-example-basic-multiple").select2({
     placeholder: "Search by Location or Activity",
     tags: true,
-    tokenSeparators: [',', ' ']
+    tokenSeparators: [',', ' '],
+    allowClear: true
   });
 
   var SMALL = false;
