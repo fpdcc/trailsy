@@ -70,7 +70,8 @@ function startup() {
   var METERSTOMILESFACTOR = 0.00062137;
   var MAX_ZOOM = SMALL ? 16 : 17;
   var MIN_ZOOM = SMALL ? 13 : 14;
-  var SECONDARY_TRAIL_ZOOM = 13;
+  var SECONDARY_TRAIL_ZOOM = 12;
+  var SHOW_SIGN_ZOOM = 13;
   var SHOW_ALL_ACTIVITIES_ZOOM = 14; //Show all activity points starting at this zoom level
   var SHORT_MAX_DISTANCE = 2.0;
   var MEDIUM_MAX_DISTANCE = 5.0;
@@ -108,6 +109,8 @@ function startup() {
   var currentTrailLayers = [];
   var currentHighlightedTrailLayer = {};
   var currentTrailheads = [];
+  var currentTrailheadMarkerArray = [];
+  var currentTrailheadSignArray = [];
   var currentActivities = [];
   var currentUserLocation = {};
   var anchorLocation = {};
@@ -805,12 +808,20 @@ function filterResults(trail, trailhead) {
       if (zoomLevel >= SHOW_ALL_ACTIVITIES_ZOOM) {
         if (currentActivities.length < originalActivities.length) {
           showActivities();
-        }
-        
+        } 
       }
       else {
         removeActivities();
       }
+      if (currentTrailheadLayerGroup) {
+        map.removeLayer(currentTrailheadLayerGroup);
+      }
+      if (zoomLevel >= SHOW_SIGN_ZOOM) {
+        currentTrailheadLayerGroup = L.layerGroup(currentTrailheadSignArray);
+      } else {
+        currentTrailheadLayerGroup = L.layerGroup(currentTrailheadMarkerArray);
+      }
+      map.addLayer(currentTrailheadLayerGroup);
       console.log("zoomend end " + map.getZoom());
     });
     map.on('popupclose', popupCloseHandler);
@@ -1019,10 +1030,14 @@ function filterResults(trail, trailhead) {
         fillOpacity: 0.5,
         opacity: 0.8
       }).setRadius(MARKER_RADIUS);
+      var signMarker = new L.Marker(currentFeatureLatLng, {
+        icon: trailheadIcon2
+      });
       var trailhead = {
         properties: currentFeature.properties,
         geometry: currentFeature.geometry,
         marker: newMarker,
+        signMarker: signMarker,
         trails: currentFeature.properties.trail_ids,
         popupContent: ""
       };
@@ -1671,10 +1686,11 @@ function filterResults(trail, trailhead) {
 
   function mapActiveTrailheads(myTrailheads) {
     console.log("mapActiveTrailheads start");
-    var currentTrailheadMarkerArray = [];
+    currentTrailheadMarkerArray = [];
+    currentTrailheadSignArray = [];
     for (var i = 0; i < myTrailheads.length; i++) {
-      //if (myTrailheads[i].trails.length) {
-        currentTrailheadMarkerArray.push(myTrailheads[i].marker);
+      currentTrailheadMarkerArray.push(myTrailheads[i].marker);
+      currentTrailheadSignArray.push(myTrailheads[i].signMarker);
       //} else {
         // console.log(["trailhead not displayed: ", trailheads[i].properties.name]);
       //}
@@ -1682,7 +1698,12 @@ function filterResults(trail, trailhead) {
     if (currentTrailheadLayerGroup) {
       map.removeLayer(currentTrailheadLayerGroup);
     }
-    currentTrailheadLayerGroup = L.layerGroup(currentTrailheadMarkerArray);
+
+    if (map.getZoom() >= SHOW_SIGN_ZOOM) {
+      currentTrailheadLayerGroup = L.layerGroup(currentTrailheadSignArray);
+    } else {
+      currentTrailheadLayerGroup = L.layerGroup(currentTrailheadMarkerArray);
+    }
     map.addLayer(currentTrailheadLayerGroup);
     console.log("mapActiveTrailheads end");
   }
@@ -2511,7 +2532,7 @@ function filterResults(trail, trailhead) {
       $('.trailhead-trailname.selected').removeClass("detail-open");
     }
 
-    if (currentTrailhead) {
+    if (currentTrailhead && (map.getZoom() < SHOW_SIGN_ZOOM) ) {
       map.removeLayer(currentTrailhead.marker);
       currentTrailhead.marker = new L.CircleMarker(currentTrailhead.marker.getLatLng(), {
         color: "#D86930",
@@ -2546,14 +2567,8 @@ function filterResults(trail, trailhead) {
     } else {
 
     }
-
     getAllTrailPathsForTrailhead(trailhead, highlightedTrailIndex, trailIDs);
-
     //getAllActivitiesForTrailhead(trailhead);
-
-
-
-
   }
 
 

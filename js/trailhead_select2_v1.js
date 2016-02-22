@@ -69,7 +69,8 @@ function startup() {
   var METERSTOMILESFACTOR = 0.00062137;
   var MAX_ZOOM = SMALL ? 16 : 17;
   var MIN_ZOOM = SMALL ? 13 : 14;
-  var SECONDARY_TRAIL_ZOOM = 13;
+  var SECONDARY_TRAIL_ZOOM = 12;
+  var SHOW_SIGN_ZOOM = 13;
   var SHOW_ALL_ACTIVITIES_ZOOM = 14; //Show all activity points starting at this zoom level
   var SHORT_MAX_DISTANCE = 2.0;
   var MEDIUM_MAX_DISTANCE = 5.0;
@@ -107,6 +108,8 @@ function startup() {
   var currentTrailLayers = [];
   var currentHighlightedTrailLayer = {};
   var currentTrailheads = [];
+  var currentTrailheadMarkerArray = [];
+  var currentTrailheadSignArray = [];
   var currentActivities = [];
   var currentUserLocation = {};
   var anchorLocation = {};
@@ -795,7 +798,7 @@ function filterResults(trail, trailhead) {
     map.on('dragstart', hideUiOnMapDrag);
     map.on('dragend', unhideUiOnMapDrag);
 
-    map.on("zoomend", function(e) {
+     map.on("zoomend", function(e) {
       console.log("zoomend start " + map.getZoom());
       var zoomLevel = map.getZoom();
       if (SHOW_ALL_TRAILS && allSegmentLayer) {
@@ -815,11 +818,22 @@ function filterResults(trail, trailhead) {
         }
       }
       if (zoomLevel >= SHOW_ALL_ACTIVITIES_ZOOM) {
-        showActivities();
+        if (currentActivities.length < originalActivities.length) {
+          showActivities();
+        } 
       }
       else {
         removeActivities();
       }
+      if (currentTrailheadLayerGroup) {
+        map.removeLayer(currentTrailheadLayerGroup);
+      }
+      if (zoomLevel >= SHOW_SIGN_ZOOM) {
+        currentTrailheadLayerGroup = L.layerGroup(currentTrailheadSignArray);
+      } else {
+        currentTrailheadLayerGroup = L.layerGroup(currentTrailheadMarkerArray);
+      }
+      map.addLayer(currentTrailheadLayerGroup);
       console.log("zoomend end " + map.getZoom());
     });
     map.on('popupclose', popupCloseHandler);
@@ -1030,10 +1044,14 @@ function filterResults(trail, trailhead) {
         fillOpacity: 0.5,
         opacity: 0.8
       }).setRadius(MARKER_RADIUS);
+      var signMarker = new L.Marker(currentFeatureLatLng, {
+        icon: trailheadIcon2
+      });
       var trailhead = {
         properties: currentFeature.properties,
         geometry: currentFeature.geometry,
         marker: newMarker,
+        signMarker: signMarker,
         trails: currentFeature.properties.trail_ids,
         popupContent: ""
       };
@@ -1282,7 +1300,7 @@ function filterResults(trail, trailhead) {
   }
 
 
-  function makeAllSegmentLayer(response) {
+ function makeAllSegmentLayer(response) {
     if (allSegmentLayer !== undefined) {
       return allSegmentLayer;
     }
@@ -1310,22 +1328,22 @@ function filterResults(trail, trailhead) {
           thisTrailType = secondaryTrails[thisSecondaryTrail].properties.trail_type;
         }
         switch (thisTrailType) {
-          case 'Unpaved': thisDash = "5,10"; break;
+          case 'unpaved': thisDash = "5,10"; break;
           case '': thisDash = "5,10"; break;
-          case 'Primitive': thisDash = "5,10"; break;
+          case 'primitive': thisDash = "5,10"; break;
         }
-        switch (feature.properties.trail_colors[0]) {
-            case 'RED': thisColor = "#EE2D2F"; break;
-            case 'ORANGE': thisColor = "#F7941E"; break;
-            case 'PURPLE': thisColor = "#7F58A5"; break;
-            case 'GREY': thisColor = "#58595B"; break;
-            case 'YELLOW': thisColor = "#FFF450"; break;
-            case 'GREEN': thisColor = "#006129"; break;
-            case 'TAN': thisColor = "#969161"; break;
-            case 'OLIVE': thisColor = "#969161"; break;
-            case 'BROWN': thisColor = "#6C503F"; break;
-            case 'BLUE': thisColor = "#26B8EB"; break;
-            case 'BLACK': thisColor = "#333132"; break;
+        switch (feature.properties.trail_colors[0].toLowerCase()) {
+                case 'red': thisColor = "#EE2D2F"; break;
+                case 'orange': thisColor = "#F7941E"; break;
+                case 'purple': thisColor = "#7F58A5"; break;
+                case 'grey': thisColor = "#58595B"; break;
+                case 'yellow': thisColor = "#FFF450"; break;
+                case 'green': thisColor = "#006129"; break;
+                case 'tan': thisColor = "#969161"; break;
+                case 'olive': thisColor = "#969161"; break;
+                case 'brown': thisColor = "#6C503F"; break;
+                case 'blue': thisColor = "#26B8EB"; break;
+                case 'black': thisColor = "#333132"; break;
         }
         return {dashArray: thisDash, color: thisColor, weight: thisWeight, opacity: thisOpacity, clickable: thisClickable, smoothFactor: thisSmoothFactor};
       },
@@ -1479,6 +1497,7 @@ function filterResults(trail, trailhead) {
     allInvisibleSegmentsArray = null;
     return allSegmentLayer;
   }
+
 
   // after clicking on a trail name in a trail popup,
   // find the closest matching trailhead and highlight it
@@ -1683,10 +1702,11 @@ function filterResults(trail, trailhead) {
 
   function mapActiveTrailheads(myTrailheads) {
     console.log("mapActiveTrailheads start");
-    var currentTrailheadMarkerArray = [];
+    currentTrailheadMarkerArray = [];
+    currentTrailheadSignArray = [];
     for (var i = 0; i < myTrailheads.length; i++) {
-      //if (myTrailheads[i].trails.length) {
-        currentTrailheadMarkerArray.push(myTrailheads[i].marker);
+      currentTrailheadMarkerArray.push(myTrailheads[i].marker);
+      currentTrailheadSignArray.push(myTrailheads[i].signMarker);
       //} else {
         // console.log(["trailhead not displayed: ", trailheads[i].properties.name]);
       //}
@@ -1694,7 +1714,12 @@ function filterResults(trail, trailhead) {
     if (currentTrailheadLayerGroup) {
       map.removeLayer(currentTrailheadLayerGroup);
     }
-    currentTrailheadLayerGroup = L.layerGroup(currentTrailheadMarkerArray);
+
+    if (map.getZoom() >= SHOW_SIGN_ZOOM) {
+      currentTrailheadLayerGroup = L.layerGroup(currentTrailheadSignArray);
+    } else {
+      currentTrailheadLayerGroup = L.layerGroup(currentTrailheadMarkerArray);
+    }
     map.addLayer(currentTrailheadLayerGroup);
     console.log("mapActiveTrailheads end");
   }
@@ -2523,7 +2548,7 @@ function filterResults(trail, trailhead) {
       $('.trailhead-trailname.selected').removeClass("detail-open");
     }
 
-    if (currentTrailhead) {
+    if (currentTrailhead && (map.getZoom() < SHOW_SIGN_ZOOM) ) {
       map.removeLayer(currentTrailhead.marker);
       currentTrailhead.marker = new L.CircleMarker(currentTrailhead.marker.getLatLng(), {
         color: "#D86930",
@@ -2558,16 +2583,9 @@ function filterResults(trail, trailhead) {
     } else {
 
     }
-
     getAllTrailPathsForTrailhead(trailhead, highlightedTrailIndex, trailIDs);
-
     //getAllActivitiesForTrailhead(trailhead);
-
-
-
-
   }
-
 
 
   function getAllTrailPathsForTrailhead(trailhead, highlightedTrailIndex, trailIDs) {
@@ -2780,7 +2798,7 @@ function filterResults(trail, trailhead) {
   // given a geoJSON set of linestring features,
   // draw them all on the map (in a single layer we can remove later)
 
-  function drawMultiTrailLayer(response) {
+   function drawMultiTrailLayer(response) {
     console.log("drawMultiTrailLayer");
     if (currentMultiTrailLayer) {
       console.log("[drawMultiTrailLayer] Remove currentMultiTrailLayer");
@@ -2811,22 +2829,22 @@ function filterResults(trail, trailhead) {
               }
             }
             switch (thisTrailType) {
-              case 'Unpaved': thisDash = "5,10"; break;
+              case 'unpaved': thisDash = "5,10"; break;
               case '': thisDash = "5,10"; break;
-              case 'Primitive': thisDash = "5,10"; break;
+              case 'primitive': thisDash = "5,10"; break;
             }
-            switch (feature.properties.trail_colors[0]) {
-                case 'RED': thisColor = "#EE2D2F"; break;
-                case 'ORANGE': thisColor = "#F7941E"; break;
-                case 'PURPLE': thisColor = "#7F58A5"; break;
-                case 'GREY': thisColor = "#58595B"; break;
-                case 'YELLOW': thisColor = "#FFF450"; break;
-                case 'GREEN': thisColor = "#006129"; break;
-                case 'TAN': thisColor = "#969161"; break;
-                case 'OLIVE': thisColor = "#969161"; break;
-                case 'BROWN': thisColor = "#6C503F"; break;
-                case 'BLUE': thisColor = "#26B8EB"; break;
-                case 'BLACK': thisColor = "#333132"; break;
+            switch (feature.properties.trail_colors[0].toLowerCase()) {
+                case 'red': thisColor = "#EE2D2F"; break;
+                case 'orange': thisColor = "#F7941E"; break;
+                case 'purple': thisColor = "#7F58A5"; break;
+                case 'grey': thisColor = "#58595B"; break;
+                case 'yellow': thisColor = "#FFF450"; break;
+                case 'green': thisColor = "#006129"; break;
+                case 'tan': thisColor = "#969161"; break;
+                case 'olive': thisColor = "#969161"; break;
+                case 'brown': thisColor = "#6C503F"; break;
+                case 'blue': thisColor = "#26B8EB"; break;
+                case 'black': thisColor = "#333132"; break;
             }
             return {dashArray: thisDash, color: thisColor, weight: thisWeight, opacity: thisOpacity, clickable: thisClickable, smoothFactor: thisSmoothFactor};
           },
