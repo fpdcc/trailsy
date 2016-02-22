@@ -1703,20 +1703,21 @@ function filterResults(trail, trailhead) {
   // make the trail/trailhead combination divs
   // noting if a particular trailhead has no trails associated with it
 
-  function makeTrailDivs(myTrailheads) {
+   function makeTrailDivs(myTrailheads) {
     console.log("makeTrailDivs");
     orderedTrails = [];
     var trailList = {}; // used to see if trail div has been built yet.
     var divCount = 1;
-    if(myTrailheads.length === 0) return;
-    myTrailheads.sort(function(a, b){
-     return a.properties.distance-b.properties.distance
-    })
     var topLevelID = SMALL ? "mobile" : "desktop";
     var trailListElementList = document.getElementById(topLevelID).getElementsByClassName("fpccResults");
     trailListElementList[0].innerHTML = "";
     var myTrailheadsLength = myTrailheads.length;
     var trailListContents = "<h4>" + myTrailheadsLength + " RESULTS FOUND</h4>";
+    //if(myTrailheads.length === 0) return;
+    myTrailheads.sort(function(a, b){
+     return a.properties.distance-b.properties.distance
+    })
+    
     for (var j = 0; j < myTrailheadsLength; j++) {
       // console.log("makeTrailDivs trailhead: " + j);
       // newTimeStamp = Date.now();
@@ -2900,22 +2901,28 @@ function filterResults(trail, trailhead) {
       // if the entire trail layer will fit in a reasonable zoom full-screen,
       // use fitBounds to place the entire layer onscreen
       //if (!SMALL && layerBoundsZoom <= MAX_ZOOM && layerBoundsZoom >= MIN_ZOOM) {
+        console.log("zoomToLayer currentZoom < layerBoundsZoom");
         map.fitBounds(layer.getBounds(), {
-          paddingTopLeft: centerOffset
+          //paddingTopLeft: centerOffset
         });
-      //}
+    }
 
       // otherwise, center on trailhead, with offset, and use MAX_ZOOM or MIN_ZOOM
       // with setView
-      //else {
+    else {
+      var boundsCenter = layer.getBounds().getCenter();
+      // map.panInsideBounds(layer.getBounds(), {
+      //     paddingTopLeft: centerOffset
+      // });
+      
         // var newZoom = layerBoundsZoom > MAX_ZOOM ? MAX_ZOOM : layerBoundsZoom;
         // newZoom = newZoom < MIN_ZOOM ? MIN_ZOOM : newZoom;
         // // setTimeout(function() {
-        //   var originalLatLng = currentTrailhead.marker.getLatLng();
+        //var originalLatLng = currentTrailhead.marker.getLatLng();
         //   var projected = map.project(originalLatLng, newZoom);
         //   var offsetProjected = projected.subtract(centerOffset.divideBy(2));
         //   var newLatLng = map.unproject(offsetProjected, newZoom);
-        //   map.setView(newLatLng, newZoom);
+        map.setView(boundsCenter, currentZoom);
         // }, 0);
       //}
     }
@@ -2941,7 +2948,13 @@ function filterResults(trail, trailhead) {
     if (!SMALL && layerBoundsZoom <= MAX_ZOOM && layerBoundsZoom >= MIN_ZOOM) {
 
     }
-    map.setView(newLatLng, newZoom);
+    if ( currentZoom < newZoom ) {
+      map.setView(newLatLng, newZoom);
+    } 
+    else {
+      map.setView(originalLatLng, currentZoom);
+    }
+    
 
     console.log("zoomToTrailhead end");
 
