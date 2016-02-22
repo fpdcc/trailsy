@@ -803,7 +803,10 @@ function filterResults(trail, trailhead) {
         }
       }
       if (zoomLevel >= SHOW_ALL_ACTIVITIES_ZOOM) {
-        showActivities();
+        if (currentActivities.length < originalActivities.length) {
+          showActivities();
+        }
+        
       }
       else {
         removeActivities();
@@ -1049,7 +1052,7 @@ function filterResults(trail, trailhead) {
   function trailheadMarkerClick(id) {
     console.log("trailheadMarkerClick");
     highlightTrailhead(id, 0);
-    showActivities(id);
+    //showActivities(id);
     var trailhead = getTrailheadById(id);
     if (trailhead.trails) {
       showTrailDetails(originalTrailData[trailhead.trails[0]], trailhead);
@@ -1694,15 +1697,16 @@ function filterResults(trail, trailhead) {
     orderedTrails = [];
     var trailList = {}; // used to see if trail div has been built yet.
     var divCount = 1;
-    if(myTrailheads.length === 0) return;
-    myTrailheads.sort(function(a, b){
-     return a.properties.distance-b.properties.distance
-    })
     var topLevelID = SMALL ? "mobile" : "desktop";
     var trailListElementList = document.getElementById(topLevelID).getElementsByClassName("fpccResults");
     trailListElementList[0].innerHTML = "";
     var myTrailheadsLength = myTrailheads.length;
     var trailListContents = "<h4>" + myTrailheadsLength + " RESULTS FOUND</h4>";
+    //if(myTrailheads.length === 0) return;
+    myTrailheads.sort(function(a, b){
+     return a.properties.distance-b.properties.distance
+    })
+    
     for (var j = 0; j < myTrailheadsLength; j++) {
       // console.log("makeTrailDivs trailhead: " + j);
       // newTimeStamp = Date.now();
@@ -2418,7 +2422,7 @@ function filterResults(trail, trailhead) {
     if (parsed.trailheadID) {
       trailhead = getTrailheadById(parsed.trailheadID);
       highlightTrailhead(parsed.trailheadID, parsed.highlightedTrailIndex);
-      showActivities(parsed.trailheadID); // show activities!
+      //showActivities(parsed.trailheadID); // show activities!
     }
     else {
       highlightTrailhead(parsed.trailheadID, parsed.highlightedTrailIndex, trailIDs);
@@ -2937,7 +2941,7 @@ function filterResults(trail, trailhead) {
       map.setView(newLatLng, newZoom);
     } 
     else {
-      map.setView(newLatLng, currentZoom);
+      map.setView(originalLatLng, currentZoom);
     }
     
 
