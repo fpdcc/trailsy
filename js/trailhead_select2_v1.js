@@ -78,11 +78,11 @@ function startup() {
   var USE_LOCAL = SMALL ? false : true; // Set this to a true value to preload/use a local trail segment cache
   var USE_SEGMENT_LAYER = true; // performance testing on mobile
   var USE_COMPLEX_SEGMENT_LAYER = SMALL ? false : true;
-  var NORMAL_SEGMENT_COLOR = "#678729";
+  var NORMAL_SEGMENT_COLOR = "#C4D0DB";
   var NORMAL_SEGMENT_WEIGHT = 4;
-  var HOVER_SEGMENT_COLOR = "#678729";
+  var HOVER_SEGMENT_COLOR = "#C4D0DB";
   var HOVER_SEGMENT_WEIGHT = 6;
-  var ACTIVE_TRAIL_COLOR = "#445617";
+  var ACTIVE_TRAIL_COLOR = "#C4D0DB";
   var ACTIVE_TRAIL_WEIGHT = 7;
   var NOTRAIL_SEGMENT_COLOR = "#FF0000";
   var NOTRAIL_SEGMENT_WEIGHT = 3;
