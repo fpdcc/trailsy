@@ -1056,6 +1056,12 @@ function filterResults(trail, trailhead) {
       };
     }(trailhead.properties.id));
 
+    trailhead.signMarker.on("click", function(trailheadID) {
+      return function() {
+        trailheadMarkerClick(trailheadID);
+      };
+    }(trailhead.properties.id));
+
     // placeholders for possible trailhead marker hover behavior
     // trailhead.marker.on("mouseover", function(trailhead) {
     // }(trailhead));
