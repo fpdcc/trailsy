@@ -863,48 +863,69 @@ function filterResults(trail, trailhead) {
       var activityName = currentFeature.properties.name || activityType;
       var popupContentMainDivHTML = "<div class='activity-popup'>";
       popupContentMainDivHTML += activityName + "</div>";
+      var iconName = "";
       if (activityType == "Fishing Lake") {
         iconType = "icon-fishing";
-      } else if (activityType == "trailhead") {
-        iconType = "icon-trail-marker";
-      } else if (activityType == "boat launch") {
-        iconType = "icon-boat-launch";
-      } else if (activityType == "dog park") {
-        iconType = "icon-off-leash-dog-area";
-      } else if (activityType == "golf") {
-        iconType = "icon-golf-course-driving-range";
-      } else if (activityType == "rental bike") {
-        iconType = "icon-bike-rental";
-      } else if (activityType == "boating center") {
-        iconType = "icon-model-sailboat";
-      } else if (activityType == "equestrian parking") {
-        iconType = "icon-equestrian";
-      } else if (activityType == "pool") {
+      } else if (activityType == "aquatic center") {
         iconType = "icon-aquatic-center";
-      } else if (activityType == "education center") {
-        iconType = "icon-nature-center";
+        iconName = activityName;
       } else if (activityType == "bicycle lot") {
         iconType = "icon-bicycling";
-      } else if (activityType == "golf-driving range") {
-        iconType = "icon-golf-course-driving-range";
-      } else if (activityType == "equestrian") {
-        iconType = "icon-equestrian";
+      } else if (activityType == "bicycle rental") {
+        iconType = "icon-bike-rental";
+      } else if (activityType == "birding hotspot") {
+        iconType = "icon-birding-hotspot";
+      } else if (activityType == "boating center") {
+        iconType = "icon-boat-launch";
+      } else if (activityType == "boat launch") {
+        iconType = "icon-boat-launch";
+      } else if (activityType == "boat rental") {
+        iconName = activityName;
+        iconType = "icon-boat-rental";
       } else if (activityType == "canoe landing") {
         iconType = "icon-canoe-landing";
-      } else if (activityType == "birding") {
-        iconType = "icon-birding-hotspot";
-      } else if  (activityType == "maff") {
+      } else if (activityType == "dog park") {
+        iconType = "icon-off-leash-dog-area";
+      } else if (activityType == "equestrian center") {
+        iconType = "icon-equestrian";
+      } else if (activityType == "equestrian parking") {
+        iconType = "icon-equestrian";
+      } else if (activityType == "frisbee golf") {
+        iconType = "icon-disc-golf";
+      } else if (activityType == "golf course") {
+        iconType = "icon-golf-course-driving-range";
+      } else if (activityType == "golf driving range") {
+        iconType = "icon-golf-course-driving-range";
+      } else if  (activityType == "model airplane flying field") {
         iconType = "icon-model-airplane";
+      } else if  (activityType == "pavillion") {
+        iconName = activityName;
+        iconType = "icon-facility";
+      } else if  (activityType == "recreational waterbody") {
+        iconName = activityName;
+        iconType = "icon-waterbody";
+      } else if  (activityType == "scenic") {
+        iconType = "icon-scenic-overlook";
+      } else if  (activityType == "sledding") {
+        iconType = "icon-sledding";
       } else if  (activityType == "snowmobiling") {
         iconType = "icon-snowmobiling";
-      }
+      } else if  (activityType == "special activity") {
+        iconType = "icon-facility";
+      } else if (activityType == "trailhead") {
+        iconType = "icon-trail-marker";
+      } else if (activityType == "Volunteer center") {
+        iconType = "icon-facility";
+      } else if (activityType == "warming shelter") {
+        iconType = "icon-picnic-grove-shelter";
+      } 
 
       var activityIcon = L.divIcon({
         className: iconType,
-        html: '<svg class="icon icon-map ' + iconType + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg>' + activityName,
+        html: '<svg class="icon icon-map ' + iconType + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg>' + iconName,
         iconAnchor: [13 * 0.60, 33 * 0.60],
         popupAnchor: [0, -3],
-        iconSize: [90 * 0.60, 66 * 0.60] // size of the icon
+        iconSize: [90 * 0.60, 75 * 0.60] // size of the icon
       });
 
       var newMarker = new L.CircleMarker(currentFeatureLatLng, {
@@ -2865,22 +2886,28 @@ function filterResults(trail, trailhead) {
       // if the entire trail layer will fit in a reasonable zoom full-screen,
       // use fitBounds to place the entire layer onscreen
       //if (!SMALL && layerBoundsZoom <= MAX_ZOOM && layerBoundsZoom >= MIN_ZOOM) {
+        console.log("zoomToLayer currentZoom < layerBoundsZoom");
         map.fitBounds(layer.getBounds(), {
-          paddingTopLeft: centerOffset
+          //paddingTopLeft: centerOffset
         });
-      //}
+    }
 
       // otherwise, center on trailhead, with offset, and use MAX_ZOOM or MIN_ZOOM
       // with setView
-      //else {
+    else {
+      var boundsCenter = layer.getBounds().getCenter();
+      // map.panInsideBounds(layer.getBounds(), {
+      //     paddingTopLeft: centerOffset
+      // });
+      
         // var newZoom = layerBoundsZoom > MAX_ZOOM ? MAX_ZOOM : layerBoundsZoom;
         // newZoom = newZoom < MIN_ZOOM ? MIN_ZOOM : newZoom;
         // // setTimeout(function() {
-        //   var originalLatLng = currentTrailhead.marker.getLatLng();
+        //var originalLatLng = currentTrailhead.marker.getLatLng();
         //   var projected = map.project(originalLatLng, newZoom);
         //   var offsetProjected = projected.subtract(centerOffset.divideBy(2));
         //   var newLatLng = map.unproject(offsetProjected, newZoom);
-        //   map.setView(newLatLng, newZoom);
+        map.setView(boundsCenter, currentZoom);
         // }, 0);
       //}
     }
@@ -2906,7 +2933,13 @@ function filterResults(trail, trailhead) {
     if (!SMALL && layerBoundsZoom <= MAX_ZOOM && layerBoundsZoom >= MIN_ZOOM) {
 
     }
-    map.setView(newLatLng, newZoom);
+    if ( currentZoom < newZoom ) {
+      map.setView(newLatLng, newZoom);
+    } 
+    else {
+      map.setView(newLatLng, currentZoom);
+    }
+    
 
     console.log("zoomToTrailhead end");
 
