@@ -962,7 +962,7 @@ function startup() {
   function trailheadMarkerClick(id) {
     console.log("trailheadMarkerClick");
     highlightTrailhead(id, 0);
-    showActivities(id);
+    //showActivities(id);
     var trailhead = getTrailheadById(id);
     if (trailhead.trails) {
       showTrailDetails(originalTrailData[trailhead.trails[0]], trailhead);
@@ -1004,6 +1004,7 @@ function startup() {
     map.addLayer(currentActivityLayerGroup);
     console.log("showActivities end");
   }
+
 
 
 
@@ -2429,7 +2430,7 @@ function startup() {
     if (parsed.trailheadID) {
       trailhead = getTrailheadById(parsed.trailheadID);
       highlightTrailhead(parsed.trailheadID, parsed.highlightedTrailIndex);
-      showActivities(parsed.trailheadID); // show activities!
+      //showActivities(parsed.trailheadID); // show activities!
     }
     else {
       highlightTrailhead(parsed.trailheadID, parsed.highlightedTrailIndex, trailIDs);
