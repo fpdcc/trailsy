@@ -2380,7 +2380,9 @@ function filterResults(trail, trailhead) {
 
   function openAboutPage() {
     console.log("openAboutPage");
-    $(".aboutPage").show();
+    $('.accordion').hide();
+    $('.aboutPage').show();
+    $('.detailPanel').hide();
     if (!SMALL) {
       //$('.accordion').hide();
     }

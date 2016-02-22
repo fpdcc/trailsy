@@ -1879,7 +1879,7 @@ function filterResults(trail, trailhead) {
   function openDetailPanel() {
     console.log("openDetailPanel");
     $('.accordion').hide();
-
+    $('.aboutPage').hide();
     $('.detailPanel').show();
     var myDiv = document.getElementById('detailPanelBodySection');
     myDiv.scrollTop = 0;
@@ -2364,7 +2364,9 @@ function filterResults(trail, trailhead) {
 
   function openAboutPage() {
     console.log("openAboutPage");
-    $(".aboutPage").show();
+    $('.accordion').hide();
+    $('.aboutPage').show();
+    $('.detailPanel').hide();
     if (!SMALL) {
       //$('.accordion').hide();
     }
