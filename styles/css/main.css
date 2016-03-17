@@ -87,11 +87,11 @@ At some point, update mediaqueries to be in EMS
 /* Look into justification for overriding styles*/
 /* Make sure you need the semicolons inside and outside of the {} on the pseudo-class lines*/
 /* Variables used: color, typography */
-@media only screen and (max-width: 768px) {
+/*@media only screen and (max-width: 768px) {
   .desktopTitle {
     display: none;
   }
-}
+}*/
 @media only screen and (min-width: 769px) {
 
 }
@@ -2141,7 +2141,7 @@ max-width: 75%;    font-family: Helvetica, Arial, sans-serif;
     z-index: 1;
   }
 }
-@media only screen and (max-width: 768px) {
+/*@media only screen and (max-width: 768px) {
   #trailMapSmall {
     position: absolute;
     width: 100%;
@@ -2154,13 +2154,21 @@ max-width: 75%;    font-family: Helvetica, Arial, sans-serif;
   #trailMapSmall {
     display: none;
   }
-}
-@media only screen and (max-width: 768px) {
+}*/
+/*@media only screen and (max-width: 768px) {
   #trailMapLarge {
     display: none;
   }
-}
-@media only screen and (min-width: 769px) {
+}*/
+/*@media only screen and (min-width: 769px) {
+  #trailMapLarge {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+  }
+}*/
+@media only screen {
   #trailMapLarge {
     position: absolute;
     width: 100%;
@@ -4165,12 +4173,21 @@ body {
 section {
   overflow: auto;
 }
-@media only screen and (max-width: 768px) {
+/*@media only screen and (max-width: 768px) {
   #desktop {
     display: none;
   }
-}
-@media only screen and (min-width: 769px) {
+}*/
+/*@media only screen and (min-width: 769px) {
+  #desktop {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+}*/
+@media only screen  {
   #desktop {
     position: absolute;
     left: 0;
@@ -4214,7 +4231,7 @@ section {
     right: 0;
   }
 }
-@media only screen and (max-width: 768px) {
+/*@media only screen and (max-width: 768px) {
   #main {
     display: none;
     position: relative;
@@ -4222,8 +4239,16 @@ section {
     width: 100%;
     overflow: hidden;
   }
-}
-@media only screen and (min-width: 769px) {
+}*/
+/*@media only screen and (min-width: 769px) {
+  #main {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+}*/
+@media only screen {
   #main {
     position: relative;
     height: 100%;
