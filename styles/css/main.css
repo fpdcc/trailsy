@@ -4215,8 +4215,8 @@ section {
 /* Responsive container */
 @media only screen and (max-width: 768px) {
   .container {
-    display: none;
-    position: relative;
+/*    display: none;
+*/    position: relative;
     max-width: 100%;
     height: 100%;
     margin: 0;

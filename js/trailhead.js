@@ -1732,7 +1732,8 @@ function filterResults(trail, trailhead) {
     orderedTrails = [];
     var trailList = {}; // used to see if trail div has been built yet.
     var divCount = 1;
-    var topLevelID = SMALL ? "mobile" : "desktop";
+    //var topLevelID = SMALL ? "mobile" : "desktop";
+    var topLevelID = "thisBody";
     var trailListElementList = document.getElementById(topLevelID).getElementsByClassName("fpccResults");
     trailListElementList[0].innerHTML = "";
     var myTrailheadsLength = myTrailheads.length;
