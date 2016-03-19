@@ -25,11 +25,11 @@ function startup() {
 
 
   var SMALL = false;
-  // if (Modernizr.mq("only screen and (max-width: 768px)")) {
-  //   SMALL = true;
-  // } else if (Modernizr.mq("only screen and (min-width: 769px)")) {
-  //   SMALL = false;
-  // }
+  if (Modernizr.mq("only screen and (max-width: 768px)")) {
+    SMALL = true;
+  } else if (Modernizr.mq("only screen and (min-width: 769px)")) {
+    SMALL = false;
+  }
 
   var TOUCH = $('html').hasClass('touch');
   // Map generated in CfA Account
@@ -85,7 +85,8 @@ function startup() {
   var MEDIUM_MAX_DISTANCE = 5.0;
   var LONG_MAX_DISTANCE = 10.0;
   var SHOW_ALL_TRAILS = 1;
-  var USE_LOCAL = SMALL ? false : true; // Set this to a true value to preload/use a local trail segment cache
+  // var USE_LOCAL = SMALL ? false : true; // Set this to a true value to preload/use a local trail segment cache
+  var USE_LOCAL = true;
   var USE_SEGMENT_LAYER = true; // performance testing on mobile
   var USE_COMPLEX_SEGMENT_LAYER = SMALL ? false : true;
   var NORMAL_SEGMENT_COLOR = "#C4D0DB";
@@ -101,7 +102,8 @@ function startup() {
   var MARKER_RADIUS = TOUCH ? 12 : 4;
   var ALL_SEGMENT_LAYER_SIMPLIFY = 5;
   var map;
-  var mapDivName = SMALL ? "trailMapSmall" : "trailMapLarge";
+  // var mapDivName = SMALL ? "trailMapSmall" : "trailMapLarge";
+  var mapDivName = "trailMapLarge";
   var CLOSED = false;
   var customSmoothFactor = SMALL ? 1.5 : 1.0;
 
