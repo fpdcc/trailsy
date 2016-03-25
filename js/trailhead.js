@@ -330,7 +330,7 @@ function startup() {
     if (trailsegmentsFetched) {
       console.log("waitForTrailSegments trailsegmentsFetched");
       if (map.getZoom() >= SECONDARY_TRAIL_ZOOM && !(map.hasLayer(allSegmentLayer))) {
-        map.addLayer(allSegmentLayer).bringToBack();
+      //  map.addLayer(allSegmentLayer).bringToBack();
       }
     }
     else {
