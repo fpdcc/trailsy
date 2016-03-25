@@ -824,7 +824,7 @@ function filterResults(trail, trailhead) {
           // console.log(allSegmentLayer);
           setTimeout(function() {
             map.addLayer(allSegmentLayer);
-            allSegmentLayer.bringToBack();
+            //allSegmentLayer.bringToBack();
           }, 0);
 
         }
@@ -1488,24 +1488,24 @@ function filterResults(trail, trailhead) {
         };
       }(invisLayer));
 
-      newTrailFeatureGroup.addEventListener("mouseout", function(e) {
-        if (closeTimeout) {
-          clearTimeout(closeTimeout);
-          closeTimeout = null;
-        }
-        if (openTimeout) {
-          clearTimeout(openTimeout);
-          openTimeout = null;
-        }
-        closeTimeout = setTimeout(function(e) {
-          return function() {
-            e.target.setStyle({
-              weight: 3
-            });
-            //map.closePopup();
-          };
-        }(e), 1250);
-      });
+      // newTrailFeatureGroup.addEventListener("mouseout", function(e) {
+      //   if (closeTimeout) {
+      //     clearTimeout(closeTimeout);
+      //     closeTimeout = null;
+      //   }
+      //   if (openTimeout) {
+      //     clearTimeout(openTimeout);
+      //     openTimeout = null;
+      //   }
+      //   closeTimeout = setTimeout(function(e) {
+      //     return function() {
+      //       e.target.setStyle({
+      //         weight: 3
+      //       });
+      //       //map.closePopup();
+      //     };
+      //   }(e), 1250);
+      // });
 
       //newTrailFeatureGroup.addEventListener("onClick", function)
 
