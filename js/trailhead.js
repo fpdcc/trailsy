@@ -773,20 +773,40 @@ function filterResults(trail, trailhead) {
   function createMap(startingMapLocation, startingMapZoom) {
     console.log("createMap");
     console.log(mapDivName);
+    var mapboxAttribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+      '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+      'Imagery © <a href="http://mapbox.com">Mapbox</a>';
+    var mapboxAccessToken = 'sk.eyJ1Ijoic21hcnRjaGljYWdvY29sbGFib3JhdGl2ZSIsImEiOiJjaWlqOGU2dmMwMTA2dWNrcHM0d21qNDhzIn0.2twD0eBu4UKHu-3JZ0vt0w';
+
     var map = L.map(mapDivName, {
       zoomControl: false,
       scrollWheelZoom: true,
       minZoom: 9,
       maxBounds: [[41.16211, -90.89539], [42.61577, -85.62195]]
     });
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-      '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-      'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+
+    var rbhBase = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    attribution: mapboxAttribution,
     maxZoom: 18,
     id: 'mapbox.run-bike-hike',
-    accessToken: 'sk.eyJ1Ijoic21hcnRjaGljYWdvY29sbGFib3JhdGl2ZSIsImEiOiJjaWlqOGU2dmMwMTA2dWNrcHM0d21qNDhzIn0.2twD0eBu4UKHu-3JZ0vt0w'
-  }).addTo(map);
+    accessToken: mapboxAccessToken
+    }).addTo(map);
+
+    var imageryBase = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    attribution: mapboxAttribution,
+    maxZoom: 18,
+    id: 'mapbox.satellite',
+    accessToken: mapboxAccessToken
+    });
+
+    var baseMaps = {
+      "Streets": rbhBase,
+      "Satellite": imageryBase
+    };
+
+    L.control.layers(baseMaps, null, {collapsed: false, position: 'bottomright'}).addTo(map);
+    
+
     // L.tileLayer.provider('MapBox.' + MAPBOX_MAP_ID).addTo(map);
     map.setView(startingMapLocation, startingMapZoom);
     map.fitBounds(map.getBounds(), {
