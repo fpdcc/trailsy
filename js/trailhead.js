@@ -1181,6 +1181,7 @@ function filterResults(trail, trailhead) {
 
   function populateTrailData(trailDataGeoJSON) {
     secondaryTrails = {};
+
     for (var i = 0; i < trailDataGeoJSON.features.length; i++) {
       if (trailDataGeoJSON.features[i].properties.part_of[0]) {
         secondaryTrails[trailDataGeoJSON.features[i].properties.id] = trailDataGeoJSON.features[i];
@@ -1190,8 +1191,16 @@ function filterResults(trail, trailhead) {
       }
     }
 
-    Object.keys(secondaryTrails).forEach(function (key) {
-      var thisSecondaryTrail = secondaryTrails[key];
+    // Sorting by length so that longest trail is first
+    var sort_array = [];
+    for (var key in secondaryTrails) {
+      sort_array.push({key:key, length:secondaryTrails[key].properties.length});
+    }
+    sort_array.sort(function(x,y){return y.length - x.length});
+
+    //Object.keys(secondaryTrails).forEach(function (key) {
+    for (var i = 0; i < sort_array.length; i++) {
+      var thisSecondaryTrail = secondaryTrails[sort_array[i].key];
         // iteration code
       if (thisSecondaryTrail.properties.length >= 1) {
         //console.log("thisSecondaryTrail= " + thisSecondaryTrail);
@@ -1221,7 +1230,7 @@ function filterResults(trail, trailhead) {
         //console.log(thisSecondaryTrail.properties);
         originalTrailData[thisSecondaryTrail.properties.part_of[0]].properties.secondaryHTML += secondaryHTML;
       }
-    })
+    }
     currentTrailData = $.extend(true, {}, originalTrailData);
   }
 
