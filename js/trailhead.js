@@ -965,22 +965,24 @@ function filterResults(trail, trailhead) {
       } 
 
       var activityIcon = L.divIcon({
-        className: iconType,
+        className: 'icon-map' + iconType,
         html: '<svg class="icon icon-map ' + iconType + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg>' + iconName,
         iconAnchor: [13 * 0.60, 33 * 0.60],
         popupAnchor: [0, -3],
         iconSize: [90 * 0.60, 75 * 0.60] // size of the icon
       });
 
-      var newMarker = new L.CircleMarker(currentFeatureLatLng, {
-          color: "#0000FF",
-          fillOpacity: 0.5,
-          opacity: 0.8
-        }).setRadius(MARKER_RADIUS);
+      // var newMarker = new L.CircleMarker(currentFeatureLatLng, {
+      //     color: "#0000FF",
+      //     fillOpacity: 0.5,
+      //     opacity: 0.8
+      //   }).setRadius(MARKER_RADIUS);
+
+      var newMarker = new L.Marker(currentFeatureLatLng);
 
       if (iconType) {
         newMarker = new L.Marker(currentFeatureLatLng, {
-          icon: activityIcon
+          icon: activityIcon,
         });
       }
 
@@ -1009,7 +1011,7 @@ function filterResults(trail, trailhead) {
   function activityMarkerClick(activity) {
     console.log("activityMarkerClick");
     //highlightTrailhead(id, 0);
-    //showActivities(id);
+    showActivities(activity.properties.trailhead_id);
     var trailhead = getTrailheadById(activity.properties.trailhead_id);
     if (trailhead) {
       if (trailhead.trails) {
@@ -1103,7 +1105,7 @@ function filterResults(trail, trailhead) {
   function trailheadMarkerClick(id) {
     console.log("trailheadMarkerClick");
     highlightTrailhead(id, 0);
-    //showActivities(id);
+    showActivities(id);
     var trailhead = getTrailheadById(id);
     if (trailhead.trails) {
       showTrailDetails(originalTrailData[trailhead.trails[0]], trailhead);
@@ -1125,18 +1127,17 @@ function filterResults(trail, trailhead) {
       //       activityMarkerClick(activityID);
       //     };
       //   }(originalActivities[i].properties.id));
+      originalActivities[i].marker.setOpacity(.5);
       // if there is an entrance id, only add that entrance's activities to the current Array
       if (id) {
         //console.log("[showActivties] if id=true for  " + id);
         if (originalActivities[i].properties.trailhead_id == id) {
+          originalActivities[i].marker.setOpacity(1);
           console.log("[showActivties] originalActivities.trailhead_id= " + id);
-          currentActivityMarkerArray.push(originalActivities[i].marker);
+          //currentActivityMarkerArray.push(originalActivities[i].marker);
         }
       }
-      // If entrance id is null, add all activities to current activity array
-      else {
-        currentActivityMarkerArray.push(originalActivities[i].marker);
-      }
+      currentActivityMarkerArray.push(originalActivities[i].marker);
     }
     if (currentActivityLayerGroup) {
       map.removeLayer(currentActivityLayerGroup);
@@ -2616,6 +2617,7 @@ function filterResults(trail, trailhead) {
 
     }
     getAllTrailPathsForTrailhead(trailhead, highlightedTrailIndex, trailIDs);
+    showActivities(trailheadID);
     //getAllActivitiesForTrailhead(trailhead);
   }
 
