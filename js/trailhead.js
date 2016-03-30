@@ -1117,6 +1117,7 @@ function filterResults(trail, trailhead) {
   function showActivities(id) {
     console.log("[showActivties] id= " + id);
     var currentActivityMarkerArray = [];
+    var trailheadActivitiesArray = [];
     for (var i = 0; i < originalActivities.length; i++) {
       //console.log("[showActivties] originalActivities.trailhead_id is " + originalActivities[i].properties.trailhead_id);
       originalActivities[i].marker.bindPopup(originalActivities[i].popupContent);
@@ -1132,6 +1133,7 @@ function filterResults(trail, trailhead) {
       if (id) {
         //console.log("[showActivties] if id=true for  " + id);
         if (originalActivities[i].properties.trailhead_id == id) {
+          trailheadActivitiesArray.push(originalActivities[i].marker);
           originalActivities[i].marker.setOpacity(1);
           console.log("[showActivties] originalActivities.trailhead_id= " + id);
           //currentActivityMarkerArray.push(originalActivities[i].marker);
@@ -1144,7 +1146,9 @@ function filterResults(trail, trailhead) {
     }
     currentActivityLayerGroup = L.layerGroup(currentActivityMarkerArray);
     map.addLayer(currentActivityLayerGroup);
+    console.log("showActivities trailheadActivitiesArray.length = " + trailheadActivitiesArray.length);
     console.log("showActivities end");
+    return trailheadActivitiesArray;
   }
 
 
@@ -1883,6 +1887,7 @@ function filterResults(trail, trailhead) {
     var divTrail = originalTrailData[divTrailID];
     var divTrailheadID = $myTarget.attr("data-trailheadid");
     var divTrailhead = getTrailheadById(divTrailheadID);
+    console.log("[trailDivClickHandler] about to showTrailDetails(divTrail, divTrailhead)");
     showTrailDetails(divTrail, divTrailhead);
   }
 
@@ -2497,7 +2502,7 @@ function filterResults(trail, trailhead) {
     else {
       highlightTrailhead(parsed.trailheadID, parsed.highlightedTrailIndex, trailIDs);
     }
-    //console.log("trail= " + trail + " trailhead= " + trailhead);
+    console.log("[populateTrailsForTrailheadDiv] about to run showTrailDetails(trail, trailhead )" + trail + " trailhead= " + trailhead);
     showTrailDetails(trail, trailhead);
   }
 
@@ -2617,7 +2622,9 @@ function filterResults(trail, trailhead) {
 
     }
     getAllTrailPathsForTrailhead(trailhead, highlightedTrailIndex, trailIDs);
-    showActivities(trailheadID);
+    var groupArray = showActivities(trailheadID);
+    groupArray.push(currentTrailhead.marker);
+    var trailheadFeatureGroup = L.featureGroup(groupArray);
     //getAllActivitiesForTrailhead(trailhead);
   }
 
@@ -2854,7 +2861,7 @@ function filterResults(trail, trailhead) {
             var thisClickable = false;
             var thisSmoothFactor = customSmoothFactor;
             var thisDash = "";
-            console.log("[visibleAllTrailLayer] secondary_trail_ids = " + feature.properties.secondary_trail_ids[0]);
+            //console.log("[visibleAllTrailLayer] secondary_trail_ids = " + feature.properties.secondary_trail_ids[0]);
             var thisSecondaryTrail = feature.properties.secondary_trail_ids[0];
             var thisTrailType = ""
             if (secondaryTrails[thisSecondaryTrail]) {
