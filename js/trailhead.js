@@ -780,7 +780,7 @@ function filterResults(trail, trailhead) {
 
     var map = L.map(mapDivName, {
       zoomControl: false,
-      scrollWheelZoom: true,
+      scrollWheelZoom: 'center',
       minZoom: 9,
       maxBounds: [[41.16211, -90.89539], [42.61577, -85.62195]]
     });
