@@ -357,12 +357,24 @@ function startup() {
       addTrailsToTrailheads(originalTrailData, originalTrailheads);
       // if we haven't added the segment layer yet, add it.
       if (map.getZoom() >= SECONDARY_TRAIL_ZOOM && !(map.hasLayer(allSegmentLayer))) {
-        map.addLayer(allSegmentLayer).bringToBack();
+        map.addLayer(allSegmentLayer);
+        console.log("Hello???");
+        testChangeStyle();
       }
     }
     else {
       setTimeout(waitForAllTrailData, 100);
     }
+  }
+
+  function testChangeStyle() {
+    console.log("testChangeStyle!!!");
+    // allSegmentLayer.eachLayer(function (layer) {
+    //   layer.getLayers()[0].setStyle({weight: 0});
+    //   //console.log("[testChangeStyle] : " + layer.getLayers()[0].feature.properties.trail_ids);
+
+    // });
+
   }
 
   function waitForDataAndTrailHeads() {
@@ -405,9 +417,9 @@ function startup() {
 
   function applyFilterChange(currentFilters) {
     console.log("[applyFilterChange]");
-    currentTrailData = $.extend(true, {}, originalTrailData);
+    // currentTrailData = $.extend(true, {}, originalTrailData);
     currentTrailheads = [];
-    addTrailsToTrailheads(currentTrailData, originalTrailheads);
+    addTrailsToTrailheads(originalTrailData, originalTrailheads);
   }
 
   function filterChangeHandler(e) {
@@ -1351,7 +1363,8 @@ function filterResults(trail, trailhead) {
       style: function(feature) {
         //console.log(feature.properties.trail_names[0] + " " + feature.properties.trail_colors[0]);
         var thisColor = NORMAL_SEGMENT_COLOR;
-        var thisWeight = NORMAL_SEGMENT_WEIGHT;
+        //var thisWeight = NORMAL_SEGMENT_WEIGHT;
+        var thisWeight = 0;
         var thisOpacity = 1;
         var thisClickable = false;
         var thisSmoothFactor = customSmoothFactor;
@@ -1395,7 +1408,7 @@ function filterResults(trail, trailhead) {
     var invisibleAllTrailLayer = L.geoJson(response, {
       style: {
         opacity: 0,
-        weight: 20,
+        weight: 0,
         clickable: true,
         smoothFactor: 10
       },
@@ -1580,8 +1593,8 @@ function filterResults(trail, trailhead) {
     var trail = null;
     for (var k = 0; k < nearestTrailhead.trails.length; k++) {
       var trailheadTrailID = nearestTrailhead.trails[k];
-      if (currentTrailData[trailheadTrailID].properties.name == trailname) {
-        trail = currentTrailData[trailheadTrailID];
+      if (originalTrailData[trailheadTrailID].properties.name == trailname) {
+        trail = originalTrailData[trailheadTrailID];
         trailIndex = k;
       }
     }
@@ -1599,6 +1612,8 @@ function filterResults(trail, trailhead) {
   function addTrailsToTrailheads(myTrailData, myTrailheads) {
     console.log("addTrailsToTrailheads");
     currentTrailheads = [];
+    currentTrailData = {};
+    var currentTrailIDs = {};
     for (var j = 0; j < myTrailheads.length; j++) {
       var trailhead = myTrailheads[j];
       var trailheadWanted = false;
@@ -1613,6 +1628,9 @@ function filterResults(trail, trailhead) {
           if (filterResults(trail, trailhead)) {
             //wanted = true;
             trailheadWanted = true;
+            currentTrailIDs[trailheadTrailID] = 1;
+            //currentTrailIDs.push(trailheadTrailID);
+            //currentTrailData = $.extend(true, currentTrailData, trail);
           }
         }
       } else {
@@ -1626,6 +1644,9 @@ function filterResults(trail, trailhead) {
         //trailheadWanted = true;
         currentTrailheads.push(trailhead);
       }
+
+
+
       // if (trailheadWanted) {
       //   myTrailheads.splice(j, 1);
       // }
@@ -1635,6 +1656,25 @@ function filterResults(trail, trailhead) {
       //fixDuplicateTrailheadTrails(myTrailheads);
       makeTrailheadPopups(currentTrailheads);
       mapActiveTrailheads(currentTrailheads);
+
+      allSegmentLayer.eachLayer(function (layer) {
+        //console.log("trail_ids= " + layer.getLayers()[0].feature.properties.trail_ids);
+        if (layer.getLayers()[0].feature.properties.trail_ids) {
+          if (currentTrailIDs[layer.getLayers()[0].feature.properties.trail_ids[0]]) {
+            layer.getLayers()[0].setStyle({weight: NORMAL_SEGMENT_WEIGHT});
+            layer.getLayers()[1].setStyle({weight: 20});
+          } else {
+            layer.getLayers()[0].setStyle({weight: 0});
+            layer.getLayers()[1].setStyle({weight: 0});
+          }
+        }
+        
+        //console.log("[testChangeStyle] : " + layer.getLayers()[0].feature.properties.trail_ids);
+
+        });
+
+
+
       setTimeout(function() {
         makeTrailDivs(currentTrailheads);
         setTimeout(function() {
@@ -1660,11 +1700,11 @@ function filterResults(trail, trailhead) {
       var trailhead = myTrailheads[trailheadIndex];
       var trailheadTrailNames = {};
       for (var trailsIndex = 0; trailsIndex < trailhead.trails.length; trailsIndex++) {
-        var trailName = currentTrailData[trailhead.trails[trailsIndex]].properties.name;
+        var trailName = originalTrailData[trailhead.trails[trailsIndex]].properties.name;
         trailheadTrailNames[trailName] = trailheadTrailNames[trailName] || [];
         var sourceAndTrailID = {
-          source: currentTrailData[trailhead.trails[trailsIndex]].properties.source,
-          trailID: currentTrailData[trailhead.trails[trailsIndex]].properties.id
+          source: originalTrailData[trailhead.trails[trailsIndex]].properties.source,
+          trailID: originalTrailData[trailhead.trails[trailsIndex]].properties.id
         };
         trailheadTrailNames[trailName].push(sourceAndTrailID);
       }
@@ -1702,7 +1742,7 @@ function filterResults(trail, trailhead) {
       popupContentMainDivHTML = popupContentMainDivHTML + popupTrailheadDivHTML;
       if (trailhead.trails)  {
         for (var trailsIndex = 0; trailsIndex < trailhead.trails.length; trailsIndex++) {
-          var trail = currentTrailData[trailhead.trails[trailsIndex]];
+          var trail = originalTrailData[trailhead.trails[trailsIndex]];
 
           var popupTrailDivHTMLStart = "<div class='trailhead-trailname trail" + (trailsIndex + 1) + "' " +
           "data-trailname='" + trail.properties.name + "' " +
@@ -1803,9 +1843,9 @@ function filterResults(trail, trailhead) {
         // console.log("makeTrailDivs " + i);
       if (trailheadTrailIDs) {
         var trailID = trailheadTrailIDs[0];
-        var trail = currentTrailData[trailID];
-        var trailName = currentTrailData[trailID].properties.name;
-        var trailLength = Number(Math.round(currentTrailData[trailID].properties.length +'e2')+'e-2');
+        var trail = originalTrailData[trailID];
+        var trailName = originalTrailData[trailID].properties.name;
+        var trailLength = Number(Math.round(originalTrailData[trailID].properties.length +'e2')+'e-2');
       }
       else {
         var trailID = null;
@@ -2446,7 +2486,7 @@ function filterResults(trail, trailhead) {
       $myTarget = $(e.target);
     }
     var parsed = parseTrailElementData($myTarget);
-    var trail = currentTrailData[parsed.trailID];
+    var trail = originalTrailData[parsed.trailID];
     console.log("trail id = " + parsed.trailID);
     showTrailDetails(trail, null);
   }
@@ -2491,7 +2531,7 @@ function filterResults(trail, trailhead) {
     var trailhead = null;
     var trailIDs = [];
     if (parsed.trailID) {
-      trail = currentTrailData[parsed.trailID];
+      trail = originalTrailData[parsed.trailID];
       trailIDs.push(parsed.trailID);
     }
     if (parsed.trailheadID) {
@@ -2524,7 +2564,7 @@ function filterResults(trail, trailhead) {
     // }
     // decorateDetailPanel(trailData[parsed.trailID], trailhead);
     highlightTrailhead(parsed.trailheadID, parsed.highlightedTrailIndex);
-    var trail = currentTrailData[parsed.trailID];
+    var trail = originalTrailData[parsed.trailID];
     showTrailDetails(trail, trailhead);
   }
 
@@ -2741,7 +2781,7 @@ function filterResults(trail, trailhead) {
       for (var i = 0; i < trails.length; i++) {
         var trailID = trails[i];
         //console.log("[getAllTrailPathsForTrailheadLocal] trailID = " + trailID);
-        var trail = currentTrailData[trailID];
+        var trail = originalTrailData[trailID];
         //console.log("[getAllTrailPathsForTrailheadLocal] trail = " + trail);
         var trailSource = trail.properties.source;
         var trailName = trail.properties.name;
@@ -2893,7 +2933,8 @@ function filterResults(trail, trailhead) {
             onEachFeature: function(feature, layer) {
               currentTrailLayers.push(layer);
             }
-          }).addTo(map);
+          })
+          //.addTo(map);
           //.bringToFront();
           //zoomToLayer(currentMultiTrailLayer);
         }
