@@ -115,6 +115,7 @@ function startup() {
   // for yes/no features, check for first letter "y" or "n".
 
   var trailSegments = [];
+  var currentTrailIDs = {};
   var currentMultiTrailLayer = {}; // We have to know if a trail layer is already being displayed, so we can remove it
   var currentTrailLayers = [];
   var currentHighlightedTrailLayer = {};
@@ -506,7 +507,7 @@ function startup() {
   }
 
   
-function filterResults(trail, trailhead) {
+  function filterResults(trail, trailhead) {
     var wanted = false;
     var lengthMatched = false;
     var activityMatched = true;
@@ -1033,25 +1034,7 @@ function filterResults(trail, trailhead) {
       }
     }
   }
-
-  // get all trailhead info, in order of distance from "location"
-
-  // function fetchTrailheads(location, callback) {
-  //   console.log("fetchTrailheads");
-  //   var callData = {
-  //     loc: location.lat + "," + location.lng,
-  //     type: "GET",
-  //     path: "/trailheads.json?loc=" + location.lat + "," + location.lng
-  //   };
-  //   makeAPICall(callData, function(response) {
-  //     populateOriginalTrailheads(response);
-  //     if (typeof callback == "function") {
-  //       callback(response);
-  //     }
-  //   });
-  // }
-
-
+ 
 
   // given the fetchTrailheads response, a geoJSON collection of trailheads ordered by distance,
   // populate trailheads[] with the each trailhead's stored properties, a Leaflet marker,
@@ -1613,7 +1596,7 @@ function filterResults(trail, trailhead) {
     console.log("addTrailsToTrailheads");
     currentTrailheads = [];
     currentTrailData = {};
-    var currentTrailIDs = {};
+    currentTrailIDs = {};
     for (var j = 0; j < myTrailheads.length; j++) {
       var trailhead = myTrailheads[j];
       var trailheadWanted = false;
@@ -2383,7 +2366,6 @@ function filterResults(trail, trailhead) {
     // $(".facebook a").attr("href",
     //   "http://www.facebook.com/sharer/sharer.php?s=100&p[url]=tothetrails.com&p[images][0]=&p[title]=To%20The%20Trails!&p[summary]=" + facebookStatus).attr("target", "_blank");
     // $('.detailPanel .detailBottomRow .detailTrailheadAmenities .detailTrailheadIcons');
-
   }
 
   function showDetailPanel(show){
@@ -2540,6 +2522,7 @@ function filterResults(trail, trailhead) {
       //showActivities(parsed.trailheadID); // show activities!
     }
     else {
+      
       highlightTrailhead(parsed.trailheadID, parsed.highlightedTrailIndex, trailIDs);
     }
     console.log("[populateTrailsForTrailheadDiv] about to run showTrailDetails(trail, trailhead )" + trail + " trailhead= " + trailhead);
@@ -2661,111 +2644,20 @@ function filterResults(trail, trailhead) {
     } else {
 
     }
-    getAllTrailPathsForTrailhead(trailhead, highlightedTrailIndex, trailIDs);
+    highlightTrailSegmentsForTrailhead(trailhead, highlightedTrailIndex, trailIDs);
+    //getAllTrailPathsForTrailhead(trailhead, highlightedTrailIndex, trailIDs);
     var groupArray = showActivities(trailheadID);
-    groupArray.push(currentTrailhead.marker);
+    //groupArray.push(currentTrailhead.marker);
     var trailheadFeatureGroup = L.featureGroup(groupArray);
     //getAllActivitiesForTrailhead(trailhead);
   }
 
 
 
-  function getAllTrailPathsForTrailhead(trailhead, highlightedTrailIndex, trailIDs) {
-    console.log("getAllTrailPathsForTrailhead");
-    if (trailSegments.type == "FeatureCollection" && USE_LOCAL) {
-      getAllTrailPathsForTrailheadLocal(trailhead, highlightedTrailIndex, trailIDs);
-    } else {
-      getAllTrailPathsForTrailheadRemote(trailhead, highlightedTrailIndex);
-    }
-  }
+  // For a given trailhead or set of trailIDs, change the style weight to active
+  function highlightTrailSegmentsForTrailhead(trailhead, highlightedTrailIndex, trailIDs) {
+    console.log("highlightTrailSegmentsForTrailhead");
 
-  // given a trailhead and a trail index within that trailhead
-  // get the paths for any associated trails,
-  // then call drawMultiTrailLayer() and setCurrentTrail()
-
-  function getAllTrailPathsForTrailheadRemote(trailhead, highlightedTrailIndex) {
-    console.log("getAllTrailPathsForTrailheadRemote");
-
-    var queryTaskArray = [];
-    var trailFeatureArray = [];
-    var newRemoteSegmentCache = {};
-    // got trailhead.trails, now get the segment collection for all of them
-    // get segment collection for each
-    for (var i = 0; i < trailhead.trails.length; i++) {
-      var trailFeatureCollection = {
-        type: "FeatureCollection",
-        features: [{
-          geometry: {
-            geometries: [],
-            type: "GeometryCollection"
-          },
-          type: "Feature"
-        }]
-      };
-      var trailID = trailhead.trails[i];
-      var trailName = originalTrailData[trailID].properties.name;
-
-      var queryTask = function(trailID, index, featureCollection) {
-        return function(callback) {
-          if (remoteSegmentCache[trailID]) {
-            featureCollection = remoteSegmentCache[trailID];
-            newRemoteSegmentCache[trailID] = remoteSegmentCache[trailID];
-            trailFeatureArray[index] = featureCollection;
-            callback(null, trailID);
-          }
-          else {
-            var callData = {
-              type: "GET",
-              path: "/trailsegments.json?trail_id=" + trailID
-            };
-            makeAPICall(callData, function(response) {
-              featureCollection.features[0].properties = {
-                trailname: trailName
-              };
-              for (var f = 0; f < response.features.length; f++) {
-                featureCollection.features[0].geometry.geometries.push(response.features[f].geometry);
-              }
-              trailFeatureArray[index] = featureCollection;
-              newRemoteSegmentCache[trailID] = featureCollection;
-              callback(null, trailID);
-            });
-          }
-        };
-      }(trailID, i, trailFeatureCollection);
-      queryTaskArray.push(queryTask);
-    }
-    async.parallel(queryTaskArray, function(err, results) {
-      console.log("async finish");
-      remoteSegmentCache = newRemoteSegmentCache;
-      trailFeatureArray = mergeResponses(trailFeatureArray);
-      drawMultiTrailLayer(trailFeatureArray);
-      setCurrentTrail(highlightedTrailIndex);
-    });
-  }
-
-
-  function getAllTrailPathsForTrailLocal(trail) {
-
-
-  }
-
-  // LOCAL EDITION:
-  // given a trailhead and a trail index within that trailhead
-  // get the paths for any associated trails,
-  // then call drawMultiTrailLayer() and setCurrentTrail()
-  // (it's a little convoluted because it's trying to return identical GeoJSON to what
-  // CartoDB would return)
-
-  function getAllTrailPathsForTrailheadLocal(trailhead, highlightedTrailIndex, trailIDs) {
-    console.log("getAllTrailPathsForTrailheadLocal");
-    var responses = [];
-    var trailFeatureArray = [];
-    var trailFeatureCollection = {
-          type: "FeatureCollection",
-          features: []
-        };
-    // got trailhead.trails, now get the segment collection for all of them
-    // get segment collection for each
     var zoomType = "trailhead";
     var trails = [];
     if (trailhead) {
@@ -2777,65 +2669,31 @@ function filterResults(trail, trailhead) {
       zoomType = null;
     }
     //console.log("[getAllTrailPathsForTrailheadLocal] trails = " + trails);
-    if (trails) {
-      for (var i = 0; i < trails.length; i++) {
-        var trailID = trails[i];
-        //console.log("[getAllTrailPathsForTrailheadLocal] trailID = " + trailID);
-        var trail = originalTrailData[trailID];
-        //console.log("[getAllTrailPathsForTrailheadLocal] trail = " + trail);
-        var trailSource = trail.properties.source;
-        var trailName = trail.properties.name;
-
-
-        var valid = 0;
-        var segmentsLength = trailSegments.features.length;
-        var segmentsUsedIndex = 0;
-        for (var segmentIndex = 0; segmentIndex < segmentsLength; segmentIndex++) {
-          var segment = trailSegments.features[segmentIndex] || [];
-          var segmentTrailIds = segment.properties.trail_ids || [];
-          var segmentTrailsLength = segmentTrailIds.length || 0;
-
-          for (var segmentTrailIndex = 0; segmentTrailIndex < segmentTrailsLength; segmentTrailIndex++) {
-            if ((segment.properties.trail_ids[segmentTrailIndex] == trailID) &&
-              // this was intended to use only trailhead source's data for a trail, but
-              // it causes more problems than it solves.
-              // (segment.properties.source == trailSource || trailName == "Ohio & Erie Canal Towpath Trail")) {
-              1) {
-              trailFeatureArray.push(segment);
-              valid = 1;
-              //console.log("trail_colors = " + segment.properties.trail_colors + " segmentsUsedIndex = " + segmentsUsedIndex);
-              segmentsUsedIndex += 1;
-            } else {
-              // console.log("invalid!");
+    
+    allSegmentLayer.eachLayer(function (layer) {
+      var layerTrailIds = layer.getLayers()[0].feature.properties.trail_ids || [];
+      var layerTrailsLength = layerTrailIds.length || 0;
+      if (layerTrailIds) {
+        layer.getLayers()[0].setStyle({weight: 0});
+        layer.getLayers()[1].setStyle({weight: 0});
+        for (var layerTrailIndex = 0; layerTrailIndex < layerTrailsLength; layerTrailIndex++) {
+          if (currentTrailIDs[layerTrailIds[layerTrailIndex]]) {
+            layer.getLayers()[0].setStyle({weight: NORMAL_SEGMENT_WEIGHT});
+            layer.getLayers()[1].setStyle({weight: 20});
+          }
+          if (trails) {
+            for (var i = 0; i < trails.length; i++) {
+              var trailID = trails[i];
+              if (layerTrailIds[layerTrailIndex] == trailID) {
+                layer.getLayers()[0].setStyle({weight: ACTIVE_TRAIL_WEIGHT});
+                layer.getLayers()[1].setStyle({weight: 20});
+              } 
             }
           }
         }
-        // if (valid) {
-        //   trailFeatureArray.push(trailFeatureCollection);
-        // }
       }
-      trailFeatureCollection.features = trailFeatureArray;
-      responses = trailFeatureCollection;
-
-
-    } else {
-      //zoomToCurrentTrailhead();
-
-    }
-    drawMultiTrailLayer(responses);
-    if (zoomType == "trailhead") {
-      zoomToCurrentTrailhead();
-    } else if (zoomType == "trail") {
-      zoomToLayer(currentMultiTrailLayer);
-    }
-    console.log("getAllTrailPathsForTrailheadLocal end");
-    console.log("trailFeatureArray count = " + trailFeatureArray.length);
-    //console.log("trailFeatureCollection count = " + trailFeatureCollection.length);
-    //responses = mergeResponses(trailFeatureArray);
-
-    setCurrentTrail(highlightedTrailIndex);
+    });
   }
-
 
   // merge multiple geoJSON trail features into one geoJSON FeatureCollection
 
@@ -2933,7 +2791,7 @@ function filterResults(trail, trailhead) {
             onEachFeature: function(feature, layer) {
               currentTrailLayers.push(layer);
             }
-          })
+          });
           //.addTo(map);
           //.bringToFront();
           //zoomToLayer(currentMultiTrailLayer);
