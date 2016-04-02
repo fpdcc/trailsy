@@ -136,7 +136,14 @@ function startup() {
   var currentDetailTrail = null;
   var currentDetailTrailhead = null;
   var userMarker = null;
-  var allSegmentLayer = null;
+
+  // Segment Variables
+  var allSegmentArray = []; 
+  var allSegmentLayer = null; // All the segments (both invisible and visible)
+  var currentSegmentLayer = null; // Alll segments that can be on the map right now.
+  var currentHighlightedSegmentLayer = null; // Segment that is highlighted.
+
+
   var closeTimeout = null;
   var openTimeout = null;
   var currentWeightedSegment = null;
@@ -1346,7 +1353,7 @@ function startup() {
       style: function(feature) {
         //console.log(feature.properties.trail_names[0] + " " + feature.properties.trail_colors[0]);
         var thisColor = NORMAL_SEGMENT_COLOR;
-        //var thisWeight = NORMAL_SEGMENT_WEIGHT;
+        var thisWeight = NORMAL_SEGMENT_WEIGHT;
         var thisWeight = 0;
         var thisOpacity = 1;
         var thisClickable = false;
@@ -1391,7 +1398,7 @@ function startup() {
     var invisibleAllTrailLayer = L.geoJson(response, {
       style: {
         opacity: 0,
-        weight: 0,
+        weight: 20,
         clickable: true,
         smoothFactor: 10
       },
@@ -1518,7 +1525,7 @@ function startup() {
       // });
 
       //newTrailFeatureGroup.addEventListener("onClick", function)
-
+      allSegmentArray.push(newTrailFeatureGroup);
       allSegmentLayer.addLayer(newTrailFeatureGroup);
     }
 
@@ -1639,10 +1646,10 @@ function startup() {
       //fixDuplicateTrailheadTrails(myTrailheads);
       makeTrailheadPopups(currentTrailheads);
       mapActiveTrailheads(currentTrailheads);
-
       allSegmentLayer.eachLayer(function (layer) {
         //console.log("trail_ids= " + layer.getLayers()[0].feature.properties.trail_ids);
         if (layer.getLayers()[0].feature.properties.trail_ids) {
+          var layerWanted = 0;
           if (currentTrailIDs[layer.getLayers()[0].feature.properties.trail_ids[0]]) {
             layer.getLayers()[0].setStyle({weight: NORMAL_SEGMENT_WEIGHT});
             layer.getLayers()[1].setStyle({weight: 20});
@@ -1898,7 +1905,8 @@ function startup() {
       //}
     }
     trailListElementList[0].innerHTML = trailListContents;
-    $(".fpccEntry").click(populateTrailsForTrailheadDiv).click(trailDivClickHandler);
+    $(".fpccEntry").click(populateTrailsForTrailheadDiv);
+    //$(".fpccEntry").click(populateTrailsForTrailheadDiv).click(trailDivClickHandler);
     $(".trails-count").html(orderedTrails.length + " RESULTS FOUND");
     console.log("end makeTrailDivs 4");
   }
@@ -2523,7 +2531,7 @@ function startup() {
     }
     else {
       
-      highlightTrailhead(parsed.trailheadID, parsed.highlightedTrailIndex, trailIDs);
+      highlightTrailhead(null, parsed.highlightedTrailIndex, trailIDs);
     }
     console.log("[populateTrailsForTrailheadDiv] about to run showTrailDetails(trail, trailhead )" + trail + " trailhead= " + trailhead);
     showTrailDetails(trail, trailhead);
@@ -2546,9 +2554,10 @@ function startup() {
     //   }
     // }
     // decorateDetailPanel(trailData[parsed.trailID], trailhead);
-    highlightTrailhead(parsed.trailheadID, parsed.highlightedTrailIndex);
+    
     var trail = originalTrailData[parsed.trailID];
     showTrailDetails(trail, trailhead);
+    highlightTrailhead(parsed.trailheadID, parsed.highlightedTrailIndex);
   }
 
   function getTrailheadById(trailheadID) {
@@ -2669,30 +2678,42 @@ function startup() {
       zoomType = null;
     }
     //console.log("[getAllTrailPathsForTrailheadLocal] trails = " + trails);
+    // allSegmentLayer.setStyle({weight: 0});
+
+    if (currentHighlightedSegmentLayer) {
+      currentHighlightedSegmentLayer.setStyle({weight: NORMAL_SEGMENT_WEIGHT});
+      // currentHighlightedSegmentLayer.eachLayer(function (layer) {
+      //   layer.setStyle({weight: NORMAL_SEGMENT_WEIGHT});
+      // });
+
+    }
+
+    currentHighlightedSegmentLayer = null;
     
-    allSegmentLayer.eachLayer(function (layer) {
-      var layerTrailIds = layer.getLayers()[0].feature.properties.trail_ids || [];
-      var layerTrailsLength = layerTrailIds.length || 0;
-      if (layerTrailIds) {
-        layer.getLayers()[0].setStyle({weight: 0});
-        layer.getLayers()[1].setStyle({weight: 0});
-        for (var layerTrailIndex = 0; layerTrailIndex < layerTrailsLength; layerTrailIndex++) {
-          if (currentTrailIDs[layerTrailIds[layerTrailIndex]]) {
-            layer.getLayers()[0].setStyle({weight: NORMAL_SEGMENT_WEIGHT});
-            layer.getLayers()[1].setStyle({weight: 20});
-          }
-          if (trails) {
+    if (trails) {
+      currentHighlightedSegmentLayer = new L.FeatureGroup();
+      allSegmentLayer.eachLayer(function (layer) {
+        var layerTrailIds = layer.getLayers()[0].feature.properties.trail_ids || [];
+        var layerTrailsLength = layerTrailIds.length || 0;
+        var layerWanted = 0;
+        if (layerTrailIds) {
+          for (var layerTrailIndex = 0; layerTrailIndex < layerTrailsLength; layerTrailIndex++) {
             for (var i = 0; i < trails.length; i++) {
               var trailID = trails[i];
               if (layerTrailIds[layerTrailIndex] == trailID) {
-                layer.getLayers()[0].setStyle({weight: ACTIVE_TRAIL_WEIGHT});
-                layer.getLayers()[1].setStyle({weight: 20});
+                layerWanted = 1;
               } 
             }
           }
         }
-      }
-    });
+        if (layerWanted) {
+          layer.getLayers()[0].setStyle({weight: ACTIVE_TRAIL_WEIGHT});
+          currentHighlightedSegmentLayer.addLayer(layer.getLayers()[0]);
+          //layer.getLayers()[0].setStyle({weight: ACTIVE_TRAIL_WEIGHT});
+          //layer.getLayers()[1].setStyle({weight: 20});
+        }
+      });
+    }
   }
 
   // merge multiple geoJSON trail features into one geoJSON FeatureCollection
