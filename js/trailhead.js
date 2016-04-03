@@ -1035,10 +1035,23 @@ function startup() {
 
   function activityMarkerClick(activity) {
     console.log("activityMarkerClick");
-    //highlightTrailhead(id, 0);
-    highlightActivities(activity.properties.trailhead_id);
+    var lastTrailheadId = currentTrailhead.id || "";
+    highlightTrailhead(activity.properties.trailhead_id, 0);
+    //highlightActivities(activity.properties.trailhead_id);
     var trailhead = getTrailheadById(activity.properties.trailhead_id);
     if (trailhead) {
+      if ( lastTrailheadId != activity.properties.trailhead_id ) {
+        var zoomArray = highlightedActivityMarkerArray;
+        console.log("zoomArray = " + zoomArray);
+        zoomArray.push(trailhead.marker);
+        console.log("zoomArray = " + zoomArray);
+        var zoomFeatureGroup = new L.FeatureGroup(zoomArray);
+        var zoomFeatureGroupBounds = zoomFeatureGroup.getBounds();
+        map.fitBounds(zoomFeatureGroupBounds,{
+           maxZoom: map.getZoom()
+        })  
+      }
+
       if (trailhead.trails) {
         showTrailDetails(originalTrailData[trailhead.trails[0]], trailhead);
       } else {
