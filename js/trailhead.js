@@ -1152,6 +1152,10 @@ function startup() {
   function makeCurrentActivities(myTrailheads) {
     console.log("[makeCurrentActivities] Begin");
     currentActivityMarkerArray = [];
+    if (currentActivityLayerGroup) {
+      map.removeLayer(currentActivityLayerGroup);
+      currentActivityLayerGroup = null;
+    }
     for (var i = 0; i < myTrailheads.length; i++) {
       var trailhead_id = myTrailheads[i].properties.id
       if (originalActivities[trailhead_id]) {
@@ -1166,8 +1170,11 @@ function startup() {
 
   function showActivities() {
     console.log("[showActivties]");
+
     if (!currentActivityLayerGroup) {
       currentActivityLayerGroup = L.layerGroup(currentActivityMarkerArray);
+    } else {
+      map.removeLayer(currentActivityLayerGroup);
     }
     if (map.getZoom() >= SHOW_ALL_ACTIVITIES_ZOOM) {
       map.addLayer(currentActivityLayerGroup);
@@ -1817,6 +1824,7 @@ function startup() {
       currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadMarkerArray);
     }
     currentTrailheadLayerGroup.addTo(map);
+    showActivities();
     map.fitBounds(currentTrailheadLayerGroup.getBounds());
     console.log("mapActiveTrailheads end");
   }
