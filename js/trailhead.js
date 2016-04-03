@@ -111,7 +111,7 @@ function startup() {
   // for yes/no features, check for first letter "y" or "n".
 
   var originalTrailheads = []; // all trailheads (from trailsegments)
-  var originalActivities = [];
+  
   // for yes/no features, check for first letter "y" or "n".
 
   var trailSegments = [];
@@ -123,6 +123,7 @@ function startup() {
   var currentTrailheadMarkerArray = [];
   var currentTrailheadSignArray = [];
   var currentActivities = [];
+  var currentActivityMarkerArray = [];
   var currentUserLocation = {};
   var anchorLocation = {};
   var currentTrailheadLayerGroup;
@@ -138,11 +139,16 @@ function startup() {
   var userMarker = null;
 
   // Segment Variables
-  var allSegmentArray = []; 
   var allSegmentLayer = null; // All the segments (both invisible and visible)
-  var currentSegmentLayer = null; // Alll segments that can be on the map right now.
   var currentHighlightedSegmentLayer = null; // Segment that is highlighted.
 
+  // Activity Variables
+  var originalActivities = [];
+  var allActivityLayer = null
+  var currentActivityMarkerArray = [];
+  var highlightedActivityMarkerArray = [];
+  var currentActivityLayerGroup;
+  
 
   var closeTimeout = null;
   var openTimeout = null;
@@ -855,14 +861,7 @@ function startup() {
           map.removeLayer(allSegmentLayer);
         }
       }
-      if (zoomLevel >= SHOW_ALL_ACTIVITIES_ZOOM) {
-        if (currentActivities.length < originalActivities.length) {
-          showActivities();
-        } 
-      }
-      else {
-        removeActivities();
-      }
+      
       if (currentTrailheadLayerGroup) {
         map.removeLayer(currentTrailheadLayerGroup);
       }
@@ -872,6 +871,7 @@ function startup() {
         currentTrailheadLayerGroup = L.layerGroup(currentTrailheadMarkerArray);
       }
       map.addLayer(currentTrailheadLayerGroup);
+      showActivities();
       console.log("zoomend end " + map.getZoom());
     });
     map.on('popupclose', popupCloseHandler);
@@ -918,7 +918,8 @@ function startup() {
 
   function populateOriginalActivities(ActivityDataGeoJSON) {
     console.log("[populateOriginalActivities] features count = " + ActivityDataGeoJSON.features.length);
-    originalActivities = [];
+    originalActivities = {};
+
     for (var i = 0; i < ActivityDataGeoJSON.features.length; i++) {
       var currentFeature = ActivityDataGeoJSON.features[i];
       var currentFeatureLatLng = new L.LatLng(currentFeature.geometry.coordinates[1], currentFeature.geometry.coordinates[0]);
@@ -1014,8 +1015,12 @@ function startup() {
       };
 
       setActivityEventHandlers(activity);
-      originalActivities.push(activity);
-      //console.log("[populateOriginalTrailheads] trails " + trailhead.trails);
+      activity.marker.bindPopup(activity.popupContent);
+      originalActivities[activity.properties.trailhead_id] = originalActivities[activity.properties.trailhead_id] || [];
+      originalActivities[activity.properties.trailhead_id].push(activity);
+
+      //originalActivities.push(activity);
+      //console.log("[populateOriginalActivities] thisActivity= " + originalActivities[activity.properties.trailhead_id]);
     }
     //console.log("[populateOriginalTrailheads] originalTrailheads count " + originalTrailheads.length );
   }
@@ -1031,7 +1036,7 @@ function startup() {
   function activityMarkerClick(activity) {
     console.log("activityMarkerClick");
     //highlightTrailhead(id, 0);
-    showActivities(activity.properties.trailhead_id);
+    highlightActivities(activity.properties.trailhead_id);
     var trailhead = getTrailheadById(activity.properties.trailhead_id);
     if (trailhead) {
       if (trailhead.trails) {
@@ -1107,7 +1112,7 @@ function startup() {
   function trailheadMarkerClick(id) {
     console.log("trailheadMarkerClick");
     highlightTrailhead(id, 0);
-    showActivities(id);
+    //highlightActivities(id);
     var trailhead = getTrailheadById(id);
     if (trailhead.trails) {
       showTrailDetails(originalTrailData[trailhead.trails[0]], trailhead);
@@ -1116,48 +1121,47 @@ function startup() {
     }
   }
 
-  function showActivities(id) {
-    console.log("[showActivties] id= " + id);
-    var currentActivityMarkerArray = [];
-    var trailheadActivitiesArray = [];
-    for (var i = 0; i < originalActivities.length; i++) {
-      //console.log("[showActivties] originalActivities.trailhead_id is " + originalActivities[i].properties.trailhead_id);
-      originalActivities[i].marker.bindPopup(originalActivities[i].popupContent);
-      var trailheadID = originalActivities[i].properties.trailhead_id;
-      // originalActivities[i].marker.on("click", function(activityID) {
-      //     return function() {
-      //       originalActivities[i].marker.bindPopup(popupContent).openPopup();
-      //       activityMarkerClick(activityID);
-      //     };
-      //   }(originalActivities[i].properties.id));
-      originalActivities[i].marker.setOpacity(.5);
-      // if there is an entrance id, only add that entrance's activities to the current Array
-      if (id) {
-        //console.log("[showActivties] if id=true for  " + id);
-        if (originalActivities[i].properties.trailhead_id == id) {
-          trailheadActivitiesArray.push(originalActivities[i].marker);
-          originalActivities[i].marker.setOpacity(1);
-          console.log("[showActivties] originalActivities.trailhead_id= " + id);
-          //currentActivityMarkerArray.push(originalActivities[i].marker);
+
+  function makeCurrentActivities(myTrailheads) {
+    console.log("[makeCurrentActivities] Begin");
+    currentActivityMarkerArray = [];
+    for (var i = 0; i < myTrailheads.length; i++) {
+      var trailhead_id = myTrailheads[i].properties.id
+      if (originalActivities[trailhead_id]) {
+        for ( var j = 0; j < originalActivities[trailhead_id].length; j++ ) {
+          originalActivities[trailhead_id][j].marker.setOpacity(.5);
+          currentActivityMarkerArray.push(originalActivities[trailhead_id][j].marker);
         }
       }
-      currentActivityMarkerArray.push(originalActivities[i].marker);
     }
-    if (currentActivityLayerGroup) {
-      map.removeLayer(currentActivityLayerGroup);
-    }
-    currentActivityLayerGroup = L.layerGroup(currentActivityMarkerArray);
-    map.addLayer(currentActivityLayerGroup);
-    console.log("showActivities trailheadActivitiesArray.length = " + trailheadActivitiesArray.length);
-    console.log("showActivities end");
-    return trailheadActivitiesArray;
   }
 
 
-
-  function removeActivities() {
-    if (currentActivityLayerGroup) {
+  function showActivities() {
+    console.log("[showActivties]");
+    if (!currentActivityLayerGroup) {
+      currentActivityLayerGroup = L.layerGroup(currentActivityMarkerArray);
+    }
+    if (map.getZoom() >= SHOW_ALL_ACTIVITIES_ZOOM) {
+      map.addLayer(currentActivityLayerGroup);
+    }
+    else {
       map.removeLayer(currentActivityLayerGroup);
+    }
+  }
+
+  function highlightActivities(myTrailhead_id) {
+    console.log("[highlightActivities]");
+    for (var i = 0; i < highlightedActivityMarkerArray.length; i++) {
+      highlightedActivityMarkerArray[i].setOpacity(.5);
+    }
+    highlightedActivityMarkerArray = [];
+    var trailheadActivities = originalActivities[myTrailhead_id];
+    if (trailheadActivities) {
+      for ( i = 0; i < trailheadActivities.length; i++) {
+        trailheadActivities[i].marker.setOpacity(1);
+        highlightedActivityMarkerArray.push(trailheadActivities[i].marker);
+      }
     }
   }
 
@@ -1525,7 +1529,6 @@ function startup() {
       // });
 
       //newTrailFeatureGroup.addEventListener("onClick", function)
-      allSegmentArray.push(newTrailFeatureGroup);
       allSegmentLayer.addLayer(newTrailFeatureGroup);
     }
 
@@ -1646,6 +1649,7 @@ function startup() {
       //fixDuplicateTrailheadTrails(myTrailheads);
       makeTrailheadPopups(currentTrailheads);
       mapActiveTrailheads(currentTrailheads);
+      makeCurrentActivities(currentTrailheads);
       allSegmentLayer.eachLayer(function (layer) {
         //console.log("trail_ids= " + layer.getLayers()[0].feature.properties.trail_ids);
         if (layer.getLayers()[0].feature.properties.trail_ids) {
@@ -2520,6 +2524,8 @@ function startup() {
     var trail = null;
     var trailhead = null;
     var trailIDs = [];
+    var zoomFeatureGroup = null;
+    var zoomArray = [];
     if (parsed.trailID) {
       trail = originalTrailData[parsed.trailID];
       trailIDs.push(parsed.trailID);
@@ -2527,12 +2533,24 @@ function startup() {
     if (parsed.trailheadID) {
       trailhead = getTrailheadById(parsed.trailheadID);
       highlightTrailhead(parsed.trailheadID, parsed.highlightedTrailIndex);
+      
+      zoomArray = highlightedActivityMarkerArray;
+      console.log("zoomArray = " + zoomArray);
+      zoomArray.push(trailhead.marker);
+      console.log("zoomArray = " + zoomArray);
+      zoomFeatureGroup = new L.FeatureGroup(zoomArray);
+      console.log("zoomFeatureGroup = " + zoomFeatureGroup);
       //showActivities(parsed.trailheadID); // show activities!
     }
     else {
-      
       highlightTrailhead(null, parsed.highlightedTrailIndex, trailIDs);
+      console.log("currentHighlightedSegmentLayer = " + currentHighlightedSegmentLayer);
+      zoomFeatureGroup = currentHighlightedSegmentLayer;
     }
+    console.log("zoomFeatureGroup= " + zoomFeatureGroup);
+    map.fitBounds(zoomFeatureGroup.getBounds(), {
+          //paddingTopLeft: centerOffset
+    });
     console.log("[populateTrailsForTrailheadDiv] about to run showTrailDetails(trail, trailhead )" + trail + " trailhead= " + trailhead);
     showTrailDetails(trail, trailhead);
   }
@@ -2651,13 +2669,13 @@ function startup() {
       .openOn(map);
 
     } else {
-
+      currentTrailhead = null;
     }
     highlightTrailSegmentsForTrailhead(trailhead, highlightedTrailIndex, trailIDs);
+    highlightActivities(trailheadID);
     //getAllTrailPathsForTrailhead(trailhead, highlightedTrailIndex, trailIDs);
-    var groupArray = showActivities(trailheadID);
     //groupArray.push(currentTrailhead.marker);
-    var trailheadFeatureGroup = L.featureGroup(groupArray);
+    //var trailheadFeatureGroup = L.featureGroup(groupArray);
     //getAllActivitiesForTrailhead(trailhead);
   }
 
