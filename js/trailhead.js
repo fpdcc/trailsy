@@ -866,11 +866,11 @@ function startup() {
         map.removeLayer(currentTrailheadLayerGroup);
       }
       if (zoomLevel >= SHOW_SIGN_ZOOM) {
-        currentTrailheadLayerGroup = L.layerGroup(currentTrailheadSignArray);
+        currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadSignArray);
       } else {
-        currentTrailheadLayerGroup = L.layerGroup(currentTrailheadMarkerArray);
+        currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadMarkerArray);
       }
-      map.addLayer(currentTrailheadLayerGroup);
+      currentTrailheadLayerGroup.addTo(map);
       showActivities();
       console.log("zoomend end " + map.getZoom());
     });
@@ -1809,11 +1809,12 @@ function startup() {
     }
 
     if (map.getZoom() >= SHOW_SIGN_ZOOM) {
-      currentTrailheadLayerGroup = L.layerGroup(currentTrailheadSignArray);
+      currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadSignArray);
     } else {
-      currentTrailheadLayerGroup = L.layerGroup(currentTrailheadMarkerArray);
+      currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadMarkerArray);
     }
-    map.addLayer(currentTrailheadLayerGroup);
+    currentTrailheadLayerGroup.addTo(map);
+    map.fitBounds(currentTrailheadLayerGroup.getBounds());
     console.log("mapActiveTrailheads end");
   }
 
