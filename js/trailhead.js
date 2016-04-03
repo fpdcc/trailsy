@@ -844,7 +844,7 @@ function startup() {
       console.log("zoomend start " + map.getZoom());
       var zoomLevel = map.getZoom();
       if (SHOW_ALL_TRAILS && allSegmentLayer) {
-        if (map.getZoom() >= SECONDARY_TRAIL_ZOOM && !(map.hasLayer(allSegmentLayer))) {
+        if (zoomLevel >= SECONDARY_TRAIL_ZOOM && !(map.hasLayer(allSegmentLayer))) {
           // console.log(allSegmentLayer);
           setTimeout(function() {
             map.addLayer(allSegmentLayer);
@@ -852,7 +852,7 @@ function startup() {
           }, 0);
 
         }
-        if (map.getZoom() < SECONDARY_TRAIL_ZOOM && map.hasLayer(allSegmentLayer)) {
+        if (zoomLevel < SECONDARY_TRAIL_ZOOM && map.hasLayer(allSegmentLayer)) {
           if (currentTrailPopup) {
             map.removeLayer(currentTrailPopup);
           }
@@ -1033,7 +1033,11 @@ function startup() {
 
   function activityMarkerClick(activity) {
     console.log("activityMarkerClick");
-    var lastTrailheadId = currentTrailhead.id || "";
+    var lastTrailheadId = "";
+    if (currentTrailhead) {
+      lastTrailheadId = currentTrailhead.id;
+    }
+    console.log("lastTrailheadId = " + lastTrailheadId);
     highlightTrailhead(activity.properties.trailhead_id, 0);
     //highlightActivities(activity.properties.trailhead_id);
     var trailhead = getTrailheadById(activity.properties.trailhead_id);
