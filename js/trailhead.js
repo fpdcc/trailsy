@@ -123,11 +123,9 @@ function startup() {
   var currentTrailheadMarkerArray = [];
   var currentTrailheadSignArray = [];
   var currentActivities = [];
-  var currentActivityMarkerArray = [];
   var currentUserLocation = {};
   var anchorLocation = {};
   var currentTrailheadLayerGroup;
-  var currentActivityLayerGroup;
   var currentFilters = {
     lengthFilter: [],
     activityFilter: [],
@@ -1672,9 +1670,10 @@ function startup() {
     console.log("curentTrailheads count = " + currentTrailheads.length);
     setTimeout(function() {
       //fixDuplicateTrailheadTrails(myTrailheads);
+      makeCurrentActivities(currentTrailheads);
       makeTrailheadPopups(currentTrailheads);
       mapActiveTrailheads(currentTrailheads);
-      makeCurrentActivities(currentTrailheads);
+      
       allSegmentLayer.eachLayer(function (layer) {
         //console.log("trail_ids= " + layer.getLayers()[0].feature.properties.trail_ids);
         if (layer.getLayers()[0].feature.properties.trail_ids) {
