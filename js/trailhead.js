@@ -1112,8 +1112,20 @@ function startup() {
   function trailheadMarkerClick(id) {
     console.log("trailheadMarkerClick");
     highlightTrailhead(id, 0);
-    //highlightActivities(id);
     var trailhead = getTrailheadById(id);
+    var zoomArray = highlightedActivityMarkerArray;
+    console.log("zoomArray = " + zoomArray);
+    zoomArray.push(trailhead.marker);
+    console.log("zoomArray = " + zoomArray);
+    var zoomFeatureGroup = new L.FeatureGroup(zoomArray);
+    var zoomFeatureGroupBounds = zoomFeatureGroup.getBounds();
+    if ( map.getBoundsZoom(zoomFeatureGroupBounds) >= map.getZoom() ) {
+      map.fitBounds(zoomFeatureGroupBounds);
+    } else {
+      map.fitBounds(zoomFeatureGroupBounds,{
+        maxZoom: map.getZoom()
+      })
+    }
     if (trailhead.trails) {
       showTrailDetails(originalTrailData[trailhead.trails[0]], trailhead);
     } else {
