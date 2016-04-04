@@ -5,6 +5,8 @@ console.log("start");
 
 $(document).ready(startup);
 
+// This function is used to set the max heights for PreserveInfo & SearchResults.
+// It is called on body load and resize. It is also called when opening Detail panel.
 function setHeights() {
       var h = $(window).height();
       var k = $("#fpccBrand").outerHeight();
@@ -2019,7 +2021,10 @@ function startup() {
     $('#fpccSearchResults').hide();
     $('#fpccSearchBack').show();
     $('.detailPanel').show();
-    setHeights();
+
+    // We need to re-calculate the max height for fpccPreserveInfo because 
+    // fpccPreserveName height can change.
+    setHeights(); 
 
 
     //var myDiv = document.getElementById('detailPanelBodySection');
