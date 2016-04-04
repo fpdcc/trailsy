@@ -1,8 +1,8 @@
 /* PANEL */
 .fpccContainer{font-family:Georgia,"Times New Roman",serif;font-size:.9125em;line-height:1.5;color:#333}
-.fpccUnit{padding:1em}
-.fpccEntrance,.fpccTrailMaps{background:#EFF2DF;}
-.fpccTrailMaps{text-align:center}
+.fpccUnit{padding:1.5em 1em}
+.fpccEntrance{padding:1.5em 0;margin:0 1em;border-bottom:1px dotted #CCC}
+.fpccDescription{padding:1.25em 1em .25em}
 .fpccLabel{font-family:Helvetica, Arial, sans-serif;font-size:.9125em;text-transform:uppercase;color:#585747}
 .fpccLabel.fpccBlock{display:block}
 .fpccLabel.fpccLeft{float:left;width:50%;text-align:left}
@@ -15,22 +15,23 @@
 .fpccSign .icon{width:12%;height:2.25em;margin-right:3%;vertical-align:top;}
 .fpccAddress{display:inline-block;width:82%}
 .fpccEntranceAddress{display:block}
-.fpccDirections,.fpccMap{font-family:Helvetica, Arial, sans-serif;font-size:.8125em;text-transform:uppercase;width:28%;float:right;margin-bottom:.75em}
-.fpccMap a:link,.fpccMap a:visited,.fpccDirections a:link,.fpccDirections a:visited{padding:.75em 0;background:#4E603B;color:#FFF;display:block;width:100%;vertical-align:middle;text-decoration:none;text-align:center;border-radius:3px}
-.fpccMap a:hover,.fpccMap a:active,.fpccDirections a:hover,.fpccDirections a:active{background:#7E9137;color:#FFF}
-.fpccLinks{border-top: 1px solid #585746}
+.fpccDirections{width:28%;float:right;margin-bottom:.75em}
+.fpccDirections a:link,.fpccDirections a:visited{display:block;width:100%;}
+.fpccDirections a:hover,.fpccDirections a:active{}
+.fpccLinks{border-top: 3px solid #DDD;padding-bottom:2em}
 .fpccLinks ul{padding:0 0 0 1.5em;margin-bottom:0}
 .fpccTrailMaps .fpccMap a:link, .fpccTrailMaps .fpccMap a:visited{display:inline-block;width:inherit;padding:.35em 1em}
 .fpccTrailMaps .fpccMap{display:inline-block;width:inherit;margin:.25em 0 0 .5em;float:none}
-.fpccTrailMaps .fpccLabel{vertical-align:middle}
-.fpccTrails{border-top:1px solid #585746;}
+.fpccTrailMaps{margin:1em 0 .5em}
+.fpccTrailMaps .fpccLabel{display:block;margin-bottom:.25em}
+.fpccTrails{border-top:3px solid #DDD;}
 .fpccTrails.fpccTrailsFeature{border-top:none;background:none;padding-top:0}
 .fpccTrails .icon-trail-marker{width:2.5em;height:2.5em;margin-right:.5em;vertical-align:top;margin-top:3px}
 .fpccTrailHeader,.fpccMoreHeader{display:inline-block}
 .fpccTrailName,.fpccSegmentName,.fpccMoreName{font-family:Helvetica, Arial, sans-serif;font-size:1.5em;line-height:1;font-weight:bold;color:#585747;display:block}
 .fpccSegmentName{font-size:1.25em;float:left;margin-top:2px}
-.fpccTrailSegment{padding:1em 0 0;margin:1em 0;border-top:1px dotted #585746}
-.fpccTrails .fpccDescription{margin-top:1em}
+.fpccTrailSegment{padding:.75em 0 0;margin:.75em 0;border-top:1px dotted #CCC}
+.fpccTrails .fpccTrailDescription{margin:0;padding:1em 0 .5em;border-bottom:none;}
 .fpccTrailUse{float:right}
 .fpccTrailUse .icon{width:1.5em;height:1.5em;margin-left:.25em}
 .fpccSegmentOverview{}
@@ -47,7 +48,7 @@
 .fpccblack, .fpccBLACK{border-bottom:8px solid #333132}
 .fpccoff{border-bottom:8px solid #C4D0DB}
 .fpccUNPAVED,.fpccUnpaved,.fpccunpaved,.fpccPrimitive,.fpccprimitive,.fpccPRIMITIVE{border-bottom-style:dotted}
-.fpccSocial{border-top:1px solid #585746;background:#F1F1ED}
+.fpccSocial{border-top:3px solid #DDD;background:#F1F1ED}
 .fpccShare{font-size:1.15em;line-height:1;text-align:center;margin-bottom:.5em}
 .fpccSocialIcon{width:27%;text-align:center;float:left;padding:.5em 0;margin:0 3%;border-radius:3px}
 .fpccSocialIcon span{display:block;text-transform: uppercase;font-size:.75em;font-family:Helvetica, Arial, sans-serif}
@@ -143,19 +144,19 @@ a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 #icon-facebook .path2{fill:#fff}
 #icon-twitter .path1{fill:#55acee}
 #icon-twitter .path2{fill:#fff}
+#icon-x .path1{fill:#fff}
+#icon-arrow .path1{fill:#000}
 .icon-map{display:inline-block;width:2em;height:2em}
 
 
 
 /* new */
 .detailPanel .detailPanelBanner span.entranceName{color:#FFF;font-weight:bold;font-size:1.15em}
-.fpccSearchbar{margin-top:1.5em}
 .hidden{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;}
 .fpccResults h4{font-size:1em;text-transform:uppercase;padding:.5em 1em;margin:0;background:#7E9137;color:#FFF}
 .fpccResults.fpccUnit{padding:.5em 0 0 0}
-.fpccSearch.fpccUnit{padding-top:.5em;clear:both}
-.fpccEntry{background:#EFF2DF;padding:1em;width:100%;display:block;border-top:1px solid #7E9137}
-.fpccEntry .icon{width:15%;height:1.5em;vertical-align:top;margin-right:2%;}
+.fpccEntry{background:#FFF;padding:1em;width:100%;display:block;border-bottom:1px dotted #CCC}
+.fpccEntry .icon{width:10%;height:1.25em;vertical-align:top;margin-right:5%;}
 .fpccEntryNameText{display:inline-block;width:83%;}
 .fpccEntry .icon.icon-sign{margin-top:2px}
 .fpccEntry .icon.icon-trail-marker{margin-top:-2px}
@@ -185,8 +186,8 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
     border-color: #ddd;
     color: #333;
     text-shadow: 0 1px 0 #f3f3f3;
-	border-radius: .3125em;
-	box-sizing: border-box;
+    border-radius: .3125em;
+    box-sizing: border-box;
     -webkit-appearance: none;
     -moz-appearance: none;
     width: 100%;
@@ -202,3 +203,46 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
     cursor: pointer;
     -webkit-user-select: none;
 }
+
+
+/* full panel */
+section.trailListColumn .accordion {/* display: none; */border-top: 8px solid #7E9137;background:none;max-height:none;overflow:hidden}
+section.trailListColumn {
+    position:fixed;
+    top: 0;
+    left: 0;
+    width: 384px;
+    max-height:100%;
+    /*min-height: 14em; */
+    padding: 0;
+    background:none;
+    z-index: 999;
+    height: 100%;
+    /* overflow: visible; */}
+section.trailListColumn .fpccResults.fpccUnit {padding: 0;overflow-x: hidden;overflow-y: scroll;}
+.fpccButton,.fpccButton:visited{background:#7E9039;font-family:Helvetica, Arial, sans-serif;border:none;border-bottom:2px solid #606D29;padding:10px 15px;max-height:37px;color:#FFF;font-size:.9375em;line-height:1;text-decoration:none;vertical-align:top}
+.fpccButton:hover{background:#606D29;border-bottom:2px solid #464F1E;}
+.fpccButton:active{background:#606D29;border-bottom:none;margin-top:2px}
+#fpccSearchContainer.fpccUnit{background:#FFF;padding:1em}
+#fpccSearchContainer.fpccUnit.fpccResults{padding:0}
+#fpccSearchContainer .fpccButton{width:23%;float:right;display:inline;}
+#fpccSearchContainer input{border:1px solid #999;padding:5px;width:75%;height:37px;font-size:.9375em;line-height:1;box-sizing:border-box}
+#fpccSearchContainer form{display:inline}
+#fpccSearchBack a:link,#fpccSearchBack a:visited,#fpccSearchStatus{background:#E3EACC;box-shadow:inset 0 3px 10px 0 rgba(0, 0, 0, 0.2);text-align:center;font-weight:bold;font-size:.9375em;color:#273719;padding:.75em 0;display:block;text-decoration:none}
+#fpccSearchBack a:hover, #fpccSearchBack a:active{background:#CAD79D}
+#fpccSearchBack .icon-arrow{width:.75em;height:.75em}
+#fpccMainContainer{box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2)}
+#fpccPreserveName{box-shadow:0 -3px 10px 0 rgba(0,0,0,0.2)}
+#fpccBrand{padding-top:10px}
+
+
+/* Panel main.css overrides */
+#fpccPreserveInfo{max-height:none}
+.trailListColumn .detailPanel{max-height:none}
+.trailListColumn .title-row header .navbar-inner .logo{margin:0;width:270px}
+.trailListColumn .title-row header .navbar-inner{padding:.35em 0 .5em 0;width:auto;margin:0 42px;position:inherit}
+#fpccPreserveName .trailName{font-size:20px;}
+.detailPanel #fpccPreserveName.detailPanelBanner{background:#273719;padding:.5em 1.75em .5em 1em}
+.fpccHours{margin:0 0 .75em;}
+.icon-x.closeDetail{width:1em;height:1em;top:10px}
+.icon-x.closeDetail:hover{opacity:1}

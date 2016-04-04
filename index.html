@@ -39,12 +39,24 @@
 	<!-- Needed END -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/css/select2.min.css" rel="stylesheet" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js"></script>
+	<!-- HERE .js to keep panel contents from overflowing -->
+	<script type="text/javascript">
+		// function setHeights() {
+		// 	var h = $(window).height();
+		// 	var k = $("#fpccBrand").outerHeight();
+		// 	var m = $("#fpccPreserveName").outerHeight();
+		// 	var o = $("#fpccSearchBack").outerHeight();
+		// 	var q = $("#fpccSearchContainer").outerHeight();
+		// 	$('#fpccPreserveInfo').css('max-height', (h-(k + m + o + q)) );
+		// 	$('#fpccSearchResults').css('max-height', (h-(k + o + q)) );
+		// }
+	</script>
+	<!-- HERE end of new .js -->
 </head>
 
-<body>
+<body onresize="setHeights()" onload="setHeights()">
 	
 	<div id="desktop">
-    	<div class="container">
     		<div id="main" class="row">
     			<!-- Map -->
 		        <section class="trailMapContainer">
@@ -57,8 +69,8 @@
 		            <a class="offsetGeolocate" style="display:none;">&nbsp;</a>
 		          </div>
 		        </section>
-				<section class="trailListColumn">
-					<div class="title-row desktopTitle">
+		        <section class="trailListColumn">
+					<div id="fpccBrand" class="title-row desktopTitle"><!-- HERE added fpccBrand ID -->
 						<header>
 							<div class="navbar-inner">
 								<a class="hamburger" href="#">
@@ -66,184 +78,160 @@
 									<div class="hamburgerLine"></div>
 									<div class="hamburgerLine"></div>
 								</a>
-								<a href="javascript:window.location.reload(true)"><img class="logo" src="http://fpdcc.net/wp-content/themes/fpdcc3/images/fpcc-map-logo.gif"></a>
+								<img class="logo" src="http://fpdcc.net/wp-content/themes/fpdcc3/images/fpcc-map-logo.gif">
 							</div>
 						</header>
 					</div>
-					<div class="accordion clearfix" style="display: block;">
-            			<!-- new guts START -->
-            			<div class="accordion-innerwrap">
-			            	<!-- First Accordion Panel (No Title) -->
-			            	<div class="panel-container list-reset" tabindex="1">
-            					<a class="aboutLink" href="#">ABOUT</a>
-
-               					<div class="fpccUnit fpccSearch">
-	       							<div role="main" class="ui-content">
-										<label for="js-example-basic-multiple" class="select hidden">Filter by:</label>
-										<form>
-										<select class="js-example-basic-multiple select2Searchbox select2-border filter" data-filter="activityFilter" multiple="multiple">
-										<optgroup label="Popular">
-										<option value="hiking">Hiking</option>
-										<option value="cycling">Bicycling</option>
-										<option value="dog_friendly">Off-Leash Dog Area</option>
-										<option value="camping">Campground</option>
-										<option value="nature_center">Nature Center</option>
-										<option value="picnic_event_space">Picnic/Event Space</option>
-										<option value="Dog Friendly (on-leash)">Dog Friendly (on-leash)</option>
-										</optgroup>
-										<optgroup label="Everything">
-										<option value="boat_rental">Boat Rental</option>
-										<option value="picnic_grove">Picnic Grove</option>
-										<option value="shelter">Picnic Grove (with shelter)</option>
-										<option value="cross_country">Cross-Country Skiing</option>
-										<option value="equestrian">Equestrian</option>
-										<option value="birding">Birding Hotspot</option>
-										<option value="fishing">Fishing</option>
-										<option value="canoe">Canoe Landing</option>
-										<option value="snowmobile">Snowmobile Area</option>
-										<option value="m_boat">Model Sailboat</option>
-										<option value="m_airplane">Model Airplane Flying Field</option>
-										<option value="sledding">Sledding</option>
-										<option value="boat_ramp">Boat Launch</option>
-										<option value="swimming">Aquatic Center</option>
-										<option value="golf">Golf</option>
-										<option value="comfortstation">Public Bathroom</option>
-										<option value="pavilion">Indoor Event Space</option>
- 										<!--<option value="bicycle rental">Bike Rental</option>
- 										<option value="frisbee golf">Disc Golf</option> -->
-										<option value="parking">Parking</option>
-										</optgroup>
-										</select>
-										</form>
-										<!--<script type="text/javascript">
-											$(".js-example-basic-multiple").select2({
-													placeholder: "Filter: Activity / Amenity",
-													tags: true
-												});
-										</script>-->
-									</div>
-                					<div class="fpccSearchbar">
-                						<!-- <label for="search-box" class="hidden">Search:</label>
-					                    <input name="search-box" data-filter="searchFilter" placeholder="search by location name or keyword" class="fpccSearchbox select2Searchbox select2-border" > -->
-					                    <button class="fpccSearchsubmit select2-btn">Search</button>
-                  					</div>
-                				</div>
-                			</div>
-                			<div class="fpccUnit fpccResults">
-                			</div>
-              			</div>
-             		</div>
-             		<div class="aboutPage">
-						            <div class="aboutPageBanner">
-						              <span>ABOUT</span>
-						              <img class="closeAbout" src="img/close-btn.png">
-						            </div>
-						            <div class="aboutCopy">
-						              <p class="aboutHeadline">About This Map</p>
-						              <p>How do I get to Busse Woods? Where is the closest trail I can take my bike? Is there a bathroom near my picnic grove? </p>
-						               <p>This map will eventually provide answers to these questions and more, allowing visitors to discover, and travel to, amenities within the Forest Preserves of Cook County.</p>
-						               <p>Right now this map is a prototype, meaning there is still work to be done before it's ready for public consumption. Contact <a href="mailto:fpdcc.info@cookcountyil.gov">fpdcc.info@cookcountyil.gov</a> for more information about this project.</p>
-						              <p>This project is built using the <a href="http://www.codeforamerica.org/specifications/trails/spec.html" target="_blank">OpenTrails specification</a> and <a href="https://github.com/codeforamerica/trailsy" target="_blank">To The Trails</a> web application. It is made possible with  funding from the Centers for Disease Control and Prevention through the Healthy  HotSpot initiative led by the Cook County Department of Public Health.</p>
-						            </div>
-					</div>
-					<div class="detailPanel">
-						<div class="detailPanelBanner">
-							<span class="entranceName"> </span>
- 							<!--<span class="trailIndex">10 of 580</span>-->
- 							<img class="closeDetail" src="http://fpcc-staging.smartchicagoapps.org/img/close-btn.png">
-							<div class="detailPanelControls controlLeft disabled">
-								<b class="controlLeft disabled"></b>
-							</div>
-							<div class="detailPanelControls controlRight disabled">
-								<b class="controlRight disabled"></b>
-							</div>
+					<div id="fpccMainContainer"><!-- HERE, completely new; corresponding closing tag marked at bottom -->
+						<!-- HERE, NEW SEARCH START all new, may need to adjust in staging-->
+						<div id="fpccSearchContainer" class="fpccUnit">
+							<form>
+								<input class="" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="Search by Location or Activity">
+							</form>
+							<button class="fpccButton">Search</button>
 						</div>
-						<div class="detailPanelBody" id="detailPanelBodySection">
-							<!-- NEW GUTS START -->
-							<div class="fpccContainer">
-								<!-- ENTRANCE START -->
-								<div class="fpccEntrance fpccUnit clearfix">
-									<div class="fpccSign clearfix">
-										<svg class="icon icon-sign"><use xlink:href="icons/defs.svg#icon-sign"></use></svg>
-										<div class="fpccAddress">
-											<span class="fpccLabel fpccBlock">Entrance</span>
-											<span class="fpccEntranceAddress"></span>
-											<span class="fpccEntranceCity"></span>
-											<span class="fpccEntranceState"></span>
-											<span class="fpccEntranceZip"></span>
+						<div id="fpccSearchBack">
+							<a href="#"><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg>
+							 Back to Search Results</a>
+						</div>
+						<div id="fpccSearchStatus"></div>
+						<!-- NEW SEARCH END -->
+
+						<div id="fpccSearchResults" class="fpccResults fpccUnit"></div>
+						<div class="detailPanel" >
+							<div id="fpccPreserveName" class="detailPanelBanner"><!-- HERE added #fpccPreserveName ID -->
+								<span class="trailName"></span>
+								<!-- HERE, replaced with SVG -->
+								<svg class="icon icon-x closeDetail"><use xlink:href="icons/defs.svg#icon-x"></use></svg>
+							</div>
+							<div id="fpccPreserveInfo" class="detailPanelBody"><!-- HERE added #fpccPreserveInfo ID -->
+								<!-- NEW GUTS START -->
+								<div class="fpccContainer">  
+									<!-- ENTRANCE START -->
+									<div class="fpccEntrance fpccUnit clearfix">
+										<div class="fpccSign clearfix">
+											<svg class="icon icon-sign"><use xlink:href="icons/defs.svg#icon-sign"></use></svg>
+											<div class="fpccAddress">
+												<span class="fpccLabel fpccBlock">Entrance</span>
+												<span class="fpccEntranceAddress"></span>
+												<span class="fpccEntranceCity"></span>
+												<span class="fpccEntranceState"></span>
+												<span class="fpccEntranceZip"></span>
+											</div>
+										</div>
+										<a href="" target="_blank" id="entranceDirections" class="fpccButton fpccDirections">Directions</a><!-- HERE added fpccButton class -->
+									</div>          
+									<!--ENTRANCE END -->
+									<!-- DESCRIPTION START -->
+									<div class="fpccDescription fpccUnit"></div>
+									<!-- DESCRIPTION END -->
+									<!-- AMENITIES START -->
+									<div class="fpccAmenities fpccUnit clearfix">
+									<!-- LOCATIONS (will also appear on map) -->
+									<!-- ACTIVITIES - not on map -->
+									</div>
+									<!-- AMENITIES END -->
+									<!-- TRAILS SYSTEM ACCESS START -->
+									<div class="fpccTrails fpccUnit clearfix">
+										<svg class="icon icon-trail-marker"><use xlink:href="icons/defs.svg#icon-trail-marker"></use></svg>
+										<div class="fpccTrailHeader">
+											<span class="fpccLabel fpccBlock">Trail System Access</span>
+											<span class="fpccTrailName">Des Plaines Trail</span>
+										</div>
+										<div class="fpccTrailDescription">
+											<div class="fpccTrailMaps clearfix trailMaps">
+												<span class="fpccLabel">PDF Trail Map:</span>
+												<a class="fpccButton" href="#PDFMAP">English</a>
+												<a class="fpccButton" href="#PDFMAP">Español</a>	
+											</div><!-- HERE, moved and updated this -->
+										</div>
+										<div class="fpccTrailSegment">
+											<div class="fpccSegmentOverview fpccyellow clearfix">
+												<span class="fpccSegmentName">Yellow Trail</span><span class="fpccTrailUse"><svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg><svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg><svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg><svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg></span>
+											</div>
+											<div class="fpccSegmentDetails clearfix">
+												<span class="fpccLabel fpccLeft">Length<span>17.2 mi</span></span><span class="fpccLabel fpccRight">Surface<span>unpaved</span></span>
+											</div>
+										</div>
+										<div class="fpccTrailSegment">
+											<div class="fpccSegmentOverview fpccgreen clearfix"><span class="fpccSegmentName">Green Spur</span><span class="fpccTrailUse"><svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg><svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg><svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg><svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg></span></div>
+											<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>0.2 mi</span></span><span class="fpccLabel fpccRight">Surface<span>unpaved</span></span></div>
+										</div>
+										<div class="fpccTrailSegment">
+											<div class="fpccSegmentOverview fpccorange clearfix"><span class="fpccSegmentName">Orange Spur</span><span class="fpccTrailUse"><svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg><svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg><svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg><svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg></span></div>
+											<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>0.2 mi</span></span><span class="fpccLabel fpccRight">Surface<span>unpaved</span></span></div>
+										</div>
+										<div class="fpccTrailSegment">
+											<div class="fpccSegmentOverview fpccpurple clearfix"><span class="fpccSegmentName">Purple Spur</span><span class="fpccTrailUse"><svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg><svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg><svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg><svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg></span></div>
+											<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>0.2 mi</span></span><span class="fpccLabel fpccRight">Surface<span>unpaved</span></span></div>
+										</div>
+										<div class="fpccTrailSegment">
+											<div class="fpccSegmentOverview fpccgrey clearfix"><span class="fpccSegmentName">Grey Spur</span><span class="fpccTrailUse"><svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg><svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg><svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg><svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg></span></div>
+											<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>0.2 mi</span></span><span class="fpccLabel fpccRight">Surface<span>unpaved</span></span></div>
+										</div>
+										<div class="fpccTrailSegment">
+											<div class="fpccSegmentOverview fpccred clearfix"><span class="fpccSegmentName">Red Spur</span><span class="fpccTrailUse"><svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg><svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg><svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg><svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg></span></div>
+											<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>0.2 mi</span></span><span class="fpccLabel fpccRight">Surface<span>unpaved</span></span></div>
+										</div>
+										<div class="fpccTrailSegment">
+											<div class="fpccSegmentOverview fpcctan clearfix"><span class="fpccSegmentName">Tan Spur</span><span class="fpccTrailUse"><svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg><svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg><svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg><svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg></span></div>
+											<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>0.2 mi</span></span><span class="fpccLabel fpccRight">Surface<span>unpaved</span></span></div>
+										</div>
+										<div class="fpccTrailSegment">
+											<div class="fpccSegmentOverview fpccbrown clearfix"><span class="fpccSegmentName">Brown Spur</span><span class="fpccTrailUse"><svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg><svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg><svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg><svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg></span></div>
+											<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>0.2 mi</span></span><span class="fpccLabel fpccRight">Surface<span>unpaved</span></span></div>
+										</div>
+										<div class="fpccTrailSegment">
+											<div class="fpccSegmentOverview fpccblue clearfix"><span class="fpccSegmentName">Blue Spur</span><span class="fpccTrailUse"><svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg><svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg><svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg><svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg></span></div>
+											<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>0.2 mi</span></span><span class="fpccLabel fpccRight">Surface<span>unpaved</span></span></div>
+										</div>
+										<div class="fpccTrailSegment">
+											<div class="fpccSegmentOverview fpccblack clearfix"><span class="fpccSegmentName">Black Spur</span><span class="fpccTrailUse"><svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg><svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg><svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg><svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg></span></div>
+											<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>0.2 mi</span></span><span class="fpccLabel fpccRight">Surface<span>unpaved</span></span></div>
 										</div>
 									</div>
-									<div class="fpccDirections"><a href="#DIRECTIONS" target="_blank">Directions</a></div>
-								</div>
-								<!--ENTRANCE END -->
-
-								<!-- TRAILMAPS START (IF THEY EXIST) -->
-								<div class="fpccTrailMaps fpccUnit clearfix trailMaps">
-									<span class="fpccLabel">PDF Trail Map:</span>
-									<div class="fpccMap"><a href="#PDFMAP">English</a></div>
-									<div class="fpccMap"><a href="#PDFMAP">Espa&ntilde;ol</a></div>
-								</div>
-								<!-- TRAILMAPS END -->
-
-								<!-- DESCRIPTION START -->
-								<div class="fpccDescription fpccUnit fpccEntranceDescription"></div>
-								<!-- DESCRIPTION END -->
-
-								<!-- AMENITIES START -->
-								<div class="fpccAmenities fpccUnit clearfix">
-									<!-- LOCATIONS (will also appear on map) -->
-								</div>
-								<!-- AMENITIES END -->
-
-								<!-- TRAILS SYSTEM ACCESS START -->
-								<div class="fpccTrails fpccUnit clearfix">
-                  <svg class="icon icon-trail-marker"><use xlink:href="icons/defs.svg#icon-trail-marker"></use></svg>
-									<div class="fpccTrailHeader">
-										<span class="fpccLabel fpccBlock">Trail System Access</span>
-										<span class="fpccTrailName">Des Plaines Trail</span>
+									<!-- TRAILS SYSTEM ACCESS END -->
+									<!-- EXTRA LINKS START -->
+									<div class="fpccLinks fpccUnit clearfix">
+										<div class="fpccMoreHeader">
+											<span class="fpccMoreName">More Information</span>
+										</div>
+										<ul>
+											<li><a class="fpccMore" href="web_link" target="_blank">Webpage</a></li>
+											<li><a class="fpccMore" href="map_link" target="_blank">English Map (PDF)</a></li>
+											<li><a class="fpccMore" href="map_link_spanish" target="_blank">Spanish Map (PDF)</a></li>
+											<li><a class="fpccMore" href="picnic_link" target="_blank">Picnic Grove Map (PDF)</a></li>
+											<li><a class="fpccMore" href="vol_link" target="_blank">Volunteer Opportunity</a></li>
+											<li><a class="fpccMore" href="vol_link2" target="_blank">Volunteer Opportunity</a></li>
+										</ul>
 									</div>
-									<div class="fpccDescription fpccTrailDescription"></div>
-
-									<div class="fpccTrailSegments"></div>
+									<!-- EXTRA LINKS END -->
+									<!-- SOCIAL START -->
+									<div class="fpccSocial fpccUnit clearfix">
+										<div class="fpccShare">Share Your Plans:</div>
+										<a href="#EMAIL" id="fpccSocialEmail" class="fpccSocialIcon">
+											<svg class="icon icon-email"><use xlink:href="icons/defs.svg#icon-email"></use></svg> 
+											<span>Email</span>
+										</a>
+										<a href="#TWITTER" id="fpccSocialTwitter" class="fpccSocialIcon">
+											<svg class="icon icon-twitter"><use xlink:href="icons/defs.svg#icon-twitter"></use></svg> 
+											<span>Twitter</span>
+										</a>
+										<a href="#FACEBOOK" id="fpccSocialFacebook" class="fpccSocialIcon">
+											<svg class="icon icon-facebook"><use xlink:href="icons/defs.svg#icon-facebook"></use></svg> 
+											<span>Facebook</span>
+										</a>
+									</div>
+									<!-- SOCIAL END -->
 								</div>
-								<!-- TRAILS SYSTEM ACCESS END -->
-
-								<!-- TRAILMAPS START (IF THEY EXIST) for Trailhead view -->
-								<div class="fpccTrailMaps fpccUnit clearfix trailheadTrailMaps">
-									<span class="fpccLabel">PDF Trail Map:</span>
-									<div class="fpccMap"><a href="#PDFMAP">English</a></div>
-									<div class="fpccMap"><a href="#PDFMAP">Espa&ntilde;ol</a></div>
-								</div>
-								<!-- TRAILMAPS END -->
-
-                <!-- EXTRA LINKS START -->
-                <div class="fpccLinks fpccUnit clearfix"></div>
-                <!-- EXTRA LINKS END -->
-
-								<!-- SOCIAL START -->
-								<div class="fpccSocial fpccUnit clearfix">
-									<div class="fpccShare">Share Your Plans:</div>
-									<a href="#EMAIL" class="fpccSocialIcon" id="fpccSocialEmail">
-										<svg class="icon icon-email"><use xlink:href="icons/defs.svg#icon-email"></use></svg>
-										<span>Email</span>
-									</a>
-									<a target="_blank" href="#TWITTER" class="fpccSocialIcon" id ="fpccSocialTwitter">
-										<svg class="icon icon-twitter"><use xlink:href="icons/defs.svg#icon-twitter"></use></svg>
-										<span>Twitter</span>
-									</a>
-									<a target="_blank" href="#FACEBOOK" class="fpccSocialIcon" id="fpccSocialFacebook">
-										<svg class="icon icon-facebook"><use xlink:href="icons/defs.svg#icon-facebook"></use></svg>
-										<span>Facebook</span>
-									</a>
-								</div>
-								<!-- SOCIAL END -->
 							</div>
-							<!-- NEW GUTS END -->
 						</div>
-					</div>
+					</div><!-- HERE #fpccMainContainer END -->
 				</section>
+
+				
 			</div>
-		</div>
+		
 	</div>
 
 	

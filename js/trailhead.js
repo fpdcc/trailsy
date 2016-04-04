@@ -5,6 +5,16 @@ console.log("start");
 
 $(document).ready(startup);
 
+function setHeights() {
+      var h = $(window).height();
+      var k = $("#fpccBrand").outerHeight();
+      var m = $("#fpccPreserveName").outerHeight();
+      var o = $("#fpccSearchBack").outerHeight();
+      var q = $("#fpccSearchContainer").outerHeight();
+      $('#fpccPreserveInfo').css('max-height', (h-(k + m + o + q)) );
+      $('#fpccSearchResults').css('max-height', (h-(k + o + q)) );
+}
+
 /* The Big Nested Function
 ==========================*/
 
@@ -64,6 +74,7 @@ function startup() {
     API_HOST = "http://fpcc.smartchicagoapps.org";
   }
   console.log("API_HOST = " + API_HOST);
+
 
   //   API_HOST = window.location.protocol + "//" + window.location.host;
   // } else if (window.location.hostname.split(".")[0] == "trailsyserver-dev") {
@@ -209,6 +220,7 @@ function startup() {
   // $("#redoSearch").click(reorderTrailsWithNewLocation);
 
   $('.closeDetail').click(closeDetailPanel); // Close the detail panel!
+  $('#fpccSearchBack').click(closeDetailPanel);
   $('.detailPanelControls').click(changeDetailPanel); // Shuffle Through Trails Shown in Detail Panel
   $('.filter').change(filterChangeHandler);
 
@@ -317,6 +329,7 @@ function startup() {
 
   function initialSetup() {
     console.log("initialSetup");
+    openResultsList();
     setupGeolocation(function() {
       if (geoSetupDone) {
         return;
@@ -1836,15 +1849,16 @@ function startup() {
 
   function makeTrailDivs(myTrailheads) {
     console.log("makeTrailDivs");
+    closeDetailPanel();
     orderedTrails = [];
     var trailList = {}; // used to see if trail div has been built yet.
     var divCount = 1;
     //var topLevelID = SMALL ? "mobile" : "desktop";
     var topLevelID = "desktop";
-    var trailListElementList = document.getElementById(topLevelID).getElementsByClassName("fpccResults");
-    trailListElementList[0].innerHTML = "";
+    //var trailListElementList = document.getElementById(topLevelID).getElementsByClassName("fpccResults");
+    //trailListElementList[0].innerHTML = "";
     var myTrailheadsLength = myTrailheads.length;
-    var trailListContents = "<h4>" + myTrailheadsLength + " RESULTS FOUND</h4>";
+    var trailListContents = "";
     //if(myTrailheads.length === 0) return;
     myTrailheads.sort(function(a, b){
      return a.properties.distance-b.properties.distance
@@ -1945,10 +1959,10 @@ function startup() {
         // console.log(time + ": " + "end loop");
       //}
     }
-    trailListElementList[0].innerHTML = trailListContents;
+    $("#fpccSearchResults").html(trailListContents);
     $(".fpccEntry").click(populateTrailsForTrailheadDiv);
     //$(".fpccEntry").click(populateTrailsForTrailheadDiv).click(trailDivClickHandler);
-    $(".trails-count").html(orderedTrails.length + " RESULTS FOUND");
+    $("#fpccSearchStatus").html(orderedTrails.length + " Results Found");
     console.log("end makeTrailDivs 4");
   }
 
@@ -1998,9 +2012,18 @@ function startup() {
     console.log("openDetailPanel");
     $('.accordion').hide();
     $('.aboutPage').hide();
+
+    // New versions
+
+    $('#fpccSearchStatus').hide();
+    $('#fpccSearchResults').hide();
+    $('#fpccSearchBack').show();
     $('.detailPanel').show();
-    var myDiv = document.getElementById('detailPanelBodySection');
-    myDiv.scrollTop = 0;
+    setHeights();
+
+
+    //var myDiv = document.getElementById('detailPanelBodySection');
+    //myDiv.scrollTop = 0;
     if (!SMALL) {
       //$('.accordion').hide();
     }
@@ -2020,7 +2043,12 @@ function startup() {
 
   function closeDetailPanel() {
     console.log("closeDetailPanel");
+   // New versions
+    $('#fpccSearchStatus').show();
+    $('#fpccSearchResults').show();
+    $('#fpccSearchBack').hide();
     $('.detailPanel').hide();
+
     $('.accordion').show();
     $('.trailhead-trailname.selected').removeClass("detail-open");
     highlightTrailhead(null,null);
@@ -2033,6 +2061,15 @@ function startup() {
     //currentMultiTrailLayer = {};
 
     // map.invalidateSize();
+  }
+
+  function openResultsList() {
+    console.log("openResultsList");
+    // New versions
+    $('#fpccSearchStatus').show();
+    $('#fpccSearchResults').show();
+    $('#fpccSearchBack').hide();
+    $('.detailPanel').hide();
   }
 
   function detailPanelHoverIn(e) {
@@ -2144,7 +2181,7 @@ function startup() {
     enableTrailControls();
 
     resetDetailPanel();
-    var myDiv = document.getElementById('detailPanelBodySection');
+    var myDiv = document.getElementsByClassName('detailPanel');
     myDiv.scrollTop = 0;
 
     if (trail) {
@@ -2247,7 +2284,7 @@ function startup() {
       }
 
       if (trailhead.properties.name) {
-        $('.detailPanel .detailPanelBanner .entranceName').html(trailhead.properties.name);
+        $('#fpccPreserveName .trailName').html(trailhead.properties.name);
       }
 
       if (trailhead.properties.address) {
@@ -2256,7 +2293,8 @@ function startup() {
 
       var directionsUrl = "http://maps.google.com?saddr=" + currentUserLocation.lat + "," + currentUserLocation.lng +
         "&daddr=" + trailhead.geometry.coordinates[1] + "," + trailhead.geometry.coordinates[0];
-      $('.detailPanel .fpccDirections a').attr("href", directionsUrl).attr("target", "_blank");
+      var a = document.getElementById('entranceDirections'); 
+      a.href = directionsUrl;
 
       // swimming = Aquatic Center
       if (trailhead.properties.swimming) {
