@@ -2173,7 +2173,7 @@ function startup() {
       $('.detailPanel .detailBottomRow .detailTrailheadAmenities .detailTrailheadIcons .restrooms').html("");
       $('.detailPanel .detailBottomRow .detailTrailheadAmenities .detailTrailheadIcons .parking').html("");
       $('.detailPanel .detailDescription').html("");
-      $('.detailPanel .fpccTrailDescription').html("");
+      $('.detailPanel #trailDescription').html("");
       $('.detailPanel .fpccEntranceDescription').html("");
       $('.detailPanel .fpccLinks').html("");
 
@@ -2196,9 +2196,11 @@ function startup() {
         $('.detailPanel .trailheadTrailMaps').show();
         $('.detailPanel .fpccTrailHeader').show();
         if (trail.properties.description) {
-          $('.detailPanel .fpccTrailDescription').html(trail.properties.description);
-          $('.detailPanel .fpccTrailDescription').show();
+          //document.getElementById('trailDescription').innerHTML = trail.properties.description;
+          $('.detailPanel #trailDescription').html(trail.properties.description);
+          $('.detailPanel #trailDescription').show();
         }
+        $('.detailPanel .fpccTrailDescription').show();
         $('.detailPanel .fpccTrailSegments').show();
         $('.detailPanel .fpccTrailSegments').html(trail.properties.secondaryHTML);
         $('.detailPanel .fpccTrails').show();
@@ -2215,7 +2217,7 @@ function startup() {
     }
 
     if (trailhead) {
-      $('.detailPanel .trailMaps').hide();
+      $('.detailPanel .trailMaps').show();
       $('.detailPanel .fpccEntrance').show();
       $('.detailPanel .fpccAmenities').show();
 
@@ -2231,8 +2233,8 @@ function startup() {
         if (trailhead.properties.web_link) {
           entranceDescription += '<a target="_blank" href="' + trailhead.properties.web_link + '" class="fpccMore">Read more &gt;</a>';
         }
-        $('.detailPanel .fpccEntranceDescription').html(entranceDescription);
-        $('.detailPanel .fpccEntranceDescription').show();
+        $('.detailPanel .fpccDescription').html(entranceDescription);
+        $('.detailPanel .fpccDescription').show();
       }
 
       var extraLinksText = '<div class="fpccMoreHeader">';
@@ -2439,7 +2441,7 @@ function startup() {
     } else {
       $('.detailPanel .trailMaps').show();
       $('.detailPanel .fpccEntrance').hide();
-      $('.detailPanel .fpccEntranceDescription').hide();
+      $('.detailPanel .fpccDescription').hide();
       $('.detailPanel .fpccTrailHeader').hide();
       $('.detailPanel .fpccTrails .icon-trail-marker').hide();
       $('.detailPanel .trailheadTrailMaps').hide();
