@@ -2186,7 +2186,7 @@ function startup() {
     enableTrailControls();
 
     resetDetailPanel();
-    var myDiv = document.getElementsByClassName('detailPanel');
+    var myDiv = document.getElementsByClassName('fpccPreserveInfo');
     myDiv.scrollTop = 0;
 
     if (trail) {
@@ -2199,6 +2199,9 @@ function startup() {
           //document.getElementById('trailDescription').innerHTML = trail.properties.description;
           $('.detailPanel #trailDescription').html(trail.properties.description);
           $('.detailPanel #trailDescription').show();
+        }
+        if (trail.properties.name) {
+          $('#fpccPreserveName .trailName').html(trail.properties.name);
         }
         $('.detailPanel .fpccTrailDescription').show();
         $('.detailPanel .fpccTrailSegments').show();
