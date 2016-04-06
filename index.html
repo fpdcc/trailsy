@@ -86,7 +86,40 @@
 						<!-- HERE, NEW SEARCH START all new, may need to adjust in staging-->
 						<div id="fpccSearchContainer" class="fpccUnit">
 							<form>
-								<input class="" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="Search by Location or Activity">
+								<select class="js-example-basic-multiple select2Searchbox select2-border filter" data-filter="activityFilter" multiple="multiple">
+									<optgroup label="Popular">
+										<option value="hiking">Hiking</option>
+										<option value="cycling">Bicycling</option>
+										<option value="dog_friendly">Off-Leash Dog Area</option>
+										<option value="camping">Campground</option>
+										<option value="nature_center">Nature Center</option>
+										<option value="picnic_event_space">Picnic/Event Space</option>
+										<option value="Dog Friendly (on-leash)">Dog Friendly (on-leash)</option>
+									</optgroup>
+									<optgroup label="Everything">
+										<option value="boat_rental">Boat Rental</option>
+										<option value="picnic_grove">Picnic Grove</option>
+										<option value="shelter">Picnic Grove (with shelter)</option>
+										<option value="cross_country">Cross-Country Skiing</option>
+										<option value="equestrian">Equestrian</option>
+										<option value="birding">Birding Hotspot</option>
+										<option value="fishing">Fishing</option>
+										<option value="canoe">Canoe Landing</option>
+										<option value="snowmobile">Snowmobile Area</option>
+										<option value="m_boat">Model Sailboat</option>
+										<option value="m_airplane">Model Airplane Flying Field</option>
+										<option value="sledding">Sledding</option>
+										<option value="boat_ramp">Boat Launch</option>
+										<option value="swimming">Aquatic Center</option>
+										<option value="golf">Golf</option>
+										<option value="comfortstation">Public Bathroom</option>
+										<option value="pavilion">Indoor Event Space</option>
+ 										<!--<option value="bicycle rental">Bike Rental</option>
+ 										<option value="frisbee golf">Disc Golf</option> -->
+										<option value="parking">Parking</option>
+									</optgroup>
+								</select>
+								<!-- <input class="" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="Search by Location or Activity"> -->
 							</form>
 							<button class="fpccButton">Search</button>
 						</div>
