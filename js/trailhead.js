@@ -1000,10 +1000,10 @@ function startup() {
 
       var activityIcon = L.divIcon({
         className: 'icon-map' + iconType,
-        html: '<svg class="icon icon-map ' + iconType + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg>' + iconName,
+        html: '<svg class="icon icon-map ' + iconType + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg><br />' + iconName,
         iconAnchor: [13 * 0.60, 33 * 0.60],
         popupAnchor: [0, -3],
-        iconSize: [90 * 0.60, 75 * 0.60] // size of the icon
+        iconSize: [125 * 0.60, 75 * 0.60] // size of the icon
       });
 
       // var newMarker = new L.CircleMarker(currentFeatureLatLng, {
@@ -2186,7 +2186,7 @@ function startup() {
     enableTrailControls();
 
     resetDetailPanel();
-    var myDiv = document.getElementsByClassName('fpccPreserveInfo');
+    var myDiv = document.getElementsByClassName('fpccContainer');
     myDiv.scrollTop = 0;
 
     if (trail) {
