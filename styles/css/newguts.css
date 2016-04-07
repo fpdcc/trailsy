@@ -28,7 +28,7 @@
 .fpccTrails.fpccTrailsFeature{border-top:none;background:none;padding-top:0}
 .fpccTrails .icon-trail-marker{width:2.5em;height:2.5em;margin-right:.5em;vertical-align:top;margin-top:3px}
 .fpccTrailHeader,.fpccMoreHeader{display:inline-block}
-.fpccTrailName,.fpccSegmentName,.fpccMoreName{font-family:Helvetica, Arial, sans-serif;font-size:1.5em;line-height:1;font-weight:bold;color:#585747;display:block}
+.fpccTrailName,.fpccSegmentName,.fpccMoreName{font-family:Helvetica, Arial, sans-serif;font-size:1.5em;line-height:1;font-weight:bold;color:#585747;display:block;text-transform:capitalize;}
 .fpccSegmentName{font-size:1.25em;float:left;margin-top:2px}
 .fpccTrailSegment{padding:.75em 0 0;margin:.75em 0;border-top:1px dotted #CCC}
 .fpccTrails .fpccTrailDescription{margin:0;padding:1em 0 .5em;border-bottom:none;}
