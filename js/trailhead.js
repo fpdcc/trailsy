@@ -1065,7 +1065,8 @@ function startup() {
         var zoomFeatureGroup = new L.FeatureGroup(zoomArray);
         var zoomFeatureGroupBounds = zoomFeatureGroup.getBounds();
         map.fitBounds(zoomFeatureGroupBounds,{
-           maxZoom: map.getZoom()
+           maxZoom: map.getZoom(),
+           paddingTopLeft: centerOffset
         })  
       }
 
@@ -1150,10 +1151,14 @@ function startup() {
     var zoomFeatureGroup = new L.FeatureGroup(zoomArray);
     var zoomFeatureGroupBounds = zoomFeatureGroup.getBounds();
     if ( map.getBoundsZoom(zoomFeatureGroupBounds) >= map.getZoom() ) {
-      map.fitBounds(zoomFeatureGroupBounds);
+      map.fitBounds(zoomFeatureGroupBounds,
+        {
+          paddingTopLeft: centerOffset
+        });
     } else {
       map.fitBounds(zoomFeatureGroupBounds,{
-        maxZoom: map.getZoom()
+        maxZoom: map.getZoom(),
+        paddingTopLeft: centerOffset
       })
     }
     if (trailhead.trails) {
@@ -1840,7 +1845,9 @@ function startup() {
     }
     currentTrailheadLayerGroup.addTo(map);
     showActivities();
-    map.fitBounds(currentTrailheadLayerGroup.getBounds());
+    map.fitBounds(currentTrailheadLayerGroup.getBounds(), {
+      paddingTopLeft: centerOffset
+    });
     console.log("mapActiveTrailheads end");
   }
 
@@ -2634,7 +2641,7 @@ function startup() {
     }
     console.log("zoomFeatureGroup= " + zoomFeatureGroup);
     map.fitBounds(zoomFeatureGroup.getBounds(), {
-          //paddingTopLeft: centerOffset
+      paddingTopLeft: centerOffset
     });
     console.log("[populateTrailsForTrailheadDiv] about to run showTrailDetails(trail, trailhead )" + trail + " trailhead= " + trailhead);
     showTrailDetails(trail, trailhead);
@@ -2987,7 +2994,7 @@ function startup() {
       //if (!SMALL && layerBoundsZoom <= MAX_ZOOM && layerBoundsZoom >= MIN_ZOOM) {
         console.log("zoomToLayer currentZoom < layerBoundsZoom");
         map.fitBounds(layer.getBounds(), {
-          //paddingTopLeft: centerOffset
+          paddingTopLeft: centerOffset
         });
     }
 
