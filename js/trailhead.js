@@ -155,7 +155,7 @@ function startup() {
   var currentHighlightedSegmentLayer = null; // Segment that is highlighted.
 
   // Activity Variables
-  var originalActivities = [];
+  var originalActivities = {};
   var allActivityLayer = null
   var currentActivityMarkerArray = [];
   var highlightedActivityMarkerArray = [];
@@ -1060,7 +1060,7 @@ function startup() {
     var trailhead = getTrailheadById(activity.properties.trailhead_id);
     if (trailhead) {
       if ( lastTrailheadId != activity.properties.trailhead_id ) {
-        var zoomArray = highlightedActivityMarkerArray;
+        var zoomArray = highlightedActivityMarkerArray.slice(0);
         console.log("zoomArray = " + zoomArray);
         zoomArray.push(trailhead.marker);
         console.log("zoomArray = " + zoomArray);
@@ -1146,7 +1146,7 @@ function startup() {
     console.log("trailheadMarkerClick");
     highlightTrailhead(id, 0);
     var trailhead = getTrailheadById(id);
-    var zoomArray = highlightedActivityMarkerArray;
+    var zoomArray = highlightedActivityMarkerArray.slice(0);
     console.log("zoomArray = " + zoomArray);
     zoomArray.push(trailhead.marker);
     console.log("zoomArray = " + zoomArray);
@@ -1207,18 +1207,21 @@ function startup() {
   }
 
   function highlightActivities(myTrailhead_id) {
-    console.log("[highlightActivities]");
+    console.log("[highlightActivities] myTrailhead_id = " + myTrailhead_id);
     for (var i = 0; i < highlightedActivityMarkerArray.length; i++) {
       highlightedActivityMarkerArray[i].setOpacity(.5);
     }
     highlightedActivityMarkerArray = [];
-    var trailheadActivities = originalActivities[myTrailhead_id];
-    if (trailheadActivities) {
-      for ( i = 0; i < trailheadActivities.length; i++) {
-        trailheadActivities[i].marker.setOpacity(1);
-        highlightedActivityMarkerArray.push(trailheadActivities[i].marker);
+    if (myTrailhead_id) {
+      var trailheadActivities = originalActivities[myTrailhead_id];
+      if (trailheadActivities) {
+        for ( i = 0; i < trailheadActivities.length; i++) {
+          trailheadActivities[i].marker.setOpacity(1);
+          highlightedActivityMarkerArray.push(trailheadActivities[i].marker);
+        }
       }
     }
+    
   }
 
   function popupCloseHandler(e) {
@@ -2681,7 +2684,7 @@ function startup() {
       trailhead = getTrailheadById(parsed.trailheadID);
       highlightTrailhead(parsed.trailheadID, parsed.highlightedTrailIndex);
       
-      zoomArray = highlightedActivityMarkerArray;
+      zoomArray = highlightedActivityMarkerArray.slice(0);
       console.log("zoomArray = " + zoomArray);
       zoomArray.push(trailhead.marker);
       console.log("zoomArray = " + zoomArray);
@@ -2800,10 +2803,10 @@ function startup() {
     if (trailhead) {
       currentTrailhead = trailhead;
 
-      map.removeLayer(currentTrailhead.marker);
-      currentTrailhead.marker = new L.Marker(currentTrailhead.marker.getLatLng(), {
-        icon: trailheadIcon2
-      }).addTo(map);
+        map.removeLayer(currentTrailhead.marker);
+        currentTrailhead.marker = new L.Marker(currentTrailhead.marker.getLatLng(), {
+          icon: trailheadIcon2
+        }).addTo(map);
       setTrailheadEventHandlers(currentTrailhead);
       highlightTrailInPopup(trailhead, highlightedTrailIndex);
       var popup = new L.Popup({
