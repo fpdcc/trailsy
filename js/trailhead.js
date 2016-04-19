@@ -2351,92 +2351,92 @@ function startup() {
 
       // swimming = Aquatic Center
       if (trailhead.properties.swimming) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity aquatic-center'><svg class='icon icon-aquatic-center'><use xlink:href='icons/defs.svg#icon-aquatic-center'></use></svg> <span class='fpccAmenityTitle'>Aquatic Center</span></div>");
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity aquatic-center'><svg class='icon icon-aquatic-center'><use xlink:href='icons/defs.svg#icon-aquatic-center'></use></svg><span class='fpccAmenityTitle'>Aquatic Center</span></div>");
       }
 
       // cycling = Bicycling
       if (trailhead.properties.cycling) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-bicycling'><use xlink:href='icons/defs.svg#icon-bicycling'></use></svg> <span class='fpccAmenityTitle'>Bicycling</span></div>");
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-bicycling'><use xlink:href='icons/defs.svg#icon-bicycling'></use></svg><span class='fpccAmenityTitle'>Bicycling</span></div>");
       }
 
       // birding = Birding Hotspot
       if (trailhead.properties.birding) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-birding-hotspot'><use xlink:href='icons/defs.svg#icon-birding-hotspot'></use></svg> <span class='fpccAmenityTitle'>Birding Hotspot</span></div>");
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-birding-hotspot'><use xlink:href='icons/defs.svg#icon-birding-hotspot'></use></svg><span class='fpccAmenityTitle'>Birding Hotspot</span></div>");
       }
 
       // boat_ramp = Boat Launch
       if (trailhead.properties.boat_ramp) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-boat-launch'><use xlink:href='icons/defs.svg#icon-boat-launch'></use></svg> <span class='fpccAmenityTitle'>Boat Launch</span></div>");
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-boat-launch'><use xlink:href='icons/defs.svg#icon-boat-launch'></use></svg><span class='fpccAmenityTitle'>Boat Launch</span></div>");
       }
 
       // boat_rental = Boat Rental
       if (trailhead.properties.boat_rental) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-boat-rental'><use xlink:href='icons/defs.svg#icon-boat-rental'></use></svg> <span class='fpccAmenityTitle'>Boat Rental</span></div>");
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-boat-rental'><use xlink:href='icons/defs.svg#icon-boat-rental'></use></svg><span class='fpccAmenityTitle'>Boat Rental</span></div>");
       }
 
       // camping = Campground
       if (trailhead.properties.camping) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-camp'><use xlink:href='icons/defs.svg#icon-camp'></use></svg> <span class='fpccAmenityTitle'>Campground</span></div>");
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-camp'><use xlink:href='icons/defs.svg#icon-camp'></use></svg><span class='fpccAmenityTitle'>Campground</span></div>");
       }
 
       // canoe = Canoe Landing
       if (trailhead.properties.canoe) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-canoe-landing'><use xlink:href='icons/defs.svg#icon-canoe-landing'></use></svg> <span class='fpccAmenityTitle'>Canoe Landing</span></div>");
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-canoe-landing'><use xlink:href='icons/defs.svg#icon-canoe-landing'></use></svg><span class='fpccAmenityTitle'>Canoe Landing</span></div>");
       }
 
       // comfortstation = Comfort Station/Toilet
       if (trailhead.properties.comfortstation) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-restroom'><use xlink:href='icons/defs.svg#icon-restroom'></use></svg> <span class='fpccAmenityTitle'>Comfort Station/Toilet</span></div>");
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-restroom'><use xlink:href='icons/defs.svg#icon-restroom'></use></svg><span class='fpccAmenityTitle'>Comfort Station/Toilet</span></div>");
       }
 
       // cross_country = Cross-Country Skiing
       if (trailhead.properties.cross_country) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-cross-country-skiing'><use xlink:href='icons/defs.svg#icon-cross-country-skiing'></use></svg> <span class='fpccAmenityTitle'>Cross-Country Skiing</span></div>");
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-cross-country-skiing'><use xlink:href='icons/defs.svg#icon-cross-country-skiing'></use></svg><span class='fpccAmenityTitle'>Cross-Country Skiing</span></div>");
       }
 
       // ecological = Ecological Management
       if (trailhead.properties.ecological) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-ecological-management-area'><use xlink:href='icons/defs.svg#icon-ecological-management-area'></use></svg> <span class='fpccAmenityTitle'>Ecological Management</span></div>");
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-ecological-management-area'><use xlink:href='icons/defs.svg#icon-ecological-management-area'></use></svg><span class='fpccAmenityTitle'>Ecological Management</span></div>");
       }
 
       // equestrian = Equestrian
       if (trailhead.properties.equestrian) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-equestrian'><use xlink:href='icons/defs.svg#icon-equestrian'></use></svg> <span class='fpccAmenityTitle'>Equestrian</span></div>");
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-equestrian'><use xlink:href='icons/defs.svg#icon-equestrian'></use></svg><span class='fpccAmenityTitle'>Equestrian</span></div>");
       }
 
       // fishing = Fishing
       if (trailhead.properties.fishing) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-fishing'><use xlink:href='icons/defs.svg#icon-fishing'></use></svg> <span class='fpccAmenityTitle'>Fishing</span></div>");
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-fishing'><use xlink:href='icons/defs.svg#icon-fishing'></use></svg><span class='fpccAmenityTitle'>Fishing</span></div>");
       }
 
       // golf = Golf
       if (trailhead.properties.golf) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-golf-course-driving-range'><use xlink:href='icons/defs.svg#icon-golf-course-driving-range'></use></svg> <span class='fpccAmenityTitle'>Golf</span></div>");
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-golf-course-driving-range'><use xlink:href='icons/defs.svg#icon-golf-course-driving-range'></use></svg><span class='fpccAmenityTitle'>Golf</span></div>");
       }
 
       // hiking = Hiking
       if (trailhead.properties.hiking) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-hiking'><use xlink:href='icons/defs.svg#icon-hiking'></use></svg> <span class='fpccAmenityTitle'>Hiking</span></div>");
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-hiking'><use xlink:href='icons/defs.svg#icon-hiking'></use></svg><span class='fpccAmenityTitle'>Hiking</span></div>");
       }
 
       // m_airplane = Model Airplane Flying Field
       if (trailhead.properties.m_airplane) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-model-airplane'><use xlink:href='icons/defs.svg#icon-model-airplane'></use></svg> <span class='fpccAmenityTitle'>Model Airplane Flying Field</span></div>");
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-model-airplane'><use xlink:href='icons/defs.svg#icon-model-airplane'></use></svg><span class='fpccAmenityTitle'>Model Airplane Flying Field</span></div>");
       }
 
       // m_boat = Model Sailboat
       if (trailhead.properties.m_boat) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-model-sailboat'><use xlink:href='icons/defs.svg#icon-model-sailboat'></use></svg> <span class='fpccAmenityTitle'>Model Sailboat</span></div>");
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-model-sailboat'><use xlink:href='icons/defs.svg#icon-model-sailboat'></use></svg><span class='fpccAmenityTitle'>Model Sailboat</span></div>");
       }
 
       // nature_center = Nature Center
       if (trailhead.properties.nature_center) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-nature-center'><use xlink:href='icons/defs.svg#icon-nature-center'></use></svg> <span class='fpccAmenityTitle'>Nature Center</span></div>");
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-nature-center'><use xlink:href='icons/defs.svg#icon-nature-center'></use></svg><span class='fpccAmenityTitle'>Nature Center</span></div>");
       }
 
       // no_alcohol = No Alcohol
       if (trailhead.properties.no_alcohol) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-no-alcohol'><use xlink:href='icons/defs.svg#icon-no-alcohol'></use></svg> <span class='fpccAmenityTitle'>No Alcohol</span></div>");
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-no-alcohol'><use xlink:href='icons/defs.svg#icon-no-alcohol'></use></svg><span class='fpccAmenityTitle'>No Alcohol</span></div>");
       }
 
       // no_parking = No Parking
@@ -2446,17 +2446,17 @@ function startup() {
 
       //  dog_friendly = Off-Leash Dog Area
       if (trailhead.properties.dog_friendly) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-off-leash-dog-area'><use xlink:href='icons/defs.svg#icon-off-leash-dog-area'></use></svg> <span class='fpccAmenityTitle'>Off-Leash Dog Area</span></div>");
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-off-leash-dog-area'><use xlink:href='icons/defs.svg#icon-off-leash-dog-area'></use></svg><span class='fpccAmenityTitle'>Off-Leash Dog Area</span></div>");
       }
 
       // parking = Parking
       if (trailhead.properties.parking) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-parking'><use xlink:href='icons/defs.svg#icon-parking'></use></svg> <span class='fpccAmenityTitle'>Parking</span></div>");
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-parking'><use xlink:href='icons/defs.svg#icon-parking'></use></svg><span class='fpccAmenityTitle'>Parking</span></div>");
       }
 
       // pavilion = Pavilion/Event Space
       if (trailhead.properties.pavilion) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-facility'><use xlink:href='icons/defs.svg#icon-facility'></use></svg> <span class='fpccAmenityTitle'>Pavilion/Event Space</span></div>");
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-facility'><use xlink:href='icons/defs.svg#icon-facility'></use></svg><span class='fpccAmenityTitle'>Pavilion/Event Space</span></div>");
       }
 
       // picnic_grove = Picnic Grove
@@ -2466,22 +2466,22 @@ function startup() {
       
       // shelter = Picnic Grove (with shelter)
       if (trailhead.properties.shelter) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-picnic-grove-shelter'><use xlink:href='icons/defs.svg#icon-picnic-grove-shelter'></use></svg> <span class='fpccAmenityTitle'>Picnic Grove (with shelter)</span></div>");
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-picnic-grove-shelter'><use xlink:href='icons/defs.svg#icon-picnic-grove-shelter'></use></svg><span class='fpccAmenityTitle'>Picnic Grove (with shelter)</span></div>");
       }
 
       // sledding = Sledding
       if (trailhead.properties.sledding) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-sledding'><use xlink:href='icons/defs.svg#icon-sledding'></use></svg> <span class='fpccAmenityTitle'>Sledding</span></div>");
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-sledding'><use xlink:href='icons/defs.svg#icon-sledding'></use></svg><span class='fpccAmenityTitle'>Sledding</span></div>");
       }
 
       // snowmobile = Snowmobile Area
       if (trailhead.properties.snowmobile) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-snowmobiling'><use xlink:href='icons/defs.svg#icon-snowmobiling'></use></svg> <span class='fpccAmenityTitle'>Snowmobile Area</span></div>");
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-snowmobiling'><use xlink:href='icons/defs.svg#icon-snowmobiling'></use></svg><span class='fpccAmenityTitle'>Snowmobile Area</span></div>");
       }
 
       // trailacces = Trail System Access
       if (trailhead.properties.trailacces) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-trail-marker'><use xlink:href='icons/defs.svg#icon-trail-marker'></use></svg> <span class='fpccAmenityTitle'>Trail System Access</span></div>");
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-trail-marker'><use xlink:href='icons/defs.svg#icon-trail-marker'></use></svg><span class='fpccAmenityTitle'>Trail System Access</span></div>");
       }
 
       if (trailhead.properties.special_link) {
