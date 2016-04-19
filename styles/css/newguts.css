@@ -226,7 +226,7 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 .fpccPhoto{max-height:195px;max-width:384px}
 
 /* Panel main.css overrides */
-#fpccPreserveInfo{max-height:none}
+#fpccPreserveInfo{max-height:none;overflow-y:scroll;}
 .trailListColumn .detailPanel{max-height:none}
 .trailListColumn .title-row header .navbar-inner .logo{margin:0;width:270px}
 .trailListColumn .title-row header .navbar-inner{padding:.35em 0 .5em 0;width:auto;margin:0 42px;position:inherit}

@@ -1273,8 +1273,9 @@ function startup() {
         //console.log("thisSecondaryTrail= " + thisSecondaryTrail);
         var secondaryHTML = '<div class="fpccTrailSegment"><div class="fpccSegmentOverview fpcc';
         secondaryHTML += thisSecondaryTrail.properties.trail_color
-        if (thisSecondaryTrail.properties.trail_type.toLowerCase() == "unpaved" || thisSecondaryTrail.properties.trail_type.toLowerCase() == "primitive" ) {
-          secondaryHTML += " fpcc" + thisSecondaryTrail.properties.trail_type;
+
+        if (thisSecondaryTrail.properties.trail_type.toLowerCase() != "paved") {
+          secondaryHTML += " fpccUnpaved";
         }
         secondaryHTML += ' clearfix"><span class="fpccSegmentName">';
         secondaryHTML += thisSecondaryTrail.properties.trail_color + ' ' + thisSecondaryTrail.properties.trail_type;
@@ -2164,9 +2165,17 @@ function startup() {
   }
 
   function resetDetailPanel() {
+      $("#fpccPreserveInfo").animate({ scrollTop: 0 }, 'fast');
+      $('.detailPanel .fpccPhoto').hide();
       $('.detailPanel .detailPanelBanner .entranceName').html("");
       $('.detailPanel .fpccEntranceAddress').html("");
+      $('.detailPanel .fpccPhone').html("");
+
       $('.detailPanel .fpccAmenities').html("");
+      $('.detailPanel .fpccHours').html("");
+      $('.detailPanel .fpccPhoto').html("");
+      $('.detailPanel .fpccPhoto').hide();
+
       //$('.detailPanel .fpccTrails').html("");
       $('.detailPanel .fpccDirections a').attr("href", "").attr("target", "_blank");
 
@@ -2196,6 +2205,8 @@ function startup() {
       $('.detailPanel .fpccLinks').html("");
 
       $('.detailPanel .detailStewardLogo').attr("src", "/img/logoPlaceholder.jpg");
+
+      
   }
 
   function decorateDetailPanel(trail, trailhead) {
@@ -2204,8 +2215,7 @@ function startup() {
     enableTrailControls();
 
     resetDetailPanel();
-    var myDiv = document.getElementsByClassName('fpccContainer');
-    myDiv.scrollTop = 0;
+    
 
     if (trail) {
         var trailname = trail.properties.name + " Trail";
@@ -2242,6 +2252,11 @@ function startup() {
       $('.detailPanel .fpccEntrance').show();
       $('.detailPanel .fpccAmenities').show();
 
+      if (trailhead.properties.photo_link) {
+        $('.detailPanel .fpccPhoto').html('<img src="images/poi-photos/' + trailhead.properties.photo_link + '">');
+        $('.detailPanel .fpccPhoto').show();
+      }
+  
       var a = document.getElementById('fpccSocialEmail'); 
       a.href = "mailto:?subject=Heading to " + trailhead.properties.name;
       a = document.getElementById('fpccSocialTwitter'); 
@@ -2261,19 +2276,6 @@ function startup() {
       var extraLinksText = '<div class="fpccMoreHeader">';
       extraLinksText += '<span class="fpccMoreName">More Information</span></div><ul>';
       var extraLinksExist = false;
-      if (trailhead.properties.hours1) {
-        extraLinksExist = true;
-        extraLinksText += '<li>Hours<ul><li>' + trailhead.properties.hours1 + '</li>';
-        if (trailhead.properties.hours2) {
-          extraLinksText += '<li>' + trailhead.properties.hours2 + '</li>';
-        }
-        extraLinksText += '</ul></li>';
-      }
-
-      if (trailhead.properties.phone) {
-        extraLinksExist = true;
-        extraLinksText += '<li>Phone Number: ' + trailhead.properties.phone + '</li>';
-      }
 
       if (trailhead.properties.web_link) {
         extraLinksExist = true;
@@ -2318,6 +2320,29 @@ function startup() {
       if (trailhead.properties.address) {
         $('.detailPanel .fpccEntranceAddress').html(trailhead.properties.address);
       }
+
+      if (trailhead.properties.phone) {
+        $('.detailPanel .fpccPhone').html(trailhead.properties.phone);
+      }
+
+      var hoursHTML = "";
+      if (trailhead.properties.hours1) {
+        hoursHTML += '<span class="fpccHours1"><strong>' + trailhead.properties.season1;
+        hoursHTML += ':</strong> ' + trailhead.properties.hours1 + '</span>';
+      }
+      if (trailhead.properties.hours2) {
+        hoursHTML += '<span class="fpccHours2"><strong>' + trailhead.properties.season2;
+        hoursHTML += ':</strong> ' + trailhead.properties.hours2 + '</span>';
+      }
+      if (trailhead.properties.special_hours) {
+        hoursHTML += '<span class="fpccSpecialHours">' + trailhead.properties.special_hours + '</span>';
+      }
+      if (hoursHTML != "") {
+        hoursHTML = '<span class="fpccLabel">Hours</span>' + hoursHTML;
+        $('.detailPanel .fpccHours').html(hoursHTML);
+        $('.detailPanel .fpccHours').show();
+      }
+      
 
       var directionsUrl = "http://maps.google.com?saddr=" + currentUserLocation.lat + "," + currentUserLocation.lng +
         "&daddr=" + trailhead.geometry.coordinates[1] + "," + trailhead.geometry.coordinates[0];
@@ -2459,6 +2484,10 @@ function startup() {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-trail-marker'><use xlink:href='icons/defs.svg#icon-trail-marker'></use></svg> <span class='fpccAmenityTitle'>Trail System Access</span></div>");
       }
 
+      if (trailhead.properties.special_link) {
+        $('.detailPanel .fpccAmenities').append('<a href="' + trailhead.properties.special_link + '" class="fpccSpecialDesc" target="_blank"><span class="fpccSpecialBlurb">' + trailhead.properties.special_description + '</span><span class="fpccSpecialIcon"><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg></span></a>');
+      }
+
     } else {
       $('.detailPanel .trailMaps').show();
       $('.detailPanel .fpccEntrance').hide();
@@ -2467,6 +2496,7 @@ function startup() {
       $('.detailPanel .fpccTrails .icon-trail-marker').hide();
       $('.detailPanel .trailheadTrailMaps').hide();
       $('.detailPanel .fpccAmenities').hide();
+      $('.detailPanel .fpccHours').hide();
       $('.detailPanel .detailPanelBanner .entranceName').html(trail.properties.name);
     }
 

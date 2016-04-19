@@ -131,7 +131,7 @@
 						<!-- NEW SEARCH END -->
 
 						<div id="fpccSearchResults" class="fpccResults fpccUnit"></div>
-						<div class="detailPanel" >
+						<div class="detailPanel">
 							<div id="fpccPreserveName" class="detailPanelBanner"><!-- HERE added #fpccPreserveName ID -->
 								<span class="trailName"></span>
 								<!-- HERE, replaced with SVG -->
@@ -143,9 +143,6 @@
 									<div class="fpccTop">
 										<!-- HERE2 START PHOTO (if has photo) -->
 										<div class="fpccPhoto">
-											<!-- SET UP LIKE THIS <img src="[source folder path]/[photo_link]">
-											EXAMPLE: -->
-											<img src="http://fpdcc.net/svg-test/poi-photos/carl-r-hansen-woods.jpg">
 										</div>
 										<!-- HERE2 END PHOTO -->
 										<!-- HERE2 START CLOSURES -->
@@ -170,7 +167,8 @@
 													<span class="fpccEntranceCity"></span>
 													<span class="fpccEntranceState"></span>
 													<span class="fpccEntranceZip"></span>
-													<!-- HERE2 if phone START --><span class="fpccPhone">[phone]</span><!-- HERE2 if phone END -->
+													<!-- HERE2 if phone START -->
+													<span class="fpccPhone"></span><!-- HERE2 if phone END -->
 												</div>
 											</div>
 											<a href="" target="_blank" id="entranceDirections" class="fpccButton fpccDirections">Directions</a><!-- HERE added fpccButton class -->
@@ -184,32 +182,15 @@
 											<!-- LOCATIONS (will also appear on map) -->
 											<!-- ACTIVITIES - not on map -->
 											<!-- HERE2 START special description -->
-											<a href="[special_link]" class="fpccSpecialDesc"><span class="fpccSpecialBlurb">[special_description]</span><span class="fpccSpecialIcon"><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg></span></a>
 											<!-- HERE2 STOP special description -->
 										</div>
 										<!-- AMENITIES END -->
 										<!-- HERE2 HOURS START -->
 										<div class="fpccHours fpccUnit">
-											<span class="fpccLabel">Hours</span>
-											<span class="fpccHours1"><strong>[season1]:</strong> [hours1]</span>
-											<span class="fpccHours2"><strong>[season2]:</strong> [hours2]</span>
-											<span class="fpccSpecialHours">[special_hours]</span>
 										</div>
 										<!-- HERE2 HOURS END -->
 									</div>
-									<!-- HERE2 START CLOSURES -->
-									<div class="fpccAlerts fpccUnit">
-										<span class="fpccAlertIcon"><svg class="icon icon-alert"><use xlink:href="icons/defs.svg#icon-alert"></use></svg></span>
-										<span class="fpccAlertBlurb">
-											<span class="fpccSingleAlert"><strong>[date1] - [date2]:</strong> [closure alert text] 
-											<!-- if link included --><a href="[read more URL]">More information ></a>
-											</span>
-											<span class="fpccSingleAlert"><strong>[date1] - [date2]:</strong> [closure alert text] 
-											<!-- if link included --><a href="[read more URL]">More information ></a>
-											</span>
-										</span>
-									</div>
-									<!-- HERE2 END CLOSURES -->
+									
 									<!-- TRAILS SYSTEM ACCESS START -->
 									<div class="fpccTrails fpccUnit clearfix">
 										<svg class="icon icon-trail-marker"><use xlink:href="icons/defs.svg#icon-trail-marker"></use></svg>
