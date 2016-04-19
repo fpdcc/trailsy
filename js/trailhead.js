@@ -1004,7 +1004,7 @@ function startup() {
         className: 'icon-map' + iconType,
         html: '<svg class="icon icon-map ' + iconType + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg><br />' + iconName,
         iconAnchor: [13 * 0.60, 33 * 0.60],
-        popupAnchor: [0, -3],
+        popupAnchor: [0, -20],
         iconSize: [125 * 0.60, 75 * 0.60] // size of the icon
       });
 
