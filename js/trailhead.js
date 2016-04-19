@@ -32,7 +32,7 @@ function startup() {
     tags: true,
     tokenSeparators: [','],
     allowClear: true,
-    selectOnClose: true
+    //selectOnClose: true
   });
 
 
