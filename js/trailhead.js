@@ -2802,12 +2802,13 @@ function startup() {
 
     if (trailhead) {
       currentTrailhead = trailhead;
-
-        map.removeLayer(currentTrailhead.marker);
-        currentTrailhead.marker = new L.Marker(currentTrailhead.marker.getLatLng(), {
-          icon: trailheadIcon2
-        }).addTo(map);
-      setTrailheadEventHandlers(currentTrailhead);
+      // if (map.getZoom() < SHOW_SIGN_ZOOM) {
+      //   map.removeLayer(currentTrailhead.marker);
+      //   currentTrailhead.marker = new L.Marker(currentTrailhead.marker.getLatLng(), {
+      //     icon: trailheadIcon2
+      //   }).addTo(map);
+      //   setTrailheadEventHandlers(currentTrailhead);
+      // }
       highlightTrailInPopup(trailhead, highlightedTrailIndex);
       var popup = new L.Popup({
         offset: [0, -12],
