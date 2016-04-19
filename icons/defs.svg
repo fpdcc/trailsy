@@ -1,3 +1,4 @@
+
 <svg style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <defs>
 <symbol id="icon-ada-restroom" viewBox="0 0 1024 1024">
@@ -238,6 +239,10 @@
 <symbol id="icon-x" viewBox="0 0 32 32">
 <title>x</title>
 <path fill="#fff" class="path1" d="M32 6.107l-6.107-6.107-9.893 9.893-9.893-9.893-6.107 6.107 9.893 9.893-9.893 9.893 6.107 6.107 9.893-9.893 9.893 9.893 6.107-6.107-9.893-9.893z"></path>
+</symbol>
+<symbol id="icon-alert" viewBox="0 0 32 32">
+<title>alert</title>
+<path fill="#FFE2D9" class="path1" d="M20.387 0l-1.302 24.094h-6.17l-1.302-24.094h8.774zM19.733 25.595v6.405h-7.467v-6.405h7.467z"></path>
 </symbol>
 </defs>
 </svg>
