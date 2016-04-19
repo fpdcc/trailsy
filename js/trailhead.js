@@ -2166,19 +2166,9 @@ function startup() {
 
   function resetDetailPanel() {
       $("#fpccPreserveInfo").animate({ scrollTop: 0 }, 'fast');
-      $('.detailPanel .fpccPhoto').hide();
+      
       $('.detailPanel .detailPanelBanner .entranceName').html("");
-      $('.detailPanel .fpccEntranceAddress').html("");
-      $('.detailPanel .fpccPhone').html("");
-
-      $('.detailPanel .fpccAmenities').html("");
-      $('.detailPanel .fpccHours').html("");
-      $('.detailPanel .fpccPhoto').html("");
-      $('.detailPanel .fpccPhoto').hide();
-
       //$('.detailPanel .fpccTrails').html("");
-      $('.detailPanel .fpccDirections a').attr("href", "").attr("target", "_blank");
-
       $('.detailPanel .detailPanelPicture').attr("src", "img/ImagePlaceholder.jpg");
       $('.detailPanel .detailPanelPictureCredits').remove();
       $('.detailPanel .detailConditionsDescription').html("");
@@ -2201,11 +2191,34 @@ function startup() {
       $('.detailPanel .detailBottomRow .detailTrailheadAmenities .detailTrailheadIcons .parking').html("");
       $('.detailPanel .detailDescription').html("");
       $('.detailPanel #trailDescription').html("");
-      $('.detailPanel .fpccEntranceDescription').html("");
-      $('.detailPanel .fpccLinks').html("");
-
+      //$('.detailPanel .fpccEntranceDescription').html("");
       $('.detailPanel .detailStewardLogo').attr("src", "/img/logoPlaceholder.jpg");
 
+      // New areas
+      $('.detailPanel .fpccPhoto').html("");
+      $('.detailPanel .fpccPhoto').hide();
+      $('.detailPanel .fpccAlerts').html("");
+      $('.detailPanel .fpccAlerts').hide();
+      $('.detailPanel .fpccDirections a').attr("href", "").attr("target", "_blank");
+      $('.detailPanel .fpccEntranceAddress').html("");
+      $('.detailPanel .fpccPhone').html("");
+      $('.detailPanel .fpccPhone').hide();
+
+      $('.detailPanel .fpccDescription').html("");
+      $('.detailPanel .fpccDescription').hide();
+      $('.detailPanel .fpccAmenities').html("");
+      $('.detailPanel .fpccHours').html("");
+      $('.detailPanel .fpccHours').hide();
+
+      $('.detailPanel .fpccTrails').hide();
+      $('.detailPanel .fpccTrailSegments').html("");
+      $('.detailPanel .fpccTrailSegments').hide();
+
+      $('.detailPanel #trailDescription').html("");
+      $('.detailPanel #trailDescription').hide();
+
+      $('.detailPanel .fpccLinks').html("");
+      $('.detailPanel .fpccLinks').hide();
       
   }
 
@@ -2322,6 +2335,7 @@ function startup() {
       }
 
       if (trailhead.properties.phone) {
+        $('.detailPanel .fpccPhone').show();
         $('.detailPanel .fpccPhone').html(trailhead.properties.phone);
       }
 
