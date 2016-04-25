@@ -2284,7 +2284,7 @@ function startup() {
       if (trailhead.properties.description) {
         var entranceDescription = trailhead.properties.description;
         if (trailhead.properties.web_link) {
-          entranceDescription += '<a target="_blank" href="' + trailhead.properties.web_link + '" class="fpccMore">Read more &gt;</a>';
+          entranceDescription += ' <a target="_blank" href="' + trailhead.properties.web_link + '" class="fpccMore">Read more &gt;</a>';
         }
         $('.detailPanel .fpccDescription').html(entranceDescription);
         $('.detailPanel .fpccDescription').show();
