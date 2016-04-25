@@ -1100,7 +1100,8 @@ function startup() {
       var newMarker = new L.CircleMarker(currentFeatureLatLng, {
         color: "#D86930",
         fillOpacity: 0.5,
-        opacity: 0.8
+        opacity: 0.8,
+        className: 'circleTest'
       }).setRadius(MARKER_RADIUS);
       var signMarker = new L.Marker(currentFeatureLatLng, {
         icon: trailheadIcon2
