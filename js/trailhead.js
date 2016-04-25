@@ -2499,7 +2499,7 @@ function startup() {
 
       // trailacces = Trail System Access
       if (trailhead.properties.trailacces) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-trail-marker'><use xlink:href='icons/defs.svg#icon-trail-marker'></use></svg><span class='fpccAmenityTitle'>Trail System Access</span></div>");
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-trail-marker'><use xlink:href='icons/defs.svg#icon-trail-marker'></use></svg><span class='fpccAmenityTitle'>Trail Access</span></div>");
       }
 
       if (trailhead.properties.special_link) {
