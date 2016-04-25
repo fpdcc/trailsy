@@ -942,7 +942,11 @@ function startup() {
       var activityType = currentFeature.properties.activity_type;
       var activityName = currentFeature.properties.name || activityType;
       var popupContentMainDivHTML = "<div class='activity-popup'>";
-      popupContentMainDivHTML += activityName + "</div>";
+      popupContentMainDivHTML += activityName;
+      if (activityType == "trailhead") {
+        popupContentMainDivHTML += " Trail Access";
+      }
+      popupContentMainDivHTML += "</div>";
       var iconName = "";
       if (activityType == "Fishing Lake") {
         iconType = "icon-fishing";
@@ -2199,6 +2203,8 @@ function startup() {
       $('.detailPanel .detailStewardLogo').attr("src", "/img/logoPlaceholder.jpg");
 
       // New areas
+      $('.detailPanel .fpccTop').hide();
+
       $('.detailPanel .fpccPhoto').html("");
       $('.detailPanel .fpccPhoto').hide();
       $('.detailPanel .fpccAlerts').html("");
@@ -2268,6 +2274,7 @@ function startup() {
       $('.detailPanel .trailMaps').show();
       $('.detailPanel .fpccEntrance').show();
       $('.detailPanel .fpccAmenities').show();
+      $('.detailPanel .fpccTop').show();
 
       if (trailhead.properties.photo_link) {
         $('.detailPanel .fpccPhoto').html('<img src="images/poi-photos/' + trailhead.properties.photo_link + '">');
