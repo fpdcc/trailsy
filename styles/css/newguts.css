@@ -150,7 +150,9 @@ a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 #icon-x .path1{fill:#fff}
 #icon-arrow .path1{fill:#000}
 #icon-alert .path1{fill:#FFE2D9}
-.icon-map{display:inline-block;}
+.icon-map.active{display:inline-block;}
+.icon-map.inactive{display:none;}
+
 
 .icon.icon-map{padding:.4em;overflow:visible}
 /*.icon-sign.icon-map{width:2em;height:2em;}
