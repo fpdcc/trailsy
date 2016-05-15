@@ -885,15 +885,15 @@ function startup() {
         }
       }
       
-      if (currentTrailheadLayerGroup) {
-        map.removeLayer(currentTrailheadLayerGroup);
-      }
+      // if (currentTrailheadLayerGroup) {
+      //   map.removeLayer(currentTrailheadLayerGroup);
+      // }
       //if (zoomLevel >= SHOW_SIGN_ZOOM) {
-      currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadSignArray);
+      //currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadSignArray);
       //} else {
       //  currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadMarkerArray);
       //}
-      currentTrailheadLayerGroup.addTo(map);
+      //currentTrailheadLayerGroup.addTo(map);
       showActivities();
       //if (zoomLevel >= 15 ) {
       var currentTrailheadDivs = document.getElementsByClassName("icon-map icon-" + lastZoom);
@@ -1893,7 +1893,7 @@ function startup() {
     currentTrailheadMarkerArray = [];
     currentTrailheadSignArray = [];
     for (var i = 0; i < myTrailheads.length; i++) {
-      currentTrailheadMarkerArray.push(myTrailheads[i].marker);
+      //currentTrailheadMarkerArray.push(myTrailheads[i].marker);
       currentTrailheadSignArray.push(myTrailheads[i].signMarker);
       //} else {
         // console.log(["trailhead not displayed: ", trailheads[i].properties.name]);
@@ -1903,11 +1903,11 @@ function startup() {
       map.removeLayer(currentTrailheadLayerGroup);
     }
 
-    if (map.getZoom() >= SHOW_SIGN_ZOOM) {
-      currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadSignArray);
-    } else {
-      currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadMarkerArray);
-    }
+    //if (map.getZoom() >= SHOW_SIGN_ZOOM) {
+    currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadSignArray);
+    //} else {
+    //currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadMarkerArray);
+    //}
     currentTrailheadLayerGroup.addTo(map);
 
     showActivities();
