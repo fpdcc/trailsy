@@ -150,11 +150,20 @@ a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 #icon-x .path1{fill:#fff}
 #icon-arrow .path1{fill:#000}
 #icon-alert .path1{fill:#FFE2D9}
-.icon-map{display:inline-block;width:2em;height:2em}
+.icon-map{display:inline-block;}
 
-.icon.icon-map{padding:.4em;width:3em;height:3em;overflow:visible}
-.icon.icon-map.icon-sign{padding:.8em 0 0;}
+.icon.icon-map{padding:.4em;overflow:visible}
+/*.icon-sign.icon-map{width:2em;height:2em;}
+*/.icon-1, .icon-2, .icon-3,.icon-4,.icon-5,.icon-6,.icon-7,.icon-8, .icon-9, .icon-10{width:2em;height:2em;}
+.icon-11, .icon-12, .icon-13, .icon-14{width:2.5em;height:2.5em;}
+.icon-15, .icon-16, .icon-17, .icon-18{width:3em;height:3em;}
+
+.icon.icon-map.icon-sign{padding:.8em 0 0;
+/*                        background-image: url(../../icons/defs.svg#icon-sign);
+*/                        }
 .icon.icon-map.selected{animation:animateEdge 2.5s forwards}
+.icon-sign.icon-map.selected{animation:animateEdge 2.5s forwards}
+.leaflet-marker-icon.selectedMarker{animation:animateEdge 2.5s forwards}
 /*.icon.icon-map.icon-sign.selected{animation:animateEdge 2.5s forwards}
 */
 @keyframes animateEdge {

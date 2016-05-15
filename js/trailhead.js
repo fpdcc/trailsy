@@ -161,7 +161,7 @@ function startup() {
   var highlightedActivityMarkerArray = [];
   var currentActivityLayerGroup;
   
-
+  var lastZoom = null;
   var closeTimeout = null;
   var openTimeout = null;
   var currentWeightedSegment = null;
@@ -208,12 +208,19 @@ function startup() {
   //       });
 
   var trailheadIcon2 = L.divIcon({
-    className: 'icon-sign',
+    className: 'icon-sign icon-map',
     html: '<svg class="icon icon-map icon-sign"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>',
     iconAnchor: [13 * 0.60, 33 * 0.60],
     popupAnchor: [0, -3],
     iconSize: [52 * 0.60, 66 * 0.60] // size of the icon
   });
+  // var trailheadIcon2 = L.divIcon({
+  //   className: 'icon-sign icon-map selected',
+  //   // html: '<svg class="icon icon-map icon-sign"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>',
+  //   iconAnchor: [13 * 0.60, 33 * 0.60],
+  //   popupAnchor: [0, -3],
+  //   iconSize: [52 * 0.60, 66 * 0.60] // size of the icon
+  // });
   //L.divIcon(trailheadIcon2Options);
 
 
@@ -859,6 +866,7 @@ function startup() {
 
     map.on("zoomend", function(e) {
       console.log("zoomend start " + map.getZoom());
+
       var zoomLevel = map.getZoom();
       if (SHOW_ALL_TRAILS && allSegmentLayer) {
         if (zoomLevel >= SECONDARY_TRAIL_ZOOM && !(map.hasLayer(allSegmentLayer))) {
@@ -880,13 +888,31 @@ function startup() {
       if (currentTrailheadLayerGroup) {
         map.removeLayer(currentTrailheadLayerGroup);
       }
-      if (zoomLevel >= SHOW_SIGN_ZOOM) {
-        currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadSignArray);
-      } else {
-        currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadMarkerArray);
-      }
+      //if (zoomLevel >= SHOW_SIGN_ZOOM) {
+      currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadSignArray);
+      //} else {
+      //  currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadMarkerArray);
+      //}
       currentTrailheadLayerGroup.addTo(map);
       showActivities();
+      //if (zoomLevel >= 15 ) {
+      var currentTrailheadDivs = document.getElementsByClassName("icon-sign icon-map icon-" + lastZoom);
+      console.log("change zoom currentTrailheadDivs.length = " + currentTrailheadDivs.length);
+      for (var i = 0; i < currentTrailheadDivs.length; i++) {
+        //currentTrailheadDivs[i].classList.remove('small');
+        currentTrailheadDivs[i].classList.toggle('icon-' + lastZoom);
+      }
+      //} else {
+      //console.log("this should be if less than 15");
+      //var newZoom = map.getZoom();
+      currentTrailheadDivs = document.getElementsByClassName("icon-sign icon-map");
+      console.log("change zoom currentTrailheadDivs.length = " + currentTrailheadDivs.length);
+      for (var i = 0; i < currentTrailheadDivs.length; i++) {
+          currentTrailheadDivs[i].classList.toggle('icon-' + zoomLevel);
+          //currentTrailheadDivs[i].classList.toggle('small');
+      }
+      //}
+      lastZoom = zoomLevel;
       console.log("zoomend end " + map.getZoom());
     });
     map.on('popupclose', popupCloseHandler);
@@ -1107,6 +1133,15 @@ function startup() {
         opacity: 0.8,
         className: 'circleTest'
       }).setRadius(MARKER_RADIUS);
+      var trailheadIcon2 = L.divIcon({
+        className: 'icon-sign icon-map entrance-' + currentFeature.properties.id,
+        html: '<svg class="icon icon-map icon-sign" id="entrance-' + currentFeature.properties.id + '" ><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>',
+        // iconAnchor: [13 * 0.60, 33 * 0.60],
+        iconAnchor: [15,20],
+        popupAnchor: [0, 0],
+        iconSize: null
+        // iconSize: [52 * 0.60, 66 * 0.60] // size of the icon
+      });
       var signMarker = new L.Marker(currentFeatureLatLng, {
         icon: trailheadIcon2
       });
@@ -1859,6 +1894,7 @@ function startup() {
       currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadMarkerArray);
     }
     currentTrailheadLayerGroup.addTo(map);
+
     showActivities();
     map.fitBounds(currentTrailheadLayerGroup.getBounds(), {
       paddingTopLeft: centerOffset
@@ -2808,8 +2844,16 @@ function startup() {
       $('.trailhead-trailname.selected').addClass("detail-open");
     }
 
+
     if (trailhead) {
       currentTrailhead = trailhead;
+      var myEntranceID = "entrance-" + currentTrailhead.properties.id;
+      console.log(document.getElementById(myEntranceID));
+      var currentTrailheadDivs = document.getElementsByClassName(myEntranceID);
+      for (var i = 0; i < currentTrailheadDivs.length; i++) {
+          currentTrailheadDivs[i].classList.add('selected');
+      }
+  
       // if (map.getZoom() < SHOW_SIGN_ZOOM) {
       //   map.removeLayer(currentTrailhead.marker);
       //   currentTrailhead.marker = new L.Marker(currentTrailhead.marker.getLatLng(), {
