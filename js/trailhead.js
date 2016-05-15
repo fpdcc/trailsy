@@ -899,20 +899,22 @@ function startup() {
       //currentTrailheadLayerGroup.addTo(map);
       showActivities();
       //if (zoomLevel >= 15 ) {
-      var currentTrailheadDivs = document.getElementsByClassName("icon-map icon-" + lastZoom);
+      var currentTrailheadDivs = document.getElementsByClassName("icon-map icon-sign");
       console.log("change zoom currentTrailheadDivs.length = " + currentTrailheadDivs.length);
       for (var i = 0; i < currentTrailheadDivs.length; i++) {
         //currentTrailheadDivs[i].classList.remove('small');
-        currentTrailheadDivs[i].classList.toggle('icon-' + lastZoom);
+        currentTrailheadDivs[i].classList.remove('icon-' + lastZoom);
+        currentTrailheadDivs[i].classList.add('icon-' + zoomLevel);
       }
       //} else {
       //console.log("this should be if less than 15");
       //var newZoom = map.getZoom();
-      currentTrailheadDivs = document.getElementsByClassName("icon-map");
-      console.log("change zoom currentTrailheadDivs.length = " + currentTrailheadDivs.length);
-      for (var i = 0; i < currentTrailheadDivs.length; i++) {
-          currentTrailheadDivs[i].classList.toggle('icon-' + zoomLevel);
-          //currentTrailheadDivs[i].classList.toggle('small');
+      var currentActivityDivs = document.getElementsByClassName("icon-map icon-activity" );
+      console.log("change zoom currentActivityDivs.length = " + currentActivityDivs.length);
+      for (var i = 0; i < currentActivityDivs.length; i++) {
+        currentActivityDivs[i].classList.remove('icon-' + lastZoom);
+        currentActivityDivs[i].classList.add('icon-' + zoomLevel);
+        //currentTrailheadDivs[i].classList.toggle('small');
       }
       //}
       lastZoom = zoomLevel;
@@ -963,6 +965,7 @@ function startup() {
   function populateOriginalActivities(ActivityDataGeoJSON) {
     console.log("[populateOriginalActivities] features count = " + ActivityDataGeoJSON.features.length);
     originalActivities = {};
+    var originalActivityMarkerArray = [];
 
     for (var i = 0; i < ActivityDataGeoJSON.features.length; i++) {
       var currentFeature = ActivityDataGeoJSON.features[i];
@@ -1066,10 +1069,14 @@ function startup() {
       activity.marker.bindPopup(activity.popupContent);
       originalActivities[activity.properties.trailhead_id] = originalActivities[activity.properties.trailhead_id] || [];
       originalActivities[activity.properties.trailhead_id].push(activity);
+      originalActivityMarkerArray.push(activity.marker);
 
       //originalActivities.push(activity);
       //console.log("[populateOriginalActivities] thisActivity= " + originalActivities[activity.properties.trailhead_id]);
     }
+
+    originalActivityFeatureGroup = new L.FeatureGroup(originalActivityMarkerArray);
+    originalActivityFeatureGroup.addTo(map);
     //console.log("[populateOriginalTrailheads] originalTrailheads count " + originalTrailheads.length );
   }
 
@@ -1222,14 +1229,30 @@ function startup() {
   function makeCurrentActivities(myTrailheads) {
     console.log("[makeCurrentActivities] Begin");
     currentActivityMarkerArray = [];
+    var activeActivityDivs = document.getElementsByClassName("leaflet-marker-icon icon-activity");
+    console.log("[makeCurrentActivities] old activeActivityDivs.length = " + activeActivityDivs.length);
+    for (var i = 0; i < activeActivityDivs.length; i++) {
+      console.log("[activeActivityDivs] old activeActivityDivs loop i = " + i);
+      activeActivityDivs[i].classList.remove('active');
+      activeActivityDivs[i].classList.add('inactive');
+    }
     if (currentActivityLayerGroup) {
-      map.removeLayer(currentActivityLayerGroup);
+      //map.removeLayer(currentActivityLayerGroup);
       currentActivityLayerGroup = null;
     }
     for (var i = 0; i < myTrailheads.length; i++) {
       var trailhead_id = myTrailheads[i].properties.id
       if (originalActivities[trailhead_id]) {
         for ( var j = 0; j < originalActivities[trailhead_id].length; j++ ) {
+          var myActivityID = "activity-" + originalActivities[trailhead_id][j].properties.id;
+          console.log("[makeCurrentActivities] myActivityID = " + myActivityID);
+          var currentActivityDivs = document.getElementsByClassName(myActivityID);
+          console.log("[makeCurrentActivities] new currentActivityDivs.length = " + currentActivityDivs.length);
+          for (var k = 0; k < currentActivityDivs.length; k++) {
+            console.log("[highlightActivities] new currentActivityDivs loop k = " + k);
+            currentActivityDivs[k].classList.add('active');
+            currentActivityDivs[k].classList.remove('inactive');
+          }
           originalActivities[trailhead_id][j].marker.setOpacity(.5);
           currentActivityMarkerArray.push(originalActivities[trailhead_id][j].marker);
         }
@@ -1244,13 +1267,13 @@ function startup() {
     if (!currentActivityLayerGroup) {
       currentActivityLayerGroup = L.layerGroup(currentActivityMarkerArray);
     } else {
-      map.removeLayer(currentActivityLayerGroup);
+      //map.removeLayer(currentActivityLayerGroup);
     }
     if (map.getZoom() >= SHOW_ALL_ACTIVITIES_ZOOM) {
-      map.addLayer(currentActivityLayerGroup);
+      //map.addLayer(currentActivityLayerGroup);
     }
     else {
-      map.removeLayer(currentActivityLayerGroup);
+      //map.removeLayer(currentActivityLayerGroup);
     }
   }
 
