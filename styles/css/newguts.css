@@ -276,3 +276,5 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname.selected{padding-bottom:0;color:#333}/*HERE3*/
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname.selected:hover{background:#E3EACC}/*HERE3*/
 .trail-popup .trail-popup-line-named{color:#333!important;border-top:none}/*HERE3*/
+
+/*.testClass{stroke:#31a354;}*/

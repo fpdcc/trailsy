@@ -1533,8 +1533,8 @@ function startup() {
                 case 'blue': thisColor = "#26B8EB"; break;
                 case 'black': thisColor = "#333132"; break;
         }
-        return {dashArray: thisDash, color: thisColor, weight: thisWeight, opacity: thisOpacity, clickable: thisClickable, smoothFactor: thisSmoothFactor};
-      },
+        return {className: "testClass testClass2", color: thisColor, dashArray: thisDash,  weight: thisWeight, opacity: thisOpacity, clickable: thisClickable, smoothFactor: thisSmoothFactor};
+      }, //color: thisColor,
       onEachFeature: function visibleOnEachFeature(feature, layer) {
         // console.log("visibleAllTrailLayer onEachFeature");
         allVisibleSegmentsArray.push(layer);
