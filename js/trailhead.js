@@ -1262,16 +1262,16 @@ function startup() {
     if (myTrailhead_id) {
       var trailheadActivities = originalActivities[myTrailhead_id];
       if (trailheadActivities) {
-        for ( i = 0; i < trailheadActivities.length; i++) {
+        for ( var i = 0; i < trailheadActivities.length; i++) {
           trailheadActivities[i].marker.setOpacity(1);
           highlightedActivityMarkerArray.push(trailheadActivities[i].marker);
           var myActivityID = "activity-" + trailheadActivities[i].properties.id;
           console.log("[highlightActivities] myActivityID = " + myActivityID);
           var currentActivityDivs = document.getElementsByClassName(myActivityID);
           console.log("[highlightActivities] new currentActivityDivs.length = " + currentActivityDivs.length);
-          for (var i = 0; i < currentActivityDivs.length; i++) {
-            console.log("[highlightActivities] new currentActivityDivs loop i = " + i);
-            currentActivityDivs[i].classList.add('selected');
+          for (var j = 0; j < currentActivityDivs.length; j++) {
+            console.log("[highlightActivities] new currentActivityDivs loop j = " + j);
+            currentActivityDivs[j].classList.add('selected');
           }
         }
       }
