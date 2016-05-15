@@ -161,9 +161,8 @@ a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 .icon.icon-map.icon-sign{padding:.8em 0 0;
 /*                        background-image: url(../../icons/defs.svg#icon-sign);
 */                        }
-.icon.icon-map.selected{animation:animateEdge 2.5s forwards}
+.icon-map.selected{animation:animateEdge 2.5s forwards}
 .icon-sign.icon-map.selected{animation:animateEdge 2.5s forwards}
-.leaflet-marker-icon.selectedMarker{animation:animateEdge 2.5s forwards}
 /*.icon.icon-map.icon-sign.selected{animation:animateEdge 2.5s forwards}
 */
 @keyframes animateEdge {

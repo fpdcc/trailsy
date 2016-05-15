@@ -1031,8 +1031,8 @@ function startup() {
       } 
 
       var activityIcon = L.divIcon({
-        className: 'icon-map ' + iconType,
-        html: '<svg class="icon icon-map ' + iconType + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg><br />' + iconName,
+        className: 'icon-map icon-activity activity-' + currentFeature.properties.id + ' ' + iconType,
+        html: '<svg class="icon icon-map icon-activity ' + iconType + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg><br />' + iconName,
         iconAnchor: [13 * 0.60, 33 * 0.60],
         popupAnchor: [0, -20],
         iconSize: null
@@ -1251,6 +1251,13 @@ function startup() {
     for (var i = 0; i < highlightedActivityMarkerArray.length; i++) {
       highlightedActivityMarkerArray[i].setOpacity(.5);
     }
+    var currentActivityDivs = document.getElementsByClassName("icon-activity selected");
+    console.log("[highlightActivities] old currentActivityDivs.length = " + currentActivityDivs.length);
+    for (var i = 0; i < currentActivityDivs.length; i++) {
+      console.log("[highlightActivities] old currentActivityDivs loop i = " + i);
+      currentActivityDivs[i].classList.remove('selected');
+    }
+
     highlightedActivityMarkerArray = [];
     if (myTrailhead_id) {
       var trailheadActivities = originalActivities[myTrailhead_id];
@@ -1258,6 +1265,14 @@ function startup() {
         for ( i = 0; i < trailheadActivities.length; i++) {
           trailheadActivities[i].marker.setOpacity(1);
           highlightedActivityMarkerArray.push(trailheadActivities[i].marker);
+          var myActivityID = "activity-" + trailheadActivities[i].properties.id;
+          console.log("[highlightActivities] myActivityID = " + myActivityID);
+          var currentActivityDivs = document.getElementsByClassName(myActivityID);
+          console.log("[highlightActivities] new currentActivityDivs.length = " + currentActivityDivs.length);
+          for (var i = 0; i < currentActivityDivs.length; i++) {
+            console.log("[highlightActivities] new currentActivityDivs loop i = " + i);
+            currentActivityDivs[i].classList.add('selected');
+          }
         }
       }
     }
@@ -2830,28 +2845,42 @@ function startup() {
       $('.trailhead-trailname.selected').removeClass("detail-open");
     }
 
-    if (currentTrailhead && (map.getZoom() < SHOW_SIGN_ZOOM) ) {
-      map.removeLayer(currentTrailhead.marker);
-      currentTrailhead.marker = new L.CircleMarker(currentTrailhead.marker.getLatLng(), {
-        color: "#D86930",
-        fillOpacity: 0.5,
-        opacity: 0.6,
-        zIndexOffset: 100
-      }).setRadius(MARKER_RADIUS).addTo(map);
-      setTrailheadEventHandlers(currentTrailhead);
-    }
+    // if (currentTrailhead && (map.getZoom() < SHOW_SIGN_ZOOM) ) {
+    //   map.removeLayer(currentTrailhead.marker);
+    //   currentTrailhead.marker = new L.CircleMarker(currentTrailhead.marker.getLatLng(), {
+    //     color: "#D86930",
+    //     fillOpacity: 0.5,
+    //     opacity: 0.6,
+    //     zIndexOffset: 100
+    //   }).setRadius(MARKER_RADIUS).addTo(map);
+    //   setTrailheadEventHandlers(currentTrailhead);
+    // }
     if ($('.detailPanel').is(":visible")) {
       $('.trailhead-trailname.selected').addClass("detail-open");
+    }
+
+    if (currentTrailhead) {
+        var myEntranceID = "entrance-" + currentTrailhead.properties.id;
+        console.log("[highlightTrailhead] currentTrailhead");
+        var currentTrailheadDivs = document.getElementsByClassName(myEntranceID);
+        for (var i = 0; i < currentTrailheadDivs.length; i++) {
+          console.log("[highlightTrailhead] currentTrailhead loop");
+          currentTrailheadDivs[i].classList.remove('selected');
+        }
     }
 
 
     if (trailhead) {
       currentTrailhead = trailhead;
       var myEntranceID = "entrance-" + currentTrailhead.properties.id;
-      console.log(document.getElementById(myEntranceID));
+      console.log("[highlightTrailhead] new currentTrailhead = " + myEntranceID);
+
       var currentTrailheadDivs = document.getElementsByClassName(myEntranceID);
+      //console.log(currentTrailheadDivs[0]);
       for (var i = 0; i < currentTrailheadDivs.length; i++) {
-          currentTrailheadDivs[i].classList.add('selected');
+        console.log("[highlightTrailhead] new currentTrailhead in loop");
+        console.log("[highlightTrailhead] loop i = " + i + " div= " + currentTrailheadDivs[i]);
+        currentTrailheadDivs[i].classList.add('selected');
       }
   
       // if (map.getZoom() < SHOW_SIGN_ZOOM) {
