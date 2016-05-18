@@ -1159,14 +1159,14 @@ function startup() {
       var trailhead = {
         properties: currentFeature.properties,
         geometry: currentFeature.geometry,
-        marker: signMarker,
+        marker: newMarker,
         signMarker: signMarker,
         trails: currentFeature.properties.trail_ids,
         popupContent: ""
       };
       setTrailheadEventHandlers(trailhead);
       originalTrailheads.push(trailhead);
-      originalTrailheadMarkerArray.push(trailhead.marker);
+      originalTrailheadMarkerArray.push(trailhead.signMarker);
       //originalTrailheadFeatureGroup.addLayer(trailhead.signMarker);
       //console.log("[populateOriginalTrailheads] trails " + trailhead.trails);
     }
