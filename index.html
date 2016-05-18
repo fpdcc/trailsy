@@ -40,19 +40,6 @@
 	<!-- Needed END -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/css/select2.min.css" rel="stylesheet" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js"></script>
-	<!-- HERE .js to keep panel contents from overflowing -->
-	<script type="text/javascript">
-		function setHeights() {
-			var h = $(window).height();
-			var k = $("#fpccBrand").outerHeight();
-			var m = $("#fpccPreserveName").outerHeight();
-			var o = $("#fpccSearchBack").outerHeight();
-			var q = $("#fpccSearchContainer").outerHeight();
-			$('#fpccPreserveInfo').css('max-height', (h-(k + m + o + q)) );
-			$('#fpccSearchResults').css('max-height', (h-(k + o + q)) );
-		}
-	</script>
-	<!-- HERE end of new .js -->
 </head>
 
 <body onresize="setHeights()" onload="setHeights()">

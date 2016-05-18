@@ -31,8 +31,7 @@ function startup() {
     placeholder: "Search by Location or Activity",
     tags: true,
     tokenSeparators: [','],
-    allowClear: true,
-    //selectOnClose: true
+    allowClear: true
   });
 
 
@@ -45,28 +44,16 @@ function startup() {
   }
 
   var TOUCH = $('html').hasClass('touch');
-  // Map generated in CfA Account
-  //var MAPBOX_MAP_ID = "codeforamerica.map-j35lxf9d";
+ 
   var MAPBOX_MAP_ID = "mapbox.streets";
   var MAPCENTERPOINT = {
     lat: 42.0723,
     lng: -87.87
-    // lat: 41.87,
-    // lng: -87.67
   };
 
-  // API_HOST: The API server. Here we assign a default server, then
-  // test to check whether we're using the Heroky dev app or the Heroku production app
-  // and reassign API_HOST if necessary
-  // var API_HOST = window.location.protocol + "//" + window.location.host;
+  // API_HOST: The API server.
   var API_HOST = "http://fpcc-staging.smartchicagoapps.org";
-  //var API_HOST = "http://52.7.102.166"
-  //var API_HOST = "http://localhost:3000";
-  //var API_HOST = "http://trailsy.herokuapp.com";
-  // var API_HOST = "http://trailsyserver-dev.herokuapp.com";
-  // var API_HOST = "http://trailsyserver-prod.herokuapp.com";
-  // var API_HOST = "http://10.0.1.102:3000";
-  // var API_HOST = "http://10.0.2.2:3000" // for virtualbox IE
+ 
   if (window.location.hostname.split(".")[0] == "localhost") {
     //API_HOST = "http://localhost:3000";
     document.title = "LOCALHOST | Cook County Trailsy";
@@ -77,16 +64,6 @@ function startup() {
     API_HOST = "http://fpcc.smartchicagoapps.org";
   }
   console.log("API_HOST = " + API_HOST);
-
-
-  //   API_HOST = window.location.protocol + "//" + window.location.host;
-  // } else if (window.location.hostname.split(".")[0] == "trailsyserver-dev") {
-  //   API_HOST = window.location.protocol + "//" + window.location.host;
-  // } else if (window.location.hostname.split(".")[0] == "trailsy" || window.location.hostname == "www.tothetrails.com") {
-  //   API_HOST = window.location.protocol + "//" + window.location.host;
-  //   // API_HOST = "http://trailsyserver-prod.herokuapp.com";
-  // }
-
 
   //  Near-Global Variables
   var METERSTOMILESFACTOR = 0.00062137;
@@ -128,8 +105,6 @@ function startup() {
   var originalTrailheadFeatureGroup;
   var originalTrailheadMarkerArray = [];
   
-  // for yes/no features, check for first letter "y" or "n".
-
   var trailSegments = [];
   var currentTrailIDs = {};
   var currentMultiTrailLayer = {}; // We have to know if a trail layer is already being displayed, so we can remove it
@@ -203,12 +178,6 @@ function startup() {
   var trailheadIcon2Options = $.extend(trailheadIconOptions, {
     className: 'icon icon-sign'
   });
-  // var trailheadIcon2 = L.icon({
-  //       iconUrl: 'icons/defs.svg#icon-sign',
-  //       iconAnchor: [13 * 0.60, 33 * 0.60],
-  //       popupAnchor: [0, -3],
-  //       iconSize: [52 * 0.60, 66 * 0.60] // size of the icon
-  //       });
 
   var trailheadIcon2 = L.divIcon({
     className: 'icon-sign icon-map',
@@ -217,16 +186,7 @@ function startup() {
     popupAnchor: [0, -3],
     iconSize: [52 * 0.60, 66 * 0.60] // size of the icon
   });
-  // var trailheadIcon2 = L.divIcon({
-  //   className: 'icon-sign icon-map selected',
-  //   // html: '<svg class="icon icon-map icon-sign"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>',
-  //   iconAnchor: [13 * 0.60, 33 * 0.60],
-  //   popupAnchor: [0, -3],
-  //   iconSize: [52 * 0.60, 66 * 0.60] // size of the icon
-  // });
-  //L.divIcon(trailheadIcon2Options);
-
-
+ 
   // =====================================================================//
   // UI events to react to
 
@@ -887,36 +847,21 @@ function startup() {
           map.removeLayer(allSegmentLayer);
         }
       }
-      
-      // if (currentTrailheadLayerGroup) {
-      //   map.removeLayer(currentTrailheadLayerGroup);
-      // }
-      //if (zoomLevel >= SHOW_SIGN_ZOOM) {
-      //currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadSignArray);
-      //} else {
-      //  currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadMarkerArray);
-      //}
-      //currentTrailheadLayerGroup.addTo(map);
+    
       showActivities();
-      //if (zoomLevel >= 15 ) {
       var currentTrailheadDivs = document.getElementsByClassName("icon-map icon-sign");
       console.log("change zoom currentTrailheadDivs.length = " + currentTrailheadDivs.length);
       for (var i = 0; i < currentTrailheadDivs.length; i++) {
-        //currentTrailheadDivs[i].classList.remove('small');
         currentTrailheadDivs[i].classList.remove('icon-' + lastZoom);
         currentTrailheadDivs[i].classList.add('icon-' + zoomLevel);
       }
-      //} else {
-      //console.log("this should be if less than 15");
-      //var newZoom = map.getZoom();
+      
       var currentActivityDivs = document.getElementsByClassName("icon-map icon-activity" );
       console.log("change zoom currentActivityDivs.length = " + currentActivityDivs.length);
       for (var i = 0; i < currentActivityDivs.length; i++) {
         currentActivityDivs[i].classList.remove('icon-' + lastZoom);
         currentActivityDivs[i].classList.add('icon-' + zoomLevel);
-        //currentTrailheadDivs[i].classList.toggle('small');
       }
-      //}
       lastZoom = zoomLevel;
       console.log("zoomend end " + map.getZoom());
     });
@@ -1044,12 +989,6 @@ function startup() {
         iconSize: null
       });
 
-      // var newMarker = new L.CircleMarker(currentFeatureLatLng, {
-      //     color: "#0000FF",
-      //     fillOpacity: 0.5,
-      //     opacity: 0.8
-      //   }).setRadius(MARKER_RADIUS);
-
       var newMarker = new L.Marker(currentFeatureLatLng);
 
       if (iconType) {
@@ -1071,13 +1010,10 @@ function startup() {
       originalActivities[activity.properties.trailhead_id].push(activity);
       originalActivityMarkerArray.push(activity.marker);
 
-      //originalActivities.push(activity);
-      //console.log("[populateOriginalActivities] thisActivity= " + originalActivities[activity.properties.trailhead_id]);
     }
 
     originalActivityFeatureGroup = new L.FeatureGroup(originalActivityMarkerArray);
     originalActivityFeatureGroup.addTo(map);
-    //console.log("[populateOriginalTrailheads] originalTrailheads count " + originalTrailheads.length );
   }
 
   function setActivityEventHandlers(activity) {
@@ -1096,7 +1032,6 @@ function startup() {
     }
     console.log("lastTrailheadId = " + lastTrailheadId);
     highlightTrailhead(activity.properties.trailhead_id, 0);
-    //highlightActivities(activity.properties.trailhead_id);
     var trailhead = getTrailheadById(activity.properties.trailhead_id);
     if (trailhead) {
       if ( lastTrailheadId != activity.properties.trailhead_id ) {
@@ -1131,13 +1066,10 @@ function startup() {
     originalTrailheadMarkerArray = [];
     for (var i = 0; i < trailheadsGeoJSON.features.length; i++) {
       var currentFeature = trailheadsGeoJSON.features[i];
-      //console.log("[populateOriginalTrailheads] trailheadID = " + currentFeature.properties.id + " trail_ids = " + currentFeature.properties.trail_ids);
       var currentFeatureLatLng = new L.LatLng(currentFeature.geometry.coordinates[1], currentFeature.geometry.coordinates[0]);
       var distance = currentFeatureLatLng.distanceTo(location);
       currentFeature.properties.distance = distance;
-      // var newMarker = L.marker(currentFeatureLatLng, ({
-      //   icon: trailheadIcon1
-      // }));
+     
       var newMarker = new L.CircleMarker(currentFeatureLatLng, {
         color: "#D86930",
         fillOpacity: 0.5,
@@ -1167,8 +1099,6 @@ function startup() {
       setTrailheadEventHandlers(trailhead);
       originalTrailheads.push(trailhead);
       originalTrailheadMarkerArray.push(trailhead.signMarker);
-      //originalTrailheadFeatureGroup.addLayer(trailhead.signMarker);
-      //console.log("[populateOriginalTrailheads] trails " + trailhead.trails);
     }
     originalTrailheadFeatureGroup = new L.FeatureGroup(originalTrailheadMarkerArray);
     originalTrailheadFeatureGroup.addTo(map);
@@ -1189,12 +1119,6 @@ function startup() {
       };
     }(trailhead.properties.id));
 
-    // placeholders for possible trailhead marker hover behavior
-    // trailhead.marker.on("mouseover", function(trailhead) {
-    // }(trailhead));
-
-    // trailhead.marker.on("mouseout", function(trailhead) {
-    // }(trailhead));
   }
 
   function trailheadMarkerClick(id) {
@@ -1237,7 +1161,6 @@ function startup() {
       activeActivityDivs[i].classList.add('inactive');
     }
     if (currentActivityLayerGroup) {
-      //map.removeLayer(currentActivityLayerGroup);
       currentActivityLayerGroup = null;
     }
     for (var i = 0; i < myTrailheads.length; i++) {
@@ -1266,15 +1189,8 @@ function startup() {
 
     if (!currentActivityLayerGroup) {
       currentActivityLayerGroup = L.layerGroup(currentActivityMarkerArray);
-    } else {
-      //map.removeLayer(currentActivityLayerGroup);
     }
-    if (map.getZoom() >= SHOW_ALL_ACTIVITIES_ZOOM) {
-      //map.addLayer(currentActivityLayerGroup);
-    }
-    else {
-      //map.removeLayer(currentActivityLayerGroup);
-    }
+    
   }
 
   function highlightActivities(myTrailhead_id) {
@@ -1445,8 +1361,6 @@ function startup() {
     console.log("createSegmentTrailIdCache");
     console.log("originalTrailData length" + originalTrailData.length);
     for (var prop in originalTrailData) {
-    //for (var trailIndex = 0; trailIndex < originalTrailData.length; trailIndex++) {
-    //for (var segmentIndex = 0; segmentIndex < trailSegments.features.length; segmentIndex++) {
       // var segment = $.extend(true, {}, trailSegments.features[segmentIndex]);
       console.log("IN THE LOOP");
       var trailID = originalTrailData[trailIndex].features.id;
@@ -1585,7 +1499,6 @@ function startup() {
         //var trailField = "trail" + j;
         //if (invisLayer.feature.properties[trailField]) {
           var trailPopupLineDiv;
-        //if (trailnameInListOfTrails(invisLayer.feature.properties[trailField])) {
             trailPopupLineDiv = "<div class='trail-popup-line trail-popup-line-named' " +
             "data-steward='" + invisLayer.feature.properties.steward + "' " +
             "data-source='" + invisLayer.feature.properties.source + "' " +
@@ -1594,11 +1507,7 @@ function startup() {
             trailName + " Trail System" +
             "</div>";
             atLeastOne = true;
-          // } else {
-          //   trailPopupLineDiv = "<div class='trail-popup-line trail-popup-line-unnamed'>" +
-          //   invisLayer.feature.properties[segmentTrailIDs] +
-          //   "</div>";
-          // }
+          
           popupHTML = popupHTML + trailPopupLineDiv;
 
         // console.log("trailHTML end");
@@ -1634,19 +1543,7 @@ function startup() {
               highlightTrailhead(null, null, trailIDs);
               var trail = originalTrailData[trailIDs];
               showTrailDetails(trail, null);
-              //var trail = target.
-              //showTrailDetails(trail, trailhead);
-              // target.setStyle({
-              //   weight: HOVER_SEGMENT_WEIGHT
-              // });
-              // // set currentWeightedSegment back to normal
-              // if (target != currentWeightedSegment) {
-              //   if (currentWeightedSegment) {
-              //     currentWeightedSegment.setStyle({
-              //       weight: NORMAL_SEGMENT_WEIGHT
-              //     });
-              //   }
-              // }
+             
               var popupHTML = invisLayer.feature.properties.popupHTML;
               currentTrailPopup = new L.Popup({ autoPan: SMALL ? false : true}).setContent(popupHTML).setLatLng(originalEvent.latlng).openOn(map);
               // currentWeightedSegment = target;
@@ -1655,26 +1552,6 @@ function startup() {
         };
       }(invisLayer));
 
-      // newTrailFeatureGroup.addEventListener("mouseout", function(e) {
-      //   if (closeTimeout) {
-      //     clearTimeout(closeTimeout);
-      //     closeTimeout = null;
-      //   }
-      //   if (openTimeout) {
-      //     clearTimeout(openTimeout);
-      //     openTimeout = null;
-      //   }
-      //   closeTimeout = setTimeout(function(e) {
-      //     return function() {
-      //       e.target.setStyle({
-      //         weight: 3
-      //       });
-      //       //map.closePopup();
-      //     };
-      //   }(e), 1250);
-      // });
-
-      //newTrailFeatureGroup.addEventListener("onClick", function)
       allSegmentLayer.addLayer(newTrailFeatureGroup);
     }
 
@@ -1761,9 +1638,7 @@ function startup() {
         var trailheadTrailIDs = trailhead.properties.trail_ids;
         for (var trailNum = 0; trailNum < trailheadTrailIDs.length; trailNum++) {
           var trailheadTrailID = trailheadTrailIDs[trailNum];
-          //console.log("[addTrailsToTrailheads] trailheadTrailID: " + trailheadTrailID);
           var trail = myTrailData[trailheadTrailID];
-          //console.log("[addTrailsToTrailheads] trail: " + trail);
           var filterResult = filterResults(trail, trailhead);
           if (filterResult > 0) {
             //wanted = true;
@@ -1788,11 +1663,6 @@ function startup() {
         currentTrailheads.push(trailhead);
       }
 
-
-
-      // if (trailheadWanted) {
-      //   myTrailheads.splice(j, 1);
-      // }
     }
     console.log("curentTrailheads count = " + currentTrailheads.length);
     setTimeout(function() {
@@ -1906,8 +1776,6 @@ function startup() {
           var trailNameHTML = "<div class='popupTrailNames'>" + trail.properties.name + "</div><b></b>";
           var popupTrailDivHTML = popupTrailDivHTMLStart + statusHTML + trailNameHTML + "</div>";
           popupContentMainDivHTML = popupContentMainDivHTML + popupTrailDivHTML;
-
-          //var detailPanelContentMainDivHTML =
         }
       }
       popupContentMainDivHTML = popupContentMainDivHTML + "</div>";
@@ -1921,8 +1789,6 @@ function startup() {
 
   function mapActiveTrailheads(myTrailheads) {
     console.log("mapActiveTrailheads start");
-    
-
     currentTrailheadMarkerArray = [];
     currentTrailheadSignArray = [];
     var activeTrailheadDivs = document.getElementsByClassName("leaflet-marker-icon icon-sign");
@@ -1943,21 +1809,9 @@ function startup() {
         activeTrailheadDivs[j].classList.add('active');
         activeTrailheadDivs[j].classList.remove('inactive');
       }
-      //} else {
-        // console.log(["trailhead not displayed: ", trailheads[i].properties.name]);
-      //}
     }
-    // if (currentTrailheadLayerGroup) {
-    //   map.removeLayer(currentTrailheadLayerGroup);
-    // }
-
-    //if (map.getZoom() >= SHOW_SIGN_ZOOM) {
     currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadSignArray);
-    //} else {
-    //currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadMarkerArray);
-    //}
-    //currentTrailheadLayerGroup.addTo(map);
-
+    
     showActivities();
     map.fitBounds(currentTrailheadLayerGroup.getBounds(), {
       paddingTopLeft: centerOffset
@@ -2007,13 +1861,8 @@ function startup() {
       var trailheadTrailIDs = trailhead.trails;
       var trailheadSource = trailhead.properties.source;
       var trailheadDistance = metersToMiles(trailhead.properties.distance);
-
-
-
       // Making a new div for text / each trail
-      //var trailIDsLength = trailheadTrailIDs.length;
-      //for (var i = 0; i < trailIDsLength; i++) {
-        // console.log("makeTrailDivs " + i);
+  
       if (trailheadTrailIDs) {
         var trailID = trailheadTrailIDs[0];
         var trail = originalTrailData[trailID];
@@ -2068,11 +1917,6 @@ function startup() {
         trailListContents = trailListContents + trailDivComplete;
       }
 
-      //var trailDivWrapper = document.createElement('div');
-      //var trailDivComplete = trailDivText + trailInfoText + trailheadInfoText + trailSourceText;
-        // trailDivWrapper.innerHTML = trailDivComplete;
-        // trailListElementList[0].insertAdjacentHTML('beforeend', trailDivWrapper.firstChild.outerHTML);
-
         var trailInfoObject = {
           trailID: trailID,
           trail: trail,
@@ -2121,15 +1965,9 @@ function startup() {
       currentDetailTrail = trail;
       currentDetailTrailhead = trailhead;
     } else {
-      // if (currentDetailTrail == trail && currentDetailTrailhead == trailhead) {
-      //   currentDetailTrail = null;
-      //   currentDetailTrailhead = null;
-      //   closeDetailPanel();
-      // } else {
         decorateDetailPanel(trail, trailhead);
         currentDetailTrail = trail;
         currentDetailTrailhead = trailhead;
-      //}
     }
   }
 
@@ -2184,13 +2022,6 @@ function startup() {
     $('.trailhead-trailname.selected').removeClass("detail-open");
     highlightTrailhead(null,null);
     map.closePopup();
-    //map.removeLayer(currentTrailhead.marker);
-    //map.removeLayer(currentMultiTrailLayer);
-
-    //currentTrailhead = null;
-    //currentHighlightedTrailLayer = {};
-    //currentMultiTrailLayer = {};
-
     // map.invalidateSize();
   }
 
@@ -2882,27 +2713,11 @@ function startup() {
     highlightedTrailIndex = highlightedTrailIndex || 0;
     var trailhead = null;
     trailhead = getTrailheadById(trailheadID);
-    // for (var i = 0; i < trailheads.length; i++) {
-    //   if (trailheads[i].properties.id == trailheadID) {
-    //     trailhead = trailheads[i];
-    //     break;
-    //   }
-    // }
 
     if ($('.detailPanel').is(":visible")) {
       $('.trailhead-trailname.selected').removeClass("detail-open");
     }
 
-    // if (currentTrailhead && (map.getZoom() < SHOW_SIGN_ZOOM) ) {
-    //   map.removeLayer(currentTrailhead.marker);
-    //   currentTrailhead.marker = new L.CircleMarker(currentTrailhead.marker.getLatLng(), {
-    //     color: "#D86930",
-    //     fillOpacity: 0.5,
-    //     opacity: 0.6,
-    //     zIndexOffset: 100
-    //   }).setRadius(MARKER_RADIUS).addTo(map);
-    //   setTrailheadEventHandlers(currentTrailhead);
-    // }
     if ($('.detailPanel').is(":visible")) {
       $('.trailhead-trailname.selected').addClass("detail-open");
     }
@@ -2931,13 +2746,6 @@ function startup() {
         currentTrailheadDivs[i].classList.add('selected');
       }
   
-      // if (map.getZoom() < SHOW_SIGN_ZOOM) {
-      //   map.removeLayer(currentTrailhead.marker);
-      //   currentTrailhead.marker = new L.Marker(currentTrailhead.marker.getLatLng(), {
-      //     icon: trailheadIcon2
-      //   }).addTo(map);
-      //   setTrailheadEventHandlers(currentTrailhead);
-      // }
       highlightTrailInPopup(trailhead, highlightedTrailIndex);
       var popup = new L.Popup({
         offset: [0, -12],
@@ -2953,10 +2761,6 @@ function startup() {
     }
     highlightTrailSegmentsForTrailhead(trailhead, highlightedTrailIndex, trailIDs);
     highlightActivities(trailheadID);
-    //getAllTrailPathsForTrailhead(trailhead, highlightedTrailIndex, trailIDs);
-    //groupArray.push(currentTrailhead.marker);
-    //var trailheadFeatureGroup = L.featureGroup(groupArray);
-    //getAllActivitiesForTrailhead(trailhead);
   }
 
 
@@ -2980,10 +2784,6 @@ function startup() {
 
     if (currentHighlightedSegmentLayer) {
       currentHighlightedSegmentLayer.setStyle({weight: NORMAL_SEGMENT_WEIGHT});
-      // currentHighlightedSegmentLayer.eachLayer(function (layer) {
-      //   layer.setStyle({weight: NORMAL_SEGMENT_WEIGHT});
-      // });
-
     }
 
     currentHighlightedSegmentLayer = null;
@@ -3020,15 +2820,6 @@ function startup() {
 
     console.log("mergeResponses");
     // console.log(responses);
-
-    // var combined = { type: "FeatureCollection", features: [] };
-    // for (var i = 0; i < responses.length; i++) {
-    //   console.log("xxxx");
-    //   console.log(responses[i]);
-    //   // responses[i].properties.order = i;
-    //   combined.features.push(responses[i]);
-    // }
-
 
     var combined = $.extend(true, {}, responses[0]);
     if (combined.features) {
@@ -3190,20 +2981,7 @@ function startup() {
       // with setView
     else {
       var boundsCenter = layer.getBounds().getCenter();
-      // map.panInsideBounds(layer.getBounds(), {
-      //     paddingTopLeft: centerOffset
-      // });
-      
-        // var newZoom = layerBoundsZoom > MAX_ZOOM ? MAX_ZOOM : layerBoundsZoom;
-        // newZoom = newZoom < MIN_ZOOM ? MIN_ZOOM : newZoom;
-        // // setTimeout(function() {
-        //var originalLatLng = currentTrailhead.marker.getLatLng();
-        //   var projected = map.project(originalLatLng, newZoom);
-        //   var offsetProjected = projected.subtract(centerOffset.divideBy(2));
-        //   var newLatLng = map.unproject(offsetProjected, newZoom);
         map.setView(boundsCenter, currentZoom);
-        // }, 0);
-      //}
     }
     console.log("zoomToLayer end");
   }
