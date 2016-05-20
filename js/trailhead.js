@@ -70,7 +70,6 @@ function startup() {
   var MAX_ZOOM = SMALL ? 16 : 17;
   var MIN_ZOOM = SMALL ? 13 : 14;
   var SECONDARY_TRAIL_ZOOM = 12;
-  var SHOW_SIGN_ZOOM = 13;
   var SHOW_ALL_ACTIVITIES_ZOOM = 14; //Show all activity points starting at this zoom level
   var SHORT_MAX_DISTANCE = 2.0;
   var MEDIUM_MAX_DISTANCE = 5.0;
@@ -1504,7 +1503,7 @@ function startup() {
             "data-source='" + invisLayer.feature.properties.source + "' " +
             "data-trailid='" + trailID + "' " +
             "data-trailname='" + trailName + "'> " +
-            trailName + " Trail System" +
+            trailName + //" Trail System" +
             "</div>";
             atLeastOne = true;
           
@@ -1909,7 +1908,7 @@ function startup() {
         "data-index='" + 0 + "'>";
         trailheadInfoText =  "<span class='fpccEntryName'>" +
         '<svg class="icon icon-trail-marker"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-trail-marker"></use></svg>' +
-        '<span class="fpccEntryNameText">' + trailName + ' Trail System</span></span>' +
+        '<span class="fpccEntryNameText">' + trailName + ' </span></span>' +
         //'<span class="fpccEntryDis">' + trailheadDistance + ' mi away</span></a>' +
         "</div>"
         trailList[trailID] = 1;
@@ -2709,6 +2708,8 @@ function startup() {
 
   function highlightTrailhead(trailheadID, highlightedTrailIndex, trailIDs) {
     console.log("highlightTrailhead");
+    var startTime = new Date().getTime();
+    console.log("highlightTrailhead start = " + startTime);
     map.closePopup();
     highlightedTrailIndex = highlightedTrailIndex || 0;
     var trailhead = null;
@@ -2759,6 +2760,9 @@ function startup() {
     } else {
       currentTrailhead = null;
     }
+    var endTime = new Date().getTime();
+    var diff = endTime - startTime;
+    console.log("highlightTrailhead time: " + diff);
     highlightTrailSegmentsForTrailhead(trailhead, highlightedTrailIndex, trailIDs);
     highlightActivities(trailheadID);
   }
@@ -2781,7 +2785,8 @@ function startup() {
     }
     //console.log("[getAllTrailPathsForTrailheadLocal] trails = " + trails);
     // allSegmentLayer.setStyle({weight: 0});
-
+    var startTime = new Date().getTime();
+    console.log("highlight start = " + startTime);
     if (currentHighlightedSegmentLayer) {
       currentHighlightedSegmentLayer.setStyle({weight: NORMAL_SEGMENT_WEIGHT});
     }
@@ -2790,6 +2795,7 @@ function startup() {
     
     if (trails) {
       currentHighlightedSegmentLayer = new L.FeatureGroup();
+      
       allSegmentLayer.eachLayer(function (layer) {
         var layerTrailIds = layer.getLayers()[0].feature.properties.trail_ids || [];
         var layerTrailsLength = layerTrailIds.length || 0;
@@ -2811,7 +2817,12 @@ function startup() {
           //layer.getLayers()[1].setStyle({weight: 20});
         }
       });
+      //execute your code here
+      
     }
+    var endTime = new Date().getTime();
+    var diff = endTime - startTime;
+    console.log("highlight trail time: " + diff);
   }
 
   // merge multiple geoJSON trail features into one geoJSON FeatureCollection
@@ -2970,7 +2981,6 @@ function startup() {
     if (currentZoom < layerBoundsZoom) {
       // if the entire trail layer will fit in a reasonable zoom full-screen,
       // use fitBounds to place the entire layer onscreen
-      //if (!SMALL && layerBoundsZoom <= MAX_ZOOM && layerBoundsZoom >= MIN_ZOOM) {
         console.log("zoomToLayer currentZoom < layerBoundsZoom");
         map.fitBounds(layer.getBounds(), {
           paddingTopLeft: centerOffset
@@ -3002,9 +3012,6 @@ function startup() {
     console.log("zoomToLayer - currentZoom = " + currentZoom);
     console.log("zoomToLayer - layerBoundsZoom = " + layerBoundsZoom);
 
-    if (!SMALL && layerBoundsZoom <= MAX_ZOOM && layerBoundsZoom >= MIN_ZOOM) {
-
-    }
     if ( currentZoom < newZoom ) {
       map.setView(newLatLng, newZoom);
     } 
