@@ -1155,7 +1155,7 @@ function startup() {
     var activeActivityDivs = document.getElementsByClassName("leaflet-marker-icon icon-activity");
     console.log("[makeCurrentActivities] old activeActivityDivs.length = " + activeActivityDivs.length);
     for (var i = 0; i < activeActivityDivs.length; i++) {
-      console.log("[activeActivityDivs] old activeActivityDivs loop i = " + i);
+      //console.log("[activeActivityDivs] old activeActivityDivs loop i = " + i);
       activeActivityDivs[i].classList.remove('active');
       activeActivityDivs[i].classList.add('inactive');
     }
@@ -1167,11 +1167,11 @@ function startup() {
       if (originalActivities[trailhead_id]) {
         for ( var j = 0; j < originalActivities[trailhead_id].length; j++ ) {
           var myActivityID = "activity-" + originalActivities[trailhead_id][j].properties.id;
-          console.log("[makeCurrentActivities] myActivityID = " + myActivityID);
+          //console.log("[makeCurrentActivities] myActivityID = " + myActivityID);
           var currentActivityDivs = document.getElementsByClassName(myActivityID);
-          console.log("[makeCurrentActivities] new currentActivityDivs.length = " + currentActivityDivs.length);
+          //console.log("[makeCurrentActivities] new currentActivityDivs.length = " + currentActivityDivs.length);
           for (var k = 0; k < currentActivityDivs.length; k++) {
-            console.log("[highlightActivities] new currentActivityDivs loop k = " + k);
+            //console.log("[highlightActivities] new currentActivityDivs loop k = " + k);
             currentActivityDivs[k].classList.add('active');
             currentActivityDivs[k].classList.remove('inactive');
           }
@@ -1200,7 +1200,7 @@ function startup() {
     var currentActivityDivs = document.getElementsByClassName("icon-activity selected");
     console.log("[highlightActivities] old currentActivityDivs.length = " + currentActivityDivs.length);
     for (var i = 0; i < currentActivityDivs.length; i++) {
-      console.log("[highlightActivities] old currentActivityDivs loop i = " + i);
+      //console.log("[highlightActivities] old currentActivityDivs loop i = " + i);
       currentActivityDivs[i].classList.remove('selected');
     }
 
@@ -1212,11 +1212,11 @@ function startup() {
           trailheadActivities[i].marker.setOpacity(1);
           highlightedActivityMarkerArray.push(trailheadActivities[i].marker);
           var myActivityID = "activity-" + trailheadActivities[i].properties.id;
-          console.log("[highlightActivities] myActivityID = " + myActivityID);
+          //console.log("[highlightActivities] myActivityID = " + myActivityID);
           var currentActivityDivs = document.getElementsByClassName(myActivityID);
-          console.log("[highlightActivities] new currentActivityDivs.length = " + currentActivityDivs.length);
+          //console.log("[highlightActivities] new currentActivityDivs.length = " + currentActivityDivs.length);
           for (var j = 0; j < currentActivityDivs.length; j++) {
-            console.log("[highlightActivities] new currentActivityDivs loop j = " + j);
+            //console.log("[highlightActivities] new currentActivityDivs loop j = " + j);
             currentActivityDivs[j].classList.add('selected');
           }
         }
@@ -1427,8 +1427,8 @@ function startup() {
         //console.log("[visibleAllTrailLayer] secondary_trail_ids = " + feature.properties.secondary_trail_ids[0]);
         var thisSecondaryTrail = feature.properties.secondary_trail_ids[0];
         var thisTrailType = ""
-        if (secondaryTrails[thisSecondaryTrail]) {
-          thisTrailType = secondaryTrails[thisSecondaryTrail].properties.trail_type;
+        if (originalTrailData[thisSecondaryTrail]) {
+          thisTrailType = originalTrailData[thisSecondaryTrail].properties.trail_type;
         }
         switch (thisTrailType) {
           case 'unpaved': thisDash = "5,10"; break;
@@ -1539,7 +1539,7 @@ function startup() {
           }
           openTimeout = setTimeout(function openTimeoutFunction(originalEvent, target) {
             return function() {
-              var trailIDs = invisLayer.feature.properties.trail_ids;
+              var trailIDs = invisLayer.feature.properties.trail_system;
               console.log("[trail click] " + trailIDs);
               highlightTrailhead(null, null, trailIDs);
               var trail = originalTrailData[trailIDs];
@@ -2863,11 +2863,12 @@ function startup() {
     console.log("highlightTrailSegmentsForTrailhead");
 
     var zoomType = "trailhead";
-    var trails = [];
+    var trail_system;
     if (trailhead) {
-      trails = trailhead.trails;
+      trail_system = trailhead.properties.trail_systems[0];
+      console.log("[highlightTrailSegmentsForTrailhead] trail_system = " + trail_system);
     } else if (trailIDs) {
-      trails = trailIDs;
+      trail_system = trailIDs;
       zoomType = "trail";
     } else {
       zoomType = null;
@@ -2882,22 +2883,18 @@ function startup() {
 
     currentHighlightedSegmentLayer = null;
     
-    if (trails) {
+    if (trail_system) {
+      console.log("[highlightTrailSegmentsForTrailhead] trail_system = " + trail_system);
       currentHighlightedSegmentLayer = new L.FeatureGroup();
       
       allSegmentLayer.eachLayer(function (layer) {
-        var layerTrailIds = layer.getLayers()[0].feature.properties.trail_ids || [];
-        var layerTrailsLength = layerTrailIds.length || 0;
+        var layerTrailSystem = layer.getLayers()[0].feature.properties.trail_systems[0];
+        console.log("[highlightTrailSegmentsForTrailhead] layerTrailSystem = " + layerTrailSystem);
         var layerWanted = 0;
-        if (layerTrailIds) {
-          for (var layerTrailIndex = 0; layerTrailIndex < layerTrailsLength; layerTrailIndex++) {
-            for (var i = 0; i < trails.length; i++) {
-              var trailID = trails[i];
-              if (layerTrailIds[layerTrailIndex] == trailID) {
-                layerWanted = 1;
-              } 
-            }
-          }
+        if (layerTrailSystem) {
+            if (layerTrailSystem == trail_system) {
+              layerWanted = 1;
+            } 
         }
         if (layerWanted) {
           layer.getLayers()[0].setStyle({weight: ACTIVE_TRAIL_WEIGHT});
