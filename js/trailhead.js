@@ -1882,9 +1882,9 @@ function startup() {
 
        var trailDivText = "<a href='#' class='fpccEntry clearfix' " +
         "data-source='list' " +
-        "data-trailid='" + trailID + "' " +
-        "data-trailname='" + trailName + "' " +
-        "data-trail-length='" + trailLength + "' " +
+        "data-trailid='" + "' " +
+        "data-trailname='" + "' " +
+        "data-trail-length='" + "' " +
         "data-trailheadName='" + trailheadName + "' " +
         "data-trailheadid='" + trailheadID + "' " +
         "data-index='" + 0 + "'>";
@@ -2162,15 +2162,17 @@ function startup() {
 
       $('.detailPanel .fpccLinks').html("");
       $('.detailPanel .fpccLinks').hide();
-      
+
   }
 
+  // decorateDetailPanel: This is going to be decorating based on a trailSystem or a trailhead
   function decorateDetailPanel(trail, trailhead) {
     // console.log(orderedTrailIndex);
 
     enableTrailControls();
 
     resetDetailPanel();
+
     
 
     if (trail) {
@@ -2179,29 +2181,31 @@ function startup() {
         // $('.detailPanel .fpccTrailName').html(trailname);
         // $('.detailPanel .trailheadTrailMaps').show();
         // $('.detailPanel .fpccTrailHeader').show();
+        var trailSystemTrail = originalTrailData[trail.properties.trail_system];
         if (trail.properties.description) {
           //document.getElementById('trailDescription').innerHTML = trail.properties.description;
           $('.detailPanel #trailDescription').html(trail.properties.description);
           $('.detailPanel #trailDescription').show();
         }
-        if (trail.properties.name) {
-          $('#fpccPreserveName .trailName').html(trail.properties.name);
+        if (trail) {
+          $('#fpccPreserveName .trailName').html(trail);
         }
         $('.detailPanel .fpccTrailDescription').show();
         $('.detailPanel .fpccTrailSegments').show();
-        $('.detailPanel .fpccTrailSegments').html(trail.properties.secondaryHTML);
+        $('.detailPanel .fpccTrailSegments').html(trailSystemTrail.properties.secondaryHTML);
         $('.detailPanel .fpccTrails').show();
         $('.detailPanel .fpccTrails .icon-trail-marker').show();
         $('.detailPanel .fpccLinks').hide();
 
-    } else {
-      $('.detailPanel .trailheadTrailMaps').hide();
-      $('.detailPanel .fpccTrailHeader').hide();
-      $('.detailPanel .fpccTrailSegments').hide();
-      $('.detailPanel .fpccTrailDescription').hide();
-      $('.detailPanel .fpccTrails').hide();
-      $('.detailPanel .fpccTrails .icon-trail-marker').hide();
-    }
+    } 
+    //else {
+    //   $('.detailPanel .trailheadTrailMaps').hide();
+    //   $('.detailPanel .fpccTrailHeader').hide();
+    //   $('.detailPanel .fpccTrailSegments').hide();
+    //   $('.detailPanel .fpccTrailDescription').hide();
+    //   $('.detailPanel .fpccTrails').hide();
+    //   $('.detailPanel .fpccTrails .icon-trail-marker').hide();
+    // }
 
     if (trailhead) {
 
@@ -2257,29 +2261,31 @@ function startup() {
           for (var trailIndex = 0; trailIndex < trailhead.properties.indirect_trail_ids.length; trailIndex++ ) {
             var thisTrailId = trailhead.properties.indirect_trail_ids[trailIndex];
             var thisTrail = originalTrailData[thisTrailId];
-            trailSegmentsHTML += '<div class="fpccTrailSegment"><div class="fpccSegmentOverview fpcc';
-            trailSegmentsHTML += thisTrail.properties.trail_color;
-            if (thisTrail.properties.trail_type.toLowerCase() != "paved") {
-              trailSegmentsHTML += " fpccUnpaved";
+            if (thisTrail.properties.length >= 1) {
+              trailSegmentsHTML += '<div class="fpccTrailSegment"><div class="fpccSegmentOverview fpcc';
+              trailSegmentsHTML += thisTrail.properties.trail_color;
+              if (thisTrail.properties.trail_type.toLowerCase() != "paved") {
+                trailSegmentsHTML += " fpccUnpaved";
+              }
+              trailSegmentsHTML += ' clearfix"><span class="fpccSegmentName">';
+              trailSegmentsHTML += thisTrail.properties.trail_color + ' ' + thisTrail.properties.trail_type;
+              trailSegmentsHTML += '</span><span class="fpccTrailUse">';
+              trailSegmentsHTML += '<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>';
+              if (thisTrail.properties.trail_type.toLowerCase() == "unpaved" || thisTrail.properties.trail_type.toLowerCase() == "paved" || thisTrail.properties.trail_type == "") {
+                trailSegmentsHTML += '<svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg>';
+                trailSegmentsHTML += '<svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg>';
+              }
+              if (thisTrail.properties.trail_type.toLowerCase() == "unpaved" || thisTrail.properties.trail_type == "") {
+                trailSegmentsHTML += '<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>';
+              }
+              trailSegmentsHTML += '</span></div>';
+              trailSegmentsHTML += '<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>';
+              trailSegmentsHTML += (Math.round(thisTrail.properties.length * 100) / 100);
+              trailSegmentsHTML += ' mi</span></span>';
+              trailSegmentsHTML += '<span class="fpccLabel fpccRight">Surface<span>';
+              trailSegmentsHTML += thisTrail.properties.trail_type;
+              trailSegmentsHTML += '</span></span></div></div>';
             }
-            trailSegmentsHTML += ' clearfix"><span class="fpccSegmentName">';
-            trailSegmentsHTML += thisTrail.properties.trail_color + ' ' + thisTrail.properties.trail_type;
-            trailSegmentsHTML += '</span><span class="fpccTrailUse">';
-            trailSegmentsHTML += '<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>';
-            if (thisTrail.properties.trail_type.toLowerCase() == "unpaved" || thisTrail.properties.trail_type.toLowerCase() == "paved" || thisTrail.properties.trail_type == "") {
-              trailSegmentsHTML += '<svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg>';
-              trailSegmentsHTML += '<svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg>';
-            }
-            if (thisTrail.properties.trail_type.toLowerCase() == "unpaved" || thisTrail.properties.trail_type == "") {
-              trailSegmentsHTML += '<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>';
-            }
-            trailSegmentsHTML += '</span></div>';
-            trailSegmentsHTML += '<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>';
-            trailSegmentsHTML += (Math.round(thisTrail.properties.length * 100) / 100);
-            trailSegmentsHTML += ' mi</span></span>';
-            trailSegmentsHTML += '<span class="fpccLabel fpccRight">Surface<span>';
-            trailSegmentsHTML += thisTrail.properties.trail_type;
-            trailSegmentsHTML += '</span></span></div></div>';
           }
         }
 
@@ -2292,6 +2298,13 @@ function startup() {
 
         //}
         
+      } else {
+        $('.detailPanel .trailheadTrailMaps').hide();
+        $('.detailPanel .fpccTrailHeader').hide();
+        $('.detailPanel .fpccTrailSegments').hide();
+        $('.detailPanel .fpccTrailDescription').hide();
+        $('.detailPanel .fpccTrails').hide();
+        $('.detailPanel .fpccTrails .icon-trail-marker').hide();
       }
 
       if (trailhead.properties.photo_link) {
@@ -2695,17 +2708,17 @@ function startup() {
       $myTarget = $(e.target);
     }
     var parsed = parseTrailElementData($myTarget);
-    //console.log("parsed.trailheadID = " + parsed.trailheadID + " parsed.highlightedTrailIndex = " + parsed.highlightedTrailIndex);
+    console.log("[populateTrailsForTrailheadDiv] parsed.trailID = " + parsed.trailID + " parsed.highlightedTrailIndex = " + parsed.highlightedTrailIndex);
 
     var trail = null;
     var trailhead = null;
     var trailIDs = [];
     var zoomFeatureGroup = null;
     var zoomArray = [];
-    if (parsed.trailID) {
-      trail = originalTrailData[parsed.trailID];
-      trailIDs.push(parsed.trailID);
-    }
+    // if (parsed.trailID) {
+    //   trail = originalTrailData[parsed.trailID];
+    //   //trailIDs.push(parsed.trailID);
+    // }
     if (parsed.trailheadID) {
       trailhead = getTrailheadById(parsed.trailheadID);
       highlightTrailhead(parsed.trailheadID, parsed.highlightedTrailIndex);
@@ -2719,7 +2732,7 @@ function startup() {
       //showActivities(parsed.trailheadID); // show activities!
     }
     else {
-      highlightTrailhead(null, parsed.highlightedTrailIndex, trailIDs);
+      highlightTrailhead(null, parsed.highlightedTrailIndex, parsed.trailID);
       console.log("currentHighlightedSegmentLayer = " + currentHighlightedSegmentLayer);
       zoomFeatureGroup = currentHighlightedSegmentLayer;
     }
@@ -2856,6 +2869,43 @@ function startup() {
     highlightActivities(trailheadID);
   }
 
+
+  // For a given Trail_System, change the style weight to active
+  function highlightTrailSegmentsForTrailSystem(trailSystem) {
+    var startTime = new Date().getTime();
+    console.log("highlight start = " + startTime);
+    if (currentHighlightedSegmentLayer) {
+      currentHighlightedSegmentLayer.setStyle({weight: NORMAL_SEGMENT_WEIGHT});
+    }
+
+    currentHighlightedSegmentLayer = null;
+    
+    if (trailSystem) {
+      console.log("[highlightTrailSegmentsForTrailhead] trailSystem = " + trailSystem);
+      currentHighlightedSegmentLayer = new L.FeatureGroup();
+      
+      allSegmentLayer.eachLayer(function (layer) {
+        var layerTrailSystem = layer.getLayers()[0].feature.properties.trail_systems[0];
+        console.log("[highlightTrailSegmentsForTrailhead] layerTrailSystem = " + layerTrailSystem);
+        var layerWanted = 0;
+        if (layerTrailSystem) {
+            if (layerTrailSystem == trailSystem) {
+              layerWanted = 1;
+            } 
+        }
+        if (layerWanted) {
+          layer.getLayers()[0].setStyle({weight: ACTIVE_TRAIL_WEIGHT});
+          currentHighlightedSegmentLayer.addLayer(layer.getLayers()[0]);
+          //layer.getLayers()[0].setStyle({weight: ACTIVE_TRAIL_WEIGHT});
+          //layer.getLayers()[1].setStyle({weight: 20});
+        }
+      });
+      //execute your code here  
+    }
+    var endTime = new Date().getTime();
+    var diff = endTime - startTime;
+    console.log("highlight trail time: " + diff);
+  }
 
 
   // For a given trailhead or set of trailIDs, change the style weight to active
