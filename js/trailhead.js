@@ -55,7 +55,6 @@ function startup() {
   var API_HOST = "http://fpcc-staging.smartchicagoapps.org";
  
   if (window.location.hostname.split(".")[0] == "localhost") {
-    //API_HOST = "http://localhost:3000";
     document.title = "LOCALHOST | Cook County Trailsy";
   } else if (window.location.hostname.split(".")[0] == "fpcc-staging") {
     document.title = "STAGING | Cook County Trailsy";
@@ -63,6 +62,7 @@ function startup() {
     document.title = "Cook County Forest Preserves";
     API_HOST = "http://fpcc.smartchicagoapps.org";
   }
+  API_HOST = "http://localhost:8080";
   console.log("API_HOST = " + API_HOST);
 
   //  Near-Global Variables
@@ -1256,10 +1256,12 @@ function startup() {
     for (var i = 0; i < trailDataGeoJSON.features.length; i++) {
       if (trailDataGeoJSON.features[i].properties.part_of[0]) {
         secondaryTrails[trailDataGeoJSON.features[i].properties.id] = trailDataGeoJSON.features[i];
-      } else {
-        originalTrailData[trailDataGeoJSON.features[i].properties.id] = trailDataGeoJSON.features[i];
-        originalTrailData[trailDataGeoJSON.features[i].properties.id].properties.secondaryHTML = '';
-      }
+      } 
+      //else {
+      //   originalTrailData[trailDataGeoJSON.features[i].properties.id] = trailDataGeoJSON.features[i];
+      //   originalTrailData[trailDataGeoJSON.features[i].properties.id].properties.secondaryHTML = '';
+      // }
+      originalTrailData[trailDataGeoJSON.features[i].properties.id] = trailDataGeoJSON.features[i];
     }
 
     // Sorting by length so that longest trail is first
@@ -1756,7 +1758,9 @@ function startup() {
       popupContentMainDivHTML = popupContentMainDivHTML + popupTrailheadDivHTML;
       if (trailhead.trails)  {
         for (var trailsIndex = 0; trailsIndex < trailhead.trails.length; trailsIndex++) {
+          console.log("[makeTrailheadPopups] trailhead.trails[trailsIndex] = " + trailhead.trails[trailsIndex]);
           var trail = originalTrailData[trailhead.trails[trailsIndex]];
+          console.log("[makeTrailheadPopups] trail = " + trail);
 
           var popupTrailDivHTMLStart = "<div class='trailhead-trailname trail" + (trailsIndex + 1) + "' " +
           "data-trailname='" + trail.properties.name + "' " +
@@ -1865,7 +1869,7 @@ function startup() {
       if (trailheadTrailIDs) {
         var trailID = trailheadTrailIDs[0];
         var trail = originalTrailData[trailID];
-        var trailName = originalTrailData[trailID].properties.name;
+        var trailName = originalTrailData[trailID].properties.trail_system;
         var trailLength = Number(Math.round(originalTrailData[trailID].properties.length +'e2')+'e-2');
       }
       else {
@@ -1897,7 +1901,7 @@ function startup() {
 
       trailListContents = trailListContents + trailDivComplete;
 
-      if ((!trailList[trailID]) && trailheadTrailIDs) {
+      if ((!trailList[trailName]) && trailheadTrailIDs) {
         trailDivText = "<a href='#' class='fpccEntry clearfix' " +
         "data-source='list' " +
         "data-trailid='" + trailID + "' " +
@@ -1911,7 +1915,7 @@ function startup() {
         '<span class="fpccEntryNameText">' + trailName + ' </span></span>' +
         //'<span class="fpccEntryDis">' + trailheadDistance + ' mi away</span></a>' +
         "</div>"
-        trailList[trailID] = 1;
+        trailList[trailName] = 1;
         trailDivComplete = trailDivText + trailheadInfoText + trailSourceText;
         trailListContents = trailListContents + trailDivComplete;
       }
@@ -2170,11 +2174,11 @@ function startup() {
     
 
     if (trail) {
-        var trailname = trail.properties.name + " Trail";
+        // var trailname = trail.properties.name + " Trail";
 
-        $('.detailPanel .fpccTrailName').html(trailname);
-        $('.detailPanel .trailheadTrailMaps').show();
-        $('.detailPanel .fpccTrailHeader').show();
+        // $('.detailPanel .fpccTrailName').html(trailname);
+        // $('.detailPanel .trailheadTrailMaps').show();
+        // $('.detailPanel .fpccTrailHeader').show();
         if (trail.properties.description) {
           //document.getElementById('trailDescription').innerHTML = trail.properties.description;
           $('.detailPanel #trailDescription').html(trail.properties.description);
@@ -2200,10 +2204,95 @@ function startup() {
     }
 
     if (trailhead) {
+
       $('.detailPanel .trailMaps').show();
       $('.detailPanel .fpccEntrance').show();
       $('.detailPanel .fpccAmenities').show();
       $('.detailPanel .fpccTop').show();
+
+      if (trailhead.properties.trail_systems.length > 0) {
+        console.log("[decorateDetailPanel] systems = " + trailhead.properties.trail_systems);
+        var systems = trailhead.properties.trail_systems;
+        //for ( var systemIndex=0; systemIndex < systems.length; systemIndex++ ) {
+        $('.detailPanel .fpccTrailName').html(systems[0]);
+        $('.detailPanel .trailheadTrailMaps').show();
+        $('.detailPanel .fpccTrailHeader').show();
+        $('.detailPanel .fpccTrailDescription').show();
+        $('.detailPanel .fpccTrailSegments').show();
+        $('.detailPanel .fpccTrails').show();
+        $('.detailPanel .fpccTrails .icon-trail-marker').show();
+        var trailSegmentsHTML = "";
+        for (var trailIndex = 0; trailIndex < trailhead.properties.trail_ids.length; trailIndex++ ) {
+          var thisTrailId = trailhead.properties.trail_ids[trailIndex];
+          var thisTrail = originalTrailData[thisTrailId];
+          trailSegmentsHTML += '<div class="fpccTrailSegment"><div class="fpccSegmentOverview fpcc';
+          trailSegmentsHTML += thisTrail.properties.trail_color;
+          if (thisTrail.properties.trail_type.toLowerCase() != "paved") {
+            trailSegmentsHTML += " fpccUnpaved";
+          }
+          trailSegmentsHTML += ' clearfix"><span class="fpccSegmentName">';
+          trailSegmentsHTML += thisTrail.properties.trail_color + ' ' + thisTrail.properties.trail_type;
+          trailSegmentsHTML += '</span><span class="fpccTrailUse">';
+          trailSegmentsHTML += '<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>';
+          if (thisTrail.properties.trail_type.toLowerCase() == "unpaved" || thisTrail.properties.trail_type.toLowerCase() == "paved" || thisTrail.properties.trail_type == "") {
+            trailSegmentsHTML += '<svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg>';
+            trailSegmentsHTML += '<svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg>';
+          }
+          if (thisTrail.properties.trail_type.toLowerCase() == "unpaved" || thisTrail.properties.trail_type == "") {
+            trailSegmentsHTML += '<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>';
+          }
+          trailSegmentsHTML += '</span></div>';
+          trailSegmentsHTML += '<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>';
+          trailSegmentsHTML += (Math.round(thisTrail.properties.length * 100) / 100);
+          trailSegmentsHTML += ' mi</span></span>';
+          trailSegmentsHTML += '<span class="fpccLabel fpccRight">Surface<span>';
+          trailSegmentsHTML += thisTrail.properties.trail_type;
+          trailSegmentsHTML += '</span></span></div></div>';
+        }
+
+        if (trailhead.properties.indirect_trail_ids) {
+          console.log("[decorateDetailPanel] indirect_trail_ids.length = " + trailhead.properties.indirect_trail_ids.length);
+          trailSegmentsHTML += "with access to";
+        
+          for (var trailIndex = 0; trailIndex < trailhead.properties.indirect_trail_ids.length; trailIndex++ ) {
+            var thisTrailId = trailhead.properties.indirect_trail_ids[trailIndex];
+            var thisTrail = originalTrailData[thisTrailId];
+            trailSegmentsHTML += '<div class="fpccTrailSegment"><div class="fpccSegmentOverview fpcc';
+            trailSegmentsHTML += thisTrail.properties.trail_color;
+            if (thisTrail.properties.trail_type.toLowerCase() != "paved") {
+              trailSegmentsHTML += " fpccUnpaved";
+            }
+            trailSegmentsHTML += ' clearfix"><span class="fpccSegmentName">';
+            trailSegmentsHTML += thisTrail.properties.trail_color + ' ' + thisTrail.properties.trail_type;
+            trailSegmentsHTML += '</span><span class="fpccTrailUse">';
+            trailSegmentsHTML += '<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>';
+            if (thisTrail.properties.trail_type.toLowerCase() == "unpaved" || thisTrail.properties.trail_type.toLowerCase() == "paved" || thisTrail.properties.trail_type == "") {
+              trailSegmentsHTML += '<svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg>';
+              trailSegmentsHTML += '<svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg>';
+            }
+            if (thisTrail.properties.trail_type.toLowerCase() == "unpaved" || thisTrail.properties.trail_type == "") {
+              trailSegmentsHTML += '<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>';
+            }
+            trailSegmentsHTML += '</span></div>';
+            trailSegmentsHTML += '<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>';
+            trailSegmentsHTML += (Math.round(thisTrail.properties.length * 100) / 100);
+            trailSegmentsHTML += ' mi</span></span>';
+            trailSegmentsHTML += '<span class="fpccLabel fpccRight">Surface<span>';
+            trailSegmentsHTML += thisTrail.properties.trail_type;
+            trailSegmentsHTML += '</span></span></div></div>';
+          }
+        }
+
+        $('.detailPanel .fpccTrailSegments').html(trailSegmentsHTML);
+
+        // if (trail.properties.description) {
+        //   $('.detailPanel #trailDescription').html(trail.properties.description);
+        //   $('.detailPanel #trailDescription').show();
+        // }
+
+        //}
+        
+      }
 
       if (trailhead.properties.photo_link) {
         $('.detailPanel .fpccPhoto').html('<img src="images/poi-photos/' + trailhead.properties.photo_link + '">');
@@ -2639,7 +2728,7 @@ function startup() {
       paddingTopLeft: centerOffset
     });
     console.log("[populateTrailsForTrailheadDiv] about to run showTrailDetails(trail, trailhead )" + trail + " trailhead= " + trailhead);
-    showTrailDetails(trail, trailhead);
+    showTrailDetails(null, trailhead);
   }
 
   function populateTrailsForTrailheadTrailName(e) {
