@@ -62,7 +62,7 @@ function startup() {
     document.title = "Cook County Forest Preserves";
     API_HOST = "http://fpcc.smartchicagoapps.org";
   }
-  API_HOST = "http://localhost:8080";
+  //API_HOST = "http://localhost:8080";
   console.log("API_HOST = " + API_HOST);
 
   //  Near-Global Variables
