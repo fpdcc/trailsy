@@ -499,20 +499,20 @@ function startup() {
     if (currentFilters.activityFilter) {
       for (var i = 0; i < currentFilters.activityFilter.length; i++) {
         var activity = currentFilters.activityFilter[i];
-        console.log("trailhead.properties[activity] = " + trailhead.properties[activity]);
+        //console.log("trailhead.properties[activity] = " + trailhead.properties[activity]);
         var trailheadActivity = 1;
         if (!(trailhead.properties[activity] === undefined)) {
           trailheadActivity = trailhead.properties[activity];
         }
         else {
-          console.log("searchfilter is not null = " + currentFilters.activityFilter[i]);
+          //console.log("searchfilter is not null = " + currentFilters.activityFilter[i]);
           searchMatched = 0;
           var normalizedTrailName = "";
           var normalizedDescription = null;
           if (trail) {
             normalizedTrailName = trail.properties.name.toLowerCase();
             normalizedDescription = trail.properties.description.toLowerCase();
-            console.log("normalizedTrailName= " + normalizedTrailName);
+            //console.log("normalizedTrailName= " + normalizedTrailName);
           }
           var normalizedSearchFilter = currentFilters.activityFilter[i].toLowerCase();
           var equivalentWords = [
@@ -1299,7 +1299,7 @@ function startup() {
         secondaryHTML += '<span class="fpccLabel fpccRight">Surface<span>';
         secondaryHTML += thisSecondaryTrail.properties.trail_type;
         secondaryHTML += '</span></span></div></div>';
-        console.log("[populateTrailData] secondaryHTML= " + secondaryHTML);
+        //console.log("[populateTrailData] secondaryHTML= " + secondaryHTML);
         originalTrailData[thisSecondaryTrail.properties.part_of[0]].properties.secondaryHTML += secondaryHTML;
       }
     }
@@ -1599,7 +1599,7 @@ function startup() {
     console.log("[trailPopupLineClick] trailheadMatches.length " + trailheadMatches.length );
     for (var j = 0; j < trailheadMatches.length; j++) {
       var matchedTrailhead = trailheadMatches[j];
-      console.log("[trailPopupLineClick] " + matchedTrailhead );
+      //console.log("[trailPopupLineClick] " + matchedTrailhead );
       var trailheadLatLng = matchedTrailhead.marker.getLatLng();
       var distance = currentLatLng.distanceTo(trailheadLatLng);
       if (distance < nearestDistance) {
@@ -1753,16 +1753,16 @@ function startup() {
     console.log("makeTrailheadPopups start");
     for (var trailheadIndex = 0; trailheadIndex < originalTrailheads.length; trailheadIndex++) {
       var trailhead = originalTrailheads[trailheadIndex];
-      console.log("[makeTrailheadPopups] trailhead " + trailhead);
+      //console.log("[makeTrailheadPopups] trailhead " + trailhead);
 
       var popupContentMainDivHTML = "<div class='trailhead-popup'>";
       var popupTrailheadDivHTML = "<div class='trailhead-box'><div class='popupTrailheadNames'>" + trailhead.properties.name + "</div>";
       popupContentMainDivHTML = popupContentMainDivHTML + popupTrailheadDivHTML;
       if (trailhead.properties.trail_systems.length > 0)  {
         for (var trailsIndex = 0; trailsIndex < trailhead.properties.trail_systems.length; trailsIndex++) {
-          console.log("[makeTrailheadPopups] trailhead.trails[trailsIndex] = " + trailhead.trails[trailsIndex]);
+          //console.log("[makeTrailheadPopups] trailhead.trails[trailsIndex] = " + trailhead.trails[trailsIndex]);
           var trail = originalTrailData[trailhead.properties.trail_systems[trailsIndex]];
-          console.log("[makeTrailheadPopups] trail = " + trail);
+          //console.log("[makeTrailheadPopups] trail = " + trail);
 
           var popupTrailDivHTMLStart = "<div class='trailhead-trailname trail" + (trailsIndex + 1) + "' " +
           "data-trailname='" + trail.properties.name + "' " +
@@ -1799,7 +1799,7 @@ function startup() {
     var activeTrailheadDivs = document.getElementsByClassName("leaflet-marker-icon icon-sign");
     console.log("[mapActiveTrailheads] old activeTrailheadDivs.length = " + activeTrailheadDivs.length);
     for (var i = 0; i < activeTrailheadDivs.length; i++) {
-      console.log("[activeTrailheadDivs] old activeTrailheadDivs loop i = " + i);
+      //console.log("[activeTrailheadDivs] old activeTrailheadDivs loop i = " + i);
       activeTrailheadDivs[i].classList.remove('active');
       activeTrailheadDivs[i].classList.add('inactive');
     }
@@ -1807,10 +1807,10 @@ function startup() {
       //currentTrailheadMarkerArray.push(myTrailheads[i].marker);
       currentTrailheadSignArray.push(myTrailheads[i].signMarker);
       var myEntranceID = "entrance-" + myTrailheads[i].properties.id;
-      console.log("[mapActiveTrailheads] myEntranceID= " + myEntranceID);
+      //console.log("[mapActiveTrailheads] myEntranceID= " + myEntranceID);
       var activeTrailheadDivs = document.getElementsByClassName(myEntranceID);
       for (var j = 0; j < activeTrailheadDivs.length; j++) {
-        console.log("[mapActiveTrailheads] activeTrailheadDivs loop");
+        //console.log("[mapActiveTrailheads] activeTrailheadDivs loop");
         activeTrailheadDivs[j].classList.add('active');
         activeTrailheadDivs[j].classList.remove('inactive');
       }
@@ -1970,14 +1970,14 @@ function startup() {
 
     if (divTrailhead) {
       zoomArray = highlightedActivityMarkerArray.slice(0);
-      console.log("zoomArray = " + zoomArray);
+      //console.log("zoomArray = " + zoomArray);
       zoomArray.push(divTrailhead.marker);
-      console.log("zoomArray = " + zoomArray);
+      //console.log("zoomArray = " + zoomArray);
       zoomFeatureGroup = new L.FeatureGroup(zoomArray);
-      console.log("zoomFeatureGroup = " + zoomFeatureGroup);
+      //console.log("zoomFeatureGroup = " + zoomFeatureGroup);
     } else {
       zoomFeatureGroup = currentHighlightedSegmentLayer;
-      console.log("zoomFeatureGroup= " + zoomFeatureGroup);
+      //console.log("zoomFeatureGroup= " + zoomFeatureGroup);
     }  
     map.fitBounds(zoomFeatureGroup.getBounds(), {
       paddingTopLeft: centerOffset
@@ -3137,15 +3137,15 @@ function startup() {
     var zoomArray = [];
 
     zoomArray = highlightedActivityMarkerArray.slice(0);
-      console.log("zoomArray = " + zoomArray);
-      zoomArray.push(trailhead.marker);
-      console.log("zoomArray = " + zoomArray);
-      zoomFeatureGroup = new L.FeatureGroup(zoomArray);
-      console.log("zoomFeatureGroup = " + zoomFeatureGroup);
+    //console.log("zoomArray = " + zoomArray);
+    zoomArray.push(trailhead.marker);
+    //console.log("zoomArray = " + zoomArray);
+    zoomFeatureGroup = new L.FeatureGroup(zoomArray);
+    //console.log("zoomFeatureGroup = " + zoomFeatureGroup);
 
-      zoomFeatureGroup = currentHighlightedSegmentLayer;
+    zoomFeatureGroup = currentHighlightedSegmentLayer;
 
-      console.log("zoomFeatureGroup= " + zoomFeatureGroup);
+    //console.log("zoomFeatureGroup= " + zoomFeatureGroup);
     map.fitBounds(zoomFeatureGroup.getBounds(), {
       paddingTopLeft: centerOffset
     });
@@ -3158,19 +3158,19 @@ function startup() {
       highlightTrailhead(parsed.trailheadID, parsed.highlightedTrailIndex);
       
       zoomArray = highlightedActivityMarkerArray.slice(0);
-      console.log("zoomArray = " + zoomArray);
+      //console.log("zoomArray = " + zoomArray);
       zoomArray.push(trailhead.marker);
-      console.log("zoomArray = " + zoomArray);
+      //console.log("zoomArray = " + zoomArray);
       zoomFeatureGroup = new L.FeatureGroup(zoomArray);
-      console.log("zoomFeatureGroup = " + zoomFeatureGroup);
+      //console.log("zoomFeatureGroup = " + zoomFeatureGroup);
       //showActivities(parsed.trailheadID); // show activities!
     }
     else {
       highlightTrailhead(null, parsed.highlightedTrailIndex, parsed.trailID);
-      console.log("currentHighlightedSegmentLayer = " + currentHighlightedSegmentLayer);
+      //console.log("currentHighlightedSegmentLayer = " + currentHighlightedSegmentLayer);
       zoomFeatureGroup = currentHighlightedSegmentLayer;
     }
-    console.log("zoomFeatureGroup= " + zoomFeatureGroup);
+    //console.log("zoomFeatureGroup= " + zoomFeatureGroup);
     map.fitBounds(zoomFeatureGroup.getBounds(), {
       paddingTopLeft: centerOffset
     });
@@ -3264,7 +3264,7 @@ function startup() {
         console.log("[highlightTrailhead] currentTrailhead");
         var currentTrailheadDivs = document.getElementsByClassName(myEntranceID);
         for (var i = 0; i < currentTrailheadDivs.length; i++) {
-          console.log("[highlightTrailhead] currentTrailhead loop");
+          //console.log("[highlightTrailhead] currentTrailhead loop");
           currentTrailheadDivs[i].classList.remove('selected');
         }
     }
@@ -3278,8 +3278,8 @@ function startup() {
       var currentTrailheadDivs = document.getElementsByClassName(myEntranceID);
       //console.log(currentTrailheadDivs[0]);
       for (var i = 0; i < currentTrailheadDivs.length; i++) {
-        console.log("[highlightTrailhead] new currentTrailhead in loop");
-        console.log("[highlightTrailhead] loop i = " + i + " div= " + currentTrailheadDivs[i]);
+        //console.log("[highlightTrailhead] new currentTrailhead in loop");
+        //console.log("[highlightTrailhead] loop i = " + i + " div= " + currentTrailheadDivs[i]);
         currentTrailheadDivs[i].classList.add('selected');
       }
   
@@ -3320,7 +3320,7 @@ function startup() {
       
       allSegmentLayer.eachLayer(function (layer) {
         var layerTrailSystem = layer.getLayers()[0].feature.properties.trail_systems[0];
-        console.log("[highlightTrailSegmentsForTrailhead] layerTrailSystem = " + layerTrailSystem);
+        //console.log("[highlightTrailSegmentsForTrailhead] layerTrailSystem = " + layerTrailSystem);
         var layerWanted = 0;
         if (layerTrailSystem) {
             if (layerTrailSystem == trailSystem) {
@@ -3373,7 +3373,7 @@ function startup() {
       
       allSegmentLayer.eachLayer(function (layer) {
         var layerTrailSystem = layer.getLayers()[0].feature.properties.trail_systems[0];
-        console.log("[highlightTrailSegmentsForTrailhead] layerTrailSystem = " + layerTrailSystem);
+        //console.log("[highlightTrailSegmentsForTrailhead] layerTrailSystem = " + layerTrailSystem);
         var layerWanted = 0;
         if (layerTrailSystem) {
             if (layerTrailSystem == trail_system) {
