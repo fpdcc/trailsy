@@ -1190,15 +1190,16 @@ function startup() {
 
   function highlightActivities(myTrailhead_id) {
     console.log("[highlightActivities] myTrailhead_id = " + myTrailhead_id);
-    for (var i = 0; i < highlightedActivityMarkerArray.length; i++) {
-      highlightedActivityMarkerArray[i].setOpacity(.5);
-    }
     var currentActivityDivs = document.getElementsByClassName("icon-activity selected");
     console.log("[highlightActivities] old currentActivityDivs.length = " + currentActivityDivs.length);
     for (var i = 0; i < currentActivityDivs.length; i++) {
       //console.log("[highlightActivities] old currentActivityDivs loop i = " + i);
       currentActivityDivs[i].classList.remove('selected');
     }
+    for (var i = 0; i < highlightedActivityMarkerArray.length; i++) {
+      highlightedActivityMarkerArray[i].setOpacity(.5);
+    }
+    
 
     highlightedActivityMarkerArray = [];
     if (myTrailhead_id) {
