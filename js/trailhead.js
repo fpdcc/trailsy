@@ -1056,8 +1056,6 @@ function startup() {
     for (var i = 0; i < trailheadsGeoJSON.features.length; i++) {
       var currentFeature = trailheadsGeoJSON.features[i];
       var currentFeatureLatLng = new L.LatLng(currentFeature.geometry.coordinates[1], currentFeature.geometry.coordinates[0]);
-      var distance = currentFeatureLatLng.distanceTo(location);
-      currentFeature.properties.distance = distance;
      
       var newMarker = new L.CircleMarker(currentFeatureLatLng, {
         color: "#D86930",
@@ -1636,6 +1634,10 @@ function startup() {
     currentTrailIDs = {};
     for (var j = 0; j < myTrailheads.length; j++) {
       var trailhead = myTrailheads[j];
+      var currentFeatureLatLng = new L.LatLng(trailhead.geometry.coordinates[1], trailhead.geometry.coordinates[0]);
+      var distance = currentFeatureLatLng.distanceTo(currentUserLocation);
+      trailhead.properties.distance = distance;
+      console.log("[addTrailsToTrailheads] distance = " + distance);
       var trailheadWanted = 0;
       // for each original trailhead trail name
       if (trailhead.properties.trail_systems.length > 0) {
