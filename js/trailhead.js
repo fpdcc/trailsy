@@ -223,6 +223,64 @@ function startup() {
     $(".trigger3").addClass("active");
   }
 
+  $.address.autoUpdate(0);
+  //$.address.crawlable(1);
+  $.address.internalChange(function(event) {  
+    // do something depending on the event.value property, e.g.  
+    console.log("internalChange event = " + event.parameters);
+    //console.log("hash = " + $.address.hash()  );
+    //console.log("queryString = " + $.address.queryString()  );
+
+    // var searchFilter = decodeURIComponent($.address.parameter('search'));
+    // var entrance  = decodeURIComponent($.address.parameter('entrance'));
+    // var trail  = decodeURIComponent($.address.parameter('trail'));
+    // console.log("[address.change] searchFilter = " + searchFilter);
+    // console.log("[address.change] entrance = " + entrance);
+    // console.log("[address.change] trail = " + trail);
+    addressChange();
+    //$('.filter').load(event.value + '.xml');  
+  });  
+
+  function addressChange() {
+    //var searchFilter = $.address.parameter('search');
+    var searchFilter = decodeURIComponent($.address.parameter('search'));
+    var poi  = decodeURIComponent($.address.parameter('poi'));
+    var trail  = decodeURIComponent($.address.parameter('trail'));
+    console.log("[address.change] searchFilter = " + searchFilter);
+    console.log("[address.change] poi = " + poi);
+    console.log("[address.change] trail = " + trail);
+    if (searchFilter == 'undefined' || searchFilter == 'null') {
+      searchFilter = "";
+    }
+    if (poi == 'undefined' || poi == 'null') {
+      poi = "";
+    }
+    if (trail == 'undefined' || trail == 'null') {
+      trail = "";
+    }
+    console.log("[addressChange] searchFilter = " + searchFilter);
+    //if (searchFilter != searchFilterLast) {
+    setTimeout(function() {
+      updateFilterObject("activityFilter", searchFilter);
+      //}
+      if (poi || trail) {
+        populateTrailsForTrailheadDiv(trail, entrance);
+        openDetailPanel();
+      } else {
+        map.fitBounds(currentTrailheadLayerGroup.getBounds(), {
+           paddingTopLeft: centerOffset
+        });
+        closeDetailPanel();
+      }
+
+    }, 0);
+    
+    
+  }
+
+
+
+
   // =====================================================================//
   // Kick things off
 
@@ -1955,10 +2013,18 @@ function startup() {
     var divTrailheadID = $myTarget.attr("data-trailheadid");
     if (divTrail) {
       trailSystem = divTrail.properties.trail_system;
+      trailDivWork(trailSystem, null);
+    } else {   
+      trailDivWork(null, divTrailheadID);
+    }  
+  }
+
+  function trailDivWork(trailSystem, trailheadId) {
+    if (trailSystem) {
       showTrailDetails(trailSystem, null);
     } else {   
-      var divTrailhead = getTrailheadById(divTrailheadID);
-      console.log("[trailDivClickHandler] about to showTrailDetails(divTrail, divTrailhead)");
+      var divTrailhead = getTrailheadById(trailheadId);
+      console.log("[trailDivWork] about to showTrailDetails(divTrail, divTrailhead)");
       showTrailDetails(null, divTrailhead);
       //console.log("[trailDivClickHandler] trailSystem is null");
       if (divTrailhead.properties.trail_systems.length > 0) {
@@ -1966,8 +2032,8 @@ function startup() {
       }  
     }
     highlightTrailSegmentsForTrailSystem(trailSystem);
-    highlightTrailhead(divTrailheadID);
-    highlightActivities(divTrailheadID);
+    highlightTrailhead(trailheadId);
+    highlightActivities(trailheadId);
     var zoomFeatureGroup = null;
     var zoomArray = [];
 
