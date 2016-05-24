@@ -1957,7 +1957,7 @@ function startup() {
       }
       var trailCurrentIndex = divCount++;
 
-       var trailDivText = "<button class='fpccEntry clearfix' " +
+       var trailDivText = "<a class='fpccEntry clearfix' " +
         "data-source='list' " +
         "data-trailid='" + "' " +
         "data-trailname='" + "' " +
@@ -1979,7 +1979,7 @@ function startup() {
       trailListContents = trailListContents + trailDivComplete;
 
       if ((!trailList[trailName]) && trailheadTrailIDs) {
-        trailDivText = "<button class='fpccEntry clearfix' " +
+        trailDivText = "<a class='fpccEntry clearfix' " +
         "data-source='list' " +
         "data-trailid='" + trailID + "' " +
         "data-trailname='" + trailName + "' " +
