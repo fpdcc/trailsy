@@ -1308,6 +1308,7 @@ function startup() {
         }
       }
     }
+    console.log("[makeCurrentActivities] new currentActivityMarkerArray.length = " + currentActivityMarkerArray.length);
   }
 
 
@@ -1772,13 +1773,13 @@ function startup() {
       var distance = 0;
       if (currentFilters.location) {
         distance = currentFeatureLatLng.distanceTo(currentFilters.location);
-        console.log("[addTrailsToTrailheads] using currentFilters.location");
+        //console.log("[addTrailsToTrailheads] using currentFilters.location");
       } else {
         distance = currentFeatureLatLng.distanceTo(currentUserLocation);
-        console.log("[addTrailsToTrailheads] using currentUserLocation");
+        //console.log("[addTrailsToTrailheads] using currentUserLocation");
       }
       trailhead.properties.distance = distance;
-      console.log("[addTrailsToTrailheads] distance = " + distance);
+      //console.log("[addTrailsToTrailheads] distance = " + distance);
       var trailheadWanted = 0;
       // for each original trailhead trail name
       if (trailhead.properties.trail_systems.length > 0) {
@@ -1811,7 +1812,7 @@ function startup() {
       }
 
     }
-    console.log("curentTrailheads count = " + currentTrailheads.length);
+    console.log("currentTrailheads count = " + currentTrailheads.length);
     setTimeout(function() {
       //fixDuplicateTrailheadTrails(myTrailheads);
       makeCurrentActivities(currentTrailheads);
@@ -2160,16 +2161,16 @@ function startup() {
       trailheadLink = encodeURIComponent(trailhead.properties.id + "-" + trailhead.properties.name);
     }
 
-    $.address.parameter('trail', trailLink);  
-    $.address.parameter('poi', trailheadLink);
-    $.address.update();
-
+    
     if (trailSystem) {
       decorateDetailPanelForTrailSystem(trailSystem);
     } else {
       decorateDetailPanelForTrailhead(trailhead);
     }
 
+    $.address.parameter('trail', trailLink);  
+    $.address.parameter('poi', trailheadLink);
+    $.address.update();
 
     if ($('.detailPanel').is(':hidden')) {
       //decorateDetailPanel(trail, trailhead);
@@ -2235,6 +2236,7 @@ function startup() {
     highlightTrailhead(null,null);
     highlightTrailSegmentsForTrailSystem(null);
     highlightActivities(null);
+    //resetDetailPanel();
 
     map.closePopup();
     // map.invalidateSize();
@@ -3443,7 +3445,7 @@ function startup() {
         console.log("[highlightTrailhead] currentTrailhead");
         var currentTrailheadDivs = document.getElementsByClassName(myEntranceID);
         for (var i = 0; i < currentTrailheadDivs.length; i++) {
-          //console.log("[highlightTrailhead] currentTrailhead loop");
+          console.log("[highlightTrailhead] old currentTrailheadDivs loop i = " + i);
           currentTrailheadDivs[i].classList.remove('selected');
         }
     }
@@ -3455,14 +3457,14 @@ function startup() {
       console.log("[highlightTrailhead] new currentTrailhead = " + myEntranceID);
 
       var currentTrailheadDivs = document.getElementsByClassName(myEntranceID);
-      //console.log(currentTrailheadDivs[0]);
       for (var i = 0; i < currentTrailheadDivs.length; i++) {
+        console.log("[highlightTrailhead] new currentTrailheadDivs loop i = " + i);
         //console.log("[highlightTrailhead] new currentTrailhead in loop");
         //console.log("[highlightTrailhead] loop i = " + i + " div= " + currentTrailheadDivs[i]);
         currentTrailheadDivs[i].classList.add('selected');
       }
   
-      highlightTrailInPopup(trailhead, highlightedTrailIndex);
+      //highlightTrailInPopup(trailhead, highlightedTrailIndex);
       var popup = new L.Popup({
         offset: [0, -12],
         autoPanPadding: [10, 10],
