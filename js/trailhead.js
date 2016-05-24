@@ -156,6 +156,7 @@ function startup() {
   var traildataFetched = false;
   var trailsegmentsFetched = false;
   var activitiesFetched = false;
+  var allDataFetched = false;
   var allInvisibleSegmentsArray = [];
   var allVisibleSegmentsArray = [];
   var secondaryTrails = {};
@@ -223,9 +224,11 @@ function startup() {
     $(".trigger3").addClass("active");
   }
 
+
+
   $.address.autoUpdate(0);
   //$.address.crawlable(1);
-  $.address.internalChange(function(event) {  
+  $.address.externalChange(function(event) {  
     // do something depending on the event.value property, e.g.  
     console.log("internalChange event = " + event.parameters);
     //console.log("hash = " + $.address.hash()  );
@@ -237,9 +240,22 @@ function startup() {
     // console.log("[address.change] searchFilter = " + searchFilter);
     // console.log("[address.change] entrance = " + entrance);
     // console.log("[address.change] trail = " + trail);
-    //addressChange();
+    waitForAllData();
     //$('.filter').load(event.value + '.xml');  
   });  
+
+  var activeTrailheadsMapped = false;
+  var makeTrailDivsEnded = false;
+  function waitForAllData() {
+    // console.log("waitForAllTrailData");
+    console.log("[waitForAllData] active + make: " + activeTrailheadsMapped + makeTrailDivsEnded);
+    if (activeTrailheadsMapped && makeTrailDivsEnded) {
+      addressChange();
+    }
+    else {
+      setTimeout(waitForAllData, 100);
+    }
+  }
 
   function addressChange() {
     //var searchFilter = $.address.parameter('search');
@@ -403,7 +419,7 @@ function startup() {
   function waitForAllTrailData() {
     // console.log("waitForAllTrailData");
     if (traildataFetched && trailsegmentsFetched && trailheadsFetched && activitiesFetched) {
-
+      allDataFetched = true;
       addTrailsToTrailheads(originalTrailData, originalTrailheads);
 
       // if we haven't added the segment layer yet, add it.
@@ -1879,6 +1895,7 @@ function startup() {
     map.fitBounds(currentTrailheadLayerGroup.getBounds(), {
       paddingTopLeft: centerOffset
     });
+    activeTrailheadsMapped = true;
     console.log("mapActiveTrailheads end");
   }
 
@@ -1999,6 +2016,7 @@ function startup() {
     $(".fpccEntry").click(trailDivClickHandler);
     $("#fpccSearchStatus").html(orderedTrails.length + " Results Found");
     console.log("end makeTrailDivs 4");
+    makeTrailDivsEnded = true;
   }
 
   function trailDivClickHandler(e) {
