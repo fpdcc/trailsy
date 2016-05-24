@@ -243,6 +243,7 @@ function startup() {
 
   function addressChange() {
     //var searchFilter = $.address.parameter('search');
+    
     var searchFilter = decodeURIComponent($.address.parameter('search'));
     var poi  = decodeURIComponent($.address.parameter('poi'));
     var trail  = decodeURIComponent($.address.parameter('trail'));
@@ -260,20 +261,24 @@ function startup() {
     }
     console.log("[addressChange] searchFilter = " + searchFilter);
     //if (searchFilter != searchFilterLast) {
-    setTimeout(function() {
-      updateFilterObject("activityFilter", searchFilter);
-      //}
-      if (poi || trail) {
-        populateTrailsForTrailheadDiv(trail, entrance);
-        openDetailPanel();
-      } else {
-        map.fitBounds(currentTrailheadLayerGroup.getBounds(), {
-           paddingTopLeft: centerOffset
-        });
-        closeDetailPanel();
-      }
+    // setTimeout(function() {
+    //   updateFilterObject("activityFilter", searchFilter);
+    //   //}
+    if (poi) {
+      var poiID = poi.split("-")[0];
+      trailDivWork(null, poiID);
+    } else if (trail) {
+      var trailSystem = trail;
+      trailDivWork(trail, null);
+    }
+    // else {
+    //     map.fitBounds(currentTrailheadLayerGroup.getBounds(), {
+    //        paddingTopLeft: centerOffset
+    //     });
+    //     closeDetailPanel();
+    //   }
 
-    }, 0);
+    // }, 0);
     
     
   }
@@ -1943,7 +1948,7 @@ function startup() {
       }
       var trailCurrentIndex = divCount++;
 
-       var trailDivText = "<a href='#' class='fpccEntry clearfix' " +
+       var trailDivText = "<button class='fpccEntry clearfix' " +
         "data-source='list' " +
         "data-trailid='" + "' " +
         "data-trailname='" + "' " +
@@ -1965,7 +1970,7 @@ function startup() {
       trailListContents = trailListContents + trailDivComplete;
 
       if ((!trailList[trailName]) && trailheadTrailIDs) {
-        trailDivText = "<a href='#' class='fpccEntry clearfix' " +
+        trailDivText = "<button class='fpccEntry clearfix' " +
         "data-source='list' " +
         "data-trailid='" + trailID + "' " +
         "data-trailname='" + trailName + "' " +
@@ -2007,16 +2012,28 @@ function startup() {
   function trailDivClickHandler(e) {
     var $myTarget = $(e.currentTarget);
     var divTrailID = $myTarget.attr("data-trailid");
+    var divTrailName = $myTarget.attr("data-trailname");
     console.log(divTrailID);
     var divTrail = originalTrailData[divTrailID];
     var trailSystem = null;
     var divTrailheadID = $myTarget.attr("data-trailheadid");
-    if (divTrail) {
-      trailSystem = divTrail.properties.trail_system;
-      trailDivWork(trailSystem, null);
-    } else {   
-      trailDivWork(null, divTrailheadID);
-    }  
+    var divTrailheadName = $myTarget.attr("data-trailheadname");
+    var trailheadID = null;
+    console.log("divTrailheadID = " + divTrailheadID);
+    if (divTrailheadID != "null") {
+      trailheadID = encodeURIComponent(divTrailheadID + "-" + divTrailheadName);
+    }
+    console.log("encoded trailheadID = " + trailheadID);
+    $.address.parameter('trail', encodeURIComponent(divTrailName));  
+    $.address.parameter('poi', trailheadID);
+    
+    $.address.update();
+    // if (divTrail) {
+    //   trailSystem = divTrail.properties.trail_system;
+    //   trailDivWork(trailSystem, null);
+    // } else {   
+    //   trailDivWork(null, divTrailheadID);
+    // }  
   }
 
   function trailDivWork(trailSystem, trailheadId) {
