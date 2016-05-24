@@ -196,7 +196,7 @@ a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 .fpccEntryNameText{display:inline-block;width:83%;}
 .fpccEntry .icon.icon-sign{margin-top:2px}
 .fpccEntry .icon.icon-trail-marker{margin-top:-2px}
-.fpccEntry:hover{background:#F1F1ED}
+.fpccEntry:hover{background:#F1F1ED;cursor: pointer;}
 .trailListColumn .fpccUnit.fpccResults a span.fpccEntryDis,.trailListColumn .fpccUnit.fpccResults a span.fpccEntryName{color:#333;font-weight:normal}
 .trailListColumn .fpccUnit.fpccResults a span.fpccEntryName{font-size:1em;font-weight:bold;float:left;width:70%}
 .fpccEntryDis{font-size:.9125em;font-family:Georgia,"Times New Roman",serif;float:right;width:30%;text-align:right}
