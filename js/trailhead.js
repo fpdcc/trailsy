@@ -2085,16 +2085,20 @@ function startup() {
     var trailheadLink = null;
     var trailLink = null;
     if (trailSystem) {
-      decorateDetailPanelForTrailSystem(trailSystem);
       trailLink =  encodeURIComponent(trailSystem);
     } else {
-      decorateDetailPanelForTrailhead(trailhead);
       trailheadLink = encodeURIComponent(trailhead.properties.id + "-" + trailhead.properties.name);
     }
 
     $.address.parameter('trail', trailLink);  
     $.address.parameter('poi', trailheadLink);
     $.address.update();
+
+    if (trailSystem) {
+      decorateDetailPanelForTrailSystem(trailSystem);
+    } else {
+      decorateDetailPanelForTrailhead(trailhead);
+    }
 
 
     if ($('.detailPanel').is(':hidden')) {
@@ -2336,6 +2340,14 @@ function startup() {
         //$('.detailPanel .fpccTrails .icon-trail-marker').show();
         $('.detailPanel .fpccLinks').hide();
 
+        var a = document.getElementById('fpccSocialEmail'); 
+        a.href = "mailto:?subject=Heading to " + trailSystemTrail.properties.name;
+        a = document.getElementById('fpccSocialTwitter'); 
+        a.href = "http://twitter.com/home?status=Heading to " + trailSystemTrail.properties.name + " " + window.location.href;
+        a = document.getElementById('fpccSocialFacebook'); 
+        a.href = "http://www.facebook.com/sharer/sharer.php?s=100&p[url]=" + window.location.href + "&p[images][0]=&p[title]=Cook County Forest Preserves &p[summary]=Heading to " + trailSystemTrail.properties.name;
+        
+
     }
   }
 
@@ -2451,7 +2463,7 @@ function startup() {
       var a = document.getElementById('fpccSocialEmail'); 
       a.href = "mailto:?subject=Heading to " + trailhead.properties.name;
       a = document.getElementById('fpccSocialTwitter'); 
-      a.href = "http://twitter.com/home?status=Heading to " + trailhead.properties.name;
+      a.href = "http://twitter.com/home?status=Heading to " + trailhead.properties.name + " " + window.location.href;
       a = document.getElementById('fpccSocialFacebook'); 
       a.href = "http://www.facebook.com/sharer/sharer.php?s=100&p[url]=" + window.location.href + "&p[images][0]=&p[title]=Cook County Forest Preserves &p[summary]=Heading to " + trailhead.properties.name;
       
