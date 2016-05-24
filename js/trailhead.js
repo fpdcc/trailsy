@@ -27,14 +27,24 @@ function startup() {
 
   console.log("trailhead.js");
 
-  $(".js-example-basic-multiple").select2({
+  // $(".js-example-basic-multiple").select2({
+  //   placeholder: "Search by Location or Activity",
+  //   tags: true,
+  //   tokenSeparators: [','],
+  //   allowClear: true
+  // });
+
+  $(".js-example-basic-multiple").selectize({
     placeholder: "Search by Location or Activity",
-    tags: true,
+    create: true,
+    createOnBlur: true,
+    persist: false,
     tokenSeparators: [','],
-    allowClear: true
+    allowClear: true,
+    closeAfterSelect: true,
+    allowEmptyOption: true,
+    plugins: ['restore_on_backspace','remove_button']
   });
-
-
 
   var SMALL = false;
   if (Modernizr.mq("only screen and (max-width: 768px)")) {
@@ -119,7 +129,8 @@ function startup() {
   var currentFilters = {
     lengthFilter: [],
     activityFilter: [],
-    searchFilter: ""
+    searchFilter: "",
+    location: null
   };
   var orderedTrails = [];
   var currentDetailTrail = null;
@@ -160,6 +171,42 @@ function startup() {
   var allInvisibleSegmentsArray = [];
   var allVisibleSegmentsArray = [];
   var secondaryTrails = {};
+
+  // Search variables
+  var searchZipcode = null;
+  var searchLocation = null;
+  var zipCodeLocations = {
+    60625: [41.971614, -87.70256],
+    60004: [42.108428, -87.97723],
+    60005: [42.069327, -87.98464],
+    60006: [41.811929, -87.68732],
+    60007: [42.005978, -87.99847],
+    60008: [42.07506, -88.02508],
+    60009: [41.811929, -87.68732],
+    60016: [42.047178, -87.89058],
+    60017: [42.028779, -87.894366],
+    60018: [42.008429, -87.89234],
+    60019: [42.024278, -87.907066],
+    60022: [42.130976, -87.76252],
+    60025: [42.07672, -87.81922],
+    60026: [42.09166, -87.837363],
+    60029: [42.056529, -87.79286],
+    60038: [42.097976, -88.014072],
+    60043: [42.088128, -87.716],
+    60053: [42.041999, -87.78882],
+    60055: [42.097976, -88.014072],
+    60056: [42.065427, -87.93621],
+    60062: [42.124576, -87.84303],
+    60065: [41.811929, -87.68732],
+    60067: [42.10979, -88.04917],
+    60068: [42.01183, -87.84158],
+    60070: [42.105576, -87.92816],
+    60074: [42.143819, -88.02546],
+    60076: [42.03618, -87.7321],
+    60077: [42.033313, -87.75764]
+  }
+  
+
   // Trailhead Variables
   // Not sure if these should be global, but hey whatev
 
@@ -521,12 +568,28 @@ function startup() {
       var activityFilterLength = currentFilters.activityFilter.length;
       console.log("[updateFilterObject] old activityFilterLength = " + activityFilterLength);
       console.log("[updateFilterObject] old currentFilters.activityFilter = " + currentFilters.activityFilter);
+      console.log("[updateFilterObject] old currentFilters.location = " + currentFilters.location);
       if (currentUIFilterState) {
+        currentFilters.location = null;
         currentFilters.activityFilter = [];
         currentFilters.activityFilter = String(currentUIFilterState).split(",");
+        var removeIndex = null;
+        currentFilters.activityFilter.forEach(function(value, index) {
+          if (!(zipCodeLocations[value] === undefined)) {
+            currentFilters.location = new L.LatLng(zipCodeLocations[value][0], zipCodeLocations[value][1]);
+            console.log("[updateFilterObject] new currentUserLocation = " + currentUserLocation + " for zipcode = " + value);
+            removeIndex = index;
+          } 
+        });
+        console.log("removeIndex = " + removeIndex);
+        if (!(removeIndex === null)) {
+          console.log("in the remove index if statement");
+          currentFilters.activityFilter.splice(removeIndex, 1);
+        }
         console.log("[updateFilterObject] NEW currentFilters.activityFilter = " + currentFilters.activityFilter);
       } else {
         currentFilters.activityFilter = [];
+        currentFilters.location = null;
       }
       console.log("[updateFilterObject] activityFilterLength = " + activityFilterLength);
       console.log("[updateFilterObject] currentFilters.activityFilter = " + currentFilters.activityFilter);
@@ -1706,7 +1769,14 @@ function startup() {
     for (var j = 0; j < myTrailheads.length; j++) {
       var trailhead = myTrailheads[j];
       var currentFeatureLatLng = new L.LatLng(trailhead.geometry.coordinates[1], trailhead.geometry.coordinates[0]);
-      var distance = currentFeatureLatLng.distanceTo(currentUserLocation);
+      var distance = 0;
+      if (currentFilters.location) {
+        distance = currentFeatureLatLng.distanceTo(currentFilters.location);
+        console.log("[addTrailsToTrailheads] using currentFilters.location");
+      } else {
+        distance = currentFeatureLatLng.distanceTo(currentUserLocation);
+        console.log("[addTrailsToTrailheads] using currentUserLocation");
+      }
       trailhead.properties.distance = distance;
       console.log("[addTrailsToTrailheads] distance = " + distance);
       var trailheadWanted = 0;
