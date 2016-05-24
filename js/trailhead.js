@@ -237,7 +237,7 @@ function startup() {
     // console.log("[address.change] searchFilter = " + searchFilter);
     // console.log("[address.change] entrance = " + entrance);
     // console.log("[address.change] trail = " + trail);
-    addressChange();
+    //addressChange();
     //$('.filter').load(event.value + '.xml');  
   });  
 
@@ -271,16 +271,7 @@ function startup() {
       var trailSystem = trail;
       trailDivWork(trail, null);
     }
-    // else {
-    //     map.fitBounds(currentTrailheadLayerGroup.getBounds(), {
-    //        paddingTopLeft: centerOffset
-    //     });
-    //     closeDetailPanel();
-    //   }
 
-    // }, 0);
-    
-    
   }
 
 
@@ -1198,6 +1189,7 @@ function startup() {
         paddingTopLeft: centerOffset
       })
     }
+
     //if (trailhead.trails) {
     //  showTrailDetails(originalTrailData[trailhead.trails[0]], trailhead);
     //} else {
@@ -2019,21 +2011,13 @@ function startup() {
     var divTrailheadID = $myTarget.attr("data-trailheadid");
     var divTrailheadName = $myTarget.attr("data-trailheadname");
     var trailheadID = null;
-    console.log("divTrailheadID = " + divTrailheadID);
-    if (divTrailheadID != "null") {
-      trailheadID = encodeURIComponent(divTrailheadID + "-" + divTrailheadName);
-    }
-    console.log("encoded trailheadID = " + trailheadID);
-    $.address.parameter('trail', encodeURIComponent(divTrailName));  
-    $.address.parameter('poi', trailheadID);
     
-    $.address.update();
-    // if (divTrail) {
-    //   trailSystem = divTrail.properties.trail_system;
-    //   trailDivWork(trailSystem, null);
-    // } else {   
-    //   trailDivWork(null, divTrailheadID);
-    // }  
+    if (divTrail) {
+      trailSystem = divTrail.properties.trail_system;
+      trailDivWork(trailSystem, null);
+    } else {   
+      trailDivWork(null, divTrailheadID);
+    }  
   }
 
   function trailDivWork(trailSystem, trailheadId) {
@@ -2056,11 +2040,10 @@ function startup() {
 
     if (divTrailhead) {
       zoomArray = highlightedActivityMarkerArray.slice(0);
-      //console.log("zoomArray = " + zoomArray);
       zoomArray.push(divTrailhead.marker);
-      //console.log("zoomArray = " + zoomArray);
       zoomFeatureGroup = new L.FeatureGroup(zoomArray);
-      //console.log("zoomFeatureGroup = " + zoomFeatureGroup);
+      var zoomFeatureGroupBounds = zoomFeatureGroup.getBounds();
+
     } else {
       zoomFeatureGroup = currentHighlightedSegmentLayer;
       //console.log("zoomFeatureGroup= " + zoomFeatureGroup);
@@ -2080,11 +2063,21 @@ function startup() {
   // KEEP REVISED: showTrailDetails
   function showTrailDetails(trailSystem, trailhead) {
     console.log("showTrailDetails");
+    
+    var trailheadLink = null;
+    var trailLink = null;
     if (trailSystem) {
       decorateDetailPanelForTrailSystem(trailSystem);
+      trailLink =  encodeURIComponent(trailSystem);
     } else {
       decorateDetailPanelForTrailhead(trailhead);
+      trailheadLink = encodeURIComponent(trailhead.properties.id + "-" + trailhead.properties.name);
     }
+
+    $.address.parameter('trail', trailLink);  
+    $.address.parameter('poi', trailheadLink);
+    $.address.update();
+
 
     if ($('.detailPanel').is(':hidden')) {
       //decorateDetailPanel(trail, trailhead);
