@@ -44,7 +44,7 @@ function startup() {
     closeAfterSelect: true,
     allowEmptyOption: true,
     highlight: true,
-    plugins: ['restore_on_backspace','remove_button']
+    plugins: ['remove_button']
   });
 
   var SMALL = false;
@@ -75,6 +75,7 @@ function startup() {
   }
   //API_HOST = "http://localhost:8080";
   console.log("API_HOST = " + API_HOST);
+  API_HOST = "http://fpcc-staging.smartchicagoapps.org/json"
 
   //  Near-Global Variables
   var METERSTOMILESFACTOR = 0.00062137;
@@ -176,39 +177,50 @@ function startup() {
   // Search variables
   var searchZipcode = null;
   var searchLocation = null;
-  var zipCodeLocations = {
-    60625: [41.971614, -87.70256],
-    60004: [42.108428, -87.97723],
-    60005: [42.069327, -87.98464],
-    60006: [41.811929, -87.68732],
-    60007: [42.005978, -87.99847],
-    60008: [42.07506, -88.02508],
-    60009: [41.811929, -87.68732],
-    60016: [42.047178, -87.89058],
-    60017: [42.028779, -87.894366],
-    60018: [42.008429, -87.89234],
-    60019: [42.024278, -87.907066],
-    60022: [42.130976, -87.76252],
-    60025: [42.07672, -87.81922],
-    60026: [42.09166, -87.837363],
-    60029: [42.056529, -87.79286],
-    60038: [42.097976, -88.014072],
-    60043: [42.088128, -87.716],
-    60053: [42.041999, -87.78882],
-    60055: [42.097976, -88.014072],
-    60056: [42.065427, -87.93621],
-    60062: [42.124576, -87.84303],
-    60065: [41.811929, -87.68732],
-    60067: [42.10979, -88.04917],
-    60068: [42.01183, -87.84158],
-    60070: [42.105576, -87.92816],
-    60074: [42.143819, -88.02546],
-    60076: [42.03618, -87.7321],
-    60077: [42.033313, -87.75764]
-  };
-  var muniLocations = {
-    "des plaines" : [42.03618, -87.7321]
-  };
+  // var zipCodeLocations = {
+  //   60625: [41.971614, -87.70256],
+  //   60004: [42.108428, -87.97723],
+  //   60005: [42.069327, -87.98464],
+  //   60006: [41.811929, -87.68732],
+  //   60007: [42.005978, -87.99847],
+  //   60008: [42.07506, -88.02508],
+  //   60009: [41.811929, -87.68732],
+  //   60016: [42.047178, -87.89058],
+  //   60017: [42.028779, -87.894366],
+  //   60018: [42.008429, -87.89234],
+  //   60019: [42.024278, -87.907066],
+  //   60022: [42.130976, -87.76252],
+  //   60025: [42.07672, -87.81922],
+  //   60026: [42.09166, -87.837363],
+  //   60029: [42.056529, -87.79286],
+  //   60038: [42.097976, -88.014072],
+  //   60043: [42.088128, -87.716],
+  //   60053: [42.041999, -87.78882],
+  //   60055: [42.097976, -88.014072],
+  //   60056: [42.065427, -87.93621],
+  //   60062: [42.124576, -87.84303],
+  //   60065: [41.811929, -87.68732],
+  //   60067: [42.10979, -88.04917],
+  //   60068: [42.01183, -87.84158],
+  //   60070: [42.105576, -87.92816],
+  //   60074: [42.143819, -88.02546],
+  //   60076: [42.03618, -87.7321],
+  //   60077: [42.033313, -87.75764]
+  // };
+  var zipCodeLocations = {};
+  $.getJSON("../json/search_zip.json", function(result){
+    zipCodeLocations = result;
+    console.log("[getJSON zipCodeLocations] done at " + new Date().getTime());
+  });
+
+  // var muniLocations = {
+  //   "des plaines" : [42.03618, -87.7321]
+  // };
+  var muniLocations = {};
+  $.getJSON("../json/search_muni.json", function(result){
+    muniLocations = result;
+    console.log("[getJSON muniLocations] done at " + new Date().getTime());
+  });
   
 
   // Trailhead Variables
@@ -583,8 +595,8 @@ function startup() {
         currentFilters.activityFilter.forEach(function(value, index) {
           var normalizedValue = value.toLowerCase();
           if (!(zipCodeLocations[normalizedValue] === undefined)) {
-            currentFilters.location = new L.LatLng(zipCodeLocations[normalizedValue][0], zipCodeLocations[value][1]);
-            console.log("[updateFilterObject] new currentUserLocation = " + currentUserLocation + " for zipcode = " + normalizedValue);
+            console.log("[updateFilterObject] zip lat,lon = " + zipCodeLocations[normalizedValue]['latitude'] + ", " + zipCodeLocations[value]['longitude'] );
+            currentFilters.location = new L.LatLng(zipCodeLocations[normalizedValue]['latitude'], zipCodeLocations[value]['longitude']);
             removeIndex = index;
           } else if (!(muniLocations[normalizedValue] === undefined)) {
             currentFilters.possibleMuni = normalizedValue;
@@ -629,7 +641,7 @@ function startup() {
       currentFilters.searchFilter = currentUIFilterState;
     }
     // currentFilters[filterType] = currentUIFilterState;
-    console.log(currentFilters);
+    //console.log(currentFilters);
     applyFilterChange(currentFilters);
   }
 
@@ -696,7 +708,7 @@ function startup() {
             currentFilters.useMuni = false;
             //console.log("[filterResults] useMuni = false");
           } else {
-            muniTerm = 0;
+            muniTerm = 1;
           }
         }
         matched = [ (matched[0] * term), (matched[1] * muniTerm)];
@@ -1874,7 +1886,10 @@ function startup() {
         distance = currentFeatureLatLng.distanceTo(currentFilters.location);
         //console.log("[addTrailsToTrailheads] using currentFilters.location");
       } else if (currentFilters.possibleMuni) {
-        distanceMuni = currentFeatureLatLng.distanceTo(muniLocations[currentFilters.possibleMuni]);
+        //console.log("[addTrailsToTrailheads] muniLocation lat/lon = " + muniLocations[currentFilters.possibleMuni]['latitude'] + ", " + muniLocations[currentFilters.possibleMuni]['longitude']);
+        var muniLocation = new L.LatLng(muniLocations[currentFilters.possibleMuni]['latitude'], muniLocations[currentFilters.possibleMuni]['longitude']);
+        distanceMuni = currentFeatureLatLng.distanceTo(muniLocation);
+        //console.log("[addTrailsToTrailheads] distanceMuni = " + distanceMuni);
       }
       trailhead.properties.distance = distance;
       trailhead.properties.distanceMuni = distanceMuni;
@@ -1910,11 +1925,13 @@ function startup() {
         //trailheadWanted = true;
         currentTrailheads.push(trailhead);
       } else {
+        //console.log("[addTrailsToTrailheads] firstRunFails trailhead.properties.filterResults = " + trailhead.properties.filterResults);
         firstRunFails.push(trailhead);
       }
     }
     if (currentFilters.useMuni) {
       for (var failCounter = 0; failCounter < firstRunFails.length; failCounter++) {
+        var trailhead = firstRunFails[failCounter];
         if (trailhead.properties.filterResults[1] > 0) {
           //console.log("filterResults is good");
           //trailheadWanted = true;
@@ -2105,9 +2122,12 @@ function startup() {
       var a_distance = a.properties.distance;
       var b_distance = b.properties.distance;
       if ( currentFilters.useMuni ) {
-        a_distance = a.properties.distanceMuni;
-        b_distance = b.properties.distanceMuni;
+        //console.log("[makeTrailDivs] a.properties.distanceMuni = " + a.properties.distanceMuni);
+        a.properties.distance = a.properties.distanceMuni;
+        b.properties.distance = b.properties.distanceMuni;
       }
+      var a_distance = a.properties.distance;
+      var b_distance = b.properties.distance;
       //console.log("a and b.properties.filterResult = " + a.properties.filterScore + " vs " + b.properties.filterScore);
       if (a.properties.filterScore > b.properties.filterScore) return -1;
       if (a.properties.filterScore < b.properties.filterScore) return 1;
