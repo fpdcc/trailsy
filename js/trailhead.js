@@ -2615,36 +2615,40 @@ function startup() {
 
         if (trailhead.properties.indirect_trail_ids) {
           console.log("[decorateDetailPanel] indirect_trail_ids.length = " + trailhead.properties.indirect_trail_ids.length);
-          trailSegmentsHTML += "with access to";
-        
+          var indirectHTML = "with access to";
+          var useIndirect = false;
           for (var trailIndex = 0; trailIndex < trailhead.properties.indirect_trail_ids.length; trailIndex++ ) {
             var thisTrailId = trailhead.properties.indirect_trail_ids[trailIndex];
             var thisTrail = originalTrailData[thisTrailId];
             if (thisTrail.properties.length >= 1) {
-              trailSegmentsHTML += '<div class="fpccTrailSegment"><div class="fpccSegmentOverview fpcc';
-              trailSegmentsHTML += thisTrail.properties.trail_color;
+              useIndirect = true;
+              indirectHTML += '<div class="fpccTrailSegment"><div class="fpccSegmentOverview fpcc';
+              indirectHTML += thisTrail.properties.trail_color;
               if (thisTrail.properties.trail_type.toLowerCase() != "paved") {
-                trailSegmentsHTML += " fpccUnpaved";
+                indirectHTML += " fpccUnpaved";
               }
-              trailSegmentsHTML += ' clearfix"><span class="fpccSegmentName">';
-              trailSegmentsHTML += thisTrail.properties.trail_color + ' ' + thisTrail.properties.trail_type;
-              trailSegmentsHTML += '</span><span class="fpccTrailUse">';
-              trailSegmentsHTML += '<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>';
+              indirectHTML += ' clearfix"><span class="fpccSegmentName">';
+              indirectHTML += thisTrail.properties.trail_color + ' ' + thisTrail.properties.trail_type;
+              indirectHTML += '</span><span class="fpccTrailUse">';
+              indirectHTML += '<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>';
               if (thisTrail.properties.trail_type.toLowerCase() == "unpaved" || thisTrail.properties.trail_type.toLowerCase() == "paved" || thisTrail.properties.trail_type == "") {
-                trailSegmentsHTML += '<svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg>';
-                trailSegmentsHTML += '<svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg>';
+                indirectHTML += '<svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg>';
+                indirectHTML += '<svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg>';
               }
               if (thisTrail.properties.trail_type.toLowerCase() == "unpaved" || thisTrail.properties.trail_type == "") {
-                trailSegmentsHTML += '<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>';
+                indirectHTML += '<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>';
               }
-              trailSegmentsHTML += '</span></div>';
-              trailSegmentsHTML += '<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>';
-              trailSegmentsHTML += (Math.round(thisTrail.properties.length * 100) / 100);
-              trailSegmentsHTML += ' mi</span></span>';
-              trailSegmentsHTML += '<span class="fpccLabel fpccRight">Surface<span>';
-              trailSegmentsHTML += thisTrail.properties.trail_type;
-              trailSegmentsHTML += '</span></span></div></div>';
+              indirectHTML += '</span></div>';
+              indirectHTML += '<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>';
+              indirectHTML += (Math.round(thisTrail.properties.length * 100) / 100);
+              indirectHTML += ' mi</span></span>';
+              indirectHTML += '<span class="fpccLabel fpccRight">Surface<span>';
+              indirectHTML += thisTrail.properties.trail_type;
+              indirectHTML += '</span></span></div></div>';
             }
+          }
+          if (useIndirect) {
+            trailSegmentsHTML += indirectHTML;
           }
         }
 
