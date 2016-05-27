@@ -43,6 +43,7 @@ function startup() {
     allowClear: true,
     closeAfterSelect: true,
     allowEmptyOption: true,
+    highlight: true,
     plugins: ['restore_on_backspace','remove_button']
   });
 
@@ -566,16 +567,16 @@ function startup() {
   function updateFilterObject(filterType, currentUIFilterState) {
     console.log("[updateFilterObject] currentUIFilterState = " + currentUIFilterState);
     var matched = 0;
+    currentFilters.location = null;
+    currentFilters.possibleMuni = "";
+    currentFilters.useMuni = false;
     if (filterType == "activityFilter") {
       console.log("[updateFilterObject] activityFilter");
       var activityFilterLength = currentFilters.activityFilter.length;
       console.log("[updateFilterObject] old activityFilterLength = " + activityFilterLength);
       console.log("[updateFilterObject] old currentFilters.activityFilter = " + currentFilters.activityFilter);
       console.log("[updateFilterObject] old currentFilters.location = " + currentFilters.location);
-      if (currentUIFilterState) {
-        currentFilters.location = null;
-        currentFilters.possibleMuni = "";
-        currentFilters.useMuni = false;
+      if (currentUIFilterState) {   
         currentFilters.activityFilter = [];
         currentFilters.activityFilter = String(currentUIFilterState).split(",");
         var removeIndex = null;
@@ -637,12 +638,12 @@ function startup() {
     var matched = [1,1];
     var term = 1;
     var muniTerm = 1;
-    console.log("[filterResults] initial matched = " + matched);
+    //console.log("[filterResults] initial matched = " + matched);
     if (currentFilters.activityFilter) {
       //console.log("[filterResults] currentFilters.activityFilter exists.." + currentFilters.activityFilter.length);
       for (var i = 0; i < currentFilters.activityFilter.length; i++) {
         var activity = currentFilters.activityFilter[i];
-        console.log("[filterResults] activityFilter = " + activity);
+        //console.log("[filterResults] activityFilter = " + activity);
         //console.log("trailhead.properties[activity] = " + trailhead.properties[activity]);
         var trailheadActivity = 0;
         var trailheadTag = 0;
@@ -693,7 +694,7 @@ function startup() {
         if (currentFilters.activityFilter[i].toLowerCase() == currentFilters.possibleMuni) {
           if (term > 0) {
             currentFilters.useMuni = false;
-            console.log("[filterResults] useMuni = false");
+            //console.log("[filterResults] useMuni = false");
           } else {
             muniTerm = 0;
           }
@@ -703,7 +704,7 @@ function startup() {
       
     }
     
-    console.log("[filterResults] matched = " + matched);
+    //console.log("[filterResults] matched = " + matched);
     return matched;
   }
 
@@ -1922,6 +1923,7 @@ function startup() {
         }
       }
     }
+    firstRunFails = [];
     console.log("currentTrailheads count = " + currentTrailheads.length);
     setTimeout(function() {
       //fixDuplicateTrailheadTrails(myTrailheads);
