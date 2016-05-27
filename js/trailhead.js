@@ -204,7 +204,10 @@ function startup() {
     60074: [42.143819, -88.02546],
     60076: [42.03618, -87.7321],
     60077: [42.033313, -87.75764]
-  }
+  };
+  var muniLocations = {
+    "des plaines" : [42.03618, -87.7321]
+  };
   
 
   // Trailhead Variables
@@ -571,15 +574,21 @@ function startup() {
       console.log("[updateFilterObject] old currentFilters.location = " + currentFilters.location);
       if (currentUIFilterState) {
         currentFilters.location = null;
+        currentFilters.possibleMuni = "";
+        currentFilters.useMuni = false;
         currentFilters.activityFilter = [];
         currentFilters.activityFilter = String(currentUIFilterState).split(",");
         var removeIndex = null;
         currentFilters.activityFilter.forEach(function(value, index) {
-          if (!(zipCodeLocations[value] === undefined)) {
-            currentFilters.location = new L.LatLng(zipCodeLocations[value][0], zipCodeLocations[value][1]);
-            console.log("[updateFilterObject] new currentUserLocation = " + currentUserLocation + " for zipcode = " + value);
+          var normalizedValue = value.toLowerCase();
+          if (!(zipCodeLocations[normalizedValue] === undefined)) {
+            currentFilters.location = new L.LatLng(zipCodeLocations[normalizedValue][0], zipCodeLocations[value][1]);
+            console.log("[updateFilterObject] new currentUserLocation = " + currentUserLocation + " for zipcode = " + normalizedValue);
             removeIndex = index;
-          } 
+          } else if (!(muniLocations[normalizedValue] === undefined)) {
+            currentFilters.possibleMuni = normalizedValue;
+            currentFilters.useMuni = true;
+          }
         });
         console.log("removeIndex = " + removeIndex);
         if (!(removeIndex === null)) {
@@ -625,95 +634,180 @@ function startup() {
 
   
   function filterResults(trail, trailhead) {
-    var wanted = 0;
-    var lengthMatched = false;
-    var activityMatched = 1;
-    var searchMatched = 1;
+    var matched = [1,1];
+    var term = 1;
+    var muniTerm = 1;
+    console.log("[filterResults] initial matched = " + matched);
     if (currentFilters.activityFilter) {
+      //console.log("[filterResults] currentFilters.activityFilter exists.." + currentFilters.activityFilter.length);
       for (var i = 0; i < currentFilters.activityFilter.length; i++) {
         var activity = currentFilters.activityFilter[i];
+        console.log("[filterResults] activityFilter = " + activity);
         //console.log("trailhead.properties[activity] = " + trailhead.properties[activity]);
-        var trailheadActivity = 1;
-        if (!(trailhead.properties[activity] === undefined)) {
-          trailheadActivity = trailhead.properties[activity];
-        }
-        else {
-          //console.log("searchfilter is not null = " + currentFilters.activityFilter[i]);
-          searchMatched = 0;
-          var normalizedTrailName = "";
-          var normalizedDescription = null;
-          if (trail) {
-            normalizedTrailName = trail.properties.name.toLowerCase();
-            normalizedDescription = trail.properties.description.toLowerCase();
-            //console.log("normalizedTrailName= " + normalizedTrailName);
+        var trailheadActivity = 0;
+        var trailheadTag = 0;
+        term = 0;
+        muniTerm = 0;
+        // var a = trailhead.properties.tags.indexOf(activity);
+        // console.log("filterResults a = " + a);
+        // if (a != -1) {
+        //   searchMatched = 1;
+        // }
+        var normalizedTrailName = "";
+        var normalizedTrailDescription = "";
+        if (trail) {
+          normalizedTrailName = trail.properties.name.toLowerCase();
+          if (trail.properties.description) {
+            normalizedTrailDescription = trail.properties.description.toLowerCase();
           }
-          var normalizedSearchFilter = currentFilters.activityFilter[i].toLowerCase();
-          var equivalentWords = [
+        }
+        var normalizedTrailheadName = trailhead.properties.name.toLowerCase();
+        var normalizedTrailheadDescription = "";
+        if (trailhead.properties.description) {
+          normalizedTrailheadDescription = trailhead.properties.description.toLowerCase();
+        }
+        var normalizedSearchFilter = currentFilters.activityFilter[i].toLowerCase();
+        var equivalentWords = [
             [" and ", " & "],
             ["tow path", "towpath"]
-          ];
-          $.each(equivalentWords, function(i, el) {
-            var regexToken = "(" + el[0] + "|" + el[1] + ")";
-            normalizedSearchFilter = normalizedSearchFilter.replace(el[0], regexToken);
-            normalizedSearchFilter = normalizedSearchFilter.replace(el[1], regexToken);
-          });
-          var searchRegex = new RegExp(normalizedSearchFilter);
-          var nameMatched = !! normalizedTrailName.match(searchRegex);
+        ];
+        $.each(equivalentWords, function(i, el) {
+          var regexToken = "(" + el[0] + "|" + el[1] + ")";
+          normalizedSearchFilter = normalizedSearchFilter.replace(el[0], regexToken);
+          normalizedSearchFilter = normalizedSearchFilter.replace(el[1], regexToken);
+        });
+        var searchRegex = new RegExp(normalizedSearchFilter);
+        var nameTrailMatched = !! normalizedTrailName.match(searchRegex);
+        var nameTrailheadMatched = !! normalizedTrailheadName.match(searchRegex);
+        if ( (nameTrailMatched || nameTrailheadMatched ) ) {
+          term = 10;
+          muniTerm = term;
+        } else if ((!! normalizedTrailDescription.match(searchRegex)) || (!! normalizedTrailheadDescription.match(searchRegex))) {
+          term = 1;
+          muniTerm = term;
+        } else if (!(trailhead.properties[activity] === undefined)) {
+          term = trailhead.properties[activity];
+          muniTerm = term;
+        } 
 
-          var descriptionMatched;
-          if (normalizedDescription === null) {
-            descriptionMatched = false;
+        if (currentFilters.activityFilter[i].toLowerCase() == currentFilters.possibleMuni) {
+          if (term > 0) {
+            currentFilters.useMuni = false;
+            console.log("[filterResults] useMuni = false");
           } else {
-            descriptionMatched = !! normalizedDescription.match(searchRegex);
+            muniTerm = 0;
           }
-
-          var trailheadNameMatched;
-          var normalizedTrailheadName = trailhead.properties.name.toLowerCase();
-          trailheadNameMatched = !! normalizedTrailheadName.match(searchRegex);
-
-          var parkNameMatched;
-          if (trailhead.properties.park === null) {
-            parkNameMatched = false;
-          }
-          else {
-            var normalizedParkName = trailhead.properties.park.toLowerCase();
-            parkNameMatched = !! normalizedParkName.match(searchRegex);
-          }
-
-          var addressMatched;
-          if (trailhead.properties.address === null) {
-            addressMatched = false;
-          }
-          else {
-            var normalizedAddress = trailhead.properties.address.toLowerCase();
-            addressMatched = !! normalizedAddress.match(searchRegex);
-          }
-
-          if ((descriptionMatched || parkNameMatched || addressMatched)) {
-            searchMatched = 1;
-          } 
-          if ( (nameMatched || trailheadNameMatched ) ) {
-            searchMatched = 10;
-          }
-          
         }
-
-        if (!trailheadActivity) {
-          activityMatched = 0;
-        }
+        matched = [ (matched[0] * term), (matched[1] * muniTerm)];
       }
+      
     }
+    
+    console.log("[filterResults] matched = " + matched);
+    return matched;
+  }
+
+  // function filterResults(trail, trailhead) {
+  //   var wanted = 0;
+  //   var lengthMatched = false;
+  //   var activityMatched = 1;
+  //   var searchMatched = 0;
+  //   var tagMatched = 1;
+  //   if (currentFilters.activityFilter) {
+  //     for (var i = 0; i < currentFilters.activityFilter.length; i++) {
+  //       var activity = currentFilters.activityFilter[i];
+  //       //console.log("trailhead.properties[activity] = " + trailhead.properties[activity]);
+  //       var trailheadActivity = 0;
+  //       var trailheadTag = 0;
+  //       var a = trailhead.properties.tags.indexOf(activity);
+  //       console.log("filterResults a = " + a);
+  //       if (a != -1) {
+  //         searchMatched = 1;
+  //       }
+  //       // if (!(trailhead.properties[activity] === undefined)) {
+  //       //   trailheadActivity = trailhead.properties[activity];
+  //       // }
+  //       else {
+  //         // var a = trailhead.properties.tags.indexOf(activity);
+  //         // if (a != -1) {
+  //         //   trailheadTag = 0;
+  //         // }
+  //         //console.log("searchfilter is not null = " + currentFilters.activityFilter[i]);
+  //         searchMatched = 0;
+  //         var normalizedTrailName = "";
+  //         var normalizedDescription = null;
+  //         if (trail) {
+  //           normalizedTrailName = trail.properties.name.toLowerCase();
+  //           normalizedDescription = trail.properties.description.toLowerCase();
+  //           //console.log("normalizedTrailName= " + normalizedTrailName);
+  //         }
+  //         var normalizedSearchFilter = currentFilters.activityFilter[i].toLowerCase();
+  //         var equivalentWords = [
+  //           [" and ", " & "],
+  //           ["tow path", "towpath"]
+  //         ];
+  //         $.each(equivalentWords, function(i, el) {
+  //           var regexToken = "(" + el[0] + "|" + el[1] + ")";
+  //           normalizedSearchFilter = normalizedSearchFilter.replace(el[0], regexToken);
+  //           normalizedSearchFilter = normalizedSearchFilter.replace(el[1], regexToken);
+  //         });
+  //         var searchRegex = new RegExp(normalizedSearchFilter);
+  //         var nameMatched = !! normalizedTrailName.match(searchRegex);
+
+  //         var descriptionMatched;
+  //         if (normalizedDescription === null) {
+  //           descriptionMatched = false;
+  //         } else {
+  //           descriptionMatched = !! normalizedDescription.match(searchRegex);
+  //         }
+
+  //         var trailheadNameMatched;
+  //         var normalizedTrailheadName = trailhead.properties.name.toLowerCase();
+  //         trailheadNameMatched = !! normalizedTrailheadName.match(searchRegex);
+
+  //         var parkNameMatched;
+  //         if (trailhead.properties.park === null) {
+  //           parkNameMatched = false;
+  //         }
+  //         else {
+  //           var normalizedParkName = trailhead.properties.park.toLowerCase();
+  //           parkNameMatched = !! normalizedParkName.match(searchRegex);
+  //         }
+
+  //         var addressMatched;
+  //         if (trailhead.properties.address === null) {
+  //           addressMatched = false;
+  //         }
+  //         else {
+  //           var normalizedAddress = trailhead.properties.address.toLowerCase();
+  //           addressMatched = !! normalizedAddress.match(searchRegex);
+  //         }
+
+  //         if ((descriptionMatched || parkNameMatched || addressMatched)) {
+  //           searchMatched = 1;
+  //         } 
+  //         if ( (nameMatched || trailheadNameMatched ) ) {
+  //           searchMatched = 10;
+  //         }
+          
+  //       }
+
+  //       if (!trailheadActivity) {
+  //         activityMatched = 0;
+  //       }
+  //     }
+  //   }
     
    
 
-    if (activityMatched) {
-      wanted = searchMatched;
-    }
-    else {
-      wanted = 0;
-    }
-    return wanted;
-  }
+  //   if (activityMatched) {
+  //     wanted = searchMatched;
+  //   }
+  //   else {
+  //     wanted = 0;
+  //   }
+  //   return wanted;
+  // }
 
   function clearSelectionHandler(e) {
     console.log("clearSelectionHandler");
@@ -1216,6 +1310,7 @@ function startup() {
         trails: currentFeature.properties.trail_ids,
         popupContent: ""
       };
+      trailhead.properties.tags = ["hello", "goodbye", currentFeature.properties.id];
       setTrailheadEventHandlers(trailhead);
       originalTrailheads.push(trailhead);
       originalTrailheadMarkerArray.push(trailhead.signMarker);
@@ -1767,18 +1862,22 @@ function startup() {
     currentTrailheads = [];
     currentTrailData = {};
     currentTrailIDs = {};
+    var regularMatches = []; // use this if it doesn't detect a possible municipality
+    var firstRunFails = []; // use this if it does detect a possible municipality
     for (var j = 0; j < myTrailheads.length; j++) {
       var trailhead = myTrailheads[j];
       var currentFeatureLatLng = new L.LatLng(trailhead.geometry.coordinates[1], trailhead.geometry.coordinates[0]);
-      var distance = 0;
+      var distance = currentFeatureLatLng.distanceTo(currentUserLocation);
+      var distanceMuni = 0;
       if (currentFilters.location) {
         distance = currentFeatureLatLng.distanceTo(currentFilters.location);
         //console.log("[addTrailsToTrailheads] using currentFilters.location");
-      } else {
-        distance = currentFeatureLatLng.distanceTo(currentUserLocation);
-        //console.log("[addTrailsToTrailheads] using currentUserLocation");
+      } else if (currentFilters.possibleMuni) {
+        distanceMuni = currentFeatureLatLng.distanceTo(muniLocations[currentFilters.possibleMuni]);
       }
       trailhead.properties.distance = distance;
+      trailhead.properties.distanceMuni = distanceMuni;
+      trailhead.properties.filterResults = [0,0];
       //console.log("[addTrailsToTrailheads] distance = " + distance);
       var trailheadWanted = 0;
       // for each original trailhead trail name
@@ -1787,21 +1886,21 @@ function startup() {
         for (var trailNum = 0; trailNum < trailheadTrailIDs.length; trailNum++) {
           var trailheadTrailID = trailheadTrailIDs[trailNum];
           var trail = myTrailData[trailheadTrailID];
-          var filterResult = filterResults(trail, trailhead);
-          if (filterResult > 0) {
+          trailhead.properties.filterResults = filterResults(trail, trailhead);
+          if (trailhead.properties.filterResults[0] > 0) {
             //wanted = true;
             trailheadWanted = true;
             currentTrailIDs[trailheadTrailID] = 1;
-            trailhead.properties.filterScore = filterResult;
+            trailhead.properties.filterScore = trailhead.properties.filterResults[0];
             //currentTrailIDs.push(trailheadTrailID);
             //currentTrailData = $.extend(true, currentTrailData, trail);
           }
         }
       } else {
-        var filterResult = filterResults(null, trailhead);
-        if (filterResult > 0) {
+        trailhead.properties.filterResults = filterResults(null, trailhead);
+        if (trailhead.properties.filterResults[0] > 0) {
           trailheadWanted = true;
-          trailhead.properties.filterScore = filterResult;
+          trailhead.properties.filterScore = trailhead.properties.filterResults[0];
           //wanted = true;
         }
       }
@@ -1809,8 +1908,19 @@ function startup() {
         //console.log("filterResults is good");
         //trailheadWanted = true;
         currentTrailheads.push(trailhead);
+      } else {
+        firstRunFails.push(trailhead);
       }
-
+    }
+    if (currentFilters.useMuni) {
+      for (var failCounter = 0; failCounter < firstRunFails.length; failCounter++) {
+        if (trailhead.properties.filterResults[1] > 0) {
+          //console.log("filterResults is good");
+          //trailheadWanted = true;
+          trailhead.properties.filterScore = trailhead.properties.filterResults[1];
+          currentTrailheads.push(trailhead);
+        }
+      }
     }
     console.log("currentTrailheads count = " + currentTrailheads.length);
     setTimeout(function() {
@@ -1988,12 +2098,19 @@ function startup() {
     var myTrailheadsLength = myTrailheads.length;
     var trailListContents = "";
     //if(myTrailheads.length === 0) return;
+
     myTrailheads.sort(function(a, b){
+      var a_distance = a.properties.distance;
+      var b_distance = b.properties.distance;
+      if ( currentFilters.useMuni ) {
+        a_distance = a.properties.distanceMuni;
+        b_distance = b.properties.distanceMuni;
+      }
       //console.log("a and b.properties.filterResult = " + a.properties.filterScore + " vs " + b.properties.filterScore);
       if (a.properties.filterScore > b.properties.filterScore) return -1;
       if (a.properties.filterScore < b.properties.filterScore) return 1;
-      if (a.properties.distance < b.properties.distance) return -1;
-      if (a.properties.distance > b.properties.distance) return 1;
+      if (a_distance < b_distance) return -1;
+      if (a_distance > b_distance) return 1;
       return 0;
     })
     
