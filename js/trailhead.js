@@ -75,7 +75,7 @@ function startup() {
   }
   //API_HOST = "http://localhost:8080";
   console.log("API_HOST = " + API_HOST);
-  API_HOST = "http://fpcc-staging.smartchicagoapps.org/json"
+  //API_HOST = "http://fpcc-staging.smartchicagoapps.org/json"
 
   //  Near-Global Variables
   var METERSTOMILESFACTOR = 0.00062137;
@@ -132,8 +132,11 @@ function startup() {
     lengthFilter: [],
     activityFilter: [],
     searchFilter: "",
-    location: null
+    location: null,
+    zipMuniFilter: ""
+
   };
+  var lastFilters = {};
   var orderedTrails = [];
   var currentDetailTrail = null;
   var currentDetailTrailhead = null;
@@ -579,17 +582,21 @@ function startup() {
   function updateFilterObject(filterType, currentUIFilterState) {
     console.log("[updateFilterObject] currentUIFilterState = " + currentUIFilterState);
     var matched = 0;
-    currentFilters.location = null;
-    currentFilters.possibleMuni = "";
-    currentFilters.useMuni = false;
+    
+    lastFilters =  $.extend(true, {}, currentFilters);
+    console.log("[updateFilterObject] lastFilters.activityFilter = " + lastFilters.activityFilter);
+        
     if (filterType == "activityFilter") {
       console.log("[updateFilterObject] activityFilter");
       var activityFilterLength = currentFilters.activityFilter.length;
       console.log("[updateFilterObject] old activityFilterLength = " + activityFilterLength);
       console.log("[updateFilterObject] old currentFilters.activityFilter = " + currentFilters.activityFilter);
       console.log("[updateFilterObject] old currentFilters.location = " + currentFilters.location);
+      currentFilters.activityFilter = [];
+      currentFilters.location = null;
+      currentFilters.zipMuniFilter = "";
+      console.log("[updateFilterObject] lastZipMuni, currentZipMuni = " + lastFilters.zipMuniFilter + ", " + currentFilters.zipMuniFilter );
       if (currentUIFilterState) {   
-        currentFilters.activityFilter = [];
         currentFilters.activityFilter = String(currentUIFilterState).split(",");
         var removeIndex = null;
         currentFilters.activityFilter.forEach(function(value, index) {
@@ -597,10 +604,13 @@ function startup() {
           if (!(zipCodeLocations[normalizedValue] === undefined)) {
             console.log("[updateFilterObject] zip lat,lon = " + zipCodeLocations[normalizedValue]['latitude'] + ", " + zipCodeLocations[value]['longitude'] );
             currentFilters.location = new L.LatLng(zipCodeLocations[normalizedValue]['latitude'], zipCodeLocations[value]['longitude']);
+            currentFilters.zipMuniFilter = normalizedValue;
             removeIndex = index;
           } else if (!(muniLocations[normalizedValue] === undefined)) {
-            currentFilters.possibleMuni = normalizedValue;
-            currentFilters.useMuni = true;
+            currentFilters.location = new L.LatLng(muniLocations[normalizedValue]['latitude'], muniLocations[value]['longitude']);
+            currentFilters.zipMuniFilter = normalizedValue;
+            console.log("[updateFilterObject] muni loc, zipMuniFilter= " + currentFilters.location + ", " + currentFilters.zipMuniFilter);
+            removeIndex = index;  
           }
         });
         console.log("removeIndex = " + removeIndex);
@@ -642,14 +652,24 @@ function startup() {
     }
     // currentFilters[filterType] = currentUIFilterState;
     //console.log(currentFilters);
-    applyFilterChange(currentFilters);
+    console.log("[updateFilterObject] lastFilters.activityFilter = " + lastFilters.activityFilter);
+    console.log("[updateFilterObject] currentFilters.activityFilter = " + currentFilters.activityFilter);
+
+    var is_same = (currentFilters.activityFilter.length == lastFilters.activityFilter.length) && currentFilters.activityFilter.every(function(element, index) {
+        return element === lastFilters.activityFilter[index]; 
+    });
+    if (is_same) {
+      console.log("[updateFilterObject] activityFilter is equal");
+      makeTrailDivs(currentTrailheads);
+    } else {
+      applyFilterChange(currentFilters);
+    }
   }
 
   
   function filterResults(trail, trailhead) {
-    var matched = [1,1];
+    var matched = 1;
     var term = 1;
-    var muniTerm = 1;
     //console.log("[filterResults] initial matched = " + matched);
     if (currentFilters.activityFilter) {
       //console.log("[filterResults] currentFilters.activityFilter exists.." + currentFilters.activityFilter.length);
@@ -660,7 +680,6 @@ function startup() {
         var trailheadActivity = 0;
         var trailheadTag = 0;
         term = 0;
-        muniTerm = 0;
         // var a = trailhead.properties.tags.indexOf(activity);
         // console.log("filterResults a = " + a);
         // if (a != -1) {
@@ -694,24 +713,12 @@ function startup() {
         var nameTrailheadMatched = !! normalizedTrailheadName.match(searchRegex);
         if ( (nameTrailMatched || nameTrailheadMatched ) ) {
           term = 10;
-          muniTerm = term;
         } else if ((!! normalizedTrailDescription.match(searchRegex)) || (!! normalizedTrailheadDescription.match(searchRegex))) {
           term = 1;
-          muniTerm = term;
         } else if (!(trailhead.properties[activity] === undefined)) {
           term = trailhead.properties[activity];
-          muniTerm = term;
         } 
-
-        if (currentFilters.activityFilter[i].toLowerCase() == currentFilters.possibleMuni) {
-          if (term > 0) {
-            currentFilters.useMuni = false;
-            //console.log("[filterResults] useMuni = false");
-          } else {
-            muniTerm = 1;
-          }
-        }
-        matched = [ (matched[0] * term), (matched[1] * muniTerm)];
+        matched = matched * term;
       }
       
     }
@@ -1875,25 +1882,17 @@ function startup() {
     currentTrailheads = [];
     currentTrailData = {};
     currentTrailIDs = {};
-    var regularMatches = []; // use this if it doesn't detect a possible municipality
-    var firstRunFails = []; // use this if it does detect a possible municipality
+    
     for (var j = 0; j < myTrailheads.length; j++) {
       var trailhead = myTrailheads[j];
-      var currentFeatureLatLng = new L.LatLng(trailhead.geometry.coordinates[1], trailhead.geometry.coordinates[0]);
-      var distance = currentFeatureLatLng.distanceTo(currentUserLocation);
-      var distanceMuni = 0;
-      if (currentFilters.location) {
-        distance = currentFeatureLatLng.distanceTo(currentFilters.location);
-        //console.log("[addTrailsToTrailheads] using currentFilters.location");
-      } else if (currentFilters.possibleMuni) {
-        //console.log("[addTrailsToTrailheads] muniLocation lat/lon = " + muniLocations[currentFilters.possibleMuni]['latitude'] + ", " + muniLocations[currentFilters.possibleMuni]['longitude']);
-        var muniLocation = new L.LatLng(muniLocations[currentFilters.possibleMuni]['latitude'], muniLocations[currentFilters.possibleMuni]['longitude']);
-        distanceMuni = currentFeatureLatLng.distanceTo(muniLocation);
-        //console.log("[addTrailsToTrailheads] distanceMuni = " + distanceMuni);
-      }
-      trailhead.properties.distance = distance;
-      trailhead.properties.distanceMuni = distanceMuni;
-      trailhead.properties.filterResults = [0,0];
+      // var currentFeatureLatLng = new L.LatLng(trailhead.geometry.coordinates[1], trailhead.geometry.coordinates[0]);
+      // var distance = currentFeatureLatLng.distanceTo(currentUserLocation);
+      // if (currentFilters.location) {
+      //   distance = currentFeatureLatLng.distanceTo(currentFilters.location);
+      //   //console.log("[addTrailsToTrailheads] using currentFilters.location");
+      // }
+      // trailhead.properties.distance = distance;
+      trailhead.properties.filterResults = 0;
       //console.log("[addTrailsToTrailheads] distance = " + distance);
       var trailheadWanted = 0;
       // for each original trailhead trail name
@@ -1903,20 +1902,20 @@ function startup() {
           var trailheadTrailID = trailheadTrailIDs[trailNum];
           var trail = myTrailData[trailheadTrailID];
           trailhead.properties.filterResults = filterResults(trail, trailhead);
-          if (trailhead.properties.filterResults[0] > 0) {
+          if (trailhead.properties.filterResults > 0) {
             //wanted = true;
             trailheadWanted = true;
             currentTrailIDs[trailheadTrailID] = 1;
-            trailhead.properties.filterScore = trailhead.properties.filterResults[0];
+            trailhead.properties.filterScore = trailhead.properties.filterResults;
             //currentTrailIDs.push(trailheadTrailID);
             //currentTrailData = $.extend(true, currentTrailData, trail);
           }
         }
       } else {
         trailhead.properties.filterResults = filterResults(null, trailhead);
-        if (trailhead.properties.filterResults[0] > 0) {
+        if (trailhead.properties.filterResults > 0) {
           trailheadWanted = true;
-          trailhead.properties.filterScore = trailhead.properties.filterResults[0];
+          trailhead.properties.filterScore = trailhead.properties.filterResults;
           //wanted = true;
         }
       }
@@ -1924,23 +1923,9 @@ function startup() {
         //console.log("filterResults is good");
         //trailheadWanted = true;
         currentTrailheads.push(trailhead);
-      } else {
-        //console.log("[addTrailsToTrailheads] firstRunFails trailhead.properties.filterResults = " + trailhead.properties.filterResults);
-        firstRunFails.push(trailhead);
       }
     }
-    if (currentFilters.useMuni) {
-      for (var failCounter = 0; failCounter < firstRunFails.length; failCounter++) {
-        var trailhead = firstRunFails[failCounter];
-        if (trailhead.properties.filterResults[1] > 0) {
-          //console.log("filterResults is good");
-          //trailheadWanted = true;
-          trailhead.properties.filterScore = trailhead.properties.filterResults[1];
-          currentTrailheads.push(trailhead);
-        }
-      }
-    }
-    firstRunFails = [];
+    
     console.log("currentTrailheads count = " + currentTrailheads.length);
     setTimeout(function() {
       //fixDuplicateTrailheadTrails(myTrailheads);
@@ -2118,21 +2103,22 @@ function startup() {
     var trailListContents = "";
     //if(myTrailheads.length === 0) return;
 
-    myTrailheads.sort(function(a, b){
-      var a_distance = a.properties.distance;
-      var b_distance = b.properties.distance;
-      if ( currentFilters.useMuni ) {
-        //console.log("[makeTrailDivs] a.properties.distanceMuni = " + a.properties.distanceMuni);
-        a.properties.distance = a.properties.distanceMuni;
-        b.properties.distance = b.properties.distanceMuni;
+    for (var j = 0; j < myTrailheadsLength; j++) {
+      var trailhead = myTrailheads[j];
+      var currentFeatureLatLng = new L.LatLng(trailhead.geometry.coordinates[1], trailhead.geometry.coordinates[0]);
+      var distance = currentFeatureLatLng.distanceTo(currentUserLocation);
+      if (currentFilters.location) {
+        distance = currentFeatureLatLng.distanceTo(currentFilters.location);
       }
-      var a_distance = a.properties.distance;
-      var b_distance = b.properties.distance;
+      trailhead.properties.distance = distance;
+    }
+
+    myTrailheads.sort(function(a, b){
       //console.log("a and b.properties.filterResult = " + a.properties.filterScore + " vs " + b.properties.filterScore);
       if (a.properties.filterScore > b.properties.filterScore) return -1;
       if (a.properties.filterScore < b.properties.filterScore) return 1;
-      if (a_distance < b_distance) return -1;
-      if (a_distance > b_distance) return 1;
+      if (a.properties.distance < b.properties.distance) return -1;
+      if (a.properties.distance > b.properties.distance) return 1;
       return 0;
     })
     
