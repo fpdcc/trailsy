@@ -661,6 +661,13 @@ function startup() {
     if (is_same) {
       console.log("[updateFilterObject] activityFilter is equal");
       makeTrailDivs(currentTrailheads);
+      if (currentFilters.location) {
+        // This zoom level is arbitrary. Need to figure out best option
+        map.setZoomAround(currentFilters.location, 14);
+
+      }
+      
+
     } else {
       applyFilterChange(currentFilters);
     }
@@ -865,7 +872,7 @@ function startup() {
       // console.log('Centering on geolocaton');
       var userPoint = map.latLngToContainerPoint(currentUserLocation);
       var offsetUserLocation = userPoint.subtract(offset.divideBy(2));
-      var offsetUserLatLng = map.containerPointToLatLng(offsetUserLocation)
+      var offsetUserLatLng = map.containerPointToLatLng(offsetUserLocation);
       map.setView(offsetUserLatLng, map.getZoom());
     }
   }
