@@ -1430,9 +1430,9 @@ function startup() {
   function showActivities() {
     console.log("[showActivties]");
 
-    if (!currentActivityLayerGroup) {
-      currentActivityLayerGroup = L.layerGroup(currentActivityMarkerArray);
-    }
+    // if (!currentActivityLayerGroup) {
+    //   currentActivityLayerGroup = L.layerGroup(currentActivityMarkerArray);
+    // }
     
   }
 
@@ -2074,12 +2074,13 @@ function startup() {
         activeTrailheadDivs[j].classList.remove('inactive');
       }
     }
-    currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadSignArray);
+    if (currentTrailheadSignArray.length > 0) {
+      currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadSignArray);
+      map.fitBounds(currentTrailheadLayerGroup.getBounds(), {
+        paddingTopLeft: centerOffset
+      });
+    }
     
-    showActivities();
-    map.fitBounds(currentTrailheadLayerGroup.getBounds(), {
-      paddingTopLeft: centerOffset
-    });
     activeTrailheadsMapped = true;
     console.log("mapActiveTrailheads end");
   }
