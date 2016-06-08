@@ -1082,7 +1082,6 @@ function startup() {
         }
       }
     
-      showActivities();
       var currentTrailheadDivs = document.getElementsByClassName("icon-map icon-sign");
       console.log("change zoom currentTrailheadDivs.length = " + currentTrailheadDivs.length);
       for (var i = 0; i < currentTrailheadDivs.length; i++) {
@@ -1424,16 +1423,6 @@ function startup() {
       }
     }
     console.log("[makeCurrentActivities] new currentActivityMarkerArray.length = " + currentActivityMarkerArray.length);
-  }
-
-
-  function showActivities() {
-    console.log("[showActivties]");
-
-    // if (!currentActivityLayerGroup) {
-    //   currentActivityLayerGroup = L.layerGroup(currentActivityMarkerArray);
-    // }
-    
   }
 
   function highlightActivities(myTrailhead_id) {
@@ -3474,7 +3463,6 @@ function startup() {
       //console.log("zoomArray = " + zoomArray);
       zoomFeatureGroup = new L.FeatureGroup(zoomArray);
       //console.log("zoomFeatureGroup = " + zoomFeatureGroup);
-      //showActivities(parsed.trailheadID); // show activities!
     }
     else {
       highlightTrailhead(null, parsed.highlightedTrailIndex, parsed.trailID);
