@@ -1902,6 +1902,7 @@ function startup() {
             //wanted = true;
             trailheadWanted = true;
             currentTrailIDs[trailheadTrailID] = 1;
+            console.log("[addTrailsToTrailheads] currentTrailIDs trailheadTrailID= " + trailheadTrailID);
             trailhead.properties.filterScore = trailhead.properties.filterResults;
             //currentTrailIDs.push(trailheadTrailID);
             //currentTrailData = $.extend(true, currentTrailData, trail);
@@ -1931,12 +1932,16 @@ function startup() {
       
       allSegmentLayer.eachLayer(function (layer) {
         //console.log("trail_ids= " + layer.getLayers()[0].feature.properties.trail_ids);
-        if (layer.getLayers()[0].feature.properties.trail_systems > 0) {
+        //console.log("trail_systems= " + layer.getLayers()[0].feature.properties.trail_systems);
+        
+        if (layer.getLayers()[0].feature.properties.trail_systems) {
           var layerWanted = 0;
-          if (currentTrailIDs[layer.getLayers()[0].feature.properties.trail_systems[0]]) {
+          if (currentTrailIDs[layer.getLayers()[0].feature.properties.trail_systems]) {
+            //console.log("[allSegmentLayer true] layer.getLayers()[0].feature.properties.trail_systems[0]= " + layer.getLayers()[0].feature.properties.trail_systems[0]);
             layer.getLayers()[0].setStyle({weight: NORMAL_SEGMENT_WEIGHT});
             layer.getLayers()[1].setStyle({weight: 20});
           } else {
+            //console.log("[allSegmentLayer false] layer.getLayers()[0].feature.properties.trail_systems[0]= " + layer.getLayers()[0].feature.properties.trail_systems[0]);
             layer.getLayers()[0].setStyle({weight: 0});
             layer.getLayers()[1].setStyle({weight: 0});
           }
