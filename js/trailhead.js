@@ -1327,7 +1327,11 @@ function startup() {
           console.log("[populateOriginalTrailheads] GEOMETRIES MATCH: current & originalTrailheads- " + currentFeature.properties.name + " and " + originalTrailheads[otnum].properties.name);
           console.log("[populateOriginalTrailheads] currentFeature.geometry = " + currentFeature.geometry.coordinates);
           console.log("[populateOriginalTrailheads] originalTrailheads[otnum].geometry = " + originalTrailheads[otnum].geometry.coordinates);
-          currentGeoTwo += .0004;
+          currentGeoTwo += .0002;
+          otGeoTwo -= .0002;
+          var newOtLatLng = new L.LatLng(otGeoOne, otGeoTwo);
+          originalTrailheadMarkerArray[otnum].setLatLng(newOtLatLng);
+          originalTrailheads[otnum].geometry.coordinates[0] = otGeoTwo;
           break;
         }
       }
