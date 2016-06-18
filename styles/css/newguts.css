@@ -154,7 +154,7 @@ a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 
 
 
-.icon.icon-map{padding:.4em;overflow:visible}
+.icon.icon-map{padding:.4em;overflow:visible;}
 /*.icon-sign.icon-map{width:2em;height:2em;}
 */
 .icon-sign.icon-1, .icon-sign.icon-2, .icon-sign.icon-3,.icon-sign.icon-4,.icon-sign.icon-5,.icon-sign.icon-6,.icon-sign.icon-7,.icon-sign.icon-8, .icon-sign.icon-9, .icon-sign.icon-10{width:2em;height:2em;}

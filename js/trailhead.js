@@ -661,9 +661,12 @@ function startup() {
     if (is_same) {
       console.log("[updateFilterObject] activityFilter is equal");
       makeTrailDivs(currentTrailheads);
+      console.log("[updateFilterObject] currentFilters.location = " + currentFilters.location);
       if (currentFilters.location) {
+        console.log("[updateFilterObject] IN IF = " + currentFilters.location);
+
         // This zoom level is arbitrary. Need to figure out best option
-        map.setZoomAround(currentFilters.location, 14);
+        map.setView(currentFilters.location, 14);
 
       }
       
