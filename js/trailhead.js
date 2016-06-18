@@ -104,6 +104,7 @@ function startup() {
   var MARKER_RADIUS = TOUCH ? 12 : 4;
   var ALL_SEGMENT_LAYER_SIMPLIFY = 5;
   var map;
+  var oms;
   // var mapDivName = SMALL ? "trailMapSmall" : "trailMapLarge";
   var mapDivName = "trailMapLarge";
   var CLOSED = false;
@@ -1040,6 +1041,8 @@ function startup() {
       maxBounds: [[41.16211, -90.89539], [42.61577, -85.62195]]
     });
 
+    oms = new OverlappingMarkerSpiderfier(map, {keepSpiderfied: true});
+
     var rbhBase = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
     attribution: mapboxAttribution,
     maxZoom: 18,
@@ -1331,6 +1334,8 @@ function startup() {
       var signMarker = new L.Marker(currentFeatureLatLng, {
         icon: trailheadIcon2
       });
+      signMarker.trailheadID = currentFeature.properties.id;
+      console.log("signMarker.trailheadID = " + signMarker.trailheadID);
       var trailhead = {
         properties: currentFeature.properties,
         geometry: currentFeature.geometry,
@@ -1340,10 +1345,15 @@ function startup() {
         popupContent: ""
       };
       trailhead.properties.tags = ["hello", "goodbye", currentFeature.properties.id];
-      setTrailheadEventHandlers(trailhead);
+      //setTrailheadEventHandlers(trailhead);
       originalTrailheads.push(trailhead);
       originalTrailheadMarkerArray.push(trailhead.signMarker);
+      oms.addMarker(trailhead.signMarker);
     }
+    oms.addListener('click', function(marker) {
+      console.log("[oms click] marker.trailheadID = " + marker.trailheadID);
+      trailheadMarkerClick(marker.trailheadID);
+    });
     originalTrailheadFeatureGroup = new L.FeatureGroup(originalTrailheadMarkerArray);
     originalTrailheadFeatureGroup.addTo(map);
     console.log("[populateOriginalTrailheads] originalTrailheads count " + originalTrailheads.length );
@@ -1351,13 +1361,20 @@ function startup() {
 
   function setTrailheadEventHandlers(trailhead) {
 
-    trailhead.marker.on("click", function(trailheadID) {
-      return function() {
-        trailheadMarkerClick(trailheadID);
-      };
-    }(trailhead.properties.id));
+    // trailhead.marker.on("click", function(trailheadID) {
+    //   return function() {
+    //     trailheadMarkerClick(trailheadID);
+    //   };
+    // }(trailhead.properties.id));
 
-    trailhead.signMarker.on("click", function(trailheadID) {
+    // trailhead.signMarker.on("click", function(trailheadID) {
+    //   return function() {
+    //     trailheadMarkerClick(trailheadID);
+    //   };
+    // }(trailhead.properties.id));
+
+    var popup = new L.Popup();
+    oms.addListener('click', function(trailheadID) {
       return function() {
         trailheadMarkerClick(trailheadID);
       };
