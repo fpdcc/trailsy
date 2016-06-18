@@ -1041,7 +1041,7 @@ function startup() {
       maxBounds: [[41.16211, -90.89539], [42.61577, -85.62195]]
     });
 
-    oms = new OverlappingMarkerSpiderfier(map, {keepSpiderfied: true});
+    //oms = new OverlappingMarkerSpiderfier(map, {keepSpiderfied: true});
 
     var rbhBase = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
     attribution: mapboxAttribution,
@@ -1314,8 +1314,24 @@ function startup() {
     originalTrailheadMarkerArray = [];
     for (var i = 0; i < trailheadsGeoJSON.features.length; i++) {
       var currentFeature = trailheadsGeoJSON.features[i];
-      var currentFeatureLatLng = new L.LatLng(currentFeature.geometry.coordinates[1], currentFeature.geometry.coordinates[0]);
-     
+      var otLength = originalTrailheads.length;
+      var currentGeoOne = currentFeature.geometry.coordinates[1];
+      var currentGeoTwo = currentFeature.geometry.coordinates[0];
+      for (var otnum = 0; otnum < otLength; otnum++) {
+        //console.log("[populateOriginalTrailheads] originalTrailheads[otnum].geometry = " + originalTrailheads[otnum].geometry);
+        //console.log("[populateOriginalTrailheads] currentFeature.geometry = " + currentFeature.geometry);
+        var otGeoOne = originalTrailheads[otnum].geometry.coordinates[1];
+        var otGeoTwo = originalTrailheads[otnum].geometry.coordinates[0];
+        if ( (currentGeoOne == otGeoOne) && (currentGeoTwo == otGeoTwo) ) {
+          console.log("[populateOriginalTrailheads] GEOMETRIES MATCH: current & originalTrailheads- " + currentFeature.properties.id + " and " + originalTrailheads[otnum].properties.id);
+          console.log("[populateOriginalTrailheads] GEOMETRIES MATCH: current & originalTrailheads- " + currentFeature.properties.name + " and " + originalTrailheads[otnum].properties.name);
+          console.log("[populateOriginalTrailheads] currentFeature.geometry = " + currentFeature.geometry.coordinates);
+          console.log("[populateOriginalTrailheads] originalTrailheads[otnum].geometry = " + originalTrailheads[otnum].geometry.coordinates);
+          currentGeoTwo += .0002;
+          break;
+        }
+      }
+      var currentFeatureLatLng = new L.LatLng(currentGeoOne, currentGeoTwo);   
       var newMarker = new L.CircleMarker(currentFeatureLatLng, {
         color: "#D86930",
         fillOpacity: 0.5,
@@ -1335,7 +1351,7 @@ function startup() {
         icon: trailheadIcon2
       });
       signMarker.trailheadID = currentFeature.properties.id;
-      console.log("signMarker.trailheadID = " + signMarker.trailheadID);
+      //console.log("signMarker.trailheadID = " + signMarker.trailheadID);
       var trailhead = {
         properties: currentFeature.properties,
         geometry: currentFeature.geometry,
@@ -1345,15 +1361,15 @@ function startup() {
         popupContent: ""
       };
       trailhead.properties.tags = ["hello", "goodbye", currentFeature.properties.id];
-      //setTrailheadEventHandlers(trailhead);
+      setTrailheadEventHandlers(trailhead);
       originalTrailheads.push(trailhead);
       originalTrailheadMarkerArray.push(trailhead.signMarker);
-      oms.addMarker(trailhead.signMarker);
+      //oms.addMarker(trailhead.signMarker);
     }
-    oms.addListener('click', function(marker) {
-      console.log("[oms click] marker.trailheadID = " + marker.trailheadID);
-      trailheadMarkerClick(marker.trailheadID);
-    });
+    // oms.addListener('click', function(marker) {
+    //   console.log("[oms click] marker.trailheadID = " + marker.trailheadID);
+    //   trailheadMarkerClick(marker.trailheadID);
+    // });
     originalTrailheadFeatureGroup = new L.FeatureGroup(originalTrailheadMarkerArray);
     originalTrailheadFeatureGroup.addTo(map);
     console.log("[populateOriginalTrailheads] originalTrailheads count " + originalTrailheads.length );
@@ -1361,20 +1377,13 @@ function startup() {
 
   function setTrailheadEventHandlers(trailhead) {
 
-    // trailhead.marker.on("click", function(trailheadID) {
-    //   return function() {
-    //     trailheadMarkerClick(trailheadID);
-    //   };
-    // }(trailhead.properties.id));
+    trailhead.marker.on("click", function(trailheadID) {
+      return function() {
+        trailheadMarkerClick(trailheadID);
+      };
+    }(trailhead.properties.id));
 
-    // trailhead.signMarker.on("click", function(trailheadID) {
-    //   return function() {
-    //     trailheadMarkerClick(trailheadID);
-    //   };
-    // }(trailhead.properties.id));
-
-    var popup = new L.Popup();
-    oms.addListener('click', function(trailheadID) {
+    trailhead.signMarker.on("click", function(trailheadID) {
       return function() {
         trailheadMarkerClick(trailheadID);
       };
@@ -1922,7 +1931,7 @@ function startup() {
             //wanted = true;
             trailheadWanted = true;
             currentTrailIDs[trailheadTrailID] = 1;
-            console.log("[addTrailsToTrailheads] currentTrailIDs trailheadTrailID= " + trailheadTrailID);
+            //console.log("[addTrailsToTrailheads] currentTrailIDs trailheadTrailID= " + trailheadTrailID);
             trailhead.properties.filterScore = trailhead.properties.filterResults;
             //currentTrailIDs.push(trailheadTrailID);
             //currentTrailData = $.extend(true, currentTrailData, trail);
