@@ -1331,6 +1331,8 @@ function startup() {
           otGeoTwo -= .0002;
           var newOtLatLng = new L.LatLng(otGeoOne, otGeoTwo);
           originalTrailheadMarkerArray[otnum].setLatLng(newOtLatLng);
+          originalTrailheads[otnum].marker.setLatLng(newOtLatLng);
+          originalTrailheads[otnum].signMarker.setLatLng(newOtLatLng);
           originalTrailheads[otnum].geometry.coordinates[0] = otGeoTwo;
           break;
         }
