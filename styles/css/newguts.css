@@ -1,5 +1,5 @@
 /* PANEL */
-.fpccContainer{font-family:Georgia,"Times New Roman",serif;font-size:.9125em;line-height:1.5;color:#333;}
+.fpccContainer{font-family:Georgia,"Times New Roman",serif;font-size:.9125em;line-height:1.5;color:#333}
 .fpccUnit{padding:1.5em 1em}
 .fpccEntrance{padding:1.5em 0;margin:0 1em;border-bottom:1px dotted #CCC}
 .fpccDescription{padding:1.25em 1em .25em}
@@ -10,31 +10,31 @@
 .fpccLabel.fpccRight{float:right;width:50%;text-align:right}
 .fpccAmenity{float:left;width:47%;margin:0 3% 1.25em 0;max-height:1.8em}
 .fpccAmenity span.fpccAmenityTitle{line-height:1.2;display:inline-block;vertical-align:middle;max-width:7.5em;font-size:.9125em;color:#585747}
-.fpccAmenities .icon{width:2em;height:2em;margin-right:.65em;vertical-align:middle} /*HERE2*/
-a:link .fpccAmenityTitle,a:visited .fpccAmenityTitle{text-decoration:underline;color:#333}/*HERE2*/
-a:hover .fpccAmenityTitle,a:active .fpccAmenityTitle{text-decoration:none}/*HERE2*/
+.fpccAmenities .icon{width:2em;height:2em;margin-right:.65em;vertical-align:middle} 
+a:link .fpccAmenityTitle,a:visited .fpccAmenityTitle{text-decoration:underline;color:#333}
+a:hover .fpccAmenityTitle,a:active .fpccAmenityTitle{text-decoration:none}
 .fpccSign{float:left;width:65%;margin:0 7% 0 0}
-.fpccSign .icon{width:12%;height:2.25em;margin-right:3%;vertical-align:top;}
+.fpccSign .icon{width:12%;height:2.25em;margin-right:3%;vertical-align:top}
 .fpccAddress{display:inline-block;width:82%}
 .fpccEntranceAddress{display:block}
 .fpccDirections{width:28%;float:right;margin-bottom:.75em}
-.fpccDirections a:link,.fpccDirections a:visited{display:block;width:100%;}
+.fpccDirections a:link,.fpccDirections a:visited{display:block;width:100%}
 .fpccDirections a:hover,.fpccDirections a:active{}
-.fpccLinks{border-bottom:3px solid #DDD;padding-bottom:2em}/*HERE2*/
+.fpccLinks{border-bottom:3px solid #DDD;padding-bottom:2em}
 .fpccLinks ul{padding:0 0 0 1.5em;margin-bottom:0}
 .fpccTrailMaps .fpccMap a:link, .fpccTrailMaps .fpccMap a:visited{display:inline-block;width:inherit;padding:.35em 1em}
 .fpccTrailMaps .fpccMap{display:inline-block;width:inherit;margin:.25em 0 0 .5em;float:none}
-.fpccTrailMaps{margin-top:1.25em}/*HERE2*/
+.fpccTrailMaps{margin-top:1.25em}
 .fpccTrailMaps .fpccLabel{display:block;margin-bottom:.25em}
-.fpccTrails{border-bottom:3px solid #DDD;}/*HERE2*/
+.fpccTrails{border-bottom:3px solid #DDD}
 .fpccTrails.fpccTrailsFeature{border-top:none;background:none;padding-top:0}
 .fpccTrails .icon-trail-marker{width:2.5em;height:2.5em;margin-right:.5em;vertical-align:top;margin-top:3px}
-.fpccMoreHeader{display:inline-block}/*HERE2*/
-.fpccTrailHeader{display:inline-block;margin-bottom:1.5em}/*HERE2*/
+.fpccMoreHeader{display:inline-block}
+.fpccTrailHeader{display:inline-block;margin-bottom:1.5em}
 .fpccTrailName,.fpccSegmentName,.fpccMoreName{font-family:Helvetica, Arial, sans-serif;font-size:1.5em;line-height:1;font-weight:bold;color:#585747;display:block}
 .fpccSegmentName{font-size:1.25em;float:left;margin-top:2px}
 .fpccTrailSegment{padding:.75em 0 0;margin:.75em 0;border-top:1px dotted #CCC}
-.fpccTrails .fpccTrailDescription{margin:0;padding:0 0 1em;border-bottom:none;}/*HERE2*/
+.fpccTrails .fpccTrailDescription{margin:0;padding:0 0 1em;border-bottom:none}
 .fpccTrailUse{float:right}
 .fpccTrailUse .icon{width:1.5em;height:1.5em;margin-left:.25em}
 .fpccSegmentOverview{}
@@ -51,7 +51,7 @@ a:hover .fpccAmenityTitle,a:active .fpccAmenityTitle{text-decoration:none}/*HERE
 .fpccblack, .fpccBLACK{border-bottom:8px solid #333132}
 .fpccoff{border-bottom:8px solid #C4D0DB}
 .fpccUNPAVED,.fpccUnpaved,.fpccunpaved,.fpccPrimitive,.fpccprimitive,.fpccPRIMITIVE{border-bottom-style:dotted}
-.fpccSocial{background:#F1F1ED}/*HERE2*/
+.fpccSocial{background:#F1F1ED}
 .fpccShare{font-size:1.15em;line-height:1;text-align:center;margin-bottom:.5em}
 .fpccSocialIcon{width:27%;text-align:center;float:left;padding:.5em 0;margin:0 3%;border-radius:3px}
 .fpccSocialIcon span{display:block;text-transform:uppercase;font-size:.75em;font-family:Helvetica, Arial, sans-serif}
@@ -61,142 +61,67 @@ a:hover.fpccSocialIcon, a:active.fpccSocialIcon{color:#333;background:#DDDDD5}
 a:link.fpccMore, a:visited.fpccMore{color:#7E9137}
 a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 /* Needed to override the main stylesheet or it disappears links on mobile:*/
-.trailListColumn .fpccContainer a {display:inline-block;}
+.trailListColumn .fpccContainer a{display:inline-block}
 
 
 
 /* ICONS */
 .icon{display:inline-block;width:1em;height:1em;fill:currentColor}
-#icon-ada-restroom .path1{fill:#684c2b}
-#icon-ada-restroom .path2,#icon-ada-restroom .path3,#icon-ada-restroom .path4,#icon-ada-restroom .path5{fill:#fff}
-#icon-aquatic-center .path1{fill:#0c51a3}
-#icon-aquatic-center .path2{fill:#fff}
-#icon-bike-rental .path1{fill:#684c2b}
-#icon-bike-rental .path2,#icon-bike-rental .path3,#icon-bike-rental .path4,#icon-bike-rental .path5,#icon-bike-rental .path6,#icon-bike-rental .path7,#icon-bike-rental .path8{fill:#fff}
-#icon-boat-launch .path1{fill:#0c51a3}
-#icon-boat-launch .path2,#icon-boat-launch .path3,#icon-boat-launch .path4{fill:#fff}
+#icon-ada-restroom .path1,#icon-bike-rental .path1,#icon-drone .path1,#icon-picnic-grove .path1,#icon-model-airplane .path1,#icon-facility .path1,#icon-picnic-grove-shelter .path1,#icon-sledding .path1,#icon-snowmobiling .path1{fill:#684c2b}
+#icon-volunteer .path1,#icon-zip-line .path1,#icon-dog-leash .path1,#icon-birding-hotspot .path1,#icon-boat-rental .path1,#icon-cross-country-skiing .path1,#icon-ecological-management-area .path1,#icon-equestrian .path1,#icon-fishing .path1,#icon-hiking .path1,#icon-ice-fishing .path1,#icon-ice-skating .path1,#icon-model-sailboat .path1,#icon-no-alcohol .path1,#icon-no-fishing .path1,#icon-no-parking .path1,#icon-restroom .path1,#icon-scenic-overlook .path1,#icon-bicycling .path1{fill:#585747}
+#icon-ada-restroom .path2,#icon-ada-restroom .path3,#icon-ada-restroom .path4,#icon-ada-restroom .path5,#icon-aquatic-center .path2,#icon-bike-rental .path2,#icon-bike-rental .path3,#icon-bike-rental .path4,#icon-bike-rental .path5,#icon-bike-rental .path6,#icon-bike-rental .path7,#icon-bike-rental .path8,#icon-boat-launch .path2,#icon-boat-launch .path3,#icon-boat-launch .path4,#icon-camp .path2,#icon-canoe-landing .path2,#icon-canoe-landing .path3,#icon-disc-golf .path2,#icon-facility .path2,#icon-golf-course-driving-range .path2,#icon-model-airplane .path2,#icon-nature-center .path2,#icon-parking .path2,#icon-picnic-grove .path2,#icon-picnic-grove-shelter .path2,#icon-sledding .path2,#icon-snowmobiling .path2,#icon-waterbody .path2,#icon-waterbody .path3,#icon-waterbody .path4,#icon-bicycling .path2,#icon-birding-hotspot .path2,#icon-boat-rental .path2,#icon-boat-rental .path3,#icon-boat-rental .path4,#icon-boat-rental .path5,#icon-boat-rental .path6,#icon-boat-rental .path7,#icon-boat-rental .path8,#icon-boat-rental .path9,#icon-boat-rental .path10,#icon-boat-rental .path11,#icon-boat-rental .path12,#icon-boat-rental .path13,#icon-cross-country-skiing .path2,#icon-ecological-management-area .path2,#icon-equestrian .path2,#icon-equestrian .path3,#icon-fishing .path2,#icon-fishing .path3,#icon-drone .path2,#icon-dog-leash .path2,#icon-dog-leash .path3,#icon-dog-leash .path4,#icon-model-sailboat .path2,#icon-no-alcohol .path2,#icon-no-fishing .path2,#icon-no-parking .path2,#icon-scenic-overlook .path2,#icon-scenic-overlook .path3,#icon-trail-marker .path2,#icon-email .path2,#icon-email .path3,#icon-volunteer .path2,#icon-zip-line .path2,#icon-zip-line .path3,#icon-twitter .path2,#icon-facebook .path2,#icon-x .path1,#icon-restroom .path2,#icon-ice-skating .path2,#icon-ice-fishing .path2,#icon-ice-fishing .path3,#icon-ice-fishing .path4,#icon-hiking .path2,#icon-off-leash-dog-area .path2,#icon-off-leash-dog-area .path3,#icon-off-leash-dog-area .path4,#icon-off-leash-dog-area .path5{fill:#fff}
+#icon-aquatic-center .path1,#icon-canoe-landing .path1,#icon-boat-launch .path1,#icon-waterbody .path1,#icon-facebook .path1{fill:#0c51a3}
+#icon-disc-golf .path1,#icon-golf-course-driving-range .path1{fill:#2e5122}
+#icon-sign .path1,#icon-sign .path2,#icon-trail-marker .path1{fill:#444}
+#icon-sign .path3,#icon-trail-marker .path3{fill:#8c0000}
 #icon-camp .path1{fill:#922990}
-#icon-camp .path2{fill:#fff}
-#icon-canoe-landing .path1{fill:#0c51a3}
-#icon-canoe-landing .path2,#icon-canoe-landing .path3{fill:#fff}
-#icon-disc-golf .path1{fill:#2e5122}
-#icon-disc-golf .path2{fill:#fff}
-#icon-facility .path1{fill:#684c2b}
-#icon-facility .path2{fill:#fff}
-#icon-golf-course-driving-range .path1{fill:#2e5122}
-#icon-golf-course-driving-range .path2{fill:#fff}
-#icon-model-airplane .path1{fill:#684c2b}
-#icon-model-airplane .path2{fill:#fff}
 #icon-nature-center .path1{fill:#ed2124}
-#icon-nature-center .path2{fill:#fff}
 #icon-off-leash-dog-area .path1{fill:#f15822}
-#icon-off-leash-dog-area .path2,#icon-off-leash-dog-area .path3,#icon-off-leash-dog-area .path4,#icon-off-leash-dog-area .path5{fill:#fff}
 #icon-parking .path1{fill:#4c4231}
-#icon-parking .path2{fill:#fff}
-#icon-picnic-grove .path1{fill:#684c2b}
-#icon-picnic-grove .path2{fill:#fff}
-#icon-picnic-grove-shelter .path1{fill:#684c2b}
-#icon-picnic-grove-shelter .path2{fill:#fff}
-#icon-sledding .path1{fill:#684c2b}
-#icon-sledding .path2{fill:#fff}
-#icon-snowmobiling .path1{fill:#684c2b}
-#icon-snowmobiling .path2{fill:#fff}
-#icon-waterbody .path1{fill:#0c51a3}
-#icon-waterbody .path2,#icon-waterbody .path3,#icon-waterbody .path4{fill:#fff}
-#icon-bicycling .path1{fill:#585747}
-#icon-bicycling .path2{fill:#fff}
-#icon-birding-hotspot .path1{fill:#585747}
-#icon-birding-hotspot .path2{fill:#fff}
-#icon-boat-rental .path1{fill:#585747}
-#icon-boat-rental .path2,#icon-boat-rental .path3,#icon-boat-rental .path4,#icon-boat-rental .path5,#icon-boat-rental .path6,#icon-boat-rental .path7,#icon-boat-rental .path8,#icon-boat-rental .path9,#icon-boat-rental .path10,#icon-boat-rental .path11,#icon-boat-rental .path12,#icon-boat-rental .path13{fill:#fff}
-#icon-cross-country-skiing .path1{fill:#585747}
-#icon-cross-country-skiing .path2{fill:#fff}
-#icon-ecological-management-area .path1{fill:#585747}
-#icon-ecological-management-area .path2{fill:#fff}
-#icon-equestrian .path1{fill:#585747}
-#icon-equestrian .path2,#icon-equestrian .path3{fill:#fff}
-#icon-fishing .path1{fill:#585747}
-#icon-fishing .path2,#icon-fishing .path3{fill:#fff}
-#icon-hiking .path1{fill:#585747}
-#icon-hiking .path2{fill:#fff}
-#icon-ice-fishing .path1{fill:#585747}
-#icon-ice-fishing .path2,#icon-ice-fishing .path3,#icon-ice-fishing .path4{fill:#fff}
-#icon-ice-skating .path1{fill:#585747}
-#icon-ice-skating .path2{fill:#fff}
-#icon-model-sailboat .path1{fill:#585747}
-#icon-model-sailboat .path2{fill:#fff}
-#icon-no-alcohol .path1{fill:#585747}
-#icon-no-alcohol .path2{fill:#fff}
-#icon-no-fishing .path1{fill:#585747}
-#icon-no-fishing .path2{fill:#fff}
-#icon-no-parking .path1{fill:#585747}
-#icon-no-parking .path2{fill:#fff}
-#icon-restroom .path1{fill:#585747}
-#icon-restroom .path2{fill:#fff}
-#icon-scenic-overlook .path1{fill:#585747}
-#icon-scenic-overlook .path2,#icon-scenic-overlook .path3{fill:#fff}
-.icon-sign{width:1.599609375em}
-#icon-sign .path1,#icon-sign .path2{fill:#444}
-#icon-sign .path3{fill:#8c0000}
-#icon-trail-marker .path1{fill:#444}
-#icon-trail-marker .path2{fill:#fff}
-#icon-trail-marker .path3{fill:#8c0000}
 #icon-email .path1{fill:#7e9137}
-#icon-email .path2,#icon-email .path3{fill:#fff}
-#icon-facebook .path1{fill:#0c51a3}
-#icon-facebook .path2{fill:#fff}
 #icon-twitter .path1{fill:#55acee}
-#icon-twitter .path2{fill:#fff}
-#icon-x .path1{fill:#fff}
 #icon-arrow .path1{fill:#000}
 #icon-alert .path1{fill:#FFE2D9}
-.icon-map.active{display:inline-block;} /* This needs to be before the zoom level changes so that the zoom level display attribute can override this. */
-
-
-
-.icon.icon-map{padding:.4em;overflow:visible;}
-/*.icon-sign.icon-map{width:2em;height:2em;}
-*/
-.icon-sign.icon-1, .icon-sign.icon-2, .icon-sign.icon-3,.icon-sign.icon-4,.icon-sign.icon-5,.icon-sign.icon-6,.icon-sign.icon-7,.icon-sign.icon-8, .icon-sign.icon-9, .icon-sign.icon-10{width:2em;height:2em;}
-.icon-sign.icon-11, .icon-sign.icon-12, .icon-sign.icon-13, .icon-sign.icon-14{width:2.25em;height:2.25em;}
-.icon-sign.icon-15, .icon-sign.icon-16, .icon-sign.icon-17, .icon-sign.icon-18{width:3em;height:3em;}
-
-.icon-activity.icon-1, .icon-activity.icon-2, .icon-activity.icon-3,.icon-activity.icon-4,.icon-activity.icon-5,.icon-activity.icon-6,.icon-activity.icon-7,.icon-activity.icon-8, .icon-activity.icon-9, .icon-activity.icon-10, .icon-activity.icon-11, .icon-activity.icon-12 {display:none;}
-.icon-activity.icon-13, .icon-activity.icon-14{width:2.0em;height:2.0em;display:inline-block;}
-.icon-activity.icon-15, .icon-activity.icon-16, .icon-activity.icon-17, .icon-activity.icon-18{width:3em;height:3em;display:inline-block;}
-.icon-map.inactive{display:none;} /* This needs to be after the zoom level changes so that this display:none; overrides the zoom level display attrivute */
-
+.icon-sign{width:1.599609375em}
+.icon-map.active{display:inline-block} /* This needs to be before the zoom level changes so that the zoom level display attribute can override this. */
+.icon.icon-map{padding:.4em;overflow:visible}
+/*.icon-sign.icon-map{width:2em;height:2em}*/
+.icon-sign.icon-1, .icon-sign.icon-2, .icon-sign.icon-3,.icon-sign.icon-4,.icon-sign.icon-5,.icon-sign.icon-6,.icon-sign.icon-7,.icon-sign.icon-8, .icon-sign.icon-9, .icon-sign.icon-10{width:2em;height:2em}
+.icon-sign.icon-11, .icon-sign.icon-12, .icon-sign.icon-13, .icon-sign.icon-14{width:2.25em;height:2.25em}
+.icon-sign.icon-15, .icon-sign.icon-16, .icon-sign.icon-17, .icon-sign.icon-18{width:3em;height:3em}
+.icon-activity.icon-1, .icon-activity.icon-2, .icon-activity.icon-3,.icon-activity.icon-4,.icon-activity.icon-5,.icon-activity.icon-6,.icon-activity.icon-7,.icon-activity.icon-8, .icon-activity.icon-9, .icon-activity.icon-10, .icon-activity.icon-11, .icon-activity.icon-12{display:none}
+.icon-activity.icon-13, .icon-activity.icon-14{width:2.0em;height:2.0em;display:inline-block}
+.icon-activity.icon-15, .icon-activity.icon-16, .icon-activity.icon-17, .icon-activity.icon-18{width:3em;height:3em;display:inline-block}
+.icon-map.inactive{display:none} /* This needs to be after the zoom level changes so that this display:none; overrides the zoom level display attrivute */
 .icon.icon-map.icon-sign{padding:.8em 0 0;
-/*                        background-image: url(../../icons/defs.svg#icon-sign);
-*/                        }
+/* background-image:url(../../icons/defs.svg#icon-sign); */                        }
 .icon-map.selected{animation:animateEdge 2.5s forwards}
 .icon-sign.icon-map.selected{animation:animateEdge 2.5s forwards}
-/*.icon.icon-map.icon-sign.selected{animation:animateEdge 2.5s forwards}
-*/
-@keyframes animateEdge {
-    0% {background:none;box-shadow:none;}
-    33% {background:rgba(126,144,57,.45);box-shadow:0 0 7px 5px rgba(126,144,57,.45);border-radius:3em;}
-    66% {background:none;box-shadow:none;}
-    100% {background:rgba(126,144,57,.45);box-shadow:0 0 7px 5px rgba(126,144,57,.45);border-radius:3em;}
+/*.icon.icon-map.icon-sign.selected{animation:animateEdge 2.5s forwards}*/
+@keyframes animateEdge{
+    0%{background:none;box-shadow:none}
+    33%{background:rgba(126,144,57,.45);box-shadow:0 0 7px 5px rgba(126,144,57,.45);border-radius:3em}
+    66%{background:none;box-shadow:none}
+    100%{background:rgba(126,144,57,.45);box-shadow:0 0 7px 5px rgba(126,144,57,.45);border-radius:3em}
 }
-@-webkit-keyframes animateEdge {
-    0% {background:none;box-shadow:none;}
-    33% {background:rgba(126,144,57,.45);box-shadow:0 0 7px 5px rgba(126,144,57,.45);border-radius:3em;}
-    66% {background:none;box-shadow:none;}
-    100% {background:rgba(126,144,57,.45);box-shadow:0 0 7px 5px rgba(126,144,57,.45);border-radius:3em;}
+@-webkit-keyframes animateEdge{
+    0%{background:none;box-shadow:none}
+    33%{background:rgba(126,144,57,.45);box-shadow:0 0 7px 5px rgba(126,144,57,.45);border-radius:3em}
+    66%{background:none;box-shadow:none}
+    100%{background:rgba(126,144,57,.45);box-shadow:0 0 7px 5px rgba(126,144,57,.45);border-radius:3em}
 }
 
 /* new */
 .detailPanel .detailPanelBanner span.entranceName{color:#FFF;font-weight:bold;font-size:1.15em}
-.hidden{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;}
+.hidden{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
 .fpccResults h4{font-size:1em;text-transform:uppercase;padding:.5em 1em;margin:0;background:#7E9137;color:#FFF}
 .fpccResults.fpccUnit{padding:.5em 0 0 0}
 .fpccEntry{background:#FFF;padding:1em;width:100%;display:block;border-bottom:1px dotted #CCC}
-.fpccEntry .icon{width:10%;height:1.25em;vertical-align:top;margin-right:5%;}
-.fpccEntryNameText{display:inline-block;width:83%;}
+.fpccEntry .icon{width:10%;height:1.25em;vertical-align:top;margin-right:5%}
+.fpccEntryNameText{display:inline-block;width:83%}
 .fpccEntry .icon.icon-sign{margin-top:2px}
 .fpccEntry .icon.icon-trail-marker{margin-top:-2px}
-.fpccEntry:hover{background:#F1F1ED;cursor: pointer;}
+.fpccEntry:hover{background:#F1F1ED;cursor:pointer}
 .trailListColumn .fpccUnit.fpccResults a span.fpccEntryDis,.trailListColumn .fpccUnit.fpccResults a span.fpccEntryName{color:#333;font-weight:normal}
 .trailListColumn .fpccUnit.fpccResults a span.fpccEntryName{font-size:1em;font-weight:bold;float:left;width:70%}
 .fpccEntryDis{font-size:.9125em;font-family:Georgia,"Times New Roman",serif;float:right;width:30%;text-align:right}
@@ -206,28 +131,22 @@ a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 /*jquery mobile override */
 .fpccUnit .ui-content{padding:0}
 .trailListColumn .ui-btn span{text-align:left}
-.ui-page-theme-a .trailListColumn a,.ui-page-theme-a .trailListColumn{text-shadow:none;}
+.ui-page-theme-a .trailListColumn a,.ui-page-theme-a .trailListColumn{text-shadow:none}
 html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 .ui-mobile label.fpccLabel{font-size:.9125em;font-weight:normal}
 .trailListColumn .ui-page-theme-a a{font-weight:normal}
 
-/* hack css for select2 demo */
-.select2Searchbox{padding:8px;display:block;border:none;border-bottom:1px solid #808080;width:100%}
-.select2-border{border:1px solid #ccc !important}
-.select2-btn:hover{background-color:#ededed;border-color:#ddd;color:#333;text-shadow:0 1px 0 #f3f3f3;}
-.select2-btn{background-color:#f6f6f6;border-color:#ddd;color:#333;text-shadow:0 1px 0 #f3f3f3;border-radius:.3125em;box-sizing:border-box;-webkit-appearance:none;-moz-appearance:none;width:100%;font-size:16px;margin:.5em 0;padding:.7em 1em;display:block;position:relative;text-align:center;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;cursor:pointer;-webkit-user-select:none;}
-
 /* full panel */
-section.trailListColumn .accordion {/* display:none;*/border-top:8px solid #7E9137;background:none;max-height:none;overflow:hidden}
-section.trailListColumn {
+section.trailListColumn .accordion{/* display:none;*/border-top:8px solid #7E9137;background:none;max-height:none;overflow:hidden}
+section.trailListColumn{
 position:fixed;top:0;left:0;width:384px;max-height:100%;/*min-height:14em;*/padding:0;background:none;z-index:999;height:100%;/* overflow:visible;*/}
-section.trailListColumn .fpccResults.fpccUnit {padding:0;overflow-x:hidden;overflow-y:scroll;}
+section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overflow-y:scroll}
 .fpccButton,.fpccButton:visited{background:#7E9039;font-family:Helvetica, Arial, sans-serif;border:none;border-bottom:2px solid #606D29;padding:10px 15px;max-height:37px;color:#FFF;font-size:.9375em;line-height:1;text-decoration:none;vertical-align:top}
-.fpccButton:hover{background:#606D29;border-bottom:2px solid #464F1E;}
+.fpccButton:hover{background:#606D29;border-bottom:2px solid #464F1E}
 .fpccButton:active{background:#606D29;border-bottom:none;margin-top:2px}
-#fpccSearchContainer.fpccUnit{background:#FFF;padding:1em}
+#fpccSearchContainer.fpccUnit{background:#FFF;padding:1em;display:table;width:100%/*to play nice with menu*/}
 #fpccSearchContainer.fpccUnit.fpccResults{padding:0}
-#fpccSearchContainer .fpccButton{width:23%;float:right;display:inline;}
+#fpccSearchContainer .fpccButton{width:23%;float:right;display:inline}
 #fpccSearchContainer select{border:1px solid #999;padding:5px;width:75%;height:37px;font-size:.9375em;line-height:1;box-sizing:border-box}
 #fpccSearchContainer form{display:inline}
 #fpccSearchBack a:link,#fpccSearchBack a:visited,#fpccSearchStatus{background:#E3EACC;box-shadow:inset 0 3px 10px 0 rgba(0, 0, 0, 0.2);text-align:center;font-weight:bold;font-size:.9375em;color:#273719;padding:.75em 0;display:block;text-decoration:none}
@@ -235,46 +154,68 @@ section.trailListColumn .fpccResults.fpccUnit {padding:0;overflow-x:hidden;overf
 #fpccSearchBack .icon-arrow{width:.75em;height:.75em}
 #fpccMainContainer{box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2)}
 #fpccPreserveName{box-shadow:0 -3px 10px 0 rgba(0,0,0,0.2)}
-#fpccBrand{padding-top:10px}
+#fpccBrand{padding-top:10px}#fpccMainContainer{box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2)}
 
-.fpccTop{border-bottom:3px solid #CCC}/*HERE2*/
-.fpccHours{border-top:1px dotted #CCC;padding:1em 0;margin:-.75em 1em 1em;}/*HERE2*/
-.fpccHours1,.fpccHours2,.fpccSpecialHours,.fpccPhone{display:block}/*HERE2*/
-.fpccPhone{margin-top:.5em}/*HERE2*/
-.fpccSpecialHours{font-style:italic;font-size:.75em}/*HERE2*/
-a:link.fpccSpecialDesc,a:visited.fpccSpecialDesc{width:100%;clear:both;padding:.75em 1em;background:#FFEFBF;text-decoration:none;color:#333;margin:1em 0;font-size:.9125em;border:1px dotted #FFBF00}/*HERE2*/
-a:hover.fpccSpecialDesc,a:active.fpccSpecialDesc{background:#FFE9A4}/*HERE2*/
+
+.fpccTop{border-bottom:3px solid #CCC}
+.fpccHours{border-top:1px dotted #CCC;padding:1em 0;margin:-.75em 1em 1em}
+.fpccHours1,.fpccHours2,.fpccSpecialHours,.fpccPhone{display:block}
+.fpccPhone{margin-top:.5em}
+.fpccSpecialHours{font-style:italic;font-size:.75em}
+a:link.fpccSpecialDesc,a:visited.fpccSpecialDesc{width:100%;clear:both;padding:.75em 1em;background:#FFEFBF;text-decoration:none;color:#333;margin:1em 0;font-size:.9125em;border:1px dotted #FFBF00}
+a:hover.fpccSpecialDesc,a:active.fpccSpecialDesc{background:#FFE9A4}
 a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{background:#E8AE00;border-top:2px solid #C19200}
-.fpccSpecialBlurb{vertical-align:middle;display:inline-block;width:85%;}/*HERE2*/
-.fpccSpecialIcon{vertical-align:middle;width:15%;display:inline-block;text-align:right}/*HERE2*/
-.fpccSpecialIcon .icon-arrow{transform:rotate(180deg);-webkit-transform:rotate(180deg);background:#FFBF00;border-top:2px solid #D7A200;height:2.5em;width:2.5em;vertical-align:middle;margin:0;padding:.5em;color:#FFEFBF;}/*HERE2*/
-.fpccAlerts{width:100%;clear:both;background:#FFE2D9;text-decoration:none;color:#333;margin:0;font-size:.9125em;border-bottom:1px dotted #DF0000;}/*HERE3*/
-.fpccAlertBlurb{vertical-align:top;display:inline-block;width:85%;}/*HERE2*/
+.fpccSpecialBlurb{vertical-align:middle;display:inline-block;width:85%}
+.fpccSpecialIcon{vertical-align:middle;width:15%;display:inline-block;text-align:right}
+.fpccSpecialIcon .icon-arrow{transform:rotate(180deg);-webkit-transform:rotate(180deg);-ms-transform:rotate(180deg);background:#FFBF00;border-top:2px solid #D7A200;height:2.5em;width:2.5em;vertical-align:middle;margin:0;padding:.5em;color:#FFEFBF}
+.fpccAlerts{width:100%;clear:both;background:#FFE2D9;text-decoration:none;color:#333;margin:0;font-size:.9125em;border-bottom:1px dotted #DF0000}/*HERE3*/
+.fpccAlertBlurb{vertical-align:top;display:inline-block;width:85%}
 .fpccAlertIcon{vertical-align:top;width:12%;margin-right:3%;display:inline-block;text-align:left;float:left}/*HERE3*/
-.fpccAlerts .icon-alert{background:#DF0000;border-bottom:2px solid #B70000;height:2.5em;width:2.5em;vertical-align:middle;margin:0;padding:.5em;color:#FFE2D9;}/*HERE2*/
-.fpccSingleAlert{display:block;margin-bottom:.75em}/*HERE2*/
-.fpccSingleAlert a:link,.fpccSingleAlert a:visited{color:#333}/*HERE2*/
-.fpccSingleAlert a:hover,.fpccSingleAlert a:active{text-decoration:none}/*HERE2*/
+.fpccAlerts .icon-alert{background:#DF0000;border-bottom:2px solid #B70000;height:2.5em;width:2.5em;vertical-align:middle;margin:0;padding:.5em;color:#FFE2D9}
+.fpccSingleAlert{display:block;margin-bottom:.75em}
+.fpccSingleAlert a:link,.fpccSingleAlert a:visited{color:#333}
+.fpccSingleAlert a:hover,.fpccSingleAlert a:active{text-decoration:none}
 .fpccPhoto{max-height:195px;max-width:384px}
 
+.fpccAccessTo{text-align:center;padding:1.15em 0 .25em;border-top: 1px dotted #CCC}
+.fpccTrails .fpccAccessTo .icon-trail-marker{width:1.5em;height:1.5em;margin-right:.5em;vertical-align: middle;margin-top:-5px}
+
+.fpccMenu{float:right;margin-top:87px;width:auto;display: block;margin-right:-40px}
+.fpccMenu a:link.hamburger,.fpccMenu a:visited.hamburger{background: #999;opacity:.7;filter: alpha(opacity=70);font-size:.75em;float: left;color:#fff;text-decoration:none;font-weight:bold;box-shadow:inset 4px 0px 8px 0px rgba(0,0,0,0.4);padding: .75em .75em;width: 40px}
+.fpccMenu a:hover.hamburger,.fpccMenu a:active.hamburger{opacity:1;filter:alpha(opacity=100)}
+.fpccMenu a.hamburger span{height:4px;background:#FFF;margin-bottom:3px;display:block}
+.fpccMenu a.hamburger span.last{margin-bottom:0}
+ul.fpccMenuList{display: block;clear: both;margin:0;list-style-type:none;color:#333;font-weight:bold;font-size:.8125em;width: 200px;padding-left:0;float:right;margin-right:-200px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2)}
+ul.fpccMenuList a:link, ul.fpccMenuList a:visited{padding:.75em;color:#FFF;background:#999;border-bottom:1px solid #FFF;text-decoration:none;display:block}
+ul.fpccMenuList a:link.last, ul.fpccMenuList a:visited.last{border:none}
+ul.fpccMenuList a:hover, ul.fpccMenuList a:active{background:#666}
+
 /* Panel main.css overrides */
-#fpccPreserveInfo{max-height:none;overflow-y:scroll;}
+#fpccPreserveInfo{max-height:none;overflow-y:scroll}
 .trailListColumn .detailPanel{max-height:none}
 .trailListColumn .title-row header .navbar-inner .logo{margin:0;width:270px}
 .trailListColumn .title-row header .navbar-inner{padding:.35em 0 .5em 0;width:auto;margin:0 42px;position:inherit}
-#fpccPreserveName .trailName{font-size:20px;}
+#fpccPreserveName .trailName{font-size:20px}
 .detailPanel #fpccPreserveName.detailPanelBanner{background:#273719;padding:.5em 1.75em .5em 1em}
 .icon-x.closeDetail{width:1em;height:1em;top:10px}
-.icon-x.closeDetail:hover{opacity:1}
+.icon-x.closeDetail:hover{opacity:1;filter:alpha(opacity=100)}
 
 /*leaflet overrides*/
 .leaflet-popup-tip{background:#606D29}/*HERE3*/
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames{font-weight:bold;padding:.5em .75em;border:none;color:#333}/*HERE3*/
-.leaflet-popup-content-wrapper .leaflet-popup-content .activity-popup{border:0;padding:.5em .75em;}/*HERE3*/
-.leaflet-popup-content-wrapper .leaflet-popup-content{border-bottom:2px solid #606D29;color:#333;}/*HERE3*/
-.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .popupTrailNames{padding:.5em .75em;}/*HERE3*/
+.leaflet-popup-content-wrapper .leaflet-popup-content .activity-popup{border:0;padding:.5em .75em}/*HERE3*/
+.leaflet-popup-content-wrapper .leaflet-popup-content{border-bottom:2px solid #606D29;color:#333}/*HERE3*/
+.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .popupTrailNames{padding:.5em .75em}/*HERE3*/
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname.selected{padding-bottom:0;color:#333}/*HERE3*/
-.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname.selected:hover{background:#E3EACC}/*HERE3*/
+.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname:hover{background:#E3EACC}/*HERE3*/
 .trail-popup .trail-popup-line-named{color:#333!important;border-top:none}/*HERE3*/
 
-/*.testClass{stroke:#31a354;}*/
+
+/*.testClass{stroke:#31a354}*/
+
+/* Selectize override */
+.selectize-input{border:1px solid #d0d0d0;padding:9px 8px 8px;display:inline-block;width:75%;overflow:hidden;float:left;position:relative;z-index:1;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-box-shadow:none;box-shadow:none;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
+.selectize-input.input-active{-webkit-border-radius:none;-moz-border-radius:0;border-radius:0}
+.selectize-control.multi .selectize-input.has-items{padding:6px 8px 4px}
+.selectize-dropdown .optgroup-header{font-weight:bold}
+.optgroup .option {padding:5px 8px 5px 20px}
