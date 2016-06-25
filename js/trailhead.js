@@ -215,7 +215,7 @@ function startup() {
   //   60077: [42.033313, -87.75764]
   // };
   var zipCodeLocations = {};
-  $.getJSON("../json/search_zip.json", function(result){
+  $.getJSON("json/search_zip.json", function(result){
     zipCodeLocations = result;
     console.log("[getJSON zipCodeLocations] done at " + new Date().getTime());
   });
@@ -224,7 +224,7 @@ function startup() {
   //   "des plaines" : [42.03618, -87.7321]
   // };
   var muniLocations = {};
-  $.getJSON("../json/search_muni.json", function(result){
+  $.getJSON("json/search_muni.json", function(result){
     muniLocations = result;
     console.log("[getJSON muniLocations] done at " + new Date().getTime());
   });
