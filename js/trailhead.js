@@ -283,6 +283,9 @@ function startup() {
 
   $(".aboutLink").click(openAboutPage);
   $(".closeAbout").click(closeAboutPage);
+
+  $(".fpccMenu").click(changeMenuDisplay);
+
   //  Shouldn't the UI event of a Map Callout click opening the detail panel go here?
 
   //if mobile, we expand 2 of the sidebar sections
@@ -3010,6 +3013,18 @@ function startup() {
     $('.accordion').show();
   }
 
+  // Open/close fpccMenu list
+  function changeMenuDisplay() {
+    console.log("changeMenuDisplay");
+    if ($(".fpccMenuList").hasClass("hide")) {
+      $('.fpccMenuList').removeClass('hide');
+      $('.fpccMenuList').addClass("show");
+    } else {
+      $('.fpccMenuList').removeClass('show');
+      $('.fpccMenuList').addClass("hide");
+    }
+
+  }
 
   // event handler for click of a trail name in a trailhead popup
 
