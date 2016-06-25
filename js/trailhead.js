@@ -69,13 +69,13 @@ function startup() {
     document.title = "LOCALHOST | Cook County Trailsy";
   } else if (window.location.hostname.split(".")[0] == "fpcc-staging") {
     document.title = "STAGING | Cook County Trailsy";
-  } else if (window.location.hostname.split(".")[0] = "fpcc") {
-    document.title = "Cook County Forest Preserves";
-    API_HOST = "http://fpcc.smartchicagoapps.org";
   } else if (window.location.hostname.split(".")[0] = "smartchicago") {
     document.title = "gh-pages | Cook County Forest Preserves";
     API_HOST = "http://fpcc-staging.smartchicagoapps.org";
-  }
+  } else if (window.location.hostname.split(".")[0] = "fpcc") {
+    document.title = "Cook County Forest Preserves";
+    API_HOST = "http://fpcc.smartchicagoapps.org";
+  } 
   //API_HOST = "http://localhost:8080";
   console.log("API_HOST = " + API_HOST);
   //API_HOST = "http://fpcc-staging.smartchicagoapps.org/json"
