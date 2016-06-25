@@ -2638,7 +2638,7 @@ function startup() {
 
         if (trailhead.properties.indirect_trail_ids) {
           console.log("[decorateDetailPanel] indirect_trail_ids.length = " + trailhead.properties.indirect_trail_ids.length);
-          var indirectHTML = "with access to";
+          var indirectHTML = '<div class="fpccAccessTo fpccLabel"><svg class="icon icon-trail-marker" style="display: inline-block;"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-trail-marker"></use></svg>with access to:</div>';
           var useIndirect = false;
           for (var trailIndex = 0; trailIndex < trailhead.properties.indirect_trail_ids.length; trailIndex++ ) {
             var thisTrailId = trailhead.properties.indirect_trail_ids[trailIndex];
