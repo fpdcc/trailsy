@@ -2325,8 +2325,10 @@ function startup() {
     var trailLink = null;
     if (trailSystem) {
       trailLink =  encodeURIComponent(trailSystem);
+      trailLink = trailLink.replace(/%20/g, '+');
     } else {
       trailheadLink = encodeURIComponent(trailhead.properties.id + "-" + trailhead.properties.name);
+      trailheadLink = trailheadLink.replace(/%20/g, '+');
     }
 
     
