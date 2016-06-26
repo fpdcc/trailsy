@@ -2137,7 +2137,7 @@ function startup() {
     closeDetailPanel();
     orderedTrails = [];
     var trailList = {}; // used to see if trail div has been built yet.
-    var divCount = 1;
+    var divCount = 0;
     //var topLevelID = SMALL ? "mobile" : "desktop";
     var topLevelID = "desktop";
     //var trailListElementList = document.getElementById(topLevelID).getElementsByClassName("fpccResults");
@@ -2194,7 +2194,7 @@ function startup() {
         var trailName = null;
         var trailLength = null;
       }
-      var trailCurrentIndex = divCount++;
+      //var trailCurrentIndex = divCount++;
 
        var trailDivText = "<a class='fpccEntry clearfix' " +
         "data-source='list' " +
@@ -2214,9 +2214,8 @@ function startup() {
 
       var trailSourceText = "<div class='trailSource' id='" + trailheadSource + "'>" + trailheadSource + "</div></div>";
       var trailDivComplete = trailDivText + trailheadInfoText + trailSourceText;
-
       trailListContents = trailListContents + trailDivComplete;
-
+      divCount++;
       if ((!trailList[trailName]) && trailheadTrailIDs) {
         trailDivText = "<a class='fpccEntry clearfix' " +
         "data-source='list' " +
@@ -2234,16 +2233,18 @@ function startup() {
         trailList[trailName] = 1;
         trailDivComplete = trailDivText + trailheadInfoText + trailSourceText;
         trailListContents = trailListContents + trailDivComplete;
+        divCount++;
       }
 
-        var trailInfoObject = {
+      var trailInfoObject = {
           trailID: trailID,
           trail: trail,
           trailheadID: trailheadID,
           trailhead: trailhead,
           index: 0
-        };
-        orderedTrails.push(trailInfoObject);
+      };
+        
+      orderedTrails.push(trailInfoObject);
         // newTimeStamp = Date.now();
         // time = newTimeStamp - lastTimeStamp;
         // lastTimeStamp = newTimeStamp;
@@ -2253,7 +2254,7 @@ function startup() {
     $("#fpccSearchResults").html(trailListContents);
     //$(".fpccEntry").click(populateTrailsForTrailheadDiv);
     $(".fpccEntry").click(trailDivClickHandler);
-    $("#fpccSearchStatus").html(orderedTrails.length + " Results Found");
+    $("#fpccSearchStatus").html(divCount + " Results Found");
     console.log("end makeTrailDivs 4");
     makeTrailDivsEnded = true;
   }
