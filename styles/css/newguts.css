@@ -238,8 +238,8 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 .selectize-dropdown .optgroup-header{font-weight:bold}
 .optgroup .option {padding:5px 8px 5px 20px}
 
+@media only screen and (min-width: 769px) {
 
-@media screen and (min-width:769px) {
 /* PANEL */
 .fpccLabel.fpccLeft{float:left;width:50%;text-align:left}
 .fpccLabel.fpccLeft span,.fpccLabel.fpccRight span{font-family:Georgia,"Times New Roman",serif;text-transform:none;font-weight:bold;margin-left:5px}
