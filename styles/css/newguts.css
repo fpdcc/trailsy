@@ -83,7 +83,7 @@ a:link.fpccMore, a:visited.fpccMore{color:#7E9137}
 a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 
 /* Check if still true: Needed to override the main stylesheet or it disappears links on mobile:*/
-.trailListColumn .fpccContainer a,.trailListColumn a{display:inherit}
+.trailListColumn a{display:inline-block}
 
 
 /*moved -- disable animation on mobile?*/
@@ -138,7 +138,7 @@ a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 .hidden{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
 .fpccResults h4{font-size:1em;text-transform:uppercase;padding:.5em 1em;margin:0;background:#7E9137;color:#FFF}
 .fpccResults.fpccUnit{padding:.5em 0 0 0}
-.fpccEntry{background:#FFF;padding:1em;width:100%;display:block;border-bottom:1px dotted #CCC}
+.trailListColumn .fpccEntry{background:#FFF;padding:1em;width:100%;display:block;border-bottom:1px dotted #CCC}
 .fpccEntry .icon{width:10%;height:1.25em;vertical-align:top;margin-right:5%}
 .fpccEntryNameText{display:inline-block;width:83%}
 .fpccEntry .icon.icon-sign{margin-top:2px}
