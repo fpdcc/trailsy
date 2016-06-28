@@ -1,3 +1,4 @@
+@media only screen and (min-width: 769px) {
 /* PANEL */
 .fpccContainer{font-family:Georgia,"Times New Roman",serif;font-size:.9125em;line-height:1.5;color:#333}
 .fpccUnit{padding:1.5em 1em}
@@ -221,3 +222,4 @@ ul.fpccMenuList a:hover, ul.fpccMenuList a:active{background:#666}
 .selectize-control.multi .selectize-input.has-items{padding:6px 8px 4px}
 .selectize-dropdown .optgroup-header{font-weight:bold}
 .optgroup .option {padding:5px 8px 5px 20px}
+}
