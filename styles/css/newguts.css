@@ -83,7 +83,8 @@ a:link.fpccMore, a:visited.fpccMore{color:#7E9137}
 a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 
 /* Check if still true: Needed to override the main stylesheet or it disappears links on mobile:*/
-.trailListColumn .fpccContainer a{display:inline-block}
+.trailListColumn .fpccContainer a,.trailListColumn a{display:inline-block}
+
 
 /*moved -- disable animation on mobile?*/
 /* ICONS */
@@ -151,7 +152,7 @@ a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 
 /*moved/NEED TO ADJUST*/
 section.trailListColumn{
-position:fixed;top:0;left:0;width:384px;max-height:100%;/*min-height:14em;*/padding:0;background:none;z-index:999;height:100%;/* overflow:visible;*/}
+position:fixed;top:0;left:0;width:100%;max-height:100%;/*min-height:14em;*/padding:0;background:none;z-index:999;height:100%;/* overflow:visible;*/}
 section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overflow-y:scroll}
 #fpccSearchContainer.fpccUnit{background:#FFF;padding:1em;display:table;width:100%/*to play nice with menu*/}
 #fpccSearchContainer.fpccUnit.fpccResults{padding:0}
@@ -163,7 +164,8 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
 #fpccSearchBack .icon-arrow{width:.75em;height:.75em}
 #fpccMainContainer{box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2)}
 #fpccPreserveName{box-shadow:0 -3px 10px 0 rgba(0,0,0,0.2)}
-#fpccBrand{padding-top:10px}#fpccMainContainer{box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2)}
+#fpccBrand{padding-top:10px;background:#9E0B0F;height:40px;}
+#fpccMainContainer{box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2)}
 
 .fpccMenu{float:right;margin-top:87px;width:auto;display: block;margin-right:-40px}
 .fpccMenu a:link.hamburger,.fpccMenu a:visited.hamburger{background: #999;opacity:.7;filter: alpha(opacity=70);font-size:.75em;float: left;color:#fff;text-decoration:none;font-weight:bold;box-shadow:inset 4px 0px 8px 0px rgba(0,0,0,0.4);padding: .75em .75em;width: 40px}
@@ -180,8 +182,8 @@ ul.fpccMenuList a:hover, ul.fpccMenuList a:active{background:#666}
 /* Panel main.css overrides */
 #fpccPreserveInfo{max-height:none;overflow-y:scroll}
 .trailListColumn .detailPanel{max-height:none}
-.trailListColumn .title-row header .navbar-inner .logo{margin:0;width:270px}
-.trailListColumn .title-row header .navbar-inner{padding:.35em 0 .5em 0;width:auto;margin:0 42px;position:inherit}
+.trailListColumn .title-row header .navbar-inner .logo{margin:0;width:225px}
+.trailListColumn .title-row header .navbar-inner{width:auto;position:inherit}
 #fpccPreserveName .trailName{font-size:20px}
 .detailPanel #fpccPreserveName.detailPanelBanner{background:#273719;padding:.5em 1.75em .5em 1em}
 .icon-x.closeDetail{width:1em;height:1em;top:10px}
