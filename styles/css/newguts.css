@@ -83,7 +83,7 @@ a:link.fpccMore, a:visited.fpccMore{color:#7E9137}
 a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 
 /* Check if still true: Needed to override the main stylesheet or it disappears links on mobile:*/
-.trailListColumn .fpccContainer a,.trailListColumn a{display:inline-block}
+.trailListColumn .fpccContainer a,.trailListColumn a{display:inherit}
 
 
 /*moved -- disable animation on mobile?*/
@@ -205,7 +205,7 @@ ul.fpccMenuList a:hover, ul.fpccMenuList a:active{background:#666}
 .fpccHours1,.fpccHours2,.fpccSpecialHours,.fpccPhone{display:block}
 .fpccPhone{margin-top:.5em}
 .fpccSpecialHours{font-style:italic;font-size:.75em}
-a:link.fpccSpecialDesc,a:visited.fpccSpecialDesc{width:100%;clear:both;padding:.75em 1em;background:#FFEFBF;text-decoration:none;color:#333;margin:1em 0;font-size:.9125em;border:1px dotted #FFBF00}
+a:link.fpccSpecialDesc,a:visited.fpccSpecialDesc{width:100%;clear:both;padding:.75em 1em;background:#FFEFBF;text-decoration:none;color:#333;margin:1em 0;font-size:.9125em;border:1px dotted #FFBF00;display:inline-block;}
 a:hover.fpccSpecialDesc,a:active.fpccSpecialDesc{background:#FFE9A4}
 a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{background:#E8AE00;border-top:2px solid #C19200}
 .fpccSpecialBlurb{vertical-align:middle;display:inline-block;width:85%}
@@ -251,7 +251,7 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 
 
 .fpccSign{float:left;width:65%;margin:0 7% 0 0}
-.fpccDirections{width:28%;float:right;margin-bottom:.75em}
+.fpccDirections{width:28%;float:right;margin:0 0 .75em}
 
 
 
@@ -300,14 +300,15 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
 #fpccSearchBack .icon-arrow{width:.75em;height:.75em}
 #fpccMainContainer{box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2)}
 #fpccPreserveName{box-shadow:0 -3px 10px 0 rgba(0,0,0,0.2)}
-#fpccBrand{padding-top:10px}#fpccMainContainer{box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2)}
+#fpccBrand{padding-top:10px;background:none;height:auto;}
+#fpccMainContainer{box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2)}
 
 
 
 .fpccMenu{float:right;margin-top:87px;width:auto;display: block;margin-right:-40px}
-.fpccMenu a:link.hamburger,.fpccMenu a:visited.hamburger{background: #999;opacity:.7;filter: alpha(opacity=70);font-size:.75em;float: left;color:#fff;text-decoration:none;font-weight:bold;box-shadow:inset 4px 0px 8px 0px rgba(0,0,0,0.4);padding: .75em .75em;width: 40px}
+.fpccMenu a:link.hamburger,.fpccMenu a:visited.hamburger{background: #999;opacity:.7;filter: alpha(opacity=70);font-size:.75em;float: left;color:#fff;text-decoration:none;font-weight:bold;box-shadow:inset 4px 0px 8px 0px rgba(0,0,0,0.4);padding: .75em .75em;width: 40px;height:auto;}
 .fpccMenu a:hover.hamburger,.fpccMenu a:active.hamburger{opacity:1;filter:alpha(opacity=100)}
-.fpccMenu a.hamburger span{height:4px;background:#FFF;margin-bottom:3px;display:block}
+.fpccMenu a.hamburger span{height:4px;background:#FFF;margin-bottom:3px;margin-top:0;display:block}
 .fpccMenu a.hamburger span.last{margin-bottom:0}
 ul.fpccMenuList{clear: both;margin:0;list-style-type:none;color:#333;font-weight:bold;font-size:.8125em;width: 200px;padding-left:0;float:right;margin-right:-200px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2)}
 ul.fpccMenuList.hide {display: none;}
@@ -320,7 +321,7 @@ ul.fpccMenuList a:hover, ul.fpccMenuList a:active{background:#666}
 #fpccPreserveInfo{max-height:none;overflow-y:scroll}
 .trailListColumn .detailPanel{max-height:none}
 .trailListColumn .title-row header .navbar-inner .logo{margin:0;width:270px}
-.trailListColumn .title-row header .navbar-inner{padding:.35em 0 .5em 0;width:auto;margin:0 42px;position:inherit}
+.trailListColumn .title-row header .navbar-inner{padding:.35em 0 .5em 0;width:auto;margin:0 42px;position:inherit;height:auto;}
 #fpccPreserveName .trailName{font-size:20px}
 .detailPanel #fpccPreserveName.detailPanelBanner{background:#273719;padding:.5em 1.75em .5em 1em}
 .icon-x.closeDetail{width:1em;height:1em;top:10px}
