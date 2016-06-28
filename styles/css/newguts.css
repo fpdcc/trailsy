@@ -281,7 +281,7 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 
 /* full panel */
 
-/* Unneeded? section.trailListColumn .accordion{/* display:none;*/border-top:8px solid #7E9137;background:none;max-height:none;overflow:hidden}*/
+/* Unneeded? section.trailListColumn .accordion{border-top:8px solid #7E9137;background:none;max-height:none;overflow:hidden}*/
 
 section.trailListColumn{
 position:fixed;top:0;left:0;width:384px;max-height:100%;/*min-height:14em;*/padding:0;background:none;z-index:999;height:100%;/* overflow:visible;*/}
