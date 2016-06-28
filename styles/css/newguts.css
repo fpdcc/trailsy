@@ -164,13 +164,12 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
 #fpccSearchBack .icon-arrow{width:.75em;height:.75em}
 #fpccMainContainer{box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2)}
 #fpccPreserveName{box-shadow:0 -3px 10px 0 rgba(0,0,0,0.2)}
-#fpccBrand{padding-top:10px;background:#9E0B0F;height:40px;}
+#fpccBrand{background:#9E0B0F;height:50px;}
 #fpccMainContainer{box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2)}
 
-.fpccMenu{float:right;margin-top:87px;width:auto;display: block;margin-right:-40px}
-.fpccMenu a:link.hamburger,.fpccMenu a:visited.hamburger{background: #999;opacity:.7;filter: alpha(opacity=70);font-size:.75em;float: left;color:#fff;text-decoration:none;font-weight:bold;box-shadow:inset 4px 0px 8px 0px rgba(0,0,0,0.4);padding: .75em .75em;width: 40px}
-.fpccMenu a:hover.hamburger,.fpccMenu a:active.hamburger{opacity:1;filter:alpha(opacity=100)}
-.fpccMenu a.hamburger span{height:4px;background:#FFF;margin-bottom:3px;display:block}
+.fpccMenu{float:right;width:auto;display:block;}
+.fpccMenu a:link.hamburger,.fpccMenu a:visited.hamburger{background: #999;font-size:.75em;color:#fff;text-decoration:none;padding: .75em .75em;width: 40px;height:50px}
+.fpccMenu a.hamburger span{height:4px;background:#FFF;margin-top:4px;display:block}
 .fpccMenu a.hamburger span.last{margin-bottom:0}
 ul.fpccMenuList{clear: both;margin:0;list-style-type:none;color:#333;font-weight:bold;font-size:.8125em;width: 200px;padding-left:0;float:right;margin-right:-200px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2)}
 ul.fpccMenuList.hide {display: none;}
@@ -183,7 +182,7 @@ ul.fpccMenuList a:hover, ul.fpccMenuList a:active{background:#666}
 #fpccPreserveInfo{max-height:none;overflow-y:scroll}
 .trailListColumn .detailPanel{max-height:none}
 .trailListColumn .title-row header .navbar-inner .logo{margin:0;width:225px}
-.trailListColumn .title-row header .navbar-inner{width:auto;position:inherit}
+.trailListColumn .title-row header .navbar-inner{width:auto;position:inherit;height:50px;}
 #fpccPreserveName .trailName{font-size:20px}
 .detailPanel #fpccPreserveName.detailPanelBanner{background:#273719;padding:.5em 1.75em .5em 1em}
 .icon-x.closeDetail{width:1em;height:1em;top:10px}
