@@ -1,3 +1,6 @@
+/* new */
+.offsetZoomControl{display:none;}
+
 /*moved*/
 .fpccContainer{font-family:Georgia,"Times New Roman",serif;font-size:.9125em;line-height:1.5;color:#333}
 .fpccUnit{padding:1.5em 1em}
@@ -240,6 +243,9 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 .optgroup .option {padding:5px 8px 5px 20px}
 
 @media only screen and (min-width: 769px) {
+
+/* new */
+.offsetZoomControl{display:block;}
 
 /* PANEL */
 .fpccLabel.fpccLeft{float:left;width:50%;text-align:left}
