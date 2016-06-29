@@ -1,5 +1,6 @@
 /* new */
 .offsetZoomControl{display:none;}
+.trailMapContainer{top:0;bottom:0;}
 
 /*moved*/
 .fpccContainer{font-family:Georgia,"Times New Roman",serif;font-size:.9125em;line-height:1.5;color:#333}
@@ -155,9 +156,9 @@ a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 
 /*moved/NEED TO ADJUST*/
 section.trailListColumn{
-position:fixed;top:0;left:0;width:100%;max-height:100%;/*min-height:14em;*/padding:0;background:none;z-index:999;height:100%;/* overflow:visible;*/}
+position:absolute;bottom:0;left:0;width:100%;max-height:100%;/*min-height:14em;*/padding:0;background:none;z-index:10000;height:100%;/* overflow:visible;*/}
 section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overflow-y:scroll}
-#fpccSearchContainer.fpccUnit{background:#FFF;padding:1em;display:table;width:100%/*to play nice with menu*/}
+#fpccSearchContainer.fpccUnit{padding:1em;display:table;width:100%/*to play nice with menu*/}
 #fpccSearchContainer.fpccUnit.fpccResults{padding:0}
 #fpccSearchContainer .fpccButton{width:23%;float:right;display:inline}
 #fpccSearchContainer select{border:1px solid #999;padding:5px;width:75%;height:37px;font-size:.9375em;line-height:1;box-sizing:border-box}
@@ -167,7 +168,7 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
 #fpccSearchBack .icon-arrow{width:.75em;height:.75em}
 #fpccMainContainer{box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2)}
 #fpccPreserveName{box-shadow:0 -3px 10px 0 rgba(0,0,0,0.2)}
-#fpccBrand{background:#9E0B0F;height:50px;}
+#fpccBrand{display:none;}
 #fpccMainContainer{box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2)}
 
 .fpccMenu{float:right;width:auto;display:block;}
@@ -306,7 +307,7 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
 #fpccSearchBack .icon-arrow{width:.75em;height:.75em}
 #fpccMainContainer{box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2)}
 #fpccPreserveName{box-shadow:0 -3px 10px 0 rgba(0,0,0,0.2)}
-#fpccBrand{padding-top:10px;background:none;height:auto;}
+#fpccBrand{display:block;padding-top:10px;background:none;height:auto;}
 #fpccMainContainer{box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2)}
 
 
