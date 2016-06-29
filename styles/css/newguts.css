@@ -2,7 +2,7 @@
 .offsetZoomControl{display:none;}
 .trailMapContainer{top:0;bottom:0;}
 .leaflet-control-layers.leaflet-control-layers-expanded.leaflet-control{display:none;}
-/*hack, just move eventually*/.leaflet-container .leaflet-control-attribution.leaflet-control{top:0;bottom:auto;}
+/*hack, just move eventually*/.leaflet-bottom.leaflet-right{top:0;bottom:auto;}
 
 /*moved*/
 .fpccContainer{font-family:Georgia,"Times New Roman",serif;font-size:.9125em;line-height:1.5;color:#333}
