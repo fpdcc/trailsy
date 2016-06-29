@@ -158,9 +158,9 @@ a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 
 /*moved/NEED TO ADJUST*/
 section.trailListColumn{
-position:absolute;bottom:0;left:0;width:100%;max-height:100%;top:auto;/*min-height:14em;*/padding:0;background:none;z-index:10000;height:66px;/* overflow:visible;*/}
+position:absolute;bottom:0;left:0;width:100%;max-height:100%;top:auto;/*min-height:14em;*/padding:0;background:none;z-index:10000;height:66px;overflow:visible;}
 section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overflow-y:scroll}
-#fpccSearchContainer.fpccUnit{padding:.5em;display:table;background:#FFF;box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2);width:100%/*to play nice with menu*/}
+#fpccSearchContainer.fpccUnit{padding:.5em;display:table;background:#FFF;box-shadow:0 -4px 8px 0 rgba(0, 0, 0, 0.2);width:100%/*to play nice with menu*/}
 #fpccSearchContainer.fpccUnit.fpccResults{padding:0}
 #fpccSearchContainer .fpccButton{width:10%;height:50px;max-height:50px;float:right;display:inline}
 #fpccSearchContainer select{border:1px solid #999;padding:5px;width:75%;height:37px;font-size:.9375em;line-height:1;box-sizing:border-box}
