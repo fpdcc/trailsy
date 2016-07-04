@@ -1189,7 +1189,7 @@ function startup() {
       } else if (activityType == "birding hotspot") {
         iconType = "icon-birding-hotspot";
       } else if (activityType == "boating center") {
-        iconType = "icon-boat-launch";
+        iconType = "icon-boat-rental";
       } else if (activityType == "boat launch") {
         iconType = "icon-boat-launch";
       } else if (activityType == "boat rental") {
@@ -1228,7 +1228,7 @@ function startup() {
       } else if (activityType == "trailhead") {
         iconType = "icon-trail-marker";
       } else if (activityType == "Volunteer center") {
-        iconType = "icon-facility";
+        iconType = "icon-volunteer";
       } else if (activityType == "warming shelter") {
         iconType = "icon-picnic-grove-shelter";
       } 
