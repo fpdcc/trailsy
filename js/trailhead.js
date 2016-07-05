@@ -121,21 +121,11 @@ function startup() {
   // for yes/no features, check for first letter "y" or "n".
 
   var originalTrailheads = []; // all trailheads (from trailsegments)
-  var originalTrailheadFeatureGroup;
-  var originalTrailheadMarkerArray = [];
   
-  var trailSegments = [];
-  var currentTrailIDs = {};
-  var currentMultiTrailLayer = {}; // We have to know if a trail layer is already being displayed, so we can remove it
-  var currentTrailLayers = [];
-  var currentHighlightedTrailLayer = {};
   var currentTrailheads = [];
-  var currentTrailheadMarkerArray = [];
-  var currentTrailheadSignArray = [];
-  var currentActivities = [];
   var currentUserLocation = {};
   var anchorLocation = {};
-  var currentTrailheadLayerGroup;
+
   var currentFilters = {
     lengthFilter: [],
     activityFilter: [],
@@ -156,11 +146,7 @@ function startup() {
 
   // Activity Variables
   var originalActivities = {};
-  var allActivityLayer = null
-  var currentActivityMarkerArray = [];
   var highlightedActivityMarkerArray = [];
-  var currentActivityLayerGroup;
-  var originalActivityFeatureGroup;
   
   var lastZoom = null;
   var closeTimeout = null;
@@ -172,8 +158,7 @@ function startup() {
   var geoWatchId = null;
   var currentTrailheadHover = null;
   var geoSetupDone = false;
-  var segmentTrailnameCache = {};
-  var segmentTrailIdCache = {}; // For OpenTrails 1.1. This is the equivalent of segmentTrailnameCache.
+  
   var currentTrailData;
   var searchKeyTimeout = null;
   var trailheadsFetched = false;
@@ -181,8 +166,7 @@ function startup() {
   var trailsegmentsFetched = false;
   var activitiesFetched = false;
   var allDataFetched = false;
-  var allInvisibleSegmentsArray = [];
-  var allVisibleSegmentsArray = [];
+  
   var secondaryTrails = {};
 
   // Search variables
@@ -233,11 +217,6 @@ function startup() {
     console.log("[getJSON muniLocations] done at " + new Date().getTime());
   });
   
-
-  // Trailhead Variables
-  // Not sure if these should be global, but hey whatev
-
-  var remoteSegmentCache = {};
 
   var trailheadIconOptions = {
     iconSize: [52 * 0.60, 66 * 0.60],
@@ -1176,7 +1155,8 @@ function startup() {
   function populateOriginalActivities(ActivityDataGeoJSON) {
     console.log("[populateOriginalActivities] features count = " + ActivityDataGeoJSON.features.length);
     originalActivities = {};
-    var originalActivityMarkerArray = [];
+    var originalActivityFeatureGroup = new L.FeatureGroup();
+    originalActivityFeatureGroup.addTo(map);
 
     for (var i = 0; i < ActivityDataGeoJSON.features.length; i++) {
       var currentFeature = ActivityDataGeoJSON.features[i];
@@ -1274,12 +1254,8 @@ function startup() {
       activity.marker.bindPopup(activity.popupContent);
       originalActivities[activity.properties.trailhead_id] = originalActivities[activity.properties.trailhead_id] || [];
       originalActivities[activity.properties.trailhead_id].push(activity);
-      originalActivityMarkerArray.push(activity.marker);
-
-    }
-
-    originalActivityFeatureGroup = new L.FeatureGroup(originalActivityMarkerArray);
-    originalActivityFeatureGroup.addTo(map);
+      originalActivityFeatureGroup.addLayer(activity.marker);
+    } 
   }
 
   function setActivityEventHandlers(activity) {
@@ -1331,7 +1307,8 @@ function startup() {
   function populateOriginalTrailheads(trailheadsGeoJSON, location) {
     console.log("populateOriginalTrailheads");
     originalTrailheads = [];
-    originalTrailheadMarkerArray = [];
+    var originalTrailheadFeatureGroup = new L.FeatureGroup();
+    originalTrailheadFeatureGroup.addTo(map);
     for (var i = 0; i < trailheadsGeoJSON.features.length; i++) {
       var currentFeature = trailheadsGeoJSON.features[i];
       var otLength = originalTrailheads.length;
@@ -1350,7 +1327,6 @@ function startup() {
           currentGeoTwo += .0002;
           otGeoTwo -= .0002;
           var newOtLatLng = new L.LatLng(otGeoOne, otGeoTwo);
-          originalTrailheadMarkerArray[otnum].setLatLng(newOtLatLng);
           originalTrailheads[otnum].marker.setLatLng(newOtLatLng);
           originalTrailheads[otnum].signMarker.setLatLng(newOtLatLng);
           originalTrailheads[otnum].geometry.coordinates[0] = otGeoTwo;
@@ -1483,20 +1459,16 @@ function startup() {
           trailhead.properties.tags.push("restoration");
           trailhead.properties.tags.push("volunteer");
       }
-
-
-
       setTrailheadEventHandlers(trailhead);
       originalTrailheads.push(trailhead);
-      originalTrailheadMarkerArray.push(trailhead.signMarker);
+      originalTrailheadFeatureGroup.addLayer(trailhead.signMarker);
       //oms.addMarker(trailhead.signMarker);
     }
     // oms.addListener('click', function(marker) {
     //   console.log("[oms click] marker.trailheadID = " + marker.trailheadID);
     //   trailheadMarkerClick(marker.trailheadID);
     // });
-    originalTrailheadFeatureGroup = new L.FeatureGroup(originalTrailheadMarkerArray);
-    originalTrailheadFeatureGroup.addTo(map);
+    
     console.log("[populateOriginalTrailheads] originalTrailheads count " + originalTrailheads.length );
   }
 
@@ -1554,16 +1526,12 @@ function startup() {
 
   function makeCurrentActivities(myTrailheads) {
     console.log("[makeCurrentActivities] Begin");
-    currentActivityMarkerArray = [];
     var activeActivityDivs = document.getElementsByClassName("leaflet-marker-icon icon-activity");
     console.log("[makeCurrentActivities] old activeActivityDivs.length = " + activeActivityDivs.length);
     for (var i = 0; i < activeActivityDivs.length; i++) {
       //console.log("[activeActivityDivs] old activeActivityDivs loop i = " + i);
       activeActivityDivs[i].classList.remove('active');
       activeActivityDivs[i].classList.add('inactive');
-    }
-    if (currentActivityLayerGroup) {
-      currentActivityLayerGroup = null;
     }
     for (var i = 0; i < myTrailheads.length; i++) {
       var trailhead_id = myTrailheads[i].properties.id
@@ -1579,11 +1547,10 @@ function startup() {
             currentActivityDivs[k].classList.remove('inactive');
           }
           originalActivities[trailhead_id][j].marker.setOpacity(.5);
-          currentActivityMarkerArray.push(originalActivities[trailhead_id][j].marker);
         }
       }
     }
-    console.log("[makeCurrentActivities] new currentActivityMarkerArray.length = " + currentActivityMarkerArray.length);
+    console.log("[makeCurrentActivities] end");
   }
 
   function highlightActivities(myTrailhead_id) {
@@ -1715,7 +1682,6 @@ function startup() {
     //   callData.path = "/trailsegments.json?simplify=" + ALL_SEGMENT_LAYER_SIMPLIFY;
     // }
     makeAPICall(callData, function(response) {
-      trailSegments = response;
       if (USE_SEGMENT_LAYER) {
         if (USE_COMPLEX_SEGMENT_LAYER) {
           allSegmentLayer = makeAllSegmentLayer(response);
@@ -1736,40 +1702,6 @@ function startup() {
         callback();
       }
     });
-  }
-
-  // this creates a lookup object so we can quickly look up if a trail has any segment data available
-  function createSegmentTrailnameCache() {
-    console.log("createSegmentTrailnameCache");
-    for (var segmentIndex = 0; segmentIndex < trailSegments.features.length; segmentIndex++) {
-      // var segment = $.extend(true, {}, trailSegments.features[segmentIndex]);
-      var segment = trailSegments.features[segmentIndex];
-      for (var i = 0; i < 6; i++) {
-        var fieldName = "trail" + i;
-        if (segment.properties[fieldName]) {
-          segmentTrailnameCache[segment.properties[fieldName]] = true;
-        }
-      }
-    }
-  }
-
-  // this creates a lookup object so we can quickly find trail information for a segment
-  // This might not be needed with 1.1 structure. [OpenTrails 1.1]
-  function createSegmentTrailIdCache() {
-    console.log("createSegmentTrailIdCache");
-    console.log("originalTrailData length" + originalTrailData.length);
-    for (var prop in originalTrailData) {
-      // var segment = $.extend(true, {}, trailSegments.features[segmentIndex]);
-      console.log("IN THE LOOP");
-      var trailID = originalTrailData[trailIndex].features.id;
-      console.log("trailID = " + trailID);
-      var segments = originalTrailData[trailIndex].features.segment_ids;
-      for (var segmentIndex = 0; segmentIndex < segments.length; segmentIndex++) {
-        var segment = segments[segmentIndex];
-        segmentTrailIdCache[segment].push(trailID);
-        console.log("segmentTrailIdCache = " + segmentTrailIdCache);
-      }
-    }
   }
 
   // returns true if trailname is in trailData
@@ -1805,8 +1737,8 @@ function startup() {
     }
     console.log("makeAllSegmentLayer");
     // make visible layers
-    allVisibleSegmentsArray = [];
-    allInvisibleSegmentsArray = [];
+    var allVisibleSegmentsArray = [];
+    var allInvisibleSegmentsArray = [];
     var allSegmentLayer = new L.FeatureGroup();
     // console.log("visibleAllTrailLayer start");
 
@@ -2031,7 +1963,7 @@ function startup() {
     console.log("addTrailsToTrailheads");
     currentTrailheads = [];
     currentTrailData = {};
-    currentTrailIDs = {};
+    var currentTrailIDs = {};
     
     for (var j = 0; j < myTrailheads.length; j++) {
       var trailhead = myTrailheads[j];
@@ -2208,8 +2140,7 @@ function startup() {
 
   function mapActiveTrailheads(myTrailheads) {
     console.log("mapActiveTrailheads start");
-    currentTrailheadMarkerArray = [];
-    currentTrailheadSignArray = [];
+    var currentTrailheadSignArray = [];
     var activeTrailheadDivs = document.getElementsByClassName("leaflet-marker-icon icon-sign");
     console.log("[mapActiveTrailheads] old activeTrailheadDivs.length = " + activeTrailheadDivs.length);
     for (var i = 0; i < activeTrailheadDivs.length; i++) {
@@ -2230,7 +2161,7 @@ function startup() {
       }
     }
     if (currentTrailheadSignArray.length > 0) {
-      currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadSignArray);
+      var currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadSignArray);
       map.fitBounds(currentTrailheadLayerGroup.getBounds(), {
         paddingTopLeft: centerOffset
       });
@@ -3548,71 +3479,6 @@ function startup() {
     return segmentsExist;
   }
 
-  // given a geoJSON set of linestring features,
-  // draw them all on the map (in a single layer we can remove later)
-
-  function drawMultiTrailLayer(response) {
-    console.log("drawMultiTrailLayer");
-    if (currentMultiTrailLayer) {
-      console.log("[drawMultiTrailLayer] Remove currentMultiTrailLayer");
-      map.removeLayer(currentMultiTrailLayer);
-      currentTrailLayers = [];
-    }
-    //console.log("[drawMultiTrailLayer] response.features = " + response.features);
-    // Add check to see if there are segment features
-    if (response.features) {
-      if (response.features.length > 0) {
-        console.log("response.features count = " + response.features.length);
-        currentMultiTrailLayer = L.geoJson(response, {
-          style: function(feature) {
-            //console.log(feature.properties.trail_names[0] + " " + feature.properties.trail_colors[0]);
-            var thisColor = NORMAL_SEGMENT_COLOR;
-            var thisWeight = ACTIVE_TRAIL_WEIGHT;
-            var thisOpacity = 1;
-            var thisClickable = false;
-            var thisSmoothFactor = customSmoothFactor;
-            var thisDash = "";
-            //console.log("[visibleAllTrailLayer] secondary_trail_ids = " + feature.properties.secondary_trail_ids[0]);
-            var thisSecondaryTrail = feature.properties.secondary_trail_ids[0];
-            var thisTrailType = ""
-            if (secondaryTrails[thisSecondaryTrail]) {
-              thisTrailType = secondaryTrails[thisSecondaryTrail].properties.trail_type;
-              if (secondaryTrails[thisSecondaryTrail].properties.length < 1) {
-                thisWeight = NORMAL_SEGMENT_WEIGHT;
-              }
-            }
-            switch (thisTrailType) {
-              case 'unpaved': thisDash = "5,10"; break;
-              case '': thisDash = "5,10"; break;
-              case 'primitive': thisDash = "5,10"; break;
-            }
-            switch (feature.properties.trail_colors[0].toLowerCase()) {
-                case 'red': thisColor = "#EE2D2F"; break;
-                case 'orange': thisColor = "#F7941E"; break;
-                case 'purple': thisColor = "#7F58A5"; break;
-                case 'grey': thisColor = "#58595B"; break;
-                case 'yellow': thisColor = "#FFF450"; break;
-                case 'green': thisColor = "#006129"; break;
-                case 'tan': thisColor = "#969161"; break;
-                case 'olive': thisColor = "#969161"; break;
-                case 'brown': thisColor = "#6C503F"; break;
-                case 'blue': thisColor = "#26B8EB"; break;
-                case 'black': thisColor = "#333132"; break;
-            }
-            return {dashArray: thisDash, color: thisColor, weight: thisWeight, opacity: thisOpacity, clickable: thisClickable, smoothFactor: thisSmoothFactor};
-          },
-            onEachFeature: function(feature, layer) {
-              currentTrailLayers.push(layer);
-            }
-          });
-          //.addTo(map);
-          //.bringToFront();
-          //zoomToLayer(currentMultiTrailLayer);
-        }
-    }
-  }
-
-
   // return the calculated CSS background-color for the class given
   // This may need to be changed since AJW changed it to "border-color" above
 
@@ -3622,38 +3488,6 @@ function startup() {
     console.log(c);
     $t.remove();
     return c;
-  }
-
-  // given the index of a trail within a trailhead,
-  // highlight that trail on the map, and call zoomToLayer with it
-
-  function setCurrentTrail(index) {
-    console.log("setCurrentTrail");
-    if (currentHighlightedTrailLayer && typeof currentHighlightedTrailLayer.setStyle == "Function") {
-      currentHighlightedTrailLayer.setStyle({
-        weight: NORMAL_SEGMENT_WEIGHT
-      });
-    }
-
-    if (currentHighlightedTrailLayer) {
-      console.log(currentHighlightedTrailLayer);
-      // currentHighlightedTrailLayer.setStyle({
-      //   weight: NORMAL_SEGMENT_WEIGHT
-      // });
-    }
-
-    if (currentTrailLayers[index]) {
-      currentHighlightedTrailLayer = currentTrailLayers[index];
-      currentHighlightedTrailLayer.setStyle({
-        weight: ACTIVE_TRAIL_WEIGHT
-      });
-      currentHighlightedTrailLayer.bringToFront();
-    } else {
-      console.log("ERROR: trail layer missing");
-      console.log(currentTrailLayers);
-      console.log(index);
-    }
-    console.log("setCurrentTrail end");
   }
 
   // given a leaflet layer, zoom to fit its bounding box, up to MAX_ZOOM
