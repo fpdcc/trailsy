@@ -2631,7 +2631,10 @@ function startup() {
       $('.detailPanel .fpccAlerts').hide();
       $('.detailPanel .fpccDirections a').attr("href", "").attr("target", "_blank");
       $('.detailPanel .fpccEntranceAddress').html("");
+      $('.detailPanel .fpccEntranceZip').html("");
       $('.detailPanel .fpccPhone').html("");
+      $('.detailPanel .fpccEntranceAddress').hide();
+      $('.detailPanel .fpccEntranceZip').hide();
       $('.detailPanel .fpccPhone').hide();
 
       $('.detailPanel .fpccDescription').html("");
@@ -2870,7 +2873,15 @@ function startup() {
       }
 
       if (trailhead.properties.address) {
+        $('.detailPanel .fpccAddress .fpccLabel').html("Entrance");
         $('.detailPanel .fpccEntranceAddress').html(trailhead.properties.address);
+        $('.detailPanel .fpccEntranceAddress').show();
+      } else {
+        $('.detailPanel .fpccAddress .fpccLabel').html("Location");
+      }
+      if (trailhead.properties.city) {
+        $('.detailPanel .fpccEntranceZip').html(trailhead.properties.city);
+        $('.detailPanel .fpccEntranceZip').show();
       }
 
       if (trailhead.properties.phone) {
