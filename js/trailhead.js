@@ -715,6 +715,10 @@ function startup() {
         if (trailhead.properties.description) {
           normalizedTrailheadDescription = trailhead.properties.description.toLowerCase();
         }
+        var normalizedTrailheadAddress = "";
+        if (trailhead.properties.address) {
+          normalizedTrailheadAddress = trailhead.properties.address.toLowerCase();
+        }
         var normalizedSearchFilter = currentFilters.activityFilter[i].toLowerCase();
         var equivalentWords = [
             [" and ", " & "],
@@ -728,6 +732,8 @@ function startup() {
         var searchRegex = new RegExp(normalizedSearchFilter);
         var nameTrailMatched = !! normalizedTrailName.match(searchRegex);
         var nameTrailheadMatched = !! normalizedTrailheadName.match(searchRegex);
+        var addressTrailheadMatched = !! normalizedTrailheadAddress.match(searchRegex);
+
         if ( (nameTrailMatched || nameTrailheadMatched ) ) {
           term = 10;
         } else if ((!! normalizedTrailDescription.match(searchRegex)) || (!! normalizedTrailheadDescription.match(searchRegex))) {
@@ -736,7 +742,8 @@ function startup() {
           term = trailhead.properties[activity];
         } else if (trailhead.properties.tags.indexOf(activity) > -1 ) {
           term = 1;
-          console.log("[FilterResults] it found a tag!!!!!!!");
+        } else if ((!! normalizedTrailheadAddress.match(searchRegex))) {
+          term = 1;
         }
         matched = matched * term;
       }
