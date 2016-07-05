@@ -47,6 +47,8 @@ function startup() {
     plugins: ['remove_button']
   });
 
+  $('#logo-link a').attr("href", window.location.origin);
+
   var SMALL = false;
   if (Modernizr.mq("only screen and (max-width: 768px)")) {
     SMALL = true;
@@ -61,6 +63,8 @@ function startup() {
     lat: 42.0723,
     lng: -87.87
   };
+
+
 
   // API_HOST: The API server.
   var API_HOST = "http://fpcc-staging.smartchicagoapps.org";
