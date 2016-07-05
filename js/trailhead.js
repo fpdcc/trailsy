@@ -734,7 +734,10 @@ function startup() {
           term = 1;
         } else if (!(trailhead.properties[activity] === undefined)) {
           term = trailhead.properties[activity];
-        } 
+        } else if (trailhead.properties.tags.indexOf(activity) > -1 ) {
+          term = 1;
+          console.log("[FilterResults] it found a tag!!!!!!!");
+        }
         matched = matched * term;
       }
       
@@ -1372,7 +1375,106 @@ function startup() {
         trails: currentFeature.properties.trail_ids,
         popupContent: ""
       };
-      trailhead.properties.tags = ["hello", "goodbye", currentFeature.properties.id];
+
+      // Add alternative tags for trailhead amenities
+      trailhead.properties.tags = [];
+      if ((trailhead.properties["bike_rental"] === 1)) {
+          trailhead.properties.tags.push("bicycle rental");
+      }
+      if ((trailhead.properties["cycling"] === 1)) {
+          trailhead.properties.tags.push("biking");
+          trailhead.properties.tags.push("bicycle");
+          trailhead.properties.tags.push("bike");
+          trailhead.properties.tags.push("mtb");
+          trailhead.properties.tags.push("mountain");
+      }
+      if ((trailhead.properties["birding"] === 1)) {
+          trailhead.properties.tags.push("birdwatching");
+          trailhead.properties.tags.push("bird");
+      }
+      if ((trailhead.properties["boat_rental"] === 1) || (trailhead.properties["canoe"] === 1) || (trailhead.properties["boat_ramp"] === 1)) {
+          trailhead.properties.tags.push("canoe rental");
+          trailhead.properties.tags.push("kayak rental");
+          trailhead.properties.tags.push("boating center");
+          trailhead.properties.tags.push("canoeing");
+          trailhead.properties.tags.push("kayaking");
+          trailhead.properties.tags.push("boating");
+          trailhead.properties.tags.push("canoe");
+          trailhead.properties.tags.push("kayak");
+          trailhead.properties.tags.push("boat");
+      }
+      if ((trailhead.properties["camping"] === 1)) {
+          trailhead.properties.tags.push("camp");
+          trailhead.properties.tags.push("campground");
+      }
+      if ((trailhead.properties["cross_country"] === 1)) {
+          trailhead.properties.tags.push("ski");
+      }
+      if ((trailhead.properties["disc_golf"] === 1)) {
+          trailhead.properties.tags.push("frisbee");
+      }
+      if ((trailhead.properties["dog_friendly"] === 1)) {
+          trailhead.properties.tags.push("off-leash");
+          trailhead.properties.tags.push("dog");
+      }
+      if ((trailhead.properties["dog_leash"] === 1)) {
+          trailhead.properties.tags.push("dog");
+      }
+      if ((trailhead.properties["golf"] === 1)) {
+          trailhead.properties.tags.push("golf");
+      }
+      if ((trailhead.properties["hiking"] === 1)) {
+          trailhead.properties.tags.push("hiking");
+          trailhead.properties.tags.push("walking");
+          trailhead.properties.tags.push("running");
+          trailhead.properties.tags.push("hike");
+          trailhead.properties.tags.push("walk");
+          trailhead.properties.tags.push("run");
+          trailhead.properties.tags.push("jog");
+          trailhead.properties.tags.push("jogging");
+      }
+      if ((trailhead.properties["equestrian"] === 1)) {
+          trailhead.properties.tags.push("equestrian");
+      }
+      if ((trailhead.properties["skating_ice"] === 1)) {
+          trailhead.properties.tags.push("ice skate");
+      }
+      if ((trailhead.properties["indoor_rental"] === 1)) {
+          trailhead.properties.tags.push("wedding");
+          trailhead.properties.tags.push("meeting");
+      }
+      if ((trailhead.properties["nature_center"] === 1)) {
+          trailhead.properties.tags.push("museum");
+          trailhead.properties.tags.push("education");
+      }
+      if ((trailhead.properties["picnic_grove"] === 1) || (trailhead.properties["shelter"] === 1)) {
+          trailhead.properties.tags.push("picnic");
+          trailhead.properties.tags.push("event space");
+          trailhead.properties.tags.push("grove");
+          trailhead.properties.tags.push("bbq");
+          trailhead.properties.tags.push("grill");
+          trailhead.properties.tags.push("shelter");
+      }
+      if ((trailhead.properties["sledding"] === 1)) {
+          trailhead.properties.tags.push("sled");
+          trailhead.properties.tags.push("coasting");
+      }
+      if ((trailhead.properties["snowmobile"] === 1)) {
+          trailhead.properties.tags.push("snowmobile");
+          trailhead.properties.tags.push("snowmachine");
+      }
+      if ((trailhead.properties["swimming"] === 1)) {
+          trailhead.properties.tags.push("pool");
+          trailhead.properties.tags.push("aquatic");
+      }
+      if ((trailhead.properties["volunteer"] === 1)) {
+          trailhead.properties.tags.push("volunteering");
+          trailhead.properties.tags.push("restoration");
+          trailhead.properties.tags.push("volunteer");
+      }
+
+
+
       setTrailheadEventHandlers(trailhead);
       originalTrailheads.push(trailhead);
       originalTrailheadMarkerArray.push(trailhead.signMarker);
