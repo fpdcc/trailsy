@@ -587,7 +587,9 @@ function startup() {
       currentFilters.zipMuniFilter = "";
       console.log("[updateFilterObject] lastZipMuni, currentZipMuni = " + lastFilters.zipMuniFilter + ", " + currentFilters.zipMuniFilter );
       if (currentUIFilterState) {   
+        console.log("[updateFilterObject] in currentUIFilterState if statement");
         currentFilters.activityFilter = String(currentUIFilterState).split(",");
+        console.log("[updateFilterObject] new currentFilters.activityFilter.length + activityFilter= " + currentFilters.activityFilter.length + " - " + currentFilters.activityFilter);
         var removeIndex = null;
         currentFilters.activityFilter.forEach(function(value, index) {
           var normalizedValue = value.toLowerCase();
@@ -603,12 +605,13 @@ function startup() {
             removeIndex = index;  
           }
         });
-        console.log("removeIndex = " + removeIndex);
+        console.log("[updateFilterObject] removeIndex = " + removeIndex);
         if (!(removeIndex === null)) {
-          console.log("in the remove index if statement");
+          console.log("[updateFilterObject] in the remove index if statement");
           currentFilters.activityFilter.splice(removeIndex, 1);
         }
         console.log("[updateFilterObject] NEW currentFilters.activityFilter = " + currentFilters.activityFilter);
+        console.log("[updateFilterObject] NEW currentFilters.zipMuniFilter = " + currentFilters.zipMuniFilter);
       } else {
         currentFilters.activityFilter = [];
         currentFilters.location = null;
@@ -642,14 +645,18 @@ function startup() {
     }
     // currentFilters[filterType] = currentUIFilterState;
     //console.log(currentFilters);
-    console.log("[updateFilterObject] lastFilters.activityFilter = " + lastFilters.activityFilter);
-    console.log("[updateFilterObject] currentFilters.activityFilter = " + currentFilters.activityFilter);
+
+    // Remove blank and null activityFilter elements:
+    currentFilters.activityFilter = currentFilters.activityFilter.filter(Boolean);
+    console.log("[updateFilterObject] lastFilters.activityFilter.length = " + lastFilters.activityFilter.length);
+    console.log("[updateFilterObject] currentFilters.activityFilter.length = " + currentFilters.activityFilter.length);
 
     var is_same = (currentFilters.activityFilter.length == lastFilters.activityFilter.length) && currentFilters.activityFilter.every(function(element, index) {
         return element === lastFilters.activityFilter[index]; 
     });
+    console.log("[updateFilterObject] is_same= " + is_same);
     if (is_same) {
-      console.log("[updateFilterObject] activityFilter is equal");
+      console.log("[updateFilterObject] activityFilter is same");
       makeTrailDivs(currentTrailheads);
       console.log("[updateFilterObject] currentFilters.location = " + currentFilters.location);
       if (currentFilters.location) {
@@ -2667,6 +2674,7 @@ function startup() {
         $('.detailPanel .fpccTrailSegments').show();
         $('.detailPanel .fpccTrails').show();
         $('.detailPanel .fpccTrails .icon-trail-marker').show();
+
         var trailSegmentsHTML = "";
         for (var trailIndex = 0; trailIndex < trailhead.properties.trail_ids.length; trailIndex++ ) {
           var thisTrailId = trailhead.properties.trail_ids[trailIndex];
