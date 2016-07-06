@@ -41,23 +41,23 @@ function startup() {
     persist: false,
     tokenSeparators: [','],
     allowClear: true,
+    closeAfterSelect: true,
     allowEmptyOption: true,
     highlight: true,
     plugins: ['remove_button'],
-    closeAfterSelect: true,
-    onItemAdd: function() {
-      setTimeout(function() {
-        console.log("[selectize] onItemAdd trigger");
-        this.blur();
-        this.close();
-      }.bind(this), 200)
-    },
-    onItemRemove: function() {
+    // onItemAdd: function() {
+    //   setTimeout(function() {
+    //     console.log("[selectize] onItemAdd trigger");
+    //     this.blur();
+    //     this.close();
+    //   }.bind(this), 200)
+    // },
+    onChange: function() {
       setTimeout(function() {
         console.log("[selectize] onItemRemove trigger");
         this.blur();
         this.close();
-      }.bind(this), 50)
+      }.bind(this), 200)
     }
   });
 
