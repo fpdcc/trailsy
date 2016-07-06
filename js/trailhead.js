@@ -586,6 +586,8 @@ function startup() {
   function updateFilterObject(filterType, currentUIFilterState) {
     console.log("[updateFilterObject] currentUIFilterState = " + currentUIFilterState);
     var matched = 0;
+
+    var tagsToIncludeTrailsPanel = ["bike_rental"]
     
     lastFilters =  $.extend(true, {}, currentFilters);
     console.log("[updateFilterObject] lastFilters.activityFilter = " + lastFilters.activityFilter);
@@ -742,8 +744,8 @@ function startup() {
           term = 10;
         } else if ((!! normalizedTrailDescription.match(searchRegex)) || (!! normalizedTrailheadDescription.match(searchRegex))) {
           term = 1;
-        } else if (!(trailhead.properties[activity] === undefined)) {
-          term = trailhead.properties[activity];
+        // } else if (!(trailhead.properties[activity] === undefined)) {
+        //   term = trailhead.properties[activity];
         } else if (trailhead.properties.tags.indexOf(activity) > -1 ) {
           term = 1;
         } else if ((!! normalizedTrailheadAddress.match(searchRegex))) {
@@ -1389,101 +1391,68 @@ function startup() {
       };
 
       // Add alternative tags for trailhead amenities
-      trailhead.properties.tags = [];
+      var tagList = [];
       if ((trailhead.properties["bike_rental"] === 1)) {
-          trailhead.properties.tags.push("bicycle rental");
+        tagList = tagList.concat(["bike_rental","bicycle rental", "bike rental"]);
       }
       if ((trailhead.properties["cycling"] === 1)) {
-          trailhead.properties.tags.push("biking");
-          trailhead.properties.tags.push("bicycle");
-          trailhead.properties.tags.push("bike");
-          trailhead.properties.tags.push("mtb");
-          trailhead.properties.tags.push("mountain");
+        tagList = tagList.concat(["cycling","biking", "bicycle", "bike", "mtb", "mountain"]);
       }
       if ((trailhead.properties["birding"] === 1)) {
-          trailhead.properties.tags.push("birdwatching");
-          trailhead.properties.tags.push("bird");
+        tagList = tagList.concat(["birding","birdwatching", "bird"]);
       }
       if ((trailhead.properties["boat_rental"] === 1) || (trailhead.properties["canoe"] === 1) || (trailhead.properties["boat_ramp"] === 1)) {
-          trailhead.properties.tags.push("canoe rental");
-          trailhead.properties.tags.push("kayak rental");
-          trailhead.properties.tags.push("boating center");
-          trailhead.properties.tags.push("canoeing");
-          trailhead.properties.tags.push("kayaking");
-          trailhead.properties.tags.push("boating");
-          trailhead.properties.tags.push("canoe");
-          trailhead.properties.tags.push("kayak");
-          trailhead.properties.tags.push("boat");
+        tagList = tagList.concat(["boat_rental","boat rental", "canoe", "boat_ramp", "boat ramp", "canoe rental", "kayak rental", "boating center", "canoeing", "kayaking", "boating", "kayak", "boat"]);
       }
       if ((trailhead.properties["camping"] === 1)) {
-          trailhead.properties.tags.push("camp");
-          trailhead.properties.tags.push("campground");
+        tagList = tagList.concat(["camping","camp", "campground"]);
       }
       if ((trailhead.properties["cross_country"] === 1)) {
-          trailhead.properties.tags.push("ski");
+        tagList = tagList.concat(["cross_country","cross country", "ski"]);
       }
       if ((trailhead.properties["disc_golf"] === 1)) {
-          trailhead.properties.tags.push("frisbee");
+        tagList = tagList.concat(["disc_golf","disc golf", "frisbee"]);
       }
       if ((trailhead.properties["dog_friendly"] === 1)) {
-          trailhead.properties.tags.push("off-leash");
-          trailhead.properties.tags.push("dog");
+        tagList = tagList.concat(["dog_friendly","dog friendly", "off-leash", "dog"]);
       }
       if ((trailhead.properties["dog_leash"] === 1)) {
-          trailhead.properties.tags.push("dog");
+        tagList = tagList.concat(["dog_leash","dog leash", "dog"]);
       }
       if ((trailhead.properties["golf"] === 1)) {
-          trailhead.properties.tags.push("golf");
+        tagList = tagList.concat(["golf","golfing"]);
       }
       if ((trailhead.properties["hiking"] === 1)) {
-          trailhead.properties.tags.push("hiking");
-          trailhead.properties.tags.push("walking");
-          trailhead.properties.tags.push("running");
-          trailhead.properties.tags.push("hike");
-          trailhead.properties.tags.push("walk");
-          trailhead.properties.tags.push("run");
-          trailhead.properties.tags.push("jog");
-          trailhead.properties.tags.push("jogging");
+        tagList = tagList.concat(["hiking","walking", "running", "hike", "walk", "run", "jog", "jogging"]);
       }
       if ((trailhead.properties["equestrian"] === 1)) {
-          trailhead.properties.tags.push("equestrian");
+        tagList = tagList.concat(["equestrian","horse riding", "horse"]);
       }
       if ((trailhead.properties["skating_ice"] === 1)) {
-          trailhead.properties.tags.push("ice skate");
+        tagList = tagList.concat(["skating_ice","ice skate"]);
       }
       if ((trailhead.properties["indoor_rental"] === 1)) {
-          trailhead.properties.tags.push("wedding");
-          trailhead.properties.tags.push("meeting");
+        tagList = tagList.concat(["indoor_rental","wedding", "meeting"]);
       }
       if ((trailhead.properties["nature_center"] === 1)) {
-          trailhead.properties.tags.push("museum");
-          trailhead.properties.tags.push("education");
+        tagList = tagList.concat(["nature_center","museum", "education"]);
       }
       if ((trailhead.properties["picnic_grove"] === 1) || (trailhead.properties["shelter"] === 1)) {
-          trailhead.properties.tags.push("picnic");
-          trailhead.properties.tags.push("event space");
-          trailhead.properties.tags.push("grove");
-          trailhead.properties.tags.push("bbq");
-          trailhead.properties.tags.push("grill");
-          trailhead.properties.tags.push("shelter");
+        tagList = tagList.concat(["picnic_grove","shelter", "picnic", "event space", "grove", "bbq", "grill"]);
       }
       if ((trailhead.properties["sledding"] === 1)) {
-          trailhead.properties.tags.push("sled");
-          trailhead.properties.tags.push("coasting");
+        tagList = tagList.concat(["sledding","sled", "coasting"]);
       }
       if ((trailhead.properties["snowmobile"] === 1)) {
-          trailhead.properties.tags.push("snowmobile");
-          trailhead.properties.tags.push("snowmachine");
+        tagList = tagList.concat(["snowmobile","snowmachine"]);
       }
       if ((trailhead.properties["swimming"] === 1)) {
-          trailhead.properties.tags.push("pool");
-          trailhead.properties.tags.push("aquatic");
+        tagList = tagList.concat(["swimming","swim", "pool", "aquatic"]);
       }
       if ((trailhead.properties["volunteer"] === 1)) {
-          trailhead.properties.tags.push("volunteering");
-          trailhead.properties.tags.push("restoration");
-          trailhead.properties.tags.push("volunteer");
+        tagList = tagList.concat(["volunteer","volunteering", "restoration"]);
       }
+      trailhead.properties.tags = tagList.slice();
       setTrailheadEventHandlers(trailhead);
       originalTrailheads.push(trailhead);
       originalTrailheadFeatureGroup.addLayer(trailhead.signMarker);
