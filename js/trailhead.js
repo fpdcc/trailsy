@@ -357,6 +357,11 @@ function startup() {
     } else if (trail) {
       var trailSystem = trail;
       trailDivWork(trail, null);
+    } else if (searchFilter) {
+      console.log("[addressChange] IF searchFilter = " + searchFilter);
+      var selectize = $select[0].selectize;
+      selectize.clear(true);
+      selectize.createItem(searchFilter, false);
     }
 
   }
@@ -623,6 +628,11 @@ function startup() {
       currentFilters.trailInList = true;
       console.log("[updateFilterObject] lastZipMuni, currentZipMuni = " + lastFilters.zipMuniFilter + ", " + currentFilters.zipMuniFilter );
       if (currentUIFilterState) {   
+        var searchLink =  encodeURIComponent(currentUIFilterState);
+        searchLink = searchLink.replace(/%20/g, '+');
+        $.address.parameter('search', searchLink);
+        $.address.update();
+
         console.log("[updateFilterObject] in currentUIFilterState if statement");
         currentFilters.activityFilter = String(currentUIFilterState).split(",");
         console.log("[updateFilterObject] new currentFilters.activityFilter.length + activityFilter= " + currentFilters.activityFilter.length + " - " + currentFilters.activityFilter);
@@ -653,6 +663,8 @@ function startup() {
         currentFilters.location = null;
         currentFilters.trailInList = true;
         currentFilters.trailOnMap = true;
+        $.address.parameter('search', null);
+        $.address.update();
       }
       console.log("[updateFilterObject] activityFilterLength = " + activityFilterLength);
       console.log("[updateFilterObject] currentFilters.activityFilter = " + currentFilters.activityFilter);
