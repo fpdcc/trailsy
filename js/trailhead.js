@@ -1176,12 +1176,12 @@ function startup() {
       } else if (activityType == "aquatic center") {
         iconType = "icon-aquatic-center";
         iconName = activityName;
-      } else if (activityType == "bicycle lot") {
-        iconType = "icon-bicycling";
+      //} else if (activityType == "bicycle lot") {
+      //  iconType = "icon-bicycling";
       } else if (activityType == "bicycle rental") {
         iconType = "icon-bike-rental";
-      } else if (activityType == "birding hotspot") {
-        iconType = "icon-birding-hotspot";
+      //} else if (activityType == "birding hotspot") {
+      //  iconType = "icon-birding-hotspot";
       } else if (activityType == "boating center") {
         iconType = "icon-boat-rental";
       } else if (activityType == "boat launch") {
@@ -1194,9 +1194,9 @@ function startup() {
       } else if (activityType == "dog park") {
         iconType = "icon-off-leash-dog-area";
       } else if (activityType == "equestrian center") {
-        iconType = "icon-equestrian";
-      } else if (activityType == "equestrian parking") {
-        iconType = "icon-equestrian";
+        iconType = "icon-facility";
+      //} else if (activityType == "equestrian parking") {
+      //  iconType = "icon-equestrian";
       } else if (activityType == "frisbee golf") {
         iconType = "icon-disc-golf";
       } else if (activityType == "golf course") {
@@ -1211,8 +1211,8 @@ function startup() {
       } else if  (activityType == "recreational waterbody") {
         iconName = activityName;
         iconType = "icon-waterbody";
-      } else if  (activityType == "scenic") {
-        iconType = "icon-scenic-overlook";
+      //} else if  (activityType == "scenic") {
+      //  iconType = "icon-scenic-overlook";
       } else if  (activityType == "sledding") {
         iconType = "icon-sledding";
       } else if  (activityType == "snowmobiling") {
@@ -1221,10 +1221,14 @@ function startup() {
         iconType = "icon-facility";
       } else if (activityType == "trailhead") {
         iconType = "icon-trail-marker";
-      } else if (activityType == "Volunteer center") {
+      } else if (activityType == "volunteer center") {
         iconType = "icon-volunteer";
       } else if (activityType == "warming shelter") {
-        iconType = "icon-picnic-grove-shelter";
+        iconType = "icon-facility";
+      } else if (activityType == "welcome shelter") {
+        iconType = "icon-facility";
+      } else if (activityType == "zipline") {
+        iconType = "icon-zip-line";
       } 
 
       var activityIcon = L.divIcon({
@@ -1235,26 +1239,26 @@ function startup() {
         iconSize: null
       });
 
-      var newMarker = new L.Marker(currentFeatureLatLng);
+      var newMarker = null;
 
       if (iconType) {
         newMarker = new L.Marker(currentFeatureLatLng, {
           icon: activityIcon,
         });
+      
+        var activity = {
+          properties: currentFeature.properties,
+          geometry: currentFeature.geometry,
+          marker: newMarker,
+          popupContent: popupContentMainDivHTML
+        };
+
+        setActivityEventHandlers(activity);
+        activity.marker.bindPopup(activity.popupContent);
+        originalActivities[activity.properties.trailhead_id] = originalActivities[activity.properties.trailhead_id] || [];
+        originalActivities[activity.properties.trailhead_id].push(activity);
+        originalActivityFeatureGroup.addLayer(activity.marker);
       }
-
-      var activity = {
-        properties: currentFeature.properties,
-        geometry: currentFeature.geometry,
-        marker: newMarker,
-        popupContent: popupContentMainDivHTML
-      };
-
-      setActivityEventHandlers(activity);
-      activity.marker.bindPopup(activity.popupContent);
-      originalActivities[activity.properties.trailhead_id] = originalActivities[activity.properties.trailhead_id] || [];
-      originalActivities[activity.properties.trailhead_id].push(activity);
-      originalActivityFeatureGroup.addLayer(activity.marker);
     } 
   }
 
@@ -3023,6 +3027,11 @@ function startup() {
       // trailacces = Trail System Access
       if (trailhead.properties.trailacces) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-trail-marker'><use xlink:href='icons/defs.svg#icon-trail-marker'></use></svg><span class='fpccAmenityTitle'>Trail Access</span></div>");
+      }
+
+      // trailacces = Trail System Access
+      if (trailhead.properties.zip_line) {
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-zip-line'><use xlink:href='icons/defs.svg#icon-zip-line'></use></svg><span class='fpccAmenityTitle'>Zip Line / Treetop Adventure</span></div>");
       }
 
       if (trailhead.properties.special_link) {
