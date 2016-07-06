@@ -34,17 +34,31 @@ function startup() {
   //   allowClear: true
   // });
 
-  $(".js-example-basic-multiple").selectize({
+  var $select = $(".js-example-basic-multiple").selectize({
     placeholder: "Search by Location or Activity",
     create: true,
     createOnBlur: true,
     persist: false,
     tokenSeparators: [','],
     allowClear: true,
-    closeAfterSelect: true,
     allowEmptyOption: true,
     highlight: true,
-    plugins: ['remove_button']
+    plugins: ['remove_button'],
+    closeAfterSelect: true,
+    onItemAdd: function() {
+      setTimeout(function() {
+        console.log("[selectize] onItemAdd trigger");
+        this.blur();
+        this.close();
+      }.bind(this), 200)
+    },
+    onItemRemove: function() {
+      setTimeout(function() {
+        console.log("[selectize] onItemRemove trigger");
+        this.blur();
+        this.close();
+      }.bind(this), 50)
+    }
   });
 
   $('#logo-link a').attr("href", window.location.origin);
