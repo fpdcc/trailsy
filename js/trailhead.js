@@ -630,12 +630,12 @@ function startup() {
         currentFilters.activityFilter.forEach(function(value, index) {
           var normalizedValue = value.toLowerCase();
           if (!(zipCodeLocations[normalizedValue] === undefined)) {
-            console.log("[updateFilterObject] zip lat,lon = " + zipCodeLocations[normalizedValue]['latitude'] + ", " + zipCodeLocations[value]['longitude'] );
-            currentFilters.location = new L.LatLng(zipCodeLocations[normalizedValue]['latitude'], zipCodeLocations[value]['longitude']);
+            console.log("[updateFilterObject] zip lat,lon = " + zipCodeLocations[normalizedValue]['latitude'] + ", " + zipCodeLocations[normalizedValue]['longitude'] );
+            currentFilters.location = new L.LatLng(zipCodeLocations[normalizedValue]['latitude'], zipCodeLocations[normalizedValue]['longitude']);
             currentFilters.zipMuniFilter = normalizedValue;
             removeIndex = index;
           } else if (!(muniLocations[normalizedValue] === undefined)) {
-            currentFilters.location = new L.LatLng(muniLocations[normalizedValue]['latitude'], muniLocations[value]['longitude']);
+            currentFilters.location = new L.LatLng(muniLocations[normalizedValue]['latitude'], muniLocations[normalizedValue]['longitude']);
             currentFilters.zipMuniFilter = normalizedValue;
             console.log("[updateFilterObject] muni loc, zipMuniFilter= " + currentFilters.location + ", " + currentFilters.zipMuniFilter);
             removeIndex = index;  
