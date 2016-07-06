@@ -47,6 +47,8 @@ function startup() {
     plugins: ['remove_button']
   });
 
+  $('#logo-link a').attr("href", window.location.origin);
+
   var SMALL = false;
   if (Modernizr.mq("only screen and (max-width: 768px)")) {
     SMALL = true;
@@ -61,6 +63,8 @@ function startup() {
     lat: 42.0723,
     lng: -87.87
   };
+
+
 
   // API_HOST: The API server.
   var API_HOST = "http://fpcc-staging.smartchicagoapps.org";
@@ -117,21 +121,11 @@ function startup() {
   // for yes/no features, check for first letter "y" or "n".
 
   var originalTrailheads = []; // all trailheads (from trailsegments)
-  var originalTrailheadFeatureGroup;
-  var originalTrailheadMarkerArray = [];
   
-  var trailSegments = [];
-  var currentTrailIDs = {};
-  var currentMultiTrailLayer = {}; // We have to know if a trail layer is already being displayed, so we can remove it
-  var currentTrailLayers = [];
-  var currentHighlightedTrailLayer = {};
   var currentTrailheads = [];
-  var currentTrailheadMarkerArray = [];
-  var currentTrailheadSignArray = [];
-  var currentActivities = [];
   var currentUserLocation = {};
   var anchorLocation = {};
-  var currentTrailheadLayerGroup;
+
   var currentFilters = {
     lengthFilter: [],
     activityFilter: [],
@@ -152,11 +146,7 @@ function startup() {
 
   // Activity Variables
   var originalActivities = {};
-  var allActivityLayer = null
-  var currentActivityMarkerArray = [];
   var highlightedActivityMarkerArray = [];
-  var currentActivityLayerGroup;
-  var originalActivityFeatureGroup;
   
   var lastZoom = null;
   var closeTimeout = null;
@@ -168,8 +158,7 @@ function startup() {
   var geoWatchId = null;
   var currentTrailheadHover = null;
   var geoSetupDone = false;
-  var segmentTrailnameCache = {};
-  var segmentTrailIdCache = {}; // For OpenTrails 1.1. This is the equivalent of segmentTrailnameCache.
+  
   var currentTrailData;
   var searchKeyTimeout = null;
   var trailheadsFetched = false;
@@ -177,8 +166,7 @@ function startup() {
   var trailsegmentsFetched = false;
   var activitiesFetched = false;
   var allDataFetched = false;
-  var allInvisibleSegmentsArray = [];
-  var allVisibleSegmentsArray = [];
+  
   var secondaryTrails = {};
 
   // Search variables
@@ -229,11 +217,6 @@ function startup() {
     console.log("[getJSON muniLocations] done at " + new Date().getTime());
   });
   
-
-  // Trailhead Variables
-  // Not sure if these should be global, but hey whatev
-
-  var remoteSegmentCache = {};
 
   var trailheadIconOptions = {
     iconSize: [52 * 0.60, 66 * 0.60],
@@ -715,6 +698,10 @@ function startup() {
         if (trailhead.properties.description) {
           normalizedTrailheadDescription = trailhead.properties.description.toLowerCase();
         }
+        var normalizedTrailheadAddress = "";
+        if (trailhead.properties.address) {
+          normalizedTrailheadAddress = trailhead.properties.address.toLowerCase();
+        }
         var normalizedSearchFilter = currentFilters.activityFilter[i].toLowerCase();
         var equivalentWords = [
             [" and ", " & "],
@@ -728,13 +715,19 @@ function startup() {
         var searchRegex = new RegExp(normalizedSearchFilter);
         var nameTrailMatched = !! normalizedTrailName.match(searchRegex);
         var nameTrailheadMatched = !! normalizedTrailheadName.match(searchRegex);
+        var addressTrailheadMatched = !! normalizedTrailheadAddress.match(searchRegex);
+
         if ( (nameTrailMatched || nameTrailheadMatched ) ) {
           term = 10;
         } else if ((!! normalizedTrailDescription.match(searchRegex)) || (!! normalizedTrailheadDescription.match(searchRegex))) {
           term = 1;
         } else if (!(trailhead.properties[activity] === undefined)) {
           term = trailhead.properties[activity];
-        } 
+        } else if (trailhead.properties.tags.indexOf(activity) > -1 ) {
+          term = 1;
+        } else if ((!! normalizedTrailheadAddress.match(searchRegex))) {
+          term = 1;
+        }
         matched = matched * term;
       }
       
@@ -1162,7 +1155,8 @@ function startup() {
   function populateOriginalActivities(ActivityDataGeoJSON) {
     console.log("[populateOriginalActivities] features count = " + ActivityDataGeoJSON.features.length);
     originalActivities = {};
-    var originalActivityMarkerArray = [];
+    var originalActivityFeatureGroup = new L.FeatureGroup();
+    originalActivityFeatureGroup.addTo(map);
 
     for (var i = 0; i < ActivityDataGeoJSON.features.length; i++) {
       var currentFeature = ActivityDataGeoJSON.features[i];
@@ -1182,14 +1176,14 @@ function startup() {
       } else if (activityType == "aquatic center") {
         iconType = "icon-aquatic-center";
         iconName = activityName;
-      } else if (activityType == "bicycle lot") {
-        iconType = "icon-bicycling";
+      //} else if (activityType == "bicycle lot") {
+      //  iconType = "icon-bicycling";
       } else if (activityType == "bicycle rental") {
         iconType = "icon-bike-rental";
-      } else if (activityType == "birding hotspot") {
-        iconType = "icon-birding-hotspot";
+      //} else if (activityType == "birding hotspot") {
+      //  iconType = "icon-birding-hotspot";
       } else if (activityType == "boating center") {
-        iconType = "icon-boat-launch";
+        iconType = "icon-boat-rental";
       } else if (activityType == "boat launch") {
         iconType = "icon-boat-launch";
       } else if (activityType == "boat rental") {
@@ -1200,9 +1194,9 @@ function startup() {
       } else if (activityType == "dog park") {
         iconType = "icon-off-leash-dog-area";
       } else if (activityType == "equestrian center") {
-        iconType = "icon-equestrian";
-      } else if (activityType == "equestrian parking") {
-        iconType = "icon-equestrian";
+        iconType = "icon-facility";
+      //} else if (activityType == "equestrian parking") {
+      //  iconType = "icon-equestrian";
       } else if (activityType == "frisbee golf") {
         iconType = "icon-disc-golf";
       } else if (activityType == "golf course") {
@@ -1217,8 +1211,8 @@ function startup() {
       } else if  (activityType == "recreational waterbody") {
         iconName = activityName;
         iconType = "icon-waterbody";
-      } else if  (activityType == "scenic") {
-        iconType = "icon-scenic-overlook";
+      //} else if  (activityType == "scenic") {
+      //  iconType = "icon-scenic-overlook";
       } else if  (activityType == "sledding") {
         iconType = "icon-sledding";
       } else if  (activityType == "snowmobiling") {
@@ -1227,10 +1221,14 @@ function startup() {
         iconType = "icon-facility";
       } else if (activityType == "trailhead") {
         iconType = "icon-trail-marker";
-      } else if (activityType == "Volunteer center") {
-        iconType = "icon-facility";
+      } else if (activityType == "volunteer center") {
+        iconType = "icon-volunteer";
       } else if (activityType == "warming shelter") {
-        iconType = "icon-picnic-grove-shelter";
+        iconType = "icon-facility";
+      } else if (activityType == "welcome shelter") {
+        iconType = "icon-facility";
+      } else if (activityType == "zipline") {
+        iconType = "icon-zip-line";
       } 
 
       var activityIcon = L.divIcon({
@@ -1241,31 +1239,27 @@ function startup() {
         iconSize: null
       });
 
-      var newMarker = new L.Marker(currentFeatureLatLng);
+      var newMarker = null;
 
       if (iconType) {
         newMarker = new L.Marker(currentFeatureLatLng, {
           icon: activityIcon,
         });
+      
+        var activity = {
+          properties: currentFeature.properties,
+          geometry: currentFeature.geometry,
+          marker: newMarker,
+          popupContent: popupContentMainDivHTML
+        };
+
+        setActivityEventHandlers(activity);
+        activity.marker.bindPopup(activity.popupContent);
+        originalActivities[activity.properties.trailhead_id] = originalActivities[activity.properties.trailhead_id] || [];
+        originalActivities[activity.properties.trailhead_id].push(activity);
+        originalActivityFeatureGroup.addLayer(activity.marker);
       }
-
-      var activity = {
-        properties: currentFeature.properties,
-        geometry: currentFeature.geometry,
-        marker: newMarker,
-        popupContent: popupContentMainDivHTML
-      };
-
-      setActivityEventHandlers(activity);
-      activity.marker.bindPopup(activity.popupContent);
-      originalActivities[activity.properties.trailhead_id] = originalActivities[activity.properties.trailhead_id] || [];
-      originalActivities[activity.properties.trailhead_id].push(activity);
-      originalActivityMarkerArray.push(activity.marker);
-
-    }
-
-    originalActivityFeatureGroup = new L.FeatureGroup(originalActivityMarkerArray);
-    originalActivityFeatureGroup.addTo(map);
+    } 
   }
 
   function setActivityEventHandlers(activity) {
@@ -1317,7 +1311,8 @@ function startup() {
   function populateOriginalTrailheads(trailheadsGeoJSON, location) {
     console.log("populateOriginalTrailheads");
     originalTrailheads = [];
-    originalTrailheadMarkerArray = [];
+    var originalTrailheadFeatureGroup = new L.FeatureGroup();
+    originalTrailheadFeatureGroup.addTo(map);
     for (var i = 0; i < trailheadsGeoJSON.features.length; i++) {
       var currentFeature = trailheadsGeoJSON.features[i];
       var otLength = originalTrailheads.length;
@@ -1336,7 +1331,6 @@ function startup() {
           currentGeoTwo += .0002;
           otGeoTwo -= .0002;
           var newOtLatLng = new L.LatLng(otGeoOne, otGeoTwo);
-          originalTrailheadMarkerArray[otnum].setLatLng(newOtLatLng);
           originalTrailheads[otnum].marker.setLatLng(newOtLatLng);
           originalTrailheads[otnum].signMarker.setLatLng(newOtLatLng);
           originalTrailheads[otnum].geometry.coordinates[0] = otGeoTwo;
@@ -1372,18 +1366,113 @@ function startup() {
         trails: currentFeature.properties.trail_ids,
         popupContent: ""
       };
-      trailhead.properties.tags = ["hello", "goodbye", currentFeature.properties.id];
+
+      // Add alternative tags for trailhead amenities
+      trailhead.properties.tags = [];
+      if ((trailhead.properties["bike_rental"] === 1)) {
+          trailhead.properties.tags.push("bicycle rental");
+      }
+      if ((trailhead.properties["cycling"] === 1)) {
+          trailhead.properties.tags.push("biking");
+          trailhead.properties.tags.push("bicycle");
+          trailhead.properties.tags.push("bike");
+          trailhead.properties.tags.push("mtb");
+          trailhead.properties.tags.push("mountain");
+      }
+      if ((trailhead.properties["birding"] === 1)) {
+          trailhead.properties.tags.push("birdwatching");
+          trailhead.properties.tags.push("bird");
+      }
+      if ((trailhead.properties["boat_rental"] === 1) || (trailhead.properties["canoe"] === 1) || (trailhead.properties["boat_ramp"] === 1)) {
+          trailhead.properties.tags.push("canoe rental");
+          trailhead.properties.tags.push("kayak rental");
+          trailhead.properties.tags.push("boating center");
+          trailhead.properties.tags.push("canoeing");
+          trailhead.properties.tags.push("kayaking");
+          trailhead.properties.tags.push("boating");
+          trailhead.properties.tags.push("canoe");
+          trailhead.properties.tags.push("kayak");
+          trailhead.properties.tags.push("boat");
+      }
+      if ((trailhead.properties["camping"] === 1)) {
+          trailhead.properties.tags.push("camp");
+          trailhead.properties.tags.push("campground");
+      }
+      if ((trailhead.properties["cross_country"] === 1)) {
+          trailhead.properties.tags.push("ski");
+      }
+      if ((trailhead.properties["disc_golf"] === 1)) {
+          trailhead.properties.tags.push("frisbee");
+      }
+      if ((trailhead.properties["dog_friendly"] === 1)) {
+          trailhead.properties.tags.push("off-leash");
+          trailhead.properties.tags.push("dog");
+      }
+      if ((trailhead.properties["dog_leash"] === 1)) {
+          trailhead.properties.tags.push("dog");
+      }
+      if ((trailhead.properties["golf"] === 1)) {
+          trailhead.properties.tags.push("golf");
+      }
+      if ((trailhead.properties["hiking"] === 1)) {
+          trailhead.properties.tags.push("hiking");
+          trailhead.properties.tags.push("walking");
+          trailhead.properties.tags.push("running");
+          trailhead.properties.tags.push("hike");
+          trailhead.properties.tags.push("walk");
+          trailhead.properties.tags.push("run");
+          trailhead.properties.tags.push("jog");
+          trailhead.properties.tags.push("jogging");
+      }
+      if ((trailhead.properties["equestrian"] === 1)) {
+          trailhead.properties.tags.push("equestrian");
+      }
+      if ((trailhead.properties["skating_ice"] === 1)) {
+          trailhead.properties.tags.push("ice skate");
+      }
+      if ((trailhead.properties["indoor_rental"] === 1)) {
+          trailhead.properties.tags.push("wedding");
+          trailhead.properties.tags.push("meeting");
+      }
+      if ((trailhead.properties["nature_center"] === 1)) {
+          trailhead.properties.tags.push("museum");
+          trailhead.properties.tags.push("education");
+      }
+      if ((trailhead.properties["picnic_grove"] === 1) || (trailhead.properties["shelter"] === 1)) {
+          trailhead.properties.tags.push("picnic");
+          trailhead.properties.tags.push("event space");
+          trailhead.properties.tags.push("grove");
+          trailhead.properties.tags.push("bbq");
+          trailhead.properties.tags.push("grill");
+          trailhead.properties.tags.push("shelter");
+      }
+      if ((trailhead.properties["sledding"] === 1)) {
+          trailhead.properties.tags.push("sled");
+          trailhead.properties.tags.push("coasting");
+      }
+      if ((trailhead.properties["snowmobile"] === 1)) {
+          trailhead.properties.tags.push("snowmobile");
+          trailhead.properties.tags.push("snowmachine");
+      }
+      if ((trailhead.properties["swimming"] === 1)) {
+          trailhead.properties.tags.push("pool");
+          trailhead.properties.tags.push("aquatic");
+      }
+      if ((trailhead.properties["volunteer"] === 1)) {
+          trailhead.properties.tags.push("volunteering");
+          trailhead.properties.tags.push("restoration");
+          trailhead.properties.tags.push("volunteer");
+      }
       setTrailheadEventHandlers(trailhead);
       originalTrailheads.push(trailhead);
-      originalTrailheadMarkerArray.push(trailhead.signMarker);
+      originalTrailheadFeatureGroup.addLayer(trailhead.signMarker);
       //oms.addMarker(trailhead.signMarker);
     }
     // oms.addListener('click', function(marker) {
     //   console.log("[oms click] marker.trailheadID = " + marker.trailheadID);
     //   trailheadMarkerClick(marker.trailheadID);
     // });
-    originalTrailheadFeatureGroup = new L.FeatureGroup(originalTrailheadMarkerArray);
-    originalTrailheadFeatureGroup.addTo(map);
+    
     console.log("[populateOriginalTrailheads] originalTrailheads count " + originalTrailheads.length );
   }
 
@@ -1441,16 +1530,12 @@ function startup() {
 
   function makeCurrentActivities(myTrailheads) {
     console.log("[makeCurrentActivities] Begin");
-    currentActivityMarkerArray = [];
     var activeActivityDivs = document.getElementsByClassName("leaflet-marker-icon icon-activity");
     console.log("[makeCurrentActivities] old activeActivityDivs.length = " + activeActivityDivs.length);
     for (var i = 0; i < activeActivityDivs.length; i++) {
       //console.log("[activeActivityDivs] old activeActivityDivs loop i = " + i);
       activeActivityDivs[i].classList.remove('active');
       activeActivityDivs[i].classList.add('inactive');
-    }
-    if (currentActivityLayerGroup) {
-      currentActivityLayerGroup = null;
     }
     for (var i = 0; i < myTrailheads.length; i++) {
       var trailhead_id = myTrailheads[i].properties.id
@@ -1466,11 +1551,10 @@ function startup() {
             currentActivityDivs[k].classList.remove('inactive');
           }
           originalActivities[trailhead_id][j].marker.setOpacity(.5);
-          currentActivityMarkerArray.push(originalActivities[trailhead_id][j].marker);
         }
       }
     }
-    console.log("[makeCurrentActivities] new currentActivityMarkerArray.length = " + currentActivityMarkerArray.length);
+    console.log("[makeCurrentActivities] end");
   }
 
   function highlightActivities(myTrailhead_id) {
@@ -1602,7 +1686,6 @@ function startup() {
     //   callData.path = "/trailsegments.json?simplify=" + ALL_SEGMENT_LAYER_SIMPLIFY;
     // }
     makeAPICall(callData, function(response) {
-      trailSegments = response;
       if (USE_SEGMENT_LAYER) {
         if (USE_COMPLEX_SEGMENT_LAYER) {
           allSegmentLayer = makeAllSegmentLayer(response);
@@ -1623,40 +1706,6 @@ function startup() {
         callback();
       }
     });
-  }
-
-  // this creates a lookup object so we can quickly look up if a trail has any segment data available
-  function createSegmentTrailnameCache() {
-    console.log("createSegmentTrailnameCache");
-    for (var segmentIndex = 0; segmentIndex < trailSegments.features.length; segmentIndex++) {
-      // var segment = $.extend(true, {}, trailSegments.features[segmentIndex]);
-      var segment = trailSegments.features[segmentIndex];
-      for (var i = 0; i < 6; i++) {
-        var fieldName = "trail" + i;
-        if (segment.properties[fieldName]) {
-          segmentTrailnameCache[segment.properties[fieldName]] = true;
-        }
-      }
-    }
-  }
-
-  // this creates a lookup object so we can quickly find trail information for a segment
-  // This might not be needed with 1.1 structure. [OpenTrails 1.1]
-  function createSegmentTrailIdCache() {
-    console.log("createSegmentTrailIdCache");
-    console.log("originalTrailData length" + originalTrailData.length);
-    for (var prop in originalTrailData) {
-      // var segment = $.extend(true, {}, trailSegments.features[segmentIndex]);
-      console.log("IN THE LOOP");
-      var trailID = originalTrailData[trailIndex].features.id;
-      console.log("trailID = " + trailID);
-      var segments = originalTrailData[trailIndex].features.segment_ids;
-      for (var segmentIndex = 0; segmentIndex < segments.length; segmentIndex++) {
-        var segment = segments[segmentIndex];
-        segmentTrailIdCache[segment].push(trailID);
-        console.log("segmentTrailIdCache = " + segmentTrailIdCache);
-      }
-    }
   }
 
   // returns true if trailname is in trailData
@@ -1692,8 +1741,8 @@ function startup() {
     }
     console.log("makeAllSegmentLayer");
     // make visible layers
-    allVisibleSegmentsArray = [];
-    allInvisibleSegmentsArray = [];
+    var allVisibleSegmentsArray = [];
+    var allInvisibleSegmentsArray = [];
     var allSegmentLayer = new L.FeatureGroup();
     // console.log("visibleAllTrailLayer start");
 
@@ -1918,7 +1967,7 @@ function startup() {
     console.log("addTrailsToTrailheads");
     currentTrailheads = [];
     currentTrailData = {};
-    currentTrailIDs = {};
+    var currentTrailIDs = {};
     
     for (var j = 0; j < myTrailheads.length; j++) {
       var trailhead = myTrailheads[j];
@@ -2095,8 +2144,7 @@ function startup() {
 
   function mapActiveTrailheads(myTrailheads) {
     console.log("mapActiveTrailheads start");
-    currentTrailheadMarkerArray = [];
-    currentTrailheadSignArray = [];
+    var currentTrailheadSignArray = [];
     var activeTrailheadDivs = document.getElementsByClassName("leaflet-marker-icon icon-sign");
     console.log("[mapActiveTrailheads] old activeTrailheadDivs.length = " + activeTrailheadDivs.length);
     for (var i = 0; i < activeTrailheadDivs.length; i++) {
@@ -2117,7 +2165,7 @@ function startup() {
       }
     }
     if (currentTrailheadSignArray.length > 0) {
-      currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadSignArray);
+      var currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadSignArray);
       map.fitBounds(currentTrailheadLayerGroup.getBounds(), {
         paddingTopLeft: centerOffset
       });
@@ -2529,7 +2577,10 @@ function startup() {
       $('.detailPanel .fpccAlerts').hide();
       $('.detailPanel .fpccDirections a').attr("href", "").attr("target", "_blank");
       $('.detailPanel .fpccEntranceAddress').html("");
+      $('.detailPanel .fpccEntranceZip').html("");
       $('.detailPanel .fpccPhone').html("");
+      $('.detailPanel .fpccEntranceAddress').hide();
+      $('.detailPanel .fpccEntranceZip').hide();
       $('.detailPanel .fpccPhone').hide();
 
       $('.detailPanel .fpccDescription').html("");
@@ -2768,7 +2819,15 @@ function startup() {
       }
 
       if (trailhead.properties.address) {
+        $('.detailPanel .fpccAddress .fpccLabel').html("Entrance");
         $('.detailPanel .fpccEntranceAddress').html(trailhead.properties.address);
+        $('.detailPanel .fpccEntranceAddress').show();
+      } else {
+        $('.detailPanel .fpccAddress .fpccLabel').html("Location");
+      }
+      if (trailhead.properties.city) {
+        $('.detailPanel .fpccEntranceZip').html(trailhead.properties.city);
+        $('.detailPanel .fpccEntranceZip').show();
       }
 
       if (trailhead.properties.phone) {
@@ -2800,14 +2859,9 @@ function startup() {
       var a = document.getElementById('entranceDirections'); 
       a.href = directionsUrl;
 
-      // swimming = Aquatic Center
-      if (trailhead.properties.swimming) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity aquatic-center'><svg class='icon icon-aquatic-center'><use xlink:href='icons/defs.svg#icon-aquatic-center'></use></svg><span class='fpccAmenityTitle'>Aquatic Center</span></div>");
-      }
-
-      // cycling = Bicycling
-      if (trailhead.properties.cycling) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-bicycling'><use xlink:href='icons/defs.svg#icon-bicycling'></use></svg><span class='fpccAmenityTitle'>Bicycling</span></div>");
+      // bike_rental = Bike Rental
+      if (trailhead.properties.bike_rental) {
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-bike-rental'><use xlink:href='icons/defs.svg#icon-bike-rental'></use></svg><span class='fpccAmenityTitle'>Bike Rental</span></div>");
       }
 
       // birding = Birding Hotspot
@@ -2835,14 +2889,34 @@ function startup() {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-canoe-landing'><use xlink:href='icons/defs.svg#icon-canoe-landing'></use></svg><span class='fpccAmenityTitle'>Canoe Landing</span></div>");
       }
 
-      // comfortstation = Comfort Station/Toilet
-      if (trailhead.properties.comfortstation) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-restroom'><use xlink:href='icons/defs.svg#icon-restroom'></use></svg><span class='fpccAmenityTitle'>Comfort Station/Toilet</span></div>");
-      }
-
       // cross_country = Cross-Country Skiing
       if (trailhead.properties.cross_country) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-cross-country-skiing'><use xlink:href='icons/defs.svg#icon-cross-country-skiing'></use></svg><span class='fpccAmenityTitle'>Cross-Country Skiing</span></div>");
+      }
+
+      // cycling = Bicycling
+      if (trailhead.properties.cycling) {
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-bicycling'><use xlink:href='icons/defs.svg#icon-bicycling'></use></svg><span class='fpccAmenityTitle'>Bicycling</span></div>");
+      }
+
+      // disc_golf = Disc Golf
+      if (trailhead.properties.disc_golf) {
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-disc-golf'><use xlink:href='icons/defs.svg#icon-disc-golf'></use></svg><span class='fpccAmenityTitle'>Disc Golf</span></div>");
+      }
+
+      //  dog_friendly = Off-Leash Dog Area
+      if (trailhead.properties.dog_friendly) {
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-off-leash-dog-area'><use xlink:href='icons/defs.svg#icon-off-leash-dog-area'></use></svg><span class='fpccAmenityTitle'>Off-Leash Dog Area</span></div>");
+      }
+
+      //  dog_leash = Dogs (with a leash)
+      if (trailhead.properties.dog_leash) {
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-dog-leash'><use xlink:href='icons/defs.svg#icon-dog-leash'></use></svg><span class='fpccAmenityTitle'>Dogs (with a leash)</span></div>");
+      }
+
+      //  drone = Drone Flying
+      if (trailhead.properties.drone) {
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-drone'><use xlink:href='icons/defs.svg#icon-drone'></use></svg><span class='fpccAmenityTitle'>Drone Flying</span></div>");
       }
 
       // ecological = Ecological Management
@@ -2870,6 +2944,11 @@ function startup() {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-hiking'><use xlink:href='icons/defs.svg#icon-hiking'></use></svg><span class='fpccAmenityTitle'>Hiking</span></div>");
       }
 
+      // ice_fishing = Ice Fishing
+      if (trailhead.properties.ice_fishing) {
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-ice-fishing'><use xlink:href='icons/defs.svg#icon-ice-fishing'></use></svg><span class='fpccAmenityTitle'>Ice Fishing</span></div>");
+      }
+
       // m_airplane = Model Airplane Flying Field
       if (trailhead.properties.m_airplane) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-model-airplane'><use xlink:href='icons/defs.svg#icon-model-airplane'></use></svg><span class='fpccAmenityTitle'>Model Airplane Flying Field</span></div>");
@@ -2895,29 +2974,29 @@ function startup() {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-no-parking'><use xlink:href='icons/defs.svg#icon-no-parking'></use></svg> <span class='fpccAmenityTitle'>No Parking</span></div>");
       }
 
-      //  dog_friendly = Off-Leash Dog Area
-      if (trailhead.properties.dog_friendly) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-off-leash-dog-area'><use xlink:href='icons/defs.svg#icon-off-leash-dog-area'></use></svg><span class='fpccAmenityTitle'>Off-Leash Dog Area</span></div>");
-      }
-
-      // parking = Parking
-      if (trailhead.properties.parking) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-parking'><use xlink:href='icons/defs.svg#icon-parking'></use></svg><span class='fpccAmenityTitle'>Parking</span></div>");
+      // overlook = Scenic Overlook
+      if (trailhead.properties.overlook) {
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-scenic-overlook'><use xlink:href='icons/defs.svg#icon-scenic-overlook'></use></svg><span class='fpccAmenityTitle'>Scenic Overlook</span></div>");
       }
 
       // pavilion = Pavilion/Event Space
       if (trailhead.properties.pavilion) {
-        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-facility'><use xlink:href='icons/defs.svg#icon-facility'></use></svg><span class='fpccAmenityTitle'>Pavilion/Event Space</span></div>");
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-facility'><use xlink:href='icons/defs.svg#icon-facility'></use></svg><span class='fpccAmenityTitle'>Indoor Facility</span></div>");
       }
 
       // picnic_grove = Picnic Grove
       if (trailhead.properties.picnic_grove) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity picnic-grove'><svg class='icon icon-picnic-grove'><use xlink:href='icons/defs.svg#icon-picnic-grove'></use></svg><span class='fpccAmenityTitle'>Picnic Grove</span></div>");
       }
-      
+
       // shelter = Picnic Grove (with shelter)
       if (trailhead.properties.shelter) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-picnic-grove-shelter'><use xlink:href='icons/defs.svg#icon-picnic-grove-shelter'></use></svg><span class='fpccAmenityTitle'>Picnic Grove (with shelter)</span></div>");
+      }
+
+      // skating_ice = Ice Skating
+      if (trailhead.properties.skating_ice) {
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-ice-skating'><use xlink:href='icons/defs.svg#icon-ice-skating'></use></svg><span class='fpccAmenityTitle'>Ice Skating</span></div>");
       }
 
       // sledding = Sledding
@@ -2930,9 +3009,29 @@ function startup() {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-snowmobiling'><use xlink:href='icons/defs.svg#icon-snowmobiling'></use></svg><span class='fpccAmenityTitle'>Snowmobile Area</span></div>");
       }
 
+      // swimming = Aquatic Center
+      if (trailhead.properties.swimming) {
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-aquatic-center'><use xlink:href='icons/defs.svg#icon-aquatic-center'></use></svg><span class='fpccAmenityTitle'>Aquatic Center</span></div>");
+      }
+
+      // volunteer = Volunteer Opportunities
+      if (trailhead.properties.volunteer) {
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-volunteer'><use xlink:href='icons/defs.svg#icon-volunteer'></use></svg><span class='fpccAmenityTitle'>Volunteer Opportunities</span></div>");
+      }
+      
+      // parking = Parking
+      if (trailhead.properties.parking) {
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-parking'><use xlink:href='icons/defs.svg#icon-parking'></use></svg><span class='fpccAmenityTitle'>Parking</span></div>");
+      }
+
       // trailacces = Trail System Access
       if (trailhead.properties.trailacces) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-trail-marker'><use xlink:href='icons/defs.svg#icon-trail-marker'></use></svg><span class='fpccAmenityTitle'>Trail Access</span></div>");
+      }
+
+      // trailacces = Trail System Access
+      if (trailhead.properties.zip_line) {
+        $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-zip-line'><use xlink:href='icons/defs.svg#icon-zip-line'></use></svg><span class='fpccAmenityTitle'>Zip Line / Treetop Adventure</span></div>");
       }
 
       if (trailhead.properties.special_link) {
@@ -3389,71 +3488,6 @@ function startup() {
     return segmentsExist;
   }
 
-  // given a geoJSON set of linestring features,
-  // draw them all on the map (in a single layer we can remove later)
-
-  function drawMultiTrailLayer(response) {
-    console.log("drawMultiTrailLayer");
-    if (currentMultiTrailLayer) {
-      console.log("[drawMultiTrailLayer] Remove currentMultiTrailLayer");
-      map.removeLayer(currentMultiTrailLayer);
-      currentTrailLayers = [];
-    }
-    //console.log("[drawMultiTrailLayer] response.features = " + response.features);
-    // Add check to see if there are segment features
-    if (response.features) {
-      if (response.features.length > 0) {
-        console.log("response.features count = " + response.features.length);
-        currentMultiTrailLayer = L.geoJson(response, {
-          style: function(feature) {
-            //console.log(feature.properties.trail_names[0] + " " + feature.properties.trail_colors[0]);
-            var thisColor = NORMAL_SEGMENT_COLOR;
-            var thisWeight = ACTIVE_TRAIL_WEIGHT;
-            var thisOpacity = 1;
-            var thisClickable = false;
-            var thisSmoothFactor = customSmoothFactor;
-            var thisDash = "";
-            //console.log("[visibleAllTrailLayer] secondary_trail_ids = " + feature.properties.secondary_trail_ids[0]);
-            var thisSecondaryTrail = feature.properties.secondary_trail_ids[0];
-            var thisTrailType = ""
-            if (secondaryTrails[thisSecondaryTrail]) {
-              thisTrailType = secondaryTrails[thisSecondaryTrail].properties.trail_type;
-              if (secondaryTrails[thisSecondaryTrail].properties.length < 1) {
-                thisWeight = NORMAL_SEGMENT_WEIGHT;
-              }
-            }
-            switch (thisTrailType) {
-              case 'unpaved': thisDash = "5,10"; break;
-              case '': thisDash = "5,10"; break;
-              case 'primitive': thisDash = "5,10"; break;
-            }
-            switch (feature.properties.trail_colors[0].toLowerCase()) {
-                case 'red': thisColor = "#EE2D2F"; break;
-                case 'orange': thisColor = "#F7941E"; break;
-                case 'purple': thisColor = "#7F58A5"; break;
-                case 'grey': thisColor = "#58595B"; break;
-                case 'yellow': thisColor = "#FFF450"; break;
-                case 'green': thisColor = "#006129"; break;
-                case 'tan': thisColor = "#969161"; break;
-                case 'olive': thisColor = "#969161"; break;
-                case 'brown': thisColor = "#6C503F"; break;
-                case 'blue': thisColor = "#26B8EB"; break;
-                case 'black': thisColor = "#333132"; break;
-            }
-            return {dashArray: thisDash, color: thisColor, weight: thisWeight, opacity: thisOpacity, clickable: thisClickable, smoothFactor: thisSmoothFactor};
-          },
-            onEachFeature: function(feature, layer) {
-              currentTrailLayers.push(layer);
-            }
-          });
-          //.addTo(map);
-          //.bringToFront();
-          //zoomToLayer(currentMultiTrailLayer);
-        }
-    }
-  }
-
-
   // return the calculated CSS background-color for the class given
   // This may need to be changed since AJW changed it to "border-color" above
 
@@ -3463,38 +3497,6 @@ function startup() {
     console.log(c);
     $t.remove();
     return c;
-  }
-
-  // given the index of a trail within a trailhead,
-  // highlight that trail on the map, and call zoomToLayer with it
-
-  function setCurrentTrail(index) {
-    console.log("setCurrentTrail");
-    if (currentHighlightedTrailLayer && typeof currentHighlightedTrailLayer.setStyle == "Function") {
-      currentHighlightedTrailLayer.setStyle({
-        weight: NORMAL_SEGMENT_WEIGHT
-      });
-    }
-
-    if (currentHighlightedTrailLayer) {
-      console.log(currentHighlightedTrailLayer);
-      // currentHighlightedTrailLayer.setStyle({
-      //   weight: NORMAL_SEGMENT_WEIGHT
-      // });
-    }
-
-    if (currentTrailLayers[index]) {
-      currentHighlightedTrailLayer = currentTrailLayers[index];
-      currentHighlightedTrailLayer.setStyle({
-        weight: ACTIVE_TRAIL_WEIGHT
-      });
-      currentHighlightedTrailLayer.bringToFront();
-    } else {
-      console.log("ERROR: trail layer missing");
-      console.log(currentTrailLayers);
-      console.log(index);
-    }
-    console.log("setCurrentTrail end");
   }
 
   // given a leaflet layer, zoom to fit its bounding box, up to MAX_ZOOM

@@ -4,8 +4,8 @@
 	<meta charset="utf-8">
 	<title>SVG-CSS test</title>
   	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  	<!--<link rel="stylesheet" href="styles/css/leaflet.css"/>-->
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+  	<link rel="stylesheet" href="styles/css/leaflet.css"/>
+    <!-- <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" /> -->
     <link rel="stylesheet" href="styles/css/leaflet.usermarker.css"/>
     <link rel="stylesheet" type="text/css" href="styles/css/selectize.css" />
     <link rel="stylesheet" type="text/css" href="styles/css/main.css"/>
@@ -77,7 +77,7 @@
 						</ul>
 						<header>
 							<div class="navbar-inner">
-								<img class="logo" src="http://fpdcc.net/wp-content/themes/fpdcc3/images/fpcc-map-logo.gif">
+								<a id="logo-link" href=""><img class="logo" src="http://fpdcc.net/wp-content/themes/fpdcc3/images/fpcc-map-logo.gif"></a>
 							</div>
 						</header>
 					</div>
@@ -87,35 +87,35 @@
 							<form>
 								<select class="js-example-basic-multiple select2Searchbox select2-border filter" data-filter="activityFilter" multiple="multiple">
 									<optgroup label="Popular">
-										<option value="hiking">Hiking</option>
-										<option value="cycling">Bicycling</option>
-										<option value="dog_friendly">Off-Leash Dog Area</option>
-										<option value="camping">Campground</option>
+										<option value="hiking">Hiking / Walking / Running</option>
+										<option value="cycling">Biking</option>
+										<option value="dog_friendly">Dog Park</option>
+										<option value="camping">Camping</option>
 										<option value="nature_center">Nature Center</option>
-										<option value="picnic_event_space">Picnic/Event Space</option>
-										<option value="Dog Friendly (on-leash)">Dog Friendly (on-leash)</option>
+										<option value="picnic_grove">Picnic / Event Space</option>
+										<option value="dog_leash">Dogs (with leash only)</option>
+										<option value="volunteer">Volunteering</option>
+										<option value="canoe">Canoeing / Kayaking / Boating</option>
+										<option value="swimming">Swimming</option>
 									</optgroup>
 									<optgroup label="Everything">
+										<option value="bike_rental">Bike Rental</option>
+										<option value="birding">Birding</option>
 										<option value="boat_rental">Boat Rental</option>
-										<option value="picnic_grove">Picnic Grove</option>
-										<option value="shelter">Picnic Grove (with shelter)</option>
 										<option value="cross_country">Cross-Country Skiing</option>
-										<option value="equestrian">Equestrian</option>
-										<option value="birding">Birding Hotspot</option>
+										<option value="disc_golf">Disc Golf</option>
+										<option value="drone">Drone Flying</option>
 										<option value="fishing">Fishing</option>
-										<option value="canoe">Canoe Landing</option>
-										<option value="snowmobile">Snowmobile Area</option>
+										<option value="golf">Golfing</option>
+										<option value="equestrian">Horse Riding</option>
+										<option value="ice_fishing">Ice Fishing</option>
+										<option value="skating_ice">Ice Skating</option>
+										<option value="indoor_rental">Indoor Event Space</option>
+										<option value="m_airplane">Model Airplane Flying</option>
 										<option value="m_boat">Model Sailboat</option>
-										<option value="m_airplane">Model Airplane Flying Field</option>
 										<option value="sledding">Sledding</option>
-										<option value="boat_ramp">Boat Launch</option>
-										<option value="swimming">Aquatic Center</option>
-										<option value="golf">Golf</option>
-										<option value="comfortstation">Public Bathroom</option>
-										<option value="pavilion">Indoor Event Space</option>
- 										<!--<option value="bicycle rental">Bike Rental</option>
- 										<option value="frisbee golf">Disc Golf</option> -->
-										<option value="parking">Parking</option>
+										<option value="snowmobile">Snowmobiling</option>
+										<option value="zip_line">Zip Line / Treetop Adventure</option>
 									</optgroup>
 								</select>
 								<!-- <input class="" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="Search by Location or Activity"> -->
@@ -161,7 +161,7 @@
 											<div class="fpccSign clearfix">
 												<svg class="icon icon-sign"><use xlink:href="icons/defs.svg#icon-sign"></use></svg>
 												<div class="fpccAddress">
-													<span class="fpccLabel fpccBlock">Entrance</span>
+													<span class="fpccLabel fpccBlock"></span>
 													<span class="fpccEntranceAddress"></span>
 													<span class="fpccEntranceCity"></span>
 													<span class="fpccEntranceState"></span>
@@ -254,7 +254,7 @@
 	
 
 	<!-- <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script> -->
-	<script src="js/leaflet-custom.js"></script>
+	<script src="js/leaflet.js"></script>
 	<script src="js/new/oms.min.js"></script>
 	<script src="js/trailhead.js"></script>
 	<!-- leaflet build from trailsyFix branch of github repo fork danavery/Leaflet -->
