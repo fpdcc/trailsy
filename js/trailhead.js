@@ -2355,6 +2355,10 @@ function startup() {
     highlightActivities(null);
     //resetDetailPanel();
 
+    $.address.parameter('trail', null);  
+    $.address.parameter('poi', null);
+    $.address.update();
+
     map.closePopup();
     // map.invalidateSize();
   }
