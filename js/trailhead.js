@@ -260,8 +260,8 @@ function startup() {
 
   // $("#redoSearch").click(reorderTrailsWithNewLocation);
 
-  $('.closeDetail').click(closeDetailPanel); // Close the detail panel!
-  $('#fpccSearchBack').click(closeDetailPanel);
+  $('.closeDetail').click(closeDetailPanel).click(readdSearchURL); // Close the detail panel!
+  $('#fpccSearchBack').click(closeDetailPanel).click(readdSearchURL);
   $('.detailPanelControls').click(changeDetailPanel); // Shuffle Through Trails Shown in Detail Panel
   //$('.filter').change(filterChangeHandler);
 
@@ -636,6 +636,8 @@ function startup() {
         var searchLink =  encodeURIComponent(currentUIFilterState);
         searchLink = searchLink.replace(/%20/g, '+');
         $.address.parameter('search', searchLink);
+        $.address.parameter('trail', null);
+        $.address.parameter('poi', null);
         $.address.update();
 
         console.log("[updateFilterObject] in currentUIFilterState if statement");
@@ -2308,6 +2310,7 @@ function startup() {
 
     $.address.parameter('trail', trailLink);  
     $.address.parameter('poi', trailheadLink);
+    $.address.parameter('search', null);
     $.address.update();
 
     if ($('.detailPanel').is(':hidden')) {
@@ -2375,13 +2378,26 @@ function startup() {
     highlightTrailSegmentsForTrailSystem(null);
     highlightActivities(null);
     //resetDetailPanel();
-
-    $.address.parameter('trail', null);  
-    $.address.parameter('poi', null);
-    $.address.update();
-
     map.closePopup();
     // map.invalidateSize();
+  }
+
+  function readdSearchURL() {
+    console.log("[readdSearchURL");
+    var selectize = $select[0].selectize;
+    
+    var searchBoxValue = selectize.getValue().filter(Boolean).toString();
+    $.address.parameter('trail', null);  
+    $.address.parameter('poi', null);
+    if (searchBoxValue.length != 0) {
+      console.log("[readdSearchURL] searchBoxValue = " + searchBoxValue);
+      var searchLink =  encodeURIComponent(searchBoxValue);
+      searchLink = searchLink.replace(/%20/g, '+');
+      console.log("[readdSearchURL] searchLink = " + searchLink);
+      $.address.parameter('search', searchLink);
+      $.address.update();
+    }
+    $.address.update();
   }
 
   function openResultsList() {
