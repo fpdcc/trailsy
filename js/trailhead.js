@@ -1193,6 +1193,8 @@ function startup() {
       if (iconType) {
         newMarker = new L.Marker(currentFeatureLatLng, {
           icon: activityIcon,
+          alt: activityType,
+          zIndexOffset: -50
         });
       
         var activity = {
@@ -1303,7 +1305,8 @@ function startup() {
         // iconSize: [52 * 0.60, 66 * 0.60] // size of the icon
       });
       var signMarker = new L.Marker(currentFeatureLatLng, {
-        icon: trailheadIcon2
+        icon: trailheadIcon2,
+        zIndexOffset: 50
       });
       signMarker.trailheadID = currentFeature.properties.id;
       //console.log("signMarker.trailheadID = " + signMarker.trailheadID);
