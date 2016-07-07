@@ -269,7 +269,7 @@ function startup() {
   //$(".fpccSearchbox").keyup(function(e) { processSearch(e); });
   $(".fpccSearchbox").change(function(e) { processSearch(e); });
   $(".offsetZoomControl").click(offsetZoomIn);
-  $(".fpccButton").click(processSearch);
+  $("#fpccSearchButton").click(processSearch);
 
   //$(".fpccSearchsubmit").click(processSearch);
   //$(".fpccSearchbox").keyup(function(e) { processSearch(e); });
@@ -2798,6 +2798,7 @@ function startup() {
         "&daddr=" + trailhead.geometry.coordinates[1] + "," + trailhead.geometry.coordinates[0];
       var a = document.getElementById('entranceDirections'); 
       a.href = directionsUrl;
+      $('.detailPanel .fpccDirections a').attr("href", "").attr("target", "_blank");
 
       // bike_rental = Bike Rental
       if (trailhead.properties.bike_rental) {
