@@ -330,11 +330,11 @@ function startup() {
   }
 
   function addressChange() {
-    //var searchFilter = $.address.parameter('search');
+    //var searchFilter = $.address.parameter('search');/%20/g
     
-    var searchFilter = decodeURIComponent($.address.parameter('search'));
-    var poi  = decodeURIComponent($.address.parameter('poi'));
-    var trail  = decodeURIComponent($.address.parameter('trail'));
+    var searchFilter = decodeURIComponent($.address.parameter('search')).replace(/\+/g, ' ');
+    var poi  = decodeURIComponent($.address.parameter('poi')).replace(/\+/g, ' ');
+    var trail  = decodeURIComponent($.address.parameter('trail')).replace(/\+/g, ' ');
     console.log("[address.change] searchFilter = " + searchFilter);
     console.log("[address.change] poi = " + poi);
     console.log("[address.change] trail = " + trail);
