@@ -263,12 +263,13 @@ function startup() {
   $('.closeDetail').click(closeDetailPanel); // Close the detail panel!
   $('#fpccSearchBack').click(closeDetailPanel);
   $('.detailPanelControls').click(changeDetailPanel); // Shuffle Through Trails Shown in Detail Panel
-  $('.filter').change(filterChangeHandler);
+  //$('.filter').change(filterChangeHandler);
 
   $(".clearSelection").click(clearSelectionHandler);
-  $(".fpccSearchbox").keyup(function(e) { processSearch(e); });
+  //$(".fpccSearchbox").keyup(function(e) { processSearch(e); });
+  $(".fpccSearchbox").change(function(e) { processSearch(e); });
   $(".offsetZoomControl").click(offsetZoomIn);
-  $(".fpccSearchsubmit").click(processSearch);
+  $(".fpccButton").click(processSearch);
 
   //$(".fpccSearchsubmit").click(processSearch);
   //$(".fpccSearchbox").keyup(function(e) { processSearch(e); });
@@ -361,7 +362,11 @@ function startup() {
       console.log("[addressChange] IF searchFilter = " + searchFilter);
       var selectize = $select[0].selectize;
       selectize.clear(true);
-      selectize.createItem(searchFilter, false);
+      var filterItems = searchFilter.split(",");
+      $.each(filterItems, function(key, value) {
+        selectize.createItem(value, false);
+      });
+      //selectize.createItem(searchFilter, false);
     }
 
   }
@@ -563,7 +568,7 @@ function startup() {
 
   function processSearch(e) {
     var $currentTarget = $(e.currentTarget);
-    var filterType = "searchFilter";
+    var filterType = "activityFilter";
     console.log("[processSearch]");
     var currentUIFilterState;
     if (SMALL) {
@@ -584,7 +589,7 @@ function startup() {
           updateFilterObject(filterType, currentUIFilterState);
         }, 800);
       }
-    } else if (($currentTarget).hasClass('fpccSearchsubmit')) {
+    } else if (($currentTarget).hasClass('fpccButton')) {
       updateFilterObject(filterType, currentUIFilterState);
     }
   }
@@ -2077,6 +2082,10 @@ function startup() {
       map.fitBounds(currentTrailheadLayerGroup.getBounds(), {
         paddingTopLeft: centerOffset
       });
+      if (currentFilters.zipMuniFilter) {
+        var locationBounds = L.latLngBounds(currentFilters.location, currentFilters.location);
+        map.panInsideBounds(locationBounds);
+      }
     }
     
     activeTrailheadsMapped = true;
