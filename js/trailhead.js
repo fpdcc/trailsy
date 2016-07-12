@@ -2497,15 +2497,15 @@ function startup() {
         $('#fpccPreserveName .trailName').html(trailhead.properties.name);
       }
 
-      if (trailhead.properties.address) {
+      if (trailhead.properties.web_street_addr) {
         $('.detailPanel .fpccAddress .fpccLabel').html("Entrance");
-        $('.detailPanel .fpccEntranceAddress').html(trailhead.properties.address);
+        $('.detailPanel .fpccEntranceAddress').html(trailhead.properties.web_street_addr);
         $('.detailPanel .fpccEntranceAddress').show();
       } else {
         $('.detailPanel .fpccAddress .fpccLabel').html("Location");
       }
       if (trailhead.properties.city) {
-        $('.detailPanel .fpccEntranceZip').html(trailhead.properties.city);
+        $('.detailPanel .fpccEntranceZip').html(trailhead.properties.web_muni_addr);
         $('.detailPanel .fpccEntranceZip').show();
       }
 
@@ -2540,22 +2540,22 @@ function startup() {
       $('.detailPanel .fpccDirections a').attr("href", "").attr("target", "_blank");
 
       // bike_rental = Bike Rental
-      if (trailhead.properties.bike_rental) {
+      if (trailhead.properties.tags.indexOf("bike_rental") > -1 ) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-bike-rental'><use xlink:href='icons/defs.svg#icon-bike-rental'></use></svg><span class='fpccAmenityTitle'>Bike Rental</span></div>");
       }
 
       // birding = Birding Hotspot
-      if (trailhead.properties.birding) {
+      if (trailhead.properties.tags.indexOf("birding") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-birding-hotspot'><use xlink:href='icons/defs.svg#icon-birding-hotspot'></use></svg><span class='fpccAmenityTitle'>Birding Hotspot</span></div>");
       }
 
       // boat_ramp = Boat Launch
-      if (trailhead.properties.boat_ramp) {
+      if (trailhead.properties.tags.indexOf("boat_ramp") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-boat-launch'><use xlink:href='icons/defs.svg#icon-boat-launch'></use></svg><span class='fpccAmenityTitle'>Boat Launch</span></div>");
       }
 
       // boat_rental = Boat Rental
-      if (trailhead.properties.boat_rental) {
+      if (trailhead.properties.tags.indexOf("boat_rental") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-boat-rental'><use xlink:href='icons/defs.svg#icon-boat-rental'></use></svg><span class='fpccAmenityTitle'>Boat Rental</span></div>");
       }
 
