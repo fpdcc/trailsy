@@ -94,7 +94,7 @@ function startup() {
     document.title = "Cook County Forest Preserves";
     API_HOST = "http://fpcc.smartchicagoapps.org";
   } 
-  //API_HOST = "http://localhost:8080";
+  API_HOST = "http://localhost:8080";
   console.log("API_HOST = " + API_HOST);
   //API_HOST = "http://fpcc-staging.smartchicagoapps.org/json"
 
@@ -187,36 +187,7 @@ function startup() {
   // Search variables
   var searchZipcode = null;
   var searchLocation = null;
-  // var zipCodeLocations = {
-  //   60625: [41.971614, -87.70256],
-  //   60004: [42.108428, -87.97723],
-  //   60005: [42.069327, -87.98464],
-  //   60006: [41.811929, -87.68732],
-  //   60007: [42.005978, -87.99847],
-  //   60008: [42.07506, -88.02508],
-  //   60009: [41.811929, -87.68732],
-  //   60016: [42.047178, -87.89058],
-  //   60017: [42.028779, -87.894366],
-  //   60018: [42.008429, -87.89234],
-  //   60019: [42.024278, -87.907066],
-  //   60022: [42.130976, -87.76252],
-  //   60025: [42.07672, -87.81922],
-  //   60026: [42.09166, -87.837363],
-  //   60029: [42.056529, -87.79286],
-  //   60038: [42.097976, -88.014072],
-  //   60043: [42.088128, -87.716],
-  //   60053: [42.041999, -87.78882],
-  //   60055: [42.097976, -88.014072],
-  //   60056: [42.065427, -87.93621],
-  //   60062: [42.124576, -87.84303],
-  //   60065: [41.811929, -87.68732],
-  //   60067: [42.10979, -88.04917],
-  //   60068: [42.01183, -87.84158],
-  //   60070: [42.105576, -87.92816],
-  //   60074: [42.143819, -88.02546],
-  //   60076: [42.03618, -87.7321],
-  //   60077: [42.033313, -87.75764]
-  // };
+  
   var zipCodeLocations = {};
   $.getJSON("json/search_zip.json", function(result){
     zipCodeLocations = result;
@@ -662,12 +633,42 @@ function startup() {
     }
   }
 
-  
-  function filterResults(trail, trailhead) {
+  function filterResults2(trailhead) {
     var matched = 1;
     var term = 1;
     //console.log("[filterResults] initial matched = " + matched);
     if (currentFilters.activityFilter) {
+      var normalizedNames = [];
+      if (trailhead.properties.trail_subsystem) {
+        normalizedNames.push(trailhead.properties.trail_subsystem.toLowerCase());
+      }
+      if (trailhead.properties.trail_subsystem_alt_names) {
+        trailhead.properties.trail_subsystem_alt_names.forEach(function(value, index) {
+          normalizedNames.push(value.toLowerCase());
+        });
+      }
+      var normalizedTrailDescription = "";
+      if (trailhead.properties.trail_desc) {
+          normalizedTrailDescription = trailhead.properties.trail_desc.toLowerCase();
+      }
+      
+      var normalizedTrailheadNames = [];
+      if (trailhead.properties.name) {
+        normalizedNames.push(trailhead.properties.name.toLowerCase());
+      }
+      if (trailhead.properties.alt_names) {
+        trailhead.properties.alt_names.forEach(function(value, index) {
+          normalizedNames.push(value.toLowerCase());
+        });
+      }
+      var normalizedTrailheadDescription = "";
+      if (trailhead.properties.description) {
+        normalizedTrailheadDescription = trailhead.properties.description.toLowerCase();
+      }
+      var normalizedTrailheadAddress = "";
+      if (trailhead.properties.web_street_addr) {
+        normalizedTrailheadAddress = trailhead.properties.web_street_addr.toLowerCase();
+      }
       //console.log("[filterResults] currentFilters.activityFilter exists.." + currentFilters.activityFilter.length);
       for (var i = 0; i < currentFilters.activityFilter.length; i++) {
         var activity = currentFilters.activityFilter[i];
@@ -676,28 +677,6 @@ function startup() {
         var trailheadActivity = 0;
         var trailheadTag = 0;
         term = 0;
-        // var a = trailhead.properties.tags.indexOf(activity);
-        // console.log("filterResults a = " + a);
-        // if (a != -1) {
-        //   searchMatched = 1;
-        // }
-        var normalizedTrailName = "";
-        var normalizedTrailDescription = "";
-        if (trail) {
-          normalizedTrailName = trail.properties.name.toLowerCase();
-          if (trail.properties.description) {
-            normalizedTrailDescription = trail.properties.description.toLowerCase();
-          }
-        }
-        var normalizedTrailheadName = trailhead.properties.name.toLowerCase();
-        var normalizedTrailheadDescription = "";
-        if (trailhead.properties.description) {
-          normalizedTrailheadDescription = trailhead.properties.description.toLowerCase();
-        }
-        var normalizedTrailheadAddress = "";
-        if (trailhead.properties.address) {
-          normalizedTrailheadAddress = trailhead.properties.address.toLowerCase();
-        }
         var normalizedSearchFilter = currentFilters.activityFilter[i].toLowerCase();
         var equivalentWords = [
             [" and ", " & "],
@@ -709,16 +688,21 @@ function startup() {
           normalizedSearchFilter = normalizedSearchFilter.replace(el[1], regexToken);
         });
         var searchRegex = new RegExp(normalizedSearchFilter);
-        var nameTrailMatched = !! normalizedTrailName.match(searchRegex);
-        var nameTrailheadMatched = !! normalizedTrailheadName.match(searchRegex);
+        //var nameTrailMatched = !! normalizedTrailName.match(searchRegex);
+        //var nameTrailheadMatched = !! normalizedTrailheadName.match(searchRegex);
         var addressTrailheadMatched = !! normalizedTrailheadAddress.match(searchRegex);
+        var descriptionTrailMatched = !! normalizedTrailDescription.match(searchRegex);
+        var descriptionTrailheadMatched = !! normalizedTrailheadDescription.match(searchRegex);
+        var nameMatched = 0;
+        $.each( normalizedNames, function( i, val ) {
+          nameMatched = !! value.match(searchRegex);
+          return ( nameMatched == 0 );
+        });
 
-        if ( (nameTrailMatched || nameTrailheadMatched ) ) {
+        if ( nameMatched ) {
           term = 10;
-        } else if ((!! normalizedTrailDescription.match(searchRegex)) || (!! normalizedTrailheadDescription.match(searchRegex))) {
+        } else if ((descriptionTrailMatched) || (descriptionTrailheadMatched)) {
           term = 1;
-        } else if (!(trailhead.properties[activity] === undefined)) {
-          term = trailhead.properties[activity];
         } else if (trailhead.properties.tags.indexOf(activity) > -1 ) {
           term = 1;
         } else if ((!! normalizedTrailheadAddress.match(searchRegex))) {
@@ -732,6 +716,76 @@ function startup() {
     //console.log("[filterResults] matched = " + matched);
     return matched;
   }
+  
+  // function filterResults(trail, trailhead) {
+  //   var matched = 1;
+  //   var term = 1;
+  //   //console.log("[filterResults] initial matched = " + matched);
+  //   if (currentFilters.activityFilter) {
+  //     //console.log("[filterResults] currentFilters.activityFilter exists.." + currentFilters.activityFilter.length);
+  //     for (var i = 0; i < currentFilters.activityFilter.length; i++) {
+  //       var activity = currentFilters.activityFilter[i];
+  //       //console.log("[filterResults] activityFilter = " + activity);
+  //       //console.log("trailhead.properties[activity] = " + trailhead.properties[activity]);
+  //       var trailheadActivity = 0;
+  //       var trailheadTag = 0;
+  //       term = 0;
+  //       // var a = trailhead.properties.tags.indexOf(activity);
+  //       // console.log("filterResults a = " + a);
+  //       // if (a != -1) {
+  //       //   searchMatched = 1;
+  //       // }
+  //       var normalizedTrailName = "";
+  //       var normalizedTrailDescription = "";
+  //       if (trail) {
+  //         normalizedTrailName = trail.properties.name.toLowerCase();
+  //         if (trail.properties.description) {
+  //           normalizedTrailDescription = trail.properties.description.toLowerCase();
+  //         }
+  //       }
+  //       var normalizedTrailheadName = trailhead.properties.name.toLowerCase();
+  //       var normalizedTrailheadDescription = "";
+  //       if (trailhead.properties.description) {
+  //         normalizedTrailheadDescription = trailhead.properties.description.toLowerCase();
+  //       }
+  //       var normalizedTrailheadAddress = "";
+  //       if (trailhead.properties.address) {
+  //         normalizedTrailheadAddress = trailhead.properties.address.toLowerCase();
+  //       }
+  //       var normalizedSearchFilter = currentFilters.activityFilter[i].toLowerCase();
+  //       var equivalentWords = [
+  //           [" and ", " & "],
+  //           ["tow path", "towpath"]
+  //       ];
+  //       $.each(equivalentWords, function(i, el) {
+  //         var regexToken = "(" + el[0] + "|" + el[1] + ")";
+  //         normalizedSearchFilter = normalizedSearchFilter.replace(el[0], regexToken);
+  //         normalizedSearchFilter = normalizedSearchFilter.replace(el[1], regexToken);
+  //       });
+  //       var searchRegex = new RegExp(normalizedSearchFilter);
+  //       var nameTrailMatched = !! normalizedTrailName.match(searchRegex);
+  //       var nameTrailheadMatched = !! normalizedTrailheadName.match(searchRegex);
+  //       var addressTrailheadMatched = !! normalizedTrailheadAddress.match(searchRegex);
+
+  //       if ( (nameTrailMatched || nameTrailheadMatched ) ) {
+  //         term = 10;
+  //       } else if ((!! normalizedTrailDescription.match(searchRegex)) || (!! normalizedTrailheadDescription.match(searchRegex))) {
+  //         term = 1;
+  //       } else if (!(trailhead.properties[activity] === undefined)) {
+  //         term = trailhead.properties[activity];
+  //       } else if (trailhead.properties.tags.indexOf(activity) > -1 ) {
+  //         term = 1;
+  //       } else if ((!! normalizedTrailheadAddress.match(searchRegex))) {
+  //         term = 1;
+  //       }
+  //       matched = matched * term;
+  //     }
+      
+  //   }
+    
+  //   //console.log("[filterResults] matched = " + matched);
+  //   return matched;
+  // }
 
   function clearSelectionHandler(e) {
     console.log("clearSelectionHandler");
@@ -1019,7 +1073,7 @@ function startup() {
     var callData = {
       loc: location.lat + "," + location.lng,
       type: "GET",
-      path: "/trailheads.json"
+      path: "/poi_infos.json"
     };
     makeAPICall(callData, function(response) {
       populateOriginalTrailheads(response, location);
@@ -1228,18 +1282,13 @@ function startup() {
           otGeoTwo -= .0002;
           var newOtLatLng = new L.LatLng(otGeoOne, otGeoTwo);
           originalTrailheads[otnum].marker.setLatLng(newOtLatLng);
-          originalTrailheads[otnum].signMarker.setLatLng(newOtLatLng);
+          // originalTrailheads[otnum].signMarker.setLatLng(newOtLatLng);
           originalTrailheads[otnum].geometry.coordinates[0] = otGeoTwo;
           break;
         }
       }
       var currentFeatureLatLng = new L.LatLng(currentGeoOne, currentGeoTwo);   
-      var newMarker = new L.CircleMarker(currentFeatureLatLng, {
-        color: "#D86930",
-        fillOpacity: 0.5,
-        opacity: 0.8,
-        className: 'circleTest'
-      }).setRadius(MARKER_RADIUS);
+      
       var trailheadIcon2 = L.divIcon({
         className: 'icon-sign icon-map entrance-' + currentFeature.properties.id,
         html: '<svg class="icon icon-map icon-sign" id="entrance-' + currentFeature.properties.id + '" ><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>',
@@ -1258,102 +1307,23 @@ function startup() {
       var trailhead = {
         properties: currentFeature.properties,
         geometry: currentFeature.geometry,
-        marker: newMarker,
-        signMarker: signMarker,
-        trails: currentFeature.properties.trail_ids,
+        marker: signMarker,
         popupContent: ""
       };
-
-      // Add alternative tags for trailhead amenities
-      var tagList = [];
-      if ((trailhead.properties["bike_rental"] === 1)) {
-        tagList = tagList.concat(["bike_rental","bicycle rental", "bike rental"]);
-      }
-      if ((trailhead.properties["cycling"] === 1)) {
-        tagList = tagList.concat(["cycling","biking", "bicycle", "bike", "mtb", "mountain"]);
-      }
-      if ((trailhead.properties["birding"] === 1)) {
-        tagList = tagList.concat(["birding","birdwatching", "bird"]);
-      }
-      if ((trailhead.properties["boat_rental"] === 1) || (trailhead.properties["canoe"] === 1) || (trailhead.properties["boat_ramp"] === 1)) {
-        tagList = tagList.concat(["boat_rental","boat rental", "canoe", "boat_ramp", "boat ramp", "canoe rental", "kayak rental", "boating center", "canoeing", "kayaking", "boating", "kayak", "boat"]);
-      }
-      if ((trailhead.properties["camping"] === 1)) {
-        tagList = tagList.concat(["camping","camp", "campground"]);
-      }
-      if ((trailhead.properties["cross_country"] === 1)) {
-        tagList = tagList.concat(["cross_country","cross country", "ski"]);
-      }
-      if ((trailhead.properties["disc_golf"] === 1)) {
-        tagList = tagList.concat(["disc_golf","disc golf", "frisbee"]);
-      }
-      if ((trailhead.properties["dog_friendly"] === 1)) {
-        tagList = tagList.concat(["dog_friendly","dog friendly", "off-leash", "dog"]);
-      }
-      if ((trailhead.properties["dog_leash"] === 1)) {
-        tagList = tagList.concat(["dog_leash","dog leash", "dog"]);
-      }
-      if ((trailhead.properties["golf"] === 1)) {
-        tagList = tagList.concat(["golf","golfing"]);
-      }
-      if ((trailhead.properties["hiking"] === 1)) {
-        tagList = tagList.concat(["hiking","walking", "running", "hike", "walk", "run", "jog", "jogging"]);
-      }
-      if ((trailhead.properties["equestrian"] === 1)) {
-        tagList = tagList.concat(["equestrian","horse riding", "horse"]);
-      }
-      if ((trailhead.properties["skating_ice"] === 1)) {
-        tagList = tagList.concat(["skating_ice","ice skate"]);
-      }
-      if ((trailhead.properties["indoor_rental"] === 1)) {
-        tagList = tagList.concat(["indoor_rental","wedding", "meeting"]);
-      }
-      if ((trailhead.properties["nature_center"] === 1)) {
-        tagList = tagList.concat(["nature_center","museum", "education"]);
-      }
-      if ((trailhead.properties["picnic_grove"] === 1) || (trailhead.properties["shelter"] === 1)) {
-        tagList = tagList.concat(["picnic_grove","shelter", "picnic", "event space", "grove", "bbq", "grill"]);
-      }
-      if ((trailhead.properties["sledding"] === 1)) {
-        tagList = tagList.concat(["sledding","sled", "coasting"]);
-      }
-      if ((trailhead.properties["snowmobile"] === 1)) {
-        tagList = tagList.concat(["snowmobile","snowmachine"]);
-      }
-      if ((trailhead.properties["swimming"] === 1)) {
-        tagList = tagList.concat(["swimming","swim", "pool", "aquatic"]);
-      }
-      if ((trailhead.properties["volunteer"] === 1)) {
-        tagList = tagList.concat(["volunteer","volunteering", "restoration"]);
-      }
-      trailhead.properties.tags = tagList.slice();
       setTrailheadEventHandlers(trailhead);
       originalTrailheads.push(trailhead);
-      originalTrailheadFeatureGroup.addLayer(trailhead.signMarker);
-      //oms.addMarker(trailhead.signMarker);
+      originalTrailheadFeatureGroup.addLayer(trailhead.marker);
     }
-    // oms.addListener('click', function(marker) {
-    //   console.log("[oms click] marker.trailheadID = " + marker.trailheadID);
-    //   trailheadMarkerClick(marker.trailheadID);
-    // });
-    
+   
     console.log("[populateOriginalTrailheads] originalTrailheads count " + originalTrailheads.length );
   }
 
   function setTrailheadEventHandlers(trailhead) {
-
     trailhead.marker.on("click", function(trailheadID) {
       return function() {
         trailheadMarkerClick(trailheadID);
       };
     }(trailhead.properties.id));
-
-    trailhead.signMarker.on("click", function(trailheadID) {
-      return function() {
-        trailheadMarkerClick(trailheadID);
-      };
-    }(trailhead.properties.id));
-
   }
 
   function trailheadMarkerClick(id) {
@@ -1361,11 +1331,11 @@ function startup() {
     highlightTrailhead(id);
     highlightActivities(id);
     var trailhead = getTrailheadById(id);
-    var trailSystem = null;
-    if (trailhead.properties.trail_systems.length > 0) {
-      trailSystem = trailhead.properties.trail_systems[0];
-    }
-    highlightTrailSegmentsForTrailSystem(trailSystem);
+    var trailSubsystem = trailhead.properties.trail_subsystem || null;
+    // if (trailhead.properties.trail_subsystem) {
+    //   trail_subsystem = trailhead.properties.trail_systems[0];
+    // }
+    highlightTrailSegmentsForTrailSubsystem(trailSubsystem);
     var zoomArray = highlightedActivityMarkerArray.slice(0);
     console.log("zoomArray = " + zoomArray);
     zoomArray.push(trailhead.marker);
@@ -1432,8 +1402,6 @@ function startup() {
     for (var i = 0; i < highlightedActivityMarkerArray.length; i++) {
       highlightedActivityMarkerArray[i].setOpacity(.5);
     }
-    
-
     highlightedActivityMarkerArray = [];
     if (myTrailhead_id) {
       var trailheadActivities = originalActivities[myTrailhead_id];
@@ -1452,7 +1420,6 @@ function startup() {
         }
       }
     }
-    
   }
 
   function popupCloseHandler(e) {
@@ -1470,7 +1437,7 @@ function startup() {
     console.log("fetchTraildata");
     var callData = {
       type: "GET",
-      path: "/trails.json"
+      path: "/trails_infos.json"
     };
     makeAPICall(callData, function(response) {
       populateTrailData(response);
@@ -1481,70 +1448,33 @@ function startup() {
   }
 
   function populateTrailData(trailDataGeoJSON) {
-    secondaryTrails = {};
+    originalTrailData = [];
 
     for (var i = 0; i < trailDataGeoJSON.features.length; i++) {
-      if (trailDataGeoJSON.features[i].properties.part_of[0]) {
-        secondaryTrails[trailDataGeoJSON.features[i].properties.id] = trailDataGeoJSON.features[i];
-      } 
-      else {
-        //originalTrailData[trailDataGeoJSON.features[i].properties.id] = trailDataGeoJSON.features[i];
-        
+      //originalTrailData[trailDataGeoJSON.features[i].properties.trail_subsystem] = originalTrailData[trailDataGeoJSON.features[i].properties.trail_subsystem] || [];
+      originalTrailData.push(trailDataGeoJSON.features[i]);
+    }
+    // sort by value
+    originalTrailData.sort(function (a, b) {
+      if (a.properties.subtrail_length_mi > b.properties.subtrail_length_mi) {
+        return 1;
       }
-      originalTrailData[trailDataGeoJSON.features[i].properties.id] = trailDataGeoJSON.features[i];
-      originalTrailData[trailDataGeoJSON.features[i].properties.id].properties.secondaryHTML = '';
-    }
-
-    // Sorting by length so that longest trail is first
-    var sort_array = [];
-    for (var key in secondaryTrails) {
-      sort_array.push({key:key, length:secondaryTrails[key].properties.length});
-    }
-    sort_array.sort(function(x,y){return y.length - x.length});
-
+      if (a.properties.subtrail_length_mi < b.properties.subtrail_length_mi) {
+        return -1;
+      }
+      // a must be equal to b
+      return 0;
+    });
     //Object.keys(secondaryTrails).forEach(function (key) {
-    for (var i = 0; i < sort_array.length; i++) {
-      var thisSecondaryTrail = secondaryTrails[sort_array[i].key];
-      //console.log("[populateTrailData] thisSecondaryTrail.properties.length=" + thisSecondaryTrail.properties.length);
-        // iteration code
-      if (thisSecondaryTrail.properties.length >= 1) {
-        //console.log("thisSecondaryTrail= " + thisSecondaryTrail);
-        var secondaryHTML = '<div class="fpccTrailSegment"><div class="fpccSegmentOverview fpcc';
-        secondaryHTML += thisSecondaryTrail.properties.trail_color
-
-        if (thisSecondaryTrail.properties.trail_type.toLowerCase() != "paved") {
-          secondaryHTML += " fpccUnpaved";
-        }
-        secondaryHTML += ' clearfix"><span class="fpccSegmentName">';
-        secondaryHTML += thisSecondaryTrail.properties.trail_color + ' ' + thisSecondaryTrail.properties.trail_type;
-        secondaryHTML += '</span><span class="fpccTrailUse">';
-        secondaryHTML += '<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>';
-        if (thisSecondaryTrail.properties.trail_type.toLowerCase() == "unpaved" || thisSecondaryTrail.properties.trail_type.toLowerCase() == "paved" || thisSecondaryTrail.properties.trail_type == "") {
-          secondaryHTML += '<svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg>';
-          secondaryHTML += '<svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg>';
-        }
-        if (thisSecondaryTrail.properties.trail_type.toLowerCase() == "unpaved" || thisSecondaryTrail.properties.trail_type == "") {
-          secondaryHTML += '<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>';
-        }
-        secondaryHTML += '</span></div>';
-        secondaryHTML += '<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>';
-        secondaryHTML += (Math.round(thisSecondaryTrail.properties.length * 100) / 100);
-        secondaryHTML += ' mi</span></span>';
-        secondaryHTML += '<span class="fpccLabel fpccRight">Surface<span>';
-        secondaryHTML += thisSecondaryTrail.properties.trail_type;
-        secondaryHTML += '</span></span></div></div>';
-        //console.log("[populateTrailData] secondaryHTML= " + secondaryHTML);
-        originalTrailData[thisSecondaryTrail.properties.part_of[0]].properties.secondaryHTML += secondaryHTML;
-      }
-    }
-    currentTrailData = $.extend(true, {}, originalTrailData);
+    console.log("[PopulateTrailData] originalTrailData[0].properties.subtrail_length_mi = " + originalTrailData[0].properties.subtrail_length_mi);
+    currentTrailData = originalTrailData.slice(0);
   }
 
   function fetchTrailsegments(callback) {
     console.log("fetchTrailsegments");
     var callData = {
       type: "GET",
-      path: "/trailsegments.json"
+      path: "/new_trails.json"
     };
     // if (SMALL) {
     //   callData.path = "/trailsegments.json?simplify=" + ALL_SEGMENT_LAYER_SIMPLIFY;
@@ -1572,33 +1502,6 @@ function startup() {
     });
   }
 
-  // returns true if trailname is in trailData
-  var trailNameLookup = null;
-  function trailnameInListOfTrails(trailname) {
-    // console.log("trailnameInListOfTrails");
-    if (trailNameLookup === null) {
-      trailNameLookup = {};
-      $.each(originalTrailData, function(key, value) {
-        var myTrailName = value.properties.name;
-        trailNameLookup[myTrailName] = true;
-      });
-    }
-
-    // console.log("trailnameInListOfTrails end");
-    return trailNameLookup[trailname];
-  }
-
-  function segmentHasTrailWithMetadata(feature) {
-    for (var i = 0; i <= 6; i++) {
-      var trailFieldname = "trail" + i;
-      if (trailnameInListOfTrails(feature.properties[trailFieldname])) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-
   function makeAllSegmentLayer(response) {
     if (allSegmentLayer !== undefined) {
       return allSegmentLayer;
@@ -1622,17 +1525,17 @@ function startup() {
         var thisSmoothFactor = customSmoothFactor;
         var thisDash = "";
         //console.log("[visibleAllTrailLayer] secondary_trail_ids = " + feature.properties.secondary_trail_ids[0]);
-        var thisSecondaryTrail = feature.properties.secondary_trail_ids[0];
-        var thisTrailType = ""
-        if (originalTrailData[thisSecondaryTrail]) {
-          thisTrailType = originalTrailData[thisSecondaryTrail].properties.trail_type;
-        }
+        //var thisSecondaryTrail = feature.properties.secondary_trail_ids[0];
+        var thisTrailType = feature.properties.trail_type;
+        // if (originalTrailData[thisSecondaryTrail]) {
+        //   thisTrailType = originalTrailData[thisSecondaryTrail].properties.trail_type;
+        // }
         switch (thisTrailType) {
           case 'unpaved': thisDash = "5,10"; break;
           case '': thisDash = "5,10"; break;
           case 'primitive': thisDash = "5,10"; break;
         }
-        switch (feature.properties.trail_colors[0].toLowerCase()) {
+        switch (feature.properties.trail_color.toLowerCase()) {
                 case 'red': thisColor = "#EE2D2F"; break;
                 case 'orange': thisColor = "#F7941E"; break;
                 case 'purple': thisColor = "#7F58A5"; break;
@@ -1686,42 +1589,22 @@ function startup() {
       var popupHTML = "<div class='trail-popup'>";
       var atLeastOne = false;
       // console.log("[makeAllSegmentLayer] invisLayer ID = " + invisLayer.feature.properties.id);
-      var segmentTrailIDs = invisLayer.feature.properties.trail_ids || [];
-      var segmentTrailNames = invisLayer.feature.properties.trail_names;
-      //console.log("[makeAllSegmentLayer] segmentTrailIDs = " + segmentTrailIDs);
-      for (var trailIndex = 0; trailIndex < segmentTrailIDs.length; trailIndex++) {
-        // console.log("trailHTML start");
-        var trailID = segmentTrailIDs[trailIndex];
-        var trailName = segmentTrailNames[trailIndex];
-        //console.log("[makeAllSegmentLayer] trail = " + trailID + " " + trailName);
-        //var trailField = "trail" + j;
-        //if (invisLayer.feature.properties[trailField]) {
-          var trailPopupLineDiv;
-            trailPopupLineDiv = "<div class='trail-popup-line trail-popup-line-named' " +
-            "data-steward='" + invisLayer.feature.properties.steward + "' " +
-            "data-source='" + invisLayer.feature.properties.source + "' " +
-            "data-trailid='" + trailID + "' " +
-            "data-trailname='" + trailName + "'> " +
-            trailName + //" Trail System" +
-            "</div>";
-            atLeastOne = true;
-          
-          popupHTML = popupHTML + trailPopupLineDiv;
-
-        // console.log("trailHTML end");
-
+      var segmentTrailSubsystem = invisLayer.feature.properties.trail_subsystem || null;
+      if (segmentTrailSubsystem) {
+        var trailPopupLineDiv;
+        trailPopupLineDiv = "<div class='trail-popup-line trail-popup-line-named' " +
+          "data-trailsubsystem='" + segmentTrailSubsystem + "' " +
+          "data-trailid='" + segmentTrailSubsystem + "' " +
+          "data-trailname='" + segmentTrailSubsystem + "'> " +
+          segmentTrailSubsystem + //" Trail System" +
+          "</div>";
+        atLeastOne = true;
+        popupHTML = popupHTML + trailPopupLineDiv;
       }
-
-
       popupHTML = popupHTML + "</div>";
 
       invisLayer.feature.properties.popupHTML = popupHTML;
       var eventType = "click";
-      // if (TOUCH) {
-      //   eventType = "click";
-      // } else {
-      //   eventType = "mouseover";
-      // }
 
       newTrailFeatureGroup.addEventListener(eventType, function featureGroupEventListener(invisLayer) {
         return function newMouseover(e) {
@@ -1736,10 +1619,10 @@ function startup() {
           }
           openTimeout = setTimeout(function openTimeoutFunction(originalEvent, target) {
             return function() {
-              var trailIDs = invisLayer.feature.properties.trail_systems[0];
-              console.log("[trail click] " + trailIDs);
-              showTrailDetails(trailIDs, null);
-              highlightTrailSegmentsForTrailSystem(trailIDs);
+              var trailSubsystem = invisLayer.feature.properties.trailSubsystem;
+              console.log("[trail click] " + trailSubsystem);
+              showTrailDetails(trailSubsystem, null);
+              highlightTrailSegmentsForTrailSubsystem(trailSubsystem);
               highlightTrailhead(null);
               highlightActivities(null);
               //var trail = originalTrailData[trailIDs];
@@ -1830,49 +1713,19 @@ function startup() {
   function addTrailsToTrailheads(myTrailData, myTrailheads) {
     console.log("addTrailsToTrailheads");
     currentTrailheads = [];
-    currentTrailData = {};
+    currentTrailData = [];
     var currentTrailIDs = {};
     
     for (var j = 0; j < myTrailheads.length; j++) {
       var trailhead = myTrailheads[j];
-      // var currentFeatureLatLng = new L.LatLng(trailhead.geometry.coordinates[1], trailhead.geometry.coordinates[0]);
-      // var distance = currentFeatureLatLng.distanceTo(currentUserLocation);
-      // if (currentFilters.location) {
-      //   distance = currentFeatureLatLng.distanceTo(currentFilters.location);
-      //   //console.log("[addTrailsToTrailheads] using currentFilters.location");
-      // }
-      // trailhead.properties.distance = distance;
       trailhead.properties.filterResults = 0;
-      //console.log("[addTrailsToTrailheads] distance = " + distance);
       var trailheadWanted = 0;
-      // for each original trailhead trail name
-      if (trailhead.properties.trail_systems.length > 0) {
-        var trailheadTrailIDs = trailhead.properties.trail_systems;
-        for (var trailNum = 0; trailNum < trailheadTrailIDs.length; trailNum++) {
-          var trailheadTrailID = trailheadTrailIDs[trailNum];
-          var trail = myTrailData[trailheadTrailID];
-          trailhead.properties.filterResults = filterResults(trail, trailhead);
-          if (trailhead.properties.filterResults > 0) {
-            //wanted = true;
-            trailheadWanted = true;
-            currentTrailIDs[trailheadTrailID] = 1;
-            //console.log("[addTrailsToTrailheads] currentTrailIDs trailheadTrailID= " + trailheadTrailID);
-            trailhead.properties.filterScore = trailhead.properties.filterResults;
-            //currentTrailIDs.push(trailheadTrailID);
-            //currentTrailData = $.extend(true, currentTrailData, trail);
-          }
-        }
-      } else {
-        trailhead.properties.filterResults = filterResults(null, trailhead);
-        if (trailhead.properties.filterResults > 0) {
-          trailheadWanted = true;
-          trailhead.properties.filterScore = trailhead.properties.filterResults;
-          //wanted = true;
-        }
+      trailhead.properties.filterResults = filterResults2(trailhead);
+      if (trailhead.properties.filterResults > 0) {
+        trailheadWanted = true;
+        currentTrailIDs[trailhead.properties.trail_subsystem] = 1;
       }
       if (trailheadWanted) {
-        //console.log("filterResults is good");
-        //trailheadWanted = true;
         currentTrailheads.push(trailhead);
       }
     }
@@ -1927,35 +1780,21 @@ function startup() {
     console.log("makeTrailheadPopups start");
     for (var trailheadIndex = 0; trailheadIndex < originalTrailheads.length; trailheadIndex++) {
       var trailhead = originalTrailheads[trailheadIndex];
-      //console.log("[makeTrailheadPopups] trailhead " + trailhead);
 
       var popupContentMainDivHTML = "<div class='trailhead-popup'>";
       var popupTrailheadDivHTML = "<div class='trailhead-box'><div class='popupTrailheadNames'>" + trailhead.properties.name + "</div>";
       popupContentMainDivHTML = popupContentMainDivHTML + popupTrailheadDivHTML;
-      if (trailhead.properties.trail_systems.length > 0)  {
-        for (var trailsIndex = 0; trailsIndex < trailhead.properties.trail_systems.length; trailsIndex++) {
-          //console.log("[makeTrailheadPopups] trailhead.trails[trailsIndex] = " + trailhead.trails[trailsIndex]);
-          var trail = originalTrailData[trailhead.properties.trail_systems[trailsIndex]];
-          //console.log("[makeTrailheadPopups] trail = " + trail);
-
-          var popupTrailDivHTMLStart = "<div class='trailhead-trailname trail" + (trailsIndex + 1) + "' " +
-          "data-trailname='" + trail.properties.name + "' " +
-          "data-trailid='" + trail.properties.id + "' " +
-          "data-trailheadname='" + trailhead.properties.name + "' " +
-          "data-trailheadid='" + trailhead.properties.id + "' " +
-          "data-index='" + trailsIndex + "'>";
-          var statusHTML = "";
-          if (trail.properties.status == 1) {
-            statusHTML = "<img class='status' src='img/icon_alert_yellow.png' title='alert'>";
-          }
-          else if (trail.properties.status == 2) {
-            statusHTML = "<img class='status' src='img/icon_alert_red.png' title='alert'>";
-          }
-
-          var trailNameHTML = "<div class='popupTrailNames'>" + trail.properties.name + "</div><b></b>";
-          var popupTrailDivHTML = popupTrailDivHTMLStart + statusHTML + trailNameHTML + "</div>";
-          popupContentMainDivHTML = popupContentMainDivHTML + popupTrailDivHTML;
-        }
+      if (trailhead.properties.trail_subsystem)  {
+        var popupTrailDivHTMLStart = "<div class='trailhead-trailname trail" + 1 + "' " +
+        "data-trailname='" + trailhead.properties.trail_subsystem + "' " +
+        "data-trailid='" + trailhead.properties.trail_subsystem + "' " +
+        "data-trailheadname='" + trailhead.properties.name + "' " +
+        "data-trailheadid='" + trailhead.properties.id + "' " +
+        "data-index='" + 1 + "'>";
+        var statusHTML = "";
+        var trailNameHTML = "<div class='popupTrailNames'>" + trailhead.properties.trail_subsystem + "</div><b></b>";
+        var popupTrailDivHTML = popupTrailDivHTMLStart + statusHTML + trailNameHTML + "</div>";
+        popupContentMainDivHTML = popupContentMainDivHTML + popupTrailDivHTML;
       }
       popupContentMainDivHTML = popupContentMainDivHTML + "</div>";
       trailhead.popupContent = popupContentMainDivHTML;
@@ -1977,8 +1816,7 @@ function startup() {
       activeTrailheadDivs[i].classList.add('inactive');
     }
     for (var i = 0; i < myTrailheads.length; i++) {
-      //currentTrailheadMarkerArray.push(myTrailheads[i].marker);
-      currentTrailheadSignArray.push(myTrailheads[i].signMarker);
+      currentTrailheadSignArray.push(myTrailheads[i].marker);
       var myEntranceID = "entrance-" + myTrailheads[i].properties.id;
       //console.log("[mapActiveTrailheads] myEntranceID= " + myEntranceID);
       var activeTrailheadDivs = document.getElementsByClassName(myEntranceID);
@@ -1998,7 +1836,6 @@ function startup() {
         map.panInsideBounds(locationBounds);
       }
     }
-    
     activeTrailheadsMapped = true;
     console.log("mapActiveTrailheads end");
   }
@@ -2050,19 +1887,17 @@ function startup() {
       var trailhead = myTrailheads[j];
 
       var trailheadName = trailhead.properties.name;
-      var trailheadType = trailhead.properties.poi_type;
+      var trailheadType = trailhead.properties.point_type;
       var trailheadID = trailhead.properties.id;
-      var parkName = trailhead.properties.park;
-      var trailheadTrailIDs = trailhead.trails;
-      var trailheadSource = trailhead.properties.source;
+      var trailheadTrailSubsystem = trailhead.properties.trail_subsystem;
       var trailheadDistance = metersToMiles(trailhead.properties.distance);
       // Making a new div for text / each trail
   
-      if (trailheadTrailIDs) {
-        var trailID = trailheadTrailIDs[0];
-        var trail = originalTrailData[trailID];
-        var trailName = originalTrailData[trailID].properties.trail_system;
-        var trailLength = Number(Math.round(originalTrailData[trailID].properties.length +'e2')+'e-2');
+      if (trailheadTrailSubsystem) {
+        var trailID = trailheadTrailSubsystem;
+        var trail = trailheadTrailSubsystem;
+        var trailName = trailheadTrailSubsystem;
+        var trailLength = null //Number(Math.round(originalTrailData[trailID].properties.length +'e2')+'e-2');
       }
       else {
         var trailID = null;
@@ -2088,13 +1923,13 @@ function startup() {
         '<span class="fpccEntryDis">' + trailheadDistance + ' mi away</span></a>' +
         "</div>"
 
-      var trailSourceText = "<div class='trailSource' id='" + trailheadSource + "'>" + trailheadSource + "</div></div>";
-      var trailDivComplete = trailDivText + trailheadInfoText + trailSourceText;
+      //var trailSourceText = "<div class='trailSource' id='" + trailheadSource + "'>" + trailheadSource + "</div></div>";
+      var trailDivComplete = trailDivText + trailheadInfoText;
       trailListContents = trailListContents + trailDivComplete;
       divCount++;
      
 
-      if ((!trailList[trailName]) && trailheadTrailIDs && currentFilters.trailInList) {
+      if ((!trailList[trailName]) && trailheadTrailSubsystem && currentFilters.trailInList) {
         trailDivText = "<a class='fpccEntry clearfix' " +
         "data-source='list' " +
         "data-trailid='" + trailID + "' " +
@@ -2109,7 +1944,7 @@ function startup() {
         //'<span class="fpccEntryDis">' + trailheadDistance + ' mi away</span></a>' +
         "</div>"
         trailList[trailName] = 1;
-        trailDivComplete = trailDivText + trailheadInfoText + trailSourceText;
+        trailDivComplete = trailDivText + trailheadInfoText;
         trailListContents = trailListContents + trailDivComplete;
         divCount++;
       }
@@ -2143,32 +1978,32 @@ function startup() {
     var divTrailName = $myTarget.attr("data-trailname");
     console.log(divTrailID);
     var divTrail = originalTrailData[divTrailID];
-    var trailSystem = null;
+    var trailSubsystem = null;
     var divTrailheadID = $myTarget.attr("data-trailheadid");
     var divTrailheadName = $myTarget.attr("data-trailheadname");
     var trailheadID = null;
     
     if (divTrail) {
-      trailSystem = divTrail.properties.trail_system;
-      trailDivWork(trailSystem, null);
+      trailSubsystem = divTrail.properties.trail_subsystem;
+      trailDivWork(trailSubsystem, null);
     } else {   
       trailDivWork(null, divTrailheadID);
     }  
   }
 
-  function trailDivWork(trailSystem, trailheadId) {
-    if (trailSystem) {
-      showTrailDetails(trailSystem, null);
+  function trailDivWork(trailSubsystem, trailheadId) {
+    if (trailSubsystem) {
+      showTrailDetails(trailSubsystem, null);
     } else {   
       var divTrailhead = getTrailheadById(trailheadId);
       console.log("[trailDivWork] about to showTrailDetails(divTrail, divTrailhead)");
       showTrailDetails(null, divTrailhead);
       //console.log("[trailDivClickHandler] trailSystem is null");
-      if (divTrailhead.properties.trail_systems.length > 0) {
-        trailSystem = divTrailhead.properties.trail_systems[0];
+      if (divTrailhead.properties.trail_subsystem) {
+        trailSubsystem = divTrailhead.properties.trail_subsystem;
       }  
     }
-    highlightTrailSegmentsForTrailSystem(trailSystem);
+    highlightTrailSegmentsForTrailSubsystem(trailSubsystem);
     highlightTrailhead(trailheadId);
     highlightActivities(trailheadId);
     var zoomFeatureGroup = null;
@@ -2197,13 +2032,13 @@ function startup() {
   // detail panel section
   //
   // KEEP REVISED: showTrailDetails
-  function showTrailDetails(trailSystem, trailhead) {
+  function showTrailDetails(trailSubsystem, trailhead) {
     console.log("showTrailDetails");
     
     var trailheadLink = null;
     var trailLink = null;
-    if (trailSystem) {
-      trailLink =  encodeURIComponent(trailSystem);
+    if (trailSubsystem) {
+      trailLink =  encodeURIComponent(trailSubsystem);
       trailLink = trailLink.replace(/%20/g, '+');
     } else {
       trailheadLink = encodeURIComponent(trailhead.properties.id + "-" + trailhead.properties.name);
@@ -2211,8 +2046,8 @@ function startup() {
     }
 
     
-    if (trailSystem) {
-      decorateDetailPanelForTrailSystem(trailSystem);
+    if (trailSubsystem) {
+      decorateDetailPanelForTrailSubsystem(trailSubsystem);
     } else {
       decorateDetailPanelForTrailhead(trailhead);
     }
@@ -2225,11 +2060,11 @@ function startup() {
     if ($('.detailPanel').is(':hidden')) {
       //decorateDetailPanel(trail, trailhead);
       openDetailPanel();
-      currentDetailTrail = trailSystem;
+      currentDetailTrail = trailSubsystem;
       currentDetailTrailhead = trailhead;
     } else {
         //decorateDetailPanel(trail, trailhead);
-        currentDetailTrail = trailSystem;
+        currentDetailTrail = trailSubsystem;
         currentDetailTrailhead = trailhead;
     }
   }
@@ -2284,7 +2119,7 @@ function startup() {
     $('.accordion').show();
     $('.trailhead-trailname.selected').removeClass("detail-open");
     highlightTrailhead(null,null);
-    highlightTrailSegmentsForTrailSystem(null);
+    highlightTrailSegmentsForTrailSubsystem(null);
     highlightActivities(null);
     //resetDetailPanel();
     map.closePopup();
@@ -2453,18 +2288,13 @@ function startup() {
   }
 
   // KEEP NEW: decorateDetailPanelForTrailSystem
-  function decorateDetailPanelForTrailSystem(trailSystem) {
+  function decorateDetailPanelForTrailSubsystem(trailSubsystem) {
     enableTrailControls();
     resetDetailPanel();
-    console.log("[decorateDetailPanelForTrailSystem] trailSystem = " + trailSystem);
+    console.log("[decorateDetailPanelForTrailSubystem] trailSubsystem = " + trailSubsystem);
 
-    if (trailSystem) {
-        // var trailname = trail.properties.name + " Trail";
-
-        // $('.detailPanel .fpccTrailName').html(trailname);
-        // $('.detailPanel .trailheadTrailMaps').show();
-        // $('.detailPanel .fpccTrailHeader').show();
-        var trailSystemTrail = originalTrailData[trailSystem];
+    if (trailSubsystem) {
+        var trailSystemTrail = originalTrailData[trailSubsystem];
         console.log("[decorateDetailPanelForTrailSystem] trailSystemTrail = " + trailSystemTrail);
         if (trailSystemTrail.properties.description) {
           //document.getElementById('trailDescription').innerHTML = trail.properties.description;
@@ -2504,11 +2334,11 @@ function startup() {
     $('.detailPanel .fpccAmenities').show();
     $('.detailPanel .fpccTop').show();
     if(trailhead) {
-      if (trailhead.properties.trail_systems.length > 0) {
-        console.log("[decorateDetailPanelForTrailhead] systems = " + trailhead.properties.trail_systems);
-        var systems = trailhead.properties.trail_systems;
+      if (trailhead.properties.trail_subsystem) {
+        console.log("[decorateDetailPanelForTrailhead] system = " + trailhead.properties.trail_subsystem);
+        var subSystem = trailhead.properties.trail_subsystem;
         //for ( var systemIndex=0; systemIndex < systems.length; systemIndex++ ) {
-        $('.detailPanel .fpccTrailName').html(systems[0]);
+        $('.detailPanel .fpccTrailName').html(subSystem);
         $('.detailPanel .trailheadTrailMaps').show();
         $('.detailPanel .fpccTrailHeader').show();
         $('.detailPanel .fpccTrailDescription').show();
@@ -2517,72 +2347,73 @@ function startup() {
         $('.detailPanel .fpccTrails .icon-trail-marker').show();
 
         var trailSegmentsHTML = "";
-        for (var trailIndex = 0; trailIndex < trailhead.properties.trail_ids.length; trailIndex++ ) {
-          var thisTrailId = trailhead.properties.trail_ids[trailIndex];
-          var thisTrail = originalTrailData[thisTrailId];
+        //for (var trailIndex = 0; trailIndex < trailhead.properties.trail_ids.length; trailIndex++ ) {
+          //var thisTrailId = trailhead.properties.trail_ids[trailIndex];
+          //var thisTrail = originalTrailData[thisTrailId];
           trailSegmentsHTML += '<div class="fpccTrailSegment"><div class="fpccSegmentOverview fpcc';
-          trailSegmentsHTML += thisTrail.properties.trail_color;
-          if (thisTrail.properties.trail_type.toLowerCase() != "paved") {
+          trailSegmentsHTML += trailhead.properties.trail_color;
+          if (trailhead.properties.trail_type.toLowerCase() != "paved") {
             trailSegmentsHTML += " fpccUnpaved";
           }
           trailSegmentsHTML += ' clearfix"><span class="fpccSegmentName">';
-          trailSegmentsHTML += thisTrail.properties.trail_color + ' ' + thisTrail.properties.trail_type;
+          trailSegmentsHTML += trailhead.properties.trail_color + ' ' + trailhead.properties.trail_type;
           trailSegmentsHTML += '</span><span class="fpccTrailUse">';
           trailSegmentsHTML += '<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>';
-          if (thisTrail.properties.trail_type.toLowerCase() == "unpaved" || thisTrail.properties.trail_type.toLowerCase() == "paved" || thisTrail.properties.trail_type == "") {
+          if (trailhead.properties.trail_type.toLowerCase() == "unpaved" || trailhead.properties.trail_type.toLowerCase() == "paved" || trailhead.properties.trail_type == "") {
             trailSegmentsHTML += '<svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg>';
             trailSegmentsHTML += '<svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg>';
           }
-          if (thisTrail.properties.trail_type.toLowerCase() == "unpaved" || thisTrail.properties.trail_type == "") {
+          if (trailhead.properties.trail_type.toLowerCase() == "unpaved" || trailhead.properties.trail_type == "") {
             trailSegmentsHTML += '<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>';
           }
           trailSegmentsHTML += '</span></div>';
           trailSegmentsHTML += '<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>';
-          trailSegmentsHTML += (Math.round(thisTrail.properties.length * 100) / 100);
+          //trailSegmentsHTML += (Math.round(trailhead.properties.length * 100) / 100);
+          trailSegmentsHTML += "FIX THIS!";
           trailSegmentsHTML += ' mi</span></span>';
           trailSegmentsHTML += '<span class="fpccLabel fpccRight">Surface<span>';
-          trailSegmentsHTML += thisTrail.properties.trail_type;
+          trailSegmentsHTML += trailhead.properties.trail_type;
           trailSegmentsHTML += '</span></span></div></div>';
-        }
+        
 
-        if (trailhead.properties.indirect_trail_ids) {
-          console.log("[decorateDetailPanel] indirect_trail_ids.length = " + trailhead.properties.indirect_trail_ids.length);
-          var indirectHTML = '<div class="fpccAccessTo fpccLabel"><svg class="icon icon-trail-marker" style="display: inline-block;"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-trail-marker"></use></svg>with access to:</div>';
-          var useIndirect = false;
-          for (var trailIndex = 0; trailIndex < trailhead.properties.indirect_trail_ids.length; trailIndex++ ) {
-            var thisTrailId = trailhead.properties.indirect_trail_ids[trailIndex];
-            var thisTrail = originalTrailData[thisTrailId];
-            if (thisTrail.properties.length >= 1) {
-              useIndirect = true;
-              indirectHTML += '<div class="fpccTrailSegment"><div class="fpccSegmentOverview fpcc';
-              indirectHTML += thisTrail.properties.trail_color;
-              if (thisTrail.properties.trail_type.toLowerCase() != "paved") {
-                indirectHTML += " fpccUnpaved";
-              }
-              indirectHTML += ' clearfix"><span class="fpccSegmentName">';
-              indirectHTML += thisTrail.properties.trail_color + ' ' + thisTrail.properties.trail_type;
-              indirectHTML += '</span><span class="fpccTrailUse">';
-              indirectHTML += '<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>';
-              if (thisTrail.properties.trail_type.toLowerCase() == "unpaved" || thisTrail.properties.trail_type.toLowerCase() == "paved" || thisTrail.properties.trail_type == "") {
-                indirectHTML += '<svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg>';
-                indirectHTML += '<svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg>';
-              }
-              if (thisTrail.properties.trail_type.toLowerCase() == "unpaved" || thisTrail.properties.trail_type == "") {
-                indirectHTML += '<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>';
-              }
-              indirectHTML += '</span></div>';
-              indirectHTML += '<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>';
-              indirectHTML += (Math.round(thisTrail.properties.length * 100) / 100);
-              indirectHTML += ' mi</span></span>';
-              indirectHTML += '<span class="fpccLabel fpccRight">Surface<span>';
-              indirectHTML += thisTrail.properties.trail_type;
-              indirectHTML += '</span></span></div></div>';
-            }
-          }
-          if (useIndirect) {
-            trailSegmentsHTML += indirectHTML;
-          }
-        }
+        // if (trailhead.properties.indirect_trail_ids) {
+        //   console.log("[decorateDetailPanel] indirect_trail_ids.length = " + trailhead.properties.indirect_trail_ids.length);
+        //   var indirectHTML = '<div class="fpccAccessTo fpccLabel"><svg class="icon icon-trail-marker" style="display: inline-block;"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-trail-marker"></use></svg>with access to:</div>';
+        //   var useIndirect = false;
+        //   for (var trailIndex = 0; trailIndex < trailhead.properties.indirect_trail_ids.length; trailIndex++ ) {
+        //     var thisTrailId = trailhead.properties.indirect_trail_ids[trailIndex];
+        //     var thisTrail = originalTrailData[thisTrailId];
+        //     if (thisTrail.properties.length >= 1) {
+        //       useIndirect = true;
+        //       indirectHTML += '<div class="fpccTrailSegment"><div class="fpccSegmentOverview fpcc';
+        //       indirectHTML += thisTrail.properties.trail_color;
+        //       if (thisTrail.properties.trail_type.toLowerCase() != "paved") {
+        //         indirectHTML += " fpccUnpaved";
+        //       }
+        //       indirectHTML += ' clearfix"><span class="fpccSegmentName">';
+        //       indirectHTML += thisTrail.properties.trail_color + ' ' + thisTrail.properties.trail_type;
+        //       indirectHTML += '</span><span class="fpccTrailUse">';
+        //       indirectHTML += '<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>';
+        //       if (thisTrail.properties.trail_type.toLowerCase() == "unpaved" || thisTrail.properties.trail_type.toLowerCase() == "paved" || thisTrail.properties.trail_type == "") {
+        //         indirectHTML += '<svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg>';
+        //         indirectHTML += '<svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg>';
+        //       }
+        //       if (thisTrail.properties.trail_type.toLowerCase() == "unpaved" || thisTrail.properties.trail_type == "") {
+        //         indirectHTML += '<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>';
+        //       }
+        //       indirectHTML += '</span></div>';
+        //       indirectHTML += '<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>';
+        //       indirectHTML += (Math.round(thisTrail.properties.length * 100) / 100);
+        //       indirectHTML += ' mi</span></span>';
+        //       indirectHTML += '<span class="fpccLabel fpccRight">Surface<span>';
+        //       indirectHTML += thisTrail.properties.trail_type;
+        //       indirectHTML += '</span></span></div></div>';
+        //     }
+        //   }
+        //   if (useIndirect) {
+        //     trailSegmentsHTML += indirectHTML;
+        //   }
+        // }
 
         $('.detailPanel .fpccTrailSegments').html(trailSegmentsHTML);
 
@@ -2591,8 +2422,7 @@ function startup() {
         //   $('.detailPanel #trailDescription').show();
         // }
 
-        //}
-        
+        //}        
       } else {
         $('.detailPanel .trailheadTrailMaps').hide();
         $('.detailPanel .fpccTrailHeader').hide();
@@ -3217,7 +3047,7 @@ function startup() {
 
 
   // For a given Trail_System, change the style weight to active
-  function highlightTrailSegmentsForTrailSystem(trailSystem) {
+  function highlightTrailSegmentsForTrailSubsystem(trailSubsystem) {
     var startTime = new Date().getTime();
     console.log("highlight start = " + startTime);
     if (currentHighlightedSegmentLayer) {
@@ -3226,16 +3056,16 @@ function startup() {
 
     currentHighlightedSegmentLayer = null;
     
-    if (trailSystem) {
-      console.log("[highlightTrailSegmentsForTrailhead] trailSystem = " + trailSystem);
+    if (trailSubsystem) {
+      console.log("[highlightTrailSegmentsForTrailhead] trailSubsystem = " + trailSubsystem);
       currentHighlightedSegmentLayer = new L.FeatureGroup();
       
       allSegmentLayer.eachLayer(function (layer) {
-        var layerTrailSystem = layer.getLayers()[0].feature.properties.trail_systems[0];
+        var layerTrailSubsystem = layer.getLayers()[0].feature.properties.trail_subsystem;
         //console.log("[highlightTrailSegmentsForTrailhead] layerTrailSystem = " + layerTrailSystem);
         var layerWanted = 0;
-        if (layerTrailSystem) {
-            if (layerTrailSystem == trailSystem) {
+        if (layerTrailSubsystem) {
+            if (layerTrailSubsystem == trailSubsystem) {
               layerWanted = 1;
             } 
         }
@@ -3330,12 +3160,6 @@ function startup() {
     // console.log("----");
     // console.log(combined);
     return combined;
-  }
-
-  function checkSegmentsForTrailname(trailName, trailSource) {
-    var segmentsExist = false;
-    segmentsExist = trailName in segmentTrailnameCache || 'trailname + " Trail"' in segmentTrailnameCache;
-    return segmentsExist;
   }
 
   // return the calculated CSS background-color for the class given
