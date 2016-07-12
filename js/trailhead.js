@@ -302,7 +302,7 @@ function startup() {
   //$.address.crawlable(1);
   $.address.externalChange(function(event) {  
     // do something depending on the event.value property, e.g.  
-    console.log("internalChange event = " + event.parameters);
+    console.log("externalChange event = " + event.parameters);
     //console.log("hash = " + $.address.hash()  );
     //console.log("queryString = " + $.address.queryString()  );
 
@@ -377,7 +377,6 @@ function startup() {
   // =====================================================================//
   // Kick things off
 
-  // showOverlay();
 
   if ($("html").hasClass("lt-ie8")) {
      return;  //abort, dont load
@@ -385,61 +384,7 @@ function startup() {
   initialSetup();
 
   // =====================================================================//
-  function showOverlay() {
-    var overlayHTMLIE = "<h1>Welcome to To The Trails!</h1>" +
-    "<p>We're sorry, but To The Trails is not compatible with Microsoft Internet Explorer 8 or earlier versions of that web browser." +
-    "<p>Please upgrade to the latest version of " +
-    "<a href='http://windows.microsoft.com/en-us/internet-explorer/download-ie'>Internet Explorer</a>, " +
-    "<a href='http://google.com/chrome'>Google Chrome</a>, or " +
-    "<a href='http://getfirefox.com'>Mozilla Firefox</a>." +
-    "<p>If you are currently using Windows XP, you'll need to download and use Chrome or Firefox." +
-    "<img src='/img/Overlay-Image-01.png' alt='trees'>";
-
-    var overlayHTML = "<span class='closeOverlay'>x</span>" +
-    "<h1>Welcome To The Trails!</h1>" +
-    "<p>Pick trails, find your way, and keep your bearings as you move between trails and parks in Cuyahoga Valley National Park and Metro Parks, Serving Summit County and beyond." +
-    "<p>ToTheTrails.com is currently in public beta. It's a work in progress! We'd love to hear how this site is working for you." +
-    "<p>Send feedback and report bugs to <a href='mailto:hello@tothetrails.com?Subject=Feedback' target='_top'>hello@tothetrails.com</a>. Learn more on our 'About' page.";
-
-    var closedOverlayHTML = "<h1>Visit us on your desktop!</h1>" +
-    "<p>We'll be launching To The Trails for mobile devices on November 15th, but desktop access is available now!" +
-    "<img src='/img/Overlay-Image-01.png' alt='trees'>";
-
-    // restricting SMALL devices only as of 11/13/2013
-    // if ((window.location.hostname === "www.tothetrails.com" && SMALL) || CLOSED) {
-
-    // open to all 11/15/2013
-    if (CLOSED) {
-      console.log("closed");
-      $(".overlay-panel").html(closedOverlayHTML);
-      $(".overlay").show();
-    } else {
-      if ($("html").hasClass("lt-ie8")) {
-        $(".overlay-panel").html(overlayHTMLIE);
-      } else {
-        if (window.localStorage && window.localStorage['already-visited']) {
-          // The user has already visited the page – skip showing the
-          // generic welcome message
-          return;
-        } else {
-          $(".overlay-panel").html(overlayHTML);
-
-          // Saving so that the welcome message is not shown the second
-          // time around.
-          if (window.localStorage) {
-            window.localStorage['already-visited'] = true;
-          }
-        }
-      }
-
-      $(".overlay-panel").click(function() {
-        $(".overlay").hide();
-      });
-    }
-
-    $(".overlay").show();
-  }
-
+ 
   // The next three functions perform trailhead/trail mapping
   // on a) initial startup, b) requested re-sort of trailheads based on the map,
   // and c) a change in filter settings
@@ -1972,45 +1917,6 @@ function startup() {
         }, 0);
       }, 0);
     }, 0);
-  }
-
-
-  // this is so very wrong and terrible and makes me want to never write anything again.
-  // alas, it works for now.
-  // for each trailhead, if two or more of the matched trails from addTrailsToTrailheads() have the same name,
-  // remove any trails that don't match the trailhead source
-
-  function fixDuplicateTrailheadTrails(myTrailheads) {
-    console.log("fixDuplicateTrailheadTrails");
-    for (var trailheadIndex = 0; trailheadIndex < myTrailheads.length; trailheadIndex++) {
-      var trailhead = myTrailheads[trailheadIndex];
-      var trailheadTrailNames = {};
-      for (var trailsIndex = 0; trailsIndex < trailhead.trails.length; trailsIndex++) {
-        var trailName = originalTrailData[trailhead.trails[trailsIndex]].properties.name;
-        trailheadTrailNames[trailName] = trailheadTrailNames[trailName] || [];
-        var sourceAndTrailID = {
-          source: originalTrailData[trailhead.trails[trailsIndex]].properties.source,
-          trailID: originalTrailData[trailhead.trails[trailsIndex]].properties.id
-        };
-        trailheadTrailNames[trailName].push(sourceAndTrailID);
-      }
-      for (var trailheadTrailName in trailheadTrailNames) {
-        if (trailheadTrailNames.hasOwnProperty(trailheadTrailName)) {
-          if (trailheadTrailNames[trailheadTrailName].length > 1) {
-            // remove the ID from the trailhead trails array if the source doesn't match
-            for (var i = 0; i < trailheadTrailNames[trailheadTrailName].length; i++) {
-              var mySourceAndTrailID = trailheadTrailNames[trailheadTrailName][i];
-              if (mySourceAndTrailID.source != trailhead.properties.source) {
-                var idToRemove = mySourceAndTrailID.trailID;
-                var removeIndex = $.inArray(idToRemove.toString(), trailhead.trails);
-                trailhead.trails.splice(removeIndex, 1);
-              }
-            }
-          }
-        }
-      }
-    }
-    console.log("fixDuplicateTrailheadTrails end");
   }
 
   // given the trailheads,
