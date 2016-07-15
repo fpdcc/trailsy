@@ -676,7 +676,7 @@ function startup() {
       //console.log("[filterResults] currentFilters.activityFilter exists.." + currentFilters.activityFilter.length);
       for (var i = 0; i < currentFilters.activityFilter.length; i++) {
         var activity = currentFilters.activityFilter[i];
-        //console.log("[filterResults] activityFilter = " + activity);
+        console.log("[filterResults] activityFilter = " + activity);
         //console.log("trailhead.properties[activity] = " + trailhead.properties[activity]);
         var trailheadActivity = 0;
         var trailheadTag = 0;
@@ -699,15 +699,17 @@ function startup() {
         var descriptionTrailheadMatched = !! normalizedTrailheadDescription.match(searchRegex);
         var nameMatched = 0;
         $.each( normalizedNames, function( i, val ) {
-          nameMatched = !! value.match(searchRegex);
+          nameMatched = !! val.match(searchRegex);
           return ( nameMatched == 0 );
         });
+        console.log("[filterResults] activityFilter = " + activity);
+        console.log("[filterResults] tags = " + trailhead.properties.tags);
 
         if ( nameMatched ) {
           term = 10;
         } else if ((descriptionTrailMatched) || (descriptionTrailheadMatched)) {
           term = 1;
-        } else if (trailhead.properties.tags.indexOf(activity) > -1 ) {
+        } else if ((trailhead.properties.tags) && (trailhead.properties.tags.indexOf(normalizedSearchFilter) > -1 )) {
           term = 1;
         } else if ((!! normalizedTrailheadAddress.match(searchRegex))) {
           term = 1;
@@ -1616,7 +1618,7 @@ function startup() {
           }
           openTimeout = setTimeout(function openTimeoutFunction(originalEvent, target) {
             return function() {
-              var trailSubsystem = invisLayer.feature.properties.trailSubsystem;
+              var trailSubsystem = invisLayer.feature.properties.trail_subsystem;
               console.log("[trail click] " + trailSubsystem);
               showTrailDetails(trailSubsystem, null);
               highlightTrailSegmentsForTrailSubsystem(trailSubsystem);
@@ -1781,15 +1783,16 @@ function startup() {
       var popupContentMainDivHTML = "<div class='trailhead-popup'>";
       var popupTrailheadDivHTML = "<div class='trailhead-box'><div class='popupTrailheadNames'>" + trailhead.properties.name + "</div>";
       popupContentMainDivHTML = popupContentMainDivHTML + popupTrailheadDivHTML;
-      if (trailhead.properties.trail_subsystem)  {
+      if (trailhead.properties.direct_trail_id)  {
+        var trailheadTrail = originalTrailData[trailhead.properties.direct_trail_id];
         var popupTrailDivHTMLStart = "<div class='trailhead-trailname trail" + 1 + "' " +
-        "data-trailname='" + trailhead.properties.trail_subsystem + "' " +
-        "data-trailid='" + trailhead.properties.trail_subsystem + "' " +
-        "data-trailheadname='" + trailhead.properties.name + "' " +
-        "data-trailheadid='" + trailhead.properties.id + "' " +
+        "data-trailname='" + trailheadTrail.trail_subsystem + "' " +
+        "data-trailid='" + trailheadTrail.trail_subsystem + "' " +
+        "data-trailheadname='" + trailheadTrail.trail_subsystem + "' " +
+        "data-trailheadid='" + trailheadTrail.trail_subsystem + "' " +
         "data-index='" + 1 + "'>";
         var statusHTML = "";
-        var trailNameHTML = "<div class='popupTrailNames'>" + trailhead.properties.trail_subsystem + "</div><b></b>";
+        var trailNameHTML = "<div class='popupTrailNames'>" + trailheadTrail.trail_subsystem + "</div><b></b>";
         var popupTrailDivHTML = popupTrailDivHTMLStart + statusHTML + trailNameHTML + "</div>";
         popupContentMainDivHTML = popupContentMainDivHTML + popupTrailDivHTML;
       }
@@ -2284,6 +2287,12 @@ function startup() {
       $('.detailPanel .fpccTrailHeader').hide();
       $('.detailPanel .fpccTrails .icon-trail-marker').hide();
 
+      $('.detailPanel .fpccTrailMaps').hide();
+      $('.detailPanel #pdfEnglish').hide();
+      $('.detailPanel #pdfSpanish').hide();
+      $('.detailPanel #pdfEnglish').attr("href", "");
+      $('.detailPanel #pdfSpanish').attr("href", "");
+
 
   }
 
@@ -2348,23 +2357,23 @@ function startup() {
         $('.detailPanel #pdfSpanish').hide();
 
         var showMaps = false;
-        var a;
+        console.log("[decorateDetailPanelForTrailSubsystem] map_link = " + trailSystemTrails[0].map_link);
         if (trailSystemTrails[0].map_link) {
-          //a = document.getElementById('pdfEnglish'); 
           $('.detailPanel #pdfEnglish').attr("href", trailSystemTrails[0].map_link);
           $('.detailPanel #pdfEnglish').show();
           showMaps = true;
         }
         if (trailSystemTrails[0].map_link_spanish) {
-          //a = document.getElementById('pdfSpanish'); 
-          //a.href = trailSystemTrails[0].map_link_spanish;
           $('.detailPanel #pdfSpanish').attr("href", trailSystemTrails[0].map_link_spanish);
 
           $('.detailPanel #pdfSpanish').show();
           showMaps = true;
         }
-        $('.detailPanel .fpccTrailMaps').show();
-
+        if (showMaps) {
+          $('.detailPanel .fpccTrailMaps').show();
+        }
+        
+        var a;
         a = document.getElementById('fpccSocialEmail'); 
         a.href = "mailto:?subject=Heading to " + trailSubsystem;
         a = document.getElementById('fpccSocialTwitter'); 
@@ -2401,7 +2410,32 @@ function startup() {
         $('.detailPanel .fpccTrails .icon-trail-marker').show();
 
         if (directTrail.trail_desc) {
-          $('.detailPanel .fpccTrailDescription').html(directTrail.trail_desc);
+          console.log("[decorateDetailPanelForTrailhead] directTrail.trail_desc is true? " + directTrail.trail_desc);
+          //document.getElementById('trailDescription').innerHTML = trail.properties.description;
+          $('.detailPanel #trailDescription').html(directTrail.trail_desc);
+          $('.detailPanel #trailDescription').show();
+        }
+
+        var showMaps = false;
+        console.log("[decorateDetailPanelForTrailhead] showMaps = " + showMaps);
+        if (directTrail.map_link != null && directTrail.map_link != '') {
+          console.log("[decorateDetailPanelForTrailhead] directTrail.map_link is true? " + directTrail.map_link);
+          $('.detailPanel #pdfEnglish').attr("href", directTrail.map_link);
+          $('.detailPanel #pdfEnglish').show();
+          showMaps = true;
+        }
+        console.log("[decorateDetailPanelForTrailhead] showMaps = " + showMaps);
+
+        if (directTrail.map_link_spanish != null && directTrail.map_link_spanish != '') {
+          $('.detailPanel #pdfSpanish').attr("href", directTrail.map_link_spanish);
+
+          $('.detailPanel #pdfSpanish').show();
+          showMaps = true;
+        }
+        console.log("[decorateDetailPanelForTrailhead] showMaps = " + showMaps);
+
+        if (showMaps) {
+          $('.detailPanel .fpccTrailMaps').show();
         }
 
         var trailSegmentsHTML = "";
@@ -2566,7 +2600,7 @@ function startup() {
       } else {
         $('.detailPanel .fpccAddress .fpccLabel').html("Location");
       }
-      if (trailhead.properties.city) {
+      if (trailhead.properties.web_muni_addr) {
         $('.detailPanel .fpccEntranceZip').html(trailhead.properties.web_muni_addr);
         $('.detailPanel .fpccEntranceZip').show();
       }
@@ -2622,157 +2656,157 @@ function startup() {
       }
 
       // camping = Campground
-      if (trailhead.properties.camping) {
+      if (trailhead.properties.tags.indexOf("camping") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-camp'><use xlink:href='icons/defs.svg#icon-camp'></use></svg><span class='fpccAmenityTitle'>Campground</span></div>");
       }
 
       // canoe = Canoe Landing
-      if (trailhead.properties.canoe) {
+      if (trailhead.properties.tags.indexOf("canoe") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-canoe-landing'><use xlink:href='icons/defs.svg#icon-canoe-landing'></use></svg><span class='fpccAmenityTitle'>Canoe Landing</span></div>");
       }
 
       // cross_country = Cross-Country Skiing
-      if (trailhead.properties.cross_country) {
+      if (trailhead.properties.tags.indexOf("cross_country") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-cross-country-skiing'><use xlink:href='icons/defs.svg#icon-cross-country-skiing'></use></svg><span class='fpccAmenityTitle'>Cross-Country Skiing</span></div>");
       }
 
       // cycling = Bicycling
-      if (trailhead.properties.cycling) {
+      if (trailhead.properties.tags.indexOf("cycling") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-bicycling'><use xlink:href='icons/defs.svg#icon-bicycling'></use></svg><span class='fpccAmenityTitle'>Bicycling</span></div>");
       }
 
       // disc_golf = Disc Golf
-      if (trailhead.properties.disc_golf) {
+      if (trailhead.properties.tags.indexOf("disc_golf") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-disc-golf'><use xlink:href='icons/defs.svg#icon-disc-golf'></use></svg><span class='fpccAmenityTitle'>Disc Golf</span></div>");
       }
 
       //  dog_friendly = Off-Leash Dog Area
-      if (trailhead.properties.dog_friendly) {
+      if (trailhead.properties.tags.indexOf("dog_friendly") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-off-leash-dog-area'><use xlink:href='icons/defs.svg#icon-off-leash-dog-area'></use></svg><span class='fpccAmenityTitle'>Off-Leash Dog Area</span></div>");
       }
 
       //  dog_leash = Dogs (with a leash)
-      if (trailhead.properties.dog_leash) {
+      if (trailhead.properties.tags.indexOf("dog_leash") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-dog-leash'><use xlink:href='icons/defs.svg#icon-dog-leash'></use></svg><span class='fpccAmenityTitle'>Dogs (with a leash)</span></div>");
       }
 
       //  drone = Drone Flying
-      if (trailhead.properties.drone) {
+      if (trailhead.properties.tags.indexOf("drone") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-drone'><use xlink:href='icons/defs.svg#icon-drone'></use></svg><span class='fpccAmenityTitle'>Drone Flying</span></div>");
       }
 
       // ecological = Ecological Management
-      if (trailhead.properties.ecological) {
+      if (trailhead.properties.tags.indexOf("ecological") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-ecological-management-area'><use xlink:href='icons/defs.svg#icon-ecological-management-area'></use></svg><span class='fpccAmenityTitle'>Ecological Management</span></div>");
       }
 
       // equestrian = Equestrian
-      if (trailhead.properties.equestrian) {
+      if (trailhead.properties.tags.indexOf("equestrian") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-equestrian'><use xlink:href='icons/defs.svg#icon-equestrian'></use></svg><span class='fpccAmenityTitle'>Equestrian</span></div>");
       }
 
       // fishing = Fishing
-      if (trailhead.properties.fishing) {
+      if (trailhead.properties.tags.indexOf("fishing") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-fishing'><use xlink:href='icons/defs.svg#icon-fishing'></use></svg><span class='fpccAmenityTitle'>Fishing</span></div>");
       }
 
       // golf = Golf
-      if (trailhead.properties.golf) {
+      if (trailhead.properties.tags.indexOf("golf") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-golf-course-driving-range'><use xlink:href='icons/defs.svg#icon-golf-course-driving-range'></use></svg><span class='fpccAmenityTitle'>Golf</span></div>");
       }
 
       // hiking = Hiking
-      if (trailhead.properties.hiking) {
+      if (trailhead.properties.tags.indexOf("hiking") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-hiking'><use xlink:href='icons/defs.svg#icon-hiking'></use></svg><span class='fpccAmenityTitle'>Hiking</span></div>");
       }
 
       // ice_fishing = Ice Fishing
-      if (trailhead.properties.ice_fishing) {
+      if (trailhead.properties.tags.indexOf("ice_fishing") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-ice-fishing'><use xlink:href='icons/defs.svg#icon-ice-fishing'></use></svg><span class='fpccAmenityTitle'>Ice Fishing</span></div>");
       }
 
       // m_airplane = Model Airplane Flying Field
-      if (trailhead.properties.m_airplane) {
+      if (trailhead.properties.tags.indexOf("m_airplane") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-model-airplane'><use xlink:href='icons/defs.svg#icon-model-airplane'></use></svg><span class='fpccAmenityTitle'>Model Airplane Flying Field</span></div>");
       }
 
       // m_boat = Model Sailboat
-      if (trailhead.properties.m_boat) {
+      if (trailhead.properties.tags.indexOf("m_boat") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-model-sailboat'><use xlink:href='icons/defs.svg#icon-model-sailboat'></use></svg><span class='fpccAmenityTitle'>Model Sailboat</span></div>");
       }
 
       // nature_center = Nature Center
-      if (trailhead.properties.nature_center) {
+      if (trailhead.properties.tags.indexOf("nature_center") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-nature-center'><use xlink:href='icons/defs.svg#icon-nature-center'></use></svg><span class='fpccAmenityTitle'>Nature Center</span></div>");
       }
 
       // no_alcohol = No Alcohol
-      if (trailhead.properties.no_alcohol) {
+      if (trailhead.properties.tags.indexOf("no_alcohol") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-no-alcohol'><use xlink:href='icons/defs.svg#icon-no-alcohol'></use></svg><span class='fpccAmenityTitle'>No Alcohol</span></div>");
       }
 
       // no_parking = No Parking
-      if (trailhead.properties.no_parking) {
+      if (trailhead.properties.tags.indexOf("no_parking") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-no-parking'><use xlink:href='icons/defs.svg#icon-no-parking'></use></svg> <span class='fpccAmenityTitle'>No Parking</span></div>");
       }
 
       // overlook = Scenic Overlook
-      if (trailhead.properties.overlook) {
+      if (trailhead.properties.tags.indexOf("overlook") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-scenic-overlook'><use xlink:href='icons/defs.svg#icon-scenic-overlook'></use></svg><span class='fpccAmenityTitle'>Scenic Overlook</span></div>");
       }
 
       // pavilion = Pavilion/Event Space
-      if (trailhead.properties.pavilion) {
+      if (trailhead.properties.tags.indexOf("pavilion") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-facility'><use xlink:href='icons/defs.svg#icon-facility'></use></svg><span class='fpccAmenityTitle'>Indoor Facility</span></div>");
       }
 
       // picnic_grove = Picnic Grove
-      if (trailhead.properties.picnic_grove) {
+      if (trailhead.properties.tags.indexOf("picnic_grove") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity picnic-grove'><svg class='icon icon-picnic-grove'><use xlink:href='icons/defs.svg#icon-picnic-grove'></use></svg><span class='fpccAmenityTitle'>Picnic Grove</span></div>");
       }
 
       // shelter = Picnic Grove (with shelter)
-      if (trailhead.properties.shelter) {
+      if (trailhead.properties.tags.indexOf("shelter") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-picnic-grove-shelter'><use xlink:href='icons/defs.svg#icon-picnic-grove-shelter'></use></svg><span class='fpccAmenityTitle'>Picnic Grove (with shelter)</span></div>");
       }
 
       // skating_ice = Ice Skating
-      if (trailhead.properties.skating_ice) {
+      if (trailhead.properties.tags.indexOf("skating_ice") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-ice-skating'><use xlink:href='icons/defs.svg#icon-ice-skating'></use></svg><span class='fpccAmenityTitle'>Ice Skating</span></div>");
       }
 
       // sledding = Sledding
-      if (trailhead.properties.sledding) {
+      if (trailhead.properties.tags.indexOf("sledding") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-sledding'><use xlink:href='icons/defs.svg#icon-sledding'></use></svg><span class='fpccAmenityTitle'>Sledding</span></div>");
       }
 
       // snowmobile = Snowmobile Area
-      if (trailhead.properties.snowmobile) {
+      if (trailhead.properties.tags.indexOf("snowmobile") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-snowmobiling'><use xlink:href='icons/defs.svg#icon-snowmobiling'></use></svg><span class='fpccAmenityTitle'>Snowmobile Area</span></div>");
       }
 
       // swimming = Aquatic Center
-      if (trailhead.properties.swimming) {
+      if (trailhead.properties.tags.indexOf("swimming") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-aquatic-center'><use xlink:href='icons/defs.svg#icon-aquatic-center'></use></svg><span class='fpccAmenityTitle'>Aquatic Center</span></div>");
       }
 
       // volunteer = Volunteer Opportunities
-      if (trailhead.properties.volunteer) {
+      if (trailhead.properties.tags.indexOf("volunteer") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-volunteer'><use xlink:href='icons/defs.svg#icon-volunteer'></use></svg><span class='fpccAmenityTitle'>Volunteer Opportunities</span></div>");
       }
       
       // parking = Parking
-      if (trailhead.properties.parking) {
+      if (trailhead.properties.tags.indexOf("parking") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-parking'><use xlink:href='icons/defs.svg#icon-parking'></use></svg><span class='fpccAmenityTitle'>Parking</span></div>");
       }
 
       // trailacces = Trail System Access
-      if (trailhead.properties.trailacces) {
+      if (trailhead.properties.tags.indexOf("trailacces") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-trail-marker'><use xlink:href='icons/defs.svg#icon-trail-marker'></use></svg><span class='fpccAmenityTitle'>Trail Access</span></div>");
       }
 
-      // trailacces = Trail System Access
-      if (trailhead.properties.zip_line) {
+      // zip_line = Zip Line
+      if (trailhead.properties.tags.indexOf("zip_line") > -1) {
         $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-zip-line'><use xlink:href='icons/defs.svg#icon-zip-line'></use></svg><span class='fpccAmenityTitle'>Zip Line / Treetop Adventure</span></div>");
       }
 
