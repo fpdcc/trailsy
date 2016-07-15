@@ -1932,7 +1932,8 @@ function startup() {
       trailListContents = trailListContents + trailDivComplete;
       divCount++;
      
-
+      console.log("[makeTrailDivs] trailList[trailName] = " + trailList[trailName]);
+      console.log("[makeTrailDivs] trailheadTrailSubsystem = " + trailheadTrailSubsystem);
       if ((!trailList[trailName]) && trailheadTrailSubsystem && currentFilters.trailInList) {
         trailDivText = "<a class='fpccEntry clearfix' " +
         "data-source='list' " +
@@ -2281,6 +2282,7 @@ function startup() {
 
       $('.detailPanel #trailDescription').html("");
       $('.detailPanel #trailDescription').hide();
+      $('.detailPanel .fpccTrailDescription').hide();
 
       $('.detailPanel .fpccLinks').html("");
       $('.detailPanel .fpccLinks').hide();
@@ -2391,10 +2393,11 @@ function startup() {
     resetDetailPanel();
     console.log("[decorateDetailPanelForTrailhead]");
 
-    $('.detailPanel .trailMaps').show();
+    // $('.detailPanel .trailMaps').show();
     $('.detailPanel .fpccEntrance').show();
     $('.detailPanel .fpccAmenities').show();
     $('.detailPanel .fpccTop').show();
+    $('.detailPanel .fpccTrailDescription').hide();
     if(trailhead) {
       var directTrail = originalTrailData[trailhead.properties.direct_trail_id] || null;
       if (directTrail) {
@@ -2404,16 +2407,18 @@ function startup() {
         $('.detailPanel .fpccTrailName').html(subSystem);
         $('.detailPanel .trailheadTrailMaps').show();
         $('.detailPanel .fpccTrailHeader').show();
-        $('.detailPanel .fpccTrailDescription').show();
+        
         $('.detailPanel .fpccTrailSegments').show();
         $('.detailPanel .fpccTrails').show();
         $('.detailPanel .fpccTrails .icon-trail-marker').show();
+        $('.detailPanel #trailDescription').hide();
 
         if (directTrail.trail_desc) {
           console.log("[decorateDetailPanelForTrailhead] directTrail.trail_desc is true? " + directTrail.trail_desc);
           //document.getElementById('trailDescription').innerHTML = trail.properties.description;
           $('.detailPanel #trailDescription').html(directTrail.trail_desc);
           $('.detailPanel #trailDescription').show();
+          $('.detailPanel .fpccTrailDescription').show();
         }
 
         var showMaps = false;
@@ -2423,6 +2428,7 @@ function startup() {
           $('.detailPanel #pdfEnglish').attr("href", directTrail.map_link);
           $('.detailPanel #pdfEnglish').show();
           showMaps = true;
+          $('.detailPanel .fpccTrailDescription').show();
         }
         console.log("[decorateDetailPanelForTrailhead] showMaps = " + showMaps);
 
@@ -2431,6 +2437,7 @@ function startup() {
 
           $('.detailPanel #pdfSpanish').show();
           showMaps = true;
+          $('.detailPanel .fpccTrailDescription').show();
         }
         console.log("[decorateDetailPanelForTrailhead] showMaps = " + showMaps);
 
