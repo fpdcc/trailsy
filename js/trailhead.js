@@ -94,8 +94,8 @@ function startup() {
     document.title = "Cook County Forest Preserves";
     API_HOST = "http://fpcc.smartchicagoapps.org";
   } 
-  API_HOST = "http://localhost:8080";
-  console.log("API_HOST = " + API_HOST);
+  // API_HOST = "http://localhost:8080";
+  // console.log("API_HOST = " + API_HOST);
   //API_HOST = "http://fpcc-staging.smartchicagoapps.org/json"
 
   //  Near-Global Variables
@@ -697,15 +697,22 @@ function startup() {
         var addressTrailheadMatched = !! normalizedTrailheadAddress.match(searchRegex);
         var descriptionTrailMatched = !! normalizedTrailDescription.match(searchRegex);
         var descriptionTrailheadMatched = !! normalizedTrailheadDescription.match(searchRegex);
-        var nameMatched = 0;
+        var nameMatched = false;
+        console.log("[filterResults2] normalizedNames = " + normalizedNames);
         $.each( normalizedNames, function( i, val ) {
-          nameMatched = !! val.match(searchRegex);
-          return ( nameMatched == 0 );
+          console.log("[filterResults2] val = " + val);
+          if((!! val.match(searchRegex)) ) {
+            nameMatched = true;
+          }
+          console.log("[filterResults2] nameMatched for i: " + i + " - " + nameMatched);
         });
+        console.log("filterResults2] normalizedNames : nameMatched = " + normalizedNames + ":" + nameMatched);
         console.log("[filterResults] activityFilter = " + activity);
         console.log("[filterResults] tags = " + trailhead.properties.tags);
 
+
         if ( nameMatched ) {
+          console.log("[filterResults2] normalizedNames: in if = " + normalizedNames);
           term = 10;
         } else if ((descriptionTrailMatched) || (descriptionTrailheadMatched)) {
           term = 1;
@@ -1720,6 +1727,7 @@ function startup() {
       trailhead.properties.filterResults = 0;
       var trailheadWanted = 0;
       trailhead.properties.filterResults = filterResults2(trailhead);
+      trailhead.properties.filterScore = trailhead.properties.filterResults;
       if (trailhead.properties.filterResults > 0) {
         trailheadWanted = true;
         currentTrailIDs[trailhead.properties.direct_trail_id] = 1;
@@ -1934,6 +1942,7 @@ function startup() {
      
       console.log("[makeTrailDivs] trailList[trailName] = " + trailList[trailName]);
       console.log("[makeTrailDivs] trailheadTrailSubsystem = " + trailheadTrailSubsystem);
+
       if ((!trailList[trailName]) && trailheadTrailSubsystem && currentFilters.trailInList) {
         trailDivText = "<a class='fpccEntry clearfix' " +
         "data-source='list' " +
