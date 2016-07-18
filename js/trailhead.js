@@ -94,7 +94,7 @@ function startup() {
     document.title = "Cook County Forest Preserves";
     API_HOST = "http://fpcc.smartchicagoapps.org";
   } 
-  // API_HOST = "http://localhost:8080";
+  API_HOST = "http://localhost:8080";
   // console.log("API_HOST = " + API_HOST);
   //API_HOST = "http://fpcc-staging.smartchicagoapps.org/json"
 
@@ -1123,8 +1123,8 @@ function startup() {
       var currentFeature = ActivityDataGeoJSON.features[i];
       var currentFeatureLatLng = new L.LatLng(currentFeature.geometry.coordinates[1], currentFeature.geometry.coordinates[0]);
       var iconType = null;
-      var activityType = currentFeature.properties.activity_type;
-      var activityName = currentFeature.properties.name || activityType;
+      var activityType = currentFeature.properties.atype;
+      var activityName = currentFeature.properties.name || currentFeature.properties.aname;
       var popupContentMainDivHTML = "<div class='activity-popup'>";
       popupContentMainDivHTML += activityName;
       if (activityType == "trailhead") {
@@ -1218,8 +1218,8 @@ function startup() {
 
         setActivityEventHandlers(activity);
         activity.marker.bindPopup(activity.popupContent);
-        originalActivities[activity.properties.trailhead_id] = originalActivities[activity.properties.trailhead_id] || [];
-        originalActivities[activity.properties.trailhead_id].push(activity);
+        originalActivities[activity.properties.poi_info_id] = originalActivities[activity.properties.poi_info_id] || [];
+        originalActivities[activity.properties.poi_info_id].push(activity);
         originalActivityFeatureGroup.addLayer(activity.marker);
       }
     } 
@@ -1240,18 +1240,18 @@ function startup() {
       lastTrailheadId = currentTrailhead.id;
     }
     console.log("lastTrailheadId = " + lastTrailheadId);
-    var trailhead = getTrailheadById(activity.properties.trailhead_id);
+    var trailhead = getTrailheadById(activity.properties.poi_info_id);
     
     if (trailhead) {
       showTrailDetails(null, trailhead);
-      if ( lastTrailheadId != activity.properties.trailhead_id ) {
-        highlightTrailhead(activity.properties.trailhead_id);
-        highlightActivities(activity.properties.trailhead_id);
-        var trailSystem = null;
-        if (trailhead.properties.trail_systems.length > 0) {
-          trailSystem = trailhead.properties.trail_systems[0];
+      if ( lastTrailheadId != activity.properties.poi_info_id ) {
+        highlightTrailhead(activity.properties.poi_info_id);
+        highlightActivities(activity.properties.poi_info_id);
+        var trailSubsystem = null;
+        if (trailhead.properties.direct_trail_id) {
+          trailSubsystem = originalTrailData[trailhead.properties.direct_trail_id].trail_subsystem;
         }
-        highlightTrailSegmentsForTrailSystem(trailSystem);
+        highlightTrailSegmentsForTrailSubsystem(trailSubsystem);
         var zoomArray = highlightedActivityMarkerArray.slice(0);
         console.log("zoomArray = " + zoomArray);
         zoomArray.push(trailhead.marker);
