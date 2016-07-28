@@ -1154,6 +1154,8 @@ function startup() {
         iconType = "icon-canoe-landing";
       } else if (activityType == "dog park") {
         iconType = "icon-off-leash-dog-area";
+      } else if (activityType == "drone") {
+        iconType = "icon-drone";
       } else if (activityType == "equestrian center") {
         iconType = "icon-facility";
       //} else if (activityType == "equestrian parking") {
@@ -1164,8 +1166,12 @@ function startup() {
         iconType = "icon-golf-course-driving-range";
       } else if (activityType == "golf driving range") {
         iconType = "icon-golf-course-driving-range";
+       } else if  (activityType == "headquarters") {
+        iconType = "icon-facility";
       } else if  (activityType == "model airplane flying field") {
         iconType = "icon-model-airplane";
+       } else if  (activityType == "nature center") {
+        iconType = "icon-nature-center";
       } else if  (activityType == "pavillion") {
         iconName = activityName;
         iconType = "icon-facility";
