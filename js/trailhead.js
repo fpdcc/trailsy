@@ -2314,6 +2314,8 @@ function startup() {
       $('.detailPanel #pdfEnglish').attr("href", "");
       $('.detailPanel #pdfSpanish').attr("href", "");
 
+      $('.detailPanel .fpccNP').hide();
+
 
   }
 
@@ -2576,10 +2578,23 @@ function startup() {
         $('.detailPanel .fpccDescription').show();
       }
 
-      var extraLinksText = '<div class="fpccMoreHeader">';
-      extraLinksText += '<span class="fpccMoreName">More Information</span></div><ul>';
-      var extraLinksExist = false;
+      var extraLinksText = '<span class="fpccLabel">More Information</span><ul>';
+      var extraLinksExist = true;
 
+      extraLinksText += '<li><a target="_blank" href="http://fpdcc.com/rules-and-regulations/">Rules &amp; Regulations</a></li>';
+
+      if ((trailhead.properties.tags[':panel'].indexOf("picnic_grove") > -1) || (trailhead.properties.tags[':panel'].indexOf("shelter") > -1)) {
+        extraLinksExist = true;
+        extraLinksText += '<li><a target="_blank" href="http://fpdcc.com/permits/">Picnic &amp; Event Permits</a></li>'
+      }
+      if ((trailhead.properties.tags[':panel'].indexOf("boat_ramp") > -1) || (trailhead.properties.tags[':panel'].indexOf("boat_rental") > -1) || (trailhead.properties.tags[':panel'].indexOf("canoe") > -1)) {
+        extraLinksExist = true;
+        extraLinksText += '<li><a target="_blank" href="http://fpdcc.com/boating/">Boating Information</a></li>'
+      }
+      if ((trailhead.properties.tags[':panel'].indexOf("fishing") > -1)) {
+        extraLinksExist = true;
+        extraLinksText += '<li><a target="_blank" href="http://fpdcc.com/fishing/">Fishing Information</a></li>'
+      }
       if (trailhead.properties.web_link) {
         extraLinksExist = true;
         extraLinksText += '<li><a class="fpccMore" href="' + trailhead.properties.web_link;
@@ -2773,6 +2788,11 @@ function startup() {
         // nature_center = Nature Center
         if (trailhead.properties.tags[':panel'].indexOf("nature_center") > -1) {
           $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-nature-center'><use xlink:href='icons/defs.svg#icon-nature-center'></use></svg><span class='fpccAmenityTitle'>Nature Center</span></div>");
+        }
+
+        // nature_preserve = Nature Preserve
+        if (trailhead.properties.tags[':panel'].indexOf("nature_preserve") > -1) {
+          $('.detailPanel .fpccNP').show();
         }
 
         // no_alcohol = No Alcohol
