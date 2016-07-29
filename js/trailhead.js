@@ -1544,11 +1544,12 @@ function startup() {
         // if (originalTrailData[thisSecondaryTrail]) {
         //   thisTrailType = originalTrailData[thisSecondaryTrail].properties.trail_type;
         // }
-        switch (thisTrailType) {
-          case 'unpaved': thisDash = "5,10"; break;
-          case '': thisDash = "5,10"; break;
-          case 'primitive': thisDash = "5,10"; break;
+        if (thisTrailType == 'paved') {
+          thisDash = null;
+        } else {
+          thisDash = "5,10";
         }
+  
         switch (feature.properties.trail_color.toLowerCase()) {
                 case 'red': thisColor = "#EE2D2F"; break;
                 case 'orange': thisColor = "#F7941E"; break;
