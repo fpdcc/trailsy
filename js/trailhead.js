@@ -2336,7 +2336,7 @@ function startup() {
         var indirectHTML = "";
         for (var trailIndex = 0; trailIndex < segments.length; trailIndex++ ) {
           var thisTrail = segments[trailIndex];
-          if (thisTrail.subtrail_length_mi >= 1) {
+          if (thisTrail.subtrail_length_mi >= 1 || trailIndex == 0) {
             indirectHTML += '<div class="fpccTrailSegment"><div class="fpccSegmentOverview fpcc';
             indirectHTML += thisTrail.trail_color;
             if (thisTrail.trail_type.toLowerCase() != "paved") {
