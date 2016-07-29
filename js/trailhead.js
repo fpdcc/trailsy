@@ -1562,6 +1562,7 @@ function startup() {
                 case 'brown': thisColor = "#6C503F"; break;
                 case 'blue': thisColor = "#26B8EB"; break;
                 case 'black': thisColor = "#333132"; break;
+                case 'future extension': thisColor = "58595B"; break;
         }
         return {className: "testClass testClass2", color: thisColor, dashArray: thisDash,  weight: thisWeight, opacity: thisOpacity, clickable: thisClickable, smoothFactor: thisSmoothFactor};
       }, //color: thisColor,

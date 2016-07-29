@@ -47,7 +47,7 @@ a:hover .fpccAmenityTitle,a:active .fpccAmenityTitle{text-decoration:none}
 .fpccSegmentDetails{margin-top:.35em}
 .fpccorange, .fpccORANGE{border-bottom:8px solid #F7941E}
 .fpccpurple, .fpccPURPLE{border-bottom:8px solid #7F58A5}
-.fpccgrey, .fpccGREY{border-bottom:8px solid #58595B}
+.fpccgrey, .fpccGREY, .fpccfuture{border-bottom:8px solid #58595B}
 .fpccred, .fpccRED{border-bottom:8px solid #EE2D2F}
 .fpccyellow, .fpccYELLOW{border-bottom:8px solid #FFF450}
 .fpccgreen, .fpccGREEN{border-bottom:8px solid #006129}
