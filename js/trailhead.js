@@ -2362,8 +2362,8 @@ function startup() {
             indirectHTML += thisTrail.trail_type;
             indirectHTML += '</span></span></div></div>';
           }
-
         }
+        indirectHTML += '<span class="fpccOneMile">*Segments under 1 mile not shown.</span>';
         $('.detailPanel .fpccTrailSegments').html(indirectHTML);
         $('.detailPanel .fpccTrailDescription').show();
         $('.detailPanel .fpccTrailSegments').show();
@@ -2536,6 +2536,7 @@ function startup() {
             trailSegmentsHTML += indirectHTML;
           }
         }
+        trailSegmentsHTML += '<span class="fpccOneMile">*Segments under 1 mile not shown.</span>';
 
         $('.detailPanel .fpccTrailSegments').html(trailSegmentsHTML);
 
