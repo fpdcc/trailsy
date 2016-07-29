@@ -13,6 +13,11 @@
 .fpccAmenities .icon{width:2em;height:2em;margin-right:.65em;vertical-align:middle} 
 a:link .fpccAmenityTitle,a:visited .fpccAmenityTitle{text-decoration:underline;color:#333}
 a:hover .fpccAmenityTitle,a:active .fpccAmenityTitle{text-decoration:none}
+.fpccNP{padding:0 1em;border:2px solid #008200;margin:1em 1em 2.5em;text-align:center;background:#F4FFF4}/*GH*/
+.fpccNP img{width:75px;margin:-30px 0 0}/*GH*/
+.fpccNP a:link,.fpccNP a:visited{color:#008200}/*GH*/
+.fpccNP a:hover,.fpccNP a:active{text-decoration:none}/*GH*/
+.fpccNP p{text-align:left;margin-top:.5em;}/*GH*/
 .fpccSign{float:left;width:65%;margin:0 7% 0 0}
 .fpccSign .icon{width:12%;height:2.25em;margin-right:3%;vertical-align:top}
 .fpccAddress{display:inline-block;width:82%}
@@ -20,7 +25,7 @@ a:hover .fpccAmenityTitle,a:active .fpccAmenityTitle{text-decoration:none}
 .fpccDirections{width:28%;float:right;margin-bottom:.75em}
 .fpccDirections a:link,.fpccDirections a:visited{display:block;width:100%}
 .fpccDirections a:hover,.fpccDirections a:active{}
-.fpccLinks{border-bottom:3px solid #DDD;padding-bottom:2em}
+/*.fpccLinks{border-bottom:3px solid #DDD;padding-bottom:2em} GH */
 .fpccLinks ul{padding:0 0 0 1.5em;margin-bottom:0}
 .fpccTrailMaps .fpccMap a:link, .fpccTrailMaps .fpccMap a:visited{display:inline-block;width:inherit;padding:.35em 1em}
 .fpccTrailMaps .fpccMap{display:inline-block;width:inherit;margin:.25em 0 0 .5em;float:none}
@@ -30,11 +35,12 @@ a:hover .fpccAmenityTitle,a:active .fpccAmenityTitle{text-decoration:none}
 .fpccTrails.fpccTrailsFeature{border-top:none;background:none;padding-top:0}
 .fpccTrails .icon-trail-marker{width:2.5em;height:2.5em;margin-right:.5em;vertical-align:top;margin-top:3px}
 .fpccMoreHeader{display:inline-block}
-.fpccTrailHeader{display:inline-block;margin-bottom:1.5em}
-.fpccTrailName,.fpccSegmentName,.fpccMoreName{font-family:Helvetica, Arial, sans-serif;font-size:1.5em;line-height:1;font-weight:bold;color:#585747;display:block}
+.fpccTrailHeader{display:inline-block;margin-bottom:1.5em;max-width:80%}/*GH*/
+.fpccTrailName,.fpccSegmentName,.fpccMoreName{font-family:Helvetica, Arial, sans-serif;font-size:1.5em;line-height:1.15;font-weight:bold;color:#585747;display:block}/*GH*/
 .fpccSegmentName{font-size:1.25em;float:left;margin-top:2px}
 .fpccTrailSegment{padding:.75em 0 0;margin:.75em 0;border-top:1px dotted #CCC}
 .fpccTrails .fpccTrailDescription{margin:0;padding:0 0 1em;border-bottom:none}
+.fpccOneMile{border-top:1px dotted #CCC;display:block;padding:.75em 0;font-style:italic}/*GH*/
 .fpccTrailUse{float:right}
 .fpccTrailUse .icon{width:1.5em;height:1.5em;margin-left:.25em}
 .fpccSegmentOverview{}
@@ -126,8 +132,6 @@ a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 .trailListColumn .fpccUnit.fpccResults a span.fpccEntryName{font-size:1em;font-weight:bold;float:left;width:70%}
 .fpccEntryDis{font-size:.9125em;font-family:Georgia,"Times New Roman",serif;float:right;width:30%;text-align:right}
 
-
-
 /*jquery mobile override */
 .fpccUnit .ui-content{padding:0}
 .trailListColumn .ui-btn span{text-align:left}
@@ -158,7 +162,7 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
 
 
 .fpccTop{border-bottom:3px solid #CCC}
-.fpccHours{border-top:1px dotted #CCC;padding:1em 0;margin:-.75em 1em 1em}
+.fpccHours,.fpccLinks{border-top:1px dotted #CCC;padding:1em 0;margin:-.75em 1em 1em}/*GH*/
 .fpccHours1,.fpccHours2,.fpccSpecialHours,.fpccPhone{display:block}
 .fpccPhone{margin-top:.5em}
 .fpccSpecialHours{font-style:italic;font-size:.75em}
