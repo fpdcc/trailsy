@@ -1178,7 +1178,7 @@ function startup() {
         iconName = activityName;
         iconType = "icon-facility";
       } else if  (activityType == "recreational waterbody") {
-        iconName = activityName;
+        // iconName = activityName;
         iconType = "icon-waterbody";
       //} else if  (activityType == "scenic") {
       //  iconType = "icon-scenic-overlook";
