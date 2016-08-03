@@ -2578,23 +2578,9 @@ function startup() {
         $('.detailPanel .fpccDescription').show();
       }
 
-      var extraLinksText = '<span class="fpccLabel">More Information</span><ul>';
+      var extraLinksText = '<span class="fpccLabel fpccMore">More Information</span><ul>';
       var extraLinksExist = true;
 
-      extraLinksText += '<li><a target="_blank" href="http://fpdcc.com/rules-and-regulations/">Rules &amp; Regulations</a></li>';
-
-      if ((trailhead.properties.tags[':panel'].indexOf("picnic_grove") > -1) || (trailhead.properties.tags[':panel'].indexOf("shelter") > -1)) {
-        extraLinksExist = true;
-        extraLinksText += '<li><a target="_blank" href="http://fpdcc.com/permits/">Picnic &amp; Event Permits</a></li>'
-      }
-      if ((trailhead.properties.tags[':panel'].indexOf("boat_ramp") > -1) || (trailhead.properties.tags[':panel'].indexOf("boat_rental") > -1) || (trailhead.properties.tags[':panel'].indexOf("canoe") > -1)) {
-        extraLinksExist = true;
-        extraLinksText += '<li><a target="_blank" href="http://fpdcc.com/boating/">Boating Information</a></li>'
-      }
-      if ((trailhead.properties.tags[':panel'].indexOf("fishing") > -1)) {
-        extraLinksExist = true;
-        extraLinksText += '<li><a target="_blank" href="http://fpdcc.com/fishing/">Fishing Information</a></li>'
-      }
       if (trailhead.properties.web_link) {
         extraLinksExist = true;
         extraLinksText += '<li><a class="fpccMore" href="' + trailhead.properties.web_link;
@@ -2624,6 +2610,20 @@ function startup() {
         extraLinksExist = true;
         extraLinksText += '<li><a class="fpccMore" href="' + trailhead.properties.vol_link2;
         extraLinksText += '" target="_blank">Volunteer Opportunity</a></li>';
+      }
+      extraLinksText += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/rules-and-regulations/">Rules &amp; Regulations</a></li>';
+
+      if ((trailhead.properties.tags[':panel'].indexOf("picnic_grove") > -1) || (trailhead.properties.tags[':panel'].indexOf("shelter") > -1)) {
+        extraLinksExist = true;
+        extraLinksText += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/permits/">Picnic &amp; Event Permits</a></li>'
+      }
+      if ((trailhead.properties.tags[':panel'].indexOf("boat_ramp") > -1) || (trailhead.properties.tags[':panel'].indexOf("boat_rental") > -1) || (trailhead.properties.tags[':panel'].indexOf("canoe") > -1)) {
+        extraLinksExist = true;
+        extraLinksText += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/boating/">Boating Information</a></li>'
+      }
+      if ((trailhead.properties.tags[':panel'].indexOf("fishing") > -1)) {
+        extraLinksExist = true;
+        extraLinksText += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/fishing/">Fishing Information</a></li>'
       }
       extraLinksText += '</ul></div>';
       if (extraLinksExist === true) {
