@@ -36,7 +36,7 @@ a:hover .fpccAmenityTitle,a:active .fpccAmenityTitle{text-decoration:none}
 .fpccTrails .icon-trail-marker{width:2.5em;height:2.5em;margin-right:.5em;vertical-align:top;margin-top:3px}
 .fpccMoreHeader{display:inline-block}
 .fpccTrailHeader{display:inline-block;margin-bottom:1.5em;max-width:80%}/*GH*/
-.fpccTrailName,.fpccSegmentName,.fpccMoreName{font-family:Helvetica, Arial, sans-serif;font-size:1.5em;line-height:1.15;font-weight:bold;color:#585747;display:block}/*GH*/
+.fpccTrailName,.fpccSegmentName,.fpccMoreName{font-family:Helvetica, Arial, sans-serif;font-size:1.5em;line-height:1.15;font-weight:bold;color:#585747;display:block;text-transform:capitalize;}/*GH*/
 .fpccSegmentName{font-size:1.25em;float:left;margin-top:2px}
 .fpccTrailSegment{padding:.75em 0 0;margin:.75em 0;border-top:1px dotted #CCC}
 .fpccTrails .fpccTrailDescription{margin:0;padding:0 0 1em;border-bottom:none}
