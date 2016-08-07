@@ -1138,7 +1138,6 @@ function startup() {
         iconType = "icon-fishing";
       } else if (activityType == "aquatic center") {
         iconType = "icon-aquatic-center";
-        iconName = activityName;
       //} else if (activityType == "bicycle lot") {
       //  iconType = "icon-bicycling";
       } else if (activityType == "bicycle rental") {
@@ -1151,7 +1150,6 @@ function startup() {
         iconType = "icon-boat-launch";
       } else if (activityType == "boat rental") {
         iconName = activityName;
-        iconType = "icon-boat-rental";
       } else if (activityType == "canoe landing") {
         iconType = "icon-canoe-landing";
       } else if (activityType == "dog park") {
@@ -1175,7 +1173,6 @@ function startup() {
        } else if  (activityType == "nature center") {
         iconType = "icon-nature-center";
       } else if  (activityType == "pavillion") {
-        iconName = activityName;
         iconType = "icon-facility";
       } else if  (activityType == "recreational waterbody") {
         // iconName = activityName;
@@ -1202,7 +1199,7 @@ function startup() {
 
       var activityIcon = L.divIcon({
         className: 'icon-map icon-activity activity-' + currentFeature.properties.id + ' ' + iconType,
-        html: '<svg class="icon icon-map icon-activity ' + iconType + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg><br />' + iconName,
+        html: '<svg class="icon icon-map icon-activity ' + iconType + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg><br />',
         iconAnchor: [13 * 0.60, 33 * 0.60],
         popupAnchor: [0, -20],
         iconSize: null
