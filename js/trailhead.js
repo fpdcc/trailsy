@@ -1564,6 +1564,9 @@ function startup() {
                 case 'black': thisColor = "#333132"; break;
                 case 'future extension': thisColor = "58595B"; break;
         }
+        if (feature.properties.off_fpdcc == 'y') {
+          thisColor = NORMAL_SEGMENT_COLOR;
+        }
         return {className: "testClass testClass2", color: thisColor, dashArray: thisDash,  weight: thisWeight, opacity: thisOpacity, clickable: thisClickable, smoothFactor: thisSmoothFactor};
       }, //color: thisColor,
       onEachFeature: function visibleOnEachFeature(feature, layer) {
@@ -1740,7 +1743,9 @@ function startup() {
       trailhead.properties.filterScore = trailhead.properties.filterResults;
       if (trailhead.properties.filterResults > 0) {
         trailheadWanted = true;
-        currentTrailIDs[trailhead.properties.direct_trail_id] = 1;
+        var thisTrailSubsystem = trailhead.properties.trail_subsystem;
+        console.log("[addTrailsToTrailheads] thisTrailSubsystem = " + thisTrailSubsystem);
+        currentTrailIDs[thisTrailSubsystem] = 1;
       }
       if (trailheadWanted) {
         currentTrailheads.push(trailhead);
@@ -1753,14 +1758,15 @@ function startup() {
       makeCurrentActivities(currentTrailheads);
       makeTrailheadPopups(currentTrailheads);
       mapActiveTrailheads(currentTrailheads);
-      
+      console.log("[addTrailsToTrailheads] currentFilters.trailOnMap= " + currentFilters.trailOnMap);
       allSegmentLayer.eachLayer(function (layer) {
         //console.log("trail_ids= " + layer.getLayers()[0].feature.properties.trail_ids);
         //console.log("trail_systems= " + layer.getLayers()[0].feature.properties.trail_systems);
-        if (layer.getLayers()[0].feature.properties.trail_systems) {
+        if (layer.getLayers()[0].feature.properties.trail_subsystem) {
           var layerWanted = 0;
-          if (currentTrailIDs[layer.getLayers()[0].feature.properties.trail_systems] && currentFilters.trailOnMap) {
-            //console.log("[allSegmentLayer true] layer.getLayers()[0].feature.properties.trail_systems[0]= " + layer.getLayers()[0].feature.properties.trail_systems[0]);
+
+          if (currentTrailIDs[layer.getLayers()[0].feature.properties.trail_subsystem] && currentFilters.trailOnMap) {
+            console.log("[allSegmentLayer true] layer.getLayers()[0].feature.properties.trail_subsystem= " + layer.getLayers()[0].feature.properties.trail_subsystem);
             layer.getLayers()[0].setStyle({weight: NORMAL_SEGMENT_WEIGHT});
             layer.getLayers()[1].setStyle({weight: 20});
           } else {
@@ -2341,12 +2347,20 @@ function startup() {
           var thisTrail = segments[trailIndex];
           if (thisTrail.subtrail_length_mi >= 1 || trailIndex == 0) {
             indirectHTML += '<div class="fpccTrailSegment"><div class="fpccSegmentOverview fpcc';
-            indirectHTML += thisTrail.trail_color;
+            if (thisTrail.off_fpdcc == 'y') {
+              indirectHTML += "off";
+            } else {
+              indirectHTML += thisTrail.trail_color;
+            }
+            
             if (thisTrail.trail_type.toLowerCase() != "paved") {
               indirectHTML += " fpccUnpaved";
             }
             indirectHTML += ' clearfix"><span class="fpccSegmentName">';
             indirectHTML += thisTrail.trail_color + ' ' + thisTrail.trail_type;
+            if (thisTrail.off_fpdcc == 'y') {
+              indirectHTML += " Off FPDCC";
+            }
             indirectHTML += '</span><span class="fpccTrailUse">';
             indirectHTML += '<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>';
             if (thisTrail.trail_type.toLowerCase() == "unpaved" || thisTrail.trail_type.toLowerCase() == "paved" || thisTrail.trail_type == "") {
@@ -2473,12 +2487,20 @@ function startup() {
           var thisColor = directTrail.trail_color;
           var thisType = directTrail.trail_type;
           trailSegmentsHTML += '<div class="fpccTrailSegment"><div class="fpccSegmentOverview fpcc';
+          if (directTrail.off_fpdcc == 'y') {
+            trailSegmentsHTML += "off";
+          } else {
+            trailSegmentsHTML += directTrail.trail_color;
+          }
           trailSegmentsHTML += thisColor;
           if (thisType.toLowerCase() != "paved") {
             trailSegmentsHTML += " fpccUnpaved";
           }
           trailSegmentsHTML += ' clearfix"><span class="fpccSegmentName">';
           trailSegmentsHTML += thisColor + ' ' + thisType;
+          if (thisTrail.off_fpdcc == 'y') {
+            trailSegmentsHTML += " Off FPDCC";
+          }
           trailSegmentsHTML += '</span><span class="fpccTrailUse">';
           trailSegmentsHTML += '<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>';
           if (thisType.toLowerCase() == "unpaved" || thisType.toLowerCase() == "paved" || thisType == "") {
@@ -2508,12 +2530,19 @@ function startup() {
               if (thisTrail.subtrail_length_mi >= 1) {
                 useIndirect = true;
                 indirectHTML += '<div class="fpccTrailSegment"><div class="fpccSegmentOverview fpcc';
-                indirectHTML += thisTrail.trail_color;
+                if (thisTrail.off_fpdcc == 'y') {
+                  indirectHTML += "off";
+                } else {
+                  indirectHTML += thisTrail.trail_color;
+                }
                 if (thisTrail.trail_type.toLowerCase() != "paved") {
                   indirectHTML += " fpccUnpaved";
                 }
                 indirectHTML += ' clearfix"><span class="fpccSegmentName">';
                 indirectHTML += thisTrail.trail_color + ' ' + thisTrail.trail_type;
+                if (thisTrail.off_fpdcc == 'y') {
+                  indirectHTML += " Off FPDCC";
+                }
                 indirectHTML += '</span><span class="fpccTrailUse">';
                 indirectHTML += '<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>';
                 if (thisTrail.trail_type.toLowerCase() == "unpaved" || thisTrail.trail_type.toLowerCase() == "paved" || thisTrail.trail_type == "") {
