@@ -81,7 +81,7 @@ function startup() {
 
 
   // API_HOST: The API server.
-  var API_HOST = "http://fpcc-staging.smartchicagoapps.org";
+  var API_HOST = "https://fpcc-staging.smartchicagoapps.org";
  
   if (window.location.hostname.split(".")[0] == "localhost") {
     document.title = "LOCALHOST | Map: Forest Preserves of Cook County";
@@ -89,10 +89,10 @@ function startup() {
     document.title = "STAGING | Map: Forest Preserves of Cook County";
   } else if (window.location.hostname.split(".")[0] = "smartchicago") {
     document.title = "gh-pages | Map: Forest Preserves of Cook County";
-    API_HOST = "http://fpcc-staging.smartchicagoapps.org";
+    API_HOST = "https://fpcc-staging.smartchicagoapps.org";
   } else if (window.location.hostname.split(".")[0] = "fpcc") {
     document.title = "Map: Forest Preserves of Cook County";
-    API_HOST = "http://fpcc.smartchicagoapps.org";
+    API_HOST = "https://fpcc.smartchicagoapps.org";
   } 
   //API_HOST = "http://localhost:8080";
   // console.log("API_HOST = " + API_HOST);
