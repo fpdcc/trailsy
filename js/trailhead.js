@@ -561,6 +561,7 @@ function startup() {
         currentFilters.activityFilter = String(currentUIFilterState).split(",");
         console.log("[updateFilterObject] new currentFilters.activityFilter.length + activityFilter= " + currentFilters.activityFilter.length + " - " + currentFilters.activityFilter);
         var removeIndex = null;
+        currentFilters.activityFilter = currentFilters.activityFilter.filter(Boolean);
         currentFilters.activityFilter.forEach(function(value, index) {
           var normalizedValue = value.toLowerCase();
           if (!(zipCodeLocations[normalizedValue] === undefined)) {
@@ -573,6 +574,15 @@ function startup() {
             currentFilters.zipMuniFilter = normalizedValue;
             console.log("[updateFilterObject] muni loc, zipMuniFilter= " + currentFilters.location + ", " + currentFilters.zipMuniFilter);
             removeIndex = index;  
+          } else {
+            currentFilters.trailInList = false;
+            currentFilters.trailOnMap = true;
+            if ( tagsInTrailsPanel.indexOf(normalizedValue) > -1 ) {
+              currentFilters.trailInList = true;
+            }
+            if ( tagsExcludeTrailsMap.indexOf(normalizedValue) > -1 ) {
+              currentFilters.trailOnMap = false;
+            }
           }
         });
         console.log("[updateFilterObject] removeIndex = " + removeIndex);
@@ -598,19 +608,6 @@ function startup() {
     currentFilters.activityFilter = currentFilters.activityFilter.filter(Boolean);
     console.log("[updateFilterObject] lastFilters.activityFilter.length = " + lastFilters.activityFilter.length);
     console.log("[updateFilterObject] currentFilters.activityFilter.length = " + currentFilters.activityFilter.length);
-    if ( currentFilters.activityFilter.length > 0 ) {
-      currentFilters.trailInList = false;
-      currentFilters.trailOnMap = true;
-      currentFilters.activityFilter.every(function(element, index) {
-        if ( tagsInTrailsPanel.indexOf(element) > -1 ) {
-          currentFilters.trailInList = true;
-        }
-        if ( tagsExcludeTrailsMap.indexOf(element) > -1 ) {
-          currentFilters.trailOnMap = false;
-        }
-
-      });
-    }
 
     var is_same = (currentFilters.activityFilter.length == lastFilters.activityFilter.length) && currentFilters.activityFilter.every(function(element, index) {
         return element === lastFilters.activityFilter[index]; 
