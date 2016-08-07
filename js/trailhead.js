@@ -2895,7 +2895,7 @@ function startup() {
         }
 
         // trailacces = Trail System Access
-        if (trailhead.properties.tags[':panel'].indexOf("trailacces") > -1) {
+        if (trailhead.properties.tags[':panel'].indexOf("trailhead") > -1) {
           $('.detailPanel .fpccAmenities').append("<div class='fpccAmenity'><svg class='icon icon-trail-marker'><use xlink:href='icons/defs.svg#icon-trail-marker'></use></svg><span class='fpccAmenityTitle'>Trail Access</span></div>");
         }
 
