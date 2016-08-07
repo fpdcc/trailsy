@@ -1759,6 +1759,7 @@ function startup() {
       makeTrailheadPopups(currentTrailheads);
       mapActiveTrailheads(currentTrailheads);
       console.log("[addTrailsToTrailheads] currentFilters.trailOnMap= " + currentFilters.trailOnMap);
+      
       allSegmentLayer.eachLayer(function (layer) {
         //console.log("trail_ids= " + layer.getLayers()[0].feature.properties.trail_ids);
         //console.log("trail_systems= " + layer.getLayers()[0].feature.properties.trail_systems);
@@ -1766,7 +1767,7 @@ function startup() {
           var layerWanted = 0;
 
           if (currentTrailIDs[layer.getLayers()[0].feature.properties.trail_subsystem] && currentFilters.trailOnMap) {
-            console.log("[allSegmentLayer true] layer.getLayers()[0].feature.properties.trail_subsystem= " + layer.getLayers()[0].feature.properties.trail_subsystem);
+            //console.log("[allSegmentLayer true] layer.getLayers()[0].feature.properties.trail_subsystem= " + layer.getLayers()[0].feature.properties.trail_subsystem);
             layer.getLayers()[0].setStyle({weight: NORMAL_SEGMENT_WEIGHT});
             layer.getLayers()[1].setStyle({weight: 20});
           } else {
@@ -2487,18 +2488,20 @@ function startup() {
           var thisColor = directTrail.trail_color;
           var thisType = directTrail.trail_type;
           trailSegmentsHTML += '<div class="fpccTrailSegment"><div class="fpccSegmentOverview fpcc';
+          console.log("[decorateDetailPanelForTrailhead] directTrail.off_fpdcc= " + directTrail.off_fpdcc);
+          console.log("[decorateDetailPanelForTrailhead] directTrail.trail_color= " + directTrail.trail_color);
+
           if (directTrail.off_fpdcc == 'y') {
             trailSegmentsHTML += "off";
           } else {
             trailSegmentsHTML += directTrail.trail_color;
           }
-          trailSegmentsHTML += thisColor;
           if (thisType.toLowerCase() != "paved") {
             trailSegmentsHTML += " fpccUnpaved";
           }
           trailSegmentsHTML += ' clearfix"><span class="fpccSegmentName">';
           trailSegmentsHTML += thisColor + ' ' + thisType;
-          if (thisTrail.off_fpdcc == 'y') {
+          if (directTrail.off_fpdcc == 'y') {
             trailSegmentsHTML += " Off FPDCC";
           }
           trailSegmentsHTML += '</span><span class="fpccTrailUse">';
