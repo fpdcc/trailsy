@@ -3846,23 +3846,23 @@ audio:not([controls]) {
  * 2. Prevent iOS text size adjust after orientation change, without disabling
  *    user zoom.
  */
-html {
-  font-family: sans-serif;
+/*html {
+*/  /*font-family: sans-serif;*/
   /* 1 */
 
-  -webkit-text-size-adjust: 100%;
-  /* 2 */
+/*  -webkit-text-size-adjust: 100%;
+*/  /* 2 */
 
-  -ms-text-size-adjust: 100%;
-  /* 2 */
+/*  -ms-text-size-adjust: 100%;
+*/  /* 2 */
 
-}
-/**
+/*}
+*//**
  * Remove default margin.
  */
-body {
+/*body {
   margin: 0;
-}
+}*/
 /* ==========================================================================
    Links
    ========================================================================== */
@@ -4139,7 +4139,7 @@ textarea {
 /**
  * Remove most spacing between table cells.
  */
-table {
+/*table {
   border-collapse: collapse;
   border-spacing: 0;
 }
@@ -4149,17 +4149,17 @@ table {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-}
+}*/
 /* Other Universal */
-html {
+/*html {
   overflow: hidden;
   height: 100%;
-}
+}*/
 /* Background color */
-body {
+/*body {
   overflow: hidden;
   background-color: #ffffff;
-}
+}*/
 @media only screen and (max-width: 768px) {
   body {
     height: 100%;
@@ -4187,7 +4187,7 @@ section {
     bottom: 0;
   }
 }*/
-@media only screen  {
+/*@media only screen  {
   #desktop {
     position: absolute;
     left: 0;
@@ -4195,7 +4195,7 @@ section {
     top: 0;
     bottom: 0;
   }
-}
+}*/
 @media only screen and (max-width: 768px) {
   #mobile {
     position: relative;
@@ -4248,14 +4248,14 @@ section {
     overflow: hidden;
   }
 }*/
-@media only screen {
+/*@media only screen {
   #main {
     position: relative;
     height: 100%;
     width: 100%;
     overflow: hidden;
   }
-}
+}*/
 /* noscript */
 noscript .noscript {
   position: absolute;

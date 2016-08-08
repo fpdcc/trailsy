@@ -1,3 +1,57 @@
+/* Main CSS copy */
+
+/* Other Universal */
+html {
+  overflow: hidden;
+  height: 100%;
+  font-family: sans-serif;
+}
+
+
+/* ==========================================================================
+   Tables
+   ========================================================================== */
+/**
+ * Remove most spacing between table cells.
+ */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+  background-color: #ffffff;
+  margin: 0;
+}
+
+@media only screen  {
+  #desktop {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+}
+
+@media only screen {
+  #main {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+}
+
+/*--------------------------------------------------------------------*/
 /* PANEL */
 .fpccContainer{font-family:Georgia,"Times New Roman",serif;font-size:.9125em;line-height:1.5;color:#333}
 .fpccUnit{padding:1.5em 1em}
