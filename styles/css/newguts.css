@@ -144,6 +144,7 @@ a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 #icon-alert .path1{fill:#FFE2D9}
 .icon-sign{width:1.599609375em}
 .icon-map.active{display:inline-block} /* This needs to be before the zoom level changes so that the zoom level display attribute can override this. */
+.icon-map.icon-activity.active{opacity: .5}
 .icon.icon-map{padding:.4em;overflow:visible}
 /*.icon-sign.icon-map{width:2em;height:2em}*/
 .icon-sign.icon-1, .icon-sign.icon-2, .icon-sign.icon-3,.icon-sign.icon-4,.icon-sign.icon-5,.icon-sign.icon-6,.icon-sign.icon-7,.icon-sign.icon-8{width:2em;height:2em}
@@ -152,11 +153,18 @@ a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 .icon-activity.icon-1, .icon-activity.icon-2, .icon-activity.icon-3,.icon-activity.icon-4,.icon-activity.icon-5,.icon-activity.icon-6,.icon-activity.icon-7,.icon-activity.icon-8, .icon-activity.icon-9, .icon-activity.icon-10, .icon-activity.icon-11, .icon-activity.icon-12{display:none}
 .icon-activity.icon-13, .icon-activity.icon-14{width:2.0em;height:2.0em;display:inline-block}
 .icon-activity.icon-15, .icon-activity.icon-16, .icon-activity.icon-17, .icon-activity.icon-18{width:3em;height:3em;display:inline-block}
+.icon-picnic-grove.icon-1, .icon-picnic-grove.icon-2, .icon-picnic-grove.icon-3,.icon-picnic-grove.icon-4,.icon-picnic-grove.icon-5,.icon-picnic-grove.icon-6,.icon-picnic-grove.icon-7,.icon-picnic-grove.icon-8, .icon-picnic-grove.icon-9, .icon-picnic-grove.icon-10, .icon-picnic-grove.icon-11, .icon-picnic-grove.icon-12{display:none}
+.icon-picnic-grove.icon-13, .icon-picnic-grove.icon-14{width:2.0em;height:2.0em;display:inline-block}
+.icon-picnic-grove.icon-15, .icon-picnic-grove.icon-16, .icon-picnic-grove.icon-17, .icon-picnic-grove.icon-18{width:3em;height:3em;display:inline-block}
+
 .icon-map.inactive{display:none} /* This needs to be after the zoom level changes so that this display:none; overrides the zoom level display attrivute */
 .icon.icon-map.icon-sign{padding:.8em 0 0;
 /* background-image:url(../../icons/defs.svg#icon-sign); */                        }
 .icon-map.selected{animation:animateEdge 2.5s forwards}
 .icon-sign.icon-map.selected{animation:animateEdge 2.5s forwards}
+.icon-activity.icon-map.selected{opacity:1}
+.icon-map.icon-picnic-grove.notselected{display:none}
+.icon-map.icon-picnic-grove.selected{display:inline-block}
 /*.icon.icon-map.icon-sign.selected{animation:animateEdge 2.5s forwards}*/
 @keyframes animateEdge{
     0%{background:none;box-shadow:none}
@@ -264,6 +272,8 @@ ul.fpccMenuList a:hover, ul.fpccMenuList a:active{background:#666}
 .leaflet-popup-tip{background:#606D29}/*HERE3*/
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames{font-weight:bold;padding:.5em .75em;border:none;color:#333}/*HERE3*/
 .leaflet-popup-content-wrapper .leaflet-popup-content .activity-popup{border:0;padding:.5em .75em}/*HERE3*/
+.leaflet-popup-content-wrapper .leaflet-popup-content .picnicgrove-popup{border:0;padding:.5em .75em}/*HERE3*/
+
 .leaflet-popup-content-wrapper .leaflet-popup-content{border-bottom:2px solid #606D29;color:#333}/*HERE3*/
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .popupTrailNames{padding:.5em .75em}/*HERE3*/
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname.selected{padding-bottom:0;color:#333}/*HERE3*/
