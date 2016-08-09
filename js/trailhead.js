@@ -674,6 +674,8 @@ function startup() {
       if (trailhead.properties.web_street_addr) {
         normalizedTrailheadAddress = trailhead.properties.web_street_addr.toLowerCase();
       }
+
+      var normalizedNamesLength = normalizedNames.length;
       //console.log("[filterResults] currentFilters.activityFilter exists.." + currentFilters.activityFilter.length);
       for (var i = 0; i < currentFilters.activityFilter.length; i++) {
         var activity = currentFilters.activityFilter[i];
@@ -683,6 +685,10 @@ function startup() {
         var trailheadTag = 0;
         term = 0;
         var normalizedSearchFilter = currentFilters.activityFilter[i].toLowerCase();
+        var normalizedSearchArray = normalizedSearchFilter.split(" ");
+        var normalizedSearchArrayLength = normalizedSearchArray.length;
+        //console.log("[filterResults2] normalizedSearchArray = " + normalizedSearchArray);
+        //console.log("[filterResults2] normalizedSearchArrayLength = " + normalizedSearchArrayLength);
         var equivalentWords = [
             [" and ", " & "],
             ["tow path", "towpath"]
@@ -699,21 +705,40 @@ function startup() {
         var descriptionTrailMatched = !! normalizedTrailDescription.match(searchRegex);
         var descriptionTrailheadMatched = !! normalizedTrailheadDescription.match(searchRegex);
         var nameMatched = false;
-        console.log("[filterResults2] normalizedNames = " + normalizedNames);
-        $.each( normalizedNames, function( i, val ) {
-          console.log("[filterResults2] val = " + val);
-          if((!! val.match(searchRegex)) ) {
+        //console.log("[filterResults2] normalizedNames = " + normalizedNames);
+        for (var normalizedNamesIndex = 0; normalizedNamesIndex < normalizedNamesLength; normalizedNamesIndex++) {
+          var thisNormalizedName = normalizedNames[normalizedNamesIndex];
+          //console.log("[filterResults2] normalizedNamesIndex: val = " + normalizedNamesIndex + " : " + thisNormalizedName);
+          if((!! thisNormalizedName.match(searchRegex)) ) {
             nameMatched = true;
+            //console.log("[filterResults2] In First match = true nameMatched = " + nameMatched);
+            normalizedNamesIndex = 100000000000000000000;  // Return false to break out of $.each loop
+          } else {
+            var subMatched = true;
+            //console.log("[filterResults2] In else for thisNormalizedName= " + thisNormalizedName);
+            for (var searchIndex = 0; searchIndex < normalizedSearchArrayLength; searchIndex++) {
+              var thisSearchElement = normalizedSearchArray[searchIndex];
+              var elementSearch = thisNormalizedName.search(thisSearchElement);
+              //console.log("[filterResults2] thisSearchElement:elementSearch= " + thisSearchElement + ":" + elementSearch);
+              if (elementSearch == -1) {
+                //console.log("[filterResults2] In elementSearch = -1");
+                subMatched = false;
+                searchIndex = 100000000000000000000;
+              }
+            }
+            if (subMatched) {
+              nameMatched = true;
+            }
           }
-          console.log("[filterResults2] nameMatched for i: " + i + " - " + nameMatched);
-        });
-        console.log("filterResults2] normalizedNames : nameMatched = " + normalizedNames + ":" + nameMatched);
-        console.log("[filterResults] activityFilter = " + activity);
-        console.log("[filterResults] tags = " + trailhead.properties.tags);
+          //console.log("[filterResults2] nameMatched for nameIndex: " + normalizedNamesIndex + " - " + nameMatched);
+        }
+        //console.log("filterResults2] normalizedNames : nameMatched = " + normalizedNames + ":" + nameMatched);
+        //console.log("[filterResults] activityFilter = " + activity);
+        //console.log("[filterResults] tags = " + trailhead.properties.tags);
 
 
         if ( nameMatched ) {
-          console.log("[filterResults2] normalizedNames: in if = " + normalizedNames);
+          //console.log("[filterResults2] normalizedNames: in if = " + normalizedNames);
           term = 10;
         } else if ((descriptionTrailMatched) || (descriptionTrailheadMatched)) {
           term = 1;
