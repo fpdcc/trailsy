@@ -639,7 +639,8 @@ function startup() {
     var matched = 1;
     var term = 1;
     //console.log("[filterResults] initial matched = " + matched);
-    if (currentFilters.activityFilter) {
+    var currentFiltersActivityFilterLength = currentFilters.activityFilter.length;
+    if (currentFiltersActivityFilterLength > 0) {
       var normalizedNames = [];
       var normalizedTrailDescription = "";
       if(trailhead.properties.direct_trail_id) {
