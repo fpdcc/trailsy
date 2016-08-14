@@ -2772,7 +2772,7 @@ function startup() {
         showDescription = true;
       }
       if (descriptionTrail.map_link_spanish != null && descriptionTrail.map_link_spanish != '') {
-        trailMapHTML += '<a class="fpccButton" id="pdfSpanish" href="'
+        trailMapHTML += ' <a class="fpccButton" id="pdfSpanish" href="'
                       + descriptionTrail.map_link_spanish + '">Español</a>';
         showMaps = true;
         showDescription = true;
