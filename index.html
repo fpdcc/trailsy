@@ -2,9 +2,9 @@
 <html>
 <head> 
 	<meta charset="utf-8">
-	<title>SVG-CSS test</title>
+	<title>Map: Forest Preserves of Cook County</title>
   	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  	<link rel="stylesheet" href="styles/css/leaflet.css"/>
+  	<link rel="stylesheet" href="styles/css/leaflet1master.css"/>
     <!-- <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" /> -->
     <link rel="stylesheet" href="styles/css/leaflet.usermarker.css"/>
     <link rel="stylesheet" type="text/css" href="styles/css/selectize.css" />
@@ -32,9 +32,7 @@
 	<meta name="msapplication-TileColor" content="#00adef"/>
     <!--favicon-->
     <link rel="icon" type="image/ico" href="img/AppIcons/favicon.ico"/>
-    <script>  L_PREFER_CANVAS = false;
-    	L_DISABLE_3D = true;
-    </script>
+    
 	  <!--[if lt IE 9]>
 	  <script src="js/html5shiv.js"></script>
 	  <![endif]-->
@@ -77,7 +75,7 @@
 						</ul>
 						<header>
 							<div class="navbar-inner">
-								<a id="logo-link" href=""><img class="logo" src="http://fpdcc.net/wp-content/themes/fpdcc3/images/fpcc-map-logo.gif"></a>
+								<a id="logo-link" href=""><img class="logo" src="images/fpcc-map-logo.gif"></a>
 							</div>
 						</header>
 					</div>
@@ -85,24 +83,25 @@
 						<!-- HERE, NEW SEARCH START all new, may need to adjust in staging-->
 						<div id="fpccSearchContainer" class="fpccUnit">
 							<form>
-								<select class="js-example-basic-multiple select2Searchbox select2-border filter" data-filter="activityFilter" multiple="multiple">
+								<select class="js-example-basic-multiple filter fpccSearchbox" data-filter="activityFilter" multiple="multiple">
 									<optgroup label="Popular">
 										<option value="hiking">Hiking / Walking / Running</option>
 										<option value="cycling">Biking</option>
-										<option value="dog_friendly">Dog Park</option>
-										<option value="camping">Camping</option>
 										<option value="nature_center">Nature Center</option>
+										<option value="camping">Camping</option>
 										<option value="picnic_grove">Picnic / Event Space</option>
-										<option value="dog_leash">Dogs (with leash only)</option>
 										<option value="volunteer">Volunteering</option>
+										<option value="dog_leash">Dogs (with leash only)</option>
+										<option value="dog_friendly">Dog Park</option>
 										<option value="canoe">Canoeing / Kayaking / Boating</option>
-										<option value="swimming">Swimming</option>
+										<!-- <option value="swimming">Swimming</option>
+										<option value="cross_country">Cross-Country Skiing</option>
+										<option value="sledding">Sledding</option> -->
 									</optgroup>
 									<optgroup label="Everything">
 										<option value="bike_rental">Bike Rental</option>
 										<option value="birding">Birding</option>
 										<option value="boat_rental">Boat Rental</option>
-										<option value="cross_country">Cross-Country Skiing</option>
 										<option value="disc_golf">Disc Golf</option>
 										<option value="drone">Drone Flying</option>
 										<option value="fishing">Fishing</option>
@@ -113,17 +112,19 @@
 										<option value="indoor_rental">Indoor Event Space</option>
 										<option value="m_airplane">Model Airplane Flying</option>
 										<option value="m_boat">Model Sailboat</option>
-										<option value="sledding">Sledding</option>
 										<option value="snowmobile">Snowmobiling</option>
 										<option value="zip_line">Zip Line / Treetop Adventure</option>
+										<option value="swimming">Swimming</option>
+										<option value="cross_country">Cross-Country Skiing</option>
+										<option value="sledding">Sledding</option>
 									</optgroup>
 								</select>
 								<!-- <input class="" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="Search by Location or Activity"> -->
 							</form>
-							<button class="fpccButton">Search</button>
+							<button class="fpccButton" id="fpccSearchButton">Search</button>
 						</div>
 						<div id="fpccSearchBack">
-							<a href="#"><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg>
+							<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg>
 							 Back to Search Results</a>
 						</div>
 						<div id="fpccSearchStatus"></div>
@@ -184,10 +185,24 @@
 											<!-- HERE2 STOP special description -->
 										</div>
 										<!-- AMENITIES END -->
+										<div class="fpccNP clearfix" target="_blank"><a href="http://fpdcc.com/illinois-nature-preserves/" target="_blank"><img src="images/idnr-np-logo.png" width="75" height="65" alt="Illinois Nature Preserves Commission Logo"></a><p>This is an Illinois Nature Preserve&mdash;one of the highest quality natural lands in the state. This designation includes increased levels of legal protection and management. <a href="http://fpdcc.com/illinois-nature-preserves/" target="_blank">Learn more &gt;</a></p></div>
 										<!-- HERE2 HOURS START -->
 										<div class="fpccHours fpccUnit">
 										</div>
 										<!-- HERE2 HOURS END -->
+										<!-- EXTRA LINKS START -->
+										<div class="fpccLinks fpccUnit clearfix">
+											<span class="fpccLabel">More Information</span>
+											<ul>
+												<li><a class="fpccMore" href="web_link" target="_blank">Webpage</a></li>
+												<li><a class="fpccMore" href="map_link" target="_blank">English Map (PDF)</a></li>
+												<li><a class="fpccMore" href="map_link_spanish" target="_blank">Spanish Map (PDF)</a></li>
+												<li><a class="fpccMore" href="picnic_link" target="_blank">Picnic Grove Map (PDF)</a></li>
+												<li><a class="fpccMore" href="vol_link" target="_blank">Volunteer Opportunity</a></li>
+												<li><a class="fpccMore" href="vol_link2" target="_blank">Volunteer Opportunity</a></li>
+											</ul>
+										</div>
+										<!-- EXTRA LINKS END -->
 									</div>
 									
 									<!-- TRAILS SYSTEM ACCESS START -->
@@ -201,28 +216,14 @@
 											<div class="fpccTrailDescription" id="trailDescription"></div>
 											<div class="fpccTrailMaps clearfix trailMaps">
 												<span class="fpccLabel">PDF Trail Map:</span>
-												<a class="fpccButton" id='pdfEnglish' href="#PDFMAP">English</a>
-												<a class="fpccButton" id='pdfSpanish' href="#PDFMAP">Español</a>	
+												<a class="fpccButton" id='pdfEnglish' href="">English</a>
+												<a class="fpccButton" id='pdfSpanish' href="">Español</a>	
 											</div><!-- HERE, moved and updated this -->
 										</div>
 										<div class="fpccTrailSegments"></div>
 									</div>
 									<!-- TRAILS SYSTEM ACCESS END -->
-									<!-- EXTRA LINKS START -->
-									<div class="fpccLinks fpccUnit clearfix">
-										<div class="fpccMoreHeader">
-											<span class="fpccMoreName">More Information</span>
-										</div>
-										<ul>
-											<li><a class="fpccMore" href="web_link" target="_blank">Webpage</a></li>
-											<li><a class="fpccMore" href="map_link" target="_blank">English Map (PDF)</a></li>
-											<li><a class="fpccMore" href="map_link_spanish" target="_blank">Spanish Map (PDF)</a></li>
-											<li><a class="fpccMore" href="picnic_link" target="_blank">Picnic Grove Map (PDF)</a></li>
-											<li><a class="fpccMore" href="vol_link" target="_blank">Volunteer Opportunity</a></li>
-											<li><a class="fpccMore" href="vol_link2" target="_blank">Volunteer Opportunity</a></li>
-										</ul>
-									</div>
-									<!-- EXTRA LINKS END -->
+									
 									<!-- SOCIAL START -->
 									<div class="fpccSocial fpccUnit clearfix">
 										<div class="fpccShare">Share Your Plans:</div>
@@ -254,13 +255,16 @@
 	
 
 	<!-- <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script> -->
-	<script src="js/leaflet.js"></script>
+	<script>  L_PREFER_CANVAS = false;
+    	L_DISABLE_3D = true;
+    </script>
+	<script src="js/leaflet1master.js"></script>
 	<script src="js/new/oms.min.js"></script>
 	<script src="js/trailhead.js"></script>
 	<!-- leaflet build from trailsyFix branch of github repo fork danavery/Leaflet -->
 	
 	<script src="js/wicket.js"></script>
-	<script src="js/leaflet-providers.js"></script>
+	<!-- <script src="js/leaflet-providers.js"></script> -->
 	<script src="js/async.js"></script>
 	<script src="js/leaflet.usermarker.js"></script>
 	<script src="js/xdr.js"></script>
