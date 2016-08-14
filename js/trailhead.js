@@ -141,7 +141,6 @@ function startup() {
   var currentUserLocation = {};
   var anchorLocation = {};
 
-  var fpccContainerElement = document.getElementsByClassName('fpccContainer')[0];
 
 
   var currentFilters = {
@@ -2270,10 +2269,6 @@ function startup() {
     // We need to re-calculate the max height for fpccPreserveInfo because 
     // fpccPreserveName height can change.
     setHeights(); 
-
-
-    //var myDiv = document.getElementById('detailPanelBodySection');
-    //myDiv.scrollTop = 0;
     if (!SMALL) {
       //$('.accordion').hide();
     }
@@ -2294,6 +2289,7 @@ function startup() {
   function closeDetailPanel() {
     console.log("closeDetailPanel");
    // New versions
+    $('#fpccPreserveInfo').scrollTop(0);
     $('#fpccSearchStatus').show();
     $('#fpccSearchResults').show();
     $('#fpccSearchBack').hide();
@@ -2402,170 +2398,6 @@ function startup() {
     //   $(".controlRight").removeClass("disabled").addClass("enabled");
     // }
     return orderedTrailIndex;
-  }
-
-  function resetDetailPanel() {
-      $("#fpccPreserveInfo").animate({ scrollTop: 0 }, 'fast');
-      
-      $('.detailPanel .detailPanelBanner .entranceName').html("");
-      //$('.detailPanel .fpccTrails').html("");
-      $('.detailPanel .detailPanelPicture').attr("src", "img/ImagePlaceholder.jpg");
-      $('.detailPanel .detailPanelPictureCredits').remove();
-      $('.detailPanel .detailConditionsDescription').html("");
-      $('.detailPanel .detailTrailSurface').html("");
-      $('.detailPanel .detailTrailheadName').html("");
-      $('.detailPanel .detailTrailheadPark').html("");
-      $('.detailPanel .detailTrailheadAddress').html("");
-      $('.detailPanel .detailTrailheadCity').html("");
-      $('.detailPanel .detailTrailheadState').html("");
-      $('.detailPanel .detailTrailheadZip').html("");
-      $('.detailPanel .statusMessage').remove();
-      $('.detailPanel .hike').html("");
-      $('.detailPanel .cycle').html("");
-      $('.detailPanel .handicap').html("");
-      $('.detailPanel .horse').html("");
-      $('.detailPanel .xcountryski').html("");
-      $('.detailPanel .detailBottomRow .detailTrailheadAmenities .detailTrailheadIcons .water').html("");
-      $('.detailPanel .detailBottomRow .detailTrailheadAmenities .detailTrailheadIcons .kiosk').html("");
-      $('.detailPanel .detailBottomRow .detailTrailheadAmenities .detailTrailheadIcons .restrooms').html("");
-      $('.detailPanel .detailBottomRow .detailTrailheadAmenities .detailTrailheadIcons .parking').html("");
-      $('.detailPanel .detailDescription').html("");
-      $('.detailPanel #trailDescription').html("");
-      //$('.detailPanel .fpccEntranceDescription').html("");
-      $('.detailPanel .detailStewardLogo').attr("src", "/img/logoPlaceholder.jpg");
-
-      // New areas
-      $('.detailPanel .fpccTop').hide();
-
-      $('.detailPanel .fpccPhoto').html("");
-      $('.detailPanel .fpccPhoto').hide();
-      $('.detailPanel .fpccAlerts').html("");
-      $('.detailPanel .fpccAlerts').hide();
-      $('.detailPanel .fpccDirections a').attr("href", "").attr("target", "_blank");
-      $('.detailPanel .fpccEntranceAddress').html("");
-      $('.detailPanel .fpccEntranceZip').html("");
-      $('.detailPanel .fpccPhone').html("");
-      $('.detailPanel .fpccEntranceAddress').hide();
-      $('.detailPanel .fpccEntranceZip').hide();
-      $('.detailPanel .fpccPhone').hide();
-
-      $('.detailPanel .fpccDescription').html("");
-      $('.detailPanel .fpccDescription').hide();
-      $('.detailPanel .fpccAmenities').html("");
-      $('.detailPanel .fpccHours').html("");
-      $('.detailPanel .fpccHours').hide();
-
-      $('.detailPanel .fpccTrails').hide();
-      $('.detailPanel .fpccTrailSegments').html("");
-      $('.detailPanel .fpccTrailSegments').hide();
-
-      $('.detailPanel #trailDescription').html("");
-      $('.detailPanel #trailDescription').hide();
-      $('.detailPanel .fpccTrailDescription').hide();
-
-      $('.detailPanel .fpccLinks').html("");
-      $('.detailPanel .fpccLinks').hide();
-      $('.detailPanel .fpccTrailHeader').hide();
-      $('.detailPanel .fpccTrails .icon-trail-marker').hide();
-
-      $('.detailPanel .fpccTrailMaps').hide();
-      $('.detailPanel #pdfEnglish').hide();
-      $('.detailPanel #pdfSpanish').hide();
-      $('.detailPanel #pdfEnglish').attr("href", "");
-      $('.detailPanel #pdfSpanish').attr("href", "");
-
-      $('.detailPanel .fpccNP').hide();
-  }
-
-  function resetDetailPanel2() {
-      //$("#fpccPreserveInfo").animate({ scrollTop: 0 }, 'fast');
-      
-      $('.detailPanel .detailPanelBanner .entranceName').html("");
-      //$('.detailPanel .fpccTrails').html("");
-      $('.detailPanel .detailPanelPicture').attr("src", "img/ImagePlaceholder.jpg");
-      $('.detailPanel .detailPanelPictureCredits').remove();
-      $('.detailPanel .detailConditionsDescription').html("");
-      $('.detailPanel .detailTrailSurface').html("");
-      $('.detailPanel .detailTrailheadName').html("");
-      $('.detailPanel .detailTrailheadPark').html("");
-      $('.detailPanel .detailTrailheadAddress').html("");
-      $('.detailPanel .detailTrailheadCity').html("");
-      $('.detailPanel .detailTrailheadState').html("");
-      $('.detailPanel .detailTrailheadZip').html("");
-      $('.detailPanel .statusMessage').remove();
-      $('.detailPanel .hike').html("");
-      $('.detailPanel .cycle').html("");
-      $('.detailPanel .handicap').html("");
-      $('.detailPanel .horse').html("");
-      $('.detailPanel .xcountryski').html("");
-      $('.detailPanel .detailBottomRow .detailTrailheadAmenities .detailTrailheadIcons .water').html("");
-      $('.detailPanel .detailBottomRow .detailTrailheadAmenities .detailTrailheadIcons .kiosk').html("");
-      $('.detailPanel .detailBottomRow .detailTrailheadAmenities .detailTrailheadIcons .restrooms').html("");
-      $('.detailPanel .detailBottomRow .detailTrailheadAmenities .detailTrailheadIcons .parking').html("");
-      $('.detailPanel .detailDescription').html("");
-      $('.detailPanel #trailDescription').html("");
-      //$('.detailPanel .fpccEntranceDescription').html("");
-      $('.detailPanel .detailStewardLogo').attr("src", "/img/logoPlaceholder.jpg");
-
-      // New areas
-      //$('.detailPanel .fpccTop').hide();
-      document.getElementsByClassName('fpccTop')[0].style.display = "none";
-      $('.detailPanel .fpccPhoto').html("");
-      //$('.detailPanel .fpccPhoto').hide();
-      document.getElementsByClassName('fpccPhoto')[0].style.display = "none";
-      $('.detailPanel .fpccAlerts').html("");
-      //$('.detailPanel .fpccAlerts').hide();
-      document.getElementsByClassName('fpccAlerts')[0].style.display = "none";
-      $('.detailPanel .fpccDirections a').attr("href", "").attr("target", "_blank");
-      $('.detailPanel .fpccEntranceAddress').html("");
-      $('.detailPanel .fpccEntranceZip').html("");
-      $('.detailPanel .fpccPhone').html("");
-      //$('.detailPanel .fpccEntranceAddress').hide();
-      document.getElementsByClassName('fpccEntranceAddress')[0].style.display = "none";
-      //$('.detailPanel .fpccEntranceZip').hide();
-      document.getElementsByClassName('fpccEntranceZip')[0].style.display = "none";
-      //$('.detailPanel .fpccPhone').hide();
-      document.getElementsByClassName('fpccPhone')[0].style.display = "none";
-
-      $('.detailPanel .fpccDescription').html("");
-      //$('.detailPanel .fpccDescription').hide();
-      document.getElementsByClassName('fpccDescription')[0].style.display = "none";
-      $('.detailPanel .fpccAmenities').html("");
-      $('.detailPanel .fpccHours').html("");
-      //$('.detailPanel .fpccHours').hide();
-      document.getElementsByClassName('fpccHours')[0].style.display = "none";
-
-      //$('.detailPanel .fpccTrails').hide();
-      document.getElementsByClassName('fpccTrails')[0].style.display = "none";
-      $('.detailPanel .fpccTrailSegments').html("");
-      //$('.detailPanel .fpccTrailSegments').hide();
-      document.getElementsByClassName('fpccTrailSegments')[0].style.display = "none";
-
-      $('.detailPanel #trailDescription').html("");
-      //$('.detailPanel #trailDescription').hide();
-      document.getElementById('trailDescription').style.display = "none";
-      //$('.detailPanel .fpccTrailDescription').hide();
-      document.getElementsByClassName('fpccTrailDescription')[0].style.display = "none";
-
-      $('.detailPanel .fpccLinks').html("");
-      //$('.detailPanel .fpccLinks').hide();
-      document.getElementsByClassName('fpccLinks')[0].style.display = "none";
-      //$('.detailPanel .fpccTrailHeader').hide();
-      document.getElementsByClassName('fpccTrailHeader')[0].style.display = "none";
-      //$('.detailPanel .fpccTrails .icon-trail-marker').hide();
-      document.getElementsByClassName('fpccTrails')[0].getElementsByClassName('icon-trail-marker')[0].style.display = "none";
-
-      //$('.detailPanel .fpccTrailMaps').hide();
-      document.getElementsByClassName('fpccTrailMaps')[0].style.display = "none";
-      //$('.detailPanel #pdfEnglish').hide();
-      //document.getElementById('pdfEnglish')[0].style.display = "none";
-      //$('.detailPanel #pdfSpanish').hide();
-      //document.getElementById('pdfSpanish')[0].style.display = "none";
-      $('.detailPanel #pdfEnglish').attr("href", "");
-      $('.detailPanel #pdfSpanish').attr("href", "");
-
-      $('.detailPanel .fpccNP').hide();
-      document.getElementsByClassName('fpccNP')[0].style.display = "none";
   }
 
   // KEEP NEW: decorateDetailPanel
@@ -3004,11 +2836,9 @@ function startup() {
                        + '<a href="' + 'http://www.facebook.com/sharer/sharer.php?s=100&p[url]=' + socialLink + '&p[images][0]=&p[title]=Cook County Forest Preserves &p[summary]=Heading to ' + displayName
                        + '" id="fpccSocialFacebook" class="fpccSocialIcon">'
                        + '<svg class="icon icon-facebook"><use xlink:href="icons/defs.svg#icon-facebook"></use></svg>'
-                       + '<span>Facebook</span></a></div>';
-    
-    //document.getElementsByClassName('fpccContainer')[0].innerHTML = fpccContainerHTML;
+                       + '<span>Facebook</span></a></div>';  
+    var fpccContainerElement = document.getElementsByClassName('fpccContainer')[0];
     fpccContainerElement.innerHTML = fpccContainerHTML;
-
   }
 
   // Create TrailSegment HTML for Detail Panel
