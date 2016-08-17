@@ -52,51 +52,47 @@ body {
 }
 
 /*------------------newguts.css----------------------------------------------*/
-/* PANEL */
+
+
+/*------------------ALL/MOBILE*/
+
+/* Needed to override the main stylesheet or it disappears links on mobile:*/
+.trailListColumn .fpccContainer a{display:inline-block}
+
+/*panel - general*/
 .fpccContainer{font-family:Georgia,"Times New Roman",serif;font-size:.9125em;line-height:1.5;color:#333}
 .fpccUnit{padding:1.5em 1em}
-.fpccEntrance{padding:1.5em 0;margin:0 1em;border-bottom:1px dotted #CCC}
-.fpccDescription{padding:1.25em 1em .25em}
 .fpccLabel{font-family:Helvetica, Arial, sans-serif;font-size:.9125em;text-transform:uppercase;color:#585747}
 .fpccLabel.fpccBlock{display:block}
-.fpccLabel.fpccLeft{float:left;width:50%;text-align:left}
-.fpccLabel.fpccLeft span,.fpccLabel.fpccRight span{font-family:Georgia,"Times New Roman",serif;text-transform:none;font-weight:bold;margin-left:5px}
-.fpccLabel.fpccRight{float:right;width:50%;text-align:right}
-.fpccAmenity{float:left;width:47%;margin:0 3% 1.25em 0;max-height:1.8em}
-.fpccAmenity span.fpccAmenityTitle{line-height:1.2;display:inline-block;vertical-align:middle;max-width:7.5em;font-size:.9125em;color:#585747}
-.fpccAmenities .icon{width:2em;height:2em;margin-right:.65em;vertical-align:middle} 
+
+/*panel - poi*/
+.fpccEntrance{padding:1.5em 0;margin:0 1em;border-bottom:1px dotted #CCC}
+.fpccDescription{padding:1.25em 1em .25em}
 a:link .fpccAmenityTitle,a:visited .fpccAmenityTitle{text-decoration:underline;color:#333}
 a:hover .fpccAmenityTitle,a:active .fpccAmenityTitle{text-decoration:none}
+.fpccEntranceAddress{display:block}
+.fpccDirections a:link,.fpccDirections a:visited{display:block;width:100%}
+.fpccDirections a:hover,.fpccDirections a:active{}
+.fpccLinks ul{padding:0 0 0 1.5em;margin-bottom:0}
 .fpccNP{padding:0 1em;border:2px solid #008200;margin:1em 1em 2.5em;text-align:center;background:#F4FFF4}/*GH*/
 .fpccNP img{width:75px;margin:-30px 0 0}/*GH*/
 .fpccNP a:link,.fpccNP a:visited{color:#008200}/*GH*/
 .fpccNP a:hover,.fpccNP a:active{text-decoration:none}/*GH*/
 .fpccNP p{text-align:left;margin-top:.5em;}/*GH*/
-.fpccSign{float:left;width:65%;margin:0 7% 0 0}
-.fpccSign .icon{width:12%;height:2.25em;margin-right:3%;vertical-align:top}
-.fpccAddress{display:inline-block;width:82%}
-.fpccEntranceAddress{display:block}
-.fpccDirections{width:28%;float:right;margin-bottom:.75em}
-.fpccDirections a:link,.fpccDirections a:visited{display:block;width:100%}
-.fpccDirections a:hover,.fpccDirections a:active{}
-/*.fpccLinks{border-bottom:3px solid #DDD;padding-bottom:2em} GH */
-.fpccLinks ul{padding:0 0 0 1.5em;margin-bottom:0}
+
+.fpccTrailMaps{margin-top:1.25em}
 .fpccTrailMaps .fpccMap a:link, .fpccTrailMaps .fpccMap a:visited{display:inline-block;width:inherit;padding:.35em 1em}
 .fpccTrailMaps .fpccMap{display:inline-block;width:inherit;margin:.25em 0 0 .5em;float:none}
-.fpccTrailMaps{margin-top:1.25em}
 .fpccTrailMaps .fpccLabel{display:block;margin-bottom:.25em}
+
 .fpccTrails{border-bottom:3px solid #DDD}
 .fpccTrails.fpccTrailsFeature{border-top:none;background:none;padding-top:0}
-.fpccTrails .icon-trail-marker{width:2.5em;height:2.5em;margin-right:.5em;vertical-align:top;margin-top:3px}
 .fpccMoreHeader{display:inline-block}
-.fpccTrailHeader{display:inline-block;margin-bottom:1.5em;max-width:80%}/*GH*/
 .fpccTrailName,.fpccSegmentName,.fpccMoreName{font-family:Helvetica, Arial, sans-serif;font-size:1.5em;line-height:1.15;font-weight:bold;color:#585747;display:block;text-transform:capitalize;}/*GH*/
 .fpccSegmentName{font-size:1.25em;float:left;margin-top:2px}
 .fpccTrailSegment{padding:.75em 0 0;margin:.75em 0;border-top:1px dotted #CCC}
 .fpccTrails .fpccTrailDescription{margin:0;padding:0 0 1em;border-bottom:none}
 .fpccOneMile{border-top:1px dotted #CCC;display:block;padding:.75em 0;font-style:italic}/*GH*/
-.fpccTrailUse{float:right}
-.fpccTrailUse .icon{width:1.5em;height:1.5em;margin-left:.25em}
 .fpccSegmentOverview{}
 .fpccSegmentDetails{margin-top:.35em}
 .fpccorange, .fpccORANGE{border-bottom:8px solid #F7941E}
@@ -113,15 +109,40 @@ a:hover .fpccAmenityTitle,a:active .fpccAmenityTitle{text-decoration:none}
 .fpccUNPAVED,.fpccUnpaved,.fpccunpaved,.fpccPrimitive,.fpccprimitive,.fpccPRIMITIVE{border-bottom-style:dotted}
 .fpccSocial{background:#F1F1ED}
 .fpccShare{font-size:1.15em;line-height:1;text-align:center;margin-bottom:.5em}
-.fpccSocialIcon{width:27%;text-align:center;float:left;padding:.5em 0;margin:0 3%;border-radius:3px}
 .fpccSocialIcon span{display:block;text-transform:uppercase;font-size:.75em;font-family:Helvetica, Arial, sans-serif}
 .fpccSocialIcon .icon{width:2em;height:2em}
 a:link.fpccSocialIcon, a:visited.fpccSocialIcon{text-decoration:none;color:#333}
 a:hover.fpccSocialIcon, a:active.fpccSocialIcon{color:#333;background:#DDDDD5}
 a:link.fpccMore, a:visited.fpccMore{color:#7E9137}
 a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
-/* Needed to override the main stylesheet or it disappears links on mobile:*/
-.trailListColumn .fpccContainer a{display:inline-block}
+
+
+
+
+
+/*------------------BOTHish need to adjust*/
+.fpccLabel.fpccLeft{float:left;width:50%;text-align:left}
+.fpccLabel.fpccLeft span,.fpccLabel.fpccRight span{font-family:Georgia,"Times New Roman",serif;text-transform:none;font-weight:bold;margin-left:5px}
+.fpccLabel.fpccRight{float:right;width:50%;text-align:right}
+.fpccAmenity{float:left;width:47%;margin:0 3% 1.25em 0;max-height:1.8em}
+.fpccAmenity span.fpccAmenityTitle{line-height:1.2;display:inline-block;vertical-align:middle;max-width:7.5em;font-size:.9125em;color:#585747}
+.fpccAmenities .icon{width:2em;height:2em;margin-right:.65em;vertical-align:middle} 
+.fpccSign{float:left;width:65%;margin:0 7% 0 0}
+.fpccSign .icon{width:12%;height:2.25em;margin-right:3%;vertical-align:top}
+.fpccAddress{display:inline-block;width:82%}
+.fpccDirections{width:28%;float:right;margin-bottom:.75em}
+.fpccTrails .icon-trail-marker{width:2.5em;height:2.5em;margin-right:.5em;vertical-align:top;margin-top:3px}
+.fpccTrailHeader{display:inline-block;margin-bottom:1.5em;max-width:80%}/*GH*/
+.fpccTrailUse{float:right}
+.fpccTrailUse .icon{width:1.5em;height:1.5em;margin-left:.25em}
+.fpccSocialIcon{width:27%;text-align:center;float:left;padding:.5em 0;margin:0 3%;border-radius:3px}
+
+/*DESKTOP ONLY*/
+
+
+
+
+
 
 
 
