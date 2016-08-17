@@ -256,7 +256,7 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
 ul.fpccMenuList{clear: both;margin:0;list-style-type:none;color:#333;font-weight:bold;font-size:.8125em;width: 200px;padding-left:0;float:right;margin-right:-200px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2)}
 ul.fpccMenuList.hide {display: none;}
 ul.fpccMenuList.show {display: block;}
-ul.fpccMenuList a:link, ul.fpccMenuList a:visited{padding:.75em;color:#FFF;background:#999;border-bottom:1px solid #FFF;text-decoration:none;display:block}
+#fpccBrand ul.fpccMenuList a:link, #fpccBrand ul.fpccMenuList a:visited{padding:.75em;color:#FFF;background:#999;border-bottom:1px solid #FFF;text-decoration:none;display:block}
 ul.fpccMenuList a:link.last, ul.fpccMenuList a:visited.last{border:none}
 ul.fpccMenuList a:hover, ul.fpccMenuList a:active{background:#666}
 
@@ -348,7 +348,7 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
 ul.fpccMenuList{clear: both;margin:0;list-style-type:none;color:#333;font-weight:bold;font-size:.8125em;width: 200px;padding-left:0;float:right;margin-right:-200px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2)}
 ul.fpccMenuList.hide {display: none;}
 ul.fpccMenuList.show {display: block;}
-ul.fpccMenuList a:link, ul.fpccMenuList a:visited{padding:.75em;color:#FFF;background:#999;border-bottom:1px solid #FFF;text-decoration:none;display:block}
+#fpccBrand ul.fpccMenuList a:link, #fpccBrand ul.fpccMenuList a:visited{padding:.75em;color:#FFF;background:#999;border-bottom:1px solid #FFF;text-decoration:none;display:block}
 ul.fpccMenuList a:link.last, ul.fpccMenuList a:visited.last{border:none}
 ul.fpccMenuList a:hover, ul.fpccMenuList a:active{background:#666}
 
