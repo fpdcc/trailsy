@@ -270,7 +270,7 @@ ul.fpccMenuList a:hover, ul.fpccMenuList a:active{background:#666}
 .detailPanel #fpccPreserveName.detailPanelBanner{background:#273719;padding:.5em 1.75em .5em 1em}
 .icon-x.closeDetail{width:1em;height:1em;top:10px}
 .icon-x.closeDetail:hover{opacity:1;filter:alpha(opacity=100)}
-.trailListColumn .fpccContainer a{display:inline-block}/* Needed to override the main stylesheet or it disappears links on mobile:*/
+.trailListColumn .fpccContainer a,.trailListColumn #fpccBrand a{display:inline-block}/* Needed to override the main stylesheet or it disappears links on mobile:*/
 
 /*leaflet override*/
 .leaflet-popup-tip{background:#606D29}/*HERE3*/
