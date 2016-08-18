@@ -59,12 +59,12 @@ body {
 /*ALL/MOBILE------------------------------------*/
 
 /*mobile top bar*/
-section.fpccMobile{background:#273719;height:48px;width:100%;position:absolute;top:0;left:0;font-family:Helvetica, Arial, sans-serif;}
+section.fpccMobile{overflow:hidden;z-index:10000;background:#273719;height:48px;width:100%;position:fixed;top:0;left:0;font-family:Helvetica, Arial, sans-serif;}
 a.fpccMobileBrand{color:#FFF;font-size:.75em;text-decoration:none;padding:12px 10px;display:inline-block;text-transform:uppercase;}
 a.fpccMobileBrand span{display:block;font-weight:bold;}
-.fpccMobileSwitch{max-width:120px;font-size:1em;color:#7E9039;padding:14px 10px;display:inline-block;float:left;}
-.fpccMobileSwitch .fpccFlip{display:inline-block;background:#7E9039;width:40px;height:20px;border-radius:12px;margin:0 5px;text-transform:uppercase;font-weight:bold;}
-.fpccMobileSwitch .fpccMap,.fpccMobileSwitch .fpccList{display:inline-block}
+.fpccMobileSwitch{font-size:1em;color:#7E9039;padding:14px 10px;display:inline-block;float:left;text-transform:uppercase;font-weight:bold;}
+.fpccMobileSwitch .fpccFlip{vertical-align:middle;display:inline-block;background:#7E9039;width:40px;height:20px;border-radius:12px;margin:0 5px;}
+.fpccMobileSwitch .fpccFlipMap,.fpccMobileSwitch .fpccFlipList{display:inline-block;vertical-align:middle;}
 .fpccMobileSwitch .fpccFlipList.active{color:#FFF;}
 .fpccMobileSwitch .fpccMap.active{color:#FFF;}
 
@@ -310,6 +310,9 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 
 @media (min-width:600px) {
 /*DESKTOP to adjust------------------------------------*/
+
+/*mobile top bar*/
+section.fpccMobile{display:none;}
 
 /*panel - general*/
 section.trailListColumn .accordion{/* display:none;*/border-top:8px solid #7E9137;background:none;max-height:none;overflow:hidden}
