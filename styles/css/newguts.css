@@ -60,10 +60,11 @@ body {
 
 /*mobile top bar*/
 section.fpccMobile{background:#273719;height:48px;width:100%;position:absolute;top:0;left:0;font-family:Helvetica, Arial, sans-serif;}
-a.fpccMobileBrand{color:#FFF;font-size:.75em;text-decoration:none;padding:12px 10px;}
+a.fpccMobileBrand{color:#FFF;font-size:.75em;text-decoration:none;padding:12px 10px;display:inline-block;text-transform:uppercase;}
 a.fpccMobileBrand span{display:block;font-weight:bold;}
-.fpccMobileSwitch{max-width:120px;font-size:1em;color:#7E9039;padding:12px 10px;}
-.fpccMobileSwitch .fpccFlip{background:#7E9039;width:40px;height:20px;border-radius:6px;margin:0 5px;}
+.fpccMobileSwitch{max-width:120px;font-size:1em;color:#7E9039;padding:14px 10px;display:inline-block;float:left;}
+.fpccMobileSwitch .fpccFlip{display:inline-block;background:#7E9039;width:40px;height:20px;border-radius:12px;margin:0 5px;text-transform:uppercase;font-weight:bold;}
+.fpccMobileSwitch .fpccMap,.fpccMobileSwitch .fpccList{display:inline-block}
 .fpccMobileSwitch .fpccFlipList.active{color:#FFF;}
 .fpccMobileSwitch .fpccMap.active{color:#FFF;}
 
