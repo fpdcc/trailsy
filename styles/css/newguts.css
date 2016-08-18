@@ -58,6 +58,15 @@ body {
 
 /*ALL/MOBILE------------------------------------*/
 
+/*mobile top bar*/
+section.fpccMobile{background:#273719;height:48px;width:100%;position:absolute;top:0;left:0;font-family:Helvetica, Arial, sans-serif;}
+a.fpccMobileBrand{color:#FFF;font-size:.75em;text-decoration:none;padding:12px 10px;}
+a.fpccMobileBrand span{display:block;font-weight:bold;}
+.fpccMobileSwitch{max-width:120px;font-size:1em;color:#7E9039;padding:12px 10px;}
+.fpccMobileSwitch .fpccFlip{background:#7E9039;width:40px;height:20px;border-radius:6px;margin:0 5px;}
+.fpccMobileSwitch .fpccFlipList.active{color:#FFF;}
+.fpccMobileSwitch .fpccMap.active{color:#FFF;}
+
 /*panel - general*/
 .fpccContainer{font-family:Georgia,"Times New Roman",serif;font-size:.9125em;line-height:1.5;color:#333}
 .fpccUnit{padding:1.5em 1em}
