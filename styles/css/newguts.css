@@ -62,14 +62,13 @@ body {
 section.fpccMobile{overflow:hidden;z-index:10000;background:#273719;height:48px;width:100%;position:fixed;top:0;left:0;font-family:Helvetica, Arial, sans-serif;box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.3);}
 a.fpccMobileBrand{color:#FFF;font-size:.75em;text-decoration:none;padding:10px;display:inline-block;text-transform:uppercase;float:left;}
 a.fpccMobileBrand span{display:block;font-weight:bold;}
-.fpccMobileSwitch{font-size:1em;color:#7E9039;display:inline-block;float:right;text-transform:uppercase;font-weight:bold;}
-.fpccMobileSwitch .fpccFlipMap,.fpccMobileSwitch .fpccFlipList{display:inline-block;vertical-align:middle;}
+.fpccMobileSwitch{font-size:.875em;color:#7E9039;display:inline-block;float:right;text-transform:uppercase;font-weight:bold;}
 a.fpccMobileHamburger{height:48px;width:48px;padding:15px 12px 11px;float:right;display:inline-block;margin-left:15px;}
 a.fpccMobileHamburger span{height:4px;background:#FFF;margin-bottom:3px;display:block}
 a.fpccMobileHamburger span.last{margin-bottom:0}
 .fpccFlipList,.fpccFlipMap{position:absolute;-webkit-transition: .4s;transition: .4s;margin-top:2px;}
-.fpccFlipList{color:#FFF;right:-100%;}
-.fpccFlipMap{color:#7E9039;left:-100%;}
+.fpccFlipList{color:#FFF;right:-35px;}
+.fpccFlipMap{color:#7E9039;left:-35px;}
 .fpccSwitch{padding: 14px 40px;width: 100%;display: inline-block;cursor: pointer}
 .fpccSwitch input {display:none;}
 .fppcSwitchBackground{border-radius:50%;position: relative;display: inline-block;width: 40px;height: 20px;background:#7E9039;margin:0 5px;vertical-align:middle;}
