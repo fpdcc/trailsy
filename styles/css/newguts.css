@@ -359,7 +359,7 @@ section.trailListColumn{position:fixed;top:0;left:0;width:384px;max-height:100%;
 section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overflow-y:scroll}
 .fpccResults.fpccUnit{box-shadow:none;}
 #fpccSearchStatus{display:block;}
-#fpccSearchContainer .fpccButton{width:15%;border-bottom:0;height:48px;
+
 /*panel - poi*/
 .fpccSpecialBlurb{vertical-align:middle;display:inline-block;width:85%}
 .fpccSpecialIcon{vertical-align:middle;width:15%;display:inline-block;text-align:right}
@@ -406,7 +406,7 @@ ul.fpccMenuList a:hover, ul.fpccMenuList a:active{background:#666}
 .leaflet-control-layers.leaflet-control-layers-expanded.leaflet-control{display:block;}
 
 /*selectize override*/
-.selectize-input{font-size:0border:1px solid #d0d0d0;padding:9px 8px 8px;min-height:initial;width:75%;}
+.selectize-input{font-size:0;border:1px solid #d0d0d0;padding:9px 8px 8px;min-height:initial;width:75%;}
 }
 
 @media (max-width:350px) {
