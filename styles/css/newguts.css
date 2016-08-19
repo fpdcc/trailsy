@@ -67,11 +67,13 @@ a.fpccMobileBrand span{display:block;font-weight:bold;}
 a.fpccMobileHamburger{height:48px;width:48px;padding:15px 12px 11px;float:right;display:inline-block;}
 a.fpccMobileHamburger span{height:4px;background:#FFF;margin-bottom:3px;display:block}
 a.fpccMobileHamburger span.last{margin-bottom:0}
-.fpccFlipList{color:#FFF;position:absolute;right:-100%;cursor: pointer;-webkit-transition: .4s;transition: .4s;}
-.fpccFlipMap{color:#7E9039;position:absolute;left:-100%;cursor: pointer;-webkit-transition: .4s;transition: .4s;}
+.fpccFlipList,.fpccFlipMap{position:absolute;-webkit-transition: .4s;transition: .4s;margin-top:2px;}
+.fpccFlipList{color:#FFF;right:-100%;}
+.fpccFlipMap{color:#7E9039;left:-100%;}
+.fpccSwitch{padding: 14px 40px;width: 100%;display: inline-block;cursor: pointer}
 .fpccSwitch input {display:none;}
 .fppcSwitchBackground{border-radius:50%;position: relative;display: inline-block;width: 40px;height: 20px;background:#7E9039;margin:0 5px;vertical-align:middle;}
-.fpccSlider {border-radius: 34px;position: absolute;cursor: pointer;top: 0;left: 0;right: 0; bottom: 0; background-color:#7E9039;-webkit-transition: .4s;transition: .4s;}
+.fpccSlider {border-radius: 34px;position: absolute;top: 0;left: 0;right: 0; bottom: 0; background-color:#7E9039;-webkit-transition: .4s;transition: .4s;}
 .fpccSlider:before {position: absolute;content: "";height: 16px;width: 16px;right: 4px;  bottom: 2px;background-color: white;-webkit-transition: .4s;transition: .4s;border-radius: 50%}
 input:checked ~ .fpccFlipList {color:#7E9039}
 input:checked ~ .fpccFlipMap {color:white}
