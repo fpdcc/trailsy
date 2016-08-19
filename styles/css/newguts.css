@@ -250,7 +250,7 @@ section.trailListColumn{position:fixed;top:48px;left:0;width:100%;max-height:100
 #fpccSearchContainer .fpccButton{width:23%;float:right;display:inline}
 #fpccSearchContainer select{border:1px solid #999;padding:5px;width:75%;height:37px;font-size:.9375em;line-height:1;box-sizing:border-box}
 section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overflow-y:scroll}
-#fpccSearchStatus{display:block;}
+
 
 /*panel - poi*/
 .fpccSpecialBlurb{vertical-align:middle;display:inline-block;width:85%}
@@ -317,7 +317,8 @@ ul.fpccMenuList a:hover, ul.fpccMenuList a:active{background:#666}
 .leaflet-control-layers.leaflet-control-layers-expanded.leaflet-control{display:none;}
 
 /* selectize override */
-.selectize-input{font-size:16px;padding:1em 0 0 .5em;min-height:48px;border:none;display:inline-block;width:75%;overflow:hidden;float:left;position:relative;z-index:1;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-box-shadow:none;box-shadow:none;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
+.selectize-input{padding:16px 0 0 20px;min-height:48px;border:none;display:inline-block;width:75%;overflow:hidden;float:left;position:relative;z-index:1;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-box-shadow:none;box-shadow:none;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
+.selectize-input input{font-size:15px;}
 .selectize-input.input-active{-webkit-border-radius:none;-moz-border-radius:0;border-radius:0}
 .selectize-control.multi .selectize-input.has-items{padding:6px 8px 4px}
 .selectize-dropdown .optgroup-header{font-weight:bold}
@@ -357,7 +358,7 @@ section.trailListColumn{position:fixed;top:0;left:0;width:384px;max-height:100%;
 #fpccSearchContainer select{border:1px solid #999;padding:5px;width:75%;height:37px;font-size:.9375em;line-height:1;box-sizing:border-box}
 section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overflow-y:scroll}
 .fpccResults.fpccUnit{box-shadow:none;}
-
+#fpccSearchStatus{display:block;}
 
 /*panel - poi*/
 .fpccSpecialBlurb{vertical-align:middle;display:inline-block;width:85%}
@@ -405,7 +406,7 @@ ul.fpccMenuList a:hover, ul.fpccMenuList a:active{background:#666}
 .leaflet-control-layers.leaflet-control-layers-expanded.leaflet-control{display:block;}
 
 /*selectize override*/
-.selectize-input{font-size:.8125em;border:1px solid #d0d0d0;padding:9px 8px 8px;min-height:none;}
+.selectize-input{font-size:0border:1px solid #d0d0d0;padding:9px 8px 8px;min-height:initial;}
 }
 
 @media (max-width:350px) {
