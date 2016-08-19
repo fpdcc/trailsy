@@ -330,15 +330,6 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 
 
 
-
-
-@media (max-width:350px) {
-  .fpccMobileSwitch{font-size:.875em;}
-  a.fpccMobileHamburger{margin-left:10px;}
-  .fpccSwitch{padding: 14px 30px;}
-  a.fpccMobileBrand{font-size:.6875em;)
-}
-
 /*DESKTOP to adjust------------------------------------*/
 
 @media (min-width:768px) {
@@ -405,4 +396,11 @@ ul.fpccMenuList a:hover, ul.fpccMenuList a:active{background:#666}
 /*leaflet override*/
 .leaflet-control-layers.leaflet-control-layers-expanded.leaflet-control{display:block;}
 
+}
+
+@media (max-width:350px) {
+  .fpccMobileSwitch{font-size:.875em;}
+  a.fpccMobileHamburger{margin-left:10px;}
+  .fpccSwitch{padding: 14px 30px;}
+  a.fpccMobileBrand{font-size:.6875em;)
 }
