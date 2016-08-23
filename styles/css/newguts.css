@@ -98,7 +98,7 @@ a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 #fpccMainContainer{box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2)}
 #fpccPreserveName{box-shadow:0 -3px 10px 0 rgba(0,0,0,0.2)}
 #fpccBrand{display:none;}
-#fpccMainContainer{box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2)}
+#fpccMainContainer{box-shadow:none}
 #fpccPreserveInfo{max-height:none;overflow-y:scroll}
 
 /*panel - search*/
@@ -305,7 +305,8 @@ ul.fpccMenuList a:hover, ul.fpccMenuList a:active{background:#666}
 .trailListColumn .fpccResults a{display:block}/* Needed to override the main stylesheet or it disappears search result links on mobile:*/
 .trailMapContainer{bottom:0;}
 .trailMapContainer .offsetZoomControl{display:none;}
-.detailPanel .detailPanelBody{position:inherit;}
+.detailPanel .detailPanelBody{position:inherit;top:initial;}
+.detailPanel .detailPanelBanner .trailName{white-space:initial;text-overflow:initial;overflow:initial;}
 
 /*leaflet override*/
 .leaflet-popup-tip{background:#606D29}/*HERE3*/
@@ -335,6 +336,17 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 .ui-mobile label.fpccLabel{font-size:.9125em;font-weight:normal}
 .trailListColumn .ui-page-theme-a a{font-weight:normal}
 
+/*UNDER desktop panel width------------------------------------*/
+@media (max-width:384px) {
+  .fpccMobileSwitch{font-size:.875em;}
+  a.fpccMobileHamburger{margin-left:10px;}
+  .fpccSwitch{padding: 14px 30px;}
+  a.fpccMobileBrand{font-size:.6875em;}
+  .fpccSign{width:100%;float:none;margin:0 0 1.5em 0;}
+  .fpccDirections{display:block;float:none;width:100%;}
+  .fpccAmenity span.fpccAmenityTitle{font-size:1em;max-width:initial;}
+  .fpccAmenity{float:none;width:100%;}
+}
 
 
 /*DESKTOP to adjust------------------------------------*/
@@ -349,6 +361,7 @@ section.trailListColumn{position:fixed;top:0;left:0;width:384px;max-height:100%;
 .fpccSocialIcon{width:27%;text-align:center;float:left;padding:.5em 0;margin:0 3%;border-radius:3px}
 #fpccBrand{display:inherit;padding-top:10px}
 .fpccButton:active{border-bottom:none;margin-top:2px}
+#fpccMainContainer{box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2)}
 
 /*panel - search*/
 .fpccEntry{background:#FFF}
@@ -414,11 +427,4 @@ ul.fpccMenuList a:hover, ul.fpccMenuList a:active{background:#666}
 
 /*selectize override*/
 .selectize-input{border:1px solid #d0d0d0;padding:9px 8px 8px;min-height:initial;width:75%;}
-}
-
-@media (max-width:350px) {
-  .fpccMobileSwitch{font-size:.875em;}
-  a.fpccMobileHamburger{margin-left:10px;}
-  .fpccSwitch{padding: 14px 30px;}
-  a.fpccMobileBrand{font-size:.6875em;)
 }
