@@ -249,7 +249,6 @@ section.trailListColumn{position:fixed;top:48px;left:0;width:100%;max-height:100
 .fpccEntryNameText{display:inline-block;width:83%}
 .trailListColumn .fpccUnit.fpccResults a span.fpccEntryName{font-size:1em;font-weight:bold;float:left;width:70%}
 .fpccEntryDis{font-size:.9125em;font-family:Georgia,"Times New Roman",serif;float:right;width:30%;text-align:right}
-#fpccMainContainer #fpccSearchStatus{display:initial;}
 #fpccSearchContainer .fpccButton{width:15%;border-bottom:0;height:48px;float:right;display:inline;max-height:initial}
 #fpccSearchContainer select{border:1px solid #999;padding:5px;width:75%;height:37px;font-size:.9375em;line-height:1;box-sizing:border-box}
 section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overflow-y:scroll}
@@ -305,7 +304,7 @@ ul.fpccMenuList a:hover, ul.fpccMenuList a:active{background:#666}
 .trailListColumn .fpccResults a{display:block}/* Needed to override the main stylesheet or it disappears search result links on mobile:*/
 .trailMapContainer{bottom:0;}
 .trailMapContainer .offsetZoomControl{display:none;}
-.detailPanel .detailPanelBody{position:inherit;top:initial;}
+.detailPanel .detailPanelBody,.detailPanel.expanded{position:inherit;top:initial;}
 .detailPanel .detailPanelBanner .trailName{white-space:initial;text-overflow:initial;overflow:initial;}
 
 /*leaflet override*/
@@ -375,7 +374,7 @@ section.trailListColumn{position:fixed;top:0;left:0;width:384px;max-height:100%;
 #fpccSearchContainer select{border:1px solid #999;padding:5px;width:75%;height:37px;font-size:.9375em;line-height:1;box-sizing:border-box}
 section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overflow-y:scroll}
 .fpccResults.fpccUnit{box-shadow:none;}
-#fpccSearchStatus{display:block;}
+#fpccMainContainer #fpccSearchStatus{display:block;}
 #fpccSearchButton span{display:inherit;}
 #fpccSearchButton .icon-search{display:none;}
 
