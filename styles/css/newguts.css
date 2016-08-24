@@ -378,7 +378,7 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
 .fpccResults.fpccUnit{box-shadow:none;}
 #fpccMainContainer #fpccSearchStatus{display:block;}
 #fpccSearchButton span{display:inherit;}
-#fpccSearchButton .icon-search{display:none;}
+#fpccSearchButton .icon-search,#fpccMobileSearchButton{display:none;}
 
 /*panel - poi*/
 .fpccSpecialBlurb{vertical-align:middle;display:inline-block;width:85%}
