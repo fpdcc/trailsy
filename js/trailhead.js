@@ -111,7 +111,8 @@ function startup() {
   // var USE_LOCAL = SMALL ? false : true; // Set this to a true value to preload/use a local trail segment cache
   var USE_LOCAL = true;
   var USE_SEGMENT_LAYER = true; // performance testing on mobile
-  var USE_COMPLEX_SEGMENT_LAYER = SMALL ? false : true;
+  //var USE_COMPLEX_SEGMENT_LAYER = SMALL ? false : true;
+  var USE_COMPLEX_SEGMENT_LAYER = true;
   var NORMAL_SEGMENT_COLOR = "#C4D0DB";
   var NORMAL_SEGMENT_WEIGHT = 4;
   var HOVER_SEGMENT_COLOR = "#C4D0DB";
@@ -449,10 +450,10 @@ function startup() {
 
   function highlightFirstTrail() {
     if (orderedTrails.length) {
-      if (SMALL &&($(".slideDrawer").hasClass("closedDrawer")) ){
-        highlightTrailhead(orderedTrails[0].trailheadID, 0);
-        showTrailDetails(orderedTrails[0].trail, orderedTrails[0].trailhead);
-      }
+      // if (SMALL &&($(".slideDrawer").hasClass("closedDrawer")) ){
+      //   highlightTrailhead(orderedTrails[0].trailheadID, 0);
+      //   showTrailDetails(orderedTrails[0].trail, orderedTrails[0].trailhead);
+      // }
     }
     else {
       setTimeout(highlightFirstTrail, 100);
@@ -1920,9 +1921,9 @@ function startup() {
         makeTrailDivs(currentTrailheads);
         setTimeout(function() {
           if (SMALL && USE_LOCAL) {
-            highlightTrailhead(orderedTrails[0].trailheadID, 0);
-            orderedTrailIndex = 0;
-            showTrailDetails(orderedTrails[0].trail, orderedTrails[0].trailhead);
+            // highlightTrailhead(orderedTrails[0].trailheadID, 0);
+            // orderedTrailIndex = 0;
+            // showTrailDetails(orderedTrails[0].trail, orderedTrails[0].trailhead);
           }
         }, 0);
       }, 0);
