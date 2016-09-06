@@ -260,13 +260,31 @@ section.trailListColumn{position:fixed;top:48px;left:0;width:100%;max-height:100
 #fpccMainContainer.contracted {
     position: absolute;
     bottom: 0px;
-    height: 85px;
+    height: 95px;
     overflow: visible;
     -webkit-transition: -webkit-transform 250ms;
     -moz-transition: -moz-transform 250ms;
     transition: transform 250ms;
   }
 
+/*.detailPanel.expanded {
+    position: absolute;
+    top: 3em;
+    bottom: 0;
+    height: auto;
+    overflow: visible;
+  }
+*/
+/*.detailPanel.contracted {
+    position: absolute;
+    bottom: 0px;
+    height: 95px;
+    overflow: visible;
+    -webkit-transition: -webkit-transform 250ms;
+    -moz-transition: -moz-transform 250ms;
+    transition: transform 250ms;
+  }
+*/
 
 /*panel - search*/
 .fpccEntry .icon{width:10%;height:1.25em;vertical-align:top;margin-right:5%}

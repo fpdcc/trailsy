@@ -248,6 +248,7 @@ function startup() {
   $(".fpccSearchbox").change(function(e) { processSearch(e); });
   $(".offsetZoomControl").click(offsetZoomIn);
   $("#fpccSearchButton").click(processSearch);
+  $("#fpccMobileCheckbox").click(showfpccMainContainer);
 
   //$(".fpccSearchsubmit").click(processSearch);
   //$(".fpccSearchbox").keyup(function(e) { processSearch(e); });
@@ -2880,6 +2881,21 @@ function startup() {
     trailSegmentHTML += thisType;
     trailSegmentHTML += '</span></span></div></div>';
     return trailSegmentHTML;
+  }
+
+  function showfpccMainContainer(e){
+    console.log("showfpccMainContainer");
+    var show = document.getElementById("fpccMobileCheckbox").checked;
+    console.log("[showfpccMainContainer] show = " + show);
+    if (show){
+      $('#fpccMainContainer').addClass('contracted');
+      $('#fpccMainContainer').removeClass('expanded');
+      $('.statusMessage span').addClass('truncate');
+    } else {
+      $('#fpccMainContainer').addClass('expanded');
+      $('#fpccMainContainer').removeClass('contracted');
+      $('.statusMessage span').removeClass('truncate'); 
+    }
   }
 
   function showDetailPanel(show){
