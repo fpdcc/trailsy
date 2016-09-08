@@ -393,6 +393,13 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 /*DESKTOP to adjust------------------------------------*/
 
 @media (min-width:768px) {
+  
+/* Josh experiments */
+#fpccMainContainer.expanded {
+    position: initial;
+   bottom: initial;
+  }  
+  
 /*mobile top bar*/
 section.fpccMobile{display:none;}
 
