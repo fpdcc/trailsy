@@ -519,24 +519,19 @@ function startup() {
     var filterType = "activityFilter";
     console.log("[processSearch]");
     var currentUIFilterState;
-    if (SMALL) {
-      currentUIFilterState = $('#mobile .fpccSearchbox').val();
-    } else {
-      //currentUIFilterState = $('#desktop .fpccSearchbox').val();
-      currentUIFilterState = $('#desktop .fpccSearchbox').val();
-    }
+    currentUIFilterState = $('#desktop .fpccSearchbox').val();
     if (($currentTarget).hasClass('fpccSearchbox')) {
-      if (SMALL) {
-        if (e.keyCode === 13) {
-          updateFilterObject(filterType, currentUIFilterState);
-        }
-      } else {
+      // if (SMALL) {
+      //   if (e.keyCode === 13) {
+      //     updateFilterObject(filterType, currentUIFilterState);
+      //   }
+      // } else {
         clearTimeout(searchKeyTimeout);
         searchKeyTimeout = setTimeout(function () {
           console.log("[processSearch] searchKeyTimeout currentUIFilterState = " + currentUIFilterState);
           updateFilterObject(filterType, currentUIFilterState);
         }, 800);
-      }
+      //}
     } else if (($currentTarget).hasClass('fpccButton')) {
       updateFilterObject(filterType, currentUIFilterState);
     }
