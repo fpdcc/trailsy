@@ -282,7 +282,7 @@ function startup() {
   //  Detail Panel Navigation UI events
   $('.hamburgerBox').click(moveSlideDrawer);
 
-  // $('.slider, .detailPanelBanner').click(slideDetailPanel);
+  $('.detailPanelBanner').click(slideDetailPanel);
   $(".detailPanel").hover(detailPanelHoverIn, detailPanelHoverOut);
 
   $(".aboutLink").click(openAboutPage);
@@ -2301,12 +2301,14 @@ function startup() {
     }
     if (SMALL) {
       $('#fpccMainContainer').hide();
+      $(".detailPanel").removeClass("contracted");
+      $(".detailPanel").addClass("expanded");
       if ($(".slideDrawer").hasClass("openDrawer")) {
         console.log("slide drawer is open");
         $(".slideDrawer").removeClass("openDrawer");
         $(".slideDrawer").addClass("closedDrawer");
         $(".detailPanel").removeClass("hidden");
-        $(".detailPanel").addClass("contracted");
+
       }
     }
     $('.trailhead-trailname.selected').addClass("detail-open");
@@ -2924,6 +2926,8 @@ function startup() {
       $('#fpccMainContainer').removeClass('expanded');
       $('.trailListColumn').addClass('contracted');
       $('.trailListColumn').removeClass('expanded');
+      $('.detailPanel').addClass('contracted');
+      $('.detailPanel').removeClass('expanded');
       // document.getElementById("fpccMainContainer").style.zIndex = "1";
       $('.statusMessage span').addClass('truncate');
     } else {
@@ -2931,6 +2935,8 @@ function startup() {
       $('.trailListColumn').addClass('expanded');
       $('.trailListColumn').removeClass('contracted');
       $('#fpccMainContainer').removeClass('contracted');
+      $('.detailPanel').addClass('expanded');
+      $('.detailPanel').removeClass('contracted');
       $('.statusMessage span').removeClass('truncate'); 
     }
     setHeights();
@@ -2941,10 +2947,14 @@ function startup() {
     if (show){
       $('.detailPanel').addClass('expanded');
       $('.detailPanel').removeClass('contracted');
+      $('.trailListColumn').addClass('expanded');
+      $('.trailListColumn').removeClass('contracted');
       $('.statusMessage span').removeClass('truncate');
     } else {
       $('.detailPanel').addClass('contracted');
       $('.detailPanel').removeClass('expanded');
+      $('.trailListColumn').addClass('contracted');
+      $('.trailListColumn').removeClass('expanded');
       $('.statusMessage span').addClass('truncate');
     }
   }

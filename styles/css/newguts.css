@@ -254,7 +254,7 @@ section.trailListColumn .accordion{/* display:none;*/border-top:8px solid #7E913
   left: 0;
   right:0;
 }
-#fpccMainContainer.expanded, .trailListColumn.expanded {
+#fpccMainContainer.expanded, .trailListColumn.expanded, .detailPanel.expanded {
     position: absolute;
 /*    top: 3em;
 */    bottom: 0;
@@ -263,7 +263,7 @@ section.trailListColumn .accordion{/* display:none;*/border-top:8px solid #7E913
     z-index:9000;
   }
 
-#fpccMainContainer.contracted, .trailListColumn.contracted {
+#fpccMainContainer.contracted, .trailListColumn.contracted, .detailPanel.contracted {
     position: absolute;
     bottom: 0px;
     height: 55px;
@@ -280,18 +280,18 @@ section.trailListColumn .accordion{/* display:none;*/border-top:8px solid #7E913
     height: auto;
     overflow: visible;
   }
-*/
-/*.detailPanel.contracted {
+
+.detailPanel.contracted {
     position: absolute;
     bottom: 0px;
-    height: 95px;
+    height: 55px;
     overflow: visible;
     -webkit-transition: -webkit-transform 250ms;
     -moz-transition: -moz-transform 250ms;
     transition: transform 250ms;
   }
-*/
 
+*/
 /*panel - search*/
 .fpccEntry .icon{width:10%;height:1.25em;vertical-align:top;margin-right:5%}
 .fpccEntryNameText{display:inline-block;width:83%}
@@ -341,8 +341,8 @@ ul.fpccMenuList a:hover, ul.fpccMenuList a:active{background:#666}
 /*OVERRIDES------------------------------------*/
 
 /*main.css override*/
-.trailListColumn .detailPanel{max-height:none}
-.trailListColumn .title-row header .navbar-inner .logo{margin:0;width:270px}
+.detailPanel{background-color: #ffffff;display:block;}
+*/.trailListColumn .title-row header .navbar-inner .logo{margin:0;width:270px}
 .trailListColumn .title-row header .navbar-inner{padding:.35em 0 .5em 0;width:auto;margin:0 42px;position:inherit}
 #fpccPreserveName .trailName{font-size:20px}
 .detailPanel #fpccPreserveName.detailPanelBanner{background:#273719;padding:.5em 1.75em .5em 1em}
@@ -352,8 +352,8 @@ ul.fpccMenuList a:hover, ul.fpccMenuList a:active{background:#666}
 .trailListColumn .fpccResults a{display:block}/* Needed to override the main stylesheet or it disappears search result links on mobile:*/
 .trailMapContainer{bottom:55px;}
 .trailMapContainer .offsetZoomControl{display:none;}
-.detailPanel .detailPanelBody,.detailPanel.expanded{position:inherit;top:initial;}
-.detailPanel .detailPanelBanner .trailName{white-space:initial;text-overflow:initial;overflow:initial;}
+/*.detailPanel .detailPanelBody,.detailPanel.expanded{position:inherit;top:initial;}
+*/.detailPanel .detailPanelBanner .trailName{white-space:initial;text-overflow:initial;overflow:initial;}
 
 /*leaflet override*/
 .leaflet-popup-tip{background:#606D29}/*HERE3*/
