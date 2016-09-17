@@ -341,7 +341,7 @@ ul.fpccMenuList a:hover, ul.fpccMenuList a:active{background:#666}
 /*OVERRIDES------------------------------------*/
 
 /*main.css override*/
-.detailPanel{background-color: #ffffff;display:block;}
+.detailPanel{background-color: #ffffff;display:block;width:100%;}
 */.trailListColumn .title-row header .navbar-inner .logo{margin:0;width:270px}
 .trailListColumn .title-row header .navbar-inner{padding:.35em 0 .5em 0;width:auto;margin:0 42px;position:inherit}
 #fpccPreserveName .trailName{font-size:20px}
