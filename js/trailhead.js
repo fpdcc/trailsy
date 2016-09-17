@@ -9,12 +9,35 @@ $(document).ready(startup);
 // It is called on body load and resize. It is also called when opening Detail panel.
 function setHeights() {
       var h = $(window).height();
-      var k = $("#fpccBrand").outerHeight();
+      var k = $('#fpccBrand').is(':visible') ? $('#fpccBrand').outerHeight() : 0;
+      var l = $('#fpccBrandMobile').is(':visible') ? $('#fpccBrandMobile').outerHeight(true) : 0;
       var m = $("#fpccPreserveName").outerHeight();
-      var o = $("#fpccSearchBack").outerHeight();
-      var q = $("#fpccSearchContainer").outerHeight();
-      $('#fpccPreserveInfo').css('max-height', (h-(k + m + o + q)) );
-      $('#fpccSearchResults').css('max-height', (h-(k + o + q)) );
+      var o = $('#fpccSearchBack').is(':visible') ? $('#fpccSearchBack').outerHeight(true) : 0;
+      var p = $('#fpccSearchStatus').is(':visible') ? $('#fpccSearchStatus').outerHeight(true) : 0;
+      var q = $('#fpccSearchContainer').is(':visible') ? $('#fpccSearchContainer').outerHeight(true) : 0;
+      console.log("[setHeights] h = " + h);
+      console.log("[setHeights] k + l + m + o + p + q = " + k + " + " + l + " + " + m + " + " + o + " + " + p + " + " + q);
+      var fpccSearchResultsHeight = (h-(k + l + o + p + q));
+      console.log("[setHeights] fpccSearchResultsHeight= " + fpccSearchResultsHeight);
+      $('#fpccSearchResults').css('max-height',fpccSearchResultsHeight );
+      var SMALL = false;
+      if (Modernizr.mq("only screen and (max-width: 768px)")) {
+        SMALL = true;
+      } else if (Modernizr.mq("only screen and (min-width: 769px)")) {
+        SMALL = false;
+      }
+      var fpccPreserveInfoHeight = 0;
+      if (SMALL) {
+        console.log("[setHeights] yes small");
+        fpccPreserveInfoHeight = (h-(l + m + o));
+      } else {
+        fpccPreserveInfoHeight = (h-(k + m + o + q));
+        console.log("[setHeights] no small");
+      }
+      $('#fpccPreserveInfo').css('max-height', fpccPreserveInfoHeight );
+      console.log("[setHeights] #fpccPreserveInfoHeight= " + fpccPreserveInfoHeight);
+
+      
 }
 
 /* The Big Nested Function
@@ -259,7 +282,7 @@ function startup() {
   //  Detail Panel Navigation UI events
   $('.hamburgerBox').click(moveSlideDrawer);
 
-  $('.slider, .detailPanelBanner').click(slideDetailPanel);
+  // $('.slider, .detailPanelBanner').click(slideDetailPanel);
   $(".detailPanel").hover(detailPanelHoverIn, detailPanelHoverOut);
 
   $(".aboutLink").click(openAboutPage);
@@ -2007,7 +2030,7 @@ function startup() {
 
   function makeTrailDivs(myTrailheads) {
     console.log("makeTrailDivs");
-    closeDetailPanel();
+    
     orderedTrails = [];
     var trailList = {}; // used to see if trail div has been built yet.
     var divCount = 0;
@@ -2134,6 +2157,7 @@ function startup() {
     //$(".fpccEntry").click(populateTrailsForTrailheadDiv);
     $(".fpccEntry").click(trailDivClickHandler);
     $("#fpccSearchStatus").html(divCount + " Results Found");
+    closeDetailPanel();
     console.log("end makeTrailDivs 4");
     makeTrailDivsEnded = true;
   }
@@ -2268,13 +2292,15 @@ function startup() {
     $('#fpccSearchBack').show();
     $('.detailPanel').show();
 
+    $('#fpccPreserveInfo').scrollTop(0);
+
     // We need to re-calculate the max height for fpccPreserveInfo because 
     // fpccPreserveName height can change.
-    setHeights(); 
     if (!SMALL) {
       //$('.accordion').hide();
     }
     if (SMALL) {
+      $('#fpccMainContainer').hide();
       if ($(".slideDrawer").hasClass("openDrawer")) {
         console.log("slide drawer is open");
         $(".slideDrawer").removeClass("openDrawer");
@@ -2284,6 +2310,8 @@ function startup() {
       }
     }
     $('.trailhead-trailname.selected').addClass("detail-open");
+    setHeights(); 
+
     //$(".detailPanel .detailPanelPicture")[0].scrollIntoView();
     // map.invalidateSize();
   }
@@ -2302,8 +2330,12 @@ function startup() {
     highlightTrailhead(null,null);
     highlightTrailSegmentsForTrailSubsystem(null);
     highlightActivities(null);
+    if (SMALL) {
+      $('#fpccMainContainer').show();
+    }
     //resetDetailPanel();
     map.closePopup();
+    setHeights();
     // map.invalidateSize();
   }
 
@@ -2890,12 +2922,18 @@ function startup() {
     if (show){
       $('#fpccMainContainer').addClass('contracted');
       $('#fpccMainContainer').removeClass('expanded');
+      $('.trailListColumn').addClass('contracted');
+      $('.trailListColumn').removeClass('expanded');
+      // document.getElementById("fpccMainContainer").style.zIndex = "1";
       $('.statusMessage span').addClass('truncate');
     } else {
       $('#fpccMainContainer').addClass('expanded');
+      $('.trailListColumn').addClass('expanded');
+      $('.trailListColumn').removeClass('contracted');
       $('#fpccMainContainer').removeClass('contracted');
       $('.statusMessage span').removeClass('truncate'); 
     }
+    setHeights();
   }
 
   function showDetailPanel(show){

@@ -98,7 +98,7 @@ a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 #fpccMainContainer{box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2)}
 #fpccPreserveName{box-shadow:0 -3px 10px 0 rgba(0,0,0,0.2)}
 #fpccBrand{display:none;}
-#fpccMainContainer{box-shadow:none}
+#fpccMainContainer{box-shadow:none;}
 #fpccPreserveInfo{max-height:none;overflow-y:scroll}
 
 
@@ -106,6 +106,7 @@ a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 /*panel - search*/
 #fpccSearchContainer.fpccUnit{box-shadow:0 -4px 8px 0 rgba(0, 0, 0, 0.3);background:#FFF;padding:0;display:table;width:100%/*to play nice with menu*/}
 #fpccSearchContainer.fpccUnit.fpccResults{padding:0}
+#fpccSearchContainer {z-index:8500;}
 #fpccSearchContainer form{display:inline}
 #fpccSearchBack, #fpccSearchBack, #fpccSearchStatus{background:#E3EACC;box-shadow:inset 0 3px 10px 0 rgba(0, 0, 0, 0.2);text-align:center;font-weight:bold;font-size:.9375em;color:#273719;padding:.75em 0;display:block;text-decoration:none}
 #fpccMainContainer #fpccSearchStatus{display:none;}
@@ -245,22 +246,27 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 
 /*panel - general*/
 section.trailListColumn .accordion{/* display:none;*/border-top:8px solid #7E9137;background:none;max-height:none;overflow:hidden}
-section.trailListColumn{position:fixed;top:48px;left:0;width:100%;max-height:100%;/*min-height:14em;*/padding:0;background:none;z-index:99999;height:100%;/* overflow:visible;*/}
-.fpccSocialIcon{width:27%;text-align:center;float:left;padding:.5em 0;margin:0 3%;border-radius:3px}
+/*section.trailListColumn{position:absolute;top:48px;left:0;width:100%;max-height:100%;min-height:14em;padding:0;background:none;z-index:9000;height:100%;/* overflow:visible;*/}
+*/.fpccSocialIcon{width:27%;text-align:center;float:left;padding:.5em 0;margin:0 3%;border-radius:3px}
 
 /* Josh experiments */
-#fpccMainContainer.expanded {
+#fpccMainContainer, .trailListColumn {
+  left: 0;
+  right:0;
+}
+#fpccMainContainer.expanded, .trailListColumn.expanded {
     position: absolute;
 /*    top: 3em;
 */    bottom: 0;
     height: auto;
     overflow: visible;
+    z-index:9000;
   }
 
-#fpccMainContainer.contracted {
+#fpccMainContainer.contracted, .trailListColumn.contracted {
     position: absolute;
     bottom: 0px;
-    height: 95px;
+    height: 55px;
     overflow: visible;
     -webkit-transition: -webkit-transform 250ms;
     -moz-transition: -moz-transform 250ms;
@@ -344,7 +350,7 @@ ul.fpccMenuList a:hover, ul.fpccMenuList a:active{background:#666}
 .icon-x.closeDetail:hover{opacity:1;filter:alpha(opacity=100)}
 .trailListColumn .fpccContainer a,.trailListColumn #fpccSearchBack a{display:inline-block}/* Needed to override the main stylesheet or it disappears POI panel links on mobile:*/
 .trailListColumn .fpccResults a{display:block}/* Needed to override the main stylesheet or it disappears search result links on mobile:*/
-.trailMapContainer{bottom:0;}
+.trailMapContainer{bottom:55px;}
 .trailMapContainer .offsetZoomControl{display:none;}
 .detailPanel .detailPanelBody,.detailPanel.expanded{position:inherit;top:initial;}
 .detailPanel .detailPanelBanner .trailName{white-space:initial;text-overflow:initial;overflow:initial;}
@@ -405,11 +411,11 @@ section.fpccMobile{display:none;}
 
 /*panel - general*/
 section.trailListColumn .accordion{/* display:none;*/border-top:8px solid #7E9137;background:none;max-height:none;overflow:hidden}
-section.trailListColumn{position:fixed;top:0;left:0;width:384px;max-height:100%;/*min-height:14em;*/padding:0;background:none;z-index:999;height:100%;/* overflow:visible;*/}
+section.trailListColumn{position:fixed;top:0;left:0;width:384px;max-height:100%;/*min-height:14em;*/padding:0;background:none;z-index:1000;height:100%;/* overflow:visible;*/}
 .fpccSocialIcon{width:27%;text-align:center;float:left;padding:.5em 0;margin:0 3%;border-radius:3px}
 #fpccBrand{display:inherit;padding-top:10px}
 .fpccButton:active{border-bottom:none;margin-top:2px}
-#fpccMainContainer{box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2)}
+#fpccMainContainer{box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2); z-index:1000}
 
 /*panel - search*/
 .fpccEntry{background:#FFF}

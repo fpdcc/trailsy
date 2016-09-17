@@ -2349,7 +2349,7 @@ max-width: 75%;    font-family: Helvetica, Arial, sans-serif;
   background: #FFF;
   border-radius: 10px;
 }
-@media only screen and (max-width: 768px) {
+/*@media only screen and (max-width: 768px) {
   .trailListColumn {
     position: absolute;
     top: 0;
@@ -2363,7 +2363,7 @@ max-width: 75%;    font-family: Helvetica, Arial, sans-serif;
   .trailListColumn a {
     display: none;
   }
-}
+}*/
 @media only screen and (min-width: 769px) {
   .trailListColumn {
     position: absolute;
