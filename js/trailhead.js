@@ -30,6 +30,8 @@ function setHeights() {
       if (SMALL) {
         console.log("[setHeights] yes small");
         fpccPreserveInfoHeight = (h-(l + m + o));
+        $('#fpccPreserveInfo').css('min-height', fpccPreserveInfoHeight );
+        $('#fpccSearchResults').css('min-height',fpccSearchResultsHeight );
       } else {
         fpccPreserveInfoHeight = (h-(k + m + o + q));
         console.log("[setHeights] no small");
