@@ -2958,10 +2958,12 @@ function startup() {
 
   function slideDetailPanel(e) {
     console.log("slideDetailPanel");
-    if ($(e.target).parents(".detailPanel").hasClass("expanded")) {
-      showDetailPanel(false);
-    } else {
-      showDetailPanel(true);
+    if ( $(e.target).parents(".detailPanel").is(":visible") ) {
+      if ($(e.target).parents(".detailPanel").hasClass("expanded")) {
+        showDetailPanel(false);
+      } else {
+        showDetailPanel(true);
+      }
     }
   }
 
