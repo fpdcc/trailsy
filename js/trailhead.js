@@ -2927,6 +2927,7 @@ function startup() {
       $('.detailPanel').removeClass('expanded');
       // document.getElementById("fpccMainContainer").style.zIndex = "1";
       $('.statusMessage span').addClass('truncate');
+      $('#fpccSearchBack').hide();
     } else {
       $('#fpccMainContainer').addClass('expanded');
       $('.trailListColumn').addClass('expanded');
@@ -2934,7 +2935,10 @@ function startup() {
       $('#fpccMainContainer').removeClass('contracted');
       $('.detailPanel').addClass('expanded');
       $('.detailPanel').removeClass('contracted');
-      $('.statusMessage span').removeClass('truncate'); 
+      $('.statusMessage span').removeClass('truncate');
+      if ($(".detailPanel").is(":visible") ) {
+        $('#fpccSearchBack').show();
+      }
     }
     setHeights();
   }
@@ -2947,13 +2951,18 @@ function startup() {
       $('.trailListColumn').addClass('expanded');
       $('.trailListColumn').removeClass('contracted');
       $('.statusMessage span').removeClass('truncate');
+      $('#fpccSearchBack').show();
+      document.getElementById("fpccMobileCheckbox").checked = false;
     } else {
       $('.detailPanel').addClass('contracted');
       $('.detailPanel').removeClass('expanded');
       $('.trailListColumn').addClass('contracted');
       $('.trailListColumn').removeClass('expanded');
       $('.statusMessage span').addClass('truncate');
+      $('#fpccSearchBack').hide();
+      document.getElementById("fpccMobileCheckbox").checked = true;
     }
+    showfpccMainContainer();
   }
 
   function slideDetailPanel(e) {
