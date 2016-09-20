@@ -104,7 +104,7 @@ At some point, update mediaqueries to be in EMS
   }
 }
 @media only screen and (max-width: 768px) {
-  .title-row {
+  /*.title-row {
     position: relative;
     width: 100%;
     height: 3em;
@@ -114,18 +114,18 @@ At some point, update mediaqueries to be in EMS
     -webkit-transition: -webkit-transform 250ms;
     -moz-transition: -moz-transform 250ms;
     transition: transform 250ms;
-  }
+  }*/
   .title-row.dragging-map {
     -webkit-transform: translateY(-3em);
     -moz-transform: translateY(-3em);
     transform: translateY(-3em);
   }
-  .title-row header {
+  /*.title-row header {
     width: 100%;
     margin: 0;
     padding: 0;
-  }
-  .title-row header .navbar-inner {
+  }*/
+  /*.title-row header .navbar-inner {
     position: relative;
     width: 100%;
     height: 3em;
@@ -134,8 +134,7 @@ At some point, update mediaqueries to be in EMS
     box-shadow: none;
     text-align: justify;
     /*padding: .5em 0em .5em .5em;*/
-
-  }
+  }*/
   .title-row header .navbar-inner .hamburgerBox {
     cursor: pointer;
 display: inline-block;
@@ -146,23 +145,22 @@ height: 100%;
   }
   .title-row header .navbar-inner .hamburgerBox .hamburgerLine {
     background-color: #FFF;
-height: 0.1em;
-width: 100%;
-padding-left: 0.25em;
-padding-right: 0.25em;
-cursor: pointer;
-border: 2px solid rgb(255, 255, 255);
-margin-top: 20%;
+    height: 0.1em;
+    width: 100%;
+    padding-left: 0.25em;
+    padding-right: 0.25em;
+    cursor: pointer;
+    border: 2px solid rgb(255, 255, 255);
+    margin-top: 20%;
   }
-  .title-row header .navbar-inner .logo {
+  /*.title-row header .navbar-inner .logo {
     /* height: 100%; * This causes Safari issues */
-
     display: inline-block;
-margin-bottom: 0.5em;
-margin-top: 0.35em;
-width: 12em;
-margin-left: 0.25em;
-  }
+    margin-bottom: 0.5em;
+    margin-top: 0.35em;
+    width: 12em;
+    margin-left: 0.25em;
+  }*/
   .title-row header .navbar-inner .geolocateBox {
     float: right;
     height: 3em;
@@ -2110,11 +2108,11 @@ max-width: 75%;    font-family: Helvetica, Arial, sans-serif;
 .trailhead-trailname {
   cursor: pointer;
 }
-.trailMapContainer {
+/*.trailMapContainer {
   background: #dddddd;
   /* Desktop */
 
-}
+}*/
 @media only screen and (max-width: 768px) {
   .trailMapContainer {
     position: absolute;
@@ -2169,12 +2167,12 @@ max-width: 75%;    font-family: Helvetica, Arial, sans-serif;
   }
 }*/
 @media only screen {
-  #trailMapLarge {
+  /*#trailMapLarge {
     position: absolute;
     width: 100%;
     height: 100%;
     padding: 0;
-  }
+  }*/
 }
 .trailDefault {
   color: #b79e8a;
@@ -3802,7 +3800,7 @@ border-radius: 3px;
 /**
  * Correct `block` display not defined in IE 8/9.
  */
-article,
+/*article,
 aside,
 details,
 figcaption,
@@ -3815,7 +3813,7 @@ nav,
 section,
 summary {
   display: block;
-}
+}*/
 /**
  * Correct `inline-block` display not defined in IE 8/9.
  */

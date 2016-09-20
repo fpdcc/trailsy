@@ -2261,7 +2261,7 @@ function startup() {
     $.address.parameter('poi', trailheadLink);
     $.address.parameter('search', null);
     $.address.update();
-
+    showDetailPanel(true);
     if ($('.detailPanel').is(':hidden')) {
       //decorateDetailPanel(trail, trailhead);
       openDetailPanel();
@@ -2300,6 +2300,8 @@ function startup() {
       $('#fpccMainContainer').hide();
       $(".detailPanel").removeClass("contracted");
       $(".detailPanel").addClass("expanded");
+      /*$(".trailListColumn").removeClass("contracted");
+      $(".trailListColumn").addClass("expanded");*/
       if ($(".slideDrawer").hasClass("openDrawer")) {
         console.log("slide drawer is open");
         $(".slideDrawer").removeClass("openDrawer");
