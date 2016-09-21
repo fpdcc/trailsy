@@ -859,7 +859,7 @@ margin:0 2em 0 0;
     width: 0;
   }
 }
-@media only screen and (max-width: 768px) {
+/*@media only screen and (max-width: 768px) {
   .clearfix {
     *zoom: 1;
   }
@@ -886,7 +886,7 @@ margin:0 2em 0 0;
     display: table;
     clear: both;
   }
-}
+}*/
 @media only screen and (max-width: 768px) {
   .list-reset {
     padding: 0;
@@ -1783,14 +1783,14 @@ max-width: 75%;    font-family: Helvetica, Arial, sans-serif;
   -webkit-backface-visibility: hidden;
 }
 @media only screen and (max-width: 768px) {
-  .leaflet-popup-content-wrapper {
+  /*.leaflet-popup-content-wrapper {
     border-radius: 0px;
     width: auto;
     min-width: 12em;
     height: auto;
     padding: 0;
-  }
-  .leaflet-popup-content-wrapper .leaflet-popup-content {
+  }*/
+  /*.leaflet-popup-content-wrapper .leaflet-popup-content {
     min-width: 10em;
     width: auto;
     height: auto;
@@ -1798,22 +1798,22 @@ max-width: 75%;    font-family: Helvetica, Arial, sans-serif;
     line-height: 1em;
     position: relative;
     background-color: #ffffff;
-  }
+  }*/
   .leaflet-popup-content-wrapper .leaflet-popup-content .leaflet-popup-close-button {
     color: #bbbdbf;
   }
-  .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup {
+  /*.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup {
     width: auto;
     min-width: 14em;
     position: relative;
-  }
-  .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box {
+  }*/
+  /*.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box {
     width: 100%;
     position: relative;
     display: inline-block;
     height: auto;
-  }
-  .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames {
+  }*/
+  /*.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames {
     position: relative;
     display: inline-block;
     background-color: #ffffff;
@@ -1831,7 +1831,7 @@ max-width: 75%;    font-family: Helvetica, Arial, sans-serif;
     text-transform: capitalize;
     vertical-align: bottom;
     border-bottom: 1px solid #58595b;
-  }
+  }*/
   .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .calloutTrailheadIcon {
     position: absolute;
     height: 1.5em;
@@ -1839,13 +1839,13 @@ max-width: 75%;    font-family: Helvetica, Arial, sans-serif;
     left: .5em;
     float: left;
   }
-  .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname {
+  /*.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname {
     min-width: 12em;
     width: 100%;
     border-top: 1px solid #e3e3e1;
     /*            padding: .5em 0em .25em .5em;*/
 
-  }
+  }*/
   .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .status {
     width: 3em;
   }
@@ -1876,7 +1876,7 @@ max-width: 75%;    font-family: Helvetica, Arial, sans-serif;
   .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname.selected b {
     display: none;
   }
-  .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .popupTrailNames {
+  /*.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .popupTrailNames {
     position: relative;
     height: auto;
     width: auto;
@@ -1890,7 +1890,7 @@ max-width: 75%;    font-family: Helvetica, Arial, sans-serif;
     line-height: 20px;
     text-decoration: none;
     line-height: 1.5em;
-  }
+  }*/
   .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup b {
     position: absolute;
     margin: 1em .5em 0 .25em;
@@ -2105,9 +2105,9 @@ max-width: 75%;    font-family: Helvetica, Arial, sans-serif;
   padding: .7em 25% .5em .5em;
   border-top: 1px solid #e3e3e1;
 }
-.trailhead-trailname {
+/*.trailhead-trailname {
   cursor: pointer;
-}
+}*/
 /*.trailMapContainer {
   background: #dddddd;
   /* Desktop */
@@ -2186,11 +2186,11 @@ max-width: 75%;    font-family: Helvetica, Arial, sans-serif;
 .trailHoverOnActive {
   color: #6d544b;
 }
-@media only screen and (max-width: 768px) {
+/*@media only screen and (max-width: 768px) {
   .leaflet-left {
     display: none;
   }
-}
+}*/
 @media mobile {
   .leaflet-clickable {
     stroke-width: 6px;
@@ -2254,7 +2254,7 @@ max-width: 75%;    font-family: Helvetica, Arial, sans-serif;
     z-index: 1;
   }
 }
-.offsetZoomControl {
+/*.offsetZoomControl {
   cursor: pointer;
   position: absolute;
   top: 2em;
@@ -2285,7 +2285,7 @@ max-width: 75%;    font-family: Helvetica, Arial, sans-serif;
 }
 .offsetZoomControl .offsetGeolocate {
   background: url("../../img/target-black.png") #ffffff center center no-repeat;
-}
+}*/
 .overlay {
   width: 100%;
   min-height: 100%;
@@ -2470,14 +2470,14 @@ max-width: 75%;    font-family: Helvetica, Arial, sans-serif;
     border-right: .8em solid transparent;
     border-bottom: 0.8em solid #ffffff;
   }
-  .detailPanel .detailPanelBanner {
+  /*.detailPanel .detailPanelBanner {
     position: relative;
     width: 100%;
     background-color: #7E9137;
     padding: .5em 1em .5em 2em;
     min-height: 2em;
-  }
-  .detailPanel .detailPanelBanner .trailName {    font-family: Helvetica, Arial, sans-serif;
+  }*/
+  /*.detailPanel .detailPanelBanner .trailName {    font-family: Helvetica, Arial, sans-serif;
     font-weight: bold;
     font-size: 14px;
     line-height: 20px;
@@ -2488,7 +2488,7 @@ max-width: 75%;    font-family: Helvetica, Arial, sans-serif;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
+  }*/
   .detailPanel .detailPanelBanner .trailIndex {    font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
     font-size: 13px;
@@ -3978,9 +3978,9 @@ img {
 /**
  * Correct overflow displayed oddly in IE 9.
  */
-svg:not(:root) {
+/*svg:not(:root) {
   overflow: hidden;
-}
+}*/
 /* ==========================================================================
    Figures
    ========================================================================== */
@@ -4018,12 +4018,13 @@ legend {
  * 2. Correct font size not being inherited in all browsers.
  * 3. Address margins set differently in Firefox 4+, Safari 5, and Chrome.
  */
+/*
 button,
 input,
 select,
 textarea {
   font-family: inherit;
-  /* 1 */
+   1 
 
   font-size: 100%;
   /* 2 */
@@ -4032,6 +4033,7 @@ textarea {
   /* 3 */
 
 }
+*/
 /**
  * Address Firefox 4+ setting `line-height` on `input` using `!important` in
  * the UA stylesheet.
@@ -4046,10 +4048,10 @@ input {
  * Correct `button` style inheritance in Chrome, Safari 5+, and IE 8+.
  * Correct `select` style inheritance in Firefox 4+ and Opera.
  */
-button,
+/*button,
 select {
   text-transform: none;
-}
+}*/
 /**
  * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
  *    and `video` controls.
@@ -4158,13 +4160,13 @@ textarea {
   overflow: hidden;
   background-color: #ffffff;
 }*/
-@media only screen and (max-width: 768px) {
+/*@media only screen and (max-width: 768px) {
   body {
     height: 100%;
     padding: 0;
     margin: 0;
   }
-}
+}*/
 [data-role*="page"] {
   height: 100%;
 }

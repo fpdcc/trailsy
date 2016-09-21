@@ -119,6 +119,194 @@ body {
     padding: 0;
   }
 
+.offsetZoomControl {
+  cursor: pointer;
+  position: absolute;
+  top: 2em;
+  right: 2em;
+  display: block;
+  width: 35px;
+  z-index: 1000;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+.offsetZoomControl a {
+  height: 35px;
+  width: 35px;
+  font: bold 22px 'Lucida Console', Monaco, monospace;
+  text-align: center;
+  background-color: white;
+  color: #808285;
+  display: inline-block;
+  line-height: 35px;
+  margin-bottom: 5px;
+}
+.offsetZoomControl a:hover {
+  background-color: #e3e3e1;
+}
+.offsetZoomControl a:active {
+  background-color: #bbbdbf;
+}
+.offsetZoomControl .offsetGeolocate {
+  background: url("../../img/target-black.png") #ffffff center center no-repeat;
+}
+
+@media only screen and (max-width: 768px) {
+  body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+/**
+ * 1. Correct font family not being inherited in all browsers.
+ * 2. Correct font size not being inherited in all browsers.
+ * 3. Address margins set differently in Firefox 4+, Safari 5, and Chrome.
+ */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  margin: 0;
+}
+
+/**
+ * Address inconsistent `text-transform` inheritance for `button` and `select`.
+ * All other form control elements do not inherit `text-transform` values.
+ * Correct `button` style inheritance in Chrome, Safari 5+, and IE 8+.
+ * Correct `select` style inheritance in Firefox 4+ and Opera.
+ */
+button,
+select {
+  text-transform: none;
+}
+
+ .clearfix {
+    *zoom: 1;
+  }
+  .clearfix:before {
+    content: "";
+    display: table;
+  }
+  .clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+.detailPanel .detailPanelBanner {
+    position: relative;
+    width: 100%;
+    background-color: #7E9137;
+    padding: .5em 1em .5em 2em;
+    min-height: 2em;
+  }
+.detailPanel .detailPanelBanner .trailName {    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 20px;
+    color: #ffffff;
+    position: relative;
+    display: inline-block;
+    max-width: 70%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+/**
+ * Correct overflow displayed oddly in IE 9.
+ */
+svg:not(:root) {
+  overflow: hidden;
+}
+
+@media only screen and (max-width: 768px) {
+  .leaflet-left {
+    display: none;
+  }
+}
+
+.leaflet-popup-content-wrapper {
+    border-radius: 0px;
+    width: auto;
+    min-width: 12em;
+    height: auto;
+    padding: 0;
+  }
+.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup {
+    width: auto;
+    min-width: 14em;
+    position: relative;
+}
+.leaflet-popup-content-wrapper .leaflet-popup-content {
+    min-width: 10em;
+    width: auto;
+    height: auto;
+    margin: 0;
+    line-height: 1em;
+    position: relative;
+    background-color: #ffffff;
+  }
+.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box {
+    width: 100%;
+    position: relative;
+    display: inline-block;
+    height: auto;
+  }
+.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames {
+    position: relative;
+    display: inline-block;
+    background-color: #ffffff;
+    height: auto;
+    width: 100%;
+    max-width: 200px;
+    overflow-y: hidden;
+    min-width: 12em;
+    padding: .5em 0em .39em 1.75em;    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 100;
+    font-size: 13px;
+    line-height: 20px;
+    color: #58595b;
+    text-decoration: none;
+    text-transform: capitalize;
+    vertical-align: bottom;
+    border-bottom: 1px solid #58595b;
+  }
+.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname {
+    min-width: 12em;
+    width: 100%;
+    border-top: 1px solid #e3e3e1;
+    /*            padding: .5em 0em .25em .5em;*/
+
+  }
+
+.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .popupTrailNames {
+    position: relative;
+    height: auto;
+    width: auto;
+    max-width: 200px;
+    overflow-y: hidden;
+    vertical-align: top;
+    padding: .5em 1.75em .25em .5em;
+    display: inline-block;    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 100;
+    font-size: 13px;
+    line-height: 20px;
+    text-decoration: none;
+    line-height: 1.5em;
+  }
+
+.trailhead-trailname {
+  cursor: pointer;
+}
+
+
+
 
 /*------------------newguts.css----------------------------------------------*/
 
