@@ -52,13 +52,6 @@ function startup() {
 
   console.log("trailhead.js");
 
-  // $(".js-example-basic-multiple").select2({
-  //   placeholder: "Search by Location or Activity",
-  //   tags: true,
-  //   tokenSeparators: [','],
-  //   allowClear: true
-  // });
-
   var $select = $(".js-example-basic-multiple").selectize({
     placeholder: "Search by Location or Activity",
     create: true,
@@ -263,12 +256,11 @@ function startup() {
 
   // $("#redoSearch").click(reorderTrailsWithNewLocation);
 
-  $('.closeDetail').click(closeDetailPanel).click(readdSearchURL); // Close the detail panel!
-  $('#fpccSearchBack').click(closeDetailPanel).click(readdSearchURL);
-  $('.detailPanelControls').click(changeDetailPanel); // Shuffle Through Trails Shown in Detail Panel
+  $('.closeDetail').click(closeDetailPanel); // Close the detail panel!
+  $('#fpccSearchBack').click(fpccBackClick);
+  //.click(closeDetailPanel).click(readdSearchURL);
   //$('.filter').change(filterChangeHandler);
 
-  $(".clearSelection").click(clearSelectionHandler);
   //$(".fpccSearchbox").keyup(function(e) { processSearch(e); });
   $(".fpccSearchbox").change(function(e) { processSearch(e); });
   $(".offsetZoomControl").click(offsetZoomIn);
@@ -281,11 +273,7 @@ function startup() {
 
   $(".geolocateButton").click(centerOnLocation);
 
-  //  Detail Panel Navigation UI events
-  $('.hamburgerBox').click(moveSlideDrawer);
-
   $('.detailPanelBanner').click(slideDetailPanel);
-  $(".detailPanel").hover(detailPanelHoverIn, detailPanelHoverOut);
 
   $(".aboutLink").click(openAboutPage);
   $(".closeAbout").click(closeAboutPage);
@@ -783,88 +771,6 @@ function startup() {
     return matched;
   }
   
-  // function filterResults(trail, trailhead) {
-  //   var matched = 1;
-  //   var term = 1;
-  //   //console.log("[filterResults] initial matched = " + matched);
-  //   if (currentFilters.activityFilter) {
-  //     //console.log("[filterResults] currentFilters.activityFilter exists.." + currentFilters.activityFilter.length);
-  //     for (var i = 0; i < currentFilters.activityFilter.length; i++) {
-  //       var activity = currentFilters.activityFilter[i];
-  //       //console.log("[filterResults] activityFilter = " + activity);
-  //       //console.log("trailhead.properties[activity] = " + trailhead.properties[activity]);
-  //       var trailheadActivity = 0;
-  //       var trailheadTag = 0;
-  //       term = 0;
-  //       // var a = trailhead.properties.tags.indexOf(activity);
-  //       // console.log("filterResults a = " + a);
-  //       // if (a != -1) {
-  //       //   searchMatched = 1;
-  //       // }
-  //       var normalizedTrailName = "";
-  //       var normalizedTrailDescription = "";
-  //       if (trail) {
-  //         normalizedTrailName = trail.properties.name.toLowerCase();
-  //         if (trail.properties.description) {
-  //           normalizedTrailDescription = trail.properties.description.toLowerCase();
-  //         }
-  //       }
-  //       var normalizedTrailheadName = trailhead.properties.name.toLowerCase();
-  //       var normalizedTrailheadDescription = "";
-  //       if (trailhead.properties.description) {
-  //         normalizedTrailheadDescription = trailhead.properties.description.toLowerCase();
-  //       }
-  //       var normalizedTrailheadAddress = "";
-  //       if (trailhead.properties.address) {
-  //         normalizedTrailheadAddress = trailhead.properties.address.toLowerCase();
-  //       }
-  //       var normalizedSearchFilter = currentFilters.activityFilter[i].toLowerCase();
-  //       var equivalentWords = [
-  //           [" and ", " & "],
-  //           ["tow path", "towpath"]
-  //       ];
-  //       $.each(equivalentWords, function(i, el) {
-  //         var regexToken = "(" + el[0] + "|" + el[1] + ")";
-  //         normalizedSearchFilter = normalizedSearchFilter.replace(el[0], regexToken);
-  //         normalizedSearchFilter = normalizedSearchFilter.replace(el[1], regexToken);
-  //       });
-  //       var searchRegex = new RegExp(normalizedSearchFilter);
-  //       var nameTrailMatched = !! normalizedTrailName.match(searchRegex);
-  //       var nameTrailheadMatched = !! normalizedTrailheadName.match(searchRegex);
-  //       var addressTrailheadMatched = !! normalizedTrailheadAddress.match(searchRegex);
-
-  //       if ( (nameTrailMatched || nameTrailheadMatched ) ) {
-  //         term = 10;
-  //       } else if ((!! normalizedTrailDescription.match(searchRegex)) || (!! normalizedTrailheadDescription.match(searchRegex))) {
-  //         term = 1;
-  //       } else if (!(trailhead.properties[activity] === undefined)) {
-  //         term = trailhead.properties[activity];
-  //       } else if (trailhead.properties.tags.indexOf(activity) > -1 ) {
-  //         term = 1;
-  //       } else if ((!! normalizedTrailheadAddress.match(searchRegex))) {
-  //         term = 1;
-  //       }
-  //       matched = matched * term;
-  //     }
-      
-  //   }
-    
-  //   //console.log("[filterResults] matched = " + matched);
-  //   return matched;
-  // }
-
-  function clearSelectionHandler(e) {
-    console.log("clearSelectionHandler");
-    $(".visuallyhidden_2 input").attr("checked", false);
-    $(".visuallyhidden_3 input").attr("checked", false);
-    $(".fpccSearchbox").val("");
-    currentFilters = {
-      lengthFilter: [],
-      activityFilter: [],
-      searchFilter: ""
-    };
-    applyFilterChange(currentFilters);
-  }
 
   // ======================================
   // map generation & geolocation updates
@@ -1899,7 +1805,7 @@ function startup() {
       if (trailhead.properties.filterResults > 0) {
         trailheadWanted = true;
         var thisTrailSubsystem = trailhead.properties.trail_subsystem;
-        console.log("[addTrailsToTrailheads] thisTrailSubsystem = " + thisTrailSubsystem);
+        //console.log("[addTrailsToTrailheads] thisTrailSubsystem = " + thisTrailSubsystem);
         currentTrailIDs[thisTrailSubsystem] = 1;
       }
       if (trailheadWanted) {
@@ -1913,7 +1819,7 @@ function startup() {
       makeCurrentActivities(currentTrailheads);
       makeTrailheadPopups(currentTrailheads);
       mapActiveTrailheads(currentTrailheads);
-      console.log("[addTrailsToTrailheads] currentFilters.trailOnMap= " + currentFilters.trailOnMap);
+      //console.log("[addTrailsToTrailheads] currentFilters.trailOnMap= " + currentFilters.trailOnMap);
       
       allSegmentLayer.eachLayer(function (layer) {
         //console.log("trail_ids= " + layer.getLayers()[0].feature.properties.trail_ids);
@@ -2112,8 +2018,8 @@ function startup() {
       trailListContents = trailListContents + trailDivComplete;
       divCount++;
      
-      console.log("[makeTrailDivs] trailList[trailName] = " + trailList[trailName]);
-      console.log("[makeTrailDivs] trailheadTrailSubsystem = " + trailheadTrailSubsystem);
+      //console.log("[makeTrailDivs] trailList[trailName] = " + trailList[trailName]);
+      //console.log("[makeTrailDivs] trailheadTrailSubsystem = " + trailheadTrailSubsystem);
 
       if ((!trailList[trailName]) && trailheadTrailSubsystem && currentFilters.trailInList) {
         trailDivText = "<a class='fpccEntry clearfix' " +
@@ -2279,7 +2185,6 @@ function startup() {
 
   function openDetailPanel() {
     console.log("openDetailPanel");
-    $('.accordion').hide();
     $('.aboutPage').hide();
 
     // New versions
@@ -2294,7 +2199,6 @@ function startup() {
     // We need to re-calculate the max height for fpccPreserveInfo because 
     // fpccPreserveName height can change.
     if (!SMALL) {
-      //$('.accordion').hide();
     }
     if (SMALL) {
       $('#fpccMainContainer').hide();
@@ -2317,6 +2221,20 @@ function startup() {
     // map.invalidateSize();
   }
 
+  function fpccBackClick() {
+    console.log("[fpccBackClick]");
+    if (SMALL) {
+      if (document.getElementById("fpccMobileCheckbox").checked) {
+
+      } else {
+
+      }
+    } else {
+      closeDetailPanel();
+    }
+
+  }
+
   function closeDetailPanel() {
     console.log("closeDetailPanel");
    // New versions
@@ -2326,7 +2244,6 @@ function startup() {
     $('#fpccSearchBack').hide();
     $('.detailPanel').hide();
 
-    $('.accordion').show();
     $('.trailhead-trailname.selected').removeClass("detail-open");
     highlightTrailhead(null,null);
     highlightTrailSegmentsForTrailSubsystem(null);
@@ -2336,6 +2253,7 @@ function startup() {
     }
     //resetDetailPanel();
     map.closePopup();
+    readdSearchURL();
     setHeights();
     // map.invalidateSize();
   }
@@ -2367,73 +2285,7 @@ function startup() {
     $('.detailPanel').hide();
   }
 
-  function detailPanelHoverIn(e) {
-    enableTrailControls();
-  }
 
-  function detailPanelHoverOut(e) {
-    // if(!SMALL){
-    //   $(".controlRight").removeClass("enabled").addClass("disabled");
-    //   $(".controlLeft").removeClass("enabled").addClass("disabled");
-    // }
-  }
-
-  function changeDetailPanel(e) {
-    console.log("changeDetailPanel");
-    e.stopPropagation();
-    var trailheadID = currentDetailTrailhead.properties.id;
-    var trailID = String(currentDetailTrail.properties.id);
-    console.log(trailID);
-    var trailhead;
-
-    for (var i = 0; i < orderedTrails.length; i++) {
-      if (orderedTrails[i].trailID == trailID && orderedTrails[i].trailheadID == trailheadID) {
-        orderedTrailIndex = i;
-      }
-    }
-    var trailChanged = false;
-    // if ($(e.target).hasClass("controlRight")) {
-    //   orderedTrailIndex = orderedTrailIndex + 1;
-    //   trailChanged = true;
-    // }
-    // if ($(e.target).hasClass("controlLeft") && orderedTrailIndex > 0) {
-    //   orderedTrailIndex = orderedTrailIndex - 1;
-    //   trailChanged = true;
-    // }
-    if (trailChanged) {
-      var orderedTrail = orderedTrails[orderedTrailIndex];
-      // console.log(orderedTrail);
-      trailheadID = orderedTrail.trailheadID;
-      // console.log(["trailheadID", trailheadID]);
-      var trailIndex = orderedTrail.index;
-      // console.log(["trailIndex", trailIndex]);
-      for (var j = 0; j < originalTrailheads.length; j++) {
-        if (originalTrailheads[j].properties.id == trailheadID) {
-          trailhead = originalTrailheads[j];
-        }
-      }
-      enableTrailControls();
-      highlightTrailhead(trailheadID, trailIndex);
-      showTrailDetails(currentTrailData[trailhead.trails[trailIndex]], trailhead);
-      //$(".detailPanel .detailPanelPicture")[0].scrollIntoView();
-    }
-  }
-
-  function enableTrailControls() {
-
-    // if (orderedTrailIndex === 0) {
-    //   $(".controlLeft").removeClass("enabled").addClass("disabled");
-    // } else {
-    //   $(".controlLeft").removeClass("disabled").addClass("enabled");
-    // }
-
-    // if (orderedTrailIndex == orderedTrails.length - 1) {
-    //   $(".controlRight").removeClass("enabled").addClass("disabled");
-    // } else {
-    //   $(".controlRight").removeClass("disabled").addClass("enabled");
-    // }
-    return orderedTrailIndex;
-  }
 
   // KEEP NEW: decorateDetailPanel
   function decorateDetailPanel(trailSubsystemName, trailhead) {
@@ -2918,9 +2770,9 @@ function startup() {
 
   function showfpccMainContainer(e){
     console.log("showfpccMainContainer");
-    var show = document.getElementById("fpccMobileCheckbox").checked;
+    var showMap = document.getElementById("fpccMobileCheckbox").checked;
     console.log("[showfpccMainContainer] show = " + show);
-    if (show){
+    if (showMap){
       $('#fpccMainContainer').addClass('contracted');
       $('#fpccMainContainer').removeClass('expanded');
       $('.trailListColumn').addClass('contracted');
@@ -2928,7 +2780,6 @@ function startup() {
       $('.detailPanel').addClass('contracted');
       $('.detailPanel').removeClass('expanded');
       // document.getElementById("fpccMainContainer").style.zIndex = "1";
-      $('.statusMessage span').addClass('truncate');
       $('#fpccSearchBack').hide();
     } else {
       $('#fpccMainContainer').addClass('expanded');
@@ -2937,7 +2788,6 @@ function startup() {
       $('#fpccMainContainer').removeClass('contracted');
       $('.detailPanel').addClass('expanded');
       $('.detailPanel').removeClass('contracted');
-      $('.statusMessage span').removeClass('truncate');
       if ($(".detailPanel").is(":visible") ) {
         $('#fpccSearchBack').show();
       }
@@ -2948,90 +2798,55 @@ function startup() {
   function showDetailPanel(show){
     console.log("showDetailPanel");
     if (show){
+      console.log("[showDetailPanel] show = true");
       $('.detailPanel').addClass('expanded');
       $('.detailPanel').removeClass('contracted');
       $('.trailListColumn').addClass('expanded');
       $('.trailListColumn').removeClass('contracted');
-      $('.statusMessage span').removeClass('truncate');
-      $('#fpccSearchBack').show();
-      document.getElementById("fpccMobileCheckbox").checked = false;
+      if (document.getElementById("fpccMobileCheckbox").checked) {
+        $('#fpccSearchBack').html('<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg>Back to Map</a>');
+      } else {
+        $('#fpccSearchBack').html('<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg>Back to Search Results</a>');
+      }
     } else {
+      console.log("[showDetailPanel] show = false");
       $('.detailPanel').addClass('contracted');
       $('.detailPanel').removeClass('expanded');
       $('.trailListColumn').addClass('contracted');
       $('.trailListColumn').removeClass('expanded');
-      $('.statusMessage span').addClass('truncate');
       $('#fpccSearchBack').hide();
-      document.getElementById("fpccMobileCheckbox").checked = true;
+      //document.getElementById("fpccMobileCheckbox").checked = true;
     }
-    showfpccMainContainer();
+    //showfpccMainContainer();
   }
 
   function slideDetailPanel(e) {
     console.log("slideDetailPanel");
     if ( $(e.target).parents(".detailPanel").is(":visible") ) {
       if ($(e.target).parents(".detailPanel").hasClass("expanded")) {
+        console.log("[slideDetailPanel] parent has expanded. Run showDetailPanel(false)");
         showDetailPanel(false);
       } else {
         showDetailPanel(true);
+        console.log("[slideDetailPanel] parent doesn't have expanded. Run showDetailPanel(true)");
+
       }
     }
   }
-
-  //  Mobile-only function changing the position of the detailPanel
-
-  function moveSlideDrawer(e) {
-    console.log("moveSlideDrawer");
-    if ($(".slideDrawer").hasClass("closedDrawer")) {
-      console.log("openSlideDrawer");
-      $('.slideDrawer').removeClass('closedDrawer');
-      $('.slideDrawer').addClass("openDrawer");
-      // and move the Detail Panel all the way down
-      if ($(".detailPanel").hasClass("expanded")) {
-        $(".detailPanel").removeClass("expanded");
-        $(".detailPanel").addClass("hidden");
-      } else {
-        $(".detailPanel").removeClass("contracted");
-        $(".detailPanel").addClass("hidden");
-      }
-    } else {
-      console.log("closeSlideDrawer");
-      $('.slideDrawer').removeClass('openDrawer');
-      $('.slideDrawer').addClass('closedDrawer');
-      // and restore the Detail Panel to contracted
-      $('.detailPanel').removeClass("hidden");
-      $('.detailPanel').addClass("contracted");
-    }
-  }
-
-  // function closeSlideDrawerOnly(e) {
-  //   console.log("closeSlideDrawerOnly")
-  //   var container = $(".slideDrawer");
-
-  //   if (!container.is(e.target)
-  //     && container.has(e.target).length == 0
-  //     && container.hasClass('openDrawer') {
-  //     container.addClass('closedDrawer');
-  //     container.removeClass('openDrawer');
-  //   }
-  // }
 
   //  About page functions
 
   function openAboutPage() {
     console.log("openAboutPage");
-    $('.accordion').hide();
     $('.aboutPage').show();
     $('.detailPanel').hide();
     if (!SMALL) {
-      //$('.accordion').hide();
     }
   }
 
   function closeAboutPage() {
     console.log("closeAboutPage");
     $('.aboutPage').hide();
-    $('.accordion').show();
   }
 
   // Open/close fpccMenu list
