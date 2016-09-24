@@ -474,13 +474,14 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 .picnic-grove-marker.icon-1, .picnic-grove-marker.icon-2, .picnic-grove-marker.icon-3,.picnic-grove-marker.icon-4,.picnic-grove-marker.icon-5,.picnic-grove-marker.icon-6,.picnic-grove-marker.icon-7,.picnic-grove-marker.icon-8, .picnic-grove-marker.icon-9, .picnic-grove-marker.icon-10, .picnic-grove-marker.icon-11, .picnic-grove-marker.icon-12{display:none}
 .picnic-grove-marker.icon-13, .picnic-grove-marker.icon-14{width:2.0em;height:2.0em;display:inline-block}
 .picnic-grove-marker.icon-15, .picnic-grove-marker.icon-16, .picnic-grove-marker.icon-17, .picnic-grove-marker.icon-18{width:3em;height:3em;display:inline-block}
+
 .icon-map.inactive{display:none} /* This needs to be after the zoom level changes so that this display:none; overrides the zoom level display attrivute */
 .icon.icon-map.icon-sign{padding:.8em 0 0;
 /* background-image:url(../../icons/defs.svg#icon-sign); */                        }
 .icon-map.selected{animation:animateEdge 2.5s forwards}
 .icon-sign.icon-map.selected{animation:animateEdge 2.5s forwards}
 .icon-activity.icon-map.selected{opacity:1}
-.icon-map.picnic-grove-marker.notselected{display:none}
+.leaflet-marker-icon.icon-map.picnic-grove-marker{display:none}
 .icon-map.picnic-grove-marker.selected{display:inline-block}
 @keyframes animateEdge{
     0%{background:none;box-shadow:none}
@@ -493,10 +494,10 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
     66%{background:none;box-shadow:none}
     100%{background:rgba(126,144,57,.45);box-shadow:0 0 7px 5px rgba(126,144,57,.45);border-radius:3em}}
 
-
-
-
-
+path.trail.visible{stroke-width:4;stroke-opacity:1;}
+path.trail.invisible{stroke-width:20;stroke-opacity:0;}
+path.trail.visible.selected{stroke-width:7;}
+path.trail.inactive{display:none;}
 
 
 /*MOBILE to adjust?------------------------------------*/

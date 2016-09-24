@@ -1140,7 +1140,7 @@ function startup() {
       } 
 
       var activityIcon = L.divIcon({
-        className: 'icon-map icon-activity activity-' + currentFeature.properties.id + ' ' + iconType,
+        className: 'icon-map icon-activity activity-' + currentFeature.properties.id + ' ' + iconType + ' poi-' + currentFeature.properties.poi_info_id,
         html: '<svg class="icon icon-map icon-activity ' + iconType + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg><br />',
         iconAnchor: [13 * 0.60, 33 * 0.60],
         popupAnchor: [0, -20],
@@ -1193,7 +1193,6 @@ function startup() {
       showTrailDetails(null, trailhead);
       if ( lastTrailheadId != activity.properties.poi_info_id ) {
         highlightTrailhead(activity.properties.poi_info_id);
-        highlightActivities(activity.properties.poi_info_id);
         var trailSubsystem = null;
         if (trailhead.properties.direct_trail_id) {
           trailSubsystem = originalTrailData[trailhead.properties.direct_trail_id].trail_subsystem;
@@ -1250,7 +1249,7 @@ function startup() {
       }
 
       var picnicgroveIcon = L.divIcon({
-        className: 'icon-map picnic-grove-marker '+ iconName + ' notselected picnicgrove-' + currentFeature.properties.id + ' poi-' + currentFeature.properties.poi_info_id,
+        className: 'icon-map picnic-grove-marker ' + iconName + ' picnicgrove-' + currentFeature.properties.id + ' poi-' + currentFeature.properties.poi_info_id,
         html: '<svg class="icon icon-map picnic-grove-marker ' + iconName + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconName + '"></use></svg><br />',
         iconAnchor: [13 * 0.60, 33 * 0.60],
         popupAnchor: [0, -20],
@@ -1302,7 +1301,6 @@ function startup() {
       showTrailDetails(null, trailhead);
       if ( lastTrailheadId != picnicgrove.properties.poi_info_id ) {
         highlightTrailhead(picnicgrove.properties.poi_info_id);
-        highlightActivities(picnicgrove.properties.poi_info_id);
         var trailSubsystem = null;
         if (trailhead.properties.direct_trail_id) {
           trailSubsystem = originalTrailData[trailhead.properties.direct_trail_id].trail_subsystem;
@@ -1359,8 +1357,8 @@ function startup() {
       var currentFeatureLatLng = new L.LatLng(currentGeoOne, currentGeoTwo);   
       
       var trailheadIcon2 = L.divIcon({
-        className: 'icon-sign icon-map entrance-' + currentFeature.properties.id,
-        html: '<svg class="icon icon-map icon-sign" id="entrance-' + currentFeature.properties.id + '" ><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>',
+        className: 'icon-sign icon-map poi-' + currentFeature.properties.id,
+        html: '<svg class="icon icon-map icon-sign" id="poi-' + currentFeature.properties.id + '" ><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>',
         // iconAnchor: [13 * 0.60, 33 * 0.60],
         iconAnchor: [15,20],
         popupAnchor: [0, 0],
@@ -1398,7 +1396,6 @@ function startup() {
   function trailheadMarkerClick(id) {
     console.log("trailheadMarkerClick");
     highlightTrailhead(id);
-    highlightActivities(id);
     var trailhead = getTrailheadById(id);
     var trailSubsystem = trailhead.properties.trail_subsystem || null;
     // if (trailhead.properties.trail_subsystem) {
@@ -1428,75 +1425,6 @@ function startup() {
     //} else {
     showTrailDetails(null, trailhead);
     //}
-  }
-
-
-  function makeCurrentActivities(myTrailheads) {
-    console.log("[makeCurrentActivities] Begin");
-    var activeActivityDivs = document.getElementsByClassName("leaflet-marker-icon icon-activity");
-    console.log("[makeCurrentActivities] old activeActivityDivs.length = " + activeActivityDivs.length);
-    for (var i = 0; i < activeActivityDivs.length; i++) {
-      //console.log("[activeActivityDivs] old activeActivityDivs loop i = " + i);
-      activeActivityDivs[i].classList.remove('active');
-      activeActivityDivs[i].classList.add('inactive');
-    }
-    for (var i = 0; i < myTrailheads.length; i++) {
-      var trailhead_id = myTrailheads[i].properties.id
-      if (originalActivities[trailhead_id]) {
-        var originalActivitiesTrailhead_idLength = originalActivities[trailhead_id].length;
-        for ( var j = 0; j < originalActivitiesTrailhead_idLength; j++ ) {
-          var myActivityID = "activity-" + originalActivities[trailhead_id][j].properties.id;
-          //console.log("[makeCurrentActivities] myActivityID = " + myActivityID);
-          var currentActivityDivs = document.getElementsByClassName(myActivityID);
-          //console.log("[makeCurrentActivities] new currentActivityDivs.length = " + currentActivityDivs.length);
-          var currentActivityDivsLength = currentActivityDivs.length;
-          for (var k = 0; k < currentActivityDivsLength; k++) {
-            //console.log("[highlightActivities] new currentActivityDivs loop k = " + k);
-            currentActivityDivs[k].classList.add('active');
-            currentActivityDivs[k].classList.remove('inactive');
-          }
-          //originalActivities[trailhead_id][j].marker.setOpacity(.5);
-        }
-      }
-    }
-    console.log("[makeCurrentActivities] end");
-  }
-
-  function highlightActivities(myTrailhead_id) {
-    console.log("[highlightActivities] myTrailhead_id = " + myTrailhead_id);
-    var currentActivityDivs = $(".leaflet-marker-pane").find(".icon-activity.selected");
-    currentActivityDivs.removeClass('selected');
-    var currentPicnicgroveDivs = $(".leaflet-marker-pane").find(".picnic-grove-marker.selected");
-    currentPicnicgroveDivs.addClass('notselected').removeClass('selected');
-   
-    highlightedActivityMarkerArray = [];
-    if (myTrailhead_id) {
-      var trailheadActivities = originalActivities[myTrailhead_id];
-      var trailheadPicnicgroves = originalPicnicgroves[myTrailhead_id];
-      if (trailheadActivities) {
-        var trailheadActivitiesLength = trailheadActivities.length;
-        for ( var i = 0; i < trailheadActivitiesLength; i++) {
-          //trailheadActivities[i].marker.setOpacity(1);
-          highlightedActivityMarkerArray.push(trailheadActivities[i].marker);
-          var myActivityID = "activity-" + trailheadActivities[i].properties.id;
-          //console.log("[highlightActivities] myActivityID = " + myActivityID);
-          var currentActivityDivs = document.getElementsByClassName(myActivityID);
-          //console.log("[highlightActivities] new currentActivityDivs.length = " + currentActivityDivs.length);
-          for (var j = 0; j < currentActivityDivs.length; j++) {
-            //console.log("[highlightActivities] new currentActivityDivs loop j = " + j);
-            currentActivityDivs[j].classList.add('selected');
-          }
-        }
-      }
-      if (trailheadPicnicgroves) {
-        var trailheadPicnicgrovesLength = trailheadPicnicgroves.length;
-        for ( var i = 0; i < trailheadPicnicgrovesLength; i++) {
-          highlightedActivityMarkerArray.push(trailheadPicnicgroves[i].marker);
-        }
-      }
-      var picnicgroveDivs = $(".leaflet-marker-pane").find(".picnic-grove-marker.poi-" + myTrailhead_id);
-      picnicgroveDivs.addClass('selected').removeClass('notselected');
-    }
   }
 
   function popupCloseHandler(e) {
@@ -1623,7 +1551,8 @@ function startup() {
         if (feature.properties.off_fpdcc == 'y') {
           thisColor = NORMAL_SEGMENT_COLOR;
         }
-        return {className: "testClass testClass2", color: thisColor, dashArray: thisDash,  weight: thisWeight, opacity: thisOpacity, clickable: thisClickable, smoothFactor: thisSmoothFactor};
+        var thisClassName = 'visible trail system-' + feature.properties.trail_subsystem.replace(/ /g, "_");
+        return {className: thisClassName, color: thisColor, dashArray: thisDash,  weight: thisWeight, opacity: thisOpacity, clickable: thisClickable, smoothFactor: thisSmoothFactor};
       }, //color: thisColor,
       onEachFeature: function visibleOnEachFeature(feature, layer) {
         // console.log("visibleAllTrailLayer onEachFeature");
@@ -1636,11 +1565,13 @@ function startup() {
     // make the special invisible layer for mouse/touch events. much wider paths.
     // make popup html for each segment
     var invisibleAllTrailLayer = L.geoJson(response, {
-      style: {
+      style: function(feature) {
+        var thisClassName = 'invisible trail system-' + feature.properties.trail_subsystem.replace(/ /g, "_");
+        return { className: thisClassName,
         opacity: 0,
         weight: 20,
         clickable: true,
-        smoothFactor: 10
+        smoothFactor: 10 }
       },
       onEachFeature: function invisibleOnEachFeature(feature, layer) {
         // console.log("invisibleAllTrailLayer onEachFeature");
@@ -1699,7 +1630,6 @@ function startup() {
               showTrailDetails(trailSubsystem, null);
               highlightTrailSegmentsForTrailSubsystem(trailSubsystem);
               highlightTrailhead(null);
-              highlightActivities(null);
               //var trail = originalTrailData[trailIDs];
               
              
@@ -1799,9 +1729,13 @@ function startup() {
       trailhead.properties.filterScore = trailhead.properties.filterResults;
       if (trailhead.properties.filterResults > 0) {
         trailheadWanted = true;
-        var thisTrailSubsystem = trailhead.properties.trail_subsystem;
+        var thisTrailSubsystem = trailhead.properties.trail_subsystem
+        if (thisTrailSubsystem) {
+          thisTrailSubsystem = thisTrailSubsystem.replace(/[& ]/g, '_');
+          currentTrailIDs[thisTrailSubsystem] = 1;
+        }
         //console.log("[addTrailsToTrailheads] thisTrailSubsystem = " + thisTrailSubsystem);
-        currentTrailIDs[thisTrailSubsystem] = 1;
+        
       }
       if (trailheadWanted) {
         currentTrailheads.push(trailhead);
@@ -1811,31 +1745,34 @@ function startup() {
     console.log("currentTrailheads count = " + currentTrailheads.length);
     setTimeout(function() {
       //fixDuplicateTrailheadTrails(myTrailheads);
-      makeCurrentActivities(currentTrailheads);
       makeTrailheadPopups(currentTrailheads);
       mapActiveTrailheads(currentTrailheads);
       //console.log("[addTrailsToTrailheads] currentFilters.trailOnMap= " + currentFilters.trailOnMap);
-      
-      allSegmentLayer.eachLayer(function (layer) {
-        //console.log("trail_ids= " + layer.getLayers()[0].feature.properties.trail_ids);
-        //console.log("trail_systems= " + layer.getLayers()[0].feature.properties.trail_systems);
-        if (layer.getLayers()[0].feature.properties.trail_subsystem) {
-          var layerWanted = 0;
-
-          if (currentTrailIDs[layer.getLayers()[0].feature.properties.trail_subsystem] && currentFilters.trailOnMap) {
-            //console.log("[allSegmentLayer true] layer.getLayers()[0].feature.properties.trail_subsystem= " + layer.getLayers()[0].feature.properties.trail_subsystem);
-            layer.getLayers()[0].setStyle({weight: NORMAL_SEGMENT_WEIGHT});
-            layer.getLayers()[1].setStyle({weight: 20});
-          } else {
-            //console.log("[allSegmentLayer false] layer.getLayers()[0].feature.properties.trail_systems[0]= " + layer.getLayers()[0].feature.properties.trail_systems[0]);
-            layer.getLayers()[0].setStyle({weight: 0});
-            layer.getLayers()[1].setStyle({weight: 0});
-          }
+      $('path.trail').addClass('inactive');
+      if (currentFilters.trailOnMap) {
+        var currentTrailSubsystems = Object.keys(currentTrailIDs);
+        for (var subsystemsIndex = 0; subsystemsIndex < currentTrailSubsystems.length; subsystemsIndex++ ) {
+          $('path.trail.system-' + currentTrailSubsystems[subsystemsIndex]).removeClass('inactive');
         }
-        
-        //console.log("[testChangeStyle] : " + layer.getLayers()[0].feature.properties.trail_ids);
+      }
+      // allSegmentLayer.eachLayer(function (layer) {
+      //   //console.log("trail_ids= " + layer.getLayers()[0].feature.properties.trail_ids);
+      //   //console.log("trail_systems= " + layer.getLayers()[0].feature.properties.trail_systems);
+      //   if (layer.getLayers()[0].feature.properties.trail_subsystem) {
+      //     var layerWanted = 0;
 
-        });
+      //     if (currentTrailIDs[layer.getLayers()[0].feature.properties.trail_subsystem] && currentFilters.trailOnMap) {
+      //       //console.log("[allSegmentLayer true] layer.getLayers()[0].feature.properties.trail_subsystem= " + layer.getLayers()[0].feature.properties.trail_subsystem);
+      //       layer.getLayers()[0].setStyle({weight: NORMAL_SEGMENT_WEIGHT});
+      //       layer.getLayers()[1].setStyle({weight: 20});
+      //     } else {
+      //       //console.log("[allSegmentLayer false] layer.getLayers()[0].feature.properties.trail_systems[0]= " + layer.getLayers()[0].feature.properties.trail_systems[0]);
+      //       layer.getLayers()[0].setStyle({weight: 0});
+      //       layer.getLayers()[1].setStyle({weight: 0});
+      //     }
+      //   }
+      //   //console.log("[testChangeStyle] : " + layer.getLayers()[0].feature.properties.trail_ids);
+      // });
 
 
 
@@ -1889,23 +1826,13 @@ function startup() {
   function mapActiveTrailheads(myTrailheads) {
     console.log("mapActiveTrailheads start");
     var currentTrailheadSignArray = [];
-    var activeTrailheadDivs = document.getElementsByClassName("leaflet-marker-icon icon-sign");
-    console.log("[mapActiveTrailheads] old activeTrailheadDivs.length = " + activeTrailheadDivs.length);
-    for (var i = 0; i < activeTrailheadDivs.length; i++) {
-      //console.log("[activeTrailheadDivs] old activeTrailheadDivs loop i = " + i);
-      activeTrailheadDivs[i].classList.remove('active');
-      activeTrailheadDivs[i].classList.add('inactive');
-    }
+    $( '.leaflet-marker-icon.active' ).addClass('inactive').removeClass('active');
+    
     for (var i = 0; i < myTrailheads.length; i++) {
       currentTrailheadSignArray.push(myTrailheads[i].marker);
-      var myEntranceID = "entrance-" + myTrailheads[i].properties.id;
-      //console.log("[mapActiveTrailheads] myEntranceID= " + myEntranceID);
-      var activeTrailheadDivs = document.getElementsByClassName(myEntranceID);
-      for (var j = 0; j < activeTrailheadDivs.length; j++) {
-        //console.log("[mapActiveTrailheads] activeTrailheadDivs loop");
-        activeTrailheadDivs[j].classList.add('active');
-        activeTrailheadDivs[j].classList.remove('inactive');
-      }
+      var myEntranceID = "poi-" + myTrailheads[i].properties.id;
+      $( '.' + myEntranceID ).addClass('active').removeClass('inactive');
+    
     }
     if (currentTrailheadSignArray.length > 0) {
       var currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadSignArray);
@@ -2104,7 +2031,6 @@ function startup() {
     }
     highlightTrailSegmentsForTrailSubsystem(trailSubsystem);
     highlightTrailhead(trailheadId);
-    highlightActivities(trailheadId);
     var zoomFeatureGroup = null;
     var zoomArray = [];
 
@@ -2247,7 +2173,6 @@ function startup() {
     map.closePopup();
     highlightTrailhead(null,null);
     highlightTrailSegmentsForTrailSubsystem(null);
-    highlightActivities(null);
   }
 
   function readdSearchURL() {
@@ -3044,31 +2969,21 @@ function startup() {
     if ($('.detailPanel').is(":visible")) {
       $('.trailhead-trailname.selected').addClass("detail-open");
     }
-
+    $( '.leaflet-marker-icon.selected' ).removeClass('selected');
     if (currentTrailhead) {
-        var myEntranceID = "entrance-" + currentTrailhead.properties.id;
-        console.log("[highlightTrailhead] currentTrailhead");
-        var currentTrailheadDivs = document.getElementsByClassName(myEntranceID);
-        for (var i = 0; i < currentTrailheadDivs.length; i++) {
-          console.log("[highlightTrailhead] old currentTrailheadDivs loop i = " + i);
-          currentTrailheadDivs[i].classList.remove('selected');
-        }
+        // var myEntranceID = "poi-" + currentTrailhead.properties.id;
+        // console.log("[highlightTrailhead] currentTrailhead");
+        // var currentTrailheadDivs = document.getElementsByClassName(myEntranceID);
+        // for (var i = 0; i < currentTrailheadDivs.length; i++) {
+        //   console.log("[highlightTrailhead] old currentTrailheadDivs loop i = " + i);
+        //   currentTrailheadDivs[i].classList.remove('selected');
+        // }
     }
-
-
     if (trailhead) {
       currentTrailhead = trailhead;
-      var myEntranceID = "entrance-" + currentTrailhead.properties.id;
+      var myEntranceID = "poi-" + currentTrailhead.properties.id;
       console.log("[highlightTrailhead] new currentTrailhead = " + myEntranceID);
-
-      var currentTrailheadDivs = document.getElementsByClassName(myEntranceID);
-      for (var i = 0; i < currentTrailheadDivs.length; i++) {
-        console.log("[highlightTrailhead] new currentTrailheadDivs loop i = " + i);
-        //console.log("[highlightTrailhead] new currentTrailhead in loop");
-        //console.log("[highlightTrailhead] loop i = " + i + " div= " + currentTrailheadDivs[i]);
-        currentTrailheadDivs[i].classList.add('selected');
-      }
-  
+      $( '.leaflet-marker-icon.' + myEntranceID ).addClass('selected');
       //highlightTrailInPopup(trailhead, highlightedTrailIndex);
       var popup = new L.Popup({
         offset: [0, -12],
@@ -3094,87 +3009,10 @@ function startup() {
   function highlightTrailSegmentsForTrailSubsystem(trailSubsystem) {
     var startTime = new Date().getTime();
     console.log("highlight start = " + startTime);
-    if (currentHighlightedSegmentLayer) {
-      currentHighlightedSegmentLayer.setStyle({weight: NORMAL_SEGMENT_WEIGHT});
-    }
-
-    currentHighlightedSegmentLayer = null;
-    
+    $('path.trail.selected').removeClass('selected');
     if (trailSubsystem) {
-      console.log("[highlightTrailSegmentsForTrailhead] trailSubsystem = " + trailSubsystem);
-      currentHighlightedSegmentLayer = new L.FeatureGroup();
-      
-      allSegmentLayer.eachLayer(function (layer) {
-        var layerTrailSubsystem = layer.getLayers()[0].feature.properties.trail_subsystem;
-        //console.log("[highlightTrailSegmentsForTrailhead] layerTrailSystem = " + layerTrailSystem);
-        var layerWanted = 0;
-        if (layerTrailSubsystem) {
-            if (layerTrailSubsystem == trailSubsystem) {
-              layerWanted = 1;
-            } 
-        }
-        if (layerWanted) {
-          layer.getLayers()[0].setStyle({weight: ACTIVE_TRAIL_WEIGHT});
-          currentHighlightedSegmentLayer.addLayer(layer.getLayers()[0]);
-          //layer.getLayers()[0].setStyle({weight: ACTIVE_TRAIL_WEIGHT});
-          //layer.getLayers()[1].setStyle({weight: 20});
-        }
-      });
-      //execute your code here  
-    }
-    var endTime = new Date().getTime();
-    var diff = endTime - startTime;
-    console.log("highlight trail time: " + diff);
-  }
-
-
-  // For a given trailhead or set of trailIDs, change the style weight to active
-  function highlightTrailSegmentsForTrailhead(trailhead, highlightedTrailIndex, trailIDs) {
-    console.log("highlightTrailSegmentsForTrailhead");
-
-    var zoomType = "trailhead";
-    var trail_system;
-    if (trailhead) {
-      trail_system = trailhead.properties.trail_systems[0];
-      console.log("[highlightTrailSegmentsForTrailhead] trail_system = " + trail_system);
-    } else if (trailIDs) {
-      trail_system = trailIDs;
-      zoomType = "trail";
-    } else {
-      zoomType = null;
-    }
-    //console.log("[getAllTrailPathsForTrailheadLocal] trails = " + trails);
-    // allSegmentLayer.setStyle({weight: 0});
-    var startTime = new Date().getTime();
-    console.log("highlight start = " + startTime);
-    if (currentHighlightedSegmentLayer) {
-      currentHighlightedSegmentLayer.setStyle({weight: NORMAL_SEGMENT_WEIGHT});
-    }
-
-    currentHighlightedSegmentLayer = null;
-    
-    if (trail_system) {
-      console.log("[highlightTrailSegmentsForTrailhead] trail_system = " + trail_system);
-      currentHighlightedSegmentLayer = new L.FeatureGroup();
-      
-      allSegmentLayer.eachLayer(function (layer) {
-        var layerTrailSystem = layer.getLayers()[0].feature.properties.trail_systems[0];
-        //console.log("[highlightTrailSegmentsForTrailhead] layerTrailSystem = " + layerTrailSystem);
-        var layerWanted = 0;
-        if (layerTrailSystem) {
-            if (layerTrailSystem == trail_system) {
-              layerWanted = 1;
-            } 
-        }
-        if (layerWanted) {
-          layer.getLayers()[0].setStyle({weight: ACTIVE_TRAIL_WEIGHT});
-          currentHighlightedSegmentLayer.addLayer(layer.getLayers()[0]);
-          //layer.getLayers()[0].setStyle({weight: ACTIVE_TRAIL_WEIGHT});
-          //layer.getLayers()[1].setStyle({weight: 20});
-        }
-      });
-      //execute your code here
-      
+      trailSubsystem = trailSubsystem.replace(/[& ]/g, '_');
+      $('path.trail.visible.system-' + trailSubsystem).addClass('selected');
     }
     var endTime = new Date().getTime();
     var diff = endTime - startTime;
@@ -3215,66 +3053,6 @@ function startup() {
     console.log(c);
     $t.remove();
     return c;
-  }
-
-  // given a leaflet layer, zoom to fit its bounding box, up to MAX_ZOOM
-  // in and MIN_ZOOM out (commented out for now)
-
-  function zoomToLayer(layer) {
-    console.log("zoomToLayer");
-    // figure out what zoom is required to display the entire trail layer
-    var layerBoundsZoom = map.getBoundsZoom(layer.getBounds());
-    var currentZoom = map.getZoom();
-    console.log("zoomToLayer - currentZoom = " + currentZoom);
-    console.log("zoomToLayer - layerBoundsZoom = " + layerBoundsZoom);
-    // console.log(layer.getLayers().length);
-
-    // var layerBoundsZoom = map.getZoom();
-    // console.log(["layerBoundsZoom:", layerBoundsZoom]);
-    if (currentZoom < layerBoundsZoom) {
-      // if the entire trail layer will fit in a reasonable zoom full-screen,
-      // use fitBounds to place the entire layer onscreen
-        console.log("zoomToLayer currentZoom < layerBoundsZoom");
-        map.fitBounds(layer.getBounds(), {
-          paddingTopLeft: centerOffset
-        });
-    }
-
-      // otherwise, center on trailhead, with offset, and use MAX_ZOOM or MIN_ZOOM
-      // with setView
-    else {
-      var boundsCenter = layer.getBounds().getCenter();
-        map.setView(boundsCenter, currentZoom);
-    }
-    console.log("zoomToLayer end");
-  }
-
-  function zoomToCurrentTrailhead() {
-    console.log("zoomToTrailhead");
-    // figure out what zoom is required to display the entire trail layer
-    var layerBoundsZoom = 15;
-    var currentZoom = map.getZoom();
-    var newZoom = layerBoundsZoom;
-    //var newLatLng = currentTrailhead.marker.getLatLng();
-
-    var originalLatLng = currentTrailhead.marker.getLatLng();
-    var projected = map.project(originalLatLng, newZoom);
-    var offsetProjected = projected.subtract(centerOffset.divideBy(2));
-    var newLatLng = map.unproject(offsetProjected, newZoom);
-
-    console.log("zoomToLayer - currentZoom = " + currentZoom);
-    console.log("zoomToLayer - layerBoundsZoom = " + layerBoundsZoom);
-
-    if ( currentZoom < newZoom ) {
-      map.setView(newLatLng, newZoom);
-    } 
-    else {
-      map.setView(originalLatLng, currentZoom);
-    }
-    
-
-    console.log("zoomToTrailhead end");
-
   }
 
   function makeAPICall(callData, doneCallback) {
