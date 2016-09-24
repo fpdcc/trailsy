@@ -256,10 +256,8 @@ function startup() {
 
   // $("#redoSearch").click(reorderTrailsWithNewLocation);
 
-  $('.closeDetail').click(closeDetailPanel); // Close the detail panel!
-  $('#fpccSearchBack').click(fpccBackClick);
-  //.click(closeDetailPanel).click(readdSearchURL);
-  //$('.filter').change(filterChangeHandler);
+  $('.closeDetail').click(closeDetailPanel2); // Close the detail panel!
+  $('#fpccSearchBack').click(closeDetailPanel2);
 
   //$(".fpccSearchbox").keyup(function(e) { processSearch(e); });
   $(".fpccSearchbox").change(function(e) { processSearch(e); });
@@ -273,7 +271,7 @@ function startup() {
 
   $(".geolocateButton").click(centerOnLocation);
 
-  $('.detailPanelBanner').click(slideDetailPanel);
+  $('.detailPanelBanner').click(detailPanelBannerClick);
 
   $(".aboutLink").click(openAboutPage);
   $(".closeAbout").click(closeAboutPage);
@@ -464,10 +462,7 @@ function startup() {
 
   function highlightFirstTrail() {
     if (orderedTrails.length) {
-      // if (SMALL &&($(".slideDrawer").hasClass("closedDrawer")) ){
-      //   highlightTrailhead(orderedTrails[0].trailheadID, 0);
-      //   showTrailDetails(orderedTrails[0].trail, orderedTrails[0].trailhead);
-      // }
+     
     }
     else {
       setTimeout(highlightFirstTrail, 100);
@@ -2060,7 +2055,6 @@ function startup() {
     //$(".fpccEntry").click(populateTrailsForTrailheadDiv);
     $(".fpccEntry").click(trailDivClickHandler);
     $("#fpccSearchStatus").html(divCount + " Results Found");
-    closeDetailPanel();
     console.log("end makeTrailDivs 4");
     makeTrailDivsEnded = true;
   }
@@ -2157,7 +2151,7 @@ function startup() {
     //var numbers = [];
     // for (var i=0; i < 20; i++) {
     //  var t0 = performance.now();
-      decorateDetailPanel(trailSubsystemName, trailhead);
+    decorateDetailPanel(trailSubsystemName, trailhead);
     //  var t1 = performance.now();
     //  numbers.push(t1 - t0);
     //}
@@ -2167,29 +2161,61 @@ function startup() {
     $.address.parameter('poi', trailheadLink);
     $.address.parameter('search', null);
     $.address.update();
-    showDetailPanel(true);
-    if ($('.detailPanel').is(':hidden')) {
-      //decorateDetailPanel(trail, trailhead);
-      openDetailPanel();
-      currentDetailTrail = trailSubsystemName;
-      currentDetailTrailhead = trailhead;
+    openDetailPanel2();
+    if (document.getElementById("fpccMobileCheckbox").checked) {
+      slideDetailPanel2(false);
     } else {
-        //decorateDetailPanel(trail, trailhead);
-        currentDetailTrail = trailSubsystemName;
-        currentDetailTrailhead = trailhead;
+      slideDetailPanel2(true);
     }
+    
+    //showDetailPanel(true);
+
   }
 
 
   //  Helper functions for ShowTrailDetails
 
+  function openDetailPanel2() {
+    $('#fpccSearchResults').hide();
+    $('#fpccSearchStatus').hide();
+    $('#fpccPreserveInfo').scrollTop(0);
+    $('.detailPanel').show();
+    if (SMALL) {
+      $('#fpccMainContainer').hide();
+      /*$(".trailListColumn").removeClass("contracted");
+      $(".trailListColumn").addClass("expanded");*/
+    }
+  }
+
+  function slideDetailPanel2(expand) {
+    if (expand) {
+      console.log("[slideDetailPanel2] expand = true");
+      $('.detailPanel').addClass('expanded');
+      $('.detailPanel').removeClass('contracted');
+      $('.trailListColumn').addClass('expanded');
+      $('.trailListColumn').removeClass('contracted');
+      if (document.getElementById("fpccMobileCheckbox").checked) {
+        $('#fpccSearchBack').html('<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg>Back to Map</a>');
+      } else {
+        $('#fpccSearchBack').html('<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg>Back to Search Results</a>');
+      }
+      $('#fpccSearchBack').show();
+      $('#fpccMainContainer').hide();
+    } else {
+      console.log("[showDetailPanel] expand = false");
+      $('.detailPanel').addClass('contracted');
+      $('.detailPanel').removeClass('expanded');
+      $('.trailListColumn').addClass('contracted');
+      $('.trailListColumn').removeClass('expanded');
+      $('#fpccSearchBack').hide();
+      $('#fpccMainContainer').show();
+    }
+  }
+
   function openDetailPanel() {
     console.log("openDetailPanel");
     $('.aboutPage').hide();
 
-    // New versions
-
-    $('#fpccSearchStatus').hide();
     $('#fpccSearchResults').hide();
     $('#fpccSearchBack').show();
     $('.detailPanel').show();
@@ -2198,21 +2224,12 @@ function startup() {
 
     // We need to re-calculate the max height for fpccPreserveInfo because 
     // fpccPreserveName height can change.
-    if (!SMALL) {
-    }
     if (SMALL) {
       $('#fpccMainContainer').hide();
       $(".detailPanel").removeClass("contracted");
       $(".detailPanel").addClass("expanded");
       /*$(".trailListColumn").removeClass("contracted");
       $(".trailListColumn").addClass("expanded");*/
-      if ($(".slideDrawer").hasClass("openDrawer")) {
-        console.log("slide drawer is open");
-        $(".slideDrawer").removeClass("openDrawer");
-        $(".slideDrawer").addClass("closedDrawer");
-        $(".detailPanel").removeClass("hidden");
-
-      }
     }
     $('.trailhead-trailname.selected').addClass("detail-open");
     setHeights(); 
@@ -2221,41 +2238,16 @@ function startup() {
     // map.invalidateSize();
   }
 
-  function fpccBackClick() {
-    console.log("[fpccBackClick]");
-    if (SMALL) {
-      if (document.getElementById("fpccMobileCheckbox").checked) {
-
-      } else {
-
-      }
-    } else {
-      closeDetailPanel();
-    }
-
-  }
-
-  function closeDetailPanel() {
-    console.log("closeDetailPanel");
-   // New versions
-    $('#fpccPreserveInfo').scrollTop(0);
-    $('#fpccSearchStatus').show();
-    $('#fpccSearchResults').show();
-    $('#fpccSearchBack').hide();
+  function closeDetailPanel2() {
+    console.log("closeDetailPanel2");
     $('.detailPanel').hide();
-
-    $('.trailhead-trailname.selected').removeClass("detail-open");
+    readdSearchURL();
+    openResultsList();
+    showfpccMainContainer();
+    map.closePopup();
     highlightTrailhead(null,null);
     highlightTrailSegmentsForTrailSubsystem(null);
     highlightActivities(null);
-    if (SMALL) {
-      $('#fpccMainContainer').show();
-    }
-    //resetDetailPanel();
-    map.closePopup();
-    readdSearchURL();
-    setHeights();
-    // map.invalidateSize();
   }
 
   function readdSearchURL() {
@@ -2282,7 +2274,7 @@ function startup() {
     $('#fpccSearchStatus').show();
     $('#fpccSearchResults').show();
     $('#fpccSearchBack').hide();
-    $('.detailPanel').hide();
+    //$('.detailPanel').hide();
   }
 
 
@@ -2771,7 +2763,7 @@ function startup() {
   function showfpccMainContainer(e){
     console.log("showfpccMainContainer");
     var showMap = document.getElementById("fpccMobileCheckbox").checked;
-    console.log("[showfpccMainContainer] show = " + show);
+    console.log("[showfpccMainContainer] show = " + showMap);
     if (showMap){
       $('#fpccMainContainer').addClass('contracted');
       $('#fpccMainContainer').removeClass('expanded');
@@ -2792,6 +2784,7 @@ function startup() {
         $('#fpccSearchBack').show();
       }
     }
+    $('#fpccMainContainer').show();
     setHeights();
   }
 
@@ -2820,15 +2813,15 @@ function startup() {
     //showfpccMainContainer();
   }
 
-  function slideDetailPanel(e) {
-    console.log("slideDetailPanel");
+  function detailPanelBannerClick(e) {
+    console.log("detailPanelBannerClick");
     if ( $(e.target).parents(".detailPanel").is(":visible") ) {
       if ($(e.target).parents(".detailPanel").hasClass("expanded")) {
-        console.log("[slideDetailPanel] parent has expanded. Run showDetailPanel(false)");
-        showDetailPanel(false);
+        console.log("[detailPanelBannerClick] parent has expanded. Run showDetailPanel(false)");
+        slideDetailPanel2(false);
       } else {
-        showDetailPanel(true);
-        console.log("[slideDetailPanel] parent doesn't have expanded. Run showDetailPanel(true)");
+        slideDetailPanel2(true);
+        console.log("[detailPanelBannerClick] parent doesn't have expanded. Run showDetailPanel(true)");
 
       }
     }
