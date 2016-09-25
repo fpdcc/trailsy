@@ -1849,6 +1849,7 @@ function startup() {
     $("#fpccSearchResults").html(trailListContents);
     $(".fpccEntry").click(trailDivClickHandler);
     $("#fpccSearchStatus").html(divCount + " Results Found");
+    setHeights();
 
     console.log("end makeTrailDivs 4");
     makeTrailDivsEnded = true;
@@ -2009,6 +2010,7 @@ function startup() {
       $('#fpccSearchBack').html('<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg>Back to Search Results</a>');
       $('#fpccSearchBack').show();
     }
+    setHeights();
   }
 
   function closeDetailPanel2() {
