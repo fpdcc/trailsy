@@ -80,6 +80,7 @@ function startup() {
   });
 
   $('#logo-link a').attr("href", window.location.origin);
+  var loaderDiv = '<div class="loader"></div>';
 
   var SMALL = false;
   if (Modernizr.mq("only screen and (max-width: 768px)")) {
@@ -255,12 +256,14 @@ function startup() {
 
   $('.closeDetail').click(closeDetailPanel2); // Close the detail panel!
   $('#fpccSearchBack').click(closeDetailPanel2);
+  $('#fpccMobileSearchButton').click(closeDetailPanel2);
 
   //$(".fpccSearchbox").keyup(function(e) { processSearch(e); });
   $(".fpccSearchbox").change(function(e) { processSearch(e); });
   $(".offsetZoomControl").click(offsetZoomIn);
   $("#fpccSearchButton").click(processSearch);
   $("#fpccMobileCheckbox").click(showfpccMainContainer);
+
 
   //$(".fpccSearchsubmit").click(processSearch);
   //$(".fpccSearchbox").keyup(function(e) { processSearch(e); });
@@ -278,9 +281,12 @@ function startup() {
   //  Shouldn't the UI event of a Map Callout click opening the detail panel go here?
 
   //if mobile, we expand 2 of the sidebar sections
+  $('#fpccMobileSearchButton').hide();
   if(SMALL){
     $(".trigger1").addClass("active");
     $(".trigger3").addClass("active");
+  } else {
+    $('#fpccMobileSearchButton').hide();
   }
 
 
@@ -384,6 +390,7 @@ function startup() {
 
   function initialSetup() {
     console.log("initialSetup");
+    $("#fpccSearchResults").html(loaderDiv);
     openResultsList();
     setupGeolocation(function() {
       if (geoSetupDone) {
@@ -496,6 +503,7 @@ function startup() {
   }
 
   function processSearch(e) {
+    $("#fpccSearchResults").html(loaderDiv);
     var $currentTarget = $(e.currentTarget);
     var filterType = "activityFilter";
     console.log("[processSearch]");
@@ -1837,9 +1845,11 @@ function startup() {
         // console.log(time + ": " + "end loop");
       //}
     }
+    closeDetailPanel2();
     $("#fpccSearchResults").html(trailListContents);
     $(".fpccEntry").click(trailDivClickHandler);
     $("#fpccSearchStatus").html(divCount + " Results Found");
+
     console.log("end makeTrailDivs 4");
     makeTrailDivsEnded = true;
   }
@@ -1932,6 +1942,7 @@ function startup() {
     //var numbers = [];
     // for (var i=0; i < 20; i++) {
     //  var t0 = performance.now();
+    openDetailPanel2();
     decorateDetailPanel(trailSubsystemName, trailhead);
     //  var t1 = performance.now();
     //  numbers.push(t1 - t0);
@@ -1942,14 +1953,14 @@ function startup() {
     $.address.parameter('poi', trailheadLink);
     $.address.parameter('search', null);
     $.address.update();
-    openDetailPanel2();
+    
     if (document.getElementById("fpccMobileCheckbox").checked) {
       slideDetailPanel2(false);
     } else {
+      console.log("showTrailDetails checked is false");
       slideDetailPanel2(true);
     }
     
-    //showDetailPanel(true);
 
   }
 
@@ -1969,54 +1980,35 @@ function startup() {
   }
 
   function slideDetailPanel2(expand) {
-    if (expand) {
-      console.log("[slideDetailPanel2] expand = true");
-      $('.detailPanel').addClass('expanded');
-      $('.detailPanel').removeClass('contracted');
-      $('.trailListColumn').addClass('expanded');
-      $('.trailListColumn').removeClass('contracted');
-      if (document.getElementById("fpccMobileCheckbox").checked) {
-        $('#fpccSearchBack').html('<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg>Back to Map</a>');
-      } else {
-        $('#fpccSearchBack').html('<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg>Back to Search Results</a>');
-      }
-      $('#fpccSearchBack').show();
-      $('#fpccMainContainer').hide();
-    } else {
-      console.log("[showDetailPanel] expand = false");
-      $('.detailPanel').addClass('contracted');
-      $('.detailPanel').removeClass('expanded');
-      $('.trailListColumn').addClass('contracted');
-      $('.trailListColumn').removeClass('expanded');
-      $('#fpccSearchBack').hide();
-      $('#fpccMainContainer').show();
-    }
-  }
-
-  function openDetailPanel() {
-    console.log("openDetailPanel");
-    $('.aboutPage').hide();
-
-    $('#fpccSearchResults').hide();
-    $('#fpccSearchBack').show();
-    $('.detailPanel').show();
-
-    $('#fpccPreserveInfo').scrollTop(0);
-
-    // We need to re-calculate the max height for fpccPreserveInfo because 
-    // fpccPreserveName height can change.
     if (SMALL) {
-      $('#fpccMainContainer').hide();
-      $(".detailPanel").removeClass("contracted");
-      $(".detailPanel").addClass("expanded");
-      /*$(".trailListColumn").removeClass("contracted");
-      $(".trailListColumn").addClass("expanded");*/
+      if (expand) {
+        console.log("[slideDetailPanel2] expand = true");
+        $('.detailPanel').addClass('expanded');
+        $('.detailPanel').removeClass('contracted');
+        $('.trailListColumn').addClass('expanded');
+        $('.trailListColumn').removeClass('contracted');
+        if (document.getElementById("fpccMobileCheckbox").checked) {
+          $('#fpccSearchBack').html('<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg>Back to Map</a>');
+        } else {
+          $('#fpccSearchBack').html('<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg>Back to Search Results</a>');
+        }
+        $('#fpccSearchBack').show();
+        $('#fpccMainContainer').hide();
+        $('#fpccMobileSearchButton').hide();
+      } else {
+        console.log("[showDetailPanel] expand = false");
+        $('.detailPanel').addClass('contracted');
+        $('.detailPanel').removeClass('expanded');
+        $('.trailListColumn').addClass('contracted');
+        $('.trailListColumn').removeClass('expanded');
+        $('#fpccSearchBack').hide();
+        $('#fpccMainContainer').show();
+        $('#fpccMobileSearchButton').show();
+      }
+    } else {
+      $('#fpccSearchBack').html('<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg>Back to Search Results</a>');
+      $('#fpccSearchBack').show();
     }
-    $('.trailhead-trailname.selected').addClass("detail-open");
-    setHeights(); 
-
-    //$(".detailPanel .detailPanelPicture")[0].scrollIntoView();
-    // map.invalidateSize();
   }
 
   function closeDetailPanel2() {
@@ -2553,6 +2545,12 @@ function startup() {
       $('.detailPanel').removeClass('expanded');
       // document.getElementById("fpccMainContainer").style.zIndex = "1";
       $('#fpccSearchBack').hide();
+      $('#fpccMainContainer').show();
+      if ($(".detailPanel").is(":visible")) {
+        $('#fpccMobileSearchButton').show();
+      } else {
+        $('#fpccMobileSearchButton').hide();
+      }
     } else {
       $('#fpccMainContainer').addClass('expanded');
       $('.trailListColumn').addClass('expanded');
@@ -2560,48 +2558,27 @@ function startup() {
       $('#fpccMainContainer').removeClass('contracted');
       $('.detailPanel').addClass('expanded');
       $('.detailPanel').removeClass('contracted');
+      $('#fpccMobileSearchButton').hide();
       if ($(".detailPanel").is(":visible") ) {
         $('#fpccSearchBack').show();
-      }
-    }
-    $('#fpccMainContainer').show();
-    setHeights();
-  }
-
-  function showDetailPanel(show){
-    console.log("showDetailPanel");
-    if (show){
-      console.log("[showDetailPanel] show = true");
-      $('.detailPanel').addClass('expanded');
-      $('.detailPanel').removeClass('contracted');
-      $('.trailListColumn').addClass('expanded');
-      $('.trailListColumn').removeClass('contracted');
-      if (document.getElementById("fpccMobileCheckbox").checked) {
-        $('#fpccSearchBack').html('<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg>Back to Map</a>');
+        $('#fpccMainContainer').hide();
       } else {
-        $('#fpccSearchBack').html('<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg>Back to Search Results</a>');
+        $('#fpccMainContainer').show();
       }
-    } else {
-      console.log("[showDetailPanel] show = false");
-      $('.detailPanel').addClass('contracted');
-      $('.detailPanel').removeClass('expanded');
-      $('.trailListColumn').addClass('contracted');
-      $('.trailListColumn').removeClass('expanded');
-      $('#fpccSearchBack').hide();
-      //document.getElementById("fpccMobileCheckbox").checked = true;
     }
-    //showfpccMainContainer();
+    
+    setHeights();
   }
 
   function detailPanelBannerClick(e) {
     console.log("detailPanelBannerClick");
     if ( $(e.target).parents(".detailPanel").is(":visible") ) {
       if ($(e.target).parents(".detailPanel").hasClass("expanded")) {
-        console.log("[detailPanelBannerClick] parent has expanded. Run showDetailPanel(false)");
+        console.log("[detailPanelBannerClick] parent has expanded. Run slideDetailPanel2(false)");
         slideDetailPanel2(false);
       } else {
         slideDetailPanel2(true);
-        console.log("[detailPanelBannerClick] parent doesn't have expanded. Run showDetailPanel(true)");
+        console.log("[detailPanelBannerClick] parent doesn't have expanded. Run slideDetailPanel2(true)");
 
       }
     }
@@ -2724,37 +2701,27 @@ function startup() {
   //                     Returns marker zoomBounds of all three.
   function highlightTrailhead(trailheadID,highlightedTrailIndex) {
     console.log("highlightTrailhead");
-    var startTime = new Date().getTime();
+    var startTime = null;
+    var endTime = null;
     console.log("highlightTrailhead start = " + startTime);
     map.closePopup();
     highlightedTrailIndex = highlightedTrailIndex || 0;
     var trailhead = null;
     trailhead = getTrailheadById(trailheadID);
+
     var zoomArray = [];
-
-    if ($('.detailPanel').is(":visible")) {
-      $('.trailhead-trailname.selected').removeClass("detail-open");
-    }
-
-    if ($('.detailPanel').is(":visible")) {
-      $('.trailhead-trailname.selected').addClass("detail-open");
-    }
     $( '.leaflet-marker-icon.selected' ).removeClass('selected');
-    if (currentTrailhead) {
-        // var myEntranceID = "poi-" + currentTrailhead.properties.id;
-        // console.log("[highlightTrailhead] currentTrailhead");
-        // var currentTrailheadDivs = document.getElementsByClassName(myEntranceID);
-        // for (var i = 0; i < currentTrailheadDivs.length; i++) {
-        //   console.log("[highlightTrailhead] old currentTrailheadDivs loop i = " + i);
-        //   currentTrailheadDivs[i].classList.remove('selected');
-        // }
-    }
+    
     if (trailhead) {
+      
       currentTrailhead = trailhead;
       zoomArray.push(trailhead.marker);
+
       var myEntranceID = "poi-" + currentTrailhead.properties.id;
       console.log("[highlightTrailhead] new currentTrailhead = " + myEntranceID);
+      startTime = new Date().getTime();
       $( '.leaflet-marker-icon.' + myEntranceID ).addClass('selected');
+      
       //highlightTrailInPopup(trailhead, highlightedTrailIndex);
       var popup = new L.Popup({
         offset: [0, -12],
