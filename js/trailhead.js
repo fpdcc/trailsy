@@ -1856,6 +1856,8 @@ function startup() {
   }
 
   function trailDivClickHandler(e) {
+    $(".fpccContainer").html(loaderDiv);
+    openDetailPanel2();
     var $myTarget = $(e.currentTarget);
     var divTrailID = $myTarget.attr("data-trailid");
     var divTrailName = $myTarget.attr("data-trailname");
@@ -1927,6 +1929,13 @@ function startup() {
   // KEEP REVISED: showTrailDetails
   function showTrailDetails(trailSubsystemName, trailhead) {
     console.log("showTrailDetails");
+    openDetailPanel2();
+    if (document.getElementById("fpccMobileCheckbox").checked) {
+      slideDetailPanel2(false);
+    } else {
+      console.log("showTrailDetails checked is false");
+      slideDetailPanel2(true);
+    }
     
     var trailheadLink = null;
     var trailLink = null;
@@ -1943,7 +1952,7 @@ function startup() {
     //var numbers = [];
     // for (var i=0; i < 20; i++) {
     //  var t0 = performance.now();
-    openDetailPanel2();
+    //openDetailPanel2();
     decorateDetailPanel(trailSubsystemName, trailhead);
     //  var t1 = performance.now();
     //  numbers.push(t1 - t0);
@@ -1955,12 +1964,12 @@ function startup() {
     $.address.parameter('search', null);
     $.address.update();
     
-    if (document.getElementById("fpccMobileCheckbox").checked) {
-      slideDetailPanel2(false);
-    } else {
-      console.log("showTrailDetails checked is false");
-      slideDetailPanel2(true);
-    }
+    // if (document.getElementById("fpccMobileCheckbox").checked) {
+    //   slideDetailPanel2(false);
+    // } else {
+    //   console.log("showTrailDetails checked is false");
+    //   slideDetailPanel2(true);
+    // }
     
 
   }
@@ -1973,6 +1982,7 @@ function startup() {
     $('#fpccSearchStatus').hide();
     $('#fpccPreserveInfo').scrollTop(0);
     $('.detailPanel').show();
+    $(".fpccContainer").html(loaderDiv);
     if (SMALL) {
       $('#fpccMainContainer').hide();
       /*$(".trailListColumn").removeClass("contracted");
