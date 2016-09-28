@@ -381,7 +381,7 @@ function startup() {
       addressChange();
     }
     else {
-      setTimeout(waitForAllData, 100);
+      setTimeout(waitForAllData, 0);
     }
   }
 
@@ -483,7 +483,7 @@ function startup() {
       console.log("waitForTrailSegments trailsegmentsFetched");
     }
     else {
-      setTimeout(waitForTrailSegments, 100);
+      setTimeout(waitForTrailSegments, 0);
     }
   }
 
@@ -495,7 +495,7 @@ function startup() {
       //createSegmentTrailIdCache();
     }
     else {
-      setTimeout(waitForDataAndSegments, 100);
+      setTimeout(waitForDataAndSegments, 0);
     }
   }
 
@@ -511,7 +511,7 @@ function startup() {
       // }
     }
     else {
-      setTimeout(waitForAllTrailData, 100);
+      setTimeout(waitForAllTrailData, 0);
     }
   }
 
@@ -522,7 +522,7 @@ function startup() {
       highlightFirstTrail();
     }
     else {
-      setTimeout(waitForDataAndTrailHeads, 100);
+      setTimeout(waitForDataAndTrailHeads, 0);
     }
   }
 
@@ -1974,21 +1974,24 @@ function startup() {
         trailSubsystem = originalTrailData[divTrailhead.properties.direct_trail_id].trail_subsystem;
       }  
     }
-    var trailsGroupBounds = highlightTrailSegmentsForTrailSubsystem(trailSubsystem);
-    var trailheadGroupBounds = highlightTrailhead(trailheadId);
-    var zoomFeatureGroupBounds = null;
-    var zoomArray = [];
+    setTimeout(function(){
+      console.log("f1", "First function call...");
+      var trailsGroupBounds = highlightTrailSegmentsForTrailSubsystem(trailSubsystem);
+      var trailheadGroupBounds = highlightTrailhead(trailheadId);
+      var zoomFeatureGroupBounds = null;
+      var zoomArray = [];
 
-    if (divTrailhead) {
-      zoomFeatureGroupBounds = trailheadGroupBounds;
-    } else {
-      zoomFeatureGroupBounds = trailsGroupBounds;
-      //console.log("zoomFeatureGroup= " + zoomFeatureGroup);
-    }
-    console.log("[trailDivWork] before fitbounds");
-    map.fitBounds(zoomFeatureGroupBounds, {
-      paddingTopLeft: centerOffset
-    });
+      if (divTrailhead) {
+        zoomFeatureGroupBounds = trailheadGroupBounds;
+      } else {
+        zoomFeatureGroupBounds = trailsGroupBounds;
+        //console.log("zoomFeatureGroup= " + zoomFeatureGroup);
+      }
+      console.log("[trailDivWork] before fitbounds");
+      map.fitBounds(zoomFeatureGroupBounds, {
+        paddingTopLeft: centerOffset
+      });
+    }, 0);
     var t1 = performance.now();
     console.log('trailDivWork time', (t1-t0).toFixed(4), 'milliseconds');
   }
@@ -2869,14 +2872,17 @@ function startup() {
       var t2 = performance.now();
       console.log('highlightTrailhead time before create popup', (t2-t1).toFixed(4), 'milliseconds');
       //highlightTrailInPopup(trailhead, highlightedTrailIndex);
-      var popup = new L.Popup({
-        offset: [0, -12],
-        autoPanPadding: [10, 10],
-        autoPan: SMALL ? false : true
-      })
-      .setContent(trailhead.popupContent)
-      .setLatLng(trailhead.marker.getLatLng())
-      .openOn(map);
+      setTimeout(function() {
+        console.log("[highlightTrailhead] create + open popup");
+        var popup = new L.Popup({
+          offset: [0, -12],
+          autoPanPadding: [10, 10],
+          autoPan: SMALL ? false : true
+        })
+        .setContent(trailhead.popupContent)
+        .setLatLng(trailhead.marker.getLatLng())
+        .openOn(map);
+      }, 0)
       var t3 = performance.now();
       console.log('highlightTrailhead time after create popup', (t3-t2).toFixed(4), 'milliseconds');
       if (originalActivities[currentTrailhead.properties.id]) {
