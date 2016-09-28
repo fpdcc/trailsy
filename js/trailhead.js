@@ -2,44 +2,101 @@ var console = console || {
   "log": function() {}
 };
 console.log("start");
-
+var SMALL = false;
+if (window.innerWidth <= 768) {
+  SMALL = true;
+} else {
+  SMALL = false;
+}
+console.log("Initial small = " + SMALL);
 $(document).ready(startup);
 
 // This function is used to set the max heights for PreserveInfo & SearchResults.
 // It is called on body load and resize. It is also called when opening Detail panel.
+// function setHeights() {
+//       var h = $(window).height();
+//       var k = $('#fpccBrand').is(':visible') ? $('#fpccBrand').outerHeight() : 0;
+//       var l = $('#fpccBrandMobile').is(':visible') ? $('#fpccBrandMobile').outerHeight(true) : 0;
+//       var m = $("#fpccPreserveName").outerHeight();
+//       var o = $('#fpccSearchBack').is(':visible') ? $('#fpccSearchBack').outerHeight(true) : 0;
+//       var p = $('#fpccSearchStatus').is(':visible') ? $('#fpccSearchStatus').outerHeight(true) : 0;
+//       var q = $('#fpccSearchContainer').is(':visible') ? $('#fpccSearchContainer').outerHeight(true) : 0;
+//       console.log("[setHeights] h = " + h);
+//       console.log("[setHeights] k + l + m + o + p + q = " + k + " + " + l + " + " + m + " + " + o + " + " + p + " + " + q);
+//       var fpccSearchResultsHeight = (h-(k + l + o + p + q));
+//       console.log("[setHeights] fpccSearchResultsHeight= " + fpccSearchResultsHeight);
+//       $('#fpccSearchResults').css('max-height',fpccSearchResultsHeight );
+//       var SMALL = false;
+//       if (Modernizr.mq("only screen and (max-width: 768px)")) {
+//         SMALL = true;
+//       } else if (Modernizr.mq("only screen and (min-width: 769px)")) {
+//         SMALL = false;
+//       }
+//       var fpccPreserveInfoHeight = 0;
+//       if (SMALL) {
+//         console.log("[setHeights] yes small");
+//         fpccPreserveInfoHeight = (h-(l + m + o));
+//         $('#fpccPreserveInfo').css('min-height', fpccPreserveInfoHeight );
+//         $('#fpccSearchResults').css('min-height',fpccSearchResultsHeight );
+//       } else {
+//         fpccPreserveInfoHeight = (h-(k + m + o + q));
+//         console.log("[setHeights] no small");
+//       }
+//       $('#fpccPreserveInfo').css('max-height', fpccPreserveInfoHeight );
+//       console.log("[setHeights] #fpccPreserveInfoHeight= " + fpccPreserveInfoHeight);   
+// }
+
 function setHeights() {
-      var h = $(window).height();
-      var k = $('#fpccBrand').is(':visible') ? $('#fpccBrand').outerHeight() : 0;
-      var l = $('#fpccBrandMobile').is(':visible') ? $('#fpccBrandMobile').outerHeight(true) : 0;
-      var m = $("#fpccPreserveName").outerHeight();
-      var o = $('#fpccSearchBack').is(':visible') ? $('#fpccSearchBack').outerHeight(true) : 0;
-      var p = $('#fpccSearchStatus').is(':visible') ? $('#fpccSearchStatus').outerHeight(true) : 0;
-      var q = $('#fpccSearchContainer').is(':visible') ? $('#fpccSearchContainer').outerHeight(true) : 0;
+      //var h = $(window).height();
+      var h = window.innerHeight;
+      //var k = $('#fpccBrand').is(':visible') ? $('#fpccBrand').outerHeight() : 0;
+      var k = document.getElementById('fpccBrand').offsetHeight;
+      //var l = $('#fpccBrandMobile').is(':visible') ? $('#fpccBrandMobile').outerHeight(true) : 0;
+      var l = document.getElementById('fpccBrandMobile').offsetHeight;
+      //var m = $("#fpccPreserveName").outerHeight();
+      var m = document.getElementById('fpccPreserveName').offsetHeight;
+      var o = document.getElementById('fpccSearchBack').offsetHeight;
+      var p = document.getElementById('fpccSearchStatus').offsetHeight;
+      var q = document.getElementById('fpccSearchContainer').offsetHeight;
+      //var o = $('#fpccSearchBack').is(':visible') ? $('#fpccSearchBack').outerHeight(true) : 0;
+      //var p = $('#fpccSearchStatus').is(':visible') ? $('#fpccSearchStatus').outerHeight(true) : 0;
+      //var q = $('#fpccSearchContainer').is(':visible') ? $('#fpccSearchContainer').outerHeight(true) : 0;
       console.log("[setHeights] h = " + h);
       console.log("[setHeights] k + l + m + o + p + q = " + k + " + " + l + " + " + m + " + " + o + " + " + p + " + " + q);
       var fpccSearchResultsHeight = (h-(k + l + o + p + q));
+      fpccSearchResultsHeight = fpccSearchResultsHeight.toString() + 'px';
       console.log("[setHeights] fpccSearchResultsHeight= " + fpccSearchResultsHeight);
-      $('#fpccSearchResults').css('max-height',fpccSearchResultsHeight );
-      var SMALL = false;
-      if (Modernizr.mq("only screen and (max-width: 768px)")) {
-        SMALL = true;
-      } else if (Modernizr.mq("only screen and (min-width: 769px)")) {
-        SMALL = false;
-      }
+      //$('#fpccSearchResults').css('max-height',fpccSearchResultsHeight );
+      document.getElementById('fpccSearchResults').style.maxHeight = fpccSearchResultsHeight;
+      
+      // var SMALL = false;
+      // // if (Modernizr.mq("only screen and (max-width: 768px)")) {
+      // //   SMALL = true;
+      // // } else if (Modernizr.mq("only screen and (min-width: 769px)")) {
+      // //   SMALL = false;
+      // // }
+      // if (window.innerWidth <= 768) {
+      //   SMALL = true;
+      // } else {
+      //   SMALL = false;
+      // }
       var fpccPreserveInfoHeight = 0;
       if (SMALL) {
         console.log("[setHeights] yes small");
-        fpccPreserveInfoHeight = (h-(l + m + o));
-        $('#fpccPreserveInfo').css('min-height', fpccPreserveInfoHeight );
-        $('#fpccSearchResults').css('min-height',fpccSearchResultsHeight );
+        fpccPreserveInfoHeight = (h-(l + m + o)).toString() + 'px';
+        //$('#fpccPreserveInfo').css('min-height', fpccPreserveInfoHeight );
+        //$('#fpccSearchResults').css('min-height',fpccSearchResultsHeight );
+        document.getElementById('fpccPreserveInfo').style.minHeight = fpccPreserveInfoHeight;
+        document.getElementById('fpccSearchResults').style.minHeight = fpccSearchResultsHeight;
+
       } else {
-        fpccPreserveInfoHeight = (h-(k + m + o + q));
+        fpccPreserveInfoHeight = (h-(k + m + o + q)).toString() + 'px';
         console.log("[setHeights] no small");
       }
-      $('#fpccPreserveInfo').css('max-height', fpccPreserveInfoHeight );
-      console.log("[setHeights] #fpccPreserveInfoHeight= " + fpccPreserveInfoHeight);
+      //$('#fpccPreserveInfo').css('max-height', fpccPreserveInfoHeight );
+      document.getElementById('fpccPreserveInfo').style.maxHeight = fpccPreserveInfoHeight;
 
-      
+      console.log("[setHeights] #fpccPreserveInfoHeight= " + fpccPreserveInfoHeight);   
 }
 
 /* The Big Nested Function
@@ -83,11 +140,17 @@ function startup() {
   var loaderDiv = '<div class="loader"></div>';
 
   var SMALL = false;
-  if (Modernizr.mq("only screen and (max-width: 768px)")) {
+  // if (Modernizr.mq("only screen and (max-width: 768px)")) {
+  //   SMALL = true;
+  // } else if (Modernizr.mq("only screen and (min-width: 769px)")) {
+  //   SMALL = false;
+  // }
+  if (window.innerWidth <= 768) {
     SMALL = true;
-  } else if (Modernizr.mq("only screen and (min-width: 769px)")) {
+  } else {
     SMALL = false;
   }
+
 
   var TOUCH = $('html').hasClass('touch');
  
@@ -233,13 +296,13 @@ function startup() {
     popupAnchor: [0, -3]
   };
 
-  var trailheadIcon1Options = $.extend(trailheadIconOptions, {
-    iconUrl: 'img/icon_trailhead_active.png'
-  });
-  var trailheadIcon1 = L.icon(trailheadIcon1Options);
-  var trailheadIcon2Options = $.extend(trailheadIconOptions, {
-    className: 'icon icon-sign'
-  });
+  // var trailheadIcon1Options = $.extend(trailheadIconOptions, {
+  //   iconUrl: 'img/icon_trailhead_active.png'
+  // });
+  // var trailheadIcon1 = L.icon(trailheadIcon1Options);
+  // var trailheadIcon2Options = $.extend(trailheadIconOptions, {
+  //   className: 'icon icon-sign'
+  // });
 
   var trailheadIcon2 = L.divIcon({
     className: 'icon-sign icon-map',
@@ -392,16 +455,15 @@ function startup() {
     console.log("initialSetup");
     $("#fpccSearchResults").html(loaderDiv);
     openResultsList();
+    fetchTrailsegments(function() { trailsegmentsFetched = true; });
+    fetchTrailheads(currentUserLocation, function() { trailheadsFetched = true; });
+    fetchTraildata(function() { traildataFetched = true; });
+    fetchActivities(function() { activitiesFetched = true; });
+    fetchPicnicgroves(function() { picnicgrovesFetched = true; });
     setupGeolocation(function() {
       if (geoSetupDone) {
         return;
       }
-      fetchTrailsegments(function() { trailsegmentsFetched = true; });
-      fetchTrailheads(currentUserLocation, function() { trailheadsFetched = true; });
-      fetchTraildata(function() { traildataFetched = true; });
-      fetchActivities(function() { activitiesFetched = true; });
-      fetchPicnicgroves(function() { picnicgrovesFetched = true; });
-      
       if (USE_LOCAL) {
         
        //setTimeout(waitForDataAndSegments, 0);
@@ -1638,7 +1700,7 @@ function startup() {
     }
     
     console.log("currentTrailheads count = " + currentTrailheads.length);
-    setTimeout(function() {
+    //setTimeout(function() {
       //fixDuplicateTrailheadTrails(myTrailheads);
       makeTrailheadPopups(currentTrailheads);
       mapActiveTrailheads(currentTrailheads);
@@ -1650,10 +1712,10 @@ function startup() {
           $('path.trail.system-' + currentTrailSubsystems[subsystemsIndex]).removeClass('inactive');
         }
       }
-      setTimeout(function() {
+      //setTimeout(function() {
         makeTrailDivs(currentTrailheads);
-      }, 0);
-    }, 0);
+      //}, 0);
+    //}, 0);
   }
 
   // given the trailheads,
@@ -1849,15 +1911,20 @@ function startup() {
     $("#fpccSearchResults").html(trailListContents);
     $(".fpccEntry").click(trailDivClickHandler);
     $("#fpccSearchStatus").html(divCount + " Results Found");
-    setHeights();
+    //setHeights();
 
     console.log("end makeTrailDivs 4");
     makeTrailDivsEnded = true;
   }
 
   function trailDivClickHandler(e) {
-    $(".fpccContainer").html(loaderDiv);
+     var numbers = [];
+    //for (var i=0; i < 1; i++) {
+     var t0 = performance.now();
+    //$(".fpccContainer").html(loaderDiv);
+    document.getElementById("fpccContainer").innerHTML = loaderDiv;
     openDetailPanel2();
+    var endTime = new Date().getTime();
     var $myTarget = $(e.currentTarget);
     var divTrailID = $myTarget.attr("data-trailid");
     var divTrailName = $myTarget.attr("data-trailname");
@@ -1866,13 +1933,19 @@ function startup() {
     var divTrailheadID = $myTarget.attr("data-trailheadid");
     var divTrailheadName = $myTarget.attr("data-trailheadname");
     var trailheadID = null;
-    
+
     if (divTrailID) {
       trailSubsystem = divTrailID;
       trailDivWork(trailSubsystem, null);
     } else {   
       trailDivWork(null, divTrailheadID);
-    }  
+    }
+      
+      numbers.push(t1 - t0);
+    //}
+    var t1 = performance.now();
+    console.log('trailDivClickHandler time', (t1-t0).toFixed(4), 'milliseconds');
+   
   }
 
   function median(sequence) {
@@ -1882,6 +1955,7 @@ function startup() {
 
 
   function trailDivWork(trailSubsystem, trailheadId) {
+    var t0 = performance.now();
     if (trailSubsystem) {
       showTrailDetails(trailSubsystem, null);
     } else {   
@@ -1895,7 +1969,7 @@ function startup() {
       //   numbers.push(t1 - t0);
       // }
       // console.log('Median time', median(numbers).toFixed(4), 'milliseconds');
-      //console.log("[trailDivClickHandler] trailSystem is null");
+      // console.log("[trailDivClickHandler] trailSystem is null");
       if (divTrailhead.properties.direct_trail_id) {
         trailSubsystem = originalTrailData[divTrailhead.properties.direct_trail_id].trail_subsystem;
       }  
@@ -1915,6 +1989,8 @@ function startup() {
     map.fitBounds(zoomFeatureGroupBounds, {
       paddingTopLeft: centerOffset
     });
+    var t1 = performance.now();
+    console.log('trailDivWork time', (t1-t0).toFixed(4), 'milliseconds');
   }
 
   function metersToMiles(i) {
@@ -1929,13 +2005,21 @@ function startup() {
   // KEEP REVISED: showTrailDetails
   function showTrailDetails(trailSubsystemName, trailhead) {
     console.log("showTrailDetails");
+    var t0 = performance.now();
     openDetailPanel2();
+    // var numbers = [];
+    // for (var i=0; i < 10; i++) {
+    //   var t0 = performance.now();
     if (document.getElementById("fpccMobileCheckbox").checked) {
-      slideDetailPanel2(false);
+      slideDetailPanelNoJQuey(false);
     } else {
       console.log("showTrailDetails checked is false");
-      slideDetailPanel2(true);
+      slideDetailPanelNoJQuey(true);
     }
+      // var t1 = performance.now();
+      //   numbers.push(t1 - t0);
+      // }
+      // console.log('Median time', median(numbers).toFixed(4), 'milliseconds');
     
     var trailheadLink = null;
     var trailLink = null;
@@ -1949,15 +2033,15 @@ function startup() {
       trailheadLink = trailheadLink.replace(/%20/g, '+');
     }
 
-    //var numbers = [];
+    // var numbers = [];
     // for (var i=0; i < 20; i++) {
     //  var t0 = performance.now();
     //openDetailPanel2();
     decorateDetailPanel(trailSubsystemName, trailhead);
     //  var t1 = performance.now();
     //  numbers.push(t1 - t0);
-    //}
-    //console.log('Median time', median(numbers).toFixed(4), 'milliseconds');
+    // }
+    // console.log('Median time', median(numbers).toFixed(4), 'milliseconds');
 
     $.address.parameter('trail', trailLink);  
     $.address.parameter('poi', trailheadLink);
@@ -1970,21 +2054,26 @@ function startup() {
     //   console.log("showTrailDetails checked is false");
     //   slideDetailPanel2(true);
     // }
-    
-
+    var t1 = performance.now();
+    console.log('showTrailDetails time', (t1-t0).toFixed(4), 'milliseconds');
   }
 
 
   //  Helper functions for ShowTrailDetails
 
   function openDetailPanel2() {
-    $('#fpccSearchResults').hide();
-    $('#fpccSearchStatus').hide();
-    $('#fpccPreserveInfo').scrollTop(0);
-    $('.detailPanel').show();
-    $(".fpccContainer").html(loaderDiv);
+    //$('#fpccSearchResults').hide();
+    document.getElementById("fpccSearchResults").style.display = 'none';
+    document.getElementById("fpccSearchStatus").style.display = 'none';
+    document.getElementById("fpccDetailPanel").style.display = '';
+    // $('#fpccSearchStatus').hide();
+    // $('#fpccPreserveInfo').scrollTop(0);
+    // $('.detailPanel').show();
+    document.getElementById("fpccContainer").innerHTML = loaderDiv;
+    //$("fpccContainer").html(loaderDiv);
     if (SMALL) {
-      $('#fpccMainContainer').hide();
+      document.getElementById("fpccMainContainer").style.display = 'none';
+      //$('#fpccMainContainer').hide();
       /*$(".trailListColumn").removeClass("contracted");
       $(".trailListColumn").addClass("expanded");*/
     }
@@ -2020,8 +2109,51 @@ function startup() {
       $('#fpccSearchBack').html('<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg>Back to Search Results</a>');
       $('#fpccSearchBack').show();
     }
-    setHeights();
+    //setHeights();
   }
+
+  function slideDetailPanelNoJQuey(expand) {
+    if (SMALL) {
+      if (expand) {
+        console.log("[slideDetailPanel2] expand = true");
+        document.getElementById("fpccDetailPanel").classList.add('expanded');
+        document.getElementById("fpccDetailPanel").classList.remove('contracted');
+        //$('.detailPanel').addClass('expanded');
+        //$('.detailPanel').removeClass('contracted');
+        //$('.trailListColumn').addClass('expanded');
+        //$('.trailListColumn').removeClass('contracted');
+        document.getElementById("fpccTrailListColumn").classList.add('expanded');
+        document.getElementById("fpccTrailListColumn").classList.remove('contracted');
+        if (document.getElementById("fpccMobileCheckbox").checked) {
+          document.getElementById("fpccSearchBack").innerHTML = '<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg>Back to Map</a>';
+        } else {
+          document.getElementById("fpccSearchBack").innerHTML = '<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg>Back to Search Results</a>';
+        }
+        //$('#fpccSearchBack').show();
+        document.getElementById("fpccSearchBack").style.display = '';
+        document.getElementById("fpccMainContainer").style.display = 'none';
+        document.getElementById("fpccMobileSearchButton").style.display = 'none';
+        //$('#fpccMainContainer').hide();
+        //$('#fpccMobileSearchButton').hide();
+      } else {
+        console.log("[showDetailPanel] expand = false");
+        $('.detailPanel').addClass('contracted');
+        $('.detailPanel').removeClass('expanded');
+        $('.trailListColumn').addClass('contracted');
+        $('.trailListColumn').removeClass('expanded');
+        $('#fpccSearchBack').hide();
+        $('#fpccMainContainer').show();
+        $('#fpccMobileSearchButton').show();
+      }
+    } else {
+      $('#fpccSearchBack').html('<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg>Back to Search Results</a>');
+      $('#fpccSearchBack').show();
+    }
+    //setHeights();
+  }
+
+
+  
 
   function closeDetailPanel2() {
     console.log("closeDetailPanel2");
@@ -2075,12 +2207,14 @@ function startup() {
       trailSubsystemTrails = trailSubsystemMap[trailSubsystemName] || null;
       descriptionTrail = trailSubsystemTrails[0] || null;
       displayName = trailSubsystemName;
-      $('#fpccPreserveName .trailName').html(trailSubsystemName);
+      document.getElementById('fpccTrailName').innerHTML = trailSubsystemName;
+      //$('#fpccPreserveName .trailName').html(trailSubsystemName);
     }
     if (trailhead) {
       if (trailhead.properties.name) {
         displayName = trailhead.properties.name;
-        $('#fpccPreserveName .trailName').html(trailhead.properties.name);
+        document.getElementById('fpccTrailName').innerHTML = trailhead.properties.name;
+        //$('#fpccPreserveName .trailName').html(trailhead.properties.name);
       }
       directTrail = originalTrailData[trailhead.properties.direct_trail_id] || null;
       if (directTrail) {
@@ -2500,7 +2634,7 @@ function startup() {
                        + '" id="fpccSocialFacebook" class="fpccSocialIcon">'
                        + '<svg class="icon icon-facebook"><use xlink:href="icons/defs.svg#icon-facebook"></use></svg>'
                        + '<span>Facebook</span></a></div>';  
-    var fpccContainerElement = document.getElementsByClassName('fpccContainer')[0];
+    var fpccContainerElement = document.getElementById('fpccContainer');
     fpccContainerElement.innerHTML = fpccContainerHTML;
   }
 
@@ -2579,7 +2713,7 @@ function startup() {
       }
     }
     
-    setHeights();
+    //setHeights();
   }
 
   function detailPanelBannerClick(e) {
@@ -2713,9 +2847,8 @@ function startup() {
   //                     Returns marker zoomBounds of all three.
   function highlightTrailhead(trailheadID,highlightedTrailIndex) {
     console.log("highlightTrailhead");
-    var startTime = null;
-    var endTime = null;
-    console.log("highlightTrailhead start = " + startTime);
+    var t0 = performance.now();
+   
     map.closePopup();
     highlightedTrailIndex = highlightedTrailIndex || 0;
     var trailhead = null;
@@ -2723,7 +2856,8 @@ function startup() {
 
     var zoomArray = [];
     $( '.leaflet-marker-icon.selected' ).removeClass('selected');
-    
+    var t1 = performance.now();
+    console.log('highlightTrailhead time before if (trailhead)', (t1-t0).toFixed(4), 'milliseconds');
     if (trailhead) {
       
       currentTrailhead = trailhead;
@@ -2731,9 +2865,9 @@ function startup() {
 
       var myEntranceID = "poi-" + currentTrailhead.properties.id;
       console.log("[highlightTrailhead] new currentTrailhead = " + myEntranceID);
-      startTime = new Date().getTime();
       $( '.leaflet-marker-icon.' + myEntranceID ).addClass('selected');
-      
+      var t2 = performance.now();
+      console.log('highlightTrailhead time before create popup', (t2-t1).toFixed(4), 'milliseconds');
       //highlightTrailInPopup(trailhead, highlightedTrailIndex);
       var popup = new L.Popup({
         offset: [0, -12],
@@ -2743,6 +2877,8 @@ function startup() {
       .setContent(trailhead.popupContent)
       .setLatLng(trailhead.marker.getLatLng())
       .openOn(map);
+      var t3 = performance.now();
+      console.log('highlightTrailhead time after create popup', (t3-t2).toFixed(4), 'milliseconds');
       if (originalActivities[currentTrailhead.properties.id]) {
         zoomArray = zoomArray.concat(originalActivities[currentTrailhead.properties.id]);
       }
@@ -2752,11 +2888,13 @@ function startup() {
     } else {
       currentTrailhead = null;
     }
+    var t4 = performance.now();
+    console.log('highlightTrailhead time before featuregroup', (t4-t3).toFixed(4), 'milliseconds');
     var zoomFeatureGroup = new L.FeatureGroup(zoomArray);
     var zoomBounds = zoomFeatureGroup.getBounds();
-    var endTime = new Date().getTime();
-    var diff = endTime - startTime;
-    console.log("highlightTrailhead time: " + diff);
+    var t5 = performance.now();
+    console.log('highlightTrailhead time after get bounds', (t5-t4).toFixed(4), 'milliseconds');
+    console.log('highlightTrailhead time', (t5-t0).toFixed(4), 'milliseconds');
     return zoomBounds;
     //highlightTrailSegmentsForTrailhead(trailhead, highlightedTrailIndex, trailIDs);
     
@@ -2765,8 +2903,7 @@ function startup() {
 
   // For a given Trail_System, change the style weight to active
   function highlightTrailSegmentsForTrailSubsystem(trailSubsystem) {
-    var startTime = new Date().getTime();
-    console.log("highlight start = " + startTime);
+    var t0 = performance.now();
     $('path.trail.selected').removeClass('selected');
     var currentHighlightedSegmentLayer = null;
     var zoomBounds = null;
@@ -2776,9 +2913,9 @@ function startup() {
       currentHighlightedSegmentLayer = new L.FeatureGroup(segmentObject[trailSubsystem]);
       zoomBounds = currentHighlightedSegmentLayer.getBounds();
     }
-    var endTime = new Date().getTime();
-    var diff = endTime - startTime;
-    console.log("highlight trail time: " + diff);
+    var t1 = performance.now();
+    console.log('highlightTrailSegmentsForTrailSubsystem time', (t1-t0).toFixed(4), 'milliseconds');
+   
     return zoomBounds;
   }
 
@@ -2819,7 +2956,7 @@ function startup() {
   }
 
   function makeAPICall(callData, doneCallback) {
-    console.log('makeAPICall: ' + callData.path);
+    console.log('makeAPICall: ' + callData.path + " at time: " + performance.now());
     if (!($.isEmptyObject(callData.data))) {
       callData.data = JSON.stringify(callData.data);
     }
@@ -2839,7 +2976,7 @@ function startup() {
       $("#results").text("error: " + JSON.stringify(errorThrown));
     }).done(function(response, textStatus, jqXHR) {
       if (typeof doneCallback === 'function') {
-        console.log("calling doneCallback: " + callData.path);
+        console.log("calling doneCallback: " + callData.path + " at time: " + performance.now());
         doneCallback.call(this, response);
       }
     });
