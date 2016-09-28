@@ -1253,7 +1253,7 @@ function startup() {
     if (trailhead) {
       showTrailDetails(null, trailhead);
       if ( lastTrailheadId != activity.properties.poi_info_id ) {
-        var zoomFeatureGroupBounds = highlightTrailhead(activity.properties.poi_info_id);
+        var zoomFeatureGroupBounds = highlightTrailhead(activity.properties.poi_info_id, null, false);
         var trailSubsystem = null;
         if (trailhead.properties.direct_trail_id) {
           trailSubsystem = originalTrailData[trailhead.properties.direct_trail_id].trail_subsystem;
@@ -1354,7 +1354,7 @@ function startup() {
     if (trailhead) {
       showTrailDetails(null, trailhead);
       if ( lastTrailheadId != picnicgrove.properties.poi_info_id ) {
-        var zoomFeatureGroupBounds = highlightTrailhead(picnicgrove.properties.poi_info_id);
+        var zoomFeatureGroupBounds = highlightTrailhead(picnicgrove.properties.poi_info_id, null, false);
         var trailSubsystem = null;
         if (trailhead.properties.direct_trail_id) {
           trailSubsystem = originalTrailData[trailhead.properties.direct_trail_id].trail_subsystem;
@@ -2862,8 +2862,13 @@ function startup() {
 
   // highlightTrailhead: Highlights entrance/POI and finds associated activities and picnic groves.
   //                     Returns marker zoomBounds of all three.
-  function highlightTrailhead(trailheadID,highlightedTrailIndex) {
+  function highlightTrailhead(trailheadID,highlightedTrailIndex, openPopup) {
     console.log("highlightTrailhead");
+    if (openPopup === undefined) {
+      openPopup = true;
+    }
+    
+    console.log("[highlightTrailhead] openPopup = " + openPopup);
     //setTimeout(function() {
       var t0 = performance.now(); 
       //map.closePopup();
@@ -2886,17 +2891,19 @@ function startup() {
         var t2 = performance.now();
         console.log('highlightTrailhead time before create popup', (t2-t1).toFixed(4), 'milliseconds');
         //highlightTrailInPopup(trailhead, highlightedTrailIndex);
-        setTimeout(function() {
-          console.log("[highlightTrailhead] create + open popup");
-          var popup = new L.Popup({
-            offset: [0, -12],
-            autoPanPadding: [10, 10],
-            autoPan: SMALL ? false : true
-          })
-          .setContent(trailhead.popupContent)
-          .setLatLng(trailhead.marker.getLatLng())
-          .openOn(map);
-        }, 0);
+        if (openPopup) {
+          setTimeout(function() {
+            console.log("[highlightTrailhead] create + open popup");
+            var popup = new L.Popup({
+              offset: [0, -12],
+              autoPanPadding: [10, 10],
+              autoPan: SMALL ? false : true
+            })
+            .setContent(trailhead.popupContent)
+            .setLatLng(trailhead.marker.getLatLng())
+            .openOn(map);
+          }, 0);
+        }
         var t3 = performance.now();
         console.log('highlightTrailhead time after create popup', (t3-t2).toFixed(4), 'milliseconds');
         if (originalActivities[currentTrailhead.properties.id]) {
