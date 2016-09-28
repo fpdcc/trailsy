@@ -892,6 +892,7 @@ function startup() {
           }
         },
         function(error) {
+          currentUserLocation = MAPCENTERPOINT;
           if (originalTrailheads.length === 0) {
             console.log("[setupGeolocation] function error originalTrailheads.length === 0");
             handleGeoError(error);
