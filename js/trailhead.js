@@ -1814,6 +1814,7 @@ function startup() {
     for (var j = 0; j < myTrailheadsLength; j++) {
       var trailhead = myTrailheads[j];
       var currentFeatureLatLng = new L.LatLng(trailhead.geometry.coordinates[1], trailhead.geometry.coordinates[0]);
+      console.log("[makeTrailDivs] currentUserLocation = " + currentUserLocation);
       var distance = currentFeatureLatLng.distanceTo(currentUserLocation);
       if (currentFilters.location) {
         distance = currentFeatureLatLng.distanceTo(currentFilters.location);
