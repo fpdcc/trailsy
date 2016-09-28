@@ -883,7 +883,7 @@ function startup() {
         function(position) {
           if (originalTrailheads.length === 0) {
             console.log("[setupGeolocation] function position originalTrailheads.length === 0");
-            handleGeoSuccess(position, callback);
+            handleGeoSuccess(position);
             geoSetupDone = true;
           } else {
             console.log("[setupGeolocation] function position else");
@@ -894,7 +894,7 @@ function startup() {
         function(error) {
           if (originalTrailheads.length === 0) {
             console.log("[setupGeolocation] function error originalTrailheads.length === 0");
-            handleGeoError(error, callback);
+            handleGeoError(error);
             geoSetupDone = true;
           } else {
             console.log("[setupGeolocation] function error else");
