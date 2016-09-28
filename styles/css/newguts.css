@@ -103,14 +103,7 @@ body {
     text-align: justify;
     /*padding: .5em 0em .5em .5em;*/
   }
-  .title-row header .navbar-inner .logo {
-    /* height: 100%; * This causes Safari issues */
-    display: inline-block;
-    margin-bottom: 0.5em;
-    margin-top: 0.35em;
-    width: 12em;
-    margin-left: 0.25em;
-  }
+ 
 }
 #trailMapLarge {
     position: absolute;
@@ -629,7 +622,7 @@ ul.fpccMenuList a:hover, ul.fpccMenuList a:active{background:#666}
 
 /*main.css override*/
 .detailPanel{background-color: #ffffff;display:block;width:100%;z-index: 9100;}
-*/.trailListColumn .title-row header .navbar-inner .logo{margin:0;width:270px}
+.trailListColumn .title-row header .navbar-inner .logo{margin:0;width:270px}
 .trailListColumn .title-row header .navbar-inner{padding:.35em 0 .5em 0;width:auto;margin:0 42px;position:inherit}
 #fpccPreserveName .trailName{font-size:20px}
 .detailPanel #fpccPreserveName.detailPanelBanner{background:#273719;padding:.5em 1.75em .5em 1em}
