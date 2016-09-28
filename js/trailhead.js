@@ -317,9 +317,9 @@ function startup() {
 
   // $("#redoSearch").click(reorderTrailsWithNewLocation);
 
-  $('.closeDetail').click(closeDetailPanel2); // Close the detail panel!
-  $('#fpccSearchBack').click(closeDetailPanel2);
-  $('#fpccMobileSearchButton').click(closeDetailPanel2);
+  $('.closeDetail').click(closeDetailPanel2).click(readdSearchURL); // Close the detail panel!
+  $('#fpccSearchBack').click(closeDetailPanel2).click(readdSearchURL);
+  $('#fpccMobileSearchButton').click(closeDetailPanel2).click(readdSearchURL);
 
   //$(".fpccSearchbox").keyup(function(e) { processSearch(e); });
   $(".fpccSearchbox").change(function(e) { processSearch(e); });
@@ -2173,7 +2173,7 @@ function startup() {
   function closeDetailPanel2() {
     console.log("closeDetailPanel2");
     $('.detailPanel').hide();
-    readdSearchURL();
+    
     openResultsList();
     showfpccMainContainer();
     setTimeout(function() {
