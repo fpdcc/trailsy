@@ -16,8 +16,8 @@
 	<!-- Latest compiled and minified CSS -->
   	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
   	<!-- <script src="https://code.jquery.com/jquery-migrate-3.0.0.js"></script> -->
-	<script async src="js/new/jquery.address.js"></script>
-	<script async src="js/new/jquery.deserialize.min.js"></script>
+	<script src="js/new/jquery.address.js"></script>
+	<script src="js/new/jquery.deserialize.min.js"></script>
    <!-- 	<script language="javascript">
 		$(document).on( "mobileinit", function() {$.mobile.selectmenu.prototype.options.nativeMenu = false;});
 		$( ".selector" ).selectmenu({inline: true});
@@ -36,12 +36,12 @@
 	  <!--[if lt IE 9]>
 	  <script src="js/html5shiv.js"></script>
 	  <![endif]-->
-    <script async src="js/modernizr.custom.97978.js"></script>
+    <!-- <script async src="js/modernizr.custom.97978.js"></script> -->
 	<!-- Use this to fix for IE later: https://github.com/jonathantneal/svg4everybody -->
 	<!-- Needed END -->
 	<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/css/select2.min.css" rel="stylesheet" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js"></script> -->
-	<script async type="text/javascript" src="js/new/selectize.min.js"></script>
+	<script type="text/javascript" src="js/new/selectize.min.js"></script>
 </head>
 
 <body onresize="setHeights()" onload="setHeights()">
@@ -70,7 +70,7 @@
 		        
 		        </section>
 
-		        <section class="trailListColumn expanded">
+		        <section id="fpccTrailListColumn" class="trailListColumn expanded">
 			        <div id="fpccBrand" class="title-row desktopTitle">
 						<div class="fpccMenu">
 							<a class="hamburger" href="#">
@@ -94,7 +94,7 @@
 						<!-- HERE, NEW SEARCH START all new, may need to adjust in staging-->
 						<div id="fpccSearchContainer" class="fpccUnit">
 							<form>
-								<select class="js-example-basic-multiple filter fpccSearchbox" data-filter="activityFilter" multiple="multiple">
+								<select id="fpccSearchSelect" class="js-example-basic-multiple filter fpccSearchbox" data-filter="activityFilter" multiple="multiple">
 									<optgroup label="Popular">
 										<option value="hiking">Hiking / Walking / Running</option>
 										<option value="cycling">Biking</option>
@@ -146,15 +146,15 @@
 							<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg>
 							 Back to Search Results</a>
 					</div>
-					<div class="detailPanel">
+					<div id="fpccDetailPanel" class="detailPanel">
 							<div id="fpccPreserveName" class="detailPanelBanner"><!-- HERE added #fpccPreserveName ID -->
-								<span class="trailName"></span>
+								<span id="fpccTrailName" class="trailName"></span>
 								<!-- HERE, replaced with SVG -->
 								<svg class="icon icon-x closeDetail"><use xlink:href="icons/defs.svg#icon-x"></use></svg>
 							</div>
 							<div id="fpccPreserveInfo" class="detailPanelBody"><!-- HERE added #fpccPreserveInfo ID -->
 								<!-- NEW GUTS START -->
-								<div class="fpccContainer">
+								<div id="fpccContainer" class="fpccContainer">
 								</div>
 							</div>
 						</div>
@@ -182,15 +182,15 @@
 	<script>  L_PREFER_CANVAS = false;
     	L_DISABLE_3D = true;
     </script>
-	<script async src="js/leaflet1master.js"></script>
-	<script async src="js/new/oms.min.js"></script>
-	<script async src="js/trailhead.js"></script>
+	<script src="js/leaflet1master.js"></script>
+	<!-- <script async src="js/new/oms.min.js"></script> -->
+	<script src="js/trailhead.js"></script>
 	<!-- leaflet build from trailsyFix branch of github repo fork danavery/Leaflet -->
 	
 	<!-- <script src="js/wicket.js"></script> -->
 	<!-- <script src="js/leaflet-providers.js"></script> -->
 	<!-- <script src="js/async.js"></script> -->
-	<script async src="js/leaflet.usermarker.js"></script>
+	<script src="js/leaflet.usermarker.js"></script>
 	<script async src="js/xdr.js"></script>
 	<script async src="js/respond.min.js"></script>
 	<!-- <script src="js/accordion.js"></script> -->
