@@ -362,7 +362,7 @@ a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 .trailListColumn .fpccUnit.fpccResults a span.fpccEntryDis,.trailListColumn .fpccUnit.fpccResults a span.fpccEntryName{color:#333;font-weight:normal}
 #fpccSearchButton span{display:none;}
 #fpccSearchButton .icon-search{width:1.5em;height:1.5em;}
-#fpccMobileSearchButton{z-index:9099;background: #999;display:block;position:absolute;bottom:48px;height: 48px;margin-left: 1em;text-align: center;padding: 10px 15px;}
+#fpccMobileSearchButton{z-index:8050;background:#999;display:block;position:absolute;bottom:48px;height: 48px;margin-left: 1em;text-align: center;padding: 10px 15px;}
 #fpccMobileSearchButton .icon-search{width:1.5em;height:1.5em;}
 
 /*panel - poi*/
@@ -624,7 +624,7 @@ ul.fpccMenuList a:hover, ul.fpccMenuList a:active{background:#666}
   /* size of header */
   right: 0;
   left: 0;
-  bottom: 37px;
+  bottom: 48px;
   /* size of footer/detail panel */
   z-index: 8000;
 }
@@ -689,6 +689,8 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 /*mobile top bar*/
 section.fpccMobile{display:none;}
 
+  .trailListColumn.expanded{top:0}
+  
 /*panel - general*/
 section.trailListColumn .accordion{/* display:none;*/border-top:8px solid #7E9137;background:none;max-height:none;overflow:hidden}
 section.trailListColumn{position:fixed;top:0;left:0;width:384px;max-height:100%;/*min-height:14em;*/padding:0;background:none;z-index:9000;height:100%;/* overflow:visible;*/}
