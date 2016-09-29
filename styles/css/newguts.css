@@ -684,6 +684,8 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
    bottom: initial;
   }  
   
+.trailMapContainer {top:0;bottom:0;}
+  
 /*mobile top bar*/
 section.fpccMobile{display:none;}
 
