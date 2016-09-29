@@ -362,7 +362,7 @@ a:hover.fpccMore, a:active.fpccMore{text-decoration:none;color:#333}
 .trailListColumn .fpccUnit.fpccResults a span.fpccEntryDis,.trailListColumn .fpccUnit.fpccResults a span.fpccEntryName{color:#333;font-weight:normal}
 #fpccSearchButton span{display:none;}
 #fpccSearchButton .icon-search{width:1.5em;height:1.5em;}
-#fpccMobileSearchButton{z-index:10000;background: #999;display:block;position:absolute;bottom:50px;height: 48px;margin-left: 1em;text-align: center;padding: 10px 15px;}
+#fpccMobileSearchButton{z-index:9099;background: #999;display:block;position:absolute;bottom:55px;height: 48px;margin-left: 1em;text-align: center;padding: 10px 15px;}
 #fpccMobileSearchButton .icon-search{width:1.5em;height:1.5em;}
 
 /*panel - poi*/
@@ -537,9 +537,8 @@ section.trailListColumn .accordion{/* display:none;*/border-top:8px solid #7E913
     transition: transform 250ms;
   }
 
-.detailPanel.contracted {
-  height: 38px;
-}
+.detailPanel.contracted {height: 55px;}
+.detailPanel.contracted #fpccPreserveName{min-height:55px;}
 
 /*.detailPanel.expanded {
     position: absolute;
