@@ -628,7 +628,7 @@ ul.fpccMenuList a:hover, ul.fpccMenuList a:active{background:#666}
   /* size of footer/detail panel */
   z-index: 8000;
 }
-.trailMapContainer .offsetZoomControl{display:none;}
+.trailMapContainer .offsetZoomControl .offsetZoomIn,.trailMapContainer .offsetZoomControl .offsetZoomOut{display:none;}
 /*.detailPanel .detailPanelBody,.detailPanel.expanded{position:inherit;top:initial;}
 */.detailPanel .detailPanelBanner .trailName{white-space:initial;text-overflow:initial;overflow:initial;}
 
@@ -643,6 +643,7 @@ ul.fpccMenuList a:hover, ul.fpccMenuList a:active{background:#666}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname:hover{background:#E3EACC}/*HERE3*/
 .trail-popup .trail-popup-line-named{color:#333!important;border-top:none}/*HERE3*/
 .leaflet-control-layers.leaflet-control-layers-expanded.leaflet-control{display:none;}
+.leaflet-control-container .leaflet-control-layers{border-radius:0}
 
 /* selectize override */
 .selectize-input{padding:16px 0 0 20px;min-height:48px;border:none;display:inline-block;width:83%;overflow:hidden;float:left;position:relative;z-index:1;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-box-shadow:none;box-shadow:none;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
@@ -752,7 +753,7 @@ ul.fpccMenuList a:hover, ul.fpccMenuList a:active{background:#666}
 /*OVERRIDES------------------------------------*/
 
 /*main.css override*/
-.trailMapContainer .offsetZoomControl{display:block;}
+.trailMapContainer .offsetZoomControl .offsetZoomIn,.trailMapContainer .offsetZoomControl .offsetZoomOut{display:block;}
 .icon-x.closeDetail{width:1em;height:1em;top:10px}
 
 /*leaflet override*/
