@@ -168,23 +168,45 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 .fpccTrailSegment{padding:.75em 0 0;margin:.75em 0;border-top:1px dotted #CCC}
 .fpccTrails .fpccTrailDescription{margin:0;padding:0 0 1em;border-bottom:none}
 .fpccOneMile{border-top:1px dotted #CCC;display:block;padding:.75em 0;font-style:italic}
-.fpccSegmentOverview{}
+.fpccSegmentOverview{border-bottom:8px}
+.fpccSegmentOverview.paved{border-bottom-style:solid}
+.fpccSegmentOverview.unpaved{border-bottom-style:dashed}
+.fpccSegmentOverview.primitive,.fpccSegmentOverview.single_track,.fpccSegmentOverview.natural_surface{border-bottom-style:dotted}
+.fpccSegmentOverview.red{border-bottom-color:#EE2D2F}
+.fpccSegmentOverview.orange{border-bottom-color:#F7941E}
+.fpccSegmentOverview.purple{border-bottom-color:#7F58A5}
+.fpccSegmentOverview.grey,.fpccSegmentOverview.future{border-bottom-color:#58595B}
+.fpccSegmentOverview.yellow{border-bottom-color:#FFF450}
+.fpccSegmentOverview.green{border-bottom-color:#006129}
+.fpccSegmentOverview.olive, .fpccSegmentOverview.tan{border-bottom-color:#969161}
+.fpccSegmentOverview.brown{border-bottom-color:#6C503F}
+.fpccSegmentOverview.blue{border-bottom-color:#26B8EB}
+.fpccSegmentOverview.black{border-bottom-color:#333132}
+.fpccSegmentOverview.off{border-bottom-color:#C4D0DB}
 .fpccSegmentDetails{margin-top:.35em}
-.fpccorange,.fpccORANGE{border-bottom:8px solid #F7941E}
-.fpccpurple,.fpccPURPLE{border-bottom:8px solid #7F58A5}
-.fpccgrey,.fpccGREY,.fpccfuture{border-bottom:8px solid #58595B}
-.fpccred,.fpccRED{border-bottom:8px solid #EE2D2F}
-.fpccyellow,.fpccYELLOW{border-bottom:8px solid #FFF450}
-.fpccgreen,.fpccGREEN{border-bottom:8px solid #006129}
-.fpcctan,.fpccTAN,.fpccolive,.fpccOLIVE{border-bottom:8px solid #969161}
-.fpccbrown,.fpccBROWN{border-bottom:8px solid #6C503F}
-.fpccblue,.fpccBLUE{border-bottom:8px solid #26B8EB}
-.fpccblack,.fpccBLACK{border-bottom:8px solid #333132}
-.fpccoff{border-bottom:8px solid #C4D0DB}
-.fpccUNPAVED,.fpccUnpaved,.fpccunpaved{border-bottom-style:dashed}
-.fpccPrimitive,.fpccprimitive,.fpccPRIMITIVE,.fpccSingletrack,.fpccSINGLETRACK,.fpccsingletrack{border-bottom-style:dotted}
 .fpccAccessTo{text-align:center;padding:1.15em 0 .25em;border-top:1px dotted #CCC}
 .fpccTrails .fpccAccessTo .icon-trail-marker{width:1.5em;height:1.5em;margin-right:.5em;vertical-align:middle;margin-top:-5px}
+
+/*map - trail*/
+path.trail.visible{stroke-width:4;stroke-opacity:1;stroke:#C4D0DB}
+path.trail.invisible{stroke-width:20;stroke-opacity:0}
+path.trail.visible.selected{stroke-width:7}
+path.trail.inactive{display:none}
+path.trail.single_track,path.trail.primitive,path.trail.natural_surface{stroke-dasharray:0,10}
+path.trail.unpaved{stroke-dasharray:5,10}
+path.trail.red{stroke:#EE2D2F}
+path.trail.orange{stroke:#F7941E}
+path.trail.purple{stroke:#7F58A5}
+path.trail.grey{stroke:#58595B}
+path.trail.yellow{stroke:#FFF450}
+path.trail.green{stroke:#006129}
+path.trail.tan{stroke:#969161}
+path.trail.olive{stroke:#969161}
+path.trail.brown{stroke:#6C503F}
+path.trail.blue{stroke:#26B8EB}
+path.trail.black{stroke:#333132}
+path.trail.future_extension{stroke:#58595B}
+path.trail.off_fpdcc{stroke:#C4D0DB}
 
 /* icons */
 .icon{display:inline-block;width:1em;height:1em;fill:currentColor}
@@ -235,11 +257,6 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 33%{background:rgba(126,144,57,.45);box-shadow:0 0 7px 5px rgba(126,144,57,.45);border-radius:3em}
 66%{background:none;box-shadow:none}
 100%{background:rgba(126,144,57,.45);box-shadow:0 0 7px 5px rgba(126,144,57,.45);border-radius:3em}}
-
-path.trail.visible{stroke-width:4;stroke-opacity:1}
-path.trail.invisible{stroke-width:20;stroke-opacity:0}
-path.trail.visible.selected{stroke-width:7}
-path.trail.inactive{display:none}
 
 .loader{
     border:16px solid #f3f3f3; /* Light grey */
