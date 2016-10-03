@@ -293,10 +293,10 @@ svg:not(:root) {
 
 /* ---- Trail Segment CSS Map ----- */
 path.trail.visible{stroke-width:4;stroke-opacity:1;stroke:#C4D0DB}
-path.trail.invisible{stroke-width:20;stroke-opacity:0;}
-path.trail.visible.selected{stroke-width:7;}
-path.trail.inactive{display:none;}
-path.trail.single_track, path.trail.primitive, path.trail.natural_surface{stroke-dasharray:0,10}
+path.trail.invisible{stroke-width:20;stroke-opacity:0}
+path.trail.visible.selected{stroke-width:7}
+path.trail.inactive{display:none}
+path.trail.single_track,path.trail.primitive,path.trail.natural_surface{stroke-dasharray:0,10}
 path.trail.unpaved{stroke-dasharray:5,10}
 
 path.trail.red{stroke:#EE2D2F}
@@ -315,21 +315,21 @@ path.trail.off_fpdcc{stroke:#C4D0DB}
 
 /* ---- Trail Segment CSS Panel ----- */
 .fpccSegmentOverview{border-bottom:8px}
-.fpccSegmentOverview.paved{border-bottom-style:solid;}
+.fpccSegmentOverview.paved{border-bottom-style:solid}
 .fpccSegmentOverview.unpaved{border-bottom-style:dashed}
-.fpccSegmentOverview.primitive, .fpccSegmentOverview.single_track,.fpccSegmentOverview.natural_surface{border-bottom-style:dotted}
+.fpccSegmentOverview.primitive,.fpccSegmentOverview.single_track,.fpccSegmentOverview.natural_surface{border-bottom-style:dotted}
 
-.fpccSegmentOverview.red{border-bottom-color: #EE2D2F}
-.fpccSegmentOverview.orange{border-bottom-color: #F7941E}
-.fpccSegmentOverview.purple{border-bottom-color: #7F58A5}
-.fpccSegmentOverview.grey, .fpccSegmentOverview.future{border-bottom-color: #58595B}
-.fpccSegmentOverview.yellow{border-bottom-color: #FFF450}
-.fpccSegmentOverview.green{border-bottom-color: #006129}
-.fpccSegmentOverview.olive, .fpccSegmentOverview.tan{border-bottom-color: #969161}
-.fpccSegmentOverview.brown{border-bottom-color: #6C503F}
-.fpccSegmentOverview.blue{border-bottom-color: #26B8EB}
-.fpccSegmentOverview.black{border-bottom-color: #333132}
-.fpccSegmentOverview.off{border-bottom-color: #C4D0DB}
+.fpccSegmentOverview.red{border-bottom-color:#EE2D2F}
+.fpccSegmentOverview.orange{border-bottom-color:#F7941E}
+.fpccSegmentOverview.purple{border-bottom-color:#7F58A5}
+.fpccSegmentOverview.grey,.fpccSegmentOverview.future{border-bottom-color:#58595B}
+.fpccSegmentOverview.yellow{border-bottom-color:#FFF450}
+.fpccSegmentOverview.green{border-bottom-color:#006129}
+.fpccSegmentOverview.olive, .fpccSegmentOverview.tan{border-bottom-color:#969161}
+.fpccSegmentOverview.brown{border-bottom-color:#6C503F}
+.fpccSegmentOverview.blue{border-bottom-color:#26B8EB}
+.fpccSegmentOverview.black{border-bottom-color:#333132}
+.fpccSegmentOverview.off{border-bottom-color:#C4D0DB}
 
 
 
