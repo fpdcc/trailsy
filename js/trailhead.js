@@ -1556,34 +1556,12 @@ function startup() {
         //console.log("[visibleAllTrailLayer] secondary_trail_ids = " + feature.properties.secondary_trail_ids[0]);
         //var thisSecondaryTrail = feature.properties.secondary_trail_ids[0];
         var thisTrailType = feature.properties.trail_type;
-        // if (originalTrailData[thisSecondaryTrail]) {
-        //   thisTrailType = originalTrailData[thisSecondaryTrail].properties.trail_type;
-        // }
-        if (thisTrailType == 'paved') {
-          thisDash = null;
-        } else {
-          thisDash = "5,10";
-        }
-  
-        switch (feature.properties.trail_color.toLowerCase()) {
-                case 'red': thisColor = "#EE2D2F"; break;
-                case 'orange': thisColor = "#F7941E"; break;
-                case 'purple': thisColor = "#7F58A5"; break;
-                case 'grey': thisColor = "#58595B"; break;
-                case 'yellow': thisColor = "#FFF450"; break;
-                case 'green': thisColor = "#006129"; break;
-                case 'tan': thisColor = "#969161"; break;
-                case 'olive': thisColor = "#969161"; break;
-                case 'brown': thisColor = "#6C503F"; break;
-                case 'blue': thisColor = "#26B8EB"; break;
-                case 'black': thisColor = "#333132"; break;
-                case 'future extension': thisColor = "58595B"; break;
-        }
+    
+        var thisClassName = 'visible trail ' + ' ' + feature.properties.trail_color.toLowerCase() + ' ' + thisTrailType.replace(/ /g, "_") + ' system-' + feature.properties.trail_subsystem.replace(/ /g, "_");
         if (feature.properties.off_fpdcc == 'y') {
-          thisColor = NORMAL_SEGMENT_COLOR;
+          thisClassName += ' off_fpdcc';
         }
-        var thisClassName = 'visible trail system-' + feature.properties.trail_subsystem.replace(/ /g, "_");
-        return {className: thisClassName, color: thisColor, dashArray: thisDash,  weight: thisWeight, opacity: thisOpacity, clickable: thisClickable, smoothFactor: thisSmoothFactor};
+        return {className: thisClassName, clickable: thisClickable, smoothFactor: thisSmoothFactor};
       }, //color: thisColor,
       onEachFeature: function visibleOnEachFeature(feature, layer) {
         // console.log("visibleAllTrailLayer onEachFeature");
@@ -2661,17 +2639,18 @@ function startup() {
   function buildTrailSegmentHTML(trailSegment) {
     var thisColor = trailSegment.trail_color;
     var thisType = trailSegment.trail_type;
-    var trailSegmentHTML = '<div class="fpccTrailSegment"><div class="fpccSegmentOverview fpcc';
+    var trailSegmentHTML = '<div class="fpccTrailSegment"><div class="fpccSegmentOverview ';
     console.log("[buildTrailSegmentHTML] trailSegment.off_fpdcc= " + trailSegment.off_fpdcc);
     console.log("[buildTrailSegmentHTML] trailSegment.trail_color= " + trailSegment.trail_color);
     if (trailSegment.off_fpdcc == 'y') {
       trailSegmentHTML += "off";
     } else {
-      trailSegmentHTML += trailSegment.trail_color;
+      trailSegmentHTML += trailSegment.trail_color.replace(/ /g, "_").toLowerCase();
     }
-    if (thisType.toLowerCase() != "paved") {
-      trailSegmentHTML += " fpccUnpaved";
-    }
+    trailSegmentHTML += ' ' + thisType.replace(/ /g, "_").toLowerCase();
+    // if (thisType.toLowerCase() != "paved") {
+    //   trailSegmentHTML += " fpccUnpaved";
+    // }
     trailSegmentHTML += ' clearfix"><span class="fpccSegmentName">';
     trailSegmentHTML += thisColor + ' ' + thisType;
     if (trailSegment.off_fpdcc == 'y') {
@@ -2679,11 +2658,11 @@ function startup() {
     }
     trailSegmentHTML += '</span><span class="fpccTrailUse">';
     trailSegmentHTML += '<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>';
-    if (thisType.toLowerCase() == "single track" || thisType.toLowerCase() == "unpaved" || thisType.toLowerCase() == "paved" || thisType == "") {
+    if (thisType.toLowerCase() == "single_track" || thisType.toLowerCase() == "unpaved" || thisType.toLowerCase() == "paved" || thisType == "") {
       trailSegmentHTML += '<svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg>';
       trailSegmentHTML += '<svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg>';
     }
-    if (thisType.toLowerCase() == "single track" || thisType.toLowerCase() == "unpaved" || thisType == "") {
+    if (thisType.toLowerCase() == "single_track" || thisType.toLowerCase() == "unpaved" || thisType == "") {
       trailSegmentHTML += '<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>';
     }
     trailSegmentHTML += '</span></div>';
