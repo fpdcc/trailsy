@@ -563,11 +563,11 @@ ul.fpccMenuList a:hover, ul.fpccMenuList a:active{background:#666}
 /*leaflet override*/
 .leaflet-popup-tip{background:#606D29}/*HERE3*/
 .leaflet-popup-content-wrapper {border-radius: 0px;width: auto;min-width: 12em;height: auto;padding: 0}
-.leaflet-popup-content-wrapper .leaflet-popup-content{font-family: Helvetica, Arial, sans-serif;border-bottom:2px solid #606D29;color:#333;min-width: 10em;width: auto;height: auto;margin: 0;line-height: 1em;position: relative;background-color: #fff;}/*HERE3*/
+.leaflet-popup-content-wrapper .leaflet-popup-content{font-family: Helvetica, Arial, sans-serif;border-bottom:2px solid #606D29;color:#333;min-width: 10em;width: auto;height: auto;margin: 0;position: relative;background-color: #fff;font-size:13px;line-height:1.5}/*HERE3*/
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup {width: auto;min-width: 14em;position: relative;}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box {width: 100%;position: relative;display: inline-block;height: auto;}
-.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames{position: relative;display: inline-block;background-color: #fff;height: auto;width: 100%;max-width: 200px;overflow-y: hidden;min-width: 12em;font-size:.8125em;line-height:1.5;color: #58595b;text-decoration: none;text-transform: capitalize; vertical-align: bottom;font-weight:bold;padding:.5em .75em;border:none;color:#333}/*HERE3*/
-.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname {cursor: pointer;min-width: 12em;width: 100%;border-top: 1px solid #e3e3e1;}
+.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames{position: relative;display: inline-block;background-color: #fff;height: auto;width: 100%;max-width: 200px;overflow-y: hidden;min-width: 12em;color: #58595b;text-decoration: none;text-transform: capitalize; vertical-align: bottom;font-weight:bold;padding:.5em .75em;border:none;color:#333}/*HERE3*/
+.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname {cursor: pointer;min-width: 12em;width: 100%;border-top: 1px solid #e3e3e1;padding:.5em .75em;}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .popupTrailNames {position: relative;height: auto;width: auto;max-width: 200px;overflow-y: hidden;vertical-align: top;display: inline-block;font-weight:normal;text-decoration: none;line-height: 1.5em;}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname.selected{padding-bottom:0;color:#333}/*HERE3*/
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname:hover{background:#E3EACC}/*HERE3*/
