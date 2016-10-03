@@ -2679,11 +2679,11 @@ function startup() {
     }
     trailSegmentHTML += '</span><span class="fpccTrailUse">';
     trailSegmentHTML += '<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>';
-    if (thisType.toLowerCase() == "unpaved" || thisType.toLowerCase() == "paved" || thisType == "") {
+    if (thisType.toLowerCase() == "single track" || thisType.toLowerCase() == "unpaved" || thisType.toLowerCase() == "paved" || thisType == "") {
       trailSegmentHTML += '<svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg>';
       trailSegmentHTML += '<svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg>';
     }
-    if (thisType.toLowerCase() == "unpaved" || thisType == "") {
+    if (thisType.toLowerCase() == "single track" || thisType.toLowerCase() == "unpaved" || thisType == "") {
       trailSegmentHTML += '<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>';
     }
     trailSegmentHTML += '</span></div>';
