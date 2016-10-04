@@ -2618,19 +2618,9 @@ function startup() {
     socialLink = socialLink.replace(/%20/g, '+');
     socialLink = socialLink.replace("/#/", "/");
     fpccContainerHTML += '<div class="fpccSocial fpccUnit clearfix">'
-                       + '<div class="fpccShare">Share Your Plans:</div><a href="'
-                       + 'mailto:?subject=Heading to ' + displayName
-                       + '" id="fpccSocialEmail" class="fpccSocialIcon">'
-                       + '<svg class="icon icon-email"><use xlink:href="icons/defs.svg#icon-email"></use></svg>'
-                       + '<span>Email</span></a>'
-                       + '<a href="http://twitter.com/home?status=Heading to ' + displayName + ' ' + socialLink
-                       + '" id="fpccSocialTwitter" class="fpccSocialIcon">'
-                       + '<svg class="icon icon-twitter"><use xlink:href="icons/defs.svg#icon-twitter"></use></svg>'
-                       + '<span>Twitter</span></a>'
-                       + '<a href="' + 'http://www.facebook.com/sharer/sharer.php?s=100&p[url]=' + socialLink + '&p[images][0]=&p[title]=Cook County Forest Preserves &p[summary]=Heading to ' + displayName
-                       + '" id="fpccSocialFacebook" class="fpccSocialIcon">'
-                       + '<svg class="icon icon-facebook"><use xlink:href="icons/defs.svg#icon-facebook"></use></svg>'
-                       + '<span>Facebook</span></a></div>';  
+                       + '<div class="fpccShare">Share Your Plans:</div>'
+					             + '<div class="addthis_inline_share_toolbox_k75m"></div>'
+                       + '</div>'; 
     var fpccContainerElement = document.getElementById('fpccContainer');
     fpccContainerElement.innerHTML = fpccContainerHTML;
   }
