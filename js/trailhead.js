@@ -2614,9 +2614,6 @@ function startup() {
       trailsHTML += trailSegmentsHTML + '</div>';
       fpccContainerHTML += trailsHTML;
     }
-    var socialLink = encodeURIComponent(window.location.href);
-    socialLink = socialLink.replace(/%20/g, '+');
-    socialLink = socialLink.replace("/#/", "/");
     fpccContainerHTML += '<div class="fpccSocial fpccUnit clearfix">'
                        + '<div class="fpccShare">Share Your Plans:</div>'
 					             + '<div class="addthis_inline_share_toolbox_k75m"></div>'
