@@ -192,7 +192,7 @@ path.trail.invisible{stroke-width:20;stroke-opacity:0}
 path.trail.visible.selected{stroke-width:7}
 path.trail.inactive{display:none}
 path.trail.single_track,path.trail.primitive,path.trail.natural_surface{stroke-dasharray:0,10}
-path.trail.unpaved{stroke-dasharray:5,10}
+path.trail.unpaved{stroke-dasharray:7,11}
 path.trail.red{stroke:#EE2D2F}
 path.trail.orange{stroke:#F7941E}
 path.trail.purple{stroke:#7F58A5}
