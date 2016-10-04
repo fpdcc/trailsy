@@ -45,12 +45,11 @@ body{height:100%;padding:0;margin:0;}
 }
 
 #trailMapLarge{position:absolute;width:100%;height:100%;padding:0}
-.offsetZoomControl{cursor:pointer;position:absolute;top:2em;right:2em;display:block;width:35px;z-index:1000;-webkit-user-select:none;-moz-user-select:none;user-select:none;}
+.offsetZoomControl{cursor:pointer;position:absolute;top:25px;right:7px;display:block;width:35px;z-index:1000;-webkit-user-select:none;-moz-user-select:none;user-select:none;}
 .offsetZoomControl a{height:35px;width:35px;font:bold 22px 'Lucida Console',Monaco,monospace;text-align:center;background-color:white;color:#808285;display:inline-block;line-height:35px;margin-bottom:5px;}
 .offsetZoomControl a:hover{background-color:#e3e3e1;}
 .offsetZoomControl a:active{background-color:#bbbdbf;}
 .offsetZoomControl .offsetGeolocate{background:url("../../img/target-black.png") #fff center center no-repeat;}
-
 
 
 /*ALL/MOBILE------------------------------------*/
@@ -537,6 +536,7 @@ ul.fpccMenuList a:hover,ul.fpccMenuList a:active{background:#666}
 /*OVERRIDES------------------------------------*/
 
 /*main.css override*/
+.offsetZoomControl{top:2em;right:2em;}
 .trailMapContainer .offsetZoomControl .offsetZoomIn,.trailMapContainer .offsetZoomControl .offsetZoomOut{display:block}
 .icon-x.closeDetail{width:1em;height:1em;top:10px;cursor:pointer}
 
