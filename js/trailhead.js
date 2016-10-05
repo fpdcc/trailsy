@@ -2519,7 +2519,7 @@ function startup() {
       if (trailhead.properties.map_link_spanish) {
         extraLinksExist = true;
         extraLinksText += '<li><a class="fpccMore" href="' + trailhead.properties.map_link_spanish;
-        extraLinksText += '" target="_blank">Spanish Map (PDF)</a></li>';
+        extraLinksText += '" target="_blank">Mapa Español (PDF)</a></li>';
       }
       if (trailhead.properties.picnic_link) {
         extraLinksExist = true;
