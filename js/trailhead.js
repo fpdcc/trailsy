@@ -2086,9 +2086,9 @@ function startup() {
         $('.trailListColumn').addClass('expanded');
         $('.trailListColumn').removeClass('contracted');
         if (document.getElementById("fpccMobileCheckbox").checked) {
-          $('#fpccSearchBack').html('<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg>Back to Map</a>');
+          $('#fpccSearchBack').html('<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg> Back to Map</a>');
         } else {
-          $('#fpccSearchBack').html('<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg>Back to Search Results</a>');
+          $('#fpccSearchBack').html('<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg> Back to List</a>');
         }
         $('#fpccSearchBack').show();
         $('#fpccMainContainer').hide();
@@ -2104,7 +2104,7 @@ function startup() {
         $('#fpccMobileSearchButton').show();
       }
     } else {
-      $('#fpccSearchBack').html('<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg>Back to Search Results</a>');
+      $('#fpccSearchBack').html('<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg> Back to List</a>');
       $('#fpccSearchBack').show();
     }
     //setHeights();
@@ -2123,9 +2123,9 @@ function startup() {
         document.getElementById("fpccTrailListColumn").classList.add('expanded');
         document.getElementById("fpccTrailListColumn").classList.remove('contracted');
         if (document.getElementById("fpccMobileCheckbox").checked) {
-          document.getElementById("fpccSearchBack").innerHTML = '<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg>Back to Map</a>';
+          document.getElementById("fpccSearchBack").innerHTML = '<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg> Back to Map</a>';
         } else {
-          document.getElementById("fpccSearchBack").innerHTML = '<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg>Back to Search Results</a>';
+          document.getElementById("fpccSearchBack").innerHTML = '<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg> Back to List</a>';
         }
         //$('#fpccSearchBack').show();
         document.getElementById("fpccSearchBack").style.display = '';
@@ -2144,7 +2144,7 @@ function startup() {
         $('#fpccMobileSearchButton').show();
       }
     } else {
-      $('#fpccSearchBack').html('<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg>Back to Search Results</a>');
+      $('#fpccSearchBack').html('<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg> Back to List</a>');
       $('#fpccSearchBack').show();
     }
     //setHeights();
