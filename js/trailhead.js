@@ -1995,7 +1995,13 @@ function startup() {
     return (i * METERSTOMILESFACTOR).toFixed(1);
   }
 
-
+  function changePageTitle(name) {
+    if (name) {
+      document.title = "Map: " + name + " | Forest Preserves of Cook County";
+    } else {
+      document.title = "Map: Forest Preserves of Cook County";
+    }
+  }
 
 
   // detail panel section
@@ -2005,6 +2011,13 @@ function startup() {
     console.log("showTrailDetails");
     var t0 = performance.now();
     openDetailPanel2();
+    if (trailSubsystemName) {
+      changePageTitle(trailSubsystemName);
+    } else if (trailhead) {
+      changePageTitle(trailhead.properties.name);
+    }
+    
+
     // var numbers = [];
     // for (var i=0; i < 10; i++) {
     //   var t0 = performance.now();
@@ -2156,6 +2169,7 @@ function startup() {
     
     openResultsList();
     showfpccMainContainer();
+    changePageTitle(null);
     setTimeout(function() {
       map.closePopup();
       highlightTrailhead(null,null);
