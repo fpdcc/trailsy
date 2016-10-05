@@ -2703,6 +2703,7 @@ function startup() {
       $('.detailPanel').addClass('expanded');
       $('.detailPanel').removeClass('contracted');
       $('#fpccMobileSearchButton').hide();
+      $('#fpccSearchBack').html('<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg> Back to List</a>');
       if ($(".detailPanel").is(":visible") ) {
         $('#fpccSearchBack').show();
         $('#fpccMainContainer').hide();
