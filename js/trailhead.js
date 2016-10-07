@@ -2637,7 +2637,7 @@ function startup() {
                        + '" id="fpccSocialEmail" class="fpccSocialIcon">'
                        + '<svg class="icon icon-email"><use xlink:href="icons/defs.svg#icon-email"></use></svg>'
                        + '<span>Email</span></a>'
-                       + '<a href="http://twitter.com/home?status=Heading to ' + displayName + ' ' + socialLink
+                       + '<a href="https://twitter.com/intent/tweet?text=Map: ' + displayName + ' @FPDCC ' + socialLink
                        + '" id="fpccSocialTwitter" class="fpccSocialIcon">'
                        + '<svg class="icon icon-twitter"><use xlink:href="icons/defs.svg#icon-twitter"></use></svg>'
                        + '<span>Twitter</span></a>'
