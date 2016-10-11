@@ -170,7 +170,7 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 .fpccSegmentOverview{border-bottom:8px}
 .fpccSegmentOverview.paved{border-bottom-style:solid}
 .fpccSegmentOverview.unpaved{border-bottom-style:dashed}
-.fpccSegmentOverview.primitive,.fpccSegmentOverview.single_track,.fpccSegmentOverview.natural_surface{border-bottom-style:dotted}
+.fpccSegmentOverview.primitive,.fpccSegmentOverview.single_track,.fpccSegmentOverview.natural_surface,.fpccSegmentOverview.stone{border-bottom-style:dotted}
 .fpccSegmentOverview.red{border-bottom-color:#EE2D2F}
 .fpccSegmentOverview.orange{border-bottom-color:#F7941E}
 .fpccSegmentOverview.purple{border-bottom-color:#7F58A5}
