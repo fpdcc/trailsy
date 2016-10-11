@@ -184,7 +184,17 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 .fpccSegmentOverview.off{border-bottom-color:#C4D0DB}*/
 
 /*svg key test*/
-.fpccSegmentOverview.paved{}
+.fpccSegmentOverview.paved.red svg{background:#EE2D2F}
+.fpccSegmentOverview.paved.orange svg{background:#F7941E}
+.fpccSegmentOverview.paved.purple svg{background:#7F58A5}
+.fpccSegmentOverview.paved.grey svg,.fpccSegmentOverview.paved.future svg{background:#58595B}
+.fpccSegmentOverview.paved.yellow svg{background:#FFF450}
+.fpccSegmentOverview.paved.green svg{background:#006129}
+.fpccSegmentOverview.paved.olive  svg, .fpccSegmentOverview.pave.tan svg{background:#969161}
+.fpccSegmentOverview.paved.brown svg{background:#6C503F}
+.fpccSegmentOverview.paved.blue svg{background:#26B8EB}
+.fpccSegmentOverview.paved.black svg{background:#333132}
+.fpccSegmentOverview.paved.off svg{background:#C4D0DB}
 .fpccSegmentOverview.unpaved line,.fpccSegmentOverview.stone line{stroke-linecap:round;stroke-dasharray:7,16}
 .fpccSegmentOverview.primitive line,.fpccSegmentOverview.single_track line,.fpccSegmentOverview.natural_surface line{stroke-linecap:round;stroke-dasharray:0,15}
 .fpccSegmentOverview.red line{stroke:#EE2D2F}
