@@ -2680,7 +2680,7 @@ function startup() {
       trailSegmentHTML += '<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>';
     }
     trailSegmentHTML += '</span>';
-    trailSegmentHTML += '<svg width="100%" height="8px" viewBox="0 0 100% 8"><line x1="0" x2="100%" y1="4" y2="4" stroke-width="8"/></svg>';
+    trailSegmentHTML += '<svg width="100%" height="100%"><line x1="4" x2="100%" y1="4" y2="4" stroke-width="8"/></svg>';
     trailSegmentHTML += '</div>';
     trailSegmentHTML += '<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>';
     //trailSegmentsHTML += (Math.round(trailhead.properties.length * 100) / 100);
