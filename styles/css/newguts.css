@@ -506,7 +506,7 @@ section.trailListColumn{position:fixed;top:0;left:0;width:384px;max-height:100%;
 .fpccEntryDis{font-size:.9125em;font-family:Georgia,"Times New Roman",serif;float:right;width:30%;text-align:right}
 #fpccSearchContainer.fpccUnit{padding:1em;box-shadow:none}
 #fpccSearchContainer .fpccButton{width:23%;border-bottom:2px solid #606D29;height:auto;float:right;display:inline;max-height:37px}
-.fpccButton:active{border-bottom:none;margin-top:2px}
+#fpccSearchContainer .fpccButton:active{border-bottom:none;}
 #fpccSearchContainer select{border:1px solid #999;padding:5px;width:75%;height:37px;font-size:.9375em;line-height:1;box-sizing:border-box}
 section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overflow-y:scroll}
 .fpccResults.fpccUnit{box-shadow:none}
