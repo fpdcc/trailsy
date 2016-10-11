@@ -91,8 +91,8 @@ a:hover.fpccSocialIcon,a:active.fpccSocialIcon{color:#333;background:#DDDDD5}
 a:link.fpccMore,a:visited.fpccMore{color:#7E9137}
 a:hover.fpccMore,a:active.fpccMore{text-decoration:none;color:#333}
 .fpccButton,.fpccButton:visited{text-align:center;background:#7E9039;font-family:Helvetica,Arial,sans-serif;border:none;border-bottom:2px solid #606D29;padding:10px 15px;max-height:37px;color:#FFF;font-size:.9375em;line-height:1;text-decoration:none;vertical-align:top}
-.fpccButton:hover{background:#606D29;border-bottom:2px solid #464F1E;cursor:pointer}
-.fpccButton:active{background:#606D29}
+.fpccButton:hover{background:#606D29;border-bottom:2px solid #464F1E}
+.fpccButton:active{background:#606D29;border-bottom:none;margin-top:2px}
 #fpccMainContainer{box-shadow:0 4px 8px 0 rgba(0,0,0,0.2)}
 #fpccPreserveName{box-shadow:0 -3px 10px 0 rgba(0,0,0,0.2)}
 #fpccBrand{display:none}
