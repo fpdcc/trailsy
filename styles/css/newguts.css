@@ -167,7 +167,7 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 .fpccTrailSegment{padding:.75em 0 0;margin:.75em 0;border-top:1px dotted #CCC}
 .fpccTrails .fpccTrailDescription{margin:0;padding:0 0 1em;border-bottom:none}
 .fpccOneMile{border-top:1px dotted #CCC;display:block;padding:.75em 0;font-style:italic}
-.fpccSegmentOverview{border-bottom:8px}
+/*.fpccSegmentOverview{border-bottom:8px}
 .fpccSegmentOverview.paved{border-bottom-style:solid}
 .fpccSegmentOverview.unpaved,.fpccSegmentOverview.stone{border-bottom-style:dashed}
 .fpccSegmentOverview.primitive,.fpccSegmentOverview.single_track,.fpccSegmentOverview.natural_surface{border-bottom-style:dotted}
@@ -181,12 +181,12 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 .fpccSegmentOverview.brown{border-bottom-color:#6C503F}
 .fpccSegmentOverview.blue{border-bottom-color:#26B8EB}
 .fpccSegmentOverview.black{border-bottom-color:#333132}
-.fpccSegmentOverview.off{border-bottom-color:#C4D0DB}
+.fpccSegmentOverview.off{border-bottom-color:#C4D0DB}*/
 
 /*svg key test*/
 .fpccSegmentOverview.paved{}
-.fpccSegmentOverview.unpaved line,.fpccSegmentOverview.stone line{stroke-linecap:round;stroke-dasharray:7,11}
-.fpccSegmentOverview.primitive line,.fpccSegmentOverview.single_track line,.fpccSegmentOverview.natural_surface line{stroke-linecap:round;stroke-dasharray:0,12}
+.fpccSegmentOverview.unpaved line,.fpccSegmentOverview.stone line{stroke-linecap:round;stroke-dasharray:7,16}
+.fpccSegmentOverview.primitive line,.fpccSegmentOverview.single_track line,.fpccSegmentOverview.natural_surface line{stroke-linecap:round;stroke-dasharray:0,15}
 .fpccSegmentOverview.red line{stroke:#EE2D2F}
 .fpccSegmentOverview.orange line{stroke:#F7941E}
 .fpccSegmentOverview.purple line{stroke:#7F58A5}
