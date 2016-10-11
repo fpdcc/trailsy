@@ -2679,8 +2679,9 @@ function startup() {
     if (thisType.toLowerCase() == "single track" || thisType.toLowerCase() == "unpaved" || thisType == "") {
       trailSegmentHTML += '<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>';
     }
-    trailSegmentHTML += '</span></div>';
+    trailSegmentHTML += '</span>';
     trailSegmentHTML += '<svg width="100%" height="8px" viewBox="0 0 100% 8"><line x1="0" x2="100%" y1="4" y2="4" stroke-width="8"/></svg>';
+    trailSegmentHTML += '</div>';
     trailSegmentHTML += '<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>';
     //trailSegmentsHTML += (Math.round(trailhead.properties.length * 100) / 100);
     trailSegmentHTML += trailSegment.subtrail_length_mi;
