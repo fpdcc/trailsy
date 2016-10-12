@@ -82,7 +82,7 @@ input:checked ~ .fpccSlider:before{-webkit-transform:translateX(-16px);-ms-trans
 .fpccUnit{padding:1.5em 1em}
 .fpccLabel{font-family:Helvetica,Arial,sans-serif;font-size:.9125em;text-transform:uppercase;color:#585747}
 .fpccLabel.fpccBlock{display:block}
-.fpccSocial{background:#F1F1ED}
+.fpccSocial{background:#F1F1ED;padding-bottom:4em}
 .fpccShare{font-size:1.15em;line-height:1;text-align:center;margin-bottom:.5em}
 .fpccSocialIcon span{display:block;text-transform:uppercase;font-size:.75em;font-family:Helvetica,Arial,sans-serif}
 .fpccSocialIcon .icon{width:2em;height:2em}
@@ -147,7 +147,7 @@ a:hover .fpccAmenityTitle,a:active .fpccAmenityTitle{text-decoration:none}
 a:link.fpccSpecialDesc,a:visited.fpccSpecialDesc{width:100%;clear:both;padding:.75em 1em;background:#FFEFBF;text-decoration:none;color:#333;margin:1em 0;font-size:.9125em;border:1px dotted #FFBF00}
 a:hover.fpccSpecialDesc,a:active.fpccSpecialDesc{background:#FFE9A4}
 a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{background:#E8AE00;border-top:2px solid #C19200;margin-right:0}
-.fpccAmenities .fpccSpecialIcon .icon-arrow{transform:rotate(180deg);-webkit-transform:rotate(180deg);-ms-transform:rotate(180deg);background:#FFBF00;border-top:2px solid #D7A200;height:2.5em;width:2.5em;vertical-align:middle;margin:0;padding:.5em;color:#FFEFBF}
+.fpccAmenities .fpccSpecialIcon .icon-arrow{transform:rotate(180deg);-webkit-transform:rotate(180deg);-ms-transform:rotate(180deg);background:#FFBF00;border-top:2px solid #D7A200;height:2.5em;width:2.5em;vertical-align:middle;margin:0;padding:.5em;fill:#FFEFBF}
 .fpccAlerts{width:100%;clear:both;background:#FFE2D9;text-decoration:none;color:#333;margin:0;font-size:.9125em;border-bottom:1px dotted #DF0000}
 .fpccAlerts .icon-alert{background:#DF0000;border-bottom:2px solid #B70000;height:2.5em;width:2.5em;vertical-align:middle;margin:0;padding:.5em;color:#FFE2D9}
 .fpccSingleAlert{display:block;margin-bottom:.75em}
@@ -242,7 +242,7 @@ path.trail.off_fpdcc{stroke:#C4D0DB}
 /* icons */
 .icon{display:inline-block;width:1em;height:1em;fill:currentColor}
 #icon-ada-restroom .path1,#icon-bike-rental .path1,#icon-drone .path1,#icon-picnic-grove .path1,#icon-model-airplane .path1,#icon-facility .path1,#icon-picnic-grove-shelter .path1,#icon-sledding .path1,#icon-snowmobiling .path1{fill:#684c2b}
-#icon-volunteer .path1,#icon-zip-line .path1,#icon-dog-leash .path1,#icon-birding-hotspot .path1,#icon-boat-rental .path1,#icon-cross-country-skiing .path1,#icon-ecological-management-area .path1,#icon-equestrian .path1,#icon-fishing .path1,#icon-hiking .path1,#icon-ice-fishing .path1,#icon-ice-skating .path1,#icon-model-sailboat .path1,#icon-no-alcohol .path1,#icon-no-fishing .path1,#icon-no-parking .path1,#icon-restroom .path1,#icon-scenic-overlook .path1,#icon-bicycling .path1{fill:#585747}
+#icon-volunteer .path1,#icon-dog-leash .path1,#icon-birding-hotspot .path1,#icon-boat-rental .path1,#icon-cross-country-skiing .path1,#icon-ecological-management-area .path1,#icon-equestrian .path1,#icon-fishing .path1,#icon-hiking .path1,#icon-ice-fishing .path1,#icon-ice-skating .path1,#icon-model-sailboat .path1,#icon-no-alcohol .path1,#icon-no-fishing .path1,#icon-no-parking .path1,#icon-restroom .path1,#icon-scenic-overlook .path1,#icon-bicycling .path1{fill:#585747}
 #icon-search .path1,#icon-ada-restroom .path2,#icon-ada-restroom .path3,#icon-ada-restroom .path4,#icon-ada-restroom .path5,#icon-aquatic-center .path2,#icon-bike-rental .path2,#icon-bike-rental .path3,#icon-bike-rental .path4,#icon-bike-rental .path5,#icon-bike-rental .path6,#icon-bike-rental .path7,#icon-bike-rental .path8,#icon-boat-launch .path2,#icon-boat-launch .path3,#icon-boat-launch .path4,#icon-camp .path2,#icon-canoe-landing .path2,#icon-canoe-landing .path3,#icon-disc-golf .path2,#icon-facility .path2,#icon-golf-course-driving-range .path2,#icon-model-airplane .path2,#icon-nature-center .path2,#icon-parking .path2,#icon-picnic-grove .path2,#icon-picnic-grove-shelter .path2,#icon-sledding .path2,#icon-snowmobiling .path2,#icon-waterbody .path2,#icon-waterbody .path3,#icon-waterbody .path4,#icon-bicycling .path2,#icon-birding-hotspot .path2,#icon-boat-rental .path2,#icon-boat-rental .path3,#icon-boat-rental .path4,#icon-boat-rental .path5,#icon-boat-rental .path6,#icon-boat-rental .path7,#icon-boat-rental .path8,#icon-boat-rental .path9,#icon-boat-rental .path10,#icon-boat-rental .path11,#icon-boat-rental .path12,#icon-boat-rental .path13,#icon-cross-country-skiing .path2,#icon-ecological-management-area .path2,#icon-equestrian .path2,#icon-equestrian .path3,#icon-fishing .path2,#icon-fishing .path3,#icon-drone .path2,#icon-dog-leash .path2,#icon-dog-leash .path3,#icon-dog-leash .path4,#icon-model-sailboat .path2,#icon-no-alcohol .path2,#icon-no-fishing .path2,#icon-no-parking .path2,#icon-scenic-overlook .path2,#icon-scenic-overlook .path3,#icon-trail-marker .path2,#icon-email .path2,#icon-email .path3,#icon-volunteer .path2,#icon-zip-line .path2,#icon-zip-line .path3,#icon-twitter .path2,#icon-facebook .path2,#icon-x .path1,#icon-restroom .path2,#icon-ice-skating .path2,#icon-ice-fishing .path2,#icon-ice-fishing .path3,#icon-ice-fishing .path4,#icon-hiking .path2,#icon-off-leash-dog-area .path2,#icon-off-leash-dog-area .path3,#icon-off-leash-dog-area .path4,#icon-off-leash-dog-area .path5{fill:#fff}
 #icon-aquatic-center .path1,#icon-canoe-landing .path1,#icon-boat-launch .path1,#icon-waterbody .path1,#icon-facebook .path1{fill:#0c51a3}
 #icon-disc-golf .path1,#icon-golf-course-driving-range .path1{fill:#2e5122}
@@ -250,11 +250,11 @@ path.trail.off_fpdcc{stroke:#C4D0DB}
 #icon-sign .path3,#icon-trail-marker .path3{fill:#8c0000}
 #icon-camp .path1{fill:#922990}
 #icon-nature-center .path1{fill:#ed2124}
-#icon-off-leash-dog-area .path1{fill:#f15822}
+#icon-zip-line .path1,#icon-off-leash-dog-area .path1{fill:#f15822}
 #icon-parking .path1{fill:#4c4231}
 #icon-email .path1{fill:#7e9137}
 #icon-twitter .path1{fill:#55acee}
-#icon-arrow .path1{fill:#000}
+#icon-arrow .path1{fill:#273719}
 #icon-alert .path1{fill:#FFE2D9}
 .icon-sign{width:1.599609375em}
 .icon-map.active{display:inline-block} /* This needs to be before the zoom level changes so that the zoom level display attribute can override this. */
