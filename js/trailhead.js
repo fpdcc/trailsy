@@ -2648,7 +2648,7 @@ function startup() {
                        + '<svg class="icon icon-email"><use xlink:href="icons/defs.svg#icon-email"></use></svg>'
                        + '<span>Email</span></a>'
                        + '<a href="https://twitter.com/intent/tweet?text=Map: ' + displayName + '&via=FPDCC&url=' + socialLink
-                       + '" id="fpccSocialTwitter" class="fpccSocialIcon">'
+                       + '" id="fpccSocialTwitter" class="fpccSocialIcon" target="_blank">'
                        + '<svg class="icon icon-twitter"><use xlink:href="icons/defs.svg#icon-twitter"></use></svg>'
                        + '<span>Twitter</span></a>'
                        + '<a href="' + 'https://www.facebook.com/dialog/share?app_id=1382262871801846&display=popup&href=' + socialLink + '&redirect_uri=' + socialLink
@@ -2658,50 +2658,6 @@ function startup() {
     var fpccContainerElement = document.getElementById('fpccContainer');
     fpccContainerElement.innerHTML = fpccContainerHTML;
   }
-  
-  (function() {
-  if (window.__twitterIntentHandler) return;
-  var intentRegex = /twitter\.com\/intent\/(\w+)/,
-      windowOptions = 'scrollbars=yes,resizable=yes,toolbar=no,location=yes',
-      width = 550,
-      height = 420,
-      winHeight = screen.height,
-      winWidth = screen.width;
- 
-  function handleIntent(e) {
-    e = e || window.event;
-    var target = e.target || e.srcElement,
-        m, left, top;
- 
-    while (target && target.nodeName.toLowerCase() !== 'a') {
-      target = target.parentNode;
-    }
- 
-    if (target && target.nodeName.toLowerCase() === 'a' && target.href) {
-      m = target.href.match(intentRegex);
-      if (m) {
-        left = Math.round((winWidth / 2) - (width / 2));
-        top = 0;
- 
-        if (winHeight > height) {
-          top = Math.round((winHeight / 2) - (height / 2));
-        }
- 
-        window.open(target.href, 'intent', windowOptions + ',width=' + width +
-                                           ',height=' + height + ',left=' + left + ',top=' + top);
-        e.returnValue = false;
-        e.preventDefault && e.preventDefault();
-      }
-    }
-  }
- 
-  if (document.addEventListener) {
-    document.addEventListener('click', handleIntent, false);
-  } else if (document.attachEvent) {
-    document.attachEvent('onclick', handleIntent);
-  }
-  window.__twitterIntentHandler = true;
-}());
 
   // Create TrailSegment HTML for Detail Panel
   function buildTrailSegmentHTML(trailSegment) {
