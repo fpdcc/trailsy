@@ -2643,7 +2643,7 @@ function startup() {
     socialLink = socialLink.replace("/#/", "/");
     fpccContainerHTML += '<div class="fpccSocial fpccUnit clearfix">'
                        + '<div class="fpccShare">Share Your Plans:</div><a href="'
-                       + 'mailto:?subject=Heading to ' + displayName
+                       + 'mailto:?subject=Map: ' + displayName +'&body=' + socialLink
                        + '" id="fpccSocialEmail" class="fpccSocialIcon">'
                        + '<svg class="icon icon-email"><use xlink:href="icons/defs.svg#icon-email"></use></svg>'
                        + '<span>Email</span></a>'
@@ -2652,7 +2652,7 @@ function startup() {
                        + '<svg class="icon icon-twitter"><use xlink:href="icons/defs.svg#icon-twitter"></use></svg>'
                        + '<span>Twitter</span></a>'
                        + '<a href="' + 'https://www.facebook.com/dialog/share?app_id=1382262871801846&display=popup&href=' + socialLink + '&redirect_uri=' + socialLink
-                       + '" id="fpccSocialFacebook" class="fpccSocialIcon">'
+                       + '" id="fpccSocialFacebook" class="fpccSocialIcon" target="_blank">'
                        + '<svg class="icon icon-facebook"><use xlink:href="icons/defs.svg#icon-facebook"></use></svg>'
                        + '<span>Facebook</span></a></div>';  
     var fpccContainerElement = document.getElementById('fpccContainer');
