@@ -1198,6 +1198,8 @@ function startup() {
         iconType = "icon-facility";
       } else if (activityType == "zipline") {
         iconType = "icon-zip-line";
+      } else if (activityType == "recreation center") {
+        iconType = "icon-zip-line";
       } 
 
       var activityIcon = L.divIcon({
