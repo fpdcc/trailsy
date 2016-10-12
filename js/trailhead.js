@@ -2651,22 +2651,14 @@ function startup() {
                        + '" id="fpccSocialTwitter" class="fpccSocialIcon">'
                        + '<svg class="icon icon-twitter"><use xlink:href="icons/defs.svg#icon-twitter"></use></svg>'
                        + '<span>Twitter</span></a>'
-                       + '<div id="fpccSocialFacebook" class="fpccSocialIcon">'
+                       + '<a href="' + 'https://www.facebook.com/dialog/share?app_id=1382262871801846&display=popup&href=' + socialLink + '&redirect_uri=' + socialLink
+                       + '" id="fpccSocialFacebook" class="fpccSocialIcon">'
                        + '<svg class="icon icon-facebook"><use xlink:href="icons/defs.svg#icon-facebook"></use></svg>'
-                       + '<span>Facebook</span></div></div>';  
+                       + '<span>Facebook</span></a></div>';  
     var fpccContainerElement = document.getElementById('fpccContainer');
     fpccContainerElement.innerHTML = fpccContainerHTML;
   }
 
-  document.getElementById('fpccSocialFacebook').onclick = function() {
-  FB.ui({
-    method: 'share',
-    display: 'popup',
-    href: 'socialLink',
-    mobile_iframe: 'true',
-  }, function(response){});
-}
-  
   // Create TrailSegment HTML for Detail Panel
   function buildTrailSegmentHTML(trailSegment) {
     var thisColor = trailSegment.trail_color;
