@@ -2384,7 +2384,7 @@ function startup() {
          
         // zip_line = Zip Line
         if (trailhead.properties.tags[':panel'].indexOf("zip_line") > -1) {
-          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-zip-line'><use xlink:href='icons/defs.svg#icon-zip-line'></use></svg><span class='fpccAmenityTitle'>Zip Line / Treetop Adventure</span></div>";
+          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-zip-line'><use xlink:href='icons/defs.svg#icon-zip-line'></use></svg><span class='fpccAmenityTitle'>Treetop Adventure</span></div>";
         }
         
         
