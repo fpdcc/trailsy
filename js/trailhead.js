@@ -2651,14 +2651,22 @@ function startup() {
                        + '" id="fpccSocialTwitter" class="fpccSocialIcon">'
                        + '<svg class="icon icon-twitter"><use xlink:href="icons/defs.svg#icon-twitter"></use></svg>'
                        + '<span>Twitter</span></a>'
-                       + '<a href="' + 'http://www.facebook.com/sharer/sharer.php?s=100&p[url]=' + socialLink + '&p[images][0]=&p[title]=Cook County Forest Preserves &p[summary]=Heading to ' + displayName
-                       + '" id="fpccSocialFacebook" class="fpccSocialIcon">'
+                       + '<div id="fpccSocialFacebook" class="fpccSocialIcon">'
                        + '<svg class="icon icon-facebook"><use xlink:href="icons/defs.svg#icon-facebook"></use></svg>'
-                       + '<span>Facebook</span></a></div>';  
+                       + '<span>Facebook</span></div></div>';  
     var fpccContainerElement = document.getElementById('fpccContainer');
     fpccContainerElement.innerHTML = fpccContainerHTML;
   }
 
+  document.getElementById('fpccSocialFacebook').onclick = function() {
+  FB.ui({
+    method: 'share',
+    display: 'popup',
+    href: 'socialLink',
+    mobile_iframe: 'true',
+  }, function(response){});
+}
+  
   // Create TrailSegment HTML for Detail Panel
   function buildTrailSegmentHTML(trailSegment) {
     var thisColor = trailSegment.trail_color;
