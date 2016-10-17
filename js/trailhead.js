@@ -2643,7 +2643,7 @@ function startup() {
     socialLink = socialLink.replace("/#/", "/");
     fpccContainerHTML += '<div class="fpccSocial fpccUnit clearfix">'
                        + '<div class="fpccShare">Share Your Plans:</div><a href="'
-                       + 'mailto:?subject=Map: ' + displayName +'&body=' + socialLink
+                       + 'mailto:?subject=Map: ' + displayName +' in the Forest Preserves of Cook County&body=' + socialLink
                        + '" id="fpccSocialEmail" class="fpccSocialIcon">'
                        + '<svg class="icon icon-email"><use xlink:href="icons/defs.svg#icon-email"></use></svg>'
                        + '<span>Email</span></a>'
