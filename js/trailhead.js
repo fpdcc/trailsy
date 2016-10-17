@@ -2045,22 +2045,22 @@ function startup() {
       trailheadLink = encodeURIComponent(trailhead.properties.id + "-" + trailhead.properties.name);
       trailheadLink = trailheadLink.replace(/%20/g, '+');
     }
+    $.address.parameter('trail', trailLink);  
+    $.address.parameter('poi', trailheadLink);
+    $.address.parameter('search', null);
+    $.address.update();
 
     // var numbers = [];
     // for (var i=0; i < 20; i++) {
     //  var t0 = performance.now();
     //openDetailPanel2();
+    
     decorateDetailPanel(trailSubsystemName, trailhead);
     //  var t1 = performance.now();
     //  numbers.push(t1 - t0);
     // }
     // console.log('Median time', median(numbers).toFixed(4), 'milliseconds');
 
-    $.address.parameter('trail', trailLink);  
-    $.address.parameter('poi', trailheadLink);
-    $.address.parameter('search', null);
-    $.address.update();
-    
     // if (document.getElementById("fpccMobileCheckbox").checked) {
     //   slideDetailPanel2(false);
     // } else {
