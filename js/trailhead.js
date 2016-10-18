@@ -597,15 +597,9 @@ function startup() {
     console.log("[updateFilterObject] currentUIFilterState = " + currentUIFilterState);
     var matched = 0;
 
-    // Which tags should show trail system in results list
-    var tagsInTrailsPanel = [];
-    tagsInTrailsPanel = tagsInTrailsPanel.concat(["bike_rental","bicycle rental", "bike rental"]);
-    tagsInTrailsPanel = tagsInTrailsPanel.concat(["cycling","biking", "bicycle", "bike", "mtb", "mountain"]);
-    tagsInTrailsPanel = tagsInTrailsPanel.concat(["birding","birdwatching", "bird"]);
-    tagsInTrailsPanel = tagsInTrailsPanel.concat(["cross_country","cross country", "ski"]);
-    tagsInTrailsPanel = tagsInTrailsPanel.concat(["dog_leash","dog leash", "dog"]);
-    tagsInTrailsPanel = tagsInTrailsPanel.concat(["hiking","walking", "running", "hike", "walk", "run", "jog", "jogging"]);
-    tagsInTrailsPanel = tagsInTrailsPanel.concat(["equestrian","horse riding", "horse"]);
+    // Which tags should NOT should up in the results list
+    var tagsExcludeTrailsList = [];
+    tagsExcludeTrailsList = tagsExcludeTrailsList.concat(["boat rental", "canoe rental", "kayak rental", "boating center", "boat_rental", "camping", "camp", "campground", "canoeing", "kayaking", "boating", "canoe", "kayak", "boat", "boat_ramp", "disc golf", "frisbee", "disc_golf", "dog park", "off-leash dog", "dog_friendly", "drone flying", "drone", "fishing", "golfing", "golf", "ice fishing", "ice_fishing", "ice skating", "ice skate", "skating_ice", "indoor event space", "wedding", "meeting", "indoor_rental", "model airplane flying", "m_airplane", "model boat ", "m_boat", "nature center", "museum", "education", "nature_center", "picnic / event space", "grove", "bbq", "grill", "picnic_grove + shelter", "sled", "coasting", "sledding", "snowmobiling", "snowmobile", "snowmachine", "pool", "aquatic", "swimming", "volunteering", "restoration", "volunteer", "zip line / treetop adventure", "zip_line"]);
 
     // Which tags should NOT should up on map
     var tagsExcludeTrailsMap = [];
@@ -657,10 +651,10 @@ function startup() {
             console.log("[updateFilterObject] muni loc, zipMuniFilter= " + currentFilters.location + ", " + currentFilters.zipMuniFilter);
             removeIndex = index;  
           } else {
-            currentFilters.trailInList = false;
+            currentFilters.trailInList = true;
             currentFilters.trailOnMap = true;
-            if ( tagsInTrailsPanel.indexOf(normalizedValue) > -1 ) {
-              currentFilters.trailInList = true;
+            if ( tagsExcludeTrailsList.indexOf(normalizedValue) > -1 ) {
+              currentFilters.trailInList = false;
             }
             if ( tagsExcludeTrailsMap.indexOf(normalizedValue) > -1 ) {
               currentFilters.trailOnMap = false;
