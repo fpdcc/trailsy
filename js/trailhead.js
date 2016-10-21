@@ -1902,7 +1902,7 @@ function startup() {
     $("#fpccSearchResults").html(trailListContents);
     $(".fpccEntry").click(trailDivClickHandler);
     $("#fpccSearchStatus").html(divCount + " Results Found");
-    //setHeights();
+    setHeights();
 
     console.log("end makeTrailDivs 4");
     makeTrailDivsEnded = true;
@@ -2057,6 +2057,7 @@ function startup() {
     //openDetailPanel2();
     
     decorateDetailPanel(trailSubsystemName, trailhead);
+    setHeights();
     //  var t1 = performance.now();
     //  numbers.push(t1 - t0);
     // }
@@ -2173,6 +2174,7 @@ function startup() {
     openResultsList();
     showfpccMainContainer();
     changePageTitle(null);
+    setHeights();
     setTimeout(function() {
       map.closePopup();
       highlightTrailhead(null,null);
