@@ -2671,6 +2671,7 @@ function startup() {
     console.log("[buildTrailSegmentHTML] trailSegment.trail_color= " + trailSegment.trail_color);
     if (trailSegment.off_fpdcc == 'y') {
       trailSegmentHTML += "off";
+      trailSegmentHTML += trailSegment.trail_color.replace(/ /g, "_").toLowerCase();
     } else {
       trailSegmentHTML += trailSegment.trail_color.replace(/ /g, "_").toLowerCase();
     }
