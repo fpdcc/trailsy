@@ -196,7 +196,19 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 .fpccSegmentOverview.paved.brown svg{background:#6C503F}
 .fpccSegmentOverview.paved.blue svg{background:#26B8EB}
 .fpccSegmentOverview.paved.black svg{background:#333132}
+/*off-FPDCC*/
 .fpccSegmentOverview.paved.off svg{background:#C4D0DB}
+.fpccSegmentOverview.off.paved .fpccTrailUse svg.icon{background:none}
+.fpccSegmentOverview.off.paved.red svg{background:#F8AD96}
+.fpccSegmentOverview.off.paved.orange svg{background:#FDD09E}
+.fpccSegmentOverview.off.paved.purple svg{background:#BFAFD5}
+.fpccSegmentOverview.off.paved.grey svg,.fpccSegmentOverview.paved.future svg{background:#58595B}
+.fpccSegmentOverview.off.paved.yellow svg{background:#FFF9BD}
+.fpccSegmentOverview.off.paved.green svg{background:#85AF90}
+.fpccSegmentOverview.off.paved.olive  svg, .fpccSegmentOverview.pave.tan svg{background:#D3D0B5}
+.fpccSegmentOverview.off.paved.brown svg{background:#C0ADA1}
+.fpccSegmentOverview.off.paved.blue svg{background:#B4DDF5}
+.fpccSegmentOverview.off.paved.black svg{background:#ABADAF}
 
 /*stroke rendering and colors for panel*/
 .fpccSegmentOverview.unpaved line,.fpccSegmentOverview.stone line{stroke-linecap:round;stroke-dasharray:7,16}
@@ -211,8 +223,18 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 .fpccSegmentOverview.brown line{stroke:#6C503F}
 .fpccSegmentOverview.blue line{stroke:#26B8EB}
 .fpccSegmentOverview.black line{stroke:#333132}
+/*off FPDCC*/
 .fpccSegmentOverview.off line{stroke:#C4D0DB}
-
+.fpccSegmentOverview.off.red line{stroke:#F8AD96}
+.fpccSegmentOverview.off.orange line{stroke:#FDD09E}
+.fpccSegmentOverview.off.purple line{stroke:#BFAFD5}
+.fpccSegmentOverview.off.grey line,.fpccSegmentOverview.future line{stroke:#58595B}
+.fpccSegmentOverview.off.yellow line{stroke:#FFF9BD}
+.fpccSegmentOverview.off.green line{stroke:#85AF90}
+.fpccSegmentOverview.off.olive line, .fpccSegmentOverview.tan line{stroke:#D3D0B5}
+.fpccSegmentOverview.off.brown line{stroke:#C0ADA1}
+.fpccSegmentOverview.off.blue line{stroke:#B4DDF5}
+.fpccSegmentOverview.off.black line{stroke:#ABADAF}
 
 .fpccSegmentDetails{margin-top:.35em}
 .fpccAccessTo{text-align:center;padding:1.15em 0 .25em;border-top:1px dotted #CCC}
@@ -237,7 +259,20 @@ path.trail.brown{stroke:#6C503F}
 path.trail.blue{stroke:#26B8EB}
 path.trail.black{stroke:#333132}
 path.trail.future_extension{stroke:#58595B}
+/*off-FPDCC*/
 path.trail.off_fpdcc{stroke:#C4D0DB}
+path.trail.off_fpdcc.red{stroke:#F8AD96}
+path.trail.off_fpdcc.orange{stroke:#FDD09E}
+path.trail.off_fpdcc.purple{stroke:#BFAFD5}
+path.trail.off_fpdcc.grey{stroke:#58595B}
+path.trail.off_fpdcc.yellow{stroke:#FFF9BD}
+path.trail.off_fpdcc.green{stroke:#85AF90}
+path.trail.off_fpdcc.tan{stroke:#D3D0B5}
+path.trail.off_fpdcc.olive{stroke:#D3D0B5}
+path.trail.off_fpdcc.brown{stroke:#C0ADA1}
+path.trail.off_fpdcc.blue{stroke:#B4DDF5}
+path.trail.off_fpdcc.black{stroke:#ABADAF}
+path.trail.future_extension{stroke:#58595B}
 
 /* icons */
 .icon{display:inline-block;width:1em;height:1em;fill:currentColor}
