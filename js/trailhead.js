@@ -1992,11 +1992,18 @@ function startup() {
   }
 
   function changePageTitle(name) {
+    var newTitle = "Map: Forest Preserves of Cook County";
     if (name) {
-      document.title = "Map: " + name + " | Forest Preserves of Cook County";
+      //document.title = "Map: " + name + " | Forest Preserves of Cook County";
+      newTitle = "Map: " + name + " | Forest Preserves of Cook County";
+      
+
     } else {
-      document.title = "Map: Forest Preserves of Cook County";
+      //document.title = "Map: Forest Preserves of Cook County";
+      newTitle = "Map: Forest Preserves of Cook County";
     }
+    $.address.title(newTitle);
+    $.address.update();
   }
 
 
