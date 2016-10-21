@@ -2670,7 +2670,7 @@ function startup() {
     console.log("[buildTrailSegmentHTML] trailSegment.off_fpdcc= " + trailSegment.off_fpdcc);
     console.log("[buildTrailSegmentHTML] trailSegment.trail_color= " + trailSegment.trail_color);
     if (trailSegment.off_fpdcc == 'y') {
-      trailSegmentHTML += "off";
+      trailSegmentHTML += "off ";
       trailSegmentHTML += trailSegment.trail_color.replace(/ /g, "_").toLowerCase();
     } else {
       trailSegmentHTML += trailSegment.trail_color.replace(/ /g, "_").toLowerCase();
