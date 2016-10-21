@@ -1185,7 +1185,7 @@ function startup() {
       } else if (activityType == "trailhead") {
         iconType = "icon-trail-marker";
       } else if (activityType == "volunteer center") {
-        iconType = "icon-volunteer";
+        iconType = "icon-facility";
       } else if (activityType == "warming shelter") {
         iconType = "icon-facility";
       } else if (activityType == "welcome shelter") {
