@@ -77,7 +77,7 @@ input:checked ~ .fpccSlider:before{-webkit-transform:translateX(-16px);-ms-trans
 
 /*panel - general*/
 .detailPanel .detailPanelBanner{position:relative;width:100%;min-height:2em;}
-.detailPanel .detailPanelBanner .trailName{font-family:Helvetica,Arial,sans-serif;font-weight:bold;line-height:20px;color:#fff;position:relative;display:inline-block;max-width:70%}
+.detailPanel .detailPanelBanner .trailName{font-family:Helvetica,Arial,sans-serif;font-weight:bold;line-height:24px;color:#fff;position:relative;display:inline-block;max-width:90%}
 .fpccContainer{font-family:Georgia,"Times New Roman",serif;font-size:.9125em;line-height:1.5;color:#333}
 .fpccUnit{padding:1.5em 1em}
 .fpccLabel{font-family:Helvetica,Arial,sans-serif;font-size:.9125em;text-transform:uppercase;color:#585747}
@@ -411,7 +411,7 @@ section.trailListColumn .accordion{/* display:none;*/border-top:8px solid #7E913
 .fpccEntryNameText{display:inline-block;width:85%}
 .trailListColumn .fpccUnit.fpccResults a span.fpccEntryName{font-size:1em;font-weight:bold;float:left;width:70%}
 .fpccEntryDis{font-size:.9125em;font-family:Georgia,"Times New Roman",serif;float:right;width:30%;text-align:right}
-#fpccSearchContainer .fpccButton{width:15%;border-bottom:0;height:48px;float:right;display:inline;max-height:initial}
+#fpccSearchContainer .fpccButton{width:15%;border-bottom:0;height:48px;float:right;display:inline;max-height:initial;border-radius:none}
 #fpccSearchContainer select{border:1px solid #999;padding:5px;width:75%;height:37px;font-size:.9375em;line-height:1;box-sizing:border-box}
 section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overflow-y:scroll}
 
@@ -456,15 +456,14 @@ ul.fpccMenuList a:hover,ul.fpccMenuList a:active{background:#666}
 .trailListColumn .title-row header .navbar-inner .logo{margin:0;width:270px}
 .title-row header .navbar-inner{padding:.35em 0 .5em 0;width:auto;margin:0 42px;position:inherit;border-left:15px solid #444;border-right:15px solid #444}
 #fpccPreserveName .trailName{font-size:20px}
-.detailPanel #fpccPreserveName.detailPanelBanner{background:#273719;padding:.5em 1.75em .5em 1em}
-.icon-x.closeDetail{width:1.5em;height:1.5em;position:absolute;top:7px;right:10px}
+.detailPanel #fpccPreserveName.detailPanelBanner{background:#273719;padding:.5em 1.75em .5em 1em;min-height:48px}
+#fpccDetailPanel.contracted.detailPanel #fpccPreserveName.detailPanelBanner #fpccTrailName{padding-top:.15em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.icon-x.closeDetail{width:1.5em;height:1.5em;position:absolute;top:10px;right:10px}
 .icon-x.closeDetail:hover{opacity:1;filter:alpha(opacity=100)}
 .trailListColumn .fpccContainer a,.trailListColumn #fpccSearchBack a{display:inline-block}/* Needed to override the main stylesheet or it disappears POI panel links on mobile:*/
 .trailListColumn .fpccResults a{display:block}/* Needed to override the main stylesheet or it disappears search result links on mobile:*/
 .trailMapContainer{background:#ddd;position:absolute;top:48px;/* size of header */right:0;left:0;bottom:48px;/* size of footer/detail panel */z-index:8000;}
 .trailMapContainer .offsetZoomControl .offsetZoomIn,.trailMapContainer .offsetZoomControl .offsetZoomOut{display:none}
-/*.detailPanel .detailPanelBody,.detailPanel.expanded{position:inherit;top:initial}
-*/.detailPanel .detailPanelBanner .trailName{white-space:initial;text-overflow:initial;overflow:initial}
 
 /*leaflet override*/
 .leaflet-popup-tip{background:#606D29}
@@ -577,7 +576,7 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
 .fpccSign .icon{width:12%;height:2.25em;margin-right:3%;vertical-align:top}
 .fpccAddress{display:inline-block;width:82%}
 .fpccDirections{width:28%;float:right;margin-bottom:.75em}
-
+.detailPanel #fpccPreserveName.detailPanelBanner{min-height:auto}
 /*panel - trail*/
 .fpccLabel.fpccLeft{float:left;width:50%;text-align:left}
 .fpccLabel.fpccLeft span,.fpccLabel.fpccRight span{font-family:Georgia,"Times New Roman",serif;text-transform:none;font-weight:bold;margin-left:5px}
