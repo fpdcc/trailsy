@@ -403,15 +403,19 @@ function startup() {
     if (trail == 'undefined' || trail == 'null') {
       trail = "";
     }
-    console.log("[addressChange] searchFilter = " + searchFilter);
+    console.log("[address.Change] searchFilter = " + searchFilter);
     //if (searchFilter != searchFilterLast) {
     // setTimeout(function() {
     //   updateFilterObject("activityFilter", searchFilter);
     //   //}
+    var poiID = null;
     if (poi) {
-      var poiID = poi.split("-")[0];
+      poiID = poi.split("-")[0];
+    }
+    console.log("[address.Change] originalTrailData[trail] = " + originalTrailData[trail]);
+    if (getTrailheadById(poiID)) {
       trailDivWork(null, poiID);
-    } else if (trail) {
+    } else if (trailSubsystemMap[trail]) {
       var trailSystem = trail;
       trailDivWork(trail, null);
     } else if (searchFilter) {
@@ -423,6 +427,11 @@ function startup() {
         selectize.createItem(value, false);
       });
       //selectize.createItem(searchFilter, false);
+    } else {
+      $.address.parameter('search', null);
+      $.address.parameter('trail', null);
+      $.address.parameter('poi', null);
+      $.address.update();
     }
 
   }
