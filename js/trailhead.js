@@ -2691,7 +2691,7 @@ function startup() {
     trailSegmentHTML += ' clearfix"><span class="fpccSegmentName">';
     trailSegmentHTML += thisColor + ' ' + thisType;
     if (trailSegment.off_fpdcc == 'y') {
-      trailSegmentHTML += " Off FPDCC";
+      trailSegmentHTML += " (Non-FPCC)";
     }
     trailSegmentHTML += '</span><span class="fpccTrailUse">';
     trailSegmentHTML += '<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>';
