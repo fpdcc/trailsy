@@ -167,6 +167,7 @@ function startup() {
  
   if (window.location.hostname.split(".")[0] == "localhost") {
     document.title = "LOCALHOST | Map: Forest Preserves of Cook County";
+    //API_HOST = "http://localhost:8080";
   } else if (window.location.hostname.split(".")[0] == "fpcc-staging") {
     document.title = "STAGING | Map: Forest Preserves of Cook County";
   } else if (window.location.hostname.split(".")[0] = "smartchicago") {
@@ -1095,7 +1096,7 @@ function startup() {
     var callData = {
       loc: location.lat + "," + location.lng,
       type: "GET",
-      path: "/poi_infos.json"
+      path: "/pointsofinterests.json"
     };
     makeAPICall(callData, function(response) {
       populateOriginalTrailheads(response, location);
@@ -1730,6 +1731,7 @@ function startup() {
       var popupTrailheadDivHTML = "<div class='trailhead-box'><div class='popupTrailheadNames'>" + trailhead.properties.name + "</div>";
       popupContentMainDivHTML = popupContentMainDivHTML + popupTrailheadDivHTML;
       if (trailhead.properties.direct_trail_id)  {
+        console.log("[makeTrailheadPopups] trailhead.properties.direct_trail_id = " + trailhead.properties.direct_trail_id);
         var trailheadTrail = originalTrailData[trailhead.properties.direct_trail_id];
         var popupTrailDivHTMLStart = "<div class='trailhead-trailname trail" + 1 + "' " +
         "data-trailname='" + trailheadTrail.trail_subsystem + "' " +
