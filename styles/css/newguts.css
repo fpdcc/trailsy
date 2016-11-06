@@ -258,7 +258,7 @@ path.trail.olive{stroke:#969161}
 path.trail.brown{stroke:#6C503F}
 path.trail.blue{stroke:#26B8EB}
 path.trail.black{stroke:#333132}
-path.trail.future_extension{stroke:#58595B}
+path.trail.future{stroke:#58595B}
 /*off-FPDCC*/
 path.trail.off_fpdcc{stroke:#C4D0DB}
 path.trail.off_fpdcc.red{stroke:#F8AD96}
@@ -272,7 +272,7 @@ path.trail.off_fpdcc.olive{stroke:#D3D0B5}
 path.trail.off_fpdcc.brown{stroke:#C0ADA1}
 path.trail.off_fpdcc.blue{stroke:#B4DDF5}
 path.trail.off_fpdcc.black{stroke:#ABADAF}
-path.trail.future_extension{stroke:#58595B}
+path.trail.future{stroke:#58595B}
 
 /* icons */
 .icon{display:inline-block;width:1em;height:1em;fill:currentColor}
