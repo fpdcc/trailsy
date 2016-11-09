@@ -2250,7 +2250,7 @@ function startup() {
         fpccContainerHTML += '<span class="fpccEntranceZip">' + trailhead.properties.web_muni_addr + '</span>';
       }
       if (trailhead.properties.parking_connection_poi && !trailhead.properties.web_street_addr) {
-        fpccContainerHTML += '<span class="fpccCloseParking"><a href="#?poi=' + trailhead.properties.parking_connection_poi + '">View closest parking area</a></span>';
+        fpccContainerHTML += '<span class="fpccCloseParking"><a class="fpccMore" href="#?poi=' + trailhead.properties.parking_connection_poi + '">View closest parking area</a></span>';
 
       }
       if (trailhead.properties.phone) {
