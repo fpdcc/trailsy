@@ -353,25 +353,11 @@ function startup() {
     $('#fpccMobileSearchButton').hide();
   }
 
-
-
   $.address.autoUpdate(0);
-  //$.address.crawlable(1);
   $.address.externalChange(function(event) {  
-    // do something depending on the event.value property, e.g.  
     console.log("externalChange event = " + event.parameters);
-    //console.log("hash = " + $.address.hash()  );
-    //console.log("queryString = " + $.address.queryString()  );
-
-    // var searchFilter = decodeURIComponent($.address.parameter('search'));
-    // var entrance  = decodeURIComponent($.address.parameter('entrance'));
-    // var trail  = decodeURIComponent($.address.parameter('trail'));
-    // console.log("[address.change] searchFilter = " + searchFilter);
-    // console.log("[address.change] entrance = " + entrance);
-    // console.log("[address.change] trail = " + trail);
     waitForAllData();
-    //$('.filter').load(event.value + '.xml');  
-  });  
+  });
 
   var activeTrailheadsMapped = false;
   var makeTrailDivsEnded = false;
@@ -386,9 +372,7 @@ function startup() {
     }
   }
 
-  function addressChange() {
-    //var searchFilter = $.address.parameter('search');/%20/g
-    
+  function addressChange() {    
     var searchFilter = decodeURIComponent($.address.parameter('search')).replace(/\+/g, ' ');
     var poi  = decodeURIComponent($.address.parameter('poi')).replace(/\+/g, ' ');
     var trail  = decodeURIComponent($.address.parameter('trail')).replace(/\+/g, ' ');
@@ -405,10 +389,6 @@ function startup() {
       trail = "";
     }
     console.log("[address.Change] searchFilter = " + searchFilter);
-    //if (searchFilter != searchFilterLast) {
-    // setTimeout(function() {
-    //   updateFilterObject("activityFilter", searchFilter);
-    //   //}
     var poiID = null;
     if (poi) {
       poiID = poi.split("-")[0];
@@ -1731,7 +1711,7 @@ function startup() {
       var popupTrailheadDivHTML = "<div class='trailhead-box'><div class='popupTrailheadNames'>" + trailhead.properties.name + "</div>";
       popupContentMainDivHTML = popupContentMainDivHTML + popupTrailheadDivHTML;
       if (trailhead.properties.direct_trail_id)  {
-        console.log("[makeTrailheadPopups] trailhead.properties.direct_trail_id = " + trailhead.properties.direct_trail_id);
+        //console.log("[makeTrailheadPopups] trailhead.properties.direct_trail_id = " + trailhead.properties.direct_trail_id);
         var trailheadTrail = originalTrailData[trailhead.properties.direct_trail_id];
         var popupTrailDivHTMLStart = "<div class='trailhead-trailname trail" + 1 + "' " +
         "data-trailname='" + trailheadTrail.trail_subsystem + "' " +
@@ -2260,7 +2240,6 @@ function startup() {
                          + '<svg class="icon icon-sign"><use xlink:href="icons/defs.svg#icon-sign"></use></svg>'
                          + '<div class="fpccAddress">'
                          + '<span class="fpccLabel fpccBlock">';
-
       if (trailhead.properties.web_street_addr) {
         fpccContainerHTML += 'Entrance</span><span class="fpccEntranceAddress">'
                            + trailhead.properties.web_street_addr + '</span>';
@@ -2269,6 +2248,10 @@ function startup() {
       }
       if (trailhead.properties.web_muni_addr) {
         fpccContainerHTML += '<span class="fpccEntranceZip">' + trailhead.properties.web_muni_addr + '</span>';
+      }
+      if (trailhead.properties.parking_connection_poi && !trailhead.properties.web_street_addr) {
+        fpccContainerHTML += '<span class="fpccCloseParking"><a href="#?poi=' + trailhead.properties.parking_connection_poi + '">View closest parking area</a></span>';
+
       }
       if (trailhead.properties.phone) {
         fpccContainerHTML += '<span class="fpccPhone">' + trailhead.properties.phone + '</span>';
