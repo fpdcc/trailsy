@@ -585,19 +585,6 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
 .fpccTrailUse{float:right}
 .fpccTrailUse .icon{width:1.5em;height:1.5em;margin-left:.25em}
 
-/* panel - menu */
-.fpccMenu{float:right;margin-top:87px;width:auto;display:block;margin-right:-40px}
-.fpccMenu a:link.hamburger,.fpccMenu a:visited.hamburger{background:#999;opacity:.7;filter:alpha(opacity=70);font-size:.75em;float:left;color:#fff;text-decoration:none;font-weight:bold;box-shadow:inset 4px 0px 8px 0px rgba(0,0,0,0.4);padding:.75em .75em;width:40px}
-.fpccMenu a:hover.hamburger,.fpccMenu a:active.hamburger{opacity:1;filter:alpha(opacity=100)}
-.fpccMenu a.hamburger span{height:4px;background:#FFF;margin-bottom:3px;display:block}
-.fpccMenu a.hamburger span.last{margin-bottom:0}
-ul.fpccMenuList{clear:both;margin:0;list-style-type:none;color:#333;font-weight:bold;font-size:.8125em;width:200px;padding-left:0;float:right;margin-right:-200px;box-shadow:0 4px 8px 0 rgba(0,0,0,0.2)}
-ul.fpccMenuList.hide{display:none}
-ul.fpccMenuList.show{display:block}
-ul.fpccMenuList a:link,ul.fpccMenuList a:visited{padding:.75em;color:#FFF;background:#999;border-bottom:1px solid #FFF;text-decoration:none;display:block}
-ul.fpccMenuList a:link.last,ul.fpccMenuList a:visited.last{border:none}
-ul.fpccMenuList a:hover,ul.fpccMenuList a:active{background:#666}
-
 
 /*OVERRIDES------------------------------------*/
 
