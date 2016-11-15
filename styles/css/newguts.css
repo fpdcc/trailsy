@@ -419,7 +419,8 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
 .fpccSpecialIcon{vertical-align:middle;width:15%;display:inline-block;text-align:right}
 .fpccAlertBlurb{vertical-align:top;display:inline-block;width:85%}
 .fpccAlertIcon{vertical-align:top;width:12%;margin-right:3%;display:inline-block;text-align:left;float:left}
-.fpccPhoto{max-height:195px;max-width:384px}
+.fpccPhoto{background:#EFEFEF;width:100%;text-align:center;line-height:0}
+.fpccPhoto img{max-height:195px;max-width:384px}
 .fpccAmenity{float:left;width:47%;margin:0 3% 1.25em 0;max-height:1.8em}
 .fpccAmenity span.fpccAmenityTitle{line-height:1.2;display:inline-block;vertical-align:middle;max-width:7.5em;font-size:.9125em;color:#585747}
 .fpccAmenities .icon{width:2em;height:2em;margin-right:.65em;vertical-align:middle} 
