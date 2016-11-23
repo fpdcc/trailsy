@@ -215,7 +215,7 @@ function startup() {
   // var mapDivName = SMALL ? "trailMapSmall" : "trailMapLarge";
   var mapDivName = "trailMapLarge";
   var CLOSED = false;
-  var customSmoothFactor = SMALL ? 1.5 : 1.0;
+  var customSmoothFactor = SMALL ? 2.5 : 1.0;
 
   var originalTrailData = {}; // all of the trails metadata (from traildata table), with trail ID as key
   // for yes/no features, check for first letter "y" or "n".
@@ -1113,19 +1113,19 @@ function startup() {
         $( '.' + myPoiId ).addClass('outofbounds');
       }
     }
-    allVisibleSegmentLayer.eachLayer(function (layer) {
-      var segmentBounds = layer.getBounds();
-      var segmentInBounds = mapBounds.intersects(segmentBounds);
-      var segmentId = "segment-" + layer.feature.id;
-      //console.log("[showMarkersInArea] segmentId = " + layer.feature.id);
-      if (segmentInBounds) {
-        if ($( '.' + segmentId ).hasClass('outofbounds')) {
-          $( '.' + segmentId ).removeClass('outofbounds');
-        }
-      } else {
-        $( '.' + segmentId ).addClass('outofbounds');
-      }
-    });
+    // allVisibleSegmentLayer.eachLayer(function (layer) {
+    //   var segmentBounds = layer.getBounds();
+    //   var segmentInBounds = mapBounds.intersects(segmentBounds);
+    //   var segmentId = "segment-" + layer.feature.id;
+    //   //console.log("[showMarkersInArea] segmentId = " + layer.feature.id);
+    //   if (segmentInBounds) {
+    //     if ($( '.' + segmentId ).hasClass('outofbounds')) {
+    //       $( '.' + segmentId ).removeClass('outofbounds');
+    //     }
+    //   } else {
+    //     $( '.' + segmentId ).addClass('outofbounds');
+    //   }
+    // });
   }
 
 
