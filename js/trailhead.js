@@ -446,7 +446,7 @@ function startup() {
     $("#fpccSearchResults").html(loaderDiv);
     if (!map) {
       var startingMapLocation = MAPCENTERPOINT;
-      var startingMapZoom = 13;
+      var startingMapZoom = 6;
       map = createMap(startingMapLocation, startingMapZoom);
     }
     openResultsList();
@@ -1055,8 +1055,8 @@ function startup() {
       console.log("zoomend start " + map.getZoom());
 
       var zoomLevel = map.getZoom();
-      var currentMarkerDivs = $(".leaflet-marker-pane").find(".icon-map");
-      currentMarkerDivs.addClass('icon-' + zoomLevel).removeClass('icon-' + lastZoom);
+      //var currentMarkerDivs = $(".leaflet-marker-pane").find(".icon-map");
+      //currentMarkerDivs.addClass('icon-' + zoomLevel).removeClass('icon-' + lastZoom);
    
       lastZoom = zoomLevel;
       console.log("zoomend end " + map.getZoom());

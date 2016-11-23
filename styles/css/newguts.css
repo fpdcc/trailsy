@@ -246,6 +246,7 @@ path.trail.visible{stroke-width:4;stroke-opacity:1;stroke:#C4D0DB}
 path.trail.invisible{stroke-width:20;stroke-opacity:0}
 path.trail.visible.selected{stroke-width:7}
 path.trail.inactive{display:none}
+.z1 path.trail, .z2 path.trail, .z3 path.trail, .z4 path.trail, .z5 path.trail, .z6 path.trail, .z7 path.trail, .z8 path.trail, .z9 path.trail, .z10 path.trail {display:none;}
 path.trail.single_track,path.trail.primitive,path.trail.natural_surface{stroke-dasharray:0,10}
 path.trail.unpaved, path.trail.stone{stroke-dasharray:7,11}
 path.trail.red{stroke:#EE2D2F}
@@ -295,17 +296,19 @@ path.trail.off_fpdcc.black{stroke:#ABADAF}
 .icon-map.active{display:inline-block} /* This needs to be before the zoom level changes so that the zoom level display attribute can override this. */
 .icon-map.icon-activity.active{opacity:.5}
 .icon.icon-map{padding:.4em;overflow:visible}
-/*.icon-sign.icon-map{width:2em;height:2em}*/
-.icon-sign.icon-1,.icon-sign.icon-2,.icon-sign.icon-3,.icon-sign.icon-4,.icon-sign.icon-5,.icon-sign.icon-6,.icon-sign.icon-7,.icon-sign.icon-8{width:2em;height:2em}
-.icon-sign.icon-9,.icon-sign.icon-10,.icon-sign.icon-11,.icon-sign.icon-12,.icon-sign.icon-13,.icon-sign.icon-14{width:2.25em;height:2.25em}
-.icon-sign.icon-15,.icon-sign.icon-16,.icon-sign.icon-17,.icon-sign.icon-18{width:3em;height:3em}
-.icon-activity.icon-1,.icon-activity.icon-2,.icon-activity.icon-3,.icon-activity.icon-4,.icon-activity.icon-5,.icon-activity.icon-6,.icon-activity.icon-7,.icon-activity.icon-8,.icon-activity.icon-9,.icon-activity.icon-10,.icon-activity.icon-11,.icon-activity.icon-12{display:none}
-.icon-activity.icon-13,.icon-activity.icon-14{width:2.0em;height:2.0em;display:inline-block}
-.icon-activity.icon-15,.icon-activity.icon-16,.icon-activity.icon-17,.icon-activity.icon-18{width:3em;height:3em;display:inline-block}
-.picnic-grove-marker.icon-1,.picnic-grove-marker.icon-2,.picnic-grove-marker.icon-3,.picnic-grove-marker.icon-4,.picnic-grove-marker.icon-5,.picnic-grove-marker.icon-6,.picnic-grove-marker.icon-7,.picnic-grove-marker.icon-8,.picnic-grove-marker.icon-9,.picnic-grove-marker.icon-10,.picnic-grove-marker.icon-11,.picnic-grove-marker.icon-12{display:none}
-.picnic-grove-marker.icon-13,.picnic-grove-marker.icon-14{width:2.0em;height:2.0em;display:inline-block}
-.picnic-grove-marker.icon-15,.picnic-grove-marker.icon-16,.picnic-grove-marker.icon-17,.picnic-grove-marker.icon-18{width:3em;height:3em;display:inline-block}
-
+.icon.icon-map{width:2em;height:2em}
+/*.icon.icon-sign{width:2.0em;height:2.0em}
+*/
+.z1 .icon-sign,.z2 .icon-sign,.z3 .icon-sign,.z4 .icon-sign,.z5 .icon-sign,.z6 .icon-sign,.z7 .icon-sign,.z8 .icon-sign{display:none;}
+.z9 .icon-sign{display:none;}
+.z10 .icon-sign,.z11 .icon-sign,.z12 .icon-sign,.z13 .icon-sign,.z14 .icon-sign{width:2.25em;height:2.25em}
+.z15 .icon-sign,.z16 .icon-sign,.z17 .icon-sign,.z18 .icon-sign{width:3em;height:3em}
+.z1 .icon-activity,.z2 .icon-activity,.z3 .icon-activity,.z4 .icon-activity,.z5 .icon-activity,.z6 .icon-activity,.z7 .icon-activity,.z8 .icon-activity,.z9 .icon-activity,.z10 .icon-activity,.z11 .icon-activity,.z12 .icon-activity{display: none}
+.z13 .icon-activity,.z14 .icon-activity{width:2.0em;height:2.0em;display:inline-block}
+.z15 .icon-activity,.z16 .icon-activity,.z17 .icon-activity,.z18 .icon-activity{width:3em;height:3em;display:inline-block}
+.z1 .picnic-grove-marker,.z2 .picnic-grove-marker,.z3 .picnic-grove-marker,.z4 .picnic-grove-marker,.z5 .picnic-grove-marker,.z6 .picnic-grove-marker,.z7 .picnic-grove-marker,.z8 .picnic-grove-marker,.z9 .picnic-grove-marker,.z10 .picnic-grove-marker,.z11 .picnic-grove-marker,.z12 .picnic-grove-marker{display:none}
+.z13 .picnic-grove-marker,.z14 .picnic-grove-marker{width:2.0em;height:2.0em;display:inline-block}
+.z15 .picnic-grove-marker,.z16 .picnic-grove-marker,.z17 .picnic-grove-marker,.z18 .picnic-grove-marker{width:3em;height:3em;display:inline-block}
 .icon-map.inactive{display:none} /* This needs to be after the zoom level changes so that this display:none; overrides the zoom level display attrivute */
 .icon.icon-map.icon-sign{padding:.8em 0 0;/* background-image:url(../../icons/defs.svg#icon-sign); */}
 .icon-map.selected{animation:animateEdge 2.5s forwards}
