@@ -300,7 +300,7 @@ path.trail.off_fpdcc.black{stroke:#ABADAF}
 /*.icon.icon-sign{width:2.0em;height:2.0em}
 */
 .z1 .icon-sign,.z2 .icon-sign,.z3 .icon-sign,.z4 .icon-sign,.z5 .icon-sign,.z6 .icon-sign,.z7 .icon-sign,.z8 .icon-sign{display:none;}
-.z9 .icon-sign{display:none;}
+.z9 .icon-sign{width:2em;height:2em}
 .z10 .icon-sign,.z11 .icon-sign,.z12 .icon-sign,.z13 .icon-sign,.z14 .icon-sign{width:2.25em;height:2.25em}
 .z15 .icon-sign,.z16 .icon-sign,.z17 .icon-sign,.z18 .icon-sign{width:3em;height:3em}
 .z1 .icon-activity,.z2 .icon-activity,.z3 .icon-activity,.z4 .icon-activity,.z5 .icon-activity,.z6 .icon-activity,.z7 .icon-activity,.z8 .icon-activity,.z9 .icon-activity,.z10 .icon-activity,.z11 .icon-activity,.z12 .icon-activity{display: none}
@@ -316,6 +316,7 @@ path.trail.off_fpdcc.black{stroke:#ABADAF}
 .icon-activity.icon-map.selected{opacity:1}
 .leaflet-marker-icon.icon-map.picnic-grove-marker{display:none}
 .icon-map.picnic-grove-marker.selected{display:inline-block}
+.icon.icon-map.outofbounds{display:none;}
 @keyframes animateEdge{
 0%{background:none;box-shadow:none}
 33%{background:rgba(126,144,57,.45);box-shadow:0 0 7px 5px rgba(126,144,57,.45);border-radius:3em}

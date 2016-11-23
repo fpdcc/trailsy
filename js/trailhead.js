@@ -679,6 +679,7 @@ function startup() {
         return element === lastFilters.activityFilter[index]; 
     });
     console.log("[updateFilterObject] is_same= " + is_same);
+    currentTrailheads = reorderTrailheads(currentTrailheads);
     if (is_same) {
       console.log("[updateFilterObject] activityFilter is same");
       makeTrailDivs(currentTrailheads);
@@ -688,6 +689,7 @@ function startup() {
 
         // This zoom level is arbitrary. Need to figure out best option
         map.setView(currentFilters.location, 14);
+        //showMarkersInArea();
 
       }
       
@@ -695,6 +697,30 @@ function startup() {
     } else {
       applyFilterChange(currentFilters);
     }
+  }
+
+  function reorderTrailheads(myTrailheads) {
+    var myTrailheadsLength = myTrailheads.length;
+    for (var j = 0; j < myTrailheadsLength; j++) {
+      var trailhead = myTrailheads[j];
+      var currentFeatureLatLng = new L.LatLng(trailhead.geometry.coordinates[1], trailhead.geometry.coordinates[0]);
+      console.log("[reorderTrailheads] currentUserLocation = " + currentUserLocation);
+      var distance = currentFeatureLatLng.distanceTo(currentUserLocation);
+      if (currentFilters.location) {
+        distance = currentFeatureLatLng.distanceTo(currentFilters.location);
+      }
+      trailhead.properties.distance = distance;
+    }
+
+    myTrailheads.sort(function(a, b){
+      //console.log("a and b.properties.filterResult = " + a.properties.filterScore + " vs " + b.properties.filterScore);
+      if (a.properties.filterScore > b.properties.filterScore) return -1;
+      if (a.properties.filterScore < b.properties.filterScore) return 1;
+      if (a.properties.distance < b.properties.distance) return -1;
+      if (a.properties.distance > b.properties.distance) return 1;
+      return 0;
+    })
+    return myTrailheads;
   }
 
   function filterResults2(trailhead) {
@@ -1048,8 +1074,8 @@ function startup() {
       paddingTopLeft: centerOffset
     });
     // L.control.scale().addTo(map);
-    map.on('dragstart', hideUiOnMapDrag);
-    map.on('dragend', unhideUiOnMapDrag);
+    // map.on('dragstart', hideUiOnMapDrag);
+    map.on('dragend', showMarkersInArea);
 
     map.on("zoomend", function(e) {
       console.log("zoomend start " + map.getZoom());
@@ -1059,11 +1085,32 @@ function startup() {
       //currentMarkerDivs.addClass('icon-' + zoomLevel).removeClass('icon-' + lastZoom);
    
       lastZoom = zoomLevel;
+      showMarkersInArea();
       console.log("zoomend end " + map.getZoom());
     });
     map.on('popupclose', popupCloseHandler);
     map.on('popupopen', popupOpenHandler);
     return map;
+  }
+
+  // Only show markers that are within the map view + buffer (to improve performance).
+  function showMarkersInArea() {
+    console.log("[showMarkersInArea] start");
+    var mapBounds = map.getBounds();
+    mapBounds = mapBounds.pad(.10);
+    var originalTrailheadsLength = originalTrailheads.length;
+    for (var poiCount = 0; poiCount < originalTrailheadsLength; poiCount++) {
+      var poiLatLng = originalTrailheads[poiCount].marker.getLatLng();
+      var poiInBounds = mapBounds.contains(poiLatLng);
+      var myPoiId = "poi-" + originalTrailheads[poiCount].properties.id;
+      if (poiInBounds) {
+        if ($( '.' + myPoiId ).hasClass('outofbounds')) {
+          $( '.' + myPoiId ).removeClass('outofbounds');
+        }
+      } else {
+        $( '.' + myPoiId ).addClass('outofbounds');
+      }
+    }
   }
 
 
@@ -1680,6 +1727,8 @@ function startup() {
         currentTrailheads.push(trailhead);
       }
     }
+
+    currentTrailheads = reorderTrailheads(currentTrailheads);
     
     console.log("currentTrailheads count = " + currentTrailheads.length);
     setTimeout(function() {      
@@ -1746,14 +1795,19 @@ function startup() {
     }
     if (currentTrailheadSignArray.length > 0) {
       var currentTrailheadLayerGroup = new L.FeatureGroup(currentTrailheadSignArray);
-      map.fitBounds(currentTrailheadLayerGroup.getBounds(), {
-        paddingTopLeft: centerOffset
-      });
+      if (SMALL) {
+        map.setView(currentTrailheadSignArray[0].getLatLng(), 15);
+      } else {
+        map.fitBounds(currentTrailheadLayerGroup.getBounds(), {
+          paddingTopLeft: centerOffset
+        });
+      }
       if (currentFilters.zipMuniFilter) {
         var locationBounds = L.latLngBounds(currentFilters.location, currentFilters.location);
         map.panInsideBounds(locationBounds);
       }
     }
+    //showMarkersInArea();
     activeTrailheadsMapped = true;
     console.log("mapActiveTrailheads end");
   }
@@ -1777,25 +1831,25 @@ function startup() {
     var trailListContents = "";
     //if(myTrailheads.length === 0) return;
 
-    for (var j = 0; j < myTrailheadsLength; j++) {
-      var trailhead = myTrailheads[j];
-      var currentFeatureLatLng = new L.LatLng(trailhead.geometry.coordinates[1], trailhead.geometry.coordinates[0]);
-      console.log("[makeTrailDivs] currentUserLocation = " + currentUserLocation);
-      var distance = currentFeatureLatLng.distanceTo(currentUserLocation);
-      if (currentFilters.location) {
-        distance = currentFeatureLatLng.distanceTo(currentFilters.location);
-      }
-      trailhead.properties.distance = distance;
-    }
+    // for (var j = 0; j < myTrailheadsLength; j++) {
+    //   var trailhead = myTrailheads[j];
+    //   var currentFeatureLatLng = new L.LatLng(trailhead.geometry.coordinates[1], trailhead.geometry.coordinates[0]);
+    //   console.log("[makeTrailDivs] currentUserLocation = " + currentUserLocation);
+    //   var distance = currentFeatureLatLng.distanceTo(currentUserLocation);
+    //   if (currentFilters.location) {
+    //     distance = currentFeatureLatLng.distanceTo(currentFilters.location);
+    //   }
+    //   trailhead.properties.distance = distance;
+    // }
 
-    myTrailheads.sort(function(a, b){
-      //console.log("a and b.properties.filterResult = " + a.properties.filterScore + " vs " + b.properties.filterScore);
-      if (a.properties.filterScore > b.properties.filterScore) return -1;
-      if (a.properties.filterScore < b.properties.filterScore) return 1;
-      if (a.properties.distance < b.properties.distance) return -1;
-      if (a.properties.distance > b.properties.distance) return 1;
-      return 0;
-    })
+    // myTrailheads.sort(function(a, b){
+    //   //console.log("a and b.properties.filterResult = " + a.properties.filterScore + " vs " + b.properties.filterScore);
+    //   if (a.properties.filterScore > b.properties.filterScore) return -1;
+    //   if (a.properties.filterScore < b.properties.filterScore) return 1;
+    //   if (a.properties.distance < b.properties.distance) return -1;
+    //   if (a.properties.distance > b.properties.distance) return 1;
+    //   return 0;
+    // })
     
     for (var j = 0; j < myTrailheadsLength; j++) {
       // console.log("makeTrailDivs trailhead: " + j);
