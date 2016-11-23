@@ -210,6 +210,8 @@ function startup() {
   var ALL_SEGMENT_LAYER_SIMPLIFY = 5;
   var map;
   var oms;
+  var allSegmentLayer = null;
+  var allVisibleSegmentLayer = null;
   // var mapDivName = SMALL ? "trailMapSmall" : "trailMapLarge";
   var mapDivName = "trailMapLarge";
   var CLOSED = false;
@@ -1111,6 +1113,19 @@ function startup() {
         $( '.' + myPoiId ).addClass('outofbounds');
       }
     }
+    allVisibleSegmentLayer.eachLayer(function (layer) {
+      var segmentBounds = layer.getBounds();
+      var segmentInBounds = mapBounds.intersects(segmentBounds);
+      var segmentId = "segment-" + layer.feature.id;
+      //console.log("[showMarkersInArea] segmentId = " + layer.feature.id);
+      if (segmentInBounds) {
+        if ($( '.' + segmentId ).hasClass('outofbounds')) {
+          $( '.' + segmentId ).removeClass('outofbounds');
+        }
+      } else {
+        $( '.' + segmentId ).addClass('outofbounds');
+      }
+    });
   }
 
 
@@ -1572,7 +1587,8 @@ function startup() {
     // make visible layers
     var allVisibleSegmentsArray = [];
     var allInvisibleSegmentsArray = [];
-    var allSegmentLayer = new L.FeatureGroup();
+    allSegmentLayer = new L.FeatureGroup();
+    allVisibleSegmentLayer = new L.FeatureGroup();
     console.log("visibleAllTrailLayer start");
 
     // make a normal visible layer for the segments, and add each of those layers to the allVisibleSegmentsArray
@@ -1590,7 +1606,7 @@ function startup() {
         //var thisSecondaryTrail = feature.properties.secondary_trail_ids[0];
         var thisTrailType = feature.properties.trail_type;
     
-        var thisClassName = 'visible trail ' + ' ' + feature.properties.trail_color.toLowerCase() + ' ' + thisTrailType.replace(/ /g, "_") + ' system-' + feature.properties.trail_subsystem.replace(/ /g, "_");
+        var thisClassName = 'visible trail segment-' + feature.id + ' ' + feature.properties.trail_color.toLowerCase() + ' ' + thisTrailType.replace(/ /g, "_") + ' system-' + feature.properties.trail_subsystem.replace(/ /g, "_");
         if (feature.properties.off_fpdcc == 'y') {
           thisClassName += ' off_fpdcc';
         }
@@ -1599,8 +1615,11 @@ function startup() {
       onEachFeature: function visibleOnEachFeature(feature, layer) {
         // console.log("visibleAllTrailLayer onEachFeature");
         allVisibleSegmentsArray.push(layer);
+        //console.log("[visibleAllTrailLayer onEachFeature] feature.id = " + feature.id);
+        allVisibleSegmentLayer.addLayer(layer);
         segmentObject[feature.properties.trail_subsystem.replace(/ /g, "_")] = segmentObject[feature.properties.trail_subsystem.replace(/ /g, "_")] || [];
         segmentObject[feature.properties.trail_subsystem.replace(/ /g, "_")].push(layer);
+      
       }
     });
 
@@ -1610,7 +1629,7 @@ function startup() {
     // make popup html for each segment
     var invisibleAllTrailLayer = L.geoJson(response, {
       style: function(feature) {
-        var thisClassName = 'invisible trail system-' + feature.properties.trail_subsystem.replace(/ /g, "_");
+        var thisClassName = 'invisible trail segment-' + feature.id + ' system-' + feature.properties.trail_subsystem.replace(/ /g, "_");
         return { className: thisClassName,
         opacity: 0,
         weight: 20,

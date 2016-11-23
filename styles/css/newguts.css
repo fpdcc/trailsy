@@ -316,7 +316,7 @@ path.trail.off_fpdcc.black{stroke:#ABADAF}
 .icon-activity.icon-map.selected{opacity:1}
 .leaflet-marker-icon.icon-map.picnic-grove-marker{display:none}
 .icon-map.picnic-grove-marker.selected{display:inline-block}
-.icon.icon-map.outofbounds{display:none;}
+.outofbounds{display:none;}
 @keyframes animateEdge{
 0%{background:none;box-shadow:none}
 33%{background:rgba(126,144,57,.45);box-shadow:0 0 7px 5px rgba(126,144,57,.45);border-radius:3em}
