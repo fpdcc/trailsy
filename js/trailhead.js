@@ -212,6 +212,7 @@ function startup() {
   var oms;
   var allSegmentLayer = null;
   var allVisibleSegmentLayer = null;
+  var allVisibleSegmentsArray = [];
   // var mapDivName = SMALL ? "trailMapSmall" : "trailMapLarge";
   var mapDivName = "trailMapLarge";
   var CLOSED = false;
@@ -1100,22 +1101,28 @@ function startup() {
     console.log("[showMarkersInArea] start");
     var mapBounds = map.getBounds();
     mapBounds = mapBounds.pad(.10);
+    var t0 = performance.now();
     var originalTrailheadsLength = originalTrailheads.length;
     for (var poiCount = 0; poiCount < originalTrailheadsLength; poiCount++) {
       var poiLatLng = originalTrailheads[poiCount].marker.getLatLng();
       var poiInBounds = mapBounds.contains(poiLatLng);
       var myPoiId = "poi-" + originalTrailheads[poiCount].properties.id;
-      if (poiInBounds) {
-        if ($( '.' + myPoiId ).hasClass('outofbounds')) {
-          $( '.' + myPoiId ).removeClass('outofbounds');
+      setTimeout(function() {
+        if (poiInBounds) {
+          if ($( '.' + myPoiId ).hasClass('outofbounds')) {
+            $( '.' + myPoiId ).removeClass('outofbounds');
+          }
+        } else {
+          $( '.' + myPoiId ).addClass('outofbounds');
         }
-      } else {
-        $( '.' + myPoiId ).addClass('outofbounds');
-      }
+      }, 0);
     }
+    var t1 = performance.now();
+    console.log('showMarkersInArea poi time', (t1-t0).toFixed(4), 'milliseconds');
+    var t0 = performance.now();
     // allVisibleSegmentLayer.eachLayer(function (layer) {
     //   var segmentBounds = layer.getBounds();
-    //   var segmentInBounds = mapBounds.intersects(segmentBounds);
+    //   var segmentInBounds = mapBounds.overlaps(segmentBounds);
     //   var segmentId = "segment-" + layer.feature.id;
     //   //console.log("[showMarkersInArea] segmentId = " + layer.feature.id);
     //   if (segmentInBounds) {
@@ -1126,6 +1133,27 @@ function startup() {
     //     $( '.' + segmentId ).addClass('outofbounds');
     //   }
     // });
+    setTimeout(function() {
+      var segmentLength = allVisibleSegmentsArray.length;
+      for (var segmentCount = 0; segmentCount < segmentLength; segmentCount++) {
+        var segmentBounds = allVisibleSegmentsArray[segmentCount].getBounds();
+        var segmentInBounds = mapBounds.overlaps(segmentBounds);
+        var segmentId = "segment-" + allVisibleSegmentsArray[segmentCount].feature.id;
+        //console.log("[showMarkersInArea] segmentId = " + layer.feature.id);
+        setTimeout(function() {
+          if (segmentInBounds) {
+            if ($( '.' + segmentId ).hasClass('outofbounds')) {
+              $( '.' + segmentId ).removeClass('outofbounds');
+            }
+          } else {
+            $( '.' + segmentId ).addClass('outofbounds');
+          }
+        }, 0);
+        
+      }
+      var t1 = performance.now();
+      console.log('showMarkersInArea segment time', (t1-t0).toFixed(4), 'milliseconds');
+    }, 0);
   }
 
 
@@ -1567,9 +1595,6 @@ function startup() {
       type: "GET",
       path: "/new_trails.json"
     };
-    // if (SMALL) {
-    //   callData.path = "/trailsegments.json?simplify=" + ALL_SEGMENT_LAYER_SIMPLIFY;
-    // }
     makeAPICall(callData, function(response) {
       if (USE_SEGMENT_LAYER) {
         if (USE_COMPLEX_SEGMENT_LAYER) {
@@ -1585,7 +1610,7 @@ function startup() {
   function makeAllSegmentLayer(response) {
     console.log("makeAllSegmentLayer");
     // make visible layers
-    var allVisibleSegmentsArray = [];
+    allVisibleSegmentsArray = [];
     var allInvisibleSegmentsArray = [];
     allSegmentLayer = new L.FeatureGroup();
     allVisibleSegmentLayer = new L.FeatureGroup();
@@ -1709,7 +1734,7 @@ function startup() {
 
     // use this to just show the network
     // allSegmentLayer = visibleAllTrailLayer;
-    allVisibleSegmentsArray = null;
+    //allVisibleSegmentsArray = null;
     allInvisibleSegmentsArray = null;
     console.log("allSegmentLayer about to add to map");
     map.addLayer(allSegmentLayer);
