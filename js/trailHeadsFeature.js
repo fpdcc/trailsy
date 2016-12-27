@@ -10,7 +10,7 @@ var trailHeadsFeature = function() {
         var map = {};
         for (var i in features) {
             var trailHeadId = features[i].properties.id;
-            var trailIds = features[i].properties.trail_ids;
+            var trailIds = features[i].properties.direct_trail_ids;
             map[trailHeadId] = trailIds;
         }
 

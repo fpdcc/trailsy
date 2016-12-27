@@ -44,7 +44,7 @@ var trailHeadsLayer = function() {
 
     var _getTrailheadAmenities = function(trailhead) {
         var amenityContent = "";
-        var amenities = trailhead.properties.trailhead_attributes;
+        var amenities = trailhead.properties.tags;
         for (var i = 0; i < amenities.length; i++) {
             var name = amenities[i].attribute.name;
             var value = amenities[i].value;

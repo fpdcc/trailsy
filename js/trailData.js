@@ -10,23 +10,27 @@ var trailData = function() {
 
     var _fetchData = function (endpoint, callback, fetchingData, page) {
         fetchingData = true;
+        var thisEndpoint = endpoint + "/?page=" + page;
         if (page === undefined) {
             page = 1
+            thisEndpoint = endpoint;
         }
+        console.log("thisEndpoint = " + thisEndpoint);
 
-        $.getJSON(endpoint + "/?page=" + page, function (response) {
-            var paging = response.paging;
-            var geoJson = response.data;
+        $.getJSON(thisEndpoint, function (response) {
+            console.log("response= " + response);
+            //var paging = response.paging;
+            var geoJson = response;
 
             callback(geoJson);
 
-            if (!paging.last_page) {
-                page++;
-                _fetchData(endpoint, callback, fetchingData, page);
-            }
-            else {
-                fetchingData = false;
-            }
+            // if (!paging.last_page) {
+            //     page++;
+            //     _fetchData(endpoint, callback, fetchingData, page);
+            // }
+            // else {
+            fetchingData = false;
+            // }
         })
             .fail(function (jqxhr, textStatus, error) {
                 var err = textStatus + ", " + error;
