@@ -2551,9 +2551,9 @@ function startup() {
         }
 
         // pavilion = Pavilion/Event Space
-        if (trailhead.properties.tags[':panel'].indexOf("pavilion") > -1) {
-         fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-facility'><use xlink:href='icons/defs.svg#icon-facility'></use></svg><span class='fpccAmenityTitle'>Indoor Facility</span></div>";
-        }
+        // if (trailhead.properties.tags[':panel'].indexOf("pavilion") > -1) {
+         // fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-facility'><use xlink:href='icons/defs.svg#icon-facility'></use></svg><span class='fpccAmenityTitle'>Indoor Facility</span></div>";
+        // }
 
         // skating_ice = Ice Skating
         if (trailhead.properties.tags[':panel'].indexOf("skating_ice") > -1) {
