@@ -2476,7 +2476,7 @@ function startup() {
         }
          
         // rec_center = Special Activity / Swallow Cliff Stairs, GoApe, Sullivan Barn
-        if (trailhead.properties.tags[':panel'].indexOf("rec_center") > -1) {
+        if (trailhead.properties.tags[':panel'].indexOf("recreation_center") > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-rec-center'><use xlink:href='icons/defs.svg#icon-rec-center'></use></svg><span class='fpccAmenityTitle'>Special Activity</span></div>";
         }
         
