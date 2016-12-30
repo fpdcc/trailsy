@@ -1270,10 +1270,8 @@ function startup() {
         iconType = "icon-facility";
       } else if (activityType == "welcome shelter") {
         iconType = "icon-facility";
-      } else if (activityType == "zipline") {
-        iconType = "icon-zip-line";
       } else if (activityType == "recreation center") {
-        iconType = "icon-zip-line";
+        iconType = "icon-rec-center";
       } 
 
       var activityIcon = L.divIcon({
@@ -2477,9 +2475,9 @@ function startup() {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-aquatic-center'><use xlink:href='icons/defs.svg#icon-aquatic-center'></use></svg><span class='fpccAmenityTitle'>Aquatic Center</span></div>";
         }
          
-        // zip_line = Zip Line
-        if (trailhead.properties.tags[':panel'].indexOf("zip_line") > -1) {
-          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-zip-line'><use xlink:href='icons/defs.svg#icon-zip-line'></use></svg><span class='fpccAmenityTitle'>Treetop Adventure</span></div>";
+        // rec_center = Special Activity / Swallow Cliff Stairs, GoApe, Sullivan Barn
+        if (trailhead.properties.tags[':panel'].indexOf("rec_center") > -1) {
+          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-rec-center'><use xlink:href='icons/defs.svg#icon-rec-center'></use></svg><span class='fpccAmenityTitle'>Special Activity</span></div>";
         }
         
         
