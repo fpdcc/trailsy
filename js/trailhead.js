@@ -2614,6 +2614,17 @@ function startup() {
         extraLinksText += '<li><a class="fpccMore" href="' + trailhead.properties.web_link;
         extraLinksText += '" target="_blank">Webpage</a></li>';
       }
+      
+      
+      
+        if (trailhead.properties.tags[':panel'].indexOf("swimming") > -1) {
+        extraLinksExist = true;
+        extraLinksText += '<li><a class="fpccMore" href="http://fpdcc.com/aquatic-centers/" target="_blank">Webpage</a></li>';
+        }
+      
+      
+      
+      
       if (trailhead.properties.map_link) {
         extraLinksExist = true;
         extraLinksText += '<li><a class="fpccMore" href="' + trailhead.properties.map_link;
