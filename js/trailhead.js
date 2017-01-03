@@ -2568,15 +2568,50 @@ function startup() {
         if (trailhead.properties.tags[':panel'].indexOf("nature_preserve") > -1) {
           naturePreserveString = '<div class="fpccNP clearfix" target="_blank"><a href="http://fpdcc.com/illinois-nature-preserves/" target="_blank"><img src="images/idnr-np-logo.png" width="75" height="65" alt="Illinois Nature Preserves Commission Logo"></a><p>This is an Illinois Nature Preserve&mdash;one of the highest quality natural lands in the state. This designation includes increased levels of legal protection and management. <a href="http://fpdcc.com/illinois-nature-preserves/" target="_blank">Learn more &gt;</a></p></div>';
         }
-
+        
+        
+        // tagLinks
+        if ((trailhead.properties.tags[':panel'].indexOf("cycling") > -1)) {
+        tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/bicycling/">Biking</a></li>'
+        }
+         if ((trailhead.properties.tags[':panel'].indexOf("birding") > -1)) {
+        tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/birding/">Birding</a></li>'
+        }
+         if ((trailhead.properties.tags[':panel'].indexOf("boat_ramp") > -1) || (trailhead.properties.tags[':panel'].indexOf("boat_rental") > -1) || (trailhead.properties.tags[':panel'].indexOf("canoe") > -1)) {
+          tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/boating/">Boating</a></li>'
+        }
+        if ((trailhead.properties.tags[':panel'].indexOf("camping") > -1)) {
+        tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/camping/">Camping</a></li>'
+        }
+        if ((trailhead.properties.tags[':panel'].indexOf("cross_country") > -1)) {
+        tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/cross-county-skiing/">Cross-Country Skiing</a></li>'
+        }
+        if ((trailhead.properties.tags[':panel'].indexOf("dog_leash") > -1) || (trailhead.properties.tags[':panel'].indexOf("dog_friendly") > -1)) {
+        tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/dogs/">Dogs</a></li>'
+        }
+        if ((trailhead.properties.tags[':panel'].indexOf("equestrian") > -1)) {
+        tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/equestrian/">Equestrian</a></li>'
+        }
+        if ((trailhead.properties.tags[':panel'].indexOf("fishing") > -1) || (trailhead.properties.tags[':panel'].indexOf("ice_fishing") > -1)) {
+          tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/fishing/">Fishing</a></li>'
+        }
+         if ((trailhead.properties.tags[':panel'].indexOf("hiking") > -1)) {
+        tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/hiking/">Hiking</a></li>'
+        }
+         if ((trailhead.properties.tags[':panel'].indexOf("m_airplane") > -1) || (trailhead.properties.tags[':panel'].indexOf("drone") > -1)) {
+        tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/model-airplane-drone/">Model Airplanes &amp; Drones</a></li>'
+        }
         if ((trailhead.properties.tags[':panel'].indexOf("picnic_grove") > -1) || (trailhead.properties.tags[':panel'].indexOf("shelter") > -1)) {
         tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/permits/">Picnic &amp; Event Permits</a></li>'
         }
-        if ((trailhead.properties.tags[':panel'].indexOf("boat_ramp") > -1) || (trailhead.properties.tags[':panel'].indexOf("boat_rental") > -1) || (trailhead.properties.tags[':panel'].indexOf("canoe") > -1)) {
-          tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/boating/">Boating Information</a></li>'
+        if ((trailhead.properties.tags[':panel'].indexOf("sledding") > -1)) {
+          tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/sledding/">Sledding</a></li>'
         }
-        if ((trailhead.properties.tags[':panel'].indexOf("fishing") > -1)) {
-          tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/fishing/">Fishing Information</a></li>'
+           if ((trailhead.properties.tags[':panel'].indexOf("snowmobile") > -1)) {
+          tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/snowmobiling/">Snowmobiling</a></li>'
+        }
+        if ((trailhead.properties.tags[':panel'].indexOf("swimming") > -1)) {
+          tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/aquatic-centers/">Swimming</a></li>'
         }
 
       }
@@ -2613,17 +2648,7 @@ function startup() {
         extraLinksExist = true;
         extraLinksText += '<li><a class="fpccMore" href="' + trailhead.properties.web_link;
         extraLinksText += '" target="_blank">Webpage</a></li>';
-      }
-      
-      
-      
-        if (trailhead.properties.swimming) {
-        extraLinksExist = true;
-        extraLinksText += '<li><a class="fpccMore" href="http://fpdcc.com/aquatic-centers/" target="_blank">Webpage</a></li>';
-        }
-      
-      
-      
+      }  
       
       if (trailhead.properties.map_link) {
         extraLinksExist = true;
