@@ -2617,7 +2617,7 @@ function startup() {
       
       
       
-        if (trailhead.properties.tags[':panel'].indexOf("swimming") > -1) {
+        if (trailhead.properties.swimming) > -1) {
         extraLinksExist = true;
         extraLinksText += '<li><a class="fpccMore" href="http://fpdcc.com/aquatic-centers/" target="_blank">Webpage</a></li>';
         }
