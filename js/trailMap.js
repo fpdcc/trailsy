@@ -7,6 +7,8 @@ var trailHeadsLayer = require('./trailHeadsLayer.js');
 var trailSegmentsFeature = require('./trailSegmentsFeature.js');
 var trailSegmentsLayer = require('./trailSegmentsLayer.js');
 var trailSegmentsFilter = require('./trailSegmentsFilter.js');
+var activitiesFeature = require('./activitiesFeature.js');
+var activitiesLayer = require('./activitiesLayer.js');
 var geoJsonFilter = require('./geoJsonFilter.js');
 
 var trailMap = function() {
@@ -16,15 +18,19 @@ var trailMap = function() {
   var map = L.map(elementId).setView(Config.mapCenter, Config.defaultZoom);
   var thLayer = trailHeadsLayer();
   var tsLayer = trailSegmentsLayer();
+  var acLayer = activitiesLayer();
   var tHeads = trailHeadsFeature();
   var tSegments = trailSegmentsFeature();
   var tSegmentsFilter = trailSegmentsFilter();
+  var activities = activitiesFeature();
   var tData = trailData();
 
   thLayer.setOpenTrailFeature(tHeads);
+  acLayer.setOpenTrailFeature(activities);
 
   tsLayer.setTrailHeads(tHeads);
   tsLayer.setTrailSegments(tSegments);
+
 
   map.removeControl(map.zoomControl);
   map.addControl(L.control.zoom({position: 'topright'}));
@@ -46,12 +52,15 @@ var trailMap = function() {
     tData.fetchTrailheads(_buildTrailheads);
     tData.fetchTrailSegments(_addTrailSegmentsData);
     tData.fetchTrailNames(_addTrailNames);
+    tData.fetchActivities(_buildActivities);
   };
 
   that.filterTrailheads = function (text) {
     _removeTrails();
     thLayer.removeFrom(map);
     thLayer.clear();
+    acLayer.removeFrom(map);
+    acLayer.clear();
 
     var filter = geoJsonFilter();
     filter.setCurrentValue(text);
@@ -61,6 +70,7 @@ var trailMap = function() {
     tsLayer.setFilter(tSegmentsFilter.filterByTrailName);
 
     _buildTrailheadLayers();
+    _buildActivities();
     _buildTrailSegments();
   };
 
@@ -119,6 +129,22 @@ var trailMap = function() {
     thLayer.removeFrom(map);
     tHeads.updateGeoJson(geoJson);
     _buildTrailheadLayers();
+  }
+
+  function _buildActivityLayers () {
+    console.log("[_buildActivityLayers] start");
+    var layers = acLayer.build();
+    for (var i in layers) {
+      map.addLayer(layers[i]);
+    }
+  }
+
+  function _buildActivities (geoJson) {
+    console.log("[_buildActivities] start");
+    acLayer.removeFrom(map);
+    activities.updateGeoJson(geoJson);
+    console.log("[_buildActivities] before _buildActivityLayers");
+    _buildActivityLayers();
   }
 
   return that;
