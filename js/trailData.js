@@ -32,6 +32,7 @@ var trailData = function() {
             // }
             // else {
             fetchingData = false;
+            console.log("Done getting data from " + thisEndpoint + " at time " + performance.now());
             // }
         })
             .fail(function (jqxhr, textStatus, error) {

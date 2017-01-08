@@ -49,10 +49,14 @@ var trailMap = function() {
   that.fetchTrailheads = function () {
     thLayer.removeFrom(map);
     thLayer.clear();
-    tData.fetchTrailheads(_buildTrailheads);
+    var ftr = tData.fetchTrailheads(_buildTrailheads);
     tData.fetchTrailSegments(_addTrailSegmentsData);
-    tData.fetchTrailNames(_addTrailNames);
+    var trnm = tData.fetchTrailNames(_addTrailNames);
     tData.fetchActivities(_buildActivities);
+    $.when(ftr, trnm).done(function(ftr, trnm) {
+      // Handle both XHR objects
+      console.log("Done getting data for trailheads and trailnames at " + performance.now());
+    });
   };
 
   that.filterTrailheads = function (text) {
@@ -127,8 +131,8 @@ var trailMap = function() {
 
   function _buildTrailheads (geoJson) {
     thLayer.removeFrom(map);
-    tHeads.updateGeoJson(geoJson);
-    _buildTrailheadLayers();
+    tHeads.updateGeoJson(geoJson); 
+    _buildTrailheadLayers(); // Adds trailheads to map
   }
 
   function _buildActivityLayers () {
