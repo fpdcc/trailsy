@@ -1049,12 +1049,14 @@ function startup() {
 
     //oms = new OverlappingMarkerSpiderfier(map, {keepSpiderfied: true});
 
-    var rbhBase = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-    attribution: mapboxAttribution,
-    maxZoom: 18,
-    id: 'mapbox.run-bike-hike',
-    accessToken: mapboxAccessToken
-    }).addTo(map);
+    // var rbhBase = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    // attribution: mapboxAttribution,
+    // maxZoom: 18,
+    // id: 'mapbox.run-bike-hike',
+    // accessToken: mapboxAccessToken
+    // }).addTo(map);
+
+    var rbhBase = L.tileLayer('https://api.mapbox.com/styles/v1/fpdcc/cixjcxjvf000h2sml8k9cr18o/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZnBkY2MiLCJhIjoiY2l4amNtaGxjMDAwMzMzbXVucGYxdGtjbyJ9.u1Ttdy3_4xWYFdBvqKYcZA').addTo(map);
 
     var imageryBase = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
     attribution: mapboxAttribution,
