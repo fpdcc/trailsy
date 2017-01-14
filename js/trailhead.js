@@ -2758,6 +2758,8 @@ function startup() {
   function buildTrailSegmentHTML(trailSegment) {
     var thisColor = trailSegment.trail_color;
     var thisType = trailSegment.trail_type;
+    var thisNameType = trailSegment.trail_name_type;
+    var thisDirection = trailSegment.direction;
     var trailSegmentHTML = '<div class="fpccTrailSegment"><div class="fpccSegmentOverview ';
     console.log("[buildTrailSegmentHTML] trailSegment.off_fpdcc= " + trailSegment.off_fpdcc);
     console.log("[buildTrailSegmentHTML] trailSegment.trail_color= " + trailSegment.trail_color);
@@ -2773,6 +2775,12 @@ function startup() {
     // }
     trailSegmentHTML += ' clearfix"><span class="fpccSegmentName">';
     trailSegmentHTML += thisColor + ' ' + thisType;
+    if (thisNameType) {
+      trailSegmentHTML += ' ' + thisNameType;
+    }
+    if (thisDirection) {
+      trailSegmentHTML += ' ' + thisDirection;
+    } 
     if (trailSegment.off_fpdcc == 'y') {
       trailSegmentHTML += " (Non-FPCC)";
     }
