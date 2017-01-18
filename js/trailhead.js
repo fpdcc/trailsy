@@ -1226,7 +1226,10 @@ function startup() {
       } else if (activityType == "boat launch") {
         iconType = "icon-boat-launch";
       } else if (activityType == "boat rental") {
+        iconType = "icon-boat-rental";
         iconName = activityName;
+      } else if (activityType == "camp") {
+        iconType = "icon-camp";
       } else if (activityType == "canoe landing") {
         iconType = "icon-canoe-landing";
       } else if (activityType == "dog park") {
