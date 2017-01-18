@@ -1268,7 +1268,7 @@ function startup() {
         iconType = "icon-facility";
       } else if (activityType == "warming shelter") {
         iconType = "icon-facility";
-      } else if (activityType == "welcome shelter") {
+      } else if (activityType == "welcome center") {
         iconType = "icon-facility";
       } else if (activityType == "recreation center") {
         iconType = "icon-rec-center";
