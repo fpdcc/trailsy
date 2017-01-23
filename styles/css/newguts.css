@@ -244,7 +244,7 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 /*map - trail*/
 path.trail.visible{stroke-width:4;stroke-opacity:1;stroke:#C4D0DB}
 path.trail.invisible{stroke-width:20;stroke-opacity:0}
-path.trail.visible.selected{stroke-width:7;filter:url(shadow.svg#trail-shadow);-webkit-filter: drop-shadow(0 0 5px rgba(126,144,57,.45));filter: drop-shadow(0 0 5px rgba(126,144,57,.45));}
+path.trail.visible.selected{stroke-width:7}
 path.trail.inactive{display:none}
 .z1 path.trail, .z2 path.trail, .z3 path.trail, .z4 path.trail, .z5 path.trail, .z6 path.trail, .z7 path.trail, .z8 path.trail, .z9 path.trail, .z10 path.trail {display:none;}
 path.trail.single_track,path.trail.primitive,path.trail.natural_surface{stroke-dasharray:0,10}
