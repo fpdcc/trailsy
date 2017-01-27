@@ -462,7 +462,7 @@ ul.fpccMenuList a:link.last,ul.fpccMenuList a:visited.last{border:none}
 ul.fpccMenuList a:hover,ul.fpccMenuList a:active{background:#666}
 
 /*main.css override*/
-.detailPanel{background-color:#fff;display:block;width:100%;z-index:9100}
+.detailPanel{background-color:#fff;display:block;width:100%;z-index:9100;box-shadow:0 4px 8px 0 rgba(0,0,0,0.2)}
 .trailListColumn .title-row header .navbar-inner .logo{margin:0;width:270px}
 .title-row header .navbar-inner{padding:.35em 0 .5em 0;width:auto;margin:0 42px;position:inherit;border-left:15px solid #444;border-right:15px solid #444}
 #fpccPreserveName .trailName{font-size:20px}
