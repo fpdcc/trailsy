@@ -190,7 +190,7 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 .fpccSegmentOverview.paved.red svg{background:#EE2D2F}
 .fpccSegmentOverview.paved.orange svg{background:#F7941E}
 .fpccSegmentOverview.paved.purple svg{background:#7F58A5}
-.fpccSegmentOverview.paved.grey svg,.fpccSegmentOverview.paved.future svg{background:#58595B}
+.fpccSegmentOverview.paved.grey svg,.fpccSegmentOverview.paved.future svg{background:#9BB0C1}
 .fpccSegmentOverview.paved.yellow svg{background:#FFF450}
 .fpccSegmentOverview.paved.green svg{background:#006129}
 .fpccSegmentOverview.paved.olive  svg, .fpccSegmentOverview.pave.tan svg{background:#969161}
@@ -203,7 +203,7 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 .fpccSegmentOverview.off.paved.red svg{background:#F8AD96}
 .fpccSegmentOverview.off.paved.orange svg{background:#FDD09E}
 .fpccSegmentOverview.off.paved.purple svg{background:#BFAFD5}
-.fpccSegmentOverview.off.paved.grey svg,.fpccSegmentOverview.paved.future svg{background:#58595B}
+.fpccSegmentOverview.off.paved.grey svg,.fpccSegmentOverview.paved.off.future svg{background:#D2DAE3}
 .fpccSegmentOverview.off.paved.yellow svg{background:#FFF9BD}
 .fpccSegmentOverview.off.paved.green svg{background:#85AF90}
 .fpccSegmentOverview.off.paved.olive  svg, .fpccSegmentOverview.pave.tan svg{background:#D3D0B5}
@@ -217,7 +217,7 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 .fpccSegmentOverview.red line{stroke:#EE2D2F}
 .fpccSegmentOverview.orange line{stroke:#F7941E}
 .fpccSegmentOverview.purple line{stroke:#7F58A5}
-.fpccSegmentOverview.grey line,.fpccSegmentOverview.future line{stroke:#58595B}
+.fpccSegmentOverview.grey line,.fpccSegmentOverview.future line{stroke:#9BB0C1}
 .fpccSegmentOverview.yellow line{stroke:#FFF450}
 .fpccSegmentOverview.green line{stroke:#006129}
 .fpccSegmentOverview.olive line, .fpccSegmentOverview.tan line{stroke:#969161}
@@ -229,7 +229,7 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 .fpccSegmentOverview.off.red line{stroke:#F8AD96}
 .fpccSegmentOverview.off.orange line{stroke:#FDD09E}
 .fpccSegmentOverview.off.purple line{stroke:#BFAFD5}
-.fpccSegmentOverview.off.grey line,.fpccSegmentOverview.future line{stroke:#58595B}
+.fpccSegmentOverview.off.grey line,.fpccSegmentOverview.off.future line{stroke:#D2DAE3}
 .fpccSegmentOverview.off.yellow line{stroke:#FFF9BD}
 .fpccSegmentOverview.off.green line{stroke:#85AF90}
 .fpccSegmentOverview.off.olive line, .fpccSegmentOverview.tan line{stroke:#D3D0B5}
@@ -242,13 +242,15 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 .fpccTrails .fpccAccessTo .icon-trail-marker{width:1.5em;height:1.5em;margin-right:.5em;vertical-align:middle;margin-top:-5px}
 
 /*map - trail*/
-path.trail.visible{stroke-width:4;stroke-opacity:1;stroke:#C4D0DB}
+path.trail.visible{stroke-width:3;stroke-opacity:1;stroke:#C4D0DB}
+path.trail.single_track,path.trail.primitive,path.trail.natural_surface{stroke-dasharray:0,8}
+path.trail.unpaved, path.trail.stone{stroke-dasharray:7,9}
 path.trail.invisible{stroke-width:20;stroke-opacity:0}
 path.trail.visible.selected{stroke-width:7}
+path.trail.single_track.selected,path.trail.primitive.selected,path.trail.natural_surface.selected{stroke-dasharray:0,10}
+path.trail.unpaved.selected, path.trail.stone.selected{stroke-dasharray:7,11}
 path.trail.inactive{display:none}
 .z1 path.trail, .z2 path.trail, .z3 path.trail, .z4 path.trail, .z5 path.trail, .z6 path.trail, .z7 path.trail, .z8 path.trail, .z9 path.trail, .z10 path.trail {display:none;}
-path.trail.single_track,path.trail.primitive,path.trail.natural_surface{stroke-dasharray:0,10}
-path.trail.unpaved, path.trail.stone{stroke-dasharray:7,11}
 path.trail.red{stroke:#EE2D2F}
 path.trail.orange{stroke:#F7941E}
 path.trail.purple{stroke:#7F58A5}
@@ -260,7 +262,7 @@ path.trail.olive{stroke:#969161}
 path.trail.brown{stroke:#6C503F}
 path.trail.blue{stroke:#26B8EB}
 path.trail.black{stroke:#333132}
-path.trail.future{stroke:#58595B}
+path.trail.future{stroke:#9BB0C1}
 /*off-FPDCC*/
 path.trail.off_fpdcc{stroke:#C4D0DB}
 path.trail.off_fpdcc.red{stroke:#F8AD96}
@@ -274,20 +276,22 @@ path.trail.off_fpdcc.olive{stroke:#D3D0B5}
 path.trail.off_fpdcc.brown{stroke:#C0ADA1}
 path.trail.off_fpdcc.blue{stroke:#B4DDF5}
 path.trail.off_fpdcc.black{stroke:#ABADAF}
+path.trail.off_fpdcc.future{stroke:#D2DAE3}
 
 /* icons */
 .icon{display:inline-block;width:1em;height:1em;fill:currentColor}
-#icon-ada-restroom .path1,#icon-bike-rental .path1,#icon-drone .path1,#icon-picnic-grove .path1,#icon-model-airplane .path1,#icon-facility .path1,#icon-picnic-grove-shelter .path1,#icon-sledding .path1,#icon-snowmobiling .path1{fill:#684c2b}
-#icon-volunteer .path1,#icon-dog-leash .path1,#icon-birding-hotspot .path1,#icon-boat-rental .path1,#icon-cross-country-skiing .path1,#icon-ecological-management-area .path1,#icon-equestrian .path1,#icon-fishing .path1,#icon-hiking .path1,#icon-ice-fishing .path1,#icon-ice-skating .path1,#icon-model-sailboat .path1,#icon-no-alcohol .path1,#icon-no-fishing .path1,#icon-no-parking .path1,#icon-restroom .path1,#icon-scenic-overlook .path1,#icon-bicycling .path1{fill:#585747}
-#icon-search .path1,#icon-ada-restroom .path2,#icon-ada-restroom .path3,#icon-ada-restroom .path4,#icon-ada-restroom .path5,#icon-aquatic-center .path2,#icon-bike-rental .path2,#icon-bike-rental .path3,#icon-bike-rental .path4,#icon-bike-rental .path5,#icon-bike-rental .path6,#icon-bike-rental .path7,#icon-bike-rental .path8,#icon-boat-launch .path2,#icon-boat-launch .path3,#icon-boat-launch .path4,#icon-camp .path2,#icon-canoe-landing .path2,#icon-canoe-landing .path3,#icon-disc-golf .path2,#icon-facility .path2,#icon-golf-course-driving-range .path2,#icon-model-airplane .path2,#icon-nature-center .path2,#icon-parking .path2,#icon-picnic-grove .path2,#icon-picnic-grove-shelter .path2,#icon-sledding .path2,#icon-snowmobiling .path2,#icon-waterbody .path2,#icon-waterbody .path3,#icon-waterbody .path4,#icon-bicycling .path2,#icon-birding-hotspot .path2,#icon-boat-rental .path2,#icon-boat-rental .path3,#icon-boat-rental .path4,#icon-boat-rental .path5,#icon-boat-rental .path6,#icon-boat-rental .path7,#icon-boat-rental .path8,#icon-boat-rental .path9,#icon-boat-rental .path10,#icon-boat-rental .path11,#icon-boat-rental .path12,#icon-boat-rental .path13,#icon-cross-country-skiing .path2,#icon-ecological-management-area .path2,#icon-equestrian .path2,#icon-equestrian .path3,#icon-fishing .path2,#icon-fishing .path3,#icon-drone .path2,#icon-dog-leash .path2,#icon-dog-leash .path3,#icon-dog-leash .path4,#icon-model-sailboat .path2,#icon-no-alcohol .path2,#icon-no-fishing .path2,#icon-no-parking .path2,#icon-scenic-overlook .path2,#icon-scenic-overlook .path3,#icon-trail-marker .path2,#icon-email .path2,#icon-email .path3,#icon-volunteer .path2,#icon-zip-line .path2,#icon-zip-line .path3,#icon-twitter .path2,#icon-facebook .path2,#icon-x .path1,#icon-restroom .path2,#icon-ice-skating .path2,#icon-ice-fishing .path2,#icon-ice-fishing .path3,#icon-ice-fishing .path4,#icon-hiking .path2,#icon-off-leash-dog-area .path2,#icon-off-leash-dog-area .path3,#icon-off-leash-dog-area .path4,#icon-off-leash-dog-area .path5{fill:#fff}
+#icon-bike-rental .path1,#icon-picnic-grove .path1,#icon-model-airplane .path1,#icon-facility .path1,#icon-picnic-grove-shelter .path1,#icon-sledding .path1,#icon-snowmobiling .path1{fill:#684c2b}
+#icon-ada-restroom .path1,#icon-restroom-building .path1,#icon-restroom-building .path2,#icon-restroom-mobile .path1,#icon-restroom-mobile .path2,#icon-volunteer .path1,#icon-drone .path1,#icon-dog-leash .path1,#icon-birding-hotspot .path1,#icon-boat-rental .path1,#icon-cross-country-skiing .path1,#icon-ecological-management-area .path1,#icon-equestrian .path1,#icon-fishing .path1,#icon-hiking .path1,#icon-ice-fishing .path1,#icon-ice-skating .path1,#icon-model-sailboat .path1,#icon-no-alcohol .path1,#icon-no-fishing .path1,#icon-no-parking .path1,#icon-restroom .path1,#icon-scenic-overlook .path1,#icon-bicycling .path1{fill:#585747}
+#icon-search .path1,#icon-ada-restroom .path2,#icon-ada-restroom .path3,#icon-ada-restroom .path4,#icon-ada-restroom .path5,#icon-restroom-building .path3,#icon-restroom-mobile .path3,#icon-restroom-mobile .path4,#icon-restroom-mobile .path5,#icon-restroom-mobile .path6,#icon-aquatic-center .path2,#icon-bike-rental .path2,#icon-bike-rental .path3,#icon-bike-rental .path4,#icon-bike-rental .path5,#icon-bike-rental .path6,#icon-bike-rental .path7,#icon-bike-rental .path8,#icon-boat-launch .path2,#icon-boat-launch .path3,#icon-boat-launch .path4,#icon-camp .path2,#icon-canoe-landing .path2,#icon-canoe-landing .path3,#icon-disc-golf .path2,#icon-facility .path2,#icon-golf-course-driving-range .path2,#icon-model-airplane .path2,#icon-nature-center .path2,#icon-parking .path3,#icon-picnic-grove .path2,#icon-picnic-grove-shelter .path2,#icon-sledding .path2,#icon-snowmobiling .path2,#icon-waterbody .path2,#icon-waterbody .path3,#icon-waterbody .path4,#icon-bicycling .path2,#icon-birding-hotspot .path2,#icon-boat-rental .path2,#icon-boat-rental .path3,#icon-boat-rental .path4,#icon-boat-rental .path5,#icon-boat-rental .path6,#icon-boat-rental .path7,#icon-boat-rental .path8,#icon-boat-rental .path9,#icon-boat-rental .path10,#icon-boat-rental .path11,#icon-boat-rental .path12,#icon-boat-rental .path13,#icon-cross-country-skiing .path2,#icon-ecological-management-area .path2,#icon-equestrian .path2,#icon-equestrian .path3,#icon-fishing .path2,#icon-fishing .path3,#icon-drone .path2,#icon-dog-leash .path2,#icon-dog-leash .path3,#icon-dog-leash .path4,#icon-model-sailboat .path2,#icon-no-alcohol .path2,#icon-no-fishing .path2,#icon-no-parking .path2,#icon-scenic-overlook .path2,#icon-scenic-overlook .path3,#icon-trail-marker .path2,#icon-email .path2,#icon-email .path3,#icon-volunteer .path2,#icon-rec-center .path2,#icon-twitter .path2,#icon-facebook .path2,#icon-x .path1,#icon-restroom .path2,#icon-ice-skating .path2,#icon-ice-fishing .path2,#icon-ice-fishing .path3,#icon-ice-fishing .path4,#icon-hiking .path2,#icon-off-leash-dog-area .path2,#icon-off-leash-dog-area .path3,#icon-off-leash-dog-area .path4,#icon-off-leash-dog-area .path5{fill:#fff}
 #icon-aquatic-center .path1,#icon-canoe-landing .path1,#icon-boat-launch .path1,#icon-waterbody .path1,#icon-facebook .path1{fill:#0c51a3}
 #icon-disc-golf .path1,#icon-golf-course-driving-range .path1{fill:#2e5122}
 #icon-sign .path1,#icon-sign .path2,#icon-trail-marker .path1{fill:#444}
 #icon-sign .path3,#icon-trail-marker .path3{fill:#8c0000}
 #icon-camp .path1{fill:#922990}
 #icon-nature-center .path1{fill:#ed2124}
-#icon-zip-line .path1,#icon-off-leash-dog-area .path1{fill:#f15822}
-#icon-parking .path1{fill:#4c4231}
+#icon-rec-center .path1,#icon-off-leash-dog-area .path1{fill:#f15822}
+#icon-parking .path1{fill:#d9d9d9}
+#icon-parking .path2{fill:#a5a499}
 #icon-email .path1{fill:#7e9137}
 #icon-twitter .path1{fill:#55acee}
 #icon-arrow .path1{fill:#273719}
@@ -458,7 +462,7 @@ ul.fpccMenuList a:link.last,ul.fpccMenuList a:visited.last{border:none}
 ul.fpccMenuList a:hover,ul.fpccMenuList a:active{background:#666}
 
 /*main.css override*/
-.detailPanel{background-color:#fff;display:block;width:100%;z-index:9100}
+.detailPanel{background-color:#fff;display:block;width:100%;z-index:9100;box-shadow:0 4px 8px 0 rgba(0,0,0,0.2)}
 .trailListColumn .title-row header .navbar-inner .logo{margin:0;width:270px}
 .title-row header .navbar-inner{padding:.35em 0 .5em 0;width:auto;margin:0 42px;position:inherit;border-left:15px solid #444;border-right:15px solid #444}
 #fpccPreserveName .trailName{font-size:20px}
