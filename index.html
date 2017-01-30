@@ -4,21 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/> -->
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta property="og:title" content="Map: Forest Preserves of Cook County" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Map: Forest Preserves of Cook County" />
+    <meta property="fb:app_id" content="1382262871801846" />
+    <meta property="og:description" content="Explore this interactive map of the Forest Preserves of Cook County&mdash;nearly 70,000 acres of woodlands, prairies, savannas and wetlands in &amp; around Chicago" />
+    <meta property="og:image" content="images/poi-photos/map-social-sharing.png" /> <meta property="og:image:secure_url" content="images/poi-photos/map-social-sharing.png" />
+    <meta name="twitter:card" content="summary_large_image" /> 
+    <meta name="twitter:title" content="Map: Forest Preserves of Cook County" />
+    <meta name="twitter:creator" content="@FPDCC" />
+    <meta name="twitter:site" content="@FPDCC" />
+    <meta name="twitter:image" content="images/poi-photos/map-social-sharing.png" />
+    <meta name="description" content="Explore this interactive map of the Forest Preserves of Cook County&mdash;nearly 70,000 acres of woodlands, prairies, savannas and wetlands in &amp; around Chicago" />
+    <title>Map: Forest Preserves of Cook County</title>
 
-    <meta name="description" content="">
-    <meta name="author" content="Code For Boulder">
-    <link rel="icon" type="image/ico" href="img/AppIcons/favicon.ico">
-    <title>Trailsy</title>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css" />
+    <link rel="stylesheet" href="node_modules/leaflet-usermarker/src/leaflet.usermarker.css"/>
+    <link rel="stylesheet" type="text/css" href="node_modules/selectize/dist/css/selectize.css" />
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="http://getbootstrap.com/examples/sticky-footer-navbar/sticky-footer-navbar.css">
-    <link rel="stylesheet" href="node_modules/bootstrap-drawer/dist/css/bootstrap-drawer.css">
-    <link rel="stylesheet" href="styles/css/cover.css"/>
-    <link rel="stylesheet" href="styles/css/trailsy.css"/>
+    <link rel="stylesheet" href="styles/css/newguts.css"/>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -27,71 +34,117 @@
     <![endif]-->
 </head>
 <body>
-    <div class="site-wrapper">
-        <div class="site-wrapper-inner brown-bg" style="padding-top: 0">
-            <div class="cover-container">
-
-              <div class="masthead clearfix brown-bg">
-                      <div class="masthead-brand">
-                          <div class="trailsy-brand">
-                              <span>TO THE</span>
-                              <span class="fancy-serif">TRAILS</span>
-                          </div>
-                          <div id="triangle-right"></div>
-                          <div class="trailsy-brand-inverse">Boulder County</div>
-                      </div>
-
-                      <nav class="navbar navbar-inverse navbar-tight brown-bg" role="navigation">
-                          <ul class="nav masthead-nav">
-                              <li>
-                                  <span class="navbar-form navbar-form-tight" role="search">
-                                      <div class="input-group">
-                                          <input id="search" type="text" class="form-control" placeholder="Search Trails">
-                                            <span class="input-group-btn">
-                                              <button class="btn btn-default slate-thin-border glyphicon glyphicon-search very-top"
-                                                      type="button" onclick="trailMap.filterTrailheads($('#search').val())"/>
-                                              <button class="btn btn-default slate-thin-border very-top" type="button"
-                                                      onclick="$('#search').val(''); trailMap.clearFilters()">Clear Search</button>
-                                              </span>
-                                      </div>
-                                  </span>
-                              </li>
-                          </ul>
-                      </nav>
-                <!--<span class="navbar-form">-->
-                    <!--<div class="btn-group">-->
-                        <!--<button type="button" class="btn btn-success">Find by Length</button>-->
-                        <!--<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                            <!--<span class="caret"></span>-->
-                            <!--<span class="sr-only">Toggle Dropdown</span>-->
-                        <!--</button>-->
-                        <!--<ul class="dropdown-menu">-->
-                            <!--<li><a href="#">Up to 2 Miles</a></li>-->
-                            <!--<li><a href="#">2 to 5 Miles</a></li>-->
-                            <!--<li><a href="#">5 to 10 Miles</a></li>-->
-                            <!--<li><a href="#">Over 10 Miles</a></li>-->
-                        <!--</ul>-->
-                    <!--</div>-->
-                <!--</span>-->
-
-                          <!--</div>-->
-                      <!--</nav>-->
-              </div>
-
-
+  <div id="desktop">
+    <div id="main" class="row">
+      <section id="fpccBrandMobile" class="fpccMobile">
+        <a href="" class="fpccMobileBrand"><span>Forest Preserves</span> of Cook County</a>
+        <a class="fpccMobileHamburger" href="">
+          <span></span>
+          <span></span>
+          <span class="last"></span>
+        </a> 
+        <div class="fpccMobileSwitch">
+          <label class="fpccSwitch">
+            <div class="fppcSwitchBackground">
+              <input id="fpccMobileCheckbox" type="checkbox">
+              <span class="fpccFlipMap">Map</span>
+              <div class="fpccSlider"></div>
+              <span class="fpccFlipList">List</span>
             </div>
-
-<div id="container" class="brown-bg has-inner-drawer">
-    <div id="trailMapLarge"/>
-</div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script src="node_modules/bootstrap-drawer/dist/js/drawer.js"></script>
-<script src="bundle.js"></script>
-
+          </label>
         </div>
-</div>
+      </section>
+      <section id="fpccTrailListColumn" class="trailListColumn expanded">
+        <div id="fpccBrand" class="title-row desktopTitle">
+          <div class="fpccMenu">
+            <a class="hamburger" href="#">
+              <span></span>
+              <span></span>
+              <span class="last"></span>
+            </a> 
+          </div>
+          <ul class="fpccMenuList hide"> 
+            <li><a href="http://fpdcc.com/" target="_blank">Back to fpdcc.com</a></li>
+            <li><a href="#about">About / Contact</a></li>
+            <li><a class="last" href="https://script.google.com/macros/s/AKfycby6fEFxi92eh152A7x4iPy6tRjevGbpRgCUTTaKNMBfwqdDHVvZ/exec" target="_blank">Give Feedback</a></li>
+          </ul>
+          <header>
+            <div class="navbar-inner">
+              <a id="logo-link" href=""><img class="logo" src="images/fpcc-map-logo.gif"></a>
+            </div>
+          </header>
+        </div>
+        <div id="fpccMainContainer" class="expanded">
+          <div id="fpccSearchContainer" class="fpccUnit">
+            <form>
+              <select id="fpccSearchSelect" class="js-example-basic-multiple filter fpccSearchbox" data-filter="activityFilter" multiple="multiple">
+                <optgroup label="Popular">
+                  <option value="hiking">Hiking / Walking / Running</option>
+                  <option value="cycling">Biking</option>
+                  <option value="nature_center">Nature Center</option>
+                  <option value="camping">Camping</option>
+                  <option value="picnic_grove">Picnic / Event Space</option>
+                  <option value="volunteer">Volunteering</option>
+                  <option value="dog_leash">Dogs (with leash only)</option>
+                  <option value="dog_friendly">Dog Park</option>
+                  <option value="canoe">Canoeing / Kayaking / Boating</option>
+                </optgroup>
+                <optgroup label="Everything">
+                  <option value="bike_rental">Bike Rental</option>
+                  <option value="birding">Birding</option>
+                  <option value="boat_rental">Boat Rental</option>
+                  <option value="cross_country">Cross-Country Skiing</option>
+                  <option value="disc_golf">Disc Golf</option>
+                  <option value="drone">Drone Flying</option>
+                  <option value="fishing">Fishing</option>
+                  <option value="golf">Golfing</option>
+                  <option value="equestrian">Horse Riding</option>
+                  <option value="ice_fishing">Ice Fishing</option>
+                  <option value="skating_ice">Ice Skating</option>
+                  <option value="indoor_rental">Indoor Event Space</option>
+                  <option value="m_airplane">Model Airplane Flying</option>
+                  <option value="m_boat">Model Sailboat</option>
+                  <option value="sledding">Sledding</option>
+                  <option value="snowmobile">Snowmobiling</option>
+                  <option value="swimming">Swimming</option>
+                  <option value="zip_line">Zip Line / Treetop Adventure</option>
+                </optgroup>
+              </select>
+            </form>
+            <button class="fpccButton" id="fpccSearchButton"><svg class="icon icon-search"><use xlink:href="icons/defs.svg#icon-search"></use></svg><span>Search</span></button>
+          </div>
+          <div id="fpccSearchStatus"></div>
+          <div id="fpccSearchResults" class="fpccResults fpccUnit">
+            <div class="loader"></div>
+          </div>
+        </div>
+        <div id="fpccSearchBack">
+          <a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg>
+            Back to List</a>
+        </div>
+        <div id="fpccDetailPanel" class="detailPanel">
+          <div id="fpccPreserveName" class="detailPanelBanner">
+            <span id="fpccTrailName" class="trailName"></span>
+            <svg class="icon icon-x closeDetail"><use xlink:href="icons/defs.svg#icon-x"></use></svg>
+          </div>
+          <div id="fpccPreserveInfo" class="detailPanelBody">
+            <div id="fpccContainer" class="fpccContainer"></div>
+          </div>
+        </div>
+      </section>
+      <div id="fpccMobileSearchButton"><svg class="icon icon-search"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-search"></use></svg></div>
+      <section class="trailMapContainer">
+        <!-- <div id="crosshair"></div> -->
+        <div id="trailMapLarge"></div>
+        <div class="offsetZoomControl">
+          <a class="offsetZoomIn">+</a>
+          <a class="offsetZoomOut">&mdash;</a>
+          <a class="offsetGeolocate" style="display:none;">&nbsp;</a>
+        </div>
+      </section>   
+    </div>
+  </div>
+  <script src="bundle.js"></script>
 
 </body>
 </html>

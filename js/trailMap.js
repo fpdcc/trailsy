@@ -25,6 +25,8 @@ var trailMap = function() {
   var activities = activitiesFeature();
   var tData = trailData();
 
+  var currentTrailheads = null;
+
   thLayer.setOpenTrailFeature(tHeads);
   acLayer.setOpenTrailFeature(activities);
 
@@ -50,12 +52,15 @@ var trailMap = function() {
     thLayer.removeFrom(map);
     thLayer.clear();
     var ftr = tData.fetchTrailheads(_buildTrailheads);
+    console.log("isfetchingTrailheads = " + tData.trailheadsFetched);
     tData.fetchTrailSegments(_addTrailSegmentsData);
     var trnm = tData.fetchTrailNames(_addTrailNames);
     tData.fetchActivities(_buildActivities);
-    $.when(ftr, trnm).done(function(ftr, trnm) {
+    console.log("isfetchingTrailheads = " + tData.trailheadsFetched);
+    $.when(tData.trailheadsFetched, tData.trailSegmentsFetched).done(function(ftr, trnm) {
       // Handle both XHR objects
-      console.log("Done getting data for trailheads and trailnames at " + performance.now());
+      
+      console.log("Done getting data for trailheads and trail segments at " + performance.now());
     });
   };
 
@@ -124,9 +129,18 @@ var trailMap = function() {
 
   function _buildTrailheadLayers () {
     var layers = thLayer.build();
+    currentTrailheads = null;
     for (var i in layers) {
+      currentTrailheads = layers[i];
       map.addLayer(layers[i]);
     }
+    _testLayer();
+  }
+
+  function _testLayer () {
+    currentTrailheads.eachLayer(function (layer) {
+      console.log("layer properties = " + layer.feature.properties.name);
+    });
   }
 
   function _buildTrailheads (geoJson) {

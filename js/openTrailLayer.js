@@ -9,8 +9,11 @@ var openTrailLayer = function(spec) {
 
     that.build = function () {
         var geoJsonArray = openTrailFeature.getGeoJson();
+        console.log("[openTrailLayer.build] start");
+        console.log("[openTrailLayer geoJsonArray.length = " + geoJsonArray.length);
         for (var i in geoJsonArray) {
             var geoJson = geoJsonArray[i];
+            console.log("[openTrailLayer.build] count = " + i);
             if (spec.layerOptions != null) {
                 layers.push(L.geoJson(geoJson.features, spec.layerOptions));
             }

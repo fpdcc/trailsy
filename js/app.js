@@ -1,3 +1,6 @@
-var trailMap = require('./trailMap.js');
-window.trailMap = trailMap();
-window.trailMap.fetchTrailheads();
+var $ = require('jquery')
+require('jquery-address')
+var trailMap = require('./map.js')
+var selectize = require('selectize')
+window.trailMap = trailMap()
+window.trailMap.fetchData()
