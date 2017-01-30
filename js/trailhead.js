@@ -1634,7 +1634,7 @@ function startup() {
         //var thisSecondaryTrail = feature.properties.secondary_trail_ids[0];
         var thisTrailType = feature.properties.trail_type;
     
-        var thisClassName = 'visible trail segment-' + feature.id + ' ' + feature.properties.trail_color.toLowerCase() + ' ' + thisTrailType.replace(/ /g, "_") + ' system-' + feature.properties.trail_subsystem.replace(/ /g, "_");
+        var thisClassName = 'visible trail segment-' + feature.id + ' ' + feature.properties.trail_color.toLowerCase() + ' ' + thisTrailType.replace(/ /g, "_") + ' system-' + feature.properties.trail_subsystem.replace(/[& ]/g, "_");
         if (feature.properties.off_fpdcc == 'y') {
           thisClassName += ' off_fpdcc';
         }
@@ -1645,8 +1645,8 @@ function startup() {
         allVisibleSegmentsArray.push(layer);
         //console.log("[visibleAllTrailLayer onEachFeature] feature.id = " + feature.id);
         allVisibleSegmentLayer.addLayer(layer);
-        segmentObject[feature.properties.trail_subsystem.replace(/ /g, "_")] = segmentObject[feature.properties.trail_subsystem.replace(/ /g, "_")] || [];
-        segmentObject[feature.properties.trail_subsystem.replace(/ /g, "_")].push(layer);
+        segmentObject[feature.properties.trail_subsystem.replace(/[& ]/g, "_")] = segmentObject[feature.properties.trail_subsystem.replace(/[& ]/g, "_")] || [];
+        segmentObject[feature.properties.trail_subsystem.replace(/[& ]/g, "_")].push(layer);
       
       }
     });
@@ -2059,6 +2059,7 @@ function startup() {
     }
     setTimeout(function(){
       console.log("trailDivWork setTimeout");
+      console.log('trailDivWork trailSubsystem= ' + trailSubsystem)
       var trailsGroupBounds = highlightTrailSegmentsForTrailSubsystem(trailSubsystem);
       var trailheadGroupBounds = highlightTrailhead(trailheadId);
       var zoomFeatureGroupBounds = null;
@@ -3085,6 +3086,7 @@ function startup() {
     $('path.trail.selected').removeClass('selected');
     var currentHighlightedSegmentLayer = null;
     var zoomBounds = null;
+    console.log('highlightTrailSegmentsForTrailSubsystem trailSubsystem = ' + trailSubsystem)
     if (trailSubsystem) {
       trailSubsystem = trailSubsystem.replace(/[& ]/g, '_');
       $('path.trail.visible.system-' + trailSubsystem).addClass('selected');
