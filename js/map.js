@@ -5,7 +5,7 @@ require('./vendor/leaflet.zoomcss.js')
 require('leaflet-boundsawarelayergroup')
 require('leaflet.markercluster')
 require('jquery-address')
-// require('svgxuse')
+require('svgxuse')
 var Config = require('./config.js')
 var poiFeature = require('./poiFeature.js')
 var trailSegmentFeature = require('./trailSegmentFeature.js')
@@ -89,7 +89,7 @@ var trailMap = function () {
   $('#fpccSearchButton').on(Config.listenType, that.processSearch)
   
   // $('.usePoi').on(Config.listenType, that.testClick)
-  
+
   map.on('zoomend', function (e) {
     console.log('zoomend start ' + map.getZoom())
     // var zoomLevel = map.getZoom()
