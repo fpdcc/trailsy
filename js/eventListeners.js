@@ -38,12 +38,22 @@ var events = function (map) {
     $('#fpccMobileCheckbox').click(my.panel.showfpccMainContainer)
     $('.detailPanelBanner').click(detailPanelBannerClick)
   }
-  map.on('popupopen', function popupOpenHandler (e) {
-    $('.trailhead-trailname').click(trailDivClickHandler) // Open the detail panel!
-    $('.popupTrailheadNames').click(poiPopupNameClick)
-  })
+  
 
-  var poiPopupNameClick = function () {
+  that.poiPopupNameClick = function () {
+    my.panel.slideDetailPanel(true)
+  }
+
+  that.poiPopupTrailClick = function (e) {
+    var $myTarget = $(e.currentTarget)
+    var trailSubsystemName = $myTarget.attr('data-trailname')
+    var trailSubsystemNormalizedName = trailSubsystemName.replace(/[& ]/g, '+')
+    console.log('[poiPopupTrailClick] trailSubsystemNormalizedName = ' + trailSubsystemNormalizedName)
+    that.segmentClick(trailSubsystemNormalizedName)
+    my.panel.slideDetailPanel(true)
+  }
+
+  that.trailPopupNameClick = function () {
     my.panel.slideDetailPanel(true)
   }
 
