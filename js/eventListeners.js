@@ -38,7 +38,6 @@ var events = function (map) {
     $('#fpccMobileCheckbox').click(my.panel.showfpccMainContainer)
     $('.detailPanelBanner').click(detailPanelBannerClick)
   }
-  
 
   that.poiPopupNameClick = function () {
     my.panel.slideDetailPanel(true)

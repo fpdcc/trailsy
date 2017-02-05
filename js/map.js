@@ -78,7 +78,7 @@ var trailMap = function () {
   map.on('popupopen', function popupOpenHandler (e) {
     $('.trailhead-trailname').click(events.poiPopupTrailClick) // Open the detail panel!
     $('.popupTrailheadNames').click(events.poiPopupNameClick)
-    $('.trail-popup-line').click(events.trailPopupNameClick)
+    $('.trail-popup-line.trail-subsystem').click(events.trailPopupNameClick)
   })
 
   L.tileLayer('https://api.mapbox.com/styles/v1/fpdcc/cixjcxjvf000h2sml8k9cr18o/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZnBkY2MiLCJhIjoiY2l4amNtaGxjMDAwMzMzbXVucGYxdGtjbyJ9.u1Ttdy3_4xWYFdBvqKYcZA').addTo(map)
