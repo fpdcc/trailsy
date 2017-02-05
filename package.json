@@ -11,7 +11,8 @@
     "jquery": "^3.1.1",
     "leaflet": "^1.0.3",
     "leaflet-providers": "^1.1.0",
-    "leaflet-usermarker": "^1.0.0"
+    "leaflet-usermarker": "^1.0.0",
+    "svgxuse": "^1.2.1"
   },
   "devDependencies": {
     "jasmine-core": "^2.3.4",
