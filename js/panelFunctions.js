@@ -278,8 +278,7 @@ var panelFuncs = function (map) {
          // bike_rental = Bike Rental
         if (poi.properties.tags[':panel'].indexOf('bike_rental') > -1 ) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-bike-rental'><use xlink:href='icons/defs.svg#icon-bike-rental'></use></svg><span class='fpccAmenityTitle'>Bike Rental</span></div>"
-        }        
-        
+        }
           // boat_ramp = Boat Launch
         if (poi.properties.tags[':panel'].indexOf('boat_ramp') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-boat-launch'><use xlink:href='icons/defs.svg#icon-boat-launch'></use></svg><span class='fpccAmenityTitle'>Boat Launch</span></div>"
@@ -289,7 +288,6 @@ var panelFuncs = function (map) {
         if (poi.properties.tags[':panel'].indexOf('boat_rental') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-boat-rental'><use xlink:href='icons/defs.svg#icon-boat-rental'></use></svg><span class='fpccAmenityTitle'>Boat Rental</span></div>"
         }
-        
           // camping = Campground
         if (poi.properties.tags[':panel'].indexOf('camping') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-camp'><use xlink:href='icons/defs.svg#icon-camp'></use></svg><span class='fpccAmenityTitle'>Campground</span></div>"
@@ -299,7 +297,6 @@ var panelFuncs = function (map) {
         if (poi.properties.tags[':panel'].indexOf('canoe') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-canoe-landing'><use xlink:href='icons/defs.svg#icon-canoe-landing'></use></svg><span class='fpccAmenityTitle'>Canoe Landing</span></div>"
         }
-        
         // disc_golf = Disc Golf
         if (poi.properties.tags[':panel'].indexOf('disc_golf') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-disc-golf'><use xlink:href='icons/defs.svg#icon-disc-golf'></use></svg><span class='fpccAmenityTitle'>Disc Golf</span></div>"
@@ -308,13 +305,11 @@ var panelFuncs = function (map) {
         //  dog_friendly = Off-Leash Dog Area
         if (poi.properties.tags[':panel'].indexOf('dog_friendly') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-off-leash-dog-area'><use xlink:href='icons/defs.svg#icon-off-leash-dog-area'></use></svg><span class='fpccAmenityTitle'>Off-Leash Dog Area</span></div>"
-        }   
-        
+        }
         // golf = Golf
         if (poi.properties.tags[':panel'].indexOf('golf') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-golf-course-driving-range'><use xlink:href='icons/defs.svg#icon-golf-course-driving-range'></use></svg><span class='fpccAmenityTitle'>Golf</span></div>"
         }
-        
         //  driving_range = Driving Range
         if (poi.properties.tags[':panel'].indexOf('driving_range') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-golf-course-driving-range'><use xlink:href='icons/defs.svg#icon-golf-course-driving-range'></use></svg><span class='fpccAmenityTitle'>Driving Range</span></div>"
@@ -333,7 +328,6 @@ var panelFuncs = function (map) {
         if (poi.properties.tags[':panel'].indexOf('nature_center') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-nature-center'><use xlink:href='icons/defs.svg#icon-nature-center'></use></svg><span class='fpccAmenityTitle'>Nature Center</span></div>"
         }
-        
         // picnic_grove = Picnic Grove
         if (poi.properties.tags[':panel'].indexOf('picnic_grove') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity picnic-grove'><svg class='icon icon-picnic-grove'><use xlink:href='icons/defs.svg#icon-picnic-grove'></use></svg><span class='fpccAmenityTitle'>Picnic Grove</span></div>"
@@ -343,7 +337,6 @@ var panelFuncs = function (map) {
         if (poi.properties.tags[':panel'].indexOf('shelter') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-picnic-grove-shelter'><use xlink:href='icons/defs.svg#icon-picnic-grove-shelter'></use></svg><span class='fpccAmenityTitle'>Picnic Grove (with shelter)</span></div>"
         }
-        
         // public_building = Public Building
         if (poi.properties.tags[':panel'].indexOf('public_building') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity public-building'><svg class='icon icon-facility'><use xlink:href='icons/defs.svg#icon-facility'></use></svg><span class='fpccAmenityTitle'>Public Building</span></div>"
@@ -363,20 +356,18 @@ var panelFuncs = function (map) {
         if (poi.properties.tags[':panel'].indexOf('swimming') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-aquatic-center'><use xlink:href='icons/defs.svg#icon-aquatic-center'></use></svg><span class='fpccAmenityTitle'>Aquatic Center</span></div>"
         }
-         
-        // zip_line = Zip Line
-        if (poi.properties.tags[':panel'].indexOf('zip_line') > -1) {
-          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-zip-line'><use xlink:href='icons/defs.svg#icon-zip-line'></use></svg><span class='fpccAmenityTitle'>Treetop Adventure</span></div>"
+
+        // rec_center = Special Activity / Swallow Cliff Stairs, GoApe, Sullivan Barn
+        if (poi.properties.tags[':panel'].indexOf('recreation_center') > -1) {
+          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-rec-center'><use xlink:href='icons/defs.svg#icon-rec-center'></use></svg><span class='fpccAmenityTitle'>Special Activity</span></div>"
         }
-        
-        
+
         // Activities/Amenities NOT on map
-        
+
         // birding = Birding Hotspot
         if (poi.properties.tags[':panel'].indexOf('birding') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-birding-hotspot'><use xlink:href='icons/defs.svg#icon-birding-hotspot'></use></svg><span class='fpccAmenityTitle'>Birding Hotspot</span></div>"
         }
-        
         // cycling = Bicycling
         if (poi.properties.tags[':panel'].indexOf('cycling') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-bicycling'><use xlink:href='icons/defs.svg#icon-bicycling'></use></svg><span class='fpccAmenityTitle'>Bicycling</span></div>"
@@ -426,22 +417,18 @@ var panelFuncs = function (map) {
         if (poi.properties.tags[':panel'].indexOf('no_alcohol') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-no-alcohol'><use xlink:href='icons/defs.svg#icon-no-alcohol'></use></svg><span class='fpccAmenityTitle'>No Alcohol</span></div>"
         }
-
         // no_fishing = No Fishing
         if (poi.properties.tags[':panel'].indexOf('no_fishing') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-no-fishing'><use xlink:href='icons/defs.svg#icon-no-fishing'></use></svg> <span class='fpccAmenityTitle'>No Fishing</span></div>"
         }
-         
         // overlook = Scenic Overlook
         if (poi.properties.tags[':panel'].indexOf('overlook') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-scenic-overlook'><use xlink:href='icons/defs.svg#icon-scenic-overlook'></use></svg><span class='fpccAmenityTitle'>Scenic Overlook</span></div>"
         }
-
         // pavilion = Pavilion/Event Space
-        if (poi.properties.tags[':panel'].indexOf('pavilion') > -1) {
-         fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-facility'><use xlink:href='icons/defs.svg#icon-facility'></use></svg><span class='fpccAmenityTitle'>Indoor Facility</span></div>"
-        }
-
+        // if (poi.properties.tags[':panel'].indexOf('pavilion') > -1) {
+        //  fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-facility'><use xlink:href='icons/defs.svg#icon-facility'></use></svg><span class='fpccAmenityTitle'>Indoor Facility</span></div>"
+        // }
         // skating_ice = Ice Skating
         if (poi.properties.tags[':panel'].indexOf('skating_ice') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-ice-skating'><use xlink:href='icons/defs.svg#icon-ice-skating'></use></svg><span class='fpccAmenityTitle'>Ice Skating</span></div>"
@@ -451,23 +438,55 @@ var panelFuncs = function (map) {
         if (poi.properties.tags[':panel'].indexOf('volunteer') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-volunteer'><use xlink:href='icons/defs.svg#icon-volunteer'></use></svg><span class='fpccAmenityTitle'>Volunteer Opportunities</span></div>"
         }
-        
 
         // nature_preserve = Nature Preserve
         if (poi.properties.tags[':panel'].indexOf('nature_preserve') > -1) {
-          naturePreserveString = '<div class="fpccNP clearfix" target="_blank"><a href="http://fpdcc.com/illinois-nature-preserves/" target="_blank"><img src="images/idnr-np-logo.png" width="75" height="65" alt="Illinois Nature Preserves Commission Logo"></a><p>This is an Illinois Nature Preserve&mdashone of the highest quality natural lands in the state. This designation includes increased levels of legal protection and management. <a href="http://fpdcc.com/illinois-nature-preserves/" target="_blank">Learn more &gt</a></p></div>'
+          naturePreserveString = '<div class="fpccNP clearfix" target="_blank"><a href="http://fpdcc.com/illinois-nature-preserves/" target="_blank"><img src="images/idnr-np-logo.png" width="75" height="65" alt="Illinois Nature Preserves Commission Logo"></a><p>This land is designated as one of the highest quality natural areas in the state by the Illinois Nature Preserves Commission. This status includes increased levels of legal protection and management. <a href="http://fpdcc.com/illinois-nature-preserves/" target="_blank">Learn more &gt;</a></p></div>'
         }
 
-        if ((poi.properties.tags[':panel'].indexOf('picnic_grove') > -1) || (poi.properties.tags[':panel'].indexOf('shelter') > -1)) {
-        tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/permits/">Picnic &amp Event Permits</a></li>'
+        // tagLinks
+        if ((poi.properties.tags[':panel'].indexOf("cycling") > -1)) {
+          tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/bicycling/">Biking</a></li>'
         }
-        if ((poi.properties.tags[':panel'].indexOf('boat_ramp') > -1) || (poi.properties.tags[':panel'].indexOf('boat_rental') > -1) || (poi.properties.tags[':panel'].indexOf('canoe') > -1)) {
-          tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/boating/">Boating Information</a></li>'
+        if ((poi.properties.tags[':panel'].indexOf("birding") > -1)) {
+          tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/birding/">Birding</a></li>'
         }
-        if ((poi.properties.tags[':panel'].indexOf('fishing') > -1)) {
-          tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/fishing/">Fishing Information</a></li>'
+        if ((poi.properties.tags[':panel'].indexOf("boat_ramp") > -1) || (poi.properties.tags[':panel'].indexOf("boat_rental") > -1) || (poi.properties.tags[':panel'].indexOf("canoe") > -1)) {
+            tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/boating/">Boating</a></li>'
         }
-
+        if ((poi.properties.tags[':panel'].indexOf("camping") > -1)) {
+          tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/camping/">Camping</a></li>'
+        }
+        if ((poi.properties.tags[':panel'].indexOf("cross_country") > -1)) {
+          tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/cross-county-skiing/">Cross-Country Skiing</a></li>'
+        }
+        if ((poi.properties.tags[':panel'].indexOf("dog_leash") > -1) || (poi.properties.tags[':panel'].indexOf("dog_friendly") > -1)) {
+          tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/dogs/">Dogs</a></li>'
+        }
+        if ((poi.properties.tags[':panel'].indexOf("equestrian") > -1)) {
+          tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/equestrian/">Equestrian</a></li>'
+        }
+        if ((poi.properties.tags[':panel'].indexOf("fishing") > -1) || (poi.properties.tags[':panel'].indexOf("ice_fishing") > -1)) {
+          tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/fishing/">Fishing</a></li>'
+        }
+        if ((poi.properties.tags[':panel'].indexOf("hiking") > -1)) {
+        tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/hiking/">Hiking</a></li>'
+        }
+        if ((poi.properties.tags[':panel'].indexOf("m_airplane") > -1) || (poi.properties.tags[':panel'].indexOf("drone") > -1)) {
+          tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/model-airplane-drone/">Model Airplanes &amp; Drones</a></li>'
+        }
+        if ((poi.properties.tags[':panel'].indexOf("picnic_grove") > -1) || (poi.properties.tags[':panel'].indexOf("shelter") > -1)) {
+          tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/permits/">Picnic &amp; Event Permits</a></li>'
+        }
+        if ((poi.properties.tags[':panel'].indexOf("sledding") > -1)) {
+          tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/sledding/">Sledding</a></li>'
+        }
+        if ((poi.properties.tags[':panel'].indexOf("snowmobile") > -1)) {
+          tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/snowmobiling/">Snowmobiling</a></li>'
+        }
+        if ((poi.properties.tags[':panel'].indexOf("swimming") > -1)) {
+          tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/aquatic-centers/">Swimming</a></li>'
+        }
       }
       if (poi.properties.special_link) {
         fpccAmenitiesString += '<a href="' + poi.properties.special_link + '" class="fpccSpecialDesc" target="_blank"><span class="fpccSpecialBlurb">' + poi.properties.special_description + '</span><span class="fpccSpecialIcon"><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg></span></a>'

@@ -94,6 +94,8 @@ var trailSegmentFeature = function (map) {
     for (var i = 0; i < numSegments; i++) {
       // console.log("numSegments loop");
       var invisLayer = allInvisibleSegmentsArray[i]
+      var visLayer = allVisibleSegmentsArray[i]
+      visLayer.type = 'visible'
       // make a FeatureGroup including both visible and invisible components
       // var newTrailFeatureGroup = new L.FeatureGroup([allVisibleSegmentsArray[i]]);
 
@@ -177,11 +179,11 @@ var trailSegmentFeature = function (map) {
 
   var segmentStyle = function (feature) {
     var thisColor = getColor(feature.properties.trail_color.toLowerCase(), feature.properties.off_fpdcc)
-    var thisWeight = 4
+    var thisWeight = 3
     var thisOpacity = 1
     var thisClickable = false
     var thisSmoothFactor = 2.0
-    var thisDash = getDashArray(feature.properties.trail_type.replace(/ /g, '_'))
+    var thisDash = that.getDashArray(feature.properties.trail_type.replace(/ /g, '_'), false)
     var thisTrailType = feature.properties.trail_type
     return {color: thisColor, weight: thisWeight, dashArray: thisDash, clickable: thisClickable, smoothFactor: thisSmoothFactor}
   }
@@ -191,7 +193,7 @@ var trailSegmentFeature = function (map) {
       return color === 'red' ? '#F8AD96'
           : color === 'orange' ? '#FDD09E'
           : color === 'purple' ? '#BFAFD5'
-          : color === 'grey' ? '#58595B'
+          : color === 'grey' ? '#D2DAE3'
           : color === 'yellow' ? '#FFF9BD'
           : color === 'green' ? '#85AF90'
           : color === 'tan' ? '#D3D0B5'
@@ -199,12 +201,13 @@ var trailSegmentFeature = function (map) {
           : color === 'brown' ? '#C0ADA1'
           : color === 'blue' ? '#B4DDF5'
           : color === 'black' ? '#ABADAF'
+          : color === 'future' ? '#D2DAE3'
           : '#C4D0DB'
     } else {
       return color === 'red' ? '#EE2D2F'
           : color === 'orange' ? '#F7941E'
           : color === 'purple' ? '#7F58A5'
-          : color === 'grey' ? '#58595B'
+          : color === 'grey' ? '#9BB0C1'
           : color === 'yellow' ? '#FFF450'
           : color === 'green' ? '#006129'
           : color === 'tan' ? '#969161'
@@ -212,17 +215,22 @@ var trailSegmentFeature = function (map) {
           : color === 'brown' ? '#6C503F'
           : color === 'blue' ? '#26B8EB'
           : color === 'black' ? '#333132'
-          : color === 'future' ? '#58595B'
+          : color === 'future' ? '#9BB0C1'
           : '#C4D0DB'
     }
   }
 
-  var getDashArray = function (trailType) {
-    return trailType === 'single_track' ? '0,10'
-        : trailType === 'primitive' ? '0,10'
-        : trailType === 'natural_surface' ? '0,10'
-        : trailType === 'unpaved' ? '7,11'
-        : trailType === 'stone' ? '7,11'
+  that.getDashArray = function (trailType, highlighted) {
+    return trailType === 'single_track' && !highlighted ? '0,8'
+        : trailType === 'primitive' && !highlighted ? '0,8'
+        : trailType === 'natural_surface' && !highlighted ? '0,8'
+        : trailType === 'unpaved' && !highlighted ? '7,9'
+        : trailType === 'stone' && !highlighted ? '7,9'
+        : trailType === 'single_track' && highlighted ? '0,10'
+        : trailType === 'primitive' && highlighted ? '0,10'
+        : trailType === 'natural_surface' && highlighted ? '0,10'
+        : trailType === 'unpaved' && highlighted ? '7,11'
+        : trailType === 'stone' && highlighted ? '7,11'
         : ''
   }
 

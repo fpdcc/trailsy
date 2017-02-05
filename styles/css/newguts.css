@@ -190,7 +190,7 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 .fpccSegmentOverview.paved.red svg{background:#EE2D2F}
 .fpccSegmentOverview.paved.orange svg{background:#F7941E}
 .fpccSegmentOverview.paved.purple svg{background:#7F58A5}
-.fpccSegmentOverview.paved.grey svg,.fpccSegmentOverview.paved.future svg{background:#58595B}
+.fpccSegmentOverview.paved.grey svg,.fpccSegmentOverview.paved.future svg{background:#9BB0C1}
 .fpccSegmentOverview.paved.yellow svg{background:#FFF450}
 .fpccSegmentOverview.paved.green svg{background:#006129}
 .fpccSegmentOverview.paved.olive  svg, .fpccSegmentOverview.pave.tan svg{background:#969161}
@@ -203,7 +203,7 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 .fpccSegmentOverview.off.paved.red svg{background:#F8AD96}
 .fpccSegmentOverview.off.paved.orange svg{background:#FDD09E}
 .fpccSegmentOverview.off.paved.purple svg{background:#BFAFD5}
-.fpccSegmentOverview.off.paved.grey svg,.fpccSegmentOverview.paved.future svg{background:#58595B}
+.fpccSegmentOverview.off.paved.grey svg,.fpccSegmentOverview.off.paved.future svg{background:#D2DAE3}
 .fpccSegmentOverview.off.paved.yellow svg{background:#FFF9BD}
 .fpccSegmentOverview.off.paved.green svg{background:#85AF90}
 .fpccSegmentOverview.off.paved.olive  svg, .fpccSegmentOverview.pave.tan svg{background:#D3D0B5}
@@ -475,7 +475,7 @@ ul.fpccMenuList a:hover,ul.fpccMenuList a:active{background:#666}
 /*leaflet override*/
 .leaflet-popup-tip{background:#606D29}
 .leaflet-popup-content-wrapper{border-radius:0px;width:auto;min-width:12em;height:auto;padding:0}
-.leaflet-popup-content-wrapper .leaflet-popup-content{font-family:Helvetica,Arial,sans-serif;border-bottom:2px solid #606D29;color:#333;min-width:10em;width:auto;height:auto;margin:0;position:relative;background-color:#fff;font-size:13px;line-height:1.5}
+.leaflet-popup-content-wrapper .leaflet-popup-content{font-family:Helvetica,Arial,sans-serif;border-bottom:2px solid #606D29;color:#333;min-width:10em;width:auto;height:auto;margin:0;position:relative;background-color:#fff;font-size:13px;line-height:1.5;text-transform:capitalize}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup{width:auto;min-width:14em;position:relative}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box{width:100%;position:relative;display:inline-block;height:auto}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames{position:relative;display:inline-block;background-color:#fff;height:auto;width:100%;max-width:200px;overflow-y:hidden;min-width:12em;color:#58595b;text-decoration:none;text-transform:capitalize; vertical-align:bottom;font-weight:bold;padding:.5em .75em;border:none;color:#333}

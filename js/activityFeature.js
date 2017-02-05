@@ -87,6 +87,7 @@ var activityFeature = function (map) {
           : activityType === 'bicycle rental' ? 'icon-bike-rental'
           : activityType === 'boating center' ? 'icon-boat-rental'
           : activityType === 'boat launch' ? 'icon-boat-launch'
+          : activityType === 'boat rental' ? 'icon-boat-rental'
           : activityType === 'canoe landing' ? 'icon-canoe-landing'
           : activityType === 'dog park' ? 'icon-off-leash-dog-area'
           : activityType === 'drone' ? 'icon-drone'
@@ -98,6 +99,7 @@ var activityFeature = function (map) {
           : activityType === 'model airplane flying field' ? 'icon-model-airplane'
           : activityType === 'nature center' ? 'icon-nature-center'
           : activityType === 'pavilion' ? 'icon-facility'
+          : activityType === 'recreation center' ? 'icon-rec-center'
           : activityType === 'recreational waterbody' ? 'icon-waterbody'
           : activityType === 'sledding' ? 'icon-sledding'
           : activityType === 'snowmobiling' ? 'icon-snowmobiling'
@@ -105,9 +107,8 @@ var activityFeature = function (map) {
           : activityType === 'trailhead' ? 'icon-trail-marker'
           : activityType === 'volunteer center' ? 'icon-facility'
           : activityType === 'warming shelter' ? 'icon-facility'
-          : activityType === 'welcome shelter' ? 'icon-facility'
+          : activityType === 'welcome center' ? 'icon-facility'
           : activityType === 'zipline' ? 'icon-zip-line'
-          : activityType === 'recreation center' ? 'icon-zip-line'
           : 'icon-sign'
   }
 

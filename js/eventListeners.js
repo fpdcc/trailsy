@@ -40,7 +40,7 @@ var events = function (map) {
     $('.offsetZoomControl').click(offsetZoomIn)
     // $('.usePoi').on(Config.listenType, that.testClick)
   }
-  
+
   var offsetZoomIn = function (e) {
     // get map center lat/lng
     // convert to pixels
@@ -289,7 +289,14 @@ var events = function (map) {
       console.log('[events highlightSegmentsForSubsystem] there is a current currentHighlightedSubsystem')
       var oldSegments = my.tsFeat.segmentTrailSubsystemObject[my.tsFeat.currentHighlightedSubsystem]
       $.each(oldSegments, function (i, el) {
-        el.setStyle({weight: 4})
+        el.eachLayer(function (layer) {
+          if (layer.type === 'visible') {
+            layer.setStyle({
+              weight: 3,
+              dashArray: my.tsFeat.getDashArray(layer.feature.properties.trail_type, false)
+            })
+          }
+        })
       })
       my.tsFeat.currentHighlightedSubsystem = null
     }
@@ -297,7 +304,14 @@ var events = function (map) {
       trailSubsystem = trailSubsystem.replace(/[& ]/g, '+')
       var segments = my.tsFeat.segmentTrailSubsystemObject[trailSubsystem]
       $.each(segments, function (i, el) {
-        el.setStyle({weight: 7})
+        el.eachLayer(function (layer) {
+          if (layer.type === 'visible') {
+            layer.setStyle({
+              weight: 7,
+              dashArray: my.tsFeat.getDashArray(layer.feature.properties.trail_type, true)
+            })
+          }
+        })
       })
       if (segments) {
         var currentHighlightedSegmentLayer = new L.FeatureGroup(segments)
