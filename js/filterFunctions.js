@@ -6,7 +6,6 @@ var trailExcludes = require('./trailExcludes.js')
 var locationsZipCode = require('./locationsZipCode.js')
 var locationsMuni = require('./locationsMuni.js')
 
-
 var filterFunctions = function (map) {
   var that = {}
   var currentUserLocation = null
@@ -28,7 +27,7 @@ var filterFunctions = function (map) {
   window.onload = function () {
     // that.setHeights()
     // $('.closeDetail').click(readdSearchURL)
-    $('#fpccMobileCheckbox').click(my.panel.showfpccMainContainer)
+    $('#fpccMobileCheckbox').on(Config.listenType, my.panel.showfpccMainContainer)
   }
 
   that.setCurrentUserLocation = function (userLocation) {

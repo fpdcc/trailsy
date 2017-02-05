@@ -86,7 +86,7 @@ var geolocationFunctions = function (map, filters, poiFeat, events) {
     // If user location exists, turn on geolocation button
     if (geoLocateAttempt === 0) {
       $('.offsetGeolocate').show()
-      $('.offsetGeolocate').click(geolocateClick)
+      $('.offsetGeolocate').on(Config.listenType, geolocateClick)
     }
     geoLocateAttempt = 1
     // console.log(currentUserLocation);
@@ -130,7 +130,7 @@ var geolocationFunctions = function (map, filters, poiFeat, events) {
     var noGeolocationOverlayHTML = "<span class='closeOverlay'>x</span><p>We weren't able to get your current location, so we'll give you trailhead distances from the center of Cook County."
     $('.overlay-panel').html(noGeolocationOverlayHTML)
     $('.overlay').show()
-    $('.overlay-panel').click(function () {
+    $('.overlay-panel').on(Config.listenType, function () {
       $('.overlay').hide()
     })
   }

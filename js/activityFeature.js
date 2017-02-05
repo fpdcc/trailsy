@@ -69,7 +69,7 @@ var activityFeature = function (map) {
       marker.popupContent = popupContentMainDivHTML
       // console.log('activity marker.icon= ' + marker.icon)
       marker.bindPopup(marker.popupContent)
-      marker.on('click', (function (activity) {
+      marker.on(Config.listenType, (function (activity) {
         return function () {
           events.activityClick(activity)
         }

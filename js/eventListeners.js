@@ -32,11 +32,16 @@ var events = function (map) {
 
   window.onload = function () {
     // that.setHeights()
-    $('.closeDetail').click(that.closeDetailPanel)
-    $('#fpccSearchBack').click(that.closeDetailPanel) // .click(readdSearchURL)
-    $('#fpccMobileSearchButton').click(that.closeDetailPanel)
-    $('#fpccMobileCheckbox').click(my.panel.showfpccMainContainer)
-    $('.detailPanelBanner').click(detailPanelBannerClick)
+    $('#fpccSearchBack').on(Config.listenType, that.closeDetailPanel) // .click(readdSearchURL)
+    $('#fpccMobileSearchButton').on(Config.listenType, that.closeDetailPanel)
+    $('#fpccMobileCheckbox').on(Config.listenType, my.panel.showfpccMainContainer)
+    $('.detailPanelBanner').on(Config.listenType, detailPanelBannerClick)
+    $('.closeDetail').on(Config.listenType, that.closeDetailPanel)
+    // $('.usePoi').on(Config.listenType, that.testClick)
+  }
+
+  that.testClick = function (e) {
+    console.log('edge test in event"')
   }
 
   that.poiPopupNameClick = function () {
@@ -71,6 +76,7 @@ var events = function (map) {
 
   that.closeDetailPanel = function () {
     console.log('events.closeDetailPanel')
+    console.log('events.closeDetailPanel Config.listenType = ' + Config.listenType)
     my.panel.toggleDetailPanel('close')
     setTimeout(function () {
       map.closePopup()
@@ -81,7 +87,7 @@ var events = function (map) {
 
   that.makeResults = function (open) {
     panel.makeTrailDivs(my.poiFeat, my.filters, open)
-    $('.fpccEntry').click(that.trailDivClickHandler)
+    $('.fpccEntry').on(Config.listenType, that.trailDivClickHandler)
   }
 
   that.trailDivClickHandler = function (e) {

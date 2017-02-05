@@ -140,7 +140,7 @@ var trailSegmentFeature = function (map) {
       invisLayer.feature.properties.popupHTML = popupHTML
       var eventType = 'click'
 
-      newTrailFeatureGroup.addEventListener('click', function featureGroupEventListener(invisLayer) {
+      newTrailFeatureGroup.addEventListener(Config.listenType, function featureGroupEventListener(invisLayer) {
         return function newMouseover (e) {
           setTimeout(function openTimeoutFunction (originalEvent, target) {
             return function () {

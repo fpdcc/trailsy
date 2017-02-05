@@ -3,8 +3,9 @@ var L = require('leaflet')
 var $ = require('jquery')
 require('./vendor/leaflet.zoomcss.js')
 require('leaflet-boundsawarelayergroup')
+require('leaflet.markercluster')
 require('jquery-address')
-require('svgxuse')
+// require('svgxuse')
 var Config = require('./config.js')
 var poiFeature = require('./poiFeature.js')
 var trailSegmentFeature = require('./trailSegmentFeature.js')
@@ -85,7 +86,8 @@ var trailMap = function () {
 
   // $('.closeDetail').click(events.closeDetailPanel) // .click(readdSearchURL)
   $('.fpccSearchbox').change(function (e) { that.processSearch(e) })
-  $('#fpccSearchButton').click(that.processSearch)
+  $('#fpccSearchButton').on(Config.listenType, that.processSearch)
+  // $('.usePoi').on(Config.listenType, that.testClick)
 
   map.on('zoomend', function (e) {
     console.log('zoomend start ' + map.getZoom())
@@ -94,9 +96,9 @@ var trailMap = function () {
     console.log('zoomend end ' + map.getZoom())
   })
   map.on('popupopen', function popupOpenHandler (e) {
-    $('.trailhead-trailname').click(events.poiPopupTrailClick) // Open the detail panel!
-    $('.popupTrailheadNames').click(events.poiPopupNameClick)
-    $('.trail-popup-line.trail-subsystem').click(events.trailPopupNameClick)
+    $('.trailhead-trailname').on(Config.listenType, events.poiPopupTrailClick) // Open the detail panel!
+    $('.popupTrailheadNames').on(Config.listenType, events.poiPopupNameClick)
+    $('.trail-popup-line.trail-subsystem').on(Config.listenType, events.trailPopupNameClick)
   })
 
   L.tileLayer('https://api.mapbox.com/styles/v1/fpdcc/cixjcxjvf000h2sml8k9cr18o/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZnBkY2MiLCJhIjoiY2l4amNtaGxjMDAwMzMzbXVucGYxdGtjbyJ9.u1Ttdy3_4xWYFdBvqKYcZA',
@@ -123,19 +125,29 @@ var trailMap = function () {
         console.log('[externalChange] no searchTerm')
         var fitToSearchResults = true
         var openResults = true
-        if (filters.current.poi) {
-          events.trailDivWork(null, filters.current.poi)
-          fitToSearchResults = false
-          openResults = false
-        } else if (filters.current.trail) {
-          events.trailDivWork(filters.current.trail, null)
-          fitToSearchResults = false
-          openResults = false
-        }
-        filterAll(fitToSearchResults, openResults)
+        geoFunctions.geoSetupDone.done(function () {
+          if (filters.current.poi) {
+            events.trailDivWork(null, filters.current.poi)
+            fitToSearchResults = false
+            openResults = false
+          } else if (filters.current.trail) {
+            events.trailDivWork(filters.current.trail, null)
+            fitToSearchResults = false
+            openResults = false
+          }
+          filterAll(fitToSearchResults, openResults)
+        })
       }
     })
   })
+
+  that.testClick = function (e) {
+     console.log('edge listen click')
+    var $myTarget = $(e.currentTarget)
+    var myId = $myTarget.attr('id')
+    console.log('isEdge myId = ' + myId)
+  }
+
 
   var filterAll = function (fitToSearchResults, openResults) {
     console.log('[filterAll] start')
@@ -160,6 +172,9 @@ var trailMap = function () {
             })
           }
           poiFeat.filteredPoisFeatureGroup.addTo(map)
+          //if (Config.isEdge) {
+          // $('.usePoi').on(Config.listenType, that.testClick)
+          //}
         }
         if (activityFeat.filteredFG) {
           activityFeat.filteredFG.addTo(map)
@@ -171,6 +186,7 @@ var trailMap = function () {
     })
   }
 
+  
   that.processSearch = function (e) {
     // $("#fpccSearchResults").html(loaderDiv)
     var $currentTarget = $(e.currentTarget)

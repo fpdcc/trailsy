@@ -2,6 +2,7 @@
 var L = require('leaflet')
 var $ = require('jquery')
 require('leaflet-boundsawarelayergroup')
+require('leaflet.markercluster')
 var Config = require('./config.js')
 var eL = require('./eventListeners.js')
 
@@ -56,7 +57,7 @@ var poiFeature = function (map) {
       var currentFeatureLatLng = new L.LatLng(currentGeoOne, currentGeoTwo)
       var trailheadIcon = L.divIcon({
         className: 'icon-sign icon-map poi-' + currentFeature.properties.id,
-        html: '<svg class="icon icon-map icon-sign" id="poi-' + currentFeature.properties.id + '" ><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>',
+        html: '<svg class="icon icon-map icon-sign" id="poi-' + currentFeature.properties.id + '" ><use class="usePoi" id="poi-' + currentFeature.properties.id + '" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>',
         // iconAnchor: [13 * 0.60, 33 * 0.60],
         iconAnchor: [15, 20],
         popupAnchor: [15, 0],
@@ -88,8 +89,9 @@ var poiFeature = function (map) {
       }
       popupContentMainDivHTML = popupContentMainDivHTML + '</div>'
       marker.popupContent = popupContentMainDivHTML
-      marker.on('click', (function (poi) {
+      marker.on(Config.listenType, (function (poi) {
         return function () {
+          console.log('poi marker listenType = ' + Config.listenType)
           events.poiClick(poi)
         }
       })(marker))
@@ -168,9 +170,29 @@ var poiFeature = function (map) {
       }
     }
     that.reorderPois(filters)
-    that.filteredPoisFeatureGroup = new L.FeatureGroup(that.filteredPoisArray, {
-      makeBoundsAware: true
-    }) // .addTo(map)
+    that.filteredPoisFeatureGroup = L.markerClusterGroup({
+      disableClusteringAtZoom: 13,
+      spiderfyOnMaxZoom: false,
+      maxClusterRadius: 60,
+      iconCreateFunction: function (cluster) {
+        return L.divIcon({
+          className: 'icon-sign icon-map cluster-count' + cluster.getChildCount(),
+          html: '<svg class="icon icon-map icon-sign" ><use class="usePoi" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>',
+          // iconAnchor: [13 * 0.60, 33 * 0.60],
+          iconAnchor: [15, 20],
+          popupAnchor: [15, 0],
+          iconSize: null
+          // iconSize: [52 * 0.60, 66 * 0.60] // size of the icon
+        })
+      }
+      // showCoverageOnHover: false,
+      // zoomToBoundsOnClick: false
+    })
+    that.filteredPoisFeatureGroup.addLayers(that.filteredPoisArray)
+    // new L.FeatureGroup(that.filteredPoisArray, {
+    //  makeBoundsAware: true
+    // }) // .addTo(map)
+    that.filteredPoisFeatureGroup.addTo(map)
     return that.filteredPoisFeatureGroup
   }
 
