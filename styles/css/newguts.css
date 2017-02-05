@@ -242,38 +242,7 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 .fpccTrails .fpccAccessTo .icon-trail-marker{width:1.5em;height:1.5em;margin-right:.5em;vertical-align:middle;margin-top:-5px}
 
 /*map - trail*/
-path.trail.visible{stroke-width:4;stroke-opacity:1;stroke:#C4D0DB}
-path.trail.invisible{stroke-width:20;stroke-opacity:0}
-path.trail.visible.selected{stroke-width:7}
-path.trail.inactive{display:none}
-.z1 path.trail, .z2 path.trail, .z3 path.trail, .z4 path.trail, .z5 path.trail, .z6 path.trail, .z7 path.trail, .z8 path.trail, .z9 path.trail, .z10 path.trail {display:none;}
-path.trail.single_track,path.trail.primitive,path.trail.natural_surface{stroke-dasharray:0,10}
-path.trail.unpaved, path.trail.stone{stroke-dasharray:7,11}
-path.trail.red{stroke:#EE2D2F}
-path.trail.orange{stroke:#F7941E}
-path.trail.purple{stroke:#7F58A5}
-path.trail.grey{stroke:#58595B}
-path.trail.yellow{stroke:#FFF450}
-path.trail.green{stroke:#006129}
-path.trail.tan{stroke:#969161}
-path.trail.olive{stroke:#969161}
-path.trail.brown{stroke:#6C503F}
-path.trail.blue{stroke:#26B8EB}
-path.trail.black{stroke:#333132}
-path.trail.future{stroke:#58595B}
-/*off-FPDCC*/
-path.trail.off_fpdcc{stroke:#C4D0DB}
-path.trail.off_fpdcc.red{stroke:#F8AD96}
-path.trail.off_fpdcc.orange{stroke:#FDD09E}
-path.trail.off_fpdcc.purple{stroke:#BFAFD5}
-path.trail.off_fpdcc.grey{stroke:#58595B}
-path.trail.off_fpdcc.yellow{stroke:#FFF9BD}
-path.trail.off_fpdcc.green{stroke:#85AF90}
-path.trail.off_fpdcc.tan{stroke:#D3D0B5}
-path.trail.off_fpdcc.olive{stroke:#D3D0B5}
-path.trail.off_fpdcc.brown{stroke:#C0ADA1}
-path.trail.off_fpdcc.blue{stroke:#B4DDF5}
-path.trail.off_fpdcc.black{stroke:#ABADAF}
+/* map trail styling now handled through javascript since we are using canvas rendering
 
 /* icons */
 .icon{display:inline-block;width:1em;height:1em;fill:currentColor}
