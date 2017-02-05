@@ -185,8 +185,6 @@ var poiFeature = function (map) {
           // iconSize: [52 * 0.60, 66 * 0.60] // size of the icon
         })
       }
-      // showCoverageOnHover: false,
-      // zoomToBoundsOnClick: false
     })
     that.filteredPoisFeatureGroup.addLayers(that.filteredPoisArray)
     // new L.FeatureGroup(that.filteredPoisArray, {

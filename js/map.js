@@ -87,8 +87,9 @@ var trailMap = function () {
   // $('.closeDetail').click(events.closeDetailPanel) // .click(readdSearchURL)
   $('.fpccSearchbox').change(function (e) { that.processSearch(e) })
   $('#fpccSearchButton').on(Config.listenType, that.processSearch)
+  
   // $('.usePoi').on(Config.listenType, that.testClick)
-
+  
   map.on('zoomend', function (e) {
     console.log('zoomend start ' + map.getZoom())
     // var zoomLevel = map.getZoom()

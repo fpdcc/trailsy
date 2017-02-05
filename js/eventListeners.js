@@ -37,8 +37,35 @@ var events = function (map) {
     $('#fpccMobileCheckbox').on(Config.listenType, my.panel.showfpccMainContainer)
     $('.detailPanelBanner').on(Config.listenType, detailPanelBannerClick)
     $('.closeDetail').on(Config.listenType, that.closeDetailPanel)
+    $('.offsetZoomControl').click(offsetZoomIn)
     // $('.usePoi').on(Config.listenType, that.testClick)
   }
+  
+  var offsetZoomIn = function (e) {
+    // get map center lat/lng
+    // convert to pixels
+    // add offset
+    // convert to lat/lng
+    // setZoomAround to there with currentzoom + 1
+    var centerLatLng = map.getCenter()
+    // var centerPoint = map.latLngToContainerPoint(centerLatLng);
+    // var offset = centerOffset;
+    // var offsetCenterPoint = centerPoint.add(offset.divideBy(2));
+    // var offsetLatLng = map.containerPointToLatLng(offsetCenterPoint);
+    if ($(e.target).hasClass('offsetZoomIn')) {
+      map.setZoomAround(centerLatLng, map.getZoom() + 1)
+    } else if ($(e.target).hasClass('offsetZoomOut')) {
+      map.setZoomAround(centerLatLng, map.getZoom() - 1)
+    }
+    // else if ($(e.target).hasClass("offsetGeolocate")) {
+    //   // console.log('Centering on geolocaton');
+    //   var userPoint = map.latLngToContainerPoint(currentUserLocation);
+    //   var offsetUserLocation = userPoint.subtract(offset.divideBy(2));
+    //   var offsetUserLatLng = map.containerPointToLatLng(offsetUserLocation);
+    //   map.setView(offsetUserLatLng, map.getZoom());
+    // }
+  }
+
 
   that.testClick = function (e) {
     console.log('edge test in event"')
