@@ -32,12 +32,35 @@ var events = function (map) {
 
   window.onload = function () {
     // that.setHeights()
-    $('.closeDetail').click(closeDetailPanel)
+    $('.closeDetail').click(that.closeDetailPanel)
+    $('#fpccSearchBack').click(that.closeDetailPanel) // .click(readdSearchURL)
+    $('#fpccMobileSearchButton').click(that.closeDetailPanel)
     $('#fpccMobileCheckbox').click(my.panel.showfpccMainContainer)
+    $('.detailPanelBanner').click(detailPanelBannerClick)
   }
-  // .click(readdSearchURL) // Close the detail panel!
+  map.on('popupopen', function popupOpenHandler (e) {
+    $('.trailhead-trailname').click(trailDivClickHandler) // Open the detail panel!
+    $('.popupTrailheadNames').click(poiPopupNameClick)
+  })
 
-  var closeDetailPanel = function () {
+  var poiPopupNameClick = function () {
+    my.panel.slideDetailPanel(true)
+  }
+
+  var detailPanelBannerClick = function (e) {
+    console.log('detailPanelBannerClick')
+    if ($(e.target).parents('.detailPanel').is(':visible')) {
+      if ($(e.target).parents('.detailPanel').hasClass('contracted')) {
+        console.log('[detailPanelBannerClick] parent has contracted. Run slideDetailPanel2(false)')
+        my.panel.slideDetailPanel(true)
+      } else {
+        console.log('[detailPanelBannerClick] parent does not have contracted')
+        my.panel.slideDetailPanel(false)
+      }
+    }
+  }
+
+  that.closeDetailPanel = function () {
     console.log('events.closeDetailPanel')
     my.panel.toggleDetailPanel('close')
     setTimeout(function () {
@@ -47,8 +70,8 @@ var events = function (map) {
     }, 0)
   }
 
-  that.makeResults = function () {
-    panel.makeTrailDivs(my.poiFeat, my.filters)
+  that.makeResults = function (open) {
+    panel.makeTrailDivs(my.poiFeat, my.filters, open)
     $('.fpccEntry').click(that.trailDivClickHandler)
   }
 
@@ -172,6 +195,9 @@ var events = function (map) {
     // }
     var zoomArray = []
     $('.leaflet-marker-icon.selected').removeClass('selected')
+    my.poiFeat.current = null
+    my.actFeat.setSelected(null)
+    my.pgFeat.highlight(null)
     if (poi) {
       my.poiFeat.current = poi
       zoomArray.push(my.poiFeat.current)
@@ -190,19 +216,16 @@ var events = function (map) {
         .setLatLng(my.poiFeat.current.getLatLng())
         .openOn(my.map)
       }
-      var activityArray = my.actFeat.originalActivitiesObject[my.poiFeat.current.properties.id]
-      $.each(activityArray, function (i, el) {
-        el.setIcon(el.selectedIcon)
-      })
-      if (my.actFeat.originalActivitiesObject[my.poiFeat.current.properties.id]) {
-        zoomArray = zoomArray.concat(my.actFeat.originalActivitiesObject[my.poiFeat.current.properties.id])
+      var activitySelectedFG = my.actFeat.setSelected(poi.properties.id)
+      if (activitySelectedFG) {
+        zoomArray = zoomArray.concat(activitySelectedFG)
       }
-      if (my.pgFeat.originalObject[my.poiFeat.current.properties.id]) {
-        zoomArray = zoomArray.concat(my.pgFeat.originalObject[my.poiFeat.current.properties.id])
+      var picnicgroveSelectedFG = my.pgFeat.highlight(poi.properties.id)
+      if (picnicgroveSelectedFG) {
+        zoomArray = zoomArray.concat(picnicgroveSelectedFG)
       }
     } else {
       my.map.closePopup()
-      my.poiFeat.current = null
     }
     var zoomFeatureGroup = new L.FeatureGroup(zoomArray)
     var zoomBounds = zoomFeatureGroup.getBounds()
@@ -217,6 +240,7 @@ var events = function (map) {
   }
 
   that.highlightSegmentsForSubsystem = function (trailSubsystem) {
+    var t0 = performance.now()
     console.log('[events highlightSegmentsForSubsystem] start trailSubsystem = ' + trailSubsystem)
     var zoomBounds = null
     if (my.tsFeat.currentHighlightedSubsystem) {
@@ -239,7 +263,8 @@ var events = function (map) {
       }
       my.tsFeat.currentHighlightedSubsystem = trailSubsystem
     }
-    console.log('[events highlightSegmentsForSubsystem] end')
+    var t1 = performance.now()
+    console.log('[events highlightSegmentsForSubsystem end] time', (t1-t0).toFixed(4), 'milliseconds');
     return zoomBounds
   }
 

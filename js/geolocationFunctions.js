@@ -4,7 +4,7 @@ var $ = require('jquery')
 var Config = require('./config.js')
 require('leaflet-usermarker')
 
-var geolocationFunctions = function (map, filters) {
+var geolocationFunctions = function (map, filters, poiFeat, events) {
   var that = {}
 
   that.currentUserLocation = null
@@ -80,6 +80,7 @@ var geolocationFunctions = function (map, filters) {
     // If user location exists, turn on geolocation button
     if (that.useGeo) {
       $('.offsetGeolocate').show()
+      $('.offsetGeolocate').click(geolocateClick)
     }
     // console.log(currentUserLocation);
     userMarker.setLatLng(filters.current.userLocation)
@@ -89,12 +90,19 @@ var geolocationFunctions = function (map, filters) {
     console.log('[setupGeolocation handleGeoSuccess] DONE')
   }
 
+  var geolocateClick = function () {
+    console.log('geolocateClick start')
+    map.panTo(filters.current.userLocation)
+    poiFeat.reorderPois(filters)
+    events.makeResults(false)
+  }
+
   function handleGeoError (error, callback) {
     console.log('handleGeoError')
     console.log('[handleGeoError] ' + error)
     if (!filters.current.userLocation) {
       console.log('[setupGeolocation handleGeoError] currentUserLocation does not exist')
-      filters.current.userLocation = Config.mapCenter
+      filters.current.userLocation = L.LatLng(Config.mapCenter)
       showGeoOverlay()
     }
     if (map && userMarker && error.code === 3) {

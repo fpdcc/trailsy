@@ -12,6 +12,7 @@ var activityFeature = function (map) {
   that.originalActivitiesCreated = $.Deferred()
   // that.filteredActivitiesArray = [];
   that.filteredFG = null
+  that.selectedFG = null
   that.fetchActivities = function () {
     $.getJSON(Config.activityEndpoint, function () {
       console.log('Successfully started fetching Activities at ' + performance.now())
@@ -40,11 +41,11 @@ var activityFeature = function (map) {
         className: 'icon-map icon-activity activity-' + currentFeature.properties.id + ' ' + iconType + ' poi-' + currentFeature.properties.poi_info_id,
         html: '<svg class="icon icon-map icon-activity ' + iconType + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg><br />',
         iconAnchor: [13 * 0.60, 33 * 0.60],
-        popupAnchor: [0, -20],
+        popupAnchor: [15, 0],
         iconSize: null
       })
       var selectedIcon = L.divIcon({
-        className: 'icon-map icon-activity activity-' + currentFeature.properties.id + ' ' + iconType + ' poi-' + currentFeature.properties.poi_info_id,
+        className: 'icon-map icon-activity selected activity-' + currentFeature.properties.id + ' ' + iconType + ' poi-' + currentFeature.properties.poi_info_id,
         html: '<svg class="icon icon-map icon-activity ' + iconType + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg><br />',
         iconAnchor: [13 * 0.60, 33 * 0.60],
         popupAnchor: [0, -20],
@@ -66,7 +67,7 @@ var activityFeature = function (map) {
       marker.properties = currentFeature.properties
       marker.geometry = currentFeature.geometry
       marker.popupContent = popupContentMainDivHTML
-      console.log('activity marker.icon= ' + marker.icon)
+      // console.log('activity marker.icon= ' + marker.icon)
       marker.bindPopup(marker.popupContent)
       marker.on('click', (function (activity) {
         return function () {
@@ -126,10 +127,32 @@ var activityFeature = function (map) {
     that.filteredFG = new L.FeatureGroup(filteredFGArray, {
       makeBoundsAware: true,
       minZoom: 13
-    }).addTo(map)
+    }) // .addTo(map)
     console.log('[filterActivity] end at: ' + performance.now())
   }
 
+  that.setSelected = function (poiId) {
+    var t0 = performance.now()
+    console.log('[act.setSelected] poiId= ' + poiId + ' at ' + t0)
+    if (that.selectedFG) {
+      that.selectedFG.eachLayer(function (layer) {
+        console.log('[act.setSelected] layer.mainIcon= ' + layer.mainIcon)
+        layer.setIcon(layer.mainIcon)
+      })
+      that.selectedFG = null
+    }
+    var poiActivityFG = that.originalActivitiesObject[poiId]
+    if (poiActivityFG) {
+      that.selectedFG = poiActivityFG
+      that.selectedFG.eachLayer(function (layer) {
+        console.log('[act.setSelected] layer.selectedIcon= ' + layer.selectedIcon)
+        layer.setIcon(layer.selectedIcon)
+      })
+    }
+    var t1 = performance.now()
+    console.log('[[act.setSelected end] time', (t1-t0).toFixed(4), 'milliseconds')
+    return that.selectedFG
+  }
   return that
 }
 

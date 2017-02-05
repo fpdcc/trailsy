@@ -15,7 +15,6 @@ var filterFunctions = require('./filterFunctions.js')
 var eventListeners = require('./eventListeners.js')
 var panelFunctions = require('./panelFunctions.js')
 
-
 var trailMap = function () {
   var that = {}
   var elementId = 'trailMapLarge'
@@ -30,11 +29,13 @@ var trailMap = function () {
   var picnicgroveFeat = picnicgroveFeature(map)
   var tInfo = trailInfo(map)
   var filters = filterFunctions(map)
-  var geoFunctions = geolocationFunctions(map, filters)
+  // var geoFunctions = geolocationFunctions(map, filters, poiFeat)
   var pSetup = panelFunctions.setup(map, filters, poiFeat, tSegment, activityFeat, picnicgroveFeat, tInfo)
   var panel = panelFunctions.panelFuncs(map)
   var eSetup = eventListeners.setup(map, panel, filters, poiFeat, tSegment, activityFeat, picnicgroveFeat, tInfo)
   var events = eventListeners.events(map)
+  var geoFunctions = geolocationFunctions(map, filters, poiFeat, events)
+
   // var lastZoom = null
 
   var $select = $('.js-example-basic-multiple').selectize({
@@ -64,14 +65,18 @@ var trailMap = function () {
     }
   })
 
-  $('.closeDetail').click(events.closeDetailPanel) // .click(readdSearchURL)
-  $('#fpccSearchBack').click(events.closeDetailPanel) // .click(readdSearchURL)
+  // $('.closeDetail').click(events.closeDetailPanel) // .click(readdSearchURL)
+  $('.fpccSearchbox').change(function (e) { that.processSearch(e) })
+  $('#fpccSearchButton').click(that.processSearch)
 
   map.on('zoomend', function (e) {
     console.log('zoomend start ' + map.getZoom())
     // var zoomLevel = map.getZoom()
     // lastZoom = zoomLevel
     console.log('zoomend end ' + map.getZoom())
+  })
+  map.on('popupopen', function popupOpenHandler (e) {
+    // $('.trailhead-trailname').click(trailnameClick) // Open the detail panel!
   })
 
   L.tileLayer('https://api.mapbox.com/styles/v1/fpdcc/cixjcxjvf000h2sml8k9cr18o/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZnBkY2MiLCJhIjoiY2l4amNtaGxjMDAwMzMzbXVucGYxdGtjbyJ9.u1Ttdy3_4xWYFdBvqKYcZA').addTo(map)
@@ -89,10 +94,27 @@ var trailMap = function () {
   $.address.autoUpdate(0)
   $.address.externalChange(function (event) {
     console.log('[address] externalChange event = ' + event.parameters)
-    filterAll()
+    var searchTerm = filters.addressChange()
+    poiSegmentsReady.done(function () {
+      if (!searchTerm) {
+        console.log('[externalChange] no searchTerm')
+        var fitToSearchResults = true
+        var openResults = true
+        if (filters.current.poi) {
+          events.trailDivWork(null, filters.current.poi)
+          fitToSearchResults = false
+          openResults = false
+        } else if (filters.current.trail) {
+          events.trailDivWork(filters.current.trail, null)
+          fitToSearchResults = false
+          openResults = false
+        }
+        filterAll(fitToSearchResults, openResults)
+      }
+    })
   })
 
-  var filterAll = function () {
+  var filterAll = function (fitToSearchResults, openResults) {
     console.log('[filterAll] start')
     poiSegmentsReady.done(function () {
       console.log('[$.when readyToFilter] start at: ' + performance.now())
@@ -101,9 +123,43 @@ var trailMap = function () {
       activitiesReady.done(function () {
         activityFeat.filterActivity(poiFeat.filteredPoisArray)
       })
-      events.makeResults()
-      // panel.makeTrailDivs(poiFeat, filters)
+      events.makeResults(openResults)
+      if (poiFeat.filteredPoisFeatureGroup) {
+        if (fitToSearchResults) {
+          var zoomFeatureGroupBounds = poiFeat.filteredPoisFeatureGroup.getBounds()
+          map.fitBounds(zoomFeatureGroupBounds, {
+            // padding: allPadding
+            // paddingTopLeft: centerOffset
+          })
+        }
+        poiFeat.filteredPoisFeatureGroup.addTo(map)
+      }
+      if (activityFeat.filteredFG) {
+        activityFeat.filteredFG.addTo(map)
+      }
+      if (tSegment.filteredFG && filters.current.trailOnMap) {
+        tSegment.filteredFG.addTo(map)
+      }
     })
+  }
+
+  that.processSearch = function (e) {
+    // $("#fpccSearchResults").html(loaderDiv)
+    var $currentTarget = $(e.currentTarget)
+    console.log('[processSearch]')
+    var currentUIFilterState
+    var searchKeyTimeout
+    currentUIFilterState = $('#desktop .fpccSearchbox').val()
+    filters.setCurrent(currentUIFilterState)
+    var openResults = true
+    if (filters.current.fromURL && (filters.current.poi || filters.current.trail)) {
+      openResults = false
+    } else {
+      events.closeDetailPanel()
+      // panel.addSearchURL()
+    }
+    filters.current.fromURL = false
+    filterAll(true, openResults)
   }
 
   that.fetchData = function () {
@@ -114,8 +170,6 @@ var trailMap = function () {
     picnicgroveFeat.fetchPicnicgroves()
     geoFunctions.setupGeolocation()
   }
-
-
 
   return that
 }

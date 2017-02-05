@@ -3,28 +3,24 @@ var L = require('leaflet')
 var $ = require('jquery')
 var Config = require('./config.js')
 var eL = require('./eventListeners.js')
+var map
+var filters
+var panel
+var poiFeat
+var tsFeat
+var actFeat
+var pgFeat
+var trailInfo
+var events
 
-
-var my = {
-    map: null,
-    filters: null,
-    panel: null,
-    poiFeat: null,
-    tsFeat: null,
-    actFeat: null,
-    pgFeat: null,
-    trailInfo: null,
-    events: null
-}
-
-var setup = function (map, filters, poiFeature, trailSegmentFeature, activityFeature, picnicgroveFeature, trailInfo) {
-  my.map = map
-  my.filters = filters
-  my.poiFeat = poiFeature
-  my.tsFeat = trailSegmentFeature
-  my.actFeat = activityFeature
-  my.pgFeat = picnicgroveFeature
-  my.trailInfo = trailInfo
+var setup = function (myMap, myFilters, myPoiFeature, myTrailSegmentFeature, myActivityFeature, myPicnicgroveFeature, myTrailInfo) {
+  map = myMap
+  filters = myFilters
+  poiFeat = myPoiFeature
+  tsFeat = myTrailSegmentFeature
+  actFeat = myActivityFeature
+  pgFeat = myPicnicgroveFeature
+  trailInfo = myTrailInfo
 }
 
 var panelFuncs = function (map) {
@@ -35,7 +31,6 @@ var panelFuncs = function (map) {
 
   window.onload = function () {
     that.setHeights()
-    //$('.closeDetail').click(testCloseDetail)
   }
 
   var testCloseDetail = function () {
@@ -78,12 +73,15 @@ var panelFuncs = function (map) {
     console.log('[setHeights] #fpccPreserveInfoHeight= ' + fpccPreserveInfoHeight)
   }
 
-  that.makeTrailDivs = function (poiFeat, filters) {
+  that.makeTrailDivs = function (poiFeat, filters, open) {
     console.log('makeTrailDivs start')
     var trailList = {} // used to see if trail div has been built yet.
     var divCount = 0
     var topLevelID = 'desktop'
-    that.toggleResultsList('open')
+    if (open) {
+      map.closePopup()
+      that.toggleResultsList('open')
+    }
     // var trailListElementList = document.getElementById(topLevelID).getElementsByClassName('fpccResults')
     // trailListElementList[0].innerHTML = ""
     var trailListContents = ''
@@ -153,7 +151,6 @@ var panelFuncs = function (map) {
     that.setHeights()
     console.log('[makeTrailDivs] end at:' + performance.now())
   }
-
 
   that.showDetails = function (myReferences, trailSubsystemNormalizedName, poi) {
     console.log('[panelFunctions showDetails start')
@@ -744,8 +741,25 @@ var panelFuncs = function (map) {
         $('#fpccMainContainer').show()
       }
       changePageTitle(null)
+      that.addSearchURL()
       that.setHeights()
     }
+  }
+
+  that.addSearchURL = function () {
+    console.log('[readdSearchURL] start')
+    $.address.parameter('trail', null)
+    $.address.parameter('poi', null)
+    var searchValue = filters.current.search.slice(0)
+    if (filters.current.zipMuniFilter) {
+      searchValue.push(filters.current.zipMuniFilter)
+    }
+    console.log('[readdSearchURL] searchValue = ' + searchValue)
+    var searchLink =  encodeURIComponent(searchValue)
+    searchLink = searchLink.replace(/%20/g, '+')
+    console.log('[readdSearchURL] searchLink = ' + searchLink)
+    $.address.parameter('search', searchLink)
+    $.address.update()
   }
 
   that.toggleResultsList = function (action) {
@@ -792,22 +806,6 @@ var panelFuncs = function (map) {
     }
     // setHeights();
   }
-
-  function closeDetailPanel2() {
-    console.log('closeDetailPanel2')
-    $('.detailPanel').hide()
-    
-    openResultsList()
-    showfpccMainContainer()
-    changePageTitle(null)
-    setHeights()
-    setTimeout(function() {
-      map.closePopup()
-      highlightTrailhead(null,null)
-      highlightTrailSegmentsForTrailSubsystem(null)
-    }, 0)
-  }
-
 
   var changePageTitle = function (name) {
     var newTitle = 'Map: Forest Preserves of Cook County'

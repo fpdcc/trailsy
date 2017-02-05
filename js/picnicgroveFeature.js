@@ -38,9 +38,9 @@ var picnicgroveFeature = function (map) {
       popupContentMainDivHTML += currentFeature.properties.preserve_name
       popupContentMainDivHTML += ' Grove #' + currentFeature.properties.grove
       popupContentMainDivHTML += '</div>'
-      var iconName = 'icon-picnic-grove'  
+      var iconName = 'icon-picnic-grove' 
       var picnicgroveIcon = L.divIcon({
-        className: 'icon-map picnic-grove-marker ' + iconName + ' picnicgrove-' + currentFeature.properties.id + ' poi-' + currentFeature.properties.poi_info_id,
+        className: 'icon-map picnic-grove-marker selected ' + iconName + ' picnicgrove-' + currentFeature.properties.id + ' poi-' + currentFeature.properties.poi_info_id,
         html: '<svg class="icon icon-map picnic-grove-marker ' + iconName + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconName + '"></use></svg><br />',
         iconAnchor: [13 * 0.60, 33 * 0.60],
         popupAnchor: [0, -20],
@@ -54,7 +54,13 @@ var picnicgroveFeature = function (map) {
       })
       // = currentFeature.properties.poi_info_id;
       // console.log("signMarker.trailheadID = " + signMarker.trailheadID);
+      marker.popupContent = popupContentMainDivHTML
       marker.properties = currentFeature.properties
+      marker.bindPopup(marker.popupContent)
+      // marker.on('click', (function (activity) {
+      // return function () {
+      //   events.activityClick(activity)
+      // }
       // var picnicgrove = {
       //   properties: currentFeature.properties,
       //   geometry: currentFeature.geometry,
@@ -71,19 +77,18 @@ var picnicgroveFeature = function (map) {
   }
 
   that.highlight = function (poiId) {
-    console.log('[picnicgrove.highlight start] at: ' + performance.now())
+    var t0 = performance.now()
+    console.log('[picnicgrove.highlight start] at: ' + t0)
     if (that.highlightFG) {
       map.removeLayer(that.highlightFG)
       that.highlightFG = null
     }
     var selectFG = that.originalObject[poiId]
     if (selectFG) {
-      that.highlightFG = new L.FeatureGroup(selectFG, {
-        makeBoundsAware: true,
-        minZoom: 13
-      }).addTo(map)
+      that.highlightFG = selectFG.addTo(map)
     }
-    console.log('[picnicgrove.highlight end] at: ' + performance.now())
+    var t1 = performance.now()
+    console.log('[picnicgrove.highlight end] time', (t1-t0).toFixed(4), 'milliseconds');
     return that.highlightFG
   }
   return that

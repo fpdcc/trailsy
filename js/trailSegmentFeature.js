@@ -37,9 +37,13 @@ var trailSegmentFeature = function (map) {
       var segmentFGs = that.segmentTrailSubsystemObject[index]
       if (segmentFGs) {
         // segmentArray.push(segmentFGs)
-        new L.FeatureGroup(segmentFGs).addTo(map)
+        segmentArray.push(new L.FeatureGroup(segmentFGs)) // .addTo(map)
       }
     })
+    if (segmentArray.length > 0) {
+      console.log('[filterSegments] segmentArray.length = ' + segmentArray.length)
+      that.filteredFG = new L.FeatureGroup(segmentArray)
+    }
     console.log('[filterSegments] end')
   }
 

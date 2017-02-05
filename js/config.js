@@ -1,3 +1,4 @@
+var L = require('leaflet')
 var mapCenter = [42.0723, -87.87]
 var defaultZoom = 12
 

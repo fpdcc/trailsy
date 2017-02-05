@@ -59,7 +59,7 @@ var poiFeature = function (map) {
         html: '<svg class="icon icon-map icon-sign" id="poi-' + currentFeature.properties.id + '" ><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>',
         // iconAnchor: [13 * 0.60, 33 * 0.60],
         iconAnchor: [15, 20],
-        popupAnchor: [0, 0],
+        popupAnchor: [15, 0],
         iconSize: null
         // iconSize: [52 * 0.60, 66 * 0.60] // size of the icon
       })
@@ -153,8 +153,7 @@ var poiFeature = function (map) {
       map.removeLayer(that.filteredPoisFeatureGroup)
       that.filteredPoisFeatureGroup = null
     }
-    
-    filters.current.activityFilter = filters.current.activityFilter.filter(Boolean)
+    // filters.current.search = filters.current.search.filter(Boolean)
 
     for (var poiNum = 0; poiNum < poiArrayLength; poiNum++) {
       var poi = that.originalPoisArray[poiNum]
@@ -171,7 +170,7 @@ var poiFeature = function (map) {
     that.reorderPois(filters)
     that.filteredPoisFeatureGroup = new L.FeatureGroup(that.filteredPoisArray, {
       makeBoundsAware: true
-    }).addTo(map)
+    }) // .addTo(map)
     return that.filteredPoisFeatureGroup
   }
 
@@ -187,7 +186,6 @@ var poiFeature = function (map) {
       }
       el.properties.distance = distance
     })
-    console.log('[poiFeature.reorderPois] first element id, distance = ' + that.filteredPoisArray[0].properties.id + ', ' + that.filteredPoisArray[0].properties.distance)
 
     that.filteredPoisArray.sort(function (a, b) {
       // console.log("a and b.properties.filterResult = " + a.properties.filterScore + " vs " + b.properties.filterScore);
@@ -197,7 +195,6 @@ var poiFeature = function (map) {
       if (a.properties.distance > b.properties.distance) return 1
       return 0
     })
-    console.log('[poiFeature.reorderPois] first element id, distance = ' + that.filteredPoisArray[0].properties.id + ', ' + that.filteredPoisArray[0].properties.distance)
     console.log('[poiFeature.reorderPois] DONE')
   }
 
@@ -208,11 +205,11 @@ var poiFeature = function (map) {
       [' and ', ' & '],
       ['tow path', 'towpath']
     ]
-    for (var i = 0; i < filters.current.activityFilter.length; i++) {
-      var activity = filters.current.activityFilter[i]
+    for (var i = 0; i < filters.current.search.length; i++) {
+      var activity = filters.current.search[i]
       console.log('[filterResult] activityFilter = ' + activity)
       term = 0
-      var normalizedSearchFilter = filters.current.activityFilter[i].toLowerCase()
+      var normalizedSearchFilter = filters.current.search[i].toLowerCase()
       var normalizedSearchArray = normalizedSearchFilter.split(' ')
       $.each(equivalentWords, function (i, el) {
         var regexToken = '(' + el[0] + '|' + el[1] + ')'
