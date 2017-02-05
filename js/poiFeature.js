@@ -176,8 +176,8 @@ var poiFeature = function (map) {
       maxClusterRadius: 60,
       iconCreateFunction: function (cluster) {
         return L.divIcon({
-          className: 'icon-sign icon-map cluster-count' + cluster.getChildCount(),
-          html: '<svg class="icon icon-map icon-sign" ><use class="usePoi" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>',
+          className: 'icon-sign icon-map icon-cluster cluster-count' + cluster.getChildCount(),
+          html: '<svg class="icon icon-map icon-sign icon-cluster" ><use class="usePoi" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>',
           // iconAnchor: [13 * 0.60, 33 * 0.60],
           iconAnchor: [15, 20],
           popupAnchor: [15, 0],

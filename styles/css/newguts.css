@@ -287,6 +287,7 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 .icon-activity.icon-map.selected{opacity:1}
 .leaflet-marker-icon.icon-map.picnic-grove-marker{display:none}
 .icon-map.picnic-grove-marker.selected{display:inline-block}
+.icon-map.icon-sign.icon-cluster{width:3.0em;height:3.0em}
 .outofbounds{display:none;}
 @keyframes animateEdge{
 0%{background:none;box-shadow:none}
