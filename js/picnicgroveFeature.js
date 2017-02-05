@@ -42,7 +42,7 @@ var picnicgroveFeature = function (map) {
       var picnicgroveIcon = L.divIcon({
         className: 'icon-map picnic-grove-marker selected ' + iconName + ' picnicgrove-' + currentFeature.properties.id + ' poi-' + currentFeature.properties.poi_info_id,
         html: '<svg class="icon icon-map picnic-grove-marker ' + iconName + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconName + '"></use></svg><br />',
-        iconAnchor: [13 * 0.60, 33 * 0.60],
+        iconAnchor: [15, 20],
         popupAnchor: [0, -20],
         iconSize: null
       })

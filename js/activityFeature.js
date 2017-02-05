@@ -40,14 +40,14 @@ var activityFeature = function (map) {
       var mainIcon = L.divIcon({
         className: 'icon-map icon-activity activity-' + currentFeature.properties.id + ' ' + iconType + ' poi-' + currentFeature.properties.poi_info_id,
         html: '<svg class="icon icon-map icon-activity ' + iconType + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg><br />',
-        iconAnchor: [13 * 0.60, 33 * 0.60],
-        popupAnchor: [15, 0],
+        iconAnchor: [15, 20],
+        popupAnchor: [0, -20],
         iconSize: null
       })
       var selectedIcon = L.divIcon({
         className: 'icon-map icon-activity selected activity-' + currentFeature.properties.id + ' ' + iconType + ' poi-' + currentFeature.properties.poi_info_id,
         html: '<svg class="icon icon-map icon-activity ' + iconType + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg><br />',
-        iconAnchor: [13 * 0.60, 33 * 0.60],
+        iconAnchor: [15, 20],
         popupAnchor: [0, -20],
         iconSize: null
       })
