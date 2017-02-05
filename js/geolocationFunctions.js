@@ -9,6 +9,7 @@ var geolocationFunctions = function (map, filters, poiFeat, events) {
 
   that.currentUserLocation = null
   that.useGeo = false
+  that.geoSetupDone = $.Deferred()
   var geoWatchId = null
   var userMarker = null
   that.setupGeolocation = function (callback) {
@@ -26,7 +27,7 @@ var geolocationFunctions = function (map, filters, poiFeat, events) {
       geoWatchId = navigator.geolocation.watchPosition(
         function (position) {
           console.log('[setupGeolocation] function position')
-          handleGeoSuccess(position)
+          that.handleGeoSuccess(position)
           geoSetupDone = true
           console.log('[setupGeolocation] function position geoSetupDone= ' + geoSetupDone)
         },
@@ -61,11 +62,16 @@ var geolocationFunctions = function (map, filters, poiFeat, events) {
     }
   }
 
-  var handleGeoSuccess = function (position, callback) {
+  var geoLocateAttempt = 0
+
+  that.handleGeoSuccess = function (e) {
     console.log('handleGeoSuccess')
-    console.log('[handleGeoSuccess] position lat long= ' + position.coords.latitude + ' ' + position.coords.longitude)
+    //console.log('[handleGeoSuccess] position lat long= ' + position.coords.latitude + ' ' + position.coords.longitude)
     that.useGeo = true
-    filters.current.userLocation = new L.LatLng(position.coords.latitude, position.coords.longitude)
+    filters.current.userLocation = e.latlng
+    if (!e.latlng) {
+      // filters.current.userLocation =
+    }
     console.log('[handleGeoSuccess] that.currentUserLocation = ' + filters.current.userLocation)
     var distanceToMapCenterPoint = filters.current.userLocation.distanceTo(Config.mapCenter) / 1000
     // if no map, set it up
@@ -78,12 +84,14 @@ var geolocationFunctions = function (map, filters, poiFeat, events) {
       }).addTo(map)
     }
     // If user location exists, turn on geolocation button
-    if (that.useGeo) {
+    if (geoLocateAttempt === 0) {
       $('.offsetGeolocate').show()
       $('.offsetGeolocate').click(geolocateClick)
     }
+    geoLocateAttempt = 1
     // console.log(currentUserLocation);
     userMarker.setLatLng(filters.current.userLocation)
+    that.geoSetupDone.resolve()
     if (typeof callback === 'function') {
       callback()
     }
@@ -97,9 +105,9 @@ var geolocationFunctions = function (map, filters, poiFeat, events) {
     events.makeResults(false)
   }
 
-  function handleGeoError (error, callback) {
+  that.handleGeoError = function (e) {
     console.log('handleGeoError')
-    console.log('[handleGeoError] ' + error)
+    console.log('[handleGeoError] ' + e.message)
     if (!filters.current.userLocation) {
       console.log('[setupGeolocation handleGeoError] currentUserLocation does not exist')
       filters.current.userLocation = L.LatLng(Config.mapCenter)
@@ -110,6 +118,7 @@ var geolocationFunctions = function (map, filters, poiFeat, events) {
       map.removeLayer(userMarker)
       userMarker = null
     }
+    that.geoSetupDone.resolve()
     if (typeof callback === 'function') {
       console.log('[setupGeolocation handleGeoError] in If callback = function statement')
       callback()

@@ -22,7 +22,14 @@ var trailMap = function () {
     renderer: L.canvas()
   }).setView(Config.mapCenter, Config.defaultZoom)
   map.removeControl(map.zoomControl)
-  //map.addControl(L.control.zoom({position: 'topright'}))
+  map.locate({
+    watch: true,
+    enableHighAccuracy: true,
+    timeout: 16000,
+    maximumAge: 30000
+  })
+
+  // map.addControl(L.control.zoom({position: 'topright'}))
   var poiFeat = poiFeature(map)
   var tSegment = trailSegmentFeature(map)
   var activityFeat = activityFeature(map)
@@ -36,6 +43,16 @@ var trailMap = function () {
   var events = eventListeners.events(map)
   var geoFunctions = geolocationFunctions(map, filters, poiFeat, events)
 
+  var onLocationFound = function (e) {
+    console.log('onLocationFound at time e.timestamp ' + e.timestamp)
+    geoFunctions.handleGeoSuccess(e)
+  }
+  var onLocationError = function (e) {
+    console.log('onLocationError at time e.timestamp ' + e.timestamp)
+    geoFunctions.handleGeoError(e)
+  }
+  map.on('locationfound', onLocationFound)
+  map.on('locationerror', onLocationError)
   // var lastZoom = null
 
   var $select = $('.js-example-basic-multiple').selectize({
@@ -81,7 +98,10 @@ var trailMap = function () {
     $('.trail-popup-line.trail-subsystem').click(events.trailPopupNameClick)
   })
 
-  L.tileLayer('https://api.mapbox.com/styles/v1/fpdcc/cixjcxjvf000h2sml8k9cr18o/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZnBkY2MiLCJhIjoiY2l4amNtaGxjMDAwMzMzbXVucGYxdGtjbyJ9.u1Ttdy3_4xWYFdBvqKYcZA').addTo(map)
+  L.tileLayer('https://api.mapbox.com/styles/v1/fpdcc/cixjcxjvf000h2sml8k9cr18o/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZnBkY2MiLCJhIjoiY2l4amNtaGxjMDAwMzMzbXVucGYxdGtjbyJ9.u1Ttdy3_4xWYFdBvqKYcZA',
+    {
+      updateWhenZooming: false
+    }).addTo(map)
   L.control.scale({maxWidth: 500}).addTo(map)
 
   var poiAndTrailInfoCreated = $.when(poiFeat.originalPoisCreated, tInfo.trailInfoCreated)
@@ -120,28 +140,33 @@ var trailMap = function () {
     console.log('[filterAll] start')
     poiSegmentsReady.done(function () {
       console.log('[$.when readyToFilter] start at: ' + performance.now())
-      poiFeat.filterPoi(filters)
-      tSegment.filterSegments(poiFeat.filteredTrailSubsystems)
-      activitiesReady.done(function () {
-        activityFeat.filterActivity(poiFeat.filteredPoisArray)
-      })
-      events.makeResults(openResults)
-      if (poiFeat.filteredPoisFeatureGroup) {
-        if (fitToSearchResults) {
-          var zoomFeatureGroupBounds = poiFeat.filteredPoisFeatureGroup.getBounds()
-          map.fitBounds(zoomFeatureGroupBounds, {
-            // padding: allPadding
-            // paddingTopLeft: centerOffset
-          })
+      geoFunctions.geoSetupDone.done(function () {
+        console.log('[filterAll] geoSetupDone at ' + performance.now())
+        poiFeat.filterPoi(filters)
+        events.makeResults(openResults)
+        tSegment.filterSegments(poiFeat.filteredTrailSubsystems)
+        activitiesReady.done(function () {
+          activityFeat.filterActivity(poiFeat.filteredPoisArray)
+        })
+        // console.log('[filterAll] about to makeresults at ' + performance.now())
+
+        if (poiFeat.filteredPoisFeatureGroup) {
+          if (fitToSearchResults) {
+            var zoomFeatureGroupBounds = poiFeat.filteredPoisFeatureGroup.getBounds()
+            map.fitBounds(zoomFeatureGroupBounds, {
+              // padding: allPadding
+              // paddingTopLeft: centerOffset
+            })
+          }
+          poiFeat.filteredPoisFeatureGroup.addTo(map)
         }
-        poiFeat.filteredPoisFeatureGroup.addTo(map)
-      }
-      if (activityFeat.filteredFG) {
-        activityFeat.filteredFG.addTo(map)
-      }
-      if (tSegment.filteredFG && filters.current.trailOnMap) {
-        tSegment.filteredFG.addTo(map)
-      }
+        if (activityFeat.filteredFG) {
+          activityFeat.filteredFG.addTo(map)
+        }
+        if (tSegment.filteredFG && filters.current.trailOnMap) {
+          tSegment.filteredFG.addTo(map)
+        }
+      })
     })
   }
 
@@ -170,7 +195,7 @@ var trailMap = function () {
     tInfo.fetchTrailInfo()
     activityFeat.fetchActivities()
     picnicgroveFeat.fetchPicnicgroves()
-    geoFunctions.setupGeolocation()
+    //geoFunctions.setupGeolocation()
   }
 
   return that
