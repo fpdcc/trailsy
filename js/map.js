@@ -71,7 +71,7 @@ var trailMap = function () {
   // $('.closeDetail').click(events.closeDetailPanel) // .click(readdSearchURL)
   $('.fpccSearchbox').change(function (e) { that.processSearch(e) })
   $('#fpccSearchButton').on(Config.listenType, that.processSearch)
-  
+
   // $('.usePoi').on(Config.listenType, that.testClick)
 
   map.on('zoomend', function (e) {
@@ -90,7 +90,7 @@ var trailMap = function () {
     {
       updateWhenZooming: false
     }).addTo(map)
-  L.control.scale({maxWidth: 500, position: 'bottomright'}).addTo(map)
+  L.control.scale({maxWidth: 300, position: 'bottomright'}).addTo(map)
 
   var poiAndTrailInfoCreated = $.when(poiFeat.originalPoisCreated, tInfo.trailInfoCreated)
   var poiSegmentsReady = $.when(poiFeat.originalPoiInfoAdded, tSegment.segmentsCreated)
