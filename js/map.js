@@ -90,7 +90,7 @@ var trailMap = function () {
     {
       updateWhenZooming: false
     }).addTo(map)
-  L.control.scale({maxWidth: 500}).addTo(map)
+  L.control.scale({maxWidth: 500, position: 'bottomright'}).addTo(map)
 
   var poiAndTrailInfoCreated = $.when(poiFeat.originalPoisCreated, tInfo.trailInfoCreated)
   var poiSegmentsReady = $.when(poiFeat.originalPoiInfoAdded, tSegment.segmentsCreated)
@@ -132,7 +132,6 @@ var trailMap = function () {
     var myId = $myTarget.attr('id')
     console.log('isEdge myId = ' + myId)
   }
-
 
   var filterAll = function (fitToSearchResults, openResults) {
     console.log('[filterAll] start')
