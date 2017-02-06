@@ -38,6 +38,9 @@ var events = function (map) {
     $('.detailPanelBanner').on(Config.listenType, detailPanelBannerClick)
     $('.closeDetail').on(Config.listenType, that.closeDetailPanel)
     $('.offsetZoomControl').click(offsetZoomIn)
+    $('.aboutLink').click(panel.openAboutPage)
+    $('.closeAbout').click(panel.closeAboutPage)
+    $('.fpccMenu').click(panel.changeMenuDisplay)
     // $('.usePoi').on(Config.listenType, that.testClick)
   }
 
@@ -90,8 +93,8 @@ var events = function (map) {
 
   var detailPanelBannerClick = function (e) {
     console.log('detailPanelBannerClick')
-    if ($(e.target).parents('.detailPanel').is(':visible')) {
-      if ($(e.target).parents('.detailPanel').hasClass('contracted')) {
+    if ($(e.target).parents('#fpccDetailPanel').is(':visible')) {
+      if ($(e.target).parents('#fpccDetailPanel').hasClass('contracted')) {
         console.log('[detailPanelBannerClick] parent has contracted. Run slideDetailPanel2(false)')
         my.panel.slideDetailPanel(true)
       } else {

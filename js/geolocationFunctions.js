@@ -23,7 +23,6 @@ var geolocationFunctions = function (map, filters, poiFeat, events) {
         timeout: 12000,
         maximumAge: 30000
       }
-      var latlng
       geoWatchId = navigator.geolocation.watchPosition(
         function (position) {
           console.log('[setupGeolocation] function position')
@@ -35,7 +34,7 @@ var geolocationFunctions = function (map, filters, poiFeat, events) {
           console.log('[setupGeolocation] error -> currentUserLocation = ' + that.currentUserLocation)
           console.log('[setupGeolocation] function error.code = ' + error.code)
           console.log('[setupGeolocation] function error.message = ' + error.message)
-          handleGeoError(error)
+          that.handleGeoError(error)
           geoSetupDone = true
           console.log('[setupGeolocation] function error geoSetupDone= ' + geoSetupDone)
         },
@@ -44,7 +43,9 @@ var geolocationFunctions = function (map, filters, poiFeat, events) {
         if (!geoSetupDone) {
           console.log('[setupGeolocation] No confirmation from user, using fallback')
           geoSetupDone = true
-          handleGeoError()
+          var error = {}
+          error.message = 'No confirmation from user, using fallback'
+          that.handleGeoError(error.message)
         } else {
           console.log('[setupGeolocation] Location was set')
         }
@@ -56,7 +57,7 @@ var geolocationFunctions = function (map, filters, poiFeat, events) {
       console.log('[setupGeolocation] no navigator.geolocation')
       that.currentUserLocation = Config.mapCenter
       showGeoOverlay()
-      handleGeoError('no geolocation', callback)
+      that.handleGeoError('no geolocation', callback)
       geoSetupDone = true
       console.log('[setupGeolocation] no geolocation geoSetupDone= ' + geoSetupDone)
     }
@@ -64,14 +65,12 @@ var geolocationFunctions = function (map, filters, poiFeat, events) {
 
   var geoLocateAttempt = 0
 
-  that.handleGeoSuccess = function (e) {
+  that.handleGeoSuccess = function (position) {
     console.log('handleGeoSuccess')
-    //console.log('[handleGeoSuccess] position lat long= ' + position.coords.latitude + ' ' + position.coords.longitude)
+    console.log('[handleGeoSuccess] position lat long= ' + position.coords.latitude + ' ' + position.coords.longitude)
     that.useGeo = true
-    filters.current.userLocation = e.latlng
-    if (!e.latlng) {
-      // filters.current.userLocation =
-    }
+    filters.current.userLocation =  new L.LatLng(position.coords.latitude, position.coords.longitude)
+    
     console.log('[handleGeoSuccess] that.currentUserLocation = ' + filters.current.userLocation)
     var distanceToMapCenterPoint = filters.current.userLocation.distanceTo(Config.mapCenter) / 1000
     // if no map, set it up
@@ -110,7 +109,7 @@ var geolocationFunctions = function (map, filters, poiFeat, events) {
     console.log('[handleGeoError] ' + e.message)
     if (!filters.current.userLocation) {
       console.log('[setupGeolocation handleGeoError] currentUserLocation does not exist')
-      filters.current.userLocation = L.LatLng(Config.mapCenter)
+      filters.current.userLocation = Config.mapCenter
       showGeoOverlay()
     }
     if (map && userMarker && error.code === 3) {

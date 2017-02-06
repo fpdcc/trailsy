@@ -24,12 +24,6 @@ var trailMap = function () {
     renderer: L.canvas()
   }).setView(Config.mapCenter, Config.defaultZoom)
   map.removeControl(map.zoomControl)
-  map.locate({
-    watch: true,
-    enableHighAccuracy: true,
-    timeout: 16000,
-    maximumAge: 30000
-  })
 
   // map.addControl(L.control.zoom({position: 'topright'}))
   var poiFeat = poiFeature(map)
@@ -45,16 +39,6 @@ var trailMap = function () {
   var events = eventListeners.events(map)
   var geoFunctions = geolocationFunctions(map, filters, poiFeat, events)
 
-  var onLocationFound = function (e) {
-    console.log('onLocationFound at time e.timestamp ' + e.timestamp)
-    geoFunctions.handleGeoSuccess(e)
-  }
-  var onLocationError = function (e) {
-    console.log('onLocationError at time e.timestamp ' + e.timestamp)
-    geoFunctions.handleGeoError(e)
-  }
-  map.on('locationfound', onLocationFound)
-  map.on('locationerror', onLocationError)
   // var lastZoom = null
 
   var $select = $('.js-example-basic-multiple').selectize({
@@ -213,7 +197,7 @@ var trailMap = function () {
     tInfo.fetchTrailInfo()
     activityFeat.fetchActivities()
     picnicgroveFeat.fetchPicnicgroves()
-    //geoFunctions.setupGeolocation()
+    geoFunctions.setupGeolocation()
   }
 
   return that

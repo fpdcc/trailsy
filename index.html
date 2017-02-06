@@ -59,7 +59,7 @@
       <section id="fpccTrailListColumn" class="trailListColumn expanded">
         <div id="fpccBrand" class="title-row desktopTitle">
           <div class="fpccMenu">
-            <a class="hamburger" href="#">
+            <a class="hamburger" role='button'>
               <span></span>
               <span></span>
               <span class="last"></span>
@@ -67,7 +67,7 @@
           </div>
           <ul class="fpccMenuList hide"> 
             <li><a href="http://fpdcc.com/" target="_blank">Back to fpdcc.com</a></li>
-            <li><a href="#about">About / Contact</a></li>
+            <li class='aboutLink'><a role='button'>About / Contact</a></li>
             <li><a class="last" href="https://script.google.com/macros/s/AKfycby6fEFxi92eh152A7x4iPy6tRjevGbpRgCUTTaKNMBfwqdDHVvZ/exec" target="_blank">Give Feedback</a></li>
           </ul>
           <header>
@@ -134,6 +134,15 @@
             Back to List</a>
         </div>
         <div id="fpccDetailPanel" class="detailPanel" style="display:none;">
+          <div id="fpccPreserveName" class="detailPanelBanner">
+            <span id="fpccTrailName" class="trailName"></span>
+            <svg class="icon icon-x closeDetail"><use xlink:href="icons/defs.svg#icon-x"></use></svg>
+          </div>
+          <div id="fpccPreserveInfo" class="detailPanelBody">
+            <div id="fpccContainer" class="fpccContainer"></div>
+          </div>
+        </div>
+        <div id="fpccAbout" class="detailPanel" style="display:none;">
           <div id="fpccPreserveName" class="detailPanelBanner">
             <span id="fpccTrailName" class="trailName"></span>
             <svg class="icon icon-x closeDetail"><use xlink:href="icons/defs.svg#icon-x"></use></svg>

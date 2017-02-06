@@ -29,8 +29,33 @@ var panelFuncs = function (map) {
   var loaderDiv = '<div class="loader"></div>'
   var events = eL.events()
 
+  // Open/close fpccMenu list
+  that.changeMenuDisplay = function () {
+    console.log("changeMenuDisplay")
+    if ($('.fpccMenuList').hasClass('hide')) {
+      $('.fpccMenuList').removeClass('hide')
+      $('.fpccMenuList').addClass('show')
+    } else {
+      $('.fpccMenuList').removeClass('show')
+      $('.fpccMenuList').addClass('hide')
+    }
+  }
+
+  that.openAboutPage = function () {
+    console.log("openAboutPage");
+    $('#fpccDetailPanel').hide();
+    $('#fpccAbout').show();
+    
+  }
+
+  that.closeAboutPage = function () {
+    console.log("closeAboutPage");
+    $('#fpccAbout').hide();
+  }
+
   window.onload = function () {
     that.setHeights()
+    
   }
 
   var testCloseDetail = function () {
@@ -727,7 +752,7 @@ var panelFuncs = function (map) {
         $('#fpccMobileSearchButton').hide()
       } else {
         console.log('[showDetailPanel] expand = false')
-        $('.detailPanel').addClass('contracted').removeClass('expanded')
+        $('#fpccDetailPanel').addClass('contracted').removeClass('expanded')
         $('.trailListColumn').addClass('contracted').removeClass('expanded')
         $('#fpccSearchBack').hide()
         $('#fpccMainContainer').show()
@@ -744,14 +769,14 @@ var panelFuncs = function (map) {
     if (action === 'open') {
       $('#fpccSearchResults').hide()
       $('#fpccSearchStatus').hide()
-      $('.detailPanel').show()
+      $('#fpccDetailPanel').show()
       $('#fpccPreserveInfo').scrollTop(0)
       $('fpccContainer').html(loaderDiv)
       if (that.SMALL) {
         $('#fpccMainContainer').hide()
       }
     } else if (action === 'close') {
-      $('.detailPanel').hide()
+      $('#fpccDetailPanel').hide()
       $('#fpccSearchBack').hide()
       $('#fpccSearchResults').show()
       $('#fpccSearchStatus').show()
@@ -801,11 +826,11 @@ var panelFuncs = function (map) {
     if (showMap) {
       $('#fpccMainContainer').addClass('contracted').removeClass('expanded')
       $('.trailListColumn').addClass('contracted').removeClass('expanded')
-      $('.detailPanel').addClass('contracted').removeClass('expanded')
+      $('#fpccDetailPanel').addClass('contracted').removeClass('expanded')
       // document.getElementById("fpccMainContainer").style.zIndex = "1";
       $('#fpccSearchBack').hide()
       $('#fpccMainContainer').show()
-      if ($('.detailPanel').is(':visible')) {
+      if ($('#fpccDetailPanel').is(':visible')) {
         $('#fpccMobileSearchButton').show()
       } else {
         $('#fpccMobileSearchButton').hide()
@@ -813,10 +838,10 @@ var panelFuncs = function (map) {
     } else {
       $('#fpccMainContainer').addClass('expanded').removeClass('contracted')
       $('.trailListColumn').addClass('expanded').removeClass('contracted')
-      $('.detailPanel').addClass('expanded').removeClass('contracted')
+      $('#fpccDetailPanel').addClass('expanded').removeClass('contracted')
       $('#fpccMobileSearchButton').hide()
       $('#fpccSearchBack').html('<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg> Back to List</a>')
-      if ($('.detailPanel').is(':visible')) {
+      if ($('#fpccDetailPanel').is(':visible')) {
         $('#fpccSearchBack').show()
         $('#fpccMainContainer').hide()
       } else {
