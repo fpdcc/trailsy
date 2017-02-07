@@ -450,7 +450,7 @@ ul.fpccMenuList a:hover,ul.fpccMenuList a:active{background:#666}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup{width:auto;min-width:14em;position:relative}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box{width:100%;position:relative;display:inline-block;height:auto}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames{position:relative;display:inline-block;background-color:#fff;height:auto;width:100%;max-width:200px;overflow-y:hidden;min-width:12em;text-decoration:none;text-transform:capitalize; vertical-align:bottom;font-weight:bold;padding:.5em .75em;border:none;color:#606D29;text-decoration:underline}
-.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname{cursor:pointer;min-width:12em;width:100%;border-top:1px solid #e3e3e1;padding:.5em .75em}
+.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname{cursor:pointer;min-width:12em;width:100%;border-top:1px solid #e3e3e1;padding:.5em .75em;color:#606D29;text-decoration:underline}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .popupTrailNames{position:relative;height:auto;width:auto;max-width:200px;overflow-y:hidden;vertical-align:top;display:inline-block;font-weight:normal;text-decoration:none;line-height:1.5em}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname.selected{padding-bottom:0;color:#333}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname:hover{background:#E3EACC}
@@ -568,6 +568,7 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
 
  /*popups*/
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames{color:#333;text-decoration:none}
+.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname{color:#333;text-decoration:none}
 .trail-popup .trail-popup-line-named.trail-subsystem{color:#333;text-decoration:none}
 
 /*OVERRIDES------------------------------------*/
