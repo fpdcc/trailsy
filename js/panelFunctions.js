@@ -758,11 +758,12 @@ var panelFuncs = function (map) {
         $('#fpccMainContainer').show()
         $('#fpccMobileSearchButton').show()
       }
+      that.setHeights()
     } else {
       $('#fpccSearchBack').html('<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg> Back to List</a>')
       $('#fpccSearchBack').show()
     }
-    that.setHeights()
+    
   }
 
   that.toggleDetailPanel = function (action) {
