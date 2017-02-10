@@ -150,10 +150,14 @@ var trailMap = function () {
         if (poiFeat.filteredPoisFeatureGroup) {
           if (fitToSearchResults) {
             var zoomFeatureGroupBounds = poiFeat.filteredPoisFeatureGroup.getBounds()
-            map.fitBounds(zoomFeatureGroupBounds, {
-              // padding: allPadding
-              // paddingTopLeft: centerOffset
-            })
+            if (filters.current.searchLocation && filters.current.search.length === 0) {
+              map.setView(filters.current.searchLocation, 14)
+            } else {
+              map.fitBounds(zoomFeatureGroupBounds, {
+                // padding: allPadding
+                // paddingTopLeft: centerOffset
+              })
+            }
           }
           poiFeat.filteredPoisFeatureGroup.addTo(map)
           //if (Config.isEdge) {
