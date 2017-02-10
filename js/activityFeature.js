@@ -38,7 +38,7 @@ var activityFeature = function (map) {
       var activityType = currentFeature.properties.atype
       var activityName = currentFeature.properties.name || currentFeature.properties.aname
       var mainIcon = L.divIcon({
-        className: 'icon-map icon-activity activity-' + currentFeature.properties.id + ' ' + iconType + ' poi-' + currentFeature.properties.poi_info_id,
+        className: 'icon-map icon-activity active activity-' + currentFeature.properties.id + ' ' + iconType + ' poi-' + currentFeature.properties.poi_info_id,
         html: '<svg class="icon icon-map icon-activity ' + iconType + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg><br />',
         iconAnchor: [15, 20],
         popupAnchor: [0, -20],
