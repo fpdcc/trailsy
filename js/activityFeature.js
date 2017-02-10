@@ -34,48 +34,50 @@ var activityFeature = function (map) {
       var currentGeoOne = currentFeature.geometry.coordinates[1]
       var currentGeoTwo = currentFeature.geometry.coordinates[0]
       var currentFeatureLatLng = new L.LatLng(currentGeoOne, currentGeoTwo)
-      var iconType = getIconName(currentFeature.properties.atype)
       var activityType = currentFeature.properties.atype
-      var activityName = currentFeature.properties.name || currentFeature.properties.aname
-      var mainIcon = L.divIcon({
-        className: 'icon-map icon-activity active activity-' + currentFeature.properties.id + ' ' + iconType + ' poi-' + currentFeature.properties.poi_info_id,
-        html: '<svg class="icon icon-map icon-activity ' + iconType + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg><br />',
-        iconAnchor: [15, 20],
-        popupAnchor: [0, -20],
-        iconSize: null
-      })
-      var selectedIcon = L.divIcon({
-        className: 'icon-map icon-activity selected activity-' + currentFeature.properties.id + ' ' + iconType + ' poi-' + currentFeature.properties.poi_info_id,
-        html: '<svg class="icon icon-map icon-activity ' + iconType + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg><br />',
-        iconAnchor: [15, 20],
-        popupAnchor: [0, -20],
-        iconSize: null
-      })
-      var marker = new L.Marker(currentFeatureLatLng, {
-        icon: mainIcon,
-        zIndexOffset: -50
-      })
-      marker.mainIcon = mainIcon
-      marker.selectedIcon = selectedIcon
-      var popupContentMainDivHTML = "<div class='activity-popup'>"
-      popupContentMainDivHTML += activityName
-      if (activityType === 'trailhead') {
-        popupContentMainDivHTML += ' Trail Access'
-      }
-      popupContentMainDivHTML += '</div>'
-      marker.trailheadID = currentFeature.properties.poi_info_id
-      marker.properties = currentFeature.properties
-      marker.geometry = currentFeature.geometry
-      marker.popupContent = popupContentMainDivHTML
-      // console.log('activity marker.icon= ' + marker.icon)
-      marker.bindPopup(marker.popupContent)
-      marker.on(Config.listenType, (function (activity) {
-        return function () {
-          events.activityClick(activity)
+      var iconType = getIconName(activityType)
+      if (iconType) {
+        var activityName = currentFeature.properties.name || currentFeature.properties.aname
+        var mainIcon = L.divIcon({
+          className: 'icon-map icon-activity active activity-' + currentFeature.properties.id + ' ' + iconType + ' poi-' + currentFeature.properties.poi_info_id,
+          html: '<svg class="icon icon-map icon-activity ' + iconType + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg><br />',
+          iconAnchor: [15, 20],
+          popupAnchor: [0, -20],
+          iconSize: null
+        })
+        var selectedIcon = L.divIcon({
+          className: 'icon-map icon-activity selected activity-' + currentFeature.properties.id + ' ' + iconType + ' poi-' + currentFeature.properties.poi_info_id,
+          html: '<svg class="icon icon-map icon-activity ' + iconType + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg><br />',
+          iconAnchor: [15, 20],
+          popupAnchor: [0, -20],
+          iconSize: null
+        })
+        var marker = new L.Marker(currentFeatureLatLng, {
+          icon: mainIcon,
+          zIndexOffset: -50
+        })
+        marker.mainIcon = mainIcon
+        marker.selectedIcon = selectedIcon
+        var popupContentMainDivHTML = "<div class='activity-popup'>"
+        popupContentMainDivHTML += activityName
+        if (activityType === 'trailhead') {
+          popupContentMainDivHTML += ' Trail Access'
         }
-      })(marker))
-      that.originalActivitiesObject[marker.properties.poi_info_id] = that.originalActivitiesObject[marker.properties.poi_info_id] || new L.FeatureGroup()
-      that.originalActivitiesObject[marker.properties.poi_info_id].addLayer(marker)
+        popupContentMainDivHTML += '</div>'
+        marker.trailheadID = currentFeature.properties.poi_info_id
+        marker.properties = currentFeature.properties
+        marker.geometry = currentFeature.geometry
+        marker.popupContent = popupContentMainDivHTML
+        // console.log('activity marker.icon= ' + marker.icon)
+        marker.bindPopup(marker.popupContent)
+        marker.on(Config.listenType, (function (activity) {
+          return function () {
+            events.activityClick(activity)
+          }
+        })(marker))
+        that.originalActivitiesObject[marker.properties.poi_info_id] = that.originalActivitiesObject[marker.properties.poi_info_id] || new L.FeatureGroup()
+        that.originalActivitiesObject[marker.properties.poi_info_id].addLayer(marker)
+      }
     }
     that.originalActivitiesCreated.resolve()
     console.log('populateOriginalActivities end at: ' + performance.now())
@@ -110,7 +112,7 @@ var activityFeature = function (map) {
           : activityType === 'warming shelter' ? 'icon-facility'
           : activityType === 'welcome center' ? 'icon-facility'
           : activityType === 'zipline' ? 'icon-zip-line'
-          : 'icon-sign'
+          : null
   }
 
   that.filterActivity = function (poiArray) {
