@@ -55,7 +55,7 @@ var poiFeature = function (map) {
         }
       }
       var currentFeatureLatLng = new L.LatLng(currentGeoOne, currentGeoTwo)
-      var trailheadIcon = L.divIcon({
+      var mainIcon = L.divIcon({
         className: 'icon-sign icon-map poi-' + currentFeature.properties.id,
         html: '<svg class="icon icon-map icon-sign" id="poi-' + currentFeature.properties.id + '" ><use class="usePoi" id="poi-' + currentFeature.properties.id + '" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>',
         // iconAnchor: [13 * 0.60, 33 * 0.60],
@@ -65,10 +65,22 @@ var poiFeature = function (map) {
         // iconSize: [52 * 0.60, 66 * 0.60] // size of the icon
       })
 
+      var selectedIcon = L.divIcon({
+        className: 'icon-sign icon-map selected poi-' + currentFeature.properties.id,
+        html: '<svg class="icon icon-map icon-sign" id="poi-' + currentFeature.properties.id + '" ><use class="usePoi" id="poi-' + currentFeature.properties.id + '" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>',
+        // iconAnchor: [13 * 0.60, 33 * 0.60],
+        iconAnchor: [15, 20],
+        popupAnchor: [15, 0],
+        iconSize: null
+        // iconSize: [52 * 0.60, 66 * 0.60] // size of the icon
+      })
+
       var marker = new L.Marker(currentFeatureLatLng, {
-        icon: trailheadIcon,
+        icon: mainIcon,
         zIndexOffset: 50
       })
+      marker.mainIcon = mainIcon
+      marker.selectedIcon = selectedIcon
       marker.properties = currentFeature.properties
       marker.geometry = currentFeature.geometry
       marker.trailheadID = currentFeature.properties.id
@@ -216,6 +228,17 @@ var poiFeature = function (map) {
       return 0
     })
     console.log('[poiFeature.reorderPois] DONE')
+  }
+
+  that.setSelected = function (poi) {
+    if (that.current) {
+      that.current.setIcon(that.current.mainIcon)
+    }
+    that.current = null
+    if (poi) {
+      that.current = poi
+      that.current.setIcon(that.current.selectedIcon)
+    }
   }
 
   var filterResult = function (poi, filters) {

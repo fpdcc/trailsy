@@ -234,21 +234,15 @@ var events = function (map) {
     if (openPopup === undefined) {
       openPopup = true
     }
-    // var poi = null
-    // if (poiId) {
-    //   poi = my.poiFeat.getPoiById(poiId)
-    // }
     var zoomArray = []
-    $('.leaflet-marker-icon.selected').removeClass('selected')
-    my.poiFeat.current = null
     my.actFeat.setSelected(null)
     my.pgFeat.highlight(null)
+    my.poiFeat.setSelected(poi)
     if (poi) {
-      my.poiFeat.current = poi
       zoomArray.push(my.poiFeat.current)
       var myEntranceID = 'poi-' + my.poiFeat.current.properties.id
       console.log('[poiFeature highlight] new my.poiFeat.current = ' + myEntranceID)
-      $('.leaflet-marker-icon.' + myEntranceID).addClass('selected')
+      // $('.leaflet-marker-icon.' + myEntranceID).addClass('selected')
       if (openPopup) {
         my.map.closePopup()
         console.log('[poiFeature highlight] create + open popup')
