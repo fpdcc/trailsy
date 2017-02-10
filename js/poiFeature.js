@@ -182,28 +182,27 @@ var poiFeature = function (map) {
       }
     }
     that.reorderPois(filters)
-    that.filteredPoisFeatureGroup = L.markerClusterGroup({
-      showCoverageOnHover: false,
-      disableClusteringAtZoom: 13,
-      spiderfyOnMaxZoom: false,
-      maxClusterRadius: 60,
-      iconCreateFunction: function (cluster) {
-        return L.divIcon({
-          className: 'icon-sign icon-map icon-cluster cluster-count' + cluster.getChildCount(),
-          html: '<svg class="icon icon-map icon-sign icon-cluster" ><use class="usePoi" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>',
-          // iconAnchor: [13 * 0.60, 33 * 0.60],
-          iconAnchor: [15, 20],
-          popupAnchor: [15, 0],
-          iconSize: null
-          // iconSize: [52 * 0.60, 66 * 0.60] // size of the icon
-        })
-      }
-    })
-    that.filteredPoisFeatureGroup.addLayers(that.filteredPoisArray)
-    // new L.FeatureGroup(that.filteredPoisArray, {
-    //  makeBoundsAware: true
-    // }) // .addTo(map)
-    that.filteredPoisFeatureGroup.addTo(map)
+    if (that.filteredPoisArray.length !== 0) {
+      that.filteredPoisFeatureGroup = L.markerClusterGroup({
+        showCoverageOnHover: false,
+        disableClusteringAtZoom: 13,
+        spiderfyOnMaxZoom: false,
+        maxClusterRadius: 60,
+        iconCreateFunction: function (cluster) {
+          return L.divIcon({
+            className: 'icon-sign icon-map icon-cluster cluster-count' + cluster.getChildCount(),
+            html: '<svg class="icon icon-map icon-sign icon-cluster" ><use class="usePoi" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>',
+            // iconAnchor: [13 * 0.60, 33 * 0.60],
+            iconAnchor: [15, 20],
+            popupAnchor: [15, 0],
+            iconSize: null
+            // iconSize: [52 * 0.60, 66 * 0.60] // size of the icon
+          })
+        }
+      })
+      that.filteredPoisFeatureGroup.addLayers(that.filteredPoisArray)
+      that.filteredPoisFeatureGroup.addTo(map)
+    }
     return that.filteredPoisFeatureGroup
   }
 
