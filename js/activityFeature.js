@@ -53,7 +53,7 @@ var activityFeature = function (map) {
       })
       var marker = new L.Marker(currentFeatureLatLng, {
         icon: mainIcon,
-        zIndexOffset: 50
+        zIndexOffset: -50
       })
       marker.mainIcon = mainIcon
       marker.selectedIcon = selectedIcon
