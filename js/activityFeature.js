@@ -88,6 +88,7 @@ var activityFeature = function (map) {
           : activityType === 'boating center' ? 'icon-boat-rental'
           : activityType === 'boat launch' ? 'icon-boat-launch'
           : activityType === 'boat rental' ? 'icon-boat-rental'
+          : activityType === 'camp' ? 'icon-camp'
           : activityType === 'canoe landing' ? 'icon-canoe-landing'
           : activityType === 'dog park' ? 'icon-off-leash-dog-area'
           : activityType === 'drone' ? 'icon-drone'
