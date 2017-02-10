@@ -183,6 +183,7 @@ var poiFeature = function (map) {
     }
     that.reorderPois(filters)
     that.filteredPoisFeatureGroup = L.markerClusterGroup({
+      showCoverageOnHover: false,
       disableClusteringAtZoom: 13,
       spiderfyOnMaxZoom: false,
       maxClusterRadius: 60,
