@@ -86,11 +86,27 @@ var trailMap = function () {
     $('.trail-popup-line.trail-subsystem').on(Config.listenType, events.trailPopupNameClick)
   })
 
-  L.tileLayer('https://api.mapbox.com/styles/v1/fpdcc/cixjcxjvf000h2sml8k9cr18o/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZnBkY2MiLCJhIjoiY2l4amNtaGxjMDAwMzMzbXVucGYxdGtjbyJ9.u1Ttdy3_4xWYFdBvqKYcZA',
+  var mapboxAttribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+      '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+      'Imagery © <a href="http://mapbox.com">Mapbox</a>'
+  var mainBase = L.tileLayer('https://api.mapbox.com/styles/v1/fpdcc/cixjcxjvf000h2sml8k9cr18o/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZnBkY2MiLCJhIjoiY2l4amNtaGxjMDAwMzMzbXVucGYxdGtjbyJ9.u1Ttdy3_4xWYFdBvqKYcZA',
     {
-      updateWhenZooming: false
+      updateWhenZooming: false,
+      attribution: mapboxAttribution
     }).addTo(map)
+  var mapboxAccessToken = 'sk.eyJ1Ijoic21hcnRjaGljYWdvY29sbGFib3JhdGl2ZSIsImEiOiJjaWlqOGU2dmMwMTA2dWNrcHM0d21qNDhzIn0.2twD0eBu4UKHu-3JZ0vt0w'
+  var imageryBase = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    attribution: mapboxAttribution,
+    maxZoom: 18,
+    id: 'mapbox.satellite',
+    accessToken: mapboxAccessToken
+  })
+  var baseMaps = {
+    'Streets': mainBase,
+    'Satellite': imageryBase
+  }
   L.control.scale({maxWidth: 300, position: 'bottomright'}).addTo(map)
+  L.control.layers(baseMaps, null, {collapsed: false, position: 'bottomright'}).addTo(map)
 
   var poiAndTrailInfoCreated = $.when(poiFeat.originalPoisCreated, tInfo.trailInfoCreated)
   var poiSegmentsReady = $.when(poiFeat.originalPoiInfoAdded, tSegment.segmentsCreated)
