@@ -52,6 +52,7 @@ var trailMap = function () {
     allowEmptyOption: true,
     highlight: true,
     plugins: ['remove_button'],
+    dropdownDirection: 'auto',
     // onItemAdd: function() {
     //   setTimeout(function() {
     //     console.log("[selectize] onItemAdd trigger");
