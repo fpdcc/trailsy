@@ -35,12 +35,11 @@ var events = function (map) {
     $('#fpccSearchBack').on(Config.listenType, that.closeDetailPanel) // .click(readdSearchURL)
     $('#fpccMobileSearchButton').on(Config.listenType, that.closeDetailPanel)
     $('#fpccMobileCheckbox').on(Config.listenType, my.panel.showfpccMainContainer)
-    $('.detailPanelBanner').on(Config.listenType, detailPanelBannerClick)
-    $('.closeDetail').on(Config.listenType, that.closeDetailPanel)
+    
     $('.offsetZoomControl').click(offsetZoomIn)
     $('.aboutLink').click(panel.openAboutPage)
-    $('.closeAbout').click(panel.closeAboutPage)
     $('.fpccMenu').click(panel.changeMenuDisplay)
+    $('.fpccMobileHamburger').click(panel.changeMenuDisplay)
     // $('.usePoi').on(Config.listenType, that.testClick)
   }
 
@@ -91,18 +90,7 @@ var events = function (map) {
     my.panel.slideDetailPanel(true)
   }
 
-  var detailPanelBannerClick = function (e) {
-    console.log('detailPanelBannerClick')
-    if ($(e.target).parents('#fpccDetailPanel').is(':visible')) {
-      if ($(e.target).parents('#fpccDetailPanel').hasClass('contracted')) {
-        console.log('[detailPanelBannerClick] parent has contracted. Run slideDetailPanel2(false)')
-        my.panel.slideDetailPanel(true)
-      } else {
-        console.log('[detailPanelBannerClick] parent does not have contracted')
-        my.panel.slideDetailPanel(false)
-      }
-    }
-  }
+  
 
   that.closeDetailPanel = function () {
     console.log('events.closeDetailPanel')

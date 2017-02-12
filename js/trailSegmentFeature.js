@@ -129,7 +129,7 @@ var trailSegmentFeature = function (map) {
           trailPopupLineDiv += ' ' + segmentNameType
         }
         if (segmentDirection) {
-          trailPopupLineDiv += ' ' + segmentDirection
+          trailPopupLineDiv += ' (' + segmentDirection + ') '
         }
         if (segmentOffFpcc === 'y') {
           trailPopupLineDiv += ' (Non-FPCC)'

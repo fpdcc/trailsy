@@ -27,7 +27,11 @@ var panelFuncs = function (map) {
   var that = {}
   that.SMALL = false
   var loaderDiv = '<div class="loader"></div>'
-  var events = eL.events()
+  var events = eL.events(map)
+
+  that.currentDetailPanelHTML = ''
+
+  var aboutHTML = '<div id="fpccPreserveName" class="detailPanelBanner"><span id="fpccTrailName" class="trailName">About</span><svg id="closeAbout" class="icon icon-x closeDetail"><use xlink:href="icons/defs.svg#icon-x"></use></svg></div><div id="fpccPreserveInfo" class="detailPanelBody"><div id="fpccContainer" class="fpccContainer">This is about text</div></div>'
 
   // Open/close fpccMenu list
   that.changeMenuDisplay = function () {
@@ -42,15 +46,18 @@ var panelFuncs = function (map) {
   }
 
   that.openAboutPage = function () {
-    console.log("openAboutPage");
-    $('#fpccDetailPanel').hide();
-    $('#fpccAbout').show();
-    
+    console.log('openAboutPage')
+    that.populateDetailPanel(aboutHTML)
+    that.toggleDetailPanel('open')
   }
 
   that.closeAboutPage = function () {
-    console.log("closeAboutPage");
-    $('#fpccAbout').hide();
+    console.log('closeAboutPage')
+    if (that.currentDetailPanelHTML) {
+      that.populateDetailPanel(that.currentDetailPanelHTML)
+    } else {
+      that.toggleDetailPanel('close')
+    }
   }
 
   window.onload = function () {
@@ -212,29 +219,35 @@ var panelFuncs = function (map) {
       console.log('showTrailDetails checked is false')
       that.slideDetailPanel(true)
     }
-    that.decorateDetailPanel(myReferences, trailSubsystemNormalizedName, poi)
+    that.buildDetailPanelHTML(myReferences, trailSubsystemNormalizedName, poi)
+    that.populateDetailPanel(that.currentDetailPanelHTML)
     that.setHeights()
     console.log('[panelFunctions showDetails end')
   }
 
-  that.decorateDetailPanel = function (myReferences, trailSubsystemNormalizedName, poi) {
-    var fpccContainerHTML = ''
+  that.buildDetailPanelHTML = function (myReferences, trailSubsystemNormalizedName, poi) {
     var directTrail = null
     var descriptionTrail = null
     var trailSubsystemTrails = null
     var displayName = ''
+    var fpccNameHTML = '<div id="fpccPreserveName" class="detailPanelBanner"><span id="fpccTrailName" class="trailName">'
+    var fpccContainerHTML = '<div id="fpccPreserveInfo" class="detailPanelBody"><div id="fpccContainer" class="fpccContainer">'
     // console.log('[decorateDetailPanelForTrailhead2]')
     if (trailSubsystemNormalizedName) {
       trailSubsystemTrails = myReferences.trailInfo.trailSubsystemMap[trailSubsystemNormalizedName] || null
       descriptionTrail = trailSubsystemTrails[0] || null
       displayName = descriptionTrail.trail_subsystem
-      document.getElementById('fpccTrailName').innerHTML = displayName
+      fpccNameHTML += displayName
+      
+      // document.getElementById('fpccTrailName').innerHTML = displayName
       // $('#fpccPreserveName .trailName').html(trailSubsystemName)
     }
+
     if (poi) {
       if (poi.properties.name) {
         displayName = poi.properties.name
-        document.getElementById('fpccTrailName').innerHTML = poi.properties.name
+        fpccNameHTML += displayName
+        // document.getElementById('fpccTrailName').innerHTML = poi.properties.name
         // $('#fpccPreserveName .trailName').html(poi.properties.name)
       }
       directTrail = myReferences.trailInfo.originalTrailInfo[poi.properties.direct_trail_id] || null
@@ -243,7 +256,7 @@ var panelFuncs = function (map) {
         trailSubsystemTrails = myReferences.trailInfo.trailSubsystemMap[trailSubsystemNormalizedName] || null
         descriptionTrail = directTrail
       }
-      fpccContainerHTML = '<div class="fpccTop">'
+      fpccContainerHTML += '<div class="fpccTop">'
       if (poi.properties.photo_link) {
         fpccContainerHTML += '<div class="fpccPhoto">' +
                            '<img src="images/poi-photos/' + poi.properties.photo_link + '">' +
@@ -519,11 +532,11 @@ var panelFuncs = function (map) {
       if (fpccAmenitiesString.length > 0) {
         fpccContainerHTML += '<div class="fpccAmenities fpccUnit clearfix">' + fpccAmenitiesString + '</div>'
       }
-      if(naturePreserveString.length > 0) {
+      if (naturePreserveString.length > 0) {
         fpccContainerHTML += naturePreserveString
       }
 
-      var hoursHTML = ""
+      var hoursHTML = ''
       if (poi.properties.hours1) {
         hoursHTML += '<span class="fpccHours1"><strong>' + poi.properties.season1
         hoursHTML += ':</strong> ' + poi.properties.hours1 + '</span>'
@@ -583,6 +596,8 @@ var panelFuncs = function (map) {
       }
       fpccContainerHTML += '</div>'
     }
+    var closeID = 'closeDetail'
+    fpccNameHTML += '</span><svg id="closeDetail" class="icon icon-x closeDetail"><use xlink:href="icons/defs.svg#icon-x"></use></svg></div>'
     //Trails Section
     var trailsHTML = ""
     if (descriptionTrail) {
@@ -681,8 +696,12 @@ var panelFuncs = function (map) {
                        + '" id="fpccSocialFacebook" class="fpccSocialIcon" target="_blank">'
                        + '<svg class="icon icon-facebook"><use xlink:href="icons/defs.svg#icon-facebook"></use></svg>'
                        + '<span>Facebook</span></a></div>'  
-    var fpccContainerElement = document.getElementById('fpccContainer')
-    fpccContainerElement.innerHTML = fpccContainerHTML
+    fpccContainerHTML += '</div></div>'
+    // var fpccDisplayPanelElement = document.getElementById('fpccDetailPanel')
+
+    that.currentDetailPanelHTML = fpccNameHTML + fpccContainerHTML
+    
+    // fpccDisplayPanelElement.innerHTML = fullHTML
   }
 
   var buildTrailSegmentHTML = function (trailSegment) {
@@ -736,6 +755,16 @@ var panelFuncs = function (map) {
     return trailSegmentHTML;
   }
 
+  that.populateDetailPanel = function (content) {
+    if (content) {
+      $('#fpccDetailPanel').html(content)
+    }
+    that.setHeights()
+    $('#closeAbout').click(that.closeAboutPage)
+    $('#closeDetail').on(Config.listenType, events.closeDetailPanel)
+    $('.detailPanelBanner').on(Config.listenType, detailPanelBannerClick)
+  }
+
   that.slideDetailPanel = function (expand) {
     if (that.SMALL) {
       if (expand) {
@@ -763,7 +792,6 @@ var panelFuncs = function (map) {
       $('#fpccSearchBack').html('<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg> Back to List</a>')
       $('#fpccSearchBack').show()
     }
-    
   }
 
   that.toggleDetailPanel = function (action) {
@@ -787,6 +815,7 @@ var panelFuncs = function (map) {
       }
       changePageTitle(null)
       that.addSearchURL()
+      that.currentDetailPanelHTML = ''
       that.setHeights()
     }
   }
@@ -863,6 +892,19 @@ var panelFuncs = function (map) {
     }
     $.address.title(newTitle)
     $.address.update()
+  }
+
+  var detailPanelBannerClick = function (e) {
+    console.log('detailPanelBannerClick')
+    if ($(e.target).parents('#fpccDetailPanel').is(':visible')) {
+      if ($(e.target).parents('#fpccDetailPanel').hasClass('contracted')) {
+        console.log('[detailPanelBannerClick] parent has contracted. Run slideDetailPanel2(false)')
+        that.slideDetailPanel(true)
+      } else {
+        console.log('[detailPanelBannerClick] parent does not have contracted')
+        that.slideDetailPanel(false)
+      }
+    }
   }
 
   var METERSTOMILESFACTOR = 0.00062137

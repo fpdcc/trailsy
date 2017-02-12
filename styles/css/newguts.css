@@ -417,6 +417,7 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
 .fpccTrailUse .icon{width:1.5em;height:1.5em;margin-left:.25em}
 
 /* panel - menu */
+
 .fpccMenu{float:right;margin-top:87px;width:auto;display:block;margin-right:-40px}
 .fpccMenu .hamburger,.fpccMenu .hamburger:visited{background: #999;font-size:.75em;float: left;color:#fff;text-decoration:none;font-weight:bold;box-shadow:inset 4px 0px 8px 0px rgba(0,0,0,0.3);padding: .75em .75em;width: 40px}
 .fpccMenu .hamburger:hover,.fpccMenu .hamburger:active{background:#666}
@@ -499,6 +500,8 @@ a.fpccMobileBrand{font-size:.6875em}
 .fpccAmenity{width:100%;margin-right:0}  
 .fpccSegmentName{max-width:60%}  
 }
+
+.fpccMobileMenuList{z-index: 8050}
 
 /*DESKTOP to adjust------------------------------------*/
 
