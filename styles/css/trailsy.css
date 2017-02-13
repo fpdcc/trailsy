@@ -1,0 +1,259 @@
+
+
+
+.trailhead-bg {
+    background-image: url("../../img/Boulder_Pass_Trailhead.jpg");
+}
+
+.old-boot-bg {
+    background-image: url("../../img/Neglected_boot.jpg");
+    min-height: 440px;
+    background-size: 850px;
+    padding: 100px;
+}
+
+.obvious-hyperlink {
+    color:  #B1FB17;
+}
+
+.dark-neutral-bg {
+    background-color: rgba(150,150,150,.5);
+}
+
+.inner-jumbo {
+    padding: 50px;
+    margin: 20px;
+}
+
+.white-bg {
+  background-color: ghostwhite;
+}
+
+.very-top {
+    top: 0px;
+}
+
+.covers-map {
+    z-index: 1000;
+}
+
+.text-aqua {
+    color: #00adef;
+}
+
+.text-aqua:hover {
+    color: #00adef;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.nav-header {
+    background-color:#523d32;
+    padding: .75em 0 .5em 0;
+    text-align: left;
+}
+
+.nav-footer {
+    background-color:  #91c73d;
+    padding: .75em .25em .5em 1em;
+    text-align: left;
+}
+
+.nav-footer:hover {
+    background-color: #b0d576;
+}
+
+.centered-container {
+    text-align: center;
+}
+.centered {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.slate-thin-border {
+    border: solid 1px #cccccc;
+}
+
+.slate-thin-border:hover {
+    border: solid 1px #aaaaaa;
+    background-color: #cccccc;
+}
+
+
+
+.bg-light-neutral {
+    background-color: whitesmoke;
+}
+
+.dark-neutral-text {
+    color: darkslategray;
+    text-shadow: none;
+}
+
+
+
+.logo {
+    width: 18em;
+}
+
+.in-the-middle {
+    cursor: pointer;
+    position: absolute;
+    top: 2em;
+    left: 35em;
+    display: block;
+    width: 350px;
+    z-index: 1000;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+.trailsy-brand {
+    background-color:  #91C73D;
+    color: #523d32;
+    font-style: italic;
+    font-size: 14px;
+    display: inline-block;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+}
+
+.trailsy-brand > span {
+    vertical-align: middle;
+}
+
+.trailsy-brand-inverse {
+    background-color:#523d32;
+    color:  #91C73D;
+    font-size: 1.25em;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.fancy-serif {
+    font-family: Rockwell,Georgia,Times,Times New Roman,serif;
+    font-size: 1.75em;
+}
+
+/* https://css-tricks.com/examples/ShapesOfCSS/#triangle-right */
+#triangle-right {
+    width: 0;
+    height: 0;
+    border-top: 1.3em solid transparent;
+    border-left: 1em solid #91C73D;
+    border-bottom: 1.3em solid transparent;
+    display: inline-block;
+    margin-bottom: -1.0em;
+    margin-left: -0.3em;
+}
+
+
+/* override leaflet style */
+.leaflet-popup-content-wrapper {
+    color: #523d32;
+    background-color: rgba(250,250,250,.85);
+}
+
+.leaflet-popup-content {
+    min-width: 10em;
+}
+
+.popup-icon {
+    height: 2.5em;
+}
+
+html, body, #container {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+#trailMapLarge {
+    height: 100%;
+}
+
+.brown-bg {
+    background-color: #523d32;
+}
+
+.green-button {
+    background-color: #91C73D;
+    color: ghostwhite;
+}
+
+.green-button:hover {
+    background-color: #91C73D;
+    color: ghostwhite;
+}
+
+ul.nav span.input-group-btn {
+    width: auto;
+}
+
+.navbar-inverse.brown-bg {
+    border-color: transparent;
+}
+
+.navbar-form-tight {
+    padding: 0;
+    margin: 0;
+}
+
+.navbar-tight {
+    min-height: 0;
+    margin: 0;
+}
+
+@media only screen and (min-width: 375px) {
+    .trailsy-brand {
+        font-size:1.4em;
+    }
+
+    .trailsy-brand-inverse {
+        font-size: 1.4em;
+    }
+
+    #triangle-right {
+        border-top: 1.8em solid transparent;
+        border-left: 1.2em solid #91C73D;
+        border-bottom: 1.8em solid transparent;
+        display: inline-block;
+        margin-bottom: -1.3em;
+        margin-left: -0.3em;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .navbar.navbar-inverse {
+        display: inline-block;
+    }
+
+    .masthead.brown-bg {
+        width: 100%;
+        padding: 0.5em 0 0.5em 0;
+    }
+
+    .masthead-brand {
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    .navbar-tight {
+        margin: 0.5em;
+    }
+
+    .drawer {
+        top: 4.5em;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .cover-container {
+        padding-left: 0;
+    }
+}

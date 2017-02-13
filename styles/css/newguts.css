@@ -203,7 +203,7 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 .fpccSegmentOverview.off.paved.red svg{background:#F8AD96}
 .fpccSegmentOverview.off.paved.orange svg{background:#FDD09E}
 .fpccSegmentOverview.off.paved.purple svg{background:#BFAFD5}
-.fpccSegmentOverview.off.paved.grey svg,.fpccSegmentOverview.paved.off.future svg{background:#D2DAE3}
+.fpccSegmentOverview.off.paved.grey svg,.fpccSegmentOverview.off.paved.future svg{background:#D2DAE3}
 .fpccSegmentOverview.off.paved.yellow svg{background:#FFF9BD}
 .fpccSegmentOverview.off.paved.green svg{background:#85AF90}
 .fpccSegmentOverview.off.paved.olive  svg, .fpccSegmentOverview.pave.tan svg{background:#D3D0B5}
@@ -217,7 +217,7 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 .fpccSegmentOverview.red line{stroke:#EE2D2F}
 .fpccSegmentOverview.orange line{stroke:#F7941E}
 .fpccSegmentOverview.purple line{stroke:#7F58A5}
-.fpccSegmentOverview.grey line,.fpccSegmentOverview.future line{stroke:#9BB0C1}
+.fpccSegmentOverview.grey line,.fpccSegmentOverview.future line{stroke:#58595B}
 .fpccSegmentOverview.yellow line{stroke:#FFF450}
 .fpccSegmentOverview.green line{stroke:#006129}
 .fpccSegmentOverview.olive line, .fpccSegmentOverview.tan line{stroke:#969161}
@@ -229,7 +229,7 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 .fpccSegmentOverview.off.red line{stroke:#F8AD96}
 .fpccSegmentOverview.off.orange line{stroke:#FDD09E}
 .fpccSegmentOverview.off.purple line{stroke:#BFAFD5}
-.fpccSegmentOverview.off.grey line,.fpccSegmentOverview.off.future line{stroke:#D2DAE3}
+.fpccSegmentOverview.off.grey line,.fpccSegmentOverview.future line{stroke:#58595B}
 .fpccSegmentOverview.off.yellow line{stroke:#FFF9BD}
 .fpccSegmentOverview.off.green line{stroke:#85AF90}
 .fpccSegmentOverview.off.olive line, .fpccSegmentOverview.tan line{stroke:#D3D0B5}
@@ -242,41 +242,7 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 .fpccTrails .fpccAccessTo .icon-trail-marker{width:1.5em;height:1.5em;margin-right:.5em;vertical-align:middle;margin-top:-5px}
 
 /*map - trail*/
-path.trail.visible{stroke-width:3;stroke-opacity:1;stroke:#C4D0DB}
-path.trail.single_track,path.trail.primitive,path.trail.natural_surface{stroke-dasharray:0,8}
-path.trail.unpaved, path.trail.stone{stroke-dasharray:7,9}
-path.trail.invisible{stroke-width:20;stroke-opacity:0}
-path.trail.visible.selected{stroke-width:7}
-path.trail.single_track.selected,path.trail.primitive.selected,path.trail.natural_surface.selected{stroke-dasharray:0,10}
-path.trail.unpaved.selected, path.trail.stone.selected{stroke-dasharray:7,11}
-path.trail.inactive{display:none}
-.z1 path.trail, .z2 path.trail, .z3 path.trail, .z4 path.trail, .z5 path.trail, .z6 path.trail, .z7 path.trail, .z8 path.trail, .z9 path.trail, .z10 path.trail {display:none;}
-path.trail.red{stroke:#EE2D2F}
-path.trail.orange{stroke:#F7941E}
-path.trail.purple{stroke:#7F58A5}
-path.trail.grey{stroke:#58595B}
-path.trail.yellow{stroke:#FFF450}
-path.trail.green{stroke:#006129}
-path.trail.tan{stroke:#969161}
-path.trail.olive{stroke:#969161}
-path.trail.brown{stroke:#6C503F}
-path.trail.blue{stroke:#26B8EB}
-path.trail.black{stroke:#333132}
-path.trail.future{stroke:#9BB0C1}
-/*off-FPDCC*/
-path.trail.off_fpdcc{stroke:#C4D0DB}
-path.trail.off_fpdcc.red{stroke:#F8AD96}
-path.trail.off_fpdcc.orange{stroke:#FDD09E}
-path.trail.off_fpdcc.purple{stroke:#BFAFD5}
-path.trail.off_fpdcc.grey{stroke:#58595B}
-path.trail.off_fpdcc.yellow{stroke:#FFF9BD}
-path.trail.off_fpdcc.green{stroke:#85AF90}
-path.trail.off_fpdcc.tan{stroke:#D3D0B5}
-path.trail.off_fpdcc.olive{stroke:#D3D0B5}
-path.trail.off_fpdcc.brown{stroke:#C0ADA1}
-path.trail.off_fpdcc.blue{stroke:#B4DDF5}
-path.trail.off_fpdcc.black{stroke:#ABADAF}
-path.trail.off_fpdcc.future{stroke:#D2DAE3}
+/* map trail styling now handled through javascript since we are using canvas rendering
 
 /* icons */
 .icon{display:inline-block;width:1em;height:1em;fill:currentColor}
@@ -308,11 +274,12 @@ path.trail.off_fpdcc.future{stroke:#D2DAE3}
 .z10 .icon-sign,.z11 .icon-sign,.z12 .icon-sign,.z13 .icon-sign,.z14 .icon-sign{width:2.25em;height:2.25em}
 .z15 .icon-sign,.z16 .icon-sign,.z17 .icon-sign,.z18 .icon-sign{width:3em;height:3em}
 .z1 .icon-activity,.z2 .icon-activity,.z3 .icon-activity,.z4 .icon-activity,.z5 .icon-activity,.z6 .icon-activity,.z7 .icon-activity,.z8 .icon-activity,.z9 .icon-activity,.z10 .icon-activity,.z11 .icon-activity,.z12 .icon-activity{display: none}
-.z13 .icon-activity,.z14 .icon-activity{width:2.0em;height:2.0em;display:inline-block}
-.z15 .icon-activity,.z16 .icon-activity,.z17 .icon-activity,.z18 .icon-activity{width:3em;height:3em;display:inline-block}
+.z13 .icon-activity,.z14 .icon-activity{width:1.75em;height:1.75em;display:inline-block}
+.z15 .icon-activity{width:2.0em;height:2.0em;display:inline-block}
+.z16 .icon-activity,.z17 .icon-activity,.z18 .icon-activity{width:3em;height:3em;display:inline-block}
 .z1 .picnic-grove-marker,.z2 .picnic-grove-marker,.z3 .picnic-grove-marker,.z4 .picnic-grove-marker,.z5 .picnic-grove-marker,.z6 .picnic-grove-marker,.z7 .picnic-grove-marker,.z8 .picnic-grove-marker,.z9 .picnic-grove-marker,.z10 .picnic-grove-marker,.z11 .picnic-grove-marker,.z12 .picnic-grove-marker{display:none}
-.z13 .picnic-grove-marker,.z14 .picnic-grove-marker{width:2.0em;height:2.0em;display:inline-block}
-.z15 .picnic-grove-marker,.z16 .picnic-grove-marker,.z17 .picnic-grove-marker,.z18 .picnic-grove-marker{width:3em;height:3em;display:inline-block}
+.z13 .picnic-grove-marker,.z14 .picnic-grove-marker,.z15 .picnic-grove-marker{width:2.0em;height:2.0em;display:inline-block}
+.z16 .picnic-grove-marker,.z17 .picnic-grove-marker,.z18 .picnic-grove-marker{width:3em;height:3em;display:inline-block}
 .icon-map.inactive{display:none} /* This needs to be after the zoom level changes so that this display:none; overrides the zoom level display attrivute */
 .icon.icon-map.icon-sign{padding:.8em 0 0;/* background-image:url(../../icons/defs.svg#icon-sign); */}
 .icon-map.selected{animation:animateEdge 2.5s forwards}
@@ -320,6 +287,7 @@ path.trail.off_fpdcc.future{stroke:#D2DAE3}
 .icon-activity.icon-map.selected{opacity:1}
 .leaflet-marker-icon.icon-map.picnic-grove-marker{display:none}
 .icon-map.picnic-grove-marker.selected{display:inline-block}
+.icon-map.icon-sign.icon-cluster{width:3.0em;height:3.0em}
 .outofbounds{display:none;}
 @keyframes animateEdge{
 0%{background:none;box-shadow:none}
@@ -449,16 +417,17 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
 .fpccTrailUse .icon{width:1.5em;height:1.5em;margin-left:.25em}
 
 /* panel - menu */
+
 .fpccMenu{float:right;margin-top:87px;width:auto;display:block;margin-right:-40px}
-.fpccMenu a:link.hamburger,.fpccMenu a:visited.hamburger{background: #999;font-size:.75em;float: left;color:#fff;text-decoration:none;font-weight:bold;box-shadow:inset 4px 0px 8px 0px rgba(0,0,0,0.3);padding: .75em .75em;width: 40px}
-.fpccMenu a:hover.hamburger,.fpccMenu a:active.hamburger{background:#666}
-.fpccMenu a.hamburger span{height:4px;background:#FFF;margin-bottom:3px;display:block}
-.fpccMenu a.hamburger span.last{margin-bottom:0}
+.fpccMenu .hamburger,.fpccMenu .hamburger:visited{background: #999;font-size:.75em;float: left;color:#fff;text-decoration:none;font-weight:bold;box-shadow:inset 4px 0px 8px 0px rgba(0,0,0,0.3);padding: .75em .75em;width: 40px}
+.fpccMenu .hamburger:hover,.fpccMenu .hamburger:active{background:#666}
+.fpccMenu .hamburger span{height:4px;background:#FFF;margin-bottom:3px;display:block}
+.fpccMenu .hamburger span.last{margin-bottom:0}
 ul.fpccMenuList{clear:both;margin:0;list-style-type:none;color:#333;font-weight:bold;font-size:.8125em;width:200px;padding-left:0;float:right;margin-right:-200px;box-shadow:0 4px 8px 0 rgba(0,0,0,0.2)}
 ul.fpccMenuList.hide{display:none}
 ul.fpccMenuList.show{display:block}
-ul.fpccMenuList a:link,ul.fpccMenuList a:visited{padding:.75em;color:#FFF;background:#999;border-bottom:1px solid #FFF;text-decoration:none;display:block}
-ul.fpccMenuList a:link.last,ul.fpccMenuList a:visited.last{border:none}
+ul.fpccMenuList a,ul.fpccMenuList a:visited{padding:.75em;color:#FFF;background:#999;border-bottom:1px solid #FFF;text-decoration:none;display:block}
+ul.fpccMenuList a .last,ul.fpccMenuList a:visited.last{border:none}
 ul.fpccMenuList a:hover,ul.fpccMenuList a:active{background:#666}
 
 /*main.css override*/
@@ -467,7 +436,7 @@ ul.fpccMenuList a:hover,ul.fpccMenuList a:active{background:#666}
 .title-row header .navbar-inner{padding:.35em 0 .5em 0;width:auto;margin:0 42px;position:inherit;border-left:15px solid #444;border-right:15px solid #444}
 #fpccPreserveName .trailName{font-size:20px}
 .detailPanel #fpccPreserveName.detailPanelBanner{background:#273719;padding:.5em 1.75em .5em 1em;min-height:48px}
-#fpccDetailPanel.contracted.detailPanel #fpccPreserveName.detailPanelBanner #fpccTrailName{padding-top:.15em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.detailPanel.contracted.detailPanel #fpccPreserveName.detailPanelBanner #fpccTrailName{padding-top:.15em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .icon-x.closeDetail{width:1.5em;height:1.5em;position:absolute;top:10px;right:10px}
 .icon-x.closeDetail:hover{opacity:1;filter:alpha(opacity=100)}
 .trailListColumn .fpccContainer a,.trailListColumn #fpccSearchBack a{display:inline-block}/* Needed to override the main stylesheet or it disappears POI panel links on mobile:*/
@@ -478,14 +447,16 @@ ul.fpccMenuList a:hover,ul.fpccMenuList a:active{background:#666}
 /*leaflet override*/
 .leaflet-popup-tip{background:#606D29}
 .leaflet-popup-content-wrapper{border-radius:0px;width:auto;min-width:12em;height:auto;padding:0}
-.leaflet-popup-content-wrapper .leaflet-popup-content{font-family:Helvetica,Arial,sans-serif;border-bottom:2px solid #606D29;color:#333;min-width:10em;width:auto;height:auto;margin:0;position:relative;background-color:#fff;font-size:13px;line-height:1.5}
+.leaflet-popup-content-wrapper .leaflet-popup-content{font-family:Helvetica,Arial,sans-serif;border-bottom:2px solid #606D29;color:#333;min-width:10em;width:auto;height:auto;margin:0;position:relative;background-color:#fff;font-size:13px;line-height:1.5;text-transform:capitalize}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup{width:auto;min-width:14em;position:relative}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box{width:100%;position:relative;display:inline-block;height:auto}
-.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames{position:relative;display:inline-block;background-color:#fff;height:auto;width:100%;max-width:200px;overflow-y:hidden;min-width:12em;color:#58595b;text-decoration:none;text-transform:capitalize; vertical-align:bottom;font-weight:bold;padding:.5em .75em;border:none;color:#333}
-.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname{cursor:pointer;min-width:12em;width:100%;border-top:1px solid #e3e3e1;padding:.5em .75em}
+.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames{position:relative;display:inline-block;background-color:#fff;height:auto;width:100%;max-width:200px;overflow-y:hidden;min-width:12em;text-decoration:none;text-transform:capitalize; vertical-align:bottom;font-weight:bold;padding:.5em .75em;border:none;color:#606D29;text-decoration:underline}
+.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname{cursor:pointer;min-width:12em;width:100%;border-top:1px solid #e3e3e1;padding:.5em .75em;color:#606D29;text-decoration:underline}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .popupTrailNames{position:relative;height:auto;width:auto;max-width:200px;overflow-y:hidden;vertical-align:top;display:inline-block;font-weight:normal;text-decoration:none;line-height:1.5em}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname.selected{padding-bottom:0;color:#333}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname:hover{background:#E3EACC}
+.trail-popup-line-named.trail-subsystem{font-weight:bold;color:#606D29;text-decoration:none}
+.trail-popup .trail-popup-line-named.trail-segment{border-top:1px solid #e3e3e1}
 .leaflet-popup-content-wrapper .leaflet-popup-content .activity-popup,.leaflet-popup-content-wrapper .leaflet-popup-content .picnicgrove-popup{border:0;padding:.5em .75em}
 .trail-popup .trail-popup-line-named{color:#333!important;border-top:none;padding:.5em .75em}
 .leaflet-control-layers.leaflet-control-layers-expanded.leaflet-control{display:none}
@@ -529,6 +500,8 @@ a.fpccMobileBrand{font-size:.6875em}
 .fpccAmenity{width:100%;margin-right:0}  
 .fpccSegmentName{max-width:60%}  
 }
+
+.fpccMobileMenuList{z-index: 8050}
 
 /*DESKTOP to adjust------------------------------------*/
 
@@ -596,6 +569,10 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
 .fpccTrailUse{float:right}
 .fpccTrailUse .icon{width:1.5em;height:1.5em;margin-left:.25em}
 
+ /*popups*/
+.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames{color:#333;text-decoration:none}
+.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname{color:#333;text-decoration:none}
+.trail-popup .trail-popup-line-named.trail-subsystem{color:#333;text-decoration:none}
 
 /*OVERRIDES------------------------------------*/
 

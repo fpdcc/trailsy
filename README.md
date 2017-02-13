@@ -1,60 +1,104 @@
-Trailsy
-=======
+![alt text](https://github.com/CodeForBoulder/trailsy/blob/master/img/logo-bc.png "Trailsy")
 
 Trailsy is the front-end component for Cook County Forest Preserves Mapping Application. It is a fork of the Trailsy component of To The Trails, a project developed by Code for America fellows working with partners in Summit County, Ohio.
 
-## Development
+It has been forked from the original Code for America 2013 Trailsy project found [here](https://github.com/codeforamerica/trailsy).
 
-This site uses SVG graphics which do not display when viewing the page locally. It is recommended to utilize a local web server such as [SimpleHTTPServer](http://www.pythonforbeginners.com/modules-in-python/how-to-use-simplehttpserver/) to view locally.
+In a nutshell it is a pure client side JavaScript browser app to show the trails in and around Boulder, Colorado based on data from our parks and open space.
 
-#### Credits
+**Q:** _What is OpenTrails data?_
 
-Original Trailsy Code for America team includes
+**A:** OpenTrails data is a data specification that can be used to build apps to help people know about trails. 
 
-* [Dan Avery][danavery], developer
-* [Katie Lewis][katie], designer
-* [Alan Williams][alanjosephwilliams], third wheel
+The goal is to allow public agencies around the United States to publish their data in the same way so apps can be developed for the public to use to explore trails.
+Much much more may be found at the [OpenTrail Data Website](http://www.opentraildata.org/)
 
-[katie]: https://github.com/katielewis
-[danavery]: https://github.com/danavery
-[alanjosephwilliams]: https://github.com/alanjosephwilliams
+## Getting Involved
+---
+### Use it!
+* Please try the application at http://52.25.183.113 and send us feedback via [issues](https://github.com/CodeForBoulder/trailsy/issues).
+ 
+### Get Familiar with what we're doing
+* Peruse the OpenTrails working draft specification at https://docs.google.com/document/d/1KF8KAio-SqGHhh9oFY_KjfwIi3PePOHg7KfTSPh27fc/edit
+* Check out the Trello Board https://trello.com/b/qzDMDsVJ/trails
 
-You can contact us all together through our team e-mail address at summitco@codeforamerica.org.
+## Ways *you* can contribute!
+---
+### Project Management
+* Helping to prioritize features and issues by coordinating between Boulder County Parks and Open Space and Trailhead Labs, the producer of OuterSpatial
+
+### Software Development
+* Fork this repo's master branch
+* Pick up a work item from the "To Do" column of the trello board and place it in the "Doing" column and make a comment that you're working on it.
+* Do your best to use some TDD sweetness for the work item you implement, once you're convinced you're done commit and push to your repo and submit a pull request
+
+### Data Detective
+* Examine the data produced by OuterSpatial to discover what relationships exist within. 
+
+### Specification
+* Contribute your thoughts to the OpenTrails specification
+
+### Financially
+* [financially](https://secure.codeforamerica.org/page/contribute/default?source_codes=footer-donate-link/)
+
+
+
+## Software Development How-To
+---
 
 ## Setup
+This project depends on Node.js (for dependency management, the build step, and a dev server), which we will assume 
+you've installed either from a binary [here](https://nodejs.org/download/) or using your favorite package manager.
 
-*(For quick step-by-step instructions for creating a new deploy of To The Trails/Trailsy, try the [new deploy instructions](https://github.com/codeforamerica/trailsy/wiki/Deploying-a-New-Instance) on the project [wiki](https://github.com/codeforamerica/trailsy/wiki).)*
+All remaining instructions assume you have:
+* Cloned this repo
+* Opend a Terminal or other command line utility
+* Changed the current directory to this repo
 
-This front-end code is self-contained and can be used with any existing instance of [Trailsyserver](http://www.github.com/codeforamerica/trailsyserver), which provides a REST-like API to trail data. Almost all of the Trailsy-specific code is in `js/trailhead.js`. Change `API_HOST` at the beginning of that file to point to a Trailsyserver instance, and serve up the app directory with the HTTP server of your choice.
+### Building
 
-This repository is included as a submodule of Trailsyserver in its `/public` directory, but can be hosted separately, and should be during development unless you're well acquainted with the subtleties of git submodules.  See the [docs on deploying new versions](https://github.com/codeforamerica/trailsy/wiki/Pushing-New-Versions-To-Heroku) for information on keeping the submodule code up to date.
+* Executing `npm install` at the command prompt will install dependencies and make trails ready to run
 
-The app is lightly customized for use in Summit County, but can be repurposed for other areas with minimal effort. There is a constant named AKRON in trailhead.js that can be changed to whatever default location you desire.
+### Testing
 
 ## Contributing
 In the spirit of [free software][free-sw], **everyone** is encouraged to help
 improve this project.
+* Test files can be found in the `spec` directory
+* Testing is done with [jasmine](http://jasmine.github.io/)
+* Execute tests by running the command `jasmine` at the prompt, use npm to install it if you get a `command not found` error
+>>>>>>> development
 
-[free-sw]: http://www.fsf.org/licensing/essays/free-sw.html
+### Running
 
-Here are some ways *you* can contribute:
+* Executing `npm start` at the command prompt will launch a development server
+* You may now access your local version of the Trailsy app at `http://localhost:8080`
 
-* by reporting bugs
-* by suggesting new features
-* by translating to a new language
-* by writing or editing documentation
-* by writing specifications
-* by writing code (**no patch is too small**: fix typos, add comments, clean up
-  inconsistent whitespace)
-* by refactoring code
-* by closing [issues][]
-* by reviewing patches
-* [financially][]
+### Debugging
 
-[issues]: https://github.com/codeforamerica/codeforamerica/trailsy/issues
-[financially]: https://secure.codeforamerica.org/page/contribute
+To debug your local version of Trailsy in your browser's console and step through the individual javascript
+files that are packaged together into 'bundle.js', do the following:
 
-## Submitting an Issue
+* Stop your local version of the Trailsy app (e.g. use `Ctrl-C` at the command prompt)
+* Execute `npm run-script sourcemap`
+* Start your local version of Trailsy just as in the above 'Running' section
+
+## Caveats
+Since the conversion to using OpenTrails is a WIP, expect some functionality to be missing.
+
+## Creating a Distribution for running as a pure static site
+* cd to the project directory and run the following commands
+* `rm bundle.js bundle.js.map`
+* `webpack`
+* `mkdir dist`
+* `cp index.html dist`
+* `cp error.html dist`
+* `cp bundle.js dist`
+* `cp bundle.js.map dist`
+* `cp -r styles dist`
+* `cp -r img dist`
+* `mkdir dist/node_modules`
+* `cp -r node_modules/bootstrap-drawer dist/node_modules`
 
 Please note that this application is still an in-development prototype.
 
@@ -63,18 +107,59 @@ submitting a bug report or feature request, check to make sure it hasn't
 already been submitted. You can indicate support for an existing issue by
 voting it up. When submitting a bug report, please include any details that might
 be necessary to reproduce the bug.
+## Deployment via webpack server
 
-## Submitting a Pull Request
-1. Fork the project.
-2. Create a topic branch.
-3. Implement your feature or bug fix.
-4. Commit and push your changes.
-5. Submit a pull request.
+[webpacksite]:(http://webpack.github.io/docs/webpack-dev-server.html)
+With RHEL / CentOS / Fedora
 
-##Reuse
-If you are looking to reuse and customize Trailsy, you can find .eps files for the artwork <a href="https://github.com/katielewis/trailsy-designassets" target="_blank">here</a>.
+Switch to the root user
+(e.g. On an AWS instance after you log in execute `sudo su -`)
 
-## Copyright
-Copyright (c) 2013 Code for America. See [LICENSE][] for details.
+Install git via yum
+Clone this repository
 
-[license]: https://github.com/codeforamerica/streetmix/blob/master/LICENSE.md
+Add the '--host [IP Address]' option into the 'start' line within the package.json file so trailsy is accessible
+outside of localhost. 
+
+* [Webpack Server][webpacksite], documentation for webpack server
+
+Install NodeJS and npm via the instructions here:
+https://github.com/joyent/node/wiki/installing-node.js-via-package-manager
+
+Once NodeJS and npm are installed follow instructions from Building and then Running.
+
+---
+### Contributing
+In the spirit of [free software][free-sw], **everyone** is encouraged to help
+improve this project. 
+
+[free-sw]: http://www.fsf.org/licensing/essays/free-sw.html
+
+### Copyright
+This fork complies with the same copyright notice as derived from the original project. 
+This project does not use Code for America and its contributors to promote or endorse other products.
+
+### Licensing
+This project is licensed under a BSD 3-clause license, which can be found [here](./License.md)
+
+
+#### Acknowledgements
+This project would not be possible without the support of the Boulder County Parks and Open Space department and Trailhead Labs. *Thank you!*
+ 
+#### Credits
+---
+The team includes
+* [Mario Barrenechea][mbarrenecheajr], developer
+* [Robert Soden][rsoden], developer
+* [Sean Garborg][garborg], developer
+* [James Gould][JamesGould123], developer
+* [Trevor Ackerman][trevorackerman], developer
+* You, if you're interested in volunteering!
+
+[mbarrenecheajr]: https://github.com/mbarrenecheajr
+[rsoden]: https://github.com/rsoden
+[garborg]: https://github.com/garborg
+[JamesGould123]: https://github.com/JamesGould123
+[trevorackerman]: https://github.com/trevorackerman
+
+You can contact us here if you would like to get involved.
