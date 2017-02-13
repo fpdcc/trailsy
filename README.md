@@ -1,11 +1,9 @@
-![alt text](https://github.com/CodeForBoulder/trailsy/blob/master/img/logo-bc.png "Trailsy")
+Trailsy
+=======
 
-This version of Trailsy is a Code for Boulder project that uses [OuterSpatial](http://outerspatial.com) API calls to
-retrieve OpenTrails data published by [Boulder County Parks and Open Space](http://www.bouldercounty.org/dept/openspace/pages/default.aspx). 
+Trailsy is the front-end component for Cook County Forest Preserves Mapping Application developed by Cook County Forest Preserves and Smart Chicago Collaborative. It has been forked from the original Code for America 2013 Trailsy project found [here](https://github.com/codeforamerica/trailsy). It also borrows heavily from the [Code for Boulder fork of Trailsy](https://github.com/codeforboulder/trailsy).
 
-It has been forked from the original Code for America 2013 Trailsy project found [here](https://github.com/codeforamerica/trailsy).
-
-In a nutshell it is a pure client side JavaScript browser app to show the trails in and around Boulder, Colorado based on data from our parks and open space.
+In a nutshell it is a pure client side JavaScript browser app to show the trails, amenities, and activities for Cook County Forest Preserves.
 
 **Q:** _What is OpenTrails data?_
 
@@ -14,35 +12,21 @@ In a nutshell it is a pure client side JavaScript browser app to show the trails
 The goal is to allow public agencies around the United States to publish their data in the same way so apps can be developed for the public to use to explore trails.
 Much much more may be found at the [OpenTrail Data Website](http://www.opentraildata.org/)
 
+The Cook County version of Trailsy has deviated significantly from the current Trailsy specification. "Trailheads" have been transformed into Points of Interest (POI). In most cases the POI location represents the entrance to the POI area. Two additional point layers, Activities and Picnic Groves, have been added. These points "belong" to a POI and provide specific amenity location.
+
+
 ## Getting Involved
 ---
 ### Use it!
-* Please try the application at http://52.25.183.113 and send us feedback via [issues](https://github.com/CodeForBoulder/trailsy/issues).
+* Please try the application at https://fpcc-staging.smartchicagoapps.org/ and send us feedback via [issues](https://github.com/smartchicago/trailsy/issues).
  
-### Get Familiar with what we're doing
+### Get Familiar with the OpenTrails specification
 * Peruse the OpenTrails working draft specification at https://docs.google.com/document/d/1KF8KAio-SqGHhh9oFY_KjfwIi3PePOHg7KfTSPh27fc/edit
-* Check out the Trello Board https://trello.com/b/qzDMDsVJ/trails
 
 ## Ways *you* can contribute!
 ---
-### Project Management
-* Helping to prioritize features and issues by coordinating between Boulder County Parks and Open Space and Trailhead Labs, the producer of OuterSpatial
-
-### Software Development
-* Fork this repo's master branch
-* Pick up a work item from the "To Do" column of the trello board and place it in the "Doing" column and make a comment that you're working on it.
-* Do your best to use some TDD sweetness for the work item you implement, once you're convinced you're done commit and push to your repo and submit a pull request
-
-### Data Detective
-* Examine the data produced by OuterSpatial to discover what relationships exist within. 
-
 ### Specification
 * Contribute your thoughts to the OpenTrails specification
-
-### Financially
-* [financially](https://secure.codeforamerica.org/page/contribute/default?source_codes=footer-donate-link/)
-
-
 
 ## Software Development How-To
 ---
@@ -69,7 +53,7 @@ All remaining instructions assume you have:
 ### Running
 
 * Executing `npm start` at the command prompt will launch a development server
-* You may now access your local version of the Trailsy app at `http://localhost:8080`
+* You may now access your local version of the Trailsy app at `http://localhost:9000`
 
 ### Debugging
 
@@ -79,9 +63,6 @@ files that are packaged together into 'bundle.js', do the following:
 * Stop your local version of the Trailsy app (e.g. use `Ctrl-C` at the command prompt)
 * Execute `npm run-script sourcemap`
 * Start your local version of Trailsy just as in the above 'Running' section
-
-## Caveats
-Since the conversion to using OpenTrails is a WIP, expect some functionality to be missing.
 
 ## Creating a Distribution for running as a pure static site
 * cd to the project directory and run the following commands
@@ -131,25 +112,3 @@ This project does not use Code for America and its contributors to promote or en
 
 ### Licensing
 This project is licensed under a BSD 3-clause license, which can be found [here](./License.md)
-
-
-#### Acknowledgements
-This project would not be possible without the support of the Boulder County Parks and Open Space department and Trailhead Labs. *Thank you!*
- 
-#### Credits
----
-The team includes
-* [Mario Barrenechea][mbarrenecheajr], developer
-* [Robert Soden][rsoden], developer
-* [Sean Garborg][garborg], developer
-* [James Gould][JamesGould123], developer
-* [Trevor Ackerman][trevorackerman], developer
-* You, if you're interested in volunteering!
-
-[mbarrenecheajr]: https://github.com/mbarrenecheajr
-[rsoden]: https://github.com/rsoden
-[garborg]: https://github.com/garborg
-[JamesGould123]: https://github.com/JamesGould123
-[trevorackerman]: https://github.com/trevorackerman
-
-You can contact us here if you would like to get involved.
