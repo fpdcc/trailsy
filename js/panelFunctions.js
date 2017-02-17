@@ -238,7 +238,6 @@ var panelFuncs = function (map) {
       descriptionTrail = trailSubsystemTrails[0] || null
       displayName = descriptionTrail.trail_subsystem
       fpccNameHTML += displayName
-      
       // document.getElementById('fpccTrailName').innerHTML = displayName
       // $('#fpccPreserveName .trailName').html(trailSubsystemName)
     }
@@ -252,7 +251,7 @@ var panelFuncs = function (map) {
       }
       directTrail = myReferences.trailInfo.originalTrailInfo[poi.properties.direct_trail_id] || null
       if (directTrail) {
-        var trailSubsystemNormalizedName = directTrail.trail_subsystem.replace(/[& ]/g, '+')
+        trailSubsystemNormalizedName = directTrail.trail_subsystem.replace(/[& ]/g, '+')
         trailSubsystemTrails = myReferences.trailInfo.trailSubsystemMap[trailSubsystemNormalizedName] || null
         descriptionTrail = directTrail
       }
@@ -594,7 +593,6 @@ var panelFuncs = function (map) {
       if (extraLinksExist === true) {
         fpccContainerHTML += '<div class="fpccLinks fpccUnit clearfix">' + extraLinksText + '</div>'
       }
-      fpccContainerHTML += '</div>'
     }
     var closeID = 'closeDetail'
     fpccNameHTML += '</span><svg id="closeDetail" class="icon icon-x closeDetail"><use xlink:href="icons/defs.svg#icon-x"></use></svg></div>'
@@ -679,6 +677,7 @@ var panelFuncs = function (map) {
       trailsHTML += trailSegmentsHTML + '</div>'
       fpccContainerHTML += trailsHTML
     }
+    fpccContainerHTML += '</div>'
     var socialLink = encodeURIComponent(window.location.href)
     socialLink = socialLink.replace(/%20/g, '+')
     socialLink = socialLink.replace('/#/", "/')
