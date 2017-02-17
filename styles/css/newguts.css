@@ -459,7 +459,6 @@ ul.fpccMenuList a:hover,ul.fpccMenuList a:active{background:#666}
 .trail-popup .trail-popup-line-named.trail-segment{border-top:1px solid #e3e3e1}
 .leaflet-popup-content-wrapper .leaflet-popup-content .activity-popup,.leaflet-popup-content-wrapper .leaflet-popup-content .picnicgrove-popup{border:0;padding:.5em .75em}
 .trail-popup .trail-popup-line-named{color:#333!important;border-top:none;padding:.5em .75em}
-.leaflet-control-layers.leaflet-control-layers-expanded.leaflet-control{display:none}
 .leaflet-control-container .leaflet-control-layers{border-radius:0}
 
 /* selectize override */
