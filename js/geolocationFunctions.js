@@ -109,7 +109,8 @@ var geolocationFunctions = function (map, filters, poiFeat, events) {
     console.log('[handleGeoError] ' + e.message)
     if (!filters.current.userLocation) {
       console.log('[setupGeolocation handleGeoError] currentUserLocation does not exist')
-      filters.current.userLocation = Config.mapCenter
+      //filters.current.userLocation = Config.mapCenter
+      filters.current.showDistances = false
       showGeoOverlay()
     }
     if (map && userMarker && error.code === 3) {

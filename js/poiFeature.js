@@ -215,6 +215,8 @@ var poiFeature = function (map) {
         distance = currentFeatureLatLng.distanceTo(filters.current.searchLocation)
       } else if (filters.current.userLocation) {
         distance = currentFeatureLatLng.distanceTo(filters.current.userLocation)
+      } else {
+        distance = currentFeatureLatLng.distanceTo(Config.mapCenter)
       }
       el.properties.distance = distance
     })

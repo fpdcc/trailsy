@@ -160,8 +160,10 @@ var panelFuncs = function (map) {
         '<svg class="icon icon-sign"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>' +
         '<span class="fpccEntryNameText">' + poiName + '</span></span>'
       if (el.properties.distance) {
-        var poiDistance = metersToMiles(el.properties.distance)
-        trailheadInfoText += '<span class="fpccEntryDis">' + poiDistance + ' mi away</span></a>'
+        if (filters.current.userLocation || filters.current.searchLocation) {
+          var poiDistance = metersToMiles(el.properties.distance)
+          trailheadInfoText += '<span class="fpccEntryDis">' + poiDistance + ' mi away</span></a>'
+        }
       }
       trailheadInfoText += '</div>'
       var trailDivComplete = trailDivText + trailheadInfoText
@@ -293,8 +295,11 @@ var panelFuncs = function (map) {
       if (poi.properties.phone) {
         fpccContainerHTML += '<span class="fpccPhone">' + poi.properties.phone + '</span>'
       }
-      var directionsUrl = 'http://maps.google.com?saddr=' + myReferences.filters.current.userLocation.lat + ',' + myReferences.filters.current.userLocation.lng +
-        '&daddr=' + poi.geometry.coordinates[1] + ',' + poi.geometry.coordinates[0]
+      var directionsUrl = 'http://maps.google.com?saddr='
+      if (myReferences.filters.current.userLocation) {
+        directionsUrl += myReferences.filters.current.userLocation.lat + ',' + myReferences.filters.current.userLocation.lng
+      }
+      directionsUrl += '&daddr=' + poi.geometry.coordinates[1] + ',' + poi.geometry.coordinates[0]
       fpccContainerHTML += '</div></div>' +
                          '<a href="' + directionsUrl + '" target="_blank" id="entranceDirections" class="fpccButton fpccDirections">Directions</a></div>'
       if (poi.properties.description) {
