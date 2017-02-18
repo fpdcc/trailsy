@@ -166,18 +166,19 @@ var trailMap = function () {
           activityFeat.filterActivity(poiFeat.filteredPoisArray)
         })
         // console.log('[filterAll] about to makeresults at ' + performance.now())
-
         if (poiFeat.filteredPoisFeatureGroup) {
           if (fitToSearchResults) {
             var zoomFeatureGroupBounds = poiFeat.filteredPoisFeatureGroup.getBounds()
-            if (filters.current.searchLocation && filters.current.search.length === 0) {
-              map.setView(filters.current.searchLocation, 14)
-            } else {
-              map.fitBounds(zoomFeatureGroupBounds, {
+            if (filters.current.searchLocation || filters.current.userLocation) {
+              var zoomFeatureArray = poiFeat.filteredPoisArray.slice(0,10)
+              console.log('filterAll zoomFeatureArray.length = ' + zoomFeatureArray.length)
+              var zoomFeatureGroup = new L.FeatureGroup(zoomFeatureArray)
+              zoomFeatureGroupBounds = zoomFeatureGroup.getBounds()
+            }
+            map.fitBounds(zoomFeatureGroupBounds, {
                 // padding: allPadding
                 // paddingTopLeft: centerOffset
               })
-            }
           }
           poiFeat.filteredPoisFeatureGroup.addTo(map)
           //if (Config.isEdge) {
