@@ -137,7 +137,9 @@ var trailMap = function () {
             fitToSearchResults = false
             openResults = false
           }
-          filterAll(fitToSearchResults, openResults)
+          if (!poiFeat.filteredPoisFeatureGroup) {
+            filterAll(fitToSearchResults, openResults)
+          }
         })
       }
     })
