@@ -1,5 +1,5 @@
 var L = require('leaflet')
-var mapCenter = [42.0723, -87.87]
+var mapCenter = [41.838, -87.685]
 var defaultZoom = 9
 var listenType = (navigator.userAgent.toLowerCase().indexOf('edge') !== -1) ? 'mouseup' : 'click'
 var isEdge = (navigator.userAgent.toLowerCase().indexOf('edge') !== -1) ? true : false
