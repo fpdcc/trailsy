@@ -218,8 +218,7 @@ var panelFuncs = function (map) {
       trailLink = trailLink.replace(/%2B/g, '+')
     } else if (poi) {
       changePageTitle(poi.properties.name)
-      poiLink = encodeURIComponent(poi.properties.id + '-' + poi.properties.name)
-      poiLink = poiLink.replace(/%20/g, '+')
+      poiLink = poi.link
     }
     $.address.parameter('trail', trailLink)
     $.address.parameter('poi', poiLink)
@@ -289,8 +288,8 @@ var panelFuncs = function (map) {
       if (poi.properties.web_muni_addr) {
         fpccContainerHTML += '<span class="fpccEntranceZip">' + poi.properties.web_muni_addr + '</span>'
       }
-      if (poi.properties.parking_connection_poi && !poi.properties.web_street_addr) {
-        fpccContainerHTML += '<span class="fpccCloseParking"><a class="fpccMore" href="#?poi=' + poi.properties.parking_connection_poi + '">View closest parking area</a></span>'
+      if (poi.closeParkingLink && !poi.properties.web_street_addr) {
+        fpccContainerHTML += '<span class="fpccCloseParking"><a class="fpccMore" href="#/?poi=' + poi.closeParkingLink + '">View closest parking area</a></span>'
       }
       if (poi.properties.phone) {
         fpccContainerHTML += '<span class="fpccPhone">' + poi.properties.phone + '</span>'

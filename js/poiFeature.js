@@ -84,6 +84,8 @@ var poiFeature = function (map) {
       marker.properties = currentFeature.properties
       marker.geometry = currentFeature.geometry
       marker.trailheadID = currentFeature.properties.id
+      var poiLink = encodeURIComponent(currentFeature.properties.id + '-' + currentFeature.properties.name)
+      marker.link = poiLink.replace(/%20/g, '+')
       var popupContentMainDivHTML = "<div class='trailhead-popup'>"
       var popupTrailheadDivHTML = "<div class='trailhead-box'><div class='popupTrailheadNames'>" + marker.properties.name + '</div>'
       popupContentMainDivHTML = popupContentMainDivHTML + popupTrailheadDivHTML
@@ -111,6 +113,12 @@ var poiFeature = function (map) {
       originalTrailheads.push(marker)
     }
     that.originalPoisArray = originalTrailheads
+    $.each(that.originalPoisArray, function (i, el) {
+      if (el.properties.parking_connection_poi) {
+        var closeParkingPoi = that.getPoiById(el.properties.parking_connection_poi)
+        el.closeParkingLink = closeParkingPoi.link
+      }
+    })
     that.originalPoisCreated.resolve(originalTrailheads)
     console.log('[populateOriginalTrailheads] originalTrailheads count ' + originalTrailheads.length)
     console.log('populateOriginalTrailheads end at: ' + performance.now())
