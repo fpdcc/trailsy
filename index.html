@@ -36,6 +36,10 @@
     <![endif]-->
 </head>
 <body>
+  <div class="loader">
+    <div class="loader-circle"></div>
+    <section id="loader-text">loading map...<section>
+  </div>
   <div id="desktop">
     <div id="main" class="row">
       <section id="fpccBrandMobile" class="fpccMobile">
@@ -55,6 +59,11 @@
             </div>
           </label>
         </div>
+        <ul class="fpccMobileMenuList"> 
+          <li><a href="http://fpdcc.com/" target="_blank">Back to fpdcc.com</a></li>
+          <li class='aboutLink'><a role='button'>About / Contact</a></li>
+          <li><a class="last" href="https://script.google.com/macros/s/AKfycby6fEFxi92eh152A7x4iPy6tRjevGbpRgCUTTaKNMBfwqdDHVvZ/exec" target="_blank">Give Feedback</a></li>
+        </ul>
       </section>
       <ul class="fpccMobileMenuList"> 
         <li><a href="http://fpdcc.com/" target="_blank">Back to fpdcc.com</a></li>
@@ -97,6 +106,7 @@
                   <option value="canoe">Canoeing / Kayaking / Boating</option>
                 </optgroup>
                 <optgroup label="Everything">
+                  <option value="hiking">Hiking / Walking / Running</option>
                   <option value="cycling">Biking</option>
                   <option value="bike_rental">Bike Rental</option>
                   <option value="birding">Birding</option>
@@ -131,33 +141,16 @@
           </div>
           <div id="fpccSearchStatus"></div>
           <div id="fpccSearchResults" class="fpccResults fpccUnit">
-            <div class="loader"></div>
           </div>
         </div>
-        <div id="fpccSearchBack">
+        <div id="fpccSearchBack" style="display:none;">
           <a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg>
             Back to List</a>
         </div>
         <div id="fpccDetailPanel" class="detailPanel" style="display:none;">
-          <div id="fpccPreserveName" class="detailPanelBanner">
-            <span id="fpccTrailName" class="trailName"></span>
-            <svg class="icon icon-x closeDetail"><use xlink:href="icons/defs.svg#icon-x"></use></svg>
-          </div>
-          <div id="fpccPreserveInfo" class="detailPanelBody">
-            <div id="fpccContainer" class="fpccContainer"></div>
-          </div>
-        </div>
-        <div id="fpccAbout" class="detailPanel" style="display:none;">
-          <div id="fpccPreserveName" class="detailPanelBanner">
-            <span id="fpccTrailName" class="trailName"></span>
-            <svg class="icon icon-x closeDetail"><use xlink:href="icons/defs.svg#icon-x"></use></svg>
-          </div>
-          <div id="fpccPreserveInfo" class="detailPanelBody">
-            <div id="fpccContainer" class="fpccContainer"></div>
-          </div>
         </div>
       </section>
-      <div id="fpccMobileSearchButton"><svg class="icon icon-search"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-search"></use></svg></div>
+      <div id="fpccMobileSearchButton" style="display:none;"><svg class="icon icon-search"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-search"></use></svg></div>
       <section class="trailMapContainer">
         <!-- <div id="crosshair"></div> -->
         <div id="trailMapLarge"></div>
@@ -166,6 +159,7 @@
           <a class="offsetZoomOut">&mdash;</a>
           <a class="offsetGeolocate" style="display:none;">&nbsp;</a>
         </div>
+        
       </section>   
     </div>
   </div>

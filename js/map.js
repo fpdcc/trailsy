@@ -154,6 +154,7 @@ var trailMap = function () {
 
   var filterAll = function (fitToSearchResults, openResults) {
     console.log('[filterAll] start')
+    $('.loader').show()
     poiSegmentsReady.done(function () {
       console.log('[$.when readyToFilter] start at: ' + performance.now())
       geoFunctions.geoSetupDone.done(function () {
@@ -191,8 +192,8 @@ var trailMap = function () {
         }
       })
     })
+    $('.loader').hide()
   }
-
   
   that.processSearch = function (e) {
     // $("#fpccSearchResults").html(loaderDiv)

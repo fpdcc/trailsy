@@ -50,6 +50,8 @@ var panelFuncs = function (map) {
     if ($('.fpccMenuList').hasClass('hide')) {
       $('.fpccMenuList').removeClass('hide')
       $('.fpccMenuList').addClass('show')
+      $('.fpccMenuList li').click(that.changeMenuDisplay)
+      $('.fpccMenuList a').click(that.changeMenuDisplay)
     } else {
       $('.fpccMenuList').removeClass('show')
       $('.fpccMenuList').addClass('hide')
@@ -92,7 +94,12 @@ var panelFuncs = function (map) {
     var h = window.innerHeight
     var k = document.getElementById('fpccBrand').offsetHeight
     var l = document.getElementById('fpccBrandMobile').offsetHeight
-    var m = document.getElementById('fpccPreserveName').offsetHeight
+    var m = 0
+    var fpccPreserveInfo = document.getElementById('fpccPreserveInfo')
+    var fpccPreserveName = document.getElementById('fpccPreserveName')
+    if (fpccPreserveName) {
+      fpccPreserveName.offsetHeight
+    }
     var o = document.getElementById('fpccSearchBack').offsetHeight
     var p = document.getElementById('fpccSearchStatus').offsetHeight
     var q = document.getElementById('fpccSearchContainer').offsetHeight
@@ -106,13 +113,18 @@ var panelFuncs = function (map) {
     if (that.SMALL) {
       console.log('[setHeights] yes small')
       fpccPreserveInfoHeight = (h - (l + m + o)).toString() + 'px'
-      document.getElementById('fpccPreserveInfo').style.minHeight = fpccPreserveInfoHeight
+      
+      if (fpccPreserveInfo) {
+        fpccPreserveInfo.style.minHeight = fpccPreserveInfoHeight
+      }
       document.getElementById('fpccSearchResults').style.minHeight = fpccSearchResultsHeight
     } else {
       fpccPreserveInfoHeight = (h - (k + m + o + q)).toString() + 'px'
       console.log('[setHeights] no small')
     }
-    document.getElementById('fpccPreserveInfo').style.maxHeight = fpccPreserveInfoHeight
+    if (fpccPreserveInfo) {
+      fpccPreserveInfo.style.maxHeight = fpccPreserveInfoHeight
+    }
     console.log('[setHeights] #fpccPreserveInfoHeight= ' + fpccPreserveInfoHeight)
   }
 
