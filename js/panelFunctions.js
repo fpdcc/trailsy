@@ -749,16 +749,17 @@ var panelFuncs = function (map) {
     //   trailSegmentHTML += " fpccUnpaved";
     // }
     trailSegmentHTML += ' clearfix"><span class="fpccSegmentName">'
-    trailSegmentHTML += thisColor + ' ' + thisType
-    if (thisNameType) {
-      trailSegmentHTML += ' ' + thisNameType
-    }
-    if (thisDirection) {
-      trailSegmentHTML += ' ' + thisDirection
-    }
-    if (trailSegment.off_fpdcc === 'y') {
-      trailSegmentHTML += ' (Non-FPCC)'
-    }
+    trailSegmentHTML += trailSegment.segmentName
+    // thisColor + ' ' + thisType
+    // if (thisNameType) {
+    //   trailSegmentHTML += ' ' + thisNameType
+    // }
+    // if (thisDirection) {
+    //   trailSegmentHTML += ' ' + thisDirection
+    // }
+    // if (trailSegment.off_fpdcc === 'y') {
+    //   trailSegmentHTML += ' (Non-FPCC)'
+    // }
     trailSegmentHTML += '</span><span class="fpccTrailUse">';
     trailSegmentHTML += '<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>';
     if (thisType.toLowerCase() == "single track" || thisType.toLowerCase() == "unpaved" || thisType.toLowerCase() == "paved" || thisType == "") {

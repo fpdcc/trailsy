@@ -112,7 +112,16 @@ var trailSegmentFeature = function (map) {
       var segmentNameType = invisLayer.feature.properties.trail_name_type || null
       var segmentDirection = invisLayer.feature.properties.direction || null
       var segmentOffFpcc = invisLayer.feature.properties.off_fpcc || null
-
+      var segmentName = segmentColor + ' ' + segmentType
+      if (segmentNameType) {
+        segmentName += ' ' + segmentNameType
+      }
+      if (segmentOffFpcc === 'y') {
+        segmentName += ' (Non-FPCC)'
+      } else if (segmentDirection) {
+        segmentName += ' (' + segmentDirection + ') '
+      }
+      invisLayer.feature.properties.segmentName = segmentName
       if (segmentTrailSubsystem) {
         var trailPopupLineDiv
         trailPopupLineDiv = "<div class='trail-popup-line trail-popup-line-named trail-subsystem' " +
@@ -124,16 +133,7 @@ var trailSegmentFeature = function (map) {
         atLeastOne = true
         trailPopupLineDiv += "<div class='trail-popup-line trail-popup-line-named trail-segment' " +
           "data-trailsubsystem='" + segmentTrailSubsystem + "'>" +
-          segmentColor + ' ' + segmentType
-        if (segmentNameType) {
-          trailPopupLineDiv += ' ' + segmentNameType
-        }
-        if (segmentDirection) {
-          trailPopupLineDiv += ' (' + segmentDirection + ') '
-        }
-        if (segmentOffFpcc === 'y') {
-          trailPopupLineDiv += ' (Non-FPCC)'
-        }
+          invisLayer.feature.properties.segmentName
         trailPopupLineDiv += '</div>'
         popupHTML = popupHTML + trailPopupLineDiv
       }
