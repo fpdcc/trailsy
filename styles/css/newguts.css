@@ -83,7 +83,7 @@ input:checked ~ .fpccSlider:before{-webkit-transform:translateX(-16px);-ms-trans
 .fpccLabel{font-family:Helvetica,Arial,sans-serif;font-size:.9125em;text-transform:uppercase;color:#585747}
 .fpccLabel.fpccBlock{display:block}
 .fpccSocial{background:#F1F1ED;padding-bottom:4em}
-.fpccShare{font-size:1.15em;line-height:1;text-align:center;margin-bottom:.5em}
+.fpccShare{font-size:1.15em;line-height:1;text-align:center;margin-bottom:.5em;font-family:Georgia,"Times New Roman",serif}
 .fpccSocialIcon span{display:block;text-transform:uppercase;font-size:.75em;font-family:Helvetica,Arial,sans-serif}
 .fpccSocialIcon .icon{width:2em;height:2em}
 a:link.fpccSocialIcon,a:visited.fpccSocialIcon{text-decoration:none;color:#333}
