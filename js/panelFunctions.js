@@ -651,13 +651,13 @@ var panelFuncs = function (map) {
       if (descriptionTrail.map_link != null && descriptionTrail.map_link != '') {
         console.log('[decorateDetailPanelForTrailhead2] descriptionTrail.map_link is true? ' + descriptionTrail.map_link)
         trailMapHTML += '<a class="fpccButton" id="pdfEnglish" href="'
-                      + descriptionTrail.map_link + '">English</a>'
+                      + descriptionTrail.map_link + '" target="_blank">English</a>'
         showMaps = true
         showDescription = true
       }
       if (descriptionTrail.map_link_spanish != null && descriptionTrail.map_link_spanish != '') {
         trailMapHTML += ' <a class="fpccButton" id="pdfSpanish" href="'
-                      + descriptionTrail.map_link_spanish + '">Español</a>'
+                      + descriptionTrail.map_link_spanish + '" target="_blank">Español</a>'
         showMaps = true
         showDescription = true
       }
