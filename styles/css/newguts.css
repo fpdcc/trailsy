@@ -319,7 +319,7 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
     z-index:20000;
 /*    transform:translate(-50%,-50%) 
 */}
-.loader-text{}
+.loader-text{text-align:center}
 
 @keyframes spin{
     0%{ transform:rotate(0deg); }
