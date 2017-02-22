@@ -90,11 +90,12 @@ var trailMap = function () {
   var mapboxAttribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
       '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
       'Imagery © <a href="http://mapbox.com">Mapbox</a>'
-  var mainBase = L.tileLayer('https://api.mapbox.com/styles/v1/fpdcc/cixjcxjvf000h2sml8k9cr18o/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZnBkY2MiLCJhIjoiY2l4amNtaGxjMDAwMzMzbXVucGYxdGtjbyJ9.u1Ttdy3_4xWYFdBvqKYcZA',
+  var mainBase = L.tileLayer('https://api.mapbox.com/styles/v1/smartchicagocollaborative/cizhbpfpi00042soz00tuiw83/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRjaGljYWdvY29sbGFib3JhdGl2ZSIsImEiOiI2MWF0czNFIn0.LMSCmp7IvfI9mB-_y1VgNQ',
     {
       updateWhenZooming: false,
       attribution: mapboxAttribution
     }).addTo(map)
+  
   var mapboxAccessToken = 'sk.eyJ1Ijoic21hcnRjaGljYWdvY29sbGFib3JhdGl2ZSIsImEiOiJjaWlqOGU2dmMwMTA2dWNrcHM0d21qNDhzIn0.2twD0eBu4UKHu-3JZ0vt0w'
   var imageryBase = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
     attribution: mapboxAttribution,
@@ -137,7 +138,9 @@ var trailMap = function () {
             fitToSearchResults = false
             openResults = false
           }
-          filterAll(fitToSearchResults, openResults)
+          if (!poiFeat.filteredPoisFeatureGroup) {
+            filterAll(fitToSearchResults, openResults)
+          }
         })
       }
     })
@@ -152,6 +155,7 @@ var trailMap = function () {
 
   var filterAll = function (fitToSearchResults, openResults) {
     console.log('[filterAll] start')
+    $('.loader').show()
     poiSegmentsReady.done(function () {
       console.log('[$.when readyToFilter] start at: ' + performance.now())
       geoFunctions.geoSetupDone.done(function () {
@@ -163,18 +167,19 @@ var trailMap = function () {
           activityFeat.filterActivity(poiFeat.filteredPoisArray)
         })
         // console.log('[filterAll] about to makeresults at ' + performance.now())
-
         if (poiFeat.filteredPoisFeatureGroup) {
           if (fitToSearchResults) {
             var zoomFeatureGroupBounds = poiFeat.filteredPoisFeatureGroup.getBounds()
-            if (filters.current.searchLocation && filters.current.search.length === 0) {
-              map.setView(filters.current.searchLocation, 14)
-            } else {
-              map.fitBounds(zoomFeatureGroupBounds, {
+            if (filters.current.searchLocation || filters.current.userLocation) {
+              var zoomFeatureArray = poiFeat.filteredPoisArray.slice(0,10)
+              console.log('filterAll zoomFeatureArray.length = ' + zoomFeatureArray.length)
+              var zoomFeatureGroup = new L.FeatureGroup(zoomFeatureArray)
+              zoomFeatureGroupBounds = zoomFeatureGroup.getBounds()
+            }
+            map.fitBounds(zoomFeatureGroupBounds, {
                 // padding: allPadding
                 // paddingTopLeft: centerOffset
               })
-            }
           }
           poiFeat.filteredPoisFeatureGroup.addTo(map)
           //if (Config.isEdge) {
@@ -189,8 +194,8 @@ var trailMap = function () {
         }
       })
     })
+    $('.loader').hide()
   }
-
   
   that.processSearch = function (e) {
     // $("#fpccSearchResults").html(loaderDiv)

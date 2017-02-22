@@ -38,7 +38,10 @@ var picnicgroveFeature = function (map) {
       popupContentMainDivHTML += currentFeature.properties.preserve_name
       popupContentMainDivHTML += ' Grove #' + currentFeature.properties.grove
       popupContentMainDivHTML += '</div>'
-      var iconName = 'icon-picnic-grove' 
+      var iconName = 'icon-picnic-grove'
+      if (currentFeature.properties.picnicgrove_type === 'shelter') {
+        iconName = 'icon-picnic-grove-shelter'
+      }
       var picnicgroveIcon = L.divIcon({
         className: 'icon-map picnic-grove-marker selected ' + iconName + ' picnicgrove-' + currentFeature.properties.id + ' poi-' + currentFeature.properties.poi_info_id,
         html: '<svg class="icon icon-map picnic-grove-marker ' + iconName + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconName + '"></use></svg><br />',

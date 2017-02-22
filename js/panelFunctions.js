@@ -31,7 +31,18 @@ var panelFuncs = function (map) {
 
   that.currentDetailPanelHTML = ''
 
-  var aboutHTML = '<div id="fpccPreserveName" class="detailPanelBanner"><span id="fpccTrailName" class="trailName">About</span><svg id="closeAbout" class="icon icon-x closeDetail"><use xlink:href="icons/defs.svg#icon-x"></use></svg></div><div id="fpccPreserveInfo" class="detailPanelBody"><div id="fpccContainer" class="fpccContainer">This is about text</div></div>'
+  var aboutHTML = '<div id="fpccPreserveName" class="detailPanelBanner"><span id="fpccTrailName" class="trailName">About</span><svg id="closeAbout" class="icon icon-x closeDetail"><use xlink:href="icons/defs.svg#icon-x"></use></svg></div><div id="fpccPreserveInfo" class="detailPanelBody"><div id="fpccAbout" class="fpccUnit fpccContainer">' +
+                  '<p>Welcome to the <a href="http://fpdcc.com/">Forest Preserves  of Cook County</a>. This web map is designed to help current and future  visitors:</p>' +
+                  '<ul><li>Plan trips </li>' +
+                  '<li>Physically navigate preserves, trails and other  amenities</li>' +
+                  '<li>Discover new opportunities within the preserves</li></ul>' +
+                  '<p>Please consider <a href="#">leaving  us feedback</a> so we can continue to improve this map. Learn more about the  Forest Preserves of Cook County at <a href="http://fpdcc.com/">fpdcc.com</a>.</p>' +
+                  '<h2>Development</h2>' +
+                  '<p>This project is a partnership between the Forest Preserves of Cook County and <a href="http://www.smartchicagocollaborative.org/">Smart  Chicago</a>. The resulting web application is built on two pieces of source  code: <a href="https://github.com/codeforamerica/trailsy">Trailsy</a> and <a href="https://github.com/codeforamerica/trailsyserver">Trailsy Server</a>, both  pioneered by <a href="https://www.codeforamerica.org/">Code for America</a>.  All of the data used to power the site is open for all and conforms to the <a href="http://archive.codeforamerica.org/specifications/trails/">OpenTrails  specification</a>, modified for data types not in the existing specification.</p>' +
+                  '<p>Smart Chicago consultant <a href="http://www.smartchicagocollaborative.org/people/consultants/current-consultants/josh-kalov/">Josh  Kalov</a> is the main developer of this project. <a href="https://github.com/smartchicago/trailsy/">View the project&rsquo;s GitHub page here</a>.</p>' +
+                  '<h2>Funding</h2>' +
+                  '<p>Made possible with funding from the Centers for Disease Control and Prevention through the Healthy Hotspot initiative led by the Cook  County Department of Public Health. Learn more at <a href="http://healthyhotspot.org/">healthyhotspot.org</a>. Smart Chicago  provided in-kind services for this project.</p>' +
+                  '</div></div>'
 
   // Open/close fpccMenu list
   that.changeMenuDisplay = function () {
@@ -39,6 +50,8 @@ var panelFuncs = function (map) {
     if ($('.fpccMenuList').hasClass('hide')) {
       $('.fpccMenuList').removeClass('hide')
       $('.fpccMenuList').addClass('show')
+      $('.fpccMenuList li').click(that.changeMenuDisplay)
+      $('.fpccMenuList a').click(that.changeMenuDisplay)
     } else {
       $('.fpccMenuList').removeClass('show')
       $('.fpccMenuList').addClass('hide')
@@ -81,7 +94,12 @@ var panelFuncs = function (map) {
     var h = window.innerHeight
     var k = document.getElementById('fpccBrand').offsetHeight
     var l = document.getElementById('fpccBrandMobile').offsetHeight
-    var m = document.getElementById('fpccPreserveName').offsetHeight
+    var m = 0
+    var fpccPreserveInfo = document.getElementById('fpccPreserveInfo')
+    var fpccPreserveName = document.getElementById('fpccPreserveName')
+    if (fpccPreserveName) {
+      fpccPreserveName.offsetHeight
+    }
     var o = document.getElementById('fpccSearchBack').offsetHeight
     var p = document.getElementById('fpccSearchStatus').offsetHeight
     var q = document.getElementById('fpccSearchContainer').offsetHeight
@@ -95,13 +113,18 @@ var panelFuncs = function (map) {
     if (that.SMALL) {
       console.log('[setHeights] yes small')
       fpccPreserveInfoHeight = (h - (l + m + o)).toString() + 'px'
-      document.getElementById('fpccPreserveInfo').style.minHeight = fpccPreserveInfoHeight
+      
+      if (fpccPreserveInfo) {
+        fpccPreserveInfo.style.minHeight = fpccPreserveInfoHeight
+      }
       document.getElementById('fpccSearchResults').style.minHeight = fpccSearchResultsHeight
     } else {
       fpccPreserveInfoHeight = (h - (k + m + o + q)).toString() + 'px'
       console.log('[setHeights] no small')
     }
-    document.getElementById('fpccPreserveInfo').style.maxHeight = fpccPreserveInfoHeight
+    if (fpccPreserveInfo) {
+      fpccPreserveInfo.style.maxHeight = fpccPreserveInfoHeight
+    }
     console.log('[setHeights] #fpccPreserveInfoHeight= ' + fpccPreserveInfoHeight)
   }
 
@@ -149,8 +172,10 @@ var panelFuncs = function (map) {
         '<svg class="icon icon-sign"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>' +
         '<span class="fpccEntryNameText">' + poiName + '</span></span>'
       if (el.properties.distance) {
-        var poiDistance = metersToMiles(el.properties.distance)
-        trailheadInfoText += '<span class="fpccEntryDis">' + poiDistance + ' mi away</span></a>'
+        if (filters.current.userLocation || filters.current.searchLocation) {
+          var poiDistance = metersToMiles(el.properties.distance)
+          trailheadInfoText += '<span class="fpccEntryDis">' + poiDistance + ' mi away</span></a>'
+        }
       }
       trailheadInfoText += '</div>'
       var trailDivComplete = trailDivText + trailheadInfoText
@@ -205,8 +230,7 @@ var panelFuncs = function (map) {
       trailLink = trailLink.replace(/%2B/g, '+')
     } else if (poi) {
       changePageTitle(poi.properties.name)
-      poiLink = encodeURIComponent(poi.properties.id + '-' + poi.properties.name)
-      poiLink = poiLink.replace(/%20/g, '+')
+      poiLink = poi.link
     }
     $.address.parameter('trail', trailLink)
     $.address.parameter('poi', poiLink)
@@ -238,7 +262,6 @@ var panelFuncs = function (map) {
       descriptionTrail = trailSubsystemTrails[0] || null
       displayName = descriptionTrail.trail_subsystem
       fpccNameHTML += displayName
-      
       // document.getElementById('fpccTrailName').innerHTML = displayName
       // $('#fpccPreserveName .trailName').html(trailSubsystemName)
     }
@@ -252,7 +275,7 @@ var panelFuncs = function (map) {
       }
       directTrail = myReferences.trailInfo.originalTrailInfo[poi.properties.direct_trail_id] || null
       if (directTrail) {
-        var trailSubsystemNormalizedName = directTrail.trail_subsystem.replace(/[& ]/g, '+')
+        trailSubsystemNormalizedName = directTrail.trail_subsystem.replace(/[& ]/g, '+')
         trailSubsystemTrails = myReferences.trailInfo.trailSubsystemMap[trailSubsystemNormalizedName] || null
         descriptionTrail = directTrail
       }
@@ -277,14 +300,17 @@ var panelFuncs = function (map) {
       if (poi.properties.web_muni_addr) {
         fpccContainerHTML += '<span class="fpccEntranceZip">' + poi.properties.web_muni_addr + '</span>'
       }
-      if (poi.properties.parking_connection_poi && !poi.properties.web_street_addr) {
-        fpccContainerHTML += '<span class="fpccCloseParking"><a class="fpccMore" href="#?poi=' + poi.properties.parking_connection_poi + '">View closest parking area</a></span>'
+      if (poi.closeParkingLink && !poi.properties.web_street_addr) {
+        fpccContainerHTML += '<span class="fpccCloseParking"><a class="fpccMore" href="#/?poi=' + poi.closeParkingLink + '">View closest parking area</a></span>'
       }
       if (poi.properties.phone) {
         fpccContainerHTML += '<span class="fpccPhone">' + poi.properties.phone + '</span>'
       }
-      var directionsUrl = 'http://maps.google.com?saddr=' + myReferences.filters.current.userLocation.lat + ',' + myReferences.filters.current.userLocation.lng +
-        '&daddr=' + poi.geometry.coordinates[1] + ',' + poi.geometry.coordinates[0]
+      var directionsUrl = 'http://maps.google.com?saddr='
+      if (myReferences.filters.current.userLocation) {
+        directionsUrl += myReferences.filters.current.userLocation.lat + ',' + myReferences.filters.current.userLocation.lng
+      }
+      directionsUrl += '&daddr=' + poi.geometry.coordinates[1] + ',' + poi.geometry.coordinates[0]
       fpccContainerHTML += '</div></div>' +
                          '<a href="' + directionsUrl + '" target="_blank" id="entranceDirections" class="fpccButton fpccDirections">Directions</a></div>'
       if (poi.properties.description) {
@@ -594,7 +620,6 @@ var panelFuncs = function (map) {
       if (extraLinksExist === true) {
         fpccContainerHTML += '<div class="fpccLinks fpccUnit clearfix">' + extraLinksText + '</div>'
       }
-      fpccContainerHTML += '</div>'
     }
     var closeID = 'closeDetail'
     fpccNameHTML += '</span><svg id="closeDetail" class="icon icon-x closeDetail"><use xlink:href="icons/defs.svg#icon-x"></use></svg></div>'
@@ -626,13 +651,13 @@ var panelFuncs = function (map) {
       if (descriptionTrail.map_link != null && descriptionTrail.map_link != '') {
         console.log('[decorateDetailPanelForTrailhead2] descriptionTrail.map_link is true? ' + descriptionTrail.map_link)
         trailMapHTML += '<a class="fpccButton" id="pdfEnglish" href="'
-                      + descriptionTrail.map_link + '">English</a>'
+                      + descriptionTrail.map_link + '" target="_blank">English</a>'
         showMaps = true
         showDescription = true
       }
       if (descriptionTrail.map_link_spanish != null && descriptionTrail.map_link_spanish != '') {
         trailMapHTML += ' <a class="fpccButton" id="pdfSpanish" href="'
-                      + descriptionTrail.map_link_spanish + '">Español</a>'
+                      + descriptionTrail.map_link_spanish + '" target="_blank">Español</a>'
         showMaps = true
         showDescription = true
       }
@@ -679,6 +704,7 @@ var panelFuncs = function (map) {
       trailsHTML += trailSegmentsHTML + '</div>'
       fpccContainerHTML += trailsHTML
     }
+    fpccContainerHTML += '</div>'
     var socialLink = encodeURIComponent(window.location.href)
     socialLink = socialLink.replace(/%20/g, '+')
     socialLink = socialLink.replace('/#/", "/')
@@ -723,16 +749,17 @@ var panelFuncs = function (map) {
     //   trailSegmentHTML += " fpccUnpaved";
     // }
     trailSegmentHTML += ' clearfix"><span class="fpccSegmentName">'
-    trailSegmentHTML += thisColor + ' ' + thisType
-    if (thisNameType) {
-      trailSegmentHTML += ' ' + thisNameType
-    }
-    if (thisDirection) {
-      trailSegmentHTML += ' ' + thisDirection
-    }
-    if (trailSegment.off_fpdcc === 'y') {
-      trailSegmentHTML += ' (Non-FPCC)'
-    }
+    trailSegmentHTML += trailSegment.segmentName
+    // thisColor + ' ' + thisType
+    // if (thisNameType) {
+    //   trailSegmentHTML += ' ' + thisNameType
+    // }
+    // if (thisDirection) {
+    //   trailSegmentHTML += ' ' + thisDirection
+    // }
+    // if (trailSegment.off_fpdcc === 'y') {
+    //   trailSegmentHTML += ' (Non-FPCC)'
+    // }
     trailSegmentHTML += '</span><span class="fpccTrailUse">';
     trailSegmentHTML += '<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>';
     if (thisType.toLowerCase() == "single track" || thisType.toLowerCase() == "unpaved" || thisType.toLowerCase() == "paved" || thisType == "") {

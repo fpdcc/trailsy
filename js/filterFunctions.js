@@ -20,7 +20,8 @@ var filterFunctions = function (map) {
     zipMuniFilter: '',
     trailInList: true,
     trailOnMap: true,
-    fromURL: false
+    fromURL: false,
+    showDistances: true
   }
   that.previous = {}
 

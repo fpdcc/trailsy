@@ -84,6 +84,8 @@ var poiFeature = function (map) {
       marker.properties = currentFeature.properties
       marker.geometry = currentFeature.geometry
       marker.trailheadID = currentFeature.properties.id
+      var poiLink = encodeURIComponent(currentFeature.properties.id + '-' + currentFeature.properties.name)
+      marker.link = poiLink.replace(/%20/g, '+')
       var popupContentMainDivHTML = "<div class='trailhead-popup'>"
       var popupTrailheadDivHTML = "<div class='trailhead-box'><div class='popupTrailheadNames'>" + marker.properties.name + '</div>'
       popupContentMainDivHTML = popupContentMainDivHTML + popupTrailheadDivHTML
@@ -111,6 +113,12 @@ var poiFeature = function (map) {
       originalTrailheads.push(marker)
     }
     that.originalPoisArray = originalTrailheads
+    $.each(that.originalPoisArray, function (i, el) {
+      if (el.properties.parking_connection_poi) {
+        var closeParkingPoi = that.getPoiById(el.properties.parking_connection_poi)
+        el.closeParkingLink = closeParkingPoi.link
+      }
+    })
     that.originalPoisCreated.resolve(originalTrailheads)
     console.log('[populateOriginalTrailheads] originalTrailheads count ' + originalTrailheads.length)
     console.log('populateOriginalTrailheads end at: ' + performance.now())
@@ -211,10 +219,17 @@ var poiFeature = function (map) {
     $.each(that.filteredPoisArray, function (i, el) {
       var distance = null
       var currentFeatureLatLng = el.getLatLng()
+      var useDistance = true
       if (filters.current.searchLocation) {
         distance = currentFeatureLatLng.distanceTo(filters.current.searchLocation)
+        el.sortVar = distance
       } else if (filters.current.userLocation) {
         distance = currentFeatureLatLng.distanceTo(filters.current.userLocation)
+        el.sortVar = distance
+      } else {
+        useDistance = false
+        //distance = currentFeatureLatLng.distanceTo(Config.mapCenter)
+        el.sortVar = el.properties.name
       }
       el.properties.distance = distance
     })
@@ -223,8 +238,8 @@ var poiFeature = function (map) {
       // console.log("a and b.properties.filterResult = " + a.properties.filterScore + " vs " + b.properties.filterScore);
       if (a.properties.filterScore > b.properties.filterScore) return -1
       if (a.properties.filterScore < b.properties.filterScore) return 1
-      if (a.properties.distance < b.properties.distance) return -1
-      if (a.properties.distance > b.properties.distance) return 1
+      if (a.sortVar < b.sortVar) return -1
+      if (a.sortVar > b.sortVar) return 1
       return 0
     })
     console.log('[poiFeature.reorderPois] DONE')
