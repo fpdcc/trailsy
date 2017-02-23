@@ -414,8 +414,8 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 0% {opacity:1}
 100% {opacity:0}}
 @keyframes spin{
-0%{transform:rotate(0deg)}
-100%{transform:rotate(360deg)}}
+0%{transform:rotate(0deg);-webkit-transform:rotate(0deg)}
+100%{transform:rotate(360deg);-webkit-transform:rotate(360deg)}}
 
 
 /* Josh experiments */
