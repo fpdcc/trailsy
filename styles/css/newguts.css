@@ -466,8 +466,8 @@ a.fpccMobileBrand{font-size:.6875em}
 
 @media (min-width:575px) and (max-width:900px){
     .fpccEntry .icon {width:1.25em;height: 1.25em;margin-right: .75em}
-    .fpccTop{max-width:575px;border-bottom:none}
-    .fpccSocial{border-top:3px solid #CCC}
+    .fpccTop,.fpccTrails{max-width:575px;}
+    .fpccSocial{background:#FFF}
 }
 
     
