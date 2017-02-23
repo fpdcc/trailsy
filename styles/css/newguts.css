@@ -37,7 +37,7 @@ svg:not(:root){overflow:hidden;}
 #main{position:relative; height:100%;width:100%;overflow:hidden}
 }
 
-@media only screen and (max-width:1000px){
+@media only screen and (max-width:900px){
 body{height:100%;padding:0;margin:0;}
 .title-row{position:relative;width:100%;height:3em;top:0;margin:0;z-index:9000;-webkit-transition:-webkit-transform 250ms;-moz-transition:-moz-transform 250ms;transition:transform 250ms}
 .title-row header{width:100%;margin:0;padding:0}
@@ -462,9 +462,13 @@ a.fpccMobileBrand{font-size:.6875em}
 
 .fpccMobileMenuList{z-index: 8050}
 
-/*DESKTOP to adjust------------------------------------*/
+/*SOMEWHERE IN THE MIDDLE ------------------------------------*/
 
-@media (min-width:1000px){
+    
+    
+/*DESKTOP ------------------------------------*/
+
+@media (min-width:900px){
   
 /* Josh experiments */
 #fpccMainContainer.expanded{position:initial;bottom:initial;}  
@@ -488,7 +492,7 @@ section.trailListColumn{position:fixed;top:0;left:0;width:384px;max-height:100%;
 .trailListColumn .fpccUnit.fpccResults a span.fpccEntryName{font-size:1em;font-weight:bold;float:left;width:70%}
 .fpccEntryDis{font-size:.9125em;font-family:Georgia,"Times New Roman",serif;float:right;width:30%;text-align:right}
 #fpccSearchContainer.fpccUnit{padding:1em;box-shadow:none}
-#fpccSearchContainer .fpccButton,#fpccSearchContainer .fpccButton:visited{width:23%;border-bottom:2px solid #606D29;height:auto;float:right;display:inline;max-height:37px}
+#fpccSearchContainer .fpccButton,#fpccSearchContainer .fpccButton:visited{width:23%;border-bottom:2px solid #606D29;float:right;display:inline;height:37px}
 #fpccSearchContainer .fpccButton:hover{background:#606D29;border-bottom:2px solid #464F1E;cursor:pointer}
 #fpccSearchContainer .fpccButton:active{background:#606D29;border-bottom:none;margin-top:2px}
 #fpccSearchContainer select{border:1px solid #999;padding:5px;width:75%;height:37px;font-size:.9375em;line-height:1;box-sizing:border-box}
@@ -525,4 +529,27 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
 /*selectize override*/
 .selectize-input{border:1px solid #d0d0d0;padding:9px 8px 8px;min-height:initial;width:75%}
     .selectize-dropdown{z-index:10000}
+}
+
+@media (min-width:900px) and (max-width:1050){
+#fpccMainContainer.expanded, .trailListColumn.expanded, .detailPanel.expanded{width:300px}    
+.fpccMobileSwitch{font-size:.875em}
+a.fpccMobileHamburger{margin-left:10px}
+.fpccSwitch{padding:14px 30px}
+a.fpccMobileBrand{font-size:.6875em}
+.fpccDirections{display:block;float:none;width:100%}
+.fpccAmenity span.fpccAmenityTitle{font-size:1em;max-width:initial}
+.fpccAmenity{float:none;width:100%}
+.fpccButton.fpccDirections{clear:both;float:left;margin-top:1em;margin-left:11%;width:auto}
+.fpccSign{width:100%;float:none;margin:0}
+.fpccSign .icon{width:8%;margin-right:3%}
+.fpccAmenity{width:100%;margin-right:0}  
+.fpccSegmentName{max-width:60%}    
+.fpccEntryDis{display:block;text-align:left;margin-left:15%;width:85%}
+.trailListColumn .fpccUnit.fpccResults a span.fpccEntryName{width:100%}
+.title-row header .navbar-inner{margin:0 10px}
+.trailListColumn .title-row header .navbar-inner .logo{width:250px}
+.selectize-input{width:73%;border-right:none}
+.selectize-input input{font-size:13px}
+#fpccSearchContainer .fpccButton,#fpccSearchContainer .fpccButton:visited{width:27%;font-size:.875em;height:37px}
 }
