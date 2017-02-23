@@ -149,7 +149,7 @@ a:hover .fpccAmenityTitle,a:active .fpccAmenityTitle{text-decoration:none}
 .fpccHours,.fpccLinks{border-top:1px dotted #CCC;padding:1em 0;margin:-.75em 1em 1em}
 .fpccHours1,.fpccHours2,.fpccSpecialHours,.fpccPhone{display:block}
 .fpccPhone{margin-top:.5em}
-.fpccSpecialHours{font-style:italic;font-size:.75em}
+.fpccSpecialHours{font-style:italic;margin-top:.75em;}
 a:link.fpccSpecialDesc,a:visited.fpccSpecialDesc{width:100%;clear:both;padding:.75em 1em;background:#FFEFBF;text-decoration:none;color:#333;margin:1em 0;font-size:.9125em;border:1px dotted #FFBF00}
 a:hover.fpccSpecialDesc,a:active.fpccSpecialDesc{background:#FFE9A4}
 a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{background:#E8AE00;border-top:2px solid #C19200;margin-right:0}
