@@ -288,9 +288,9 @@ ul.fpccMobileMenuList a:hover,ul.fpccMobileMenuList a:active{background:#666}
 
 /* panel - about */
 #fpccAbout{margin-bottom:1.5em}
-.trailListColumn #fpccAbout.fpccContainer a:link,.trailListColumn #fpccAbout.fpccContainer a:visited{display:inherit;color:#7E9137}
-.trailListColumn #fpccAbout.fpccContainer a:hover,.trailListColumn #fpccAbout.fpccContainer a:active{text-decoraton:none;color:#333}
-#fpccAbout h2{font-size:1.25em;margin:1.5em 0 .25em;font-family: Helvetica,Arial,sans-serif;line-height: 1.15;font-weight: bold;color: #585747;display: block;text-transform: capitalize;}
+.trailListColumn #fpccAbout.fpccContainer a:link,.trailListColumn #fpccAbout.fpccContainer a:visited{display:initial;color:#7E9137}
+.trailListColumn #fpccAbout.fpccContainer a:hover,.trailListColumn #fpccAbout.fpccContainer a:active{text-decoration:none;color:#333}
+#fpccAbout h2{font-size:1.25em;margin:1.5em 0 .5em;font-family: Helvetica,Arial,sans-serif;line-height: 1.15;font-weight: bold;color: #585747;display: block;text-transform: capitalize;}
 #fpccAbout ul{padding:0 0 0 1.5em;margin-bottom:1em}
 #fpccAbout p{margin:0 0 1em 0}
 
