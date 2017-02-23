@@ -507,7 +507,6 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
 /*panel - poi*/
 .fpccPhoto{max-height:195px;max-width:384px}
 .fpccSign{float:left;width:65%;margin:0 7% 0 0}
-.fpccSign .icon{width:12%;height:2.25em;margin-right:3%;vertical-align:top}
 .detailPanel #fpccPreserveName.detailPanelBanner{min-height:auto}
 
 /*panel - trail*/
