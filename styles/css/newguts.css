@@ -456,6 +456,8 @@ a.fpccMobileBrand{font-size:.6875em}
 @media (max-width:350px){
 .fpccAmenity{width:100%;margin-right:0}  
 .fpccSegmentName{max-width:60%}  
+.fpccEntryDis{display:block;text-align:left;margin-left:15%;width:85%;margin-top:.25em}
+.trailListColumn .fpccUnit.fpccResults a span.fpccEntryName{width:100%}
 }
 
 .fpccMobileMenuList{z-index: 8050}
@@ -464,9 +466,10 @@ a.fpccMobileBrand{font-size:.6875em}
 
 @media (min-width:575px) and (max-width:900px){
     .fpccEntry .icon {width:1.25em;height: 1.25em;margin-right: .75em}
-    .fpccAmenity{width:30%}
+    .fpccTop{max-width:425px;border-bottom:none}
+    .fpccSocial{border-top:3px solid #CCC}
 }
-    
+
     
 /*DESKTOP ------------------------------------*/
 
