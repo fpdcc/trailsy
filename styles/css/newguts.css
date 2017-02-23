@@ -464,7 +464,7 @@ a.fpccMobileBrand{font-size:.6875em}
 
 /*DESKTOP to adjust------------------------------------*/
 
-@media (min-width:768px){
+@media (min-width:1000px){
   
 /* Josh experiments */
 #fpccMainContainer.expanded{position:initial;bottom:initial;}  
