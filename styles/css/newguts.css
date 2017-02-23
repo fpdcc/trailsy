@@ -400,7 +400,7 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 66%{background:none;box-shadow:none}
 100%{background:rgba(126,144,57,.45);box-shadow:0 0 7px 5px rgba(126,144,57,.45);border-radius:3em}}
 
-.loader{z-index: 20000;font-size:2em;position:absolute;top:40%;left:40%;margin-right: -50%;}
+.loader{z-index: 20000;font-size:2em;position:absolute;top:0;left:0;width:100%;height:100%;background:#EEE}
 .loader-circle{border:16px solid #ffffff;border-top:16px solid #273719;border-radius:50%;width:120px;height:120px;animation:spin 2s linear infinite;z-index:20000;/*    transform:translate(-50%,-50%)*/}
 .loader-text{text-align:center}
 @keyframes spin{
