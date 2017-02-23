@@ -531,7 +531,7 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
     .selectize-dropdown{z-index:10000}
 }
 
-@media (min-width:900px) and (max-width:1050){
+@media (min-width:900px) and (max-width:1050px){
 #fpccMainContainer.expanded, .trailListColumn.expanded, .detailPanel.expanded{width:300px}    
 .fpccMobileSwitch{font-size:.875em}
 a.fpccMobileHamburger{margin-left:10px}
