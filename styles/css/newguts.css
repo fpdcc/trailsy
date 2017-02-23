@@ -55,10 +55,10 @@ body{height:100%;padding:0;margin:0;}
 section.fpccMobile{overflow:hidden;z-index:10000;background:#273719;height:48px;width:100%;position:fixed;top:0;left:0;font-family:Helvetica,Arial,sans-serif;box-shadow:0 4px 8px 0 rgba(0,0,0,0.3)}
 a.fpccMobileBrand{color:#FFF;font-size:.75em;text-decoration:none;padding:10px;display:inline-block;text-transform:uppercase;float:left}
 a.fpccMobileBrand span{display:block;font-weight:bold}
-a.fpccMobileHamburger{height:48px;width:48px;padding:15px 12px 11px;float:right;display:inline-block;margin-left:15px}
+a.fpccMobileHamburger{height:48px;width:48px;padding:15px 12px 11px;float:right;display:inline-block;}
 a.fpccMobileHamburger span{height:4px;background:#FFF;margin-bottom:3px;display:block}
 a.fpccMobileHamburger span.last{margin-bottom:0}
-.fpccMobileSwitch{font-size:1em;color:#7E9039;display:inline-block;float:right;text-transform:uppercase;font-weight:bold}
+.fpccMobileSwitch{font-size:1em;color:#7E9039;display:inline-block;float:left;text-transform:uppercase;font-weight:bold;margin-left:1.75em}
 .fpccSwitch{padding:14px 35px;width:100%;display:inline-block;cursor:pointer}
 .fpccFlipList,.fpccFlipMap{position:absolute;-webkit-transition:.4s;transition:.4s;margin-top:2px}
 .fpccFlipList{color:#FFF;right:-40px}
@@ -170,7 +170,7 @@ a:hover.fpccSpecialDesc .icon-arrow,a:active.fpccSpecialDesc .icon-arrow{backgro
 .fpccAmenity span.fpccAmenityTitle{line-height:1.2;display:inline-block;vertical-align:middle;max-width:8.5em;font-size:.9125em;color:#585747}
 .fpccAmenities .icon{width:2em;height:2em;margin-right:.65em;vertical-align:middle} 
 .fpccSign{float:left;width:67%;margin:0 5% 0 0}
-.fpccSign .icon{width:11%;height:2.25em;margin-right:4%;vertical-align:top}
+.fpccSign .icon{width:1.75em;height:1.75em;margin-top:.05em;margin-right:.9em;vertical-align:top}
 .fpccAddress{display:inline-block;width:82%}
 .fpccDirections{width:28%;float:right;margin-bottom:.75em}
 
@@ -439,8 +439,7 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 
 /*UNDER desktop panel width------------------------------------*/
 @media (max-width:384px){
-.fpccMobileSwitch{font-size:.875em}
-a.fpccMobileHamburger{margin-left:10px}
+.fpccMobileSwitch{font-size:.875em;margin-left:.75em}
 .fpccSwitch{padding:14px 30px}
 a.fpccMobileBrand{font-size:.6875em}
 .fpccSign{width:100%;float:none;margin:0 0 1.5em 0}
@@ -452,7 +451,6 @@ a.fpccMobileBrand{font-size:.6875em}
 @media (max-width:370px){
 .fpccButton.fpccDirections{clear:both;float:left;margin-top:1em;margin-left:11%;width:auto}
 .fpccSign{width:100%;margin:0}
-.fpccSign .icon{width:8%;margin-right:3%}
 }
 
 @media (max-width:350px){
@@ -464,6 +462,10 @@ a.fpccMobileBrand{font-size:.6875em}
 
 /*SOMEWHERE IN THE MIDDLE ------------------------------------*/
 
+@media (min-width:575px) and (max-width:900px){
+    .fpccEntry .icon {width:1.25em;height: 1.25em;margin-right: .75em}
+    .fpccAmenity{width:30%}
+}
     
     
 /*DESKTOP ------------------------------------*/
@@ -531,6 +533,7 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
     .selectize-dropdown{z-index:10000}
 }
 
+/*SLIMMER PANEL------------------------------------*/
 @media (min-width:900px) and (max-width:1050px){
 #fpccMainContainer.expanded, .trailListColumn.expanded, .detailPanel.expanded{width:300px}    
 .fpccMobileSwitch{font-size:.875em}
@@ -540,12 +543,11 @@ a.fpccMobileBrand{font-size:.6875em}
 .fpccDirections{display:block;float:none;width:100%}
 .fpccAmenity span.fpccAmenityTitle{font-size:1em;max-width:initial}
 .fpccAmenity{float:none;width:100%}
-.fpccButton.fpccDirections{clear:both;float:left;margin-top:1em;margin-left:11%;width:auto}
+.fpccButton.fpccDirections{clear:both;float:left;margin-top:1em;margin-left:2.65em;width:auto}
 .fpccSign{width:100%;float:none;margin:0}
-.fpccSign .icon{width:8%;margin-right:3%}
 .fpccAmenity{width:100%;margin-right:0}  
 .fpccSegmentName{max-width:60%}    
-.fpccEntryDis{display:block;text-align:left;margin-left:15%;width:85%}
+.fpccEntryDis{display:block;text-align:left;margin-left:15%;width:85%;margin-top:.25em}
 .trailListColumn .fpccUnit.fpccResults a span.fpccEntryName{width:100%}
 .title-row header .navbar-inner{margin:0 10px}
 .trailListColumn .title-row header .navbar-inner .logo{width:250px}
