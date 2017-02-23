@@ -404,8 +404,8 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 .loader-circle{margin:0 auto;border:16px solid #fff;border-top:16px solid #273719;border-radius:50%;width:100px;height:100px;animation:spin 2s linear infinite;z-index:20000;/*    transform:translate(-50%,-50%)*/}
 #loader-text{text-align:center;font-weight:bold;font-size:1.25em;line-height:1;padding-top:.75em;overflow:visible;}
 .loader-position{width:180px;overflow:visible;text-align:center;margin:100px auto 0}
-#loader-text span.message-one {animation:fade-out 1s 3.5s 1 forwards;}
-#loader-text span.message-two {display:block;opacity:0;animation:fade-in 1s 4.25s 1 forwards;margin-top:-1em}
+#loader-text span.message-one {animation:fade-out 1s 4.5s 1 forwards;}
+#loader-text span.message-two {display:block;opacity:0;animation:fade-in 1s 5.25s 1 forwards;margin-top:-1em}
 @keyframes fade-in {
 0% {opacity:0}
 100% {opacity:1}}
