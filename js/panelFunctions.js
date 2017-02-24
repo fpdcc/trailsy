@@ -34,7 +34,7 @@ var panelFuncs = function (map) {
   var aboutHTML = '<div id="fpccPreserveName" class="detailPanelBanner"><span id="fpccTrailName" class="trailName">About</span><svg id="closeAbout" class="icon icon-x closeDetail"><use xlink:href="icons/defs.svg#icon-x"></use></svg></div><div id="fpccPreserveInfo" class="detailPanelBody"><div id="fpccAbout" class="fpccUnit fpccContainer">' +
                   '<p>Welcome to the <a href="http://fpdcc.com/">Forest Preserves  of Cook County</a>. This web map is designed to help current and future  visitors:</p>' +
                   '<ul><li>Plan trips </li>' +
-                  '<li>Physically navigate preserves, trails and other  amenities</li>' +
+                  '<li>Navigate preserves, trails and other  amenities</li>' +
                   '<li>Discover new opportunities within the preserves</li></ul>' +
                   '<p>Please consider <a href="#">leaving  us feedback</a> so we can continue to improve this map. Learn more about the  Forest Preserves of Cook County at <a href="http://fpdcc.com/">fpdcc.com</a>.</p>' +
                   '<h2>Development</h2>' +
