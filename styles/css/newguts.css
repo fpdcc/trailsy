@@ -552,7 +552,7 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
 }
 
 /*SLIMMER PANEL------------------------------------*/
-@media (min-width:900px) and (max-width:1100px){
+@media (min-width:900px) and (max-width:1150px){
 #fpccMainContainer.expanded, .trailListColumn.expanded, .detailPanel.expanded{width:300px}    
 .fpccMobileSwitch{font-size:.875em}
 a.fpccMobileHamburger{margin-left:10px}
