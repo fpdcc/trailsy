@@ -472,6 +472,9 @@ a.fpccMobileBrand{font-size:.6875em}
 @media (max-width:350px){
 .fpccAmenity{width:100%;margin-right:0}  
 .fpccSegmentName{max-width:60%}  
+.fpccMobileSwitch{margin-left:.25em}
+.fpccFlipList{right:-35px}
+.fpccFlipMap{left:-35px}
 .fpccEntryDis{display:block;text-align:left;margin-left:15%;width:85%;margin-top:.25em}
 .trailListColumn .fpccUnit.fpccResults a span.fpccEntryName{width:100%}
 }
@@ -554,10 +557,6 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
 /*SLIMMER PANEL------------------------------------*/
 @media (min-width:900px) and (max-width:1150px){
 #fpccMainContainer.expanded, .trailListColumn.expanded, .detailPanel.expanded{width:300px}    
-.fpccMobileSwitch{font-size:.875em}
-a.fpccMobileHamburger{margin-left:10px}
-.fpccSwitch{padding:14px 30px}
-a.fpccMobileBrand{font-size:.6875em}
 .fpccDirections{display:block;float:none;width:100%}
 .fpccAmenity span.fpccAmenityTitle{font-size:1em;max-width:initial}
 .fpccAmenity{float:none;width:100%}
