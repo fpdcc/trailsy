@@ -152,8 +152,8 @@ a:hover .fpccAmenityTitle,a:active .fpccAmenityTitle{text-decoration:none}
 .fpccSpecialHours{font-style:italic;margin-top:.75em;}
 a:link.fpccSpecialDesc,a:visited.fpccSpecialDesc{width:100%;clear:both;padding:.75em 1em;background:#FFEFBF;text-decoration:none;color:#333;margin:1em 0;font-size:.9125em;border:1px dotted #FFBF00}
 a:hover.fpccSpecialDesc,a:active.fpccSpecialDesc{background:#FFE9A4}
-a:hover.fpccSpecialDesc .icon-arrow-right,a:active.fpccSpecialDesc .icon-arrow-right{background:#E8AE00;border-top:2px solid #C19200;margin-right:0}
-.fpccAmenities .fpccSpecialIcon .icon-arrow-right{background:#FFBF00;border-top:2px solid #D7A200;height:2.5em;width:2.5em;vertical-align:middle;margin:0;padding:.5em;fill:#FFEFBF}
+a:hover.fpccSpecialDesc .icon-arrow-right,a:active.fpccSpecialDesc .icon-arrow-right{background:#E8AE00;border-bottom:2px solid #C19200;margin-right:0}
+.fpccAmenities .fpccSpecialIcon .icon-arrow-right{background:#FFBF00;border-bottom:2px solid #D7A200;height:2.5em;width:2.5em;vertical-align:middle;margin:0;padding:.5em;fill:#FFEFBF}
 .fpccAmenities .fpccSpecialIcon #icon-arrow-right .path1{fill:#FFEFBF}
 .fpccAlerts{width:100%;clear:both;background:#FFE2D9;text-decoration:none;color:#333;margin:0;font-size:.9125em;border-bottom:1px dotted #DF0000}
 .fpccAlerts .icon-alert{background:#DF0000;border-bottom:2px solid #B70000;height:2.5em;width:2.5em;vertical-align:middle;margin:0;padding:.5em;color:#FFE2D9}
