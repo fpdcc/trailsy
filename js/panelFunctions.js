@@ -85,7 +85,7 @@ var panelFuncs = function (map) {
   }
 
   that.setHeights = function () {
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth <= 900) {
       that.SMALL = true
     } else {
       that.SMALL = false
@@ -199,11 +199,10 @@ var panelFuncs = function (map) {
       }
     })
     $('#fpccSearchResults').html(trailListContents)
-    
     $('#fpccSearchStatus').html(divCount + ' Results Found')
-    //that.closeDetailPanel()
-    //   $('.fpccEntry').click(trailDivClickHandler)
-    that.setHeights()
+    if (open) {
+      that.setHeights()
+    }
     console.log('[makeTrailDivs] end at:' + performance.now())
   }
 
@@ -624,7 +623,7 @@ var panelFuncs = function (map) {
     //Trails Section
     var trailsHTML = ""
     if (descriptionTrail) {
-      console.log('[decorateDetailPanelForTrailhead] system = ' + descriptionTrail.trail_subsystem)
+      // console.log('[decorateDetailPanelForTrailhead] system = ' + descriptionTrail.trail_subsystem)
       var subSystem = descriptionTrail.trail_subsystem
       trailsHTML += '<div class="fpccTrails fpccUnit clearfix">'
       if (directTrail) {
@@ -647,7 +646,7 @@ var panelFuncs = function (map) {
       var trailMapHTML = '<div class="fpccTrailMaps clearfix trailMaps"><span class="fpccLabel">PDF Trail Map:</span>'
       console.log('[decorateDetailPanelForTrailhead2] showMaps = ' + showMaps)
       if (descriptionTrail.map_link != null && descriptionTrail.map_link != '') {
-        console.log('[decorateDetailPanelForTrailhead2] descriptionTrail.map_link is true? ' + descriptionTrail.map_link)
+        // console.log('[decorateDetailPanelForTrailhead2] descriptionTrail.map_link is true? ' + descriptionTrail.map_link)
         trailMapHTML += '<a class="fpccButton" id="pdfEnglish" href="'
                       + descriptionTrail.map_link + '" target="_blank">English</a>'
         showMaps = true
@@ -792,6 +791,7 @@ var panelFuncs = function (map) {
   }
 
   that.slideDetailPanel = function (expand) {
+    console.log('slideDetailPanel')
     if (that.SMALL) {
       if (expand) {
         console.log('[slideDetailPanel] expand = true')
@@ -821,12 +821,12 @@ var panelFuncs = function (map) {
   }
 
   that.toggleDetailPanel = function (action) {
+    console.log('toggleDetailPanel')
     if (action === 'open') {
       $('#fpccSearchResults').hide()
       $('#fpccSearchStatus').hide()
       $('#fpccDetailPanel').show()
       $('#fpccPreserveInfo').scrollTop(0)
-      $('fpccContainer').html(loaderDiv)
       if (that.SMALL) {
         $('#fpccMainContainer').hide()
       }
@@ -872,7 +872,7 @@ var panelFuncs = function (map) {
       $('#fpccSearchStatus').hide()
       $('#fpccSearchResults').hide()
       // $('#fpccSearchBack').show()
-    }  
+    }
   }
 
   that.showfpccMainContainer = function (e) {

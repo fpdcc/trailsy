@@ -131,10 +131,12 @@ var trailMap = function () {
         geoFunctions.geoSetupDone.done(function () {
           if (filters.current.poi) {
             events.trailDivWork(null, filters.current.poi)
+            panel.toggleDetailPanel('open')
             fitToSearchResults = false
             openResults = false
           } else if (filters.current.trail) {
             events.trailDivWork(filters.current.trail, null)
+            panel.toggleDetailPanel('open')
             fitToSearchResults = false
             openResults = false
           }

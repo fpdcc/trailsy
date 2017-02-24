@@ -326,7 +326,7 @@ var poiFeature = function (map) {
   that.getPoiById = function (poiID) {
     console.log('getPoiById start for poiID = ' + poiID)
     var trailhead = null
-    console.log('[getPoiById] that.originalPoisArray.length = ' + that.originalPoisArray.length)
+    // console.log('[getPoiById] that.originalPoisArray.length = ' + that.originalPoisArray.length)
     for (var i = 0; i < that.originalPoisArray.length; i++) {
       if (that.originalPoisArray[i].properties.id == poiID) {
         trailhead = that.originalPoisArray[i]
