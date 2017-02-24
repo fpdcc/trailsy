@@ -79,7 +79,7 @@ input:checked ~ .fpccSlider:before{-webkit-transform:translateX(-16px);-ms-trans
 .fpccUnit{padding:1.5em 1em}
 .fpccLabel{font-family:Helvetica,Arial,sans-serif;font-size:.9125em;text-transform:uppercase;color:#585747}
 .fpccLabel.fpccBlock{display:block}
-.fpccSocial{background:#F1F1ED;padding-bottom:4em}
+.fpccSocial{background:#F1F1ED}
 .fpccShare{font-size:1.15em;line-height:1;text-align:center;margin-bottom:.5em;font-family:Georgia,"Times New Roman",serif}
 .fpccSocialIcon span{display:block;text-transform:uppercase;font-size:.75em;font-family:Helvetica,Arial,sans-serif}
 .fpccSocialIcon .icon{width:2em;height:2em}
@@ -478,7 +478,8 @@ a.fpccMobileBrand{font-size:.6875em}
 
 @media (min-width:575px) and (max-width:900px){
     .fpccEntry .icon {width:1.25em;height: 1.25em;margin-right: .75em}
-    .fpccTop,.fpccTrails,.fpccSocial{max-width:575px;}
+    .fpccTop,.fpccTrails,.fpccSocial{max-width:575px;margin:0 auto}
+    .fpccSocial{background:#FFF}
 }
 
     
