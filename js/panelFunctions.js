@@ -773,8 +773,9 @@ var panelFuncs = function (map) {
     trailSegmentHTML += '<svg width="100%" height="8px"><line x1="4" x2="100%" y1="4" y2="4" stroke-width="8"/></svg>';
     trailSegmentHTML += '</div>';
     trailSegmentHTML += '<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>';
-    //trailSegmentsHTML += (Math.round(trailhead.properties.length * 100) / 100);
-    trailSegmentHTML += trailSegment.subtrail_length_mi;
+    if (trailSegment.subtrail_length_mi) {
+      trailSegmentHTML += trailSegment.subtrail_length_mi.toFixed(1)
+    }
     trailSegmentHTML += ' mi</span></span>';
     trailSegmentHTML += '<span class="fpccLabel fpccRight">Surface<span>';
     trailSegmentHTML += thisType;
