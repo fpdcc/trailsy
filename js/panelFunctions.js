@@ -75,7 +75,6 @@ var panelFuncs = function (map) {
 
   window.onload = function () {
     that.setHeights()
-    
   }
 
   var testCloseDetail = function () {
@@ -98,7 +97,7 @@ var panelFuncs = function (map) {
     var fpccPreserveInfo = document.getElementById('fpccPreserveInfo')
     var fpccPreserveName = document.getElementById('fpccPreserveName')
     if (fpccPreserveName) {
-      fpccPreserveName.offsetHeight
+      m = fpccPreserveName.offsetHeight
     }
     var o = document.getElementById('fpccSearchBack').offsetHeight
     var p = document.getElementById('fpccSearchStatus').offsetHeight
@@ -113,7 +112,6 @@ var panelFuncs = function (map) {
     if (that.SMALL) {
       console.log('[setHeights] yes small')
       fpccPreserveInfoHeight = (h - (l + m + o)).toString() + 'px'
-      
       if (fpccPreserveInfo) {
         fpccPreserveInfo.style.minHeight = fpccPreserveInfoHeight
       }
