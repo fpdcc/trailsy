@@ -58,15 +58,15 @@ a.fpccMobileBrand span{display:block;font-weight:bold}
 a.fpccMobileHamburger{height:48px;width:48px;padding:15px 12px 11px;float:right;display:inline-block;}
 a.fpccMobileHamburger span{height:4px;background:#FFF;margin-bottom:3px;display:block}
 a.fpccMobileHamburger span.last{margin-bottom:0}
-.fpccMobileSwitch{font-size:1em;color:#7E9039;display:inline-block;float:left;text-transform:uppercase;font-weight:bold;margin-left:1.75em}
+.fpccMobileSwitch{font-size:1em;color:#90a542;display:inline-block;float:left;text-transform:uppercase;font-weight:bold;margin-left:1.75em}
 .fpccSwitch{padding:14px 35px;width:100%;display:inline-block;cursor:pointer}
 .fpccFlipList,.fpccFlipMap{position:absolute;-webkit-transition:.4s;transition:.4s;margin-top:2px}
 .fpccFlipList{color:#FFF;right:-40px}
-.fpccFlipMap{color:#7E9039;left:-40px}
+.fpccFlipMap{color:#90a542;left:-40px}
 .fpccSwitch input{display:none}
 .fppcSwitchBackground{border-radius:50%;position:relative;display:inline-block;width:40px;height:20px;background:#7E9039;margin:0 5px;vertical-align:middle}
-.fpccSlider{border-radius:34px;position:absolute;top:0;left:0;right:0; bottom:0; background-color:#7E9039;-webkit-transition:.4s;transition:.4s}
-.fpccSlider:before{position:absolute;content:"";height:16px;width:16px;right:4px;  bottom:2px;background-color:white;-webkit-transition:.4s;transition:.4s;border-radius:50%}
+.fpccSlider{border-radius:34px;position:absolute;top:0;left:0;right:0; bottom:0;background-color:#90a542;-webkit-transition:.4s;transition:.4s}
+.fpccSlider:before{position:absolute;content:"";height:16px;width:16px;right:4px;bottom:2px;background-color:white;-webkit-transition:.4s;transition:.4s;border-radius:50%}
 input:checked ~ .fpccFlipList{color:#7E9039}
 input:checked ~ .fpccFlipMap{color:white}
 input:focus ~ .fpccSlider{box-shadow:0 0 1px #7E9039}
@@ -85,7 +85,7 @@ input:checked ~ .fpccSlider:before{-webkit-transform:translateX(-16px);-ms-trans
 .fpccSocialIcon .icon{width:2em;height:2em}
 a:link.fpccSocialIcon,a:visited.fpccSocialIcon{text-decoration:none;color:#333}
 a:hover.fpccSocialIcon,a:active.fpccSocialIcon{color:#333;background:#DDDDD5}
-a:link.fpccMore,a:visited.fpccMore{color:#7E9137}
+a:link.fpccMore,a:visited.fpccMore{color:#424d1d}
 a:hover.fpccMore,a:active.fpccMore{text-decoration:none;color:#333}
 .fpccButton,.fpccButton:visited{text-align:center;background:#7E9039;font-family:Helvetica,Arial,sans-serif;border:none;border-bottom:2px solid #606D29;padding:10px 15px;max-height:37px;color:#FFF;font-size:.9375em;line-height:1;text-decoration:none;vertical-align:top}
 .fpccButton:hover{background:#606D29;border-bottom:2px solid #464F1E}
@@ -288,7 +288,7 @@ ul.fpccMobileMenuList a:hover,ul.fpccMobileMenuList a:active{background:#666}
 
 /* panel - about */
 #fpccAbout{margin-bottom:1.5em}
-.trailListColumn #fpccAbout.fpccContainer a:link,.trailListColumn #fpccAbout.fpccContainer a:visited{display:initial;color:#7E9137}
+.trailListColumn #fpccAbout.fpccContainer a:link,.trailListColumn #fpccAbout.fpccContainer a:visited{display:initial;color:#424d1d}
 .trailListColumn #fpccAbout.fpccContainer a:hover,.trailListColumn #fpccAbout.fpccContainer a:active{text-decoration:none;color:#333}
 #fpccAbout h2{font-size:1.25em;margin:1.5em 0 .5em;font-family: Helvetica,Arial,sans-serif;line-height: 1.15;font-weight: bold;color: #585747;display: block;text-transform: capitalize;}
 #fpccAbout ul{padding:0 0 0 1.5em;margin-bottom:1em}
