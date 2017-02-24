@@ -176,13 +176,13 @@ a:hover.fpccSpecialDesc .icon-arrow-right,a:active.fpccSpecialDesc .icon-arrow-r
 
 /* panel - menu */
 .fpccMenu{float:right;margin-top:87px;width:auto;display:block;margin-right:-40px}
-.fpccMenu .hamburger,.fpccMenu .hamburger:visited{background: #999;font-size:.75em;float: left;color:#fff;text-decoration:none;font-weight:bold;box-shadow:inset 4px 0px 8px 0px rgba(0,0,0,0.3);padding: .75em .75em;width: 40px}
+.fpccMenu .hamburger,.fpccMenu .hamburger:visited{cursor:pointer;background: #999;font-size:.75em;float: left;color:#fff;text-decoration:none;font-weight:bold;box-shadow:inset 4px 0px 8px 0px rgba(0,0,0,0.3);padding: .75em .75em;width: 40px}
 .fpccMenu .hamburger:hover,.fpccMenu .hamburger:active{background:#666}
 .fpccMenu .hamburger span{height:4px;background:#FFF;margin-bottom:3px;display:block}
 .fpccMenu .hamburger span.last{margin-bottom:0}
 ul.fpccMenuList{z-index:9100;clear:both;margin:0;list-style-type:none;color:#333;font-weight:bold;font-size:.8125em;width:200px;padding-left:0;float:right;margin-right:-200px;box-shadow:0 4px 8px 0 rgba(0,0,0,0.2)}
 ul.fpccMenuList.hide{display:none}
-ul.fpccMenuList.show{display:block}
+ul.fpccMenuList.show{display:block;cursor: pointer;}
 ul.fpccMenuList a,ul.fpccMenuList a:visited{padding:.75em;color:#FFF;background:#999;border-bottom:1px solid #FFF;text-decoration:none;display:block}
 ul.fpccMenuList a .last,ul.fpccMenuList a:visited.last{border:none}
 ul.fpccMenuList a:hover,ul.fpccMenuList a:active{background:#666}
