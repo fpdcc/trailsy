@@ -455,9 +455,6 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 
 /*UNDER desktop panel width------------------------------------*/
 @media (max-width:384px){
-.fpccMobileSwitch{font-size:.875em;margin-left:.75em}
-.fpccSwitch{padding:14px 30px}
-a.fpccMobileBrand{font-size:.6875em}
 .fpccSign{width:100%;float:none;margin:0 0 1.5em 0}
 .fpccDirections{display:block;float:none;width:100%}
 .fpccAmenity span.fpccAmenityTitle{font-size:1em;max-width:initial}
@@ -472,9 +469,11 @@ a.fpccMobileBrand{font-size:.6875em}
 @media (max-width:350px){
 .fpccAmenity{width:100%;margin-right:0}  
 .fpccSegmentName{max-width:60%}  
-.fpccMobileSwitch{margin-left:.25em}
+.fpccMobileSwitch{font-size:.875em;margin-left:.75em}
+.fpccSwitch{padding:14px 30px}
 .fpccFlipList{right:-35px}
 .fpccFlipMap{left:-35px}
+a.fpccMobileBrand{font-size:.6875em}
 .fpccEntryDis{display:block;text-align:left;margin-left:15%;width:85%;margin-top:.25em}
 .trailListColumn .fpccUnit.fpccResults a span.fpccEntryName{width:100%}
 }
