@@ -550,7 +550,7 @@ var panelFuncs = function (map) {
         }
       }
       if (poi.properties.special_link) {
-        fpccAmenitiesString += '<a href="' + poi.properties.special_link + '" class="fpccSpecialDesc" target="_blank"><span class="fpccSpecialBlurb">' + poi.properties.special_description + '</span><span class="fpccSpecialIcon"><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg></span></a>'
+        fpccAmenitiesString += '<a href="' + poi.properties.special_link + '" class="fpccSpecialDesc" target="_blank"><span class="fpccSpecialBlurb">' + poi.properties.special_description + '</span><span class="fpccSpecialIcon"><svg class="icon icon-arrow-right"><use xlink:href="icons/defs.svg#icon-arrow-right"></use></svg></span></a>'
       }
       if (fpccAmenitiesString.length > 0) {
         fpccContainerHTML += '<div class="fpccAmenities fpccUnit clearfix">' + fpccAmenitiesString + '</div>'
