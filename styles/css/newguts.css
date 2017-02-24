@@ -349,8 +349,7 @@ ul.fpccMobileMenuList a:hover,ul.fpccMobileMenuList a:active{background:#666}
 .selectize-input.input-active{-webkit-border-radius:none;-moz-border-radius:0;border-radius:0}
 .selectize-control.multi .selectize-input.has-items{padding:6px 8px 4px}
 .selectize-dropdown .optgroup-header{font-weight:bold}
-.optgroup .option{padding:5px 8px 5px 20px}
-.optgroup .option:hover{background-color:#E3EACC}
+.optgroup .option{padding:6px 8px 6px 20px}
 
 /*UNNEEDED? jquery mobile override */
 .fpccUnit .ui-content{padding:0}
