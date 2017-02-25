@@ -337,7 +337,7 @@ var panelFuncs = function (map) {
             fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-bathroom-building'><use xlink:href='icons/defs.svg#icon-bathroom-building'></use></svg> <span class='fpccAmenityTitle'>Indoor Bathroom"
           }
           if (!poi.properties.bathroom_building_winter) {
-            '*' += fpccAmenitiesString 
+            fpccAmenitiesString += '*'
           }
           fpccAmenitiesString += '</span></div>'
         }
@@ -350,7 +350,7 @@ var panelFuncs = function (map) {
             fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-bathroom-portable'><use xlink:href='icons/defs.svg#icon-bathroom-portable'></use></svg> <span class='fpccAmenityTitle'>Portable Bathroom"
           }
           if ((!poi.properties.bathroom_portable_winter) || (!poi.properties.bathroom_portable_summer)) {
-            '**' += fpccAmenitiesString  
+            fpccAmenitiesString += '**'
           }
           fpccAmenitiesString += '</span></div>'
         }
@@ -573,13 +573,13 @@ var panelFuncs = function (map) {
         }
       }
       if ((!poi.properties.bathroom_building_winter) && (poi.properties.bathroom_building_summer)) {
-        fpccAmenitiesString += '<div="bathroom-season">*Indoor bathroom open April 1 to October 31 depending on weather conditions.</div>'
+        fpccAmenitiesString += '*Indoor bathroom open April 1 to October 31 depending on weather conditions.'
       }
       if ((!poi.properties.bathroom_portable_winter) && (poi.properties.bathroom_portable_summer)) {
-        fpccAmenitiesString += '<div="portable-bathroom-season">**Portable bathroom open May 1 to October 31 depending on weather conditions.</div>'
+        fpccAmenitiesString += '**Portable bathroom open May 1 to October 31 depending on weather conditions.'
       }
       if ((poi.properties.bathroom_portable_winter) && (!poi.properties.bathroom_portable_summer)) {
-        fpccAmenitiesString += '<div="portable-bathroom-season">**Portable bathroom open November 1 to April 30 depending on weather conditions.</div>'
+        fpccAmenitiesString += '**Portable bathroom open November 1 to April 30 depending on weather conditions.'
       }
 
       if (poi.properties.special_link) {
