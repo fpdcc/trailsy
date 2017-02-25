@@ -556,6 +556,7 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
  /*popups*/
 .trail-popup .trail-popup-line-named,.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames,.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname{width:100%}
 .trail-popup .icon-arrow-right,.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .icon-arrow-right{display:none}
+.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .icon-arrow-right{display:initial}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames:active,.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname:active,.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .popupTrailNames:active,.trail-popup-line-named.trail-subsystem:active{color:#333}
     
 /*OVERRIDES------------------------------------*/
