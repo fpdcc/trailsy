@@ -95,7 +95,7 @@ var trailMap = function () {
       updateWhenZooming: false,
       attribution: mapboxAttribution
     }).addTo(map)
-  
+
   var mapboxAccessToken = 'sk.eyJ1Ijoic21hcnRjaGljYWdvY29sbGFib3JhdGl2ZSIsImEiOiJjaWlqOGU2dmMwMTA2dWNrcHM0d21qNDhzIn0.2twD0eBu4UKHu-3JZ0vt0w'
   var imageryBase = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
     attribution: mapboxAttribution,
@@ -148,13 +148,6 @@ var trailMap = function () {
     })
   })
 
-  that.testClick = function (e) {
-     console.log('edge listen click')
-    var $myTarget = $(e.currentTarget)
-    var myId = $myTarget.attr('id')
-    console.log('isEdge myId = ' + myId)
-  }
-
   var filterAll = function (fitToSearchResults, openResults) {
     console.log('[filterAll] start')
     $('.loader').show()
@@ -184,9 +177,7 @@ var trailMap = function () {
               })
           }
           poiFeat.filteredPoisFeatureGroup.addTo(map)
-          //if (Config.isEdge) {
-          // $('.usePoi').on(Config.listenType, that.testClick)
-          //}
+          console.log('isEdge? = ' + Config.isEdge)
         }
         if (activityFeat.filteredFG) {
           activityFeat.filteredFG.addTo(map)
@@ -194,11 +185,12 @@ var trailMap = function () {
         if (tSegment.filteredFG && filters.current.trailOnMap) {
           tSegment.filteredFG.addTo(map)
         }
+        events.addEdgeEventHandlers()
       })
     })
     $('.loader').hide()
   }
-  
+
   that.processSearch = function (e) {
     // $("#fpccSearchResults").html(loaderDiv)
     var $currentTarget = $(e.currentTarget)

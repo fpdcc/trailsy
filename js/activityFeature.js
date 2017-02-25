@@ -9,8 +9,9 @@ var activityFeature = function (map) {
   var that = {}
   var events = eL.events()
   that.originalActivitiesObject = {}
+  that.originalActivitiesArray = []
   that.originalActivitiesCreated = $.Deferred()
-  // that.filteredActivitiesArray = [];
+  that.filteredFGArray = []
   that.filteredFG = null
   that.selectedFG = null
   that.fetchActivities = function () {
@@ -29,6 +30,7 @@ var activityFeature = function (map) {
   var _createOriginalActivities = function (data) {
     console.log('populateOriginalActivities start at: ' + performance.now())
     that.originalActivitiesObject = {}
+    that.originalActivitiesArray = []
     for (var i = 0; i < data.features.length; i++) {
       var currentFeature = data.features[i]
       var currentGeoOne = currentFeature.geometry.coordinates[1]
@@ -40,14 +42,14 @@ var activityFeature = function (map) {
         var activityName = currentFeature.properties.name || currentFeature.properties.aname
         var mainIcon = L.divIcon({
           className: 'icon-map icon-activity active activity-' + currentFeature.properties.id + ' ' + iconType + ' poi-' + currentFeature.properties.poi_info_id,
-          html: '<svg class="icon icon-map icon-activity ' + iconType + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg><br />',
+          html: '<svg class="icon icon-map icon-activity ' + iconType + '"><use class="useMapIcon" data-type="activity" data-poiid="' + currentFeature.properties.poi_info_id + '" data-id="' + currentFeature.properties.id + '" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg><br />',
           iconAnchor: [15, 20],
           popupAnchor: [0, -20],
           iconSize: null
         })
         var selectedIcon = L.divIcon({
           className: 'icon-map icon-activity selected activity-' + currentFeature.properties.id + ' ' + iconType + ' poi-' + currentFeature.properties.poi_info_id,
-          html: '<svg class="icon icon-map icon-activity ' + iconType + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg><br />',
+          html: '<svg class="icon icon-map icon-activity ' + iconType + '"><use class="useMapIcon" data-type="activity" data-poiid="' + currentFeature.properties.poi_info_id + '" data-id="' + currentFeature.properties.id + '" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconType + '"></use></svg><br />',
           iconAnchor: [15, 20],
           popupAnchor: [0, -20],
           iconSize: null
@@ -69,18 +71,39 @@ var activityFeature = function (map) {
         marker.geometry = currentFeature.geometry
         marker.popupContent = popupContentMainDivHTML
         // console.log('activity marker.icon= ' + marker.icon)
-        marker.bindPopup(marker.popupContent)
+        // marker.bindPopup(marker.popupContent)
         marker.on(Config.listenType, (function (activity) {
           return function () {
-            events.activityClick(activity)
+            that.activityClickSetup(activity)
           }
         })(marker))
+        that.originalActivitiesArray.push(marker)
         that.originalActivitiesObject[marker.properties.poi_info_id] = that.originalActivitiesObject[marker.properties.poi_info_id] || new L.FeatureGroup()
         that.originalActivitiesObject[marker.properties.poi_info_id].addLayer(marker)
       }
     }
     that.originalActivitiesCreated.resolve()
     console.log('populateOriginalActivities end at: ' + performance.now())
+  }
+
+  that.activityClickSetup = function (activity) {
+    var poiId = activity.properties.poi_info_id
+    events.openPopup(activity.popupContent, activity.getLatLng())
+    events.activityClick(poiId)
+  }
+
+  that.getById = function (id) {
+    console.log('activity.getById start for id = ' + id)
+    var activity = null
+    // console.log('[getPoiById] that.originalPoisArray.length = ' + that.originalPoisArray.length)
+    for (var i = 0; i < that.originalActivitiesArray.length; i++) {
+      if (that.originalActivitiesArray[i].properties.id == id) {
+        activity = that.originalActivitiesArray[i]
+        break
+      }
+    }
+    console.log('activity.getById activity = ' + activity)
+    return activity
   }
 
   var getIconName = function (activityType) {
@@ -121,14 +144,14 @@ var activityFeature = function (map) {
       map.removeLayer(that.filteredFG)
       that.filteredFG = null
     }
-    var filteredFGArray = []
+    that.filteredFGArray = []
     $.each(poiArray, function (i, el) {
       var selectFG = that.originalActivitiesObject[el.properties.poi_info_id]
       if (selectFG) {
-        filteredFGArray.push(selectFG)
+        that.filteredFGArray.push(selectFG)
       }
     })
-    that.filteredFG = new L.FeatureGroup(filteredFGArray, {
+    that.filteredFG = new L.FeatureGroup(that.filteredFGArray, {
       makeBoundsAware: true,
       minZoom: 13
     }) // .addTo(map)
@@ -153,6 +176,7 @@ var activityFeature = function (map) {
         layer.setIcon(layer.selectedIcon)
       })
     }
+    events.addEdgeEventHandlers()
     var t1 = performance.now()
     console.log('[[act.setSelected end] time', (t1-t0).toFixed(4), 'milliseconds')
     return that.selectedFG

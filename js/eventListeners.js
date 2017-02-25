@@ -189,17 +189,17 @@ var events = function (map) {
     console.log('[events poiClick] end')
   }
 
-  that.activityClick = function (activity) {
+  that.activityClick = function (poiId) {
     var lastPoi = ''
     var lastPoiId = ''
     if (my.poiFeat.current) {
       lastPoi = my.poiFeat.current
       lastPoiId = lastPoi.properties.id
     }
-    var poi = my.poiFeat.getPoiById(activity.properties.poi_info_id)
+    var poi = my.poiFeat.getPoiById(poiId)
     if (poi) {
       my.panel.showDetails(my, null, poi)
-      if (lastPoiId != activity.properties.poi_info_id) {
+      if (lastPoiId != poiId) {
         var zoomFeatureGroupBounds = that.highlightPoi(poi, false)
         var trailSubsystem = null
         if (poi.properties.direct_trail_id) {
@@ -214,6 +214,33 @@ var events = function (map) {
            // paddingTopLeft: centerOffset
         })
       }
+    }
+  }
+
+  that.addEdgeEventHandlers = function () {
+    if (Config.isEdge) {
+      console.log('isEdge')
+      $('.useMapIcon').on(Config.listenType, that.edgeClick)
+    }
+  }
+
+  that.edgeClick = function (e) {
+    console.log('edge listen click')
+    var $myTarget = $(e.currentTarget)
+    var iconType = $myTarget.attr('data-type')
+    var poiId = $myTarget.attr('data-poiid')
+    var id = $myTarget.attr('data-id')
+    console.log('edgeClick poiId = ' + poiId + ' iconType = ' + iconType)
+    if (iconType === 'activity') {
+      var activity = my.actFeat.getById(id)
+      that.openPopup(activity.popupContent, activity.getLatLng())
+      that.activityClick(poiId)
+    } else if (iconType === 'poi') {
+      var poi = my.poiFeat.getPoiById(poiId)
+      that.poiClick(poi)
+    } else if (iconType === 'picnicgrove') {
+      var picnicgrove = my.pgFeat.getById(id)
+      that.openPopup(picnicgrove.popupContent, picnicgrove.getLatLng())
     }
   }
 
@@ -254,9 +281,25 @@ var events = function (map) {
     } else {
       my.map.closePopup()
     }
+    that.addEdgeEventHandlers()
     var zoomFeatureGroup = new L.FeatureGroup(zoomArray)
     var zoomBounds = zoomFeatureGroup.getBounds()
     return zoomBounds
+  }
+
+  that.openPopup = function (popupContent, location) {
+    my.map.closePopup()
+    console.log('[open Popup] create + open popup')
+    if (popupContent && location) {
+      var popup = new L.Popup({
+        offset: [0, -12],
+        autoPanPadding: [10, 10]
+        // autoPan: SMALL ? false : true
+      })
+      .setContent(popupContent)
+      .setLatLng(location)
+      .openOn(my.map)
+    }
   }
 
   that.segmentClick = function (trailSubsystemNormalizedName) {

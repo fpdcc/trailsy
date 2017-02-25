@@ -3,9 +3,11 @@ var L = require('leaflet')
 var $ = require('jquery')
 require('leaflet-boundsawarelayergroup')
 var Config = require('./config.js')
+var eL = require('./eventListeners.js')
 
 var picnicgroveFeature = function (map) {
   var that = {}
+  var events = eL.events()
   that.originalPicnicgrovesArray = []
   that.originalObject = {}
   that.highlightFG = null
@@ -44,7 +46,7 @@ var picnicgroveFeature = function (map) {
       }
       var picnicgroveIcon = L.divIcon({
         className: 'icon-map picnic-grove-marker selected ' + iconName + ' picnicgrove-' + currentFeature.properties.id + ' poi-' + currentFeature.properties.poi_info_id,
-        html: '<svg class="icon icon-map picnic-grove-marker ' + iconName + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconName + '"></use></svg><br />',
+        html: '<svg class="icon icon-map picnic-grove-marker ' + iconName + '"><use class="useMapIcon" data-type="picnicgrove" data-poiId="' + currentFeature.properties.poi_info_id + '" data-id="' + currentFeature.properties.id + '" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#' + iconName + '"></use></svg><br />',
         iconAnchor: [15, 20],
         popupAnchor: [0, -20],
         iconSize: null
@@ -59,24 +61,35 @@ var picnicgroveFeature = function (map) {
       // console.log("signMarker.trailheadID = " + signMarker.trailheadID);
       marker.popupContent = popupContentMainDivHTML
       marker.properties = currentFeature.properties
-      marker.bindPopup(marker.popupContent)
-      // marker.on('click', (function (activity) {
-      // return function () {
-      //   events.activityClick(activity)
-      // }
-      // var picnicgrove = {
-      //   properties: currentFeature.properties,
-      //   geometry: currentFeature.geometry,
-      //   marker: marker,
-      //   popupContent: ""
-      // };
-      // setTrailheadEventHandlers(trailhead);
+      marker.on(Config.listenType, (function (picnicgrove) {
+        return function () {
+          that.pgClickSetup(picnicgrove)
+        }
+      })(marker))
+      that.originalPicnicgrovesArray.push(marker)
       that.originalObject[currentFeature.properties.poi_info_id] = that.originalObject[currentFeature.properties.poi_info_id] || new L.FeatureGroup()
       that.originalObject[currentFeature.properties.poi_info_id].addLayer(marker)
     }
     that.originalPicnicgrovesCreated.resolve()
     // console.log("[populateOriginalPicnicgroves] originalPicnicgroves count " + that.originalPicnicgrovesArray.length );
     console.log('populateOriginalPicnicgroves end at: ' + performance.now())
+  }
+
+  that.pgClickSetup = function (picnicgrove) {
+    events.openPopup(picnicgrove.popupContent, picnicgrove.getLatLng())
+  }
+
+  that.getById = function (id) {
+    console.log('picnicgrove.getById start for id = ' + id)
+    var picnicgrove = null
+    // console.log('[getPoiById] that.originalPoisArray.length = ' + that.originalPoisArray.length)
+    for (var i = 0; i < that.originalPicnicgrovesArray.length; i++) {
+      if (that.originalPicnicgrovesArray[i].properties.id == id) {
+        picnicgrove = that.originalPicnicgrovesArray[i]
+        break
+      }
+    }
+    return picnicgrove
   }
 
   that.highlight = function (poiId) {

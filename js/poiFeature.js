@@ -57,7 +57,7 @@ var poiFeature = function (map) {
       var currentFeatureLatLng = new L.LatLng(currentGeoOne, currentGeoTwo)
       var mainIcon = L.divIcon({
         className: 'icon-sign icon-map poi-' + currentFeature.properties.id,
-        html: '<svg class="icon icon-map icon-sign" id="poi-' + currentFeature.properties.id + '" ><use class="usePoi" id="poi-' + currentFeature.properties.id + '" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>',
+        html: '<svg class="icon icon-map icon-sign" id="poi-' + currentFeature.properties.id + '" ><use class="useMapIcon" data-type="poi" data-poiid="' + currentFeature.properties.id + '" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>',
         // iconAnchor: [13 * 0.60, 33 * 0.60],
         iconAnchor: [15, 20],
         popupAnchor: [15, 0],
@@ -67,7 +67,7 @@ var poiFeature = function (map) {
 
       var selectedIcon = L.divIcon({
         className: 'icon-sign icon-map selected poi-' + currentFeature.properties.id,
-        html: '<svg class="icon icon-map icon-sign" id="poi-' + currentFeature.properties.id + '" ><use class="usePoi" id="poi-' + currentFeature.properties.id + '" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>',
+        html: '<svg class="icon icon-map icon-sign" id="poi-' + currentFeature.properties.id + '" ><use class="useMapIcon" data-type="poi" data-poiid="' + currentFeature.properties.id + '" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>',
         // iconAnchor: [13 * 0.60, 33 * 0.60],
         iconAnchor: [15, 20],
         popupAnchor: [15, 0],
@@ -254,6 +254,7 @@ var poiFeature = function (map) {
       that.current = poi
       that.current.setIcon(that.current.selectedIcon)
     }
+    events.addEdgeEventHandlers()
   }
 
   var filterResult = function (poi, filters) {

@@ -26,7 +26,6 @@ var setup = function (myMap, myFilters, myPoiFeature, myTrailSegmentFeature, myA
 var panelFuncs = function (map) {
   var that = {}
   that.SMALL = false
-  var loaderDiv = '<div class="loader"></div>'
   var events = eL.events(map)
 
   that.currentDetailPanelHTML = ''
@@ -785,8 +784,8 @@ var panelFuncs = function (map) {
       $('#fpccDetailPanel').html(content)
     }
     that.setHeights()
-    $('#closeAbout').click(that.closeAboutPage)
     $('#closeDetail').on(Config.listenType, events.closeDetailPanel)
+    $('#closeAbout').on(Config.listenType, that.closeAboutPage)
     $('.detailPanelBanner').on(Config.listenType, detailPanelBannerClick)
   }
 
