@@ -173,6 +173,8 @@ a:hover.fpccSpecialDesc .icon-arrow-right,a:active.fpccSpecialDesc .icon-arrow-r
 .fpccSign .icon{width:1.75em;height:1.75em;margin-top:.05em;margin-right:.9em;vertical-align:top}
 .fpccAddress{display:inline-block;width:82%}
 .fpccDirections{width:28%;float:right;margin-bottom:.75em}
+.asterisk{padding:0 0 1em}
+.bathroom-season,.portable-bathroom-season{display: block;clear:both;font-style:italic;padding:.75em 0 0;font-size:.9125em;}
 
 /* panel - menu */
 .fpccMenu{float:right;margin-top:87px;width:auto;display:block;margin-right:-40px}
