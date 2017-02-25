@@ -88,6 +88,7 @@ var poiFeature = function (map) {
       marker.link = poiLink.replace(/%20/g, '+')
       var popupContentMainDivHTML = "<div class='trailhead-popup'>"
       var popupTrailheadDivHTML = "<div class='trailhead-box'><div class='popupTrailheadNames'>" + marker.properties.name + '</div>'
+      popupTrailheadDivHTML += '<svg class="icon icon-arrow-right"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-arrow-right"></use></svg>'
       popupContentMainDivHTML = popupContentMainDivHTML + popupTrailheadDivHTML
       if (marker.properties.trail_subsystem) {
         var popupTrailDivHTMLStart = "<div class='trailhead-trailname trail" + 1 + "' " +
@@ -97,7 +98,8 @@ var poiFeature = function (map) {
         "data-trailheadid='" + marker.properties.trail_subsystem + "' " +
         "data-index='" + 1 + "'>"
         var statusHTML = ''
-        var trailNameHTML = "<div class='popupTrailNames'>" + marker.properties.trail_subsystem + '</div><b></b>'
+        var trailNameHTML = "<div class='popupTrailNames'>" + marker.properties.trail_subsystem + '</div>'
+        trailNameHTML += '<svg class="icon icon-arrow-right"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-arrow-right"></use></svg>'
         var popupTrailDivHTML = popupTrailDivHTMLStart + statusHTML + trailNameHTML + '</div>'
         popupContentMainDivHTML = popupContentMainDivHTML + popupTrailDivHTML
       }
