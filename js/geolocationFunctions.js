@@ -25,53 +25,53 @@ var geolocationFunctions = function (map, filters, poiFeat, events) {
       }
       geoWatchId = navigator.geolocation.watchPosition(
         function (position) {
-          console.log('[setupGeolocation] function position')
+          //console.log('[setupGeolocation] function position')
           that.handleGeoSuccess(position)
           geoSetupDone = true
-          console.log('[setupGeolocation] function position geoSetupDone= ' + geoSetupDone)
+          // console.log('[setupGeolocation] function position geoSetupDone= ' + geoSetupDone)
         },
         function (error) {
-          console.log('[setupGeolocation] error -> currentUserLocation = ' + that.currentUserLocation)
-          console.log('[setupGeolocation] function error.code = ' + error.code)
-          console.log('[setupGeolocation] function error.message = ' + error.message)
+          // console.log('[setupGeolocation] error -> currentUserLocation = ' + that.currentUserLocation)
+          // console.log('[setupGeolocation] function error.code = ' + error.code)
+          // console.log('[setupGeolocation] function error.message = ' + error.message)
           that.handleGeoError(error)
           geoSetupDone = true
-          console.log('[setupGeolocation] function error geoSetupDone= ' + geoSetupDone)
+          // console.log('[setupGeolocation] function error geoSetupDone= ' + geoSetupDone)
         },
       options)
       setTimeout(function () {
         if (!geoSetupDone) {
-          console.log('[setupGeolocation] No confirmation from user, using fallback')
+          // console.log('[setupGeolocation] No confirmation from user, using fallback')
           geoSetupDone = true
           var error = {}
           error.message = 'No confirmation from user, using fallback'
           that.handleGeoError(error.message)
         } else {
-          console.log('[setupGeolocation] Location was set')
+          // console.log('[setupGeolocation] Location was set')
         }
       }, options.timeout + 1000) // Wait extra second
     } else {
       // for now, just returns MAPCENTERPOINT
       // should use browser geolocation,
       // and only return MAPCENTERPOINT if we're far from home base
-      console.log('[setupGeolocation] no navigator.geolocation')
+      // console.log('[setupGeolocation] no navigator.geolocation')
       that.currentUserLocation = Config.mapCenter
       showGeoOverlay()
       that.handleGeoError('no geolocation', callback)
       geoSetupDone = true
-      console.log('[setupGeolocation] no geolocation geoSetupDone= ' + geoSetupDone)
+      // console.log('[setupGeolocation] no geolocation geoSetupDone= ' + geoSetupDone)
     }
   }
 
   var geoLocateAttempt = 0
 
   that.handleGeoSuccess = function (position) {
-    console.log('handleGeoSuccess')
-    console.log('[handleGeoSuccess] position lat long= ' + position.coords.latitude + ' ' + position.coords.longitude)
+    // console.log('handleGeoSuccess')
+    // console.log('[handleGeoSuccess] position lat long= ' + position.coords.latitude + ' ' + position.coords.longitude)
     that.useGeo = true
     filters.current.userLocation =  new L.LatLng(position.coords.latitude, position.coords.longitude)
     
-    console.log('[handleGeoSuccess] that.currentUserLocation = ' + filters.current.userLocation)
+    // console.log('[handleGeoSuccess] that.currentUserLocation = ' + filters.current.userLocation)
     var distanceToMapCenterPoint = filters.current.userLocation.distanceTo(Config.mapCenter) / 1000
     // if no map, set it up
     // always update the user marker, create if needed
@@ -94,7 +94,7 @@ var geolocationFunctions = function (map, filters, poiFeat, events) {
     if (typeof callback === 'function') {
       callback()
     }
-    console.log('[setupGeolocation handleGeoSuccess] DONE')
+    // console.log('[setupGeolocation handleGeoSuccess] DONE')
   }
 
   var geolocateClick = function () {

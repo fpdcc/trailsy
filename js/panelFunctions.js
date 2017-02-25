@@ -84,6 +84,7 @@ var panelFuncs = function (map) {
   }
 
   that.setHeights = function () {
+    console.log('setHeights start')
     if (window.innerWidth <= 900) {
       that.SMALL = true
     } else {
@@ -101,15 +102,15 @@ var panelFuncs = function (map) {
     var o = document.getElementById('fpccSearchBack').offsetHeight
     var p = document.getElementById('fpccSearchStatus').offsetHeight
     var q = document.getElementById('fpccSearchContainer').offsetHeight
-    console.log('[setHeights] h = ' + h)
-    console.log('[setHeights] k + l + m + o + p + q = ' + k + ' + ' + l + ' + ' + m + ' + ' + o + ' + ' + p + ' + ' + q)
+    // console.log('[setHeights] h = ' + h)
+    // console.log('[setHeights] k + l + m + o + p + q = ' + k + ' + ' + l + ' + ' + m + ' + ' + o + ' + ' + p + ' + ' + q)
     var fpccSearchResultsHeight = (h - (k + l + o + p + q))
     fpccSearchResultsHeight = fpccSearchResultsHeight.toString() + 'px'
-    console.log('[setHeights] fpccSearchResultsHeight= ' + fpccSearchResultsHeight)
+    // console.log('[setHeights] fpccSearchResultsHeight= ' + fpccSearchResultsHeight)
     document.getElementById('fpccSearchResults').style.maxHeight = fpccSearchResultsHeight
     var fpccPreserveInfoHeight = 0
     if (that.SMALL) {
-      console.log('[setHeights] yes small')
+      // console.log('[setHeights] yes small')
       fpccPreserveInfoHeight = (h - (l + m + o)).toString() + 'px'
       if (fpccPreserveInfo) {
         fpccPreserveInfo.style.minHeight = fpccPreserveInfoHeight
@@ -117,12 +118,12 @@ var panelFuncs = function (map) {
       document.getElementById('fpccSearchResults').style.minHeight = fpccSearchResultsHeight
     } else {
       fpccPreserveInfoHeight = (h - (k + m + o + q)).toString() + 'px'
-      console.log('[setHeights] no small')
+      // console.log('[setHeights] no small')
     }
     if (fpccPreserveInfo) {
       fpccPreserveInfo.style.maxHeight = fpccPreserveInfoHeight
     }
-    console.log('[setHeights] #fpccPreserveInfoHeight= ' + fpccPreserveInfoHeight)
+    // console.log('[setHeights] #fpccPreserveInfoHeight= ' + fpccPreserveInfoHeight)
   }
 
   that.makeTrailDivs = function (poiFeat, filters, open) {

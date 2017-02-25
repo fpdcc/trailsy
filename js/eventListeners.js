@@ -219,7 +219,7 @@ var events = function (map) {
 
   that.addEdgeEventHandlers = function () {
     if (Config.isEdge) {
-      console.log('isEdge')
+      // console.log('isEdge')
       $('.useMapIcon').on(Config.listenType, that.edgeClick)
     }
   }

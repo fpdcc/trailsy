@@ -254,7 +254,7 @@ var poiFeature = function (map) {
       that.current = poi
       that.current.setIcon(that.current.selectedIcon)
     }
-    events.addEdgeEventHandlers()
+    // events.addEdgeEventHandlers()
   }
 
   var filterResult = function (poi, filters) {

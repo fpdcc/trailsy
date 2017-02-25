@@ -76,11 +76,21 @@ var trailMap = function () {
   // $('.usePoi').on(Config.listenType, that.testClick)
 
   map.on('zoomend', function (e) {
-    console.log('zoomend start ' + map.getZoom())
+    // console.log('zoomend start ' + map.getZoom())
     // var zoomLevel = map.getZoom()
     // lastZoom = zoomLevel
     console.log('zoomend end ' + map.getZoom())
   })
+
+  map.on('moveend', function (e) {
+    if (Config.isEdge) {
+      // console.log('isEdge')
+      $('.useMapIcon').off()
+      $('.useMapIcon').on(Config.listenType, events.edgeClick)
+    }
+    console.log('moveend end ')
+  })
+
   map.on('popupopen', function popupOpenHandler (e) {
     $('.trailhead-trailname').on(Config.listenType, events.poiPopupTrailClick) // Open the detail panel!
     $('.popupTrailheadNames').on(Config.listenType, events.poiPopupNameClick)
@@ -152,9 +162,9 @@ var trailMap = function () {
     console.log('[filterAll] start')
     $('.loader').show()
     poiSegmentsReady.done(function () {
-      console.log('[$.when readyToFilter] start at: ' + performance.now())
+      // console.log('[$.when readyToFilter] start at: ' + performance.now())
       geoFunctions.geoSetupDone.done(function () {
-        console.log('[filterAll] geoSetupDone at ' + performance.now())
+        // console.log('[filterAll] geoSetupDone at ' + performance.now())
         poiFeat.filterPoi(filters)
         events.makeResults(openResults)
         tSegment.filterSegments(poiFeat.filteredTrailSubsystems)
@@ -167,7 +177,7 @@ var trailMap = function () {
             var zoomFeatureGroupBounds = poiFeat.filteredPoisFeatureGroup.getBounds()
             if (filters.current.searchLocation || filters.current.userLocation) {
               var zoomFeatureArray = poiFeat.filteredPoisArray.slice(0,10)
-              console.log('filterAll zoomFeatureArray.length = ' + zoomFeatureArray.length)
+              // console.log('filterAll zoomFeatureArray.length = ' + zoomFeatureArray.length)
               var zoomFeatureGroup = new L.FeatureGroup(zoomFeatureArray)
               zoomFeatureGroupBounds = zoomFeatureGroup.getBounds()
             }
@@ -177,7 +187,7 @@ var trailMap = function () {
               })
           }
           poiFeat.filteredPoisFeatureGroup.addTo(map)
-          console.log('isEdge? = ' + Config.isEdge)
+          // console.log('isEdge? = ' + Config.isEdge)
         }
         if (activityFeat.filteredFG) {
           activityFeat.filteredFG.addTo(map)
@@ -185,7 +195,7 @@ var trailMap = function () {
         if (tSegment.filteredFG && filters.current.trailOnMap) {
           tSegment.filteredFG.addTo(map)
         }
-        events.addEdgeEventHandlers()
+        // events.addEdgeEventHandlers()
       })
     })
     $('.loader').hide()
