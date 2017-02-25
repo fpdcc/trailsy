@@ -49,8 +49,6 @@ var panelFuncs = function (map) {
     if ($('.fpccMenuList').hasClass('hide')) {
       $('.fpccMenuList').removeClass('hide')
       $('.fpccMenuList').addClass('show')
-      $('.fpccMenuList li').click(that.changeMenuDisplay)
-      $('.fpccMenuList a').click(that.changeMenuDisplay)
     } else {
       $('.fpccMenuList').removeClass('show')
       $('.fpccMenuList').addClass('hide')
@@ -61,6 +59,7 @@ var panelFuncs = function (map) {
     console.log('openAboutPage')
     that.populateDetailPanel(aboutHTML)
     that.toggleDetailPanel('open')
+    that.setHeights()
   }
 
   that.closeAboutPage = function () {
@@ -102,11 +101,11 @@ var panelFuncs = function (map) {
     var o = document.getElementById('fpccSearchBack').offsetHeight
     var p = document.getElementById('fpccSearchStatus').offsetHeight
     var q = document.getElementById('fpccSearchContainer').offsetHeight
-    // console.log('[setHeights] h = ' + h)
-    // console.log('[setHeights] k + l + m + o + p + q = ' + k + ' + ' + l + ' + ' + m + ' + ' + o + ' + ' + p + ' + ' + q)
+    console.log('[setHeights] h = ' + h)
+    console.log('[setHeights] k + l + m + o + p + q = ' + k + ' + ' + l + ' + ' + m + ' + ' + o + ' + ' + p + ' + ' + q)
     var fpccSearchResultsHeight = (h - (k + l + o + p + q))
     fpccSearchResultsHeight = fpccSearchResultsHeight.toString() + 'px'
-    // console.log('[setHeights] fpccSearchResultsHeight= ' + fpccSearchResultsHeight)
+    console.log('[setHeights] fpccSearchResultsHeight= ' + fpccSearchResultsHeight)
     document.getElementById('fpccSearchResults').style.maxHeight = fpccSearchResultsHeight
     var fpccPreserveInfoHeight = 0
     if (that.SMALL) {
@@ -123,7 +122,7 @@ var panelFuncs = function (map) {
     if (fpccPreserveInfo) {
       fpccPreserveInfo.style.maxHeight = fpccPreserveInfoHeight
     }
-    // console.log('[setHeights] #fpccPreserveInfoHeight= ' + fpccPreserveInfoHeight)
+    console.log('[setHeights] #fpccPreserveInfoHeight= ' + fpccPreserveInfoHeight)
   }
 
   that.makeTrailDivs = function (poiFeat, filters, open) {
@@ -334,7 +333,6 @@ var panelFuncs = function (map) {
         if (poi.properties.tags[':panel'].indexOf('trailhead') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-trail-marker'><use xlink:href='icons/defs.svg#icon-trail-marker'></use></svg><span class='fpccAmenityTitle'>Trail Access</span></div>"
         }
-        
         // Activities/Amenities on map
          // bike_rental = Bike Rental
         if (poi.properties.tags[':panel'].indexOf('bike_rental') > -1 ) {
@@ -402,7 +400,6 @@ var panelFuncs = function (map) {
         if (poi.properties.tags[':panel'].indexOf('public_building') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity public-building'><svg class='icon icon-facility'><use xlink:href='icons/defs.svg#icon-facility'></use></svg><span class='fpccAmenityTitle'>Public Building</span></div>"
         }
-        
         // sledding = Sledding
         if (poi.properties.tags[':panel'].indexOf('sledding') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-sledding'><use xlink:href='icons/defs.svg#icon-sledding'></use></svg><span class='fpccAmenityTitle'>Sledding</span></div>"
@@ -785,9 +782,14 @@ var panelFuncs = function (map) {
       $('#fpccDetailPanel').html(content)
     }
     that.setHeights()
+    $('#closeDetail').off()
+    $('#closeAbout').off()
+    $('.detailPanelBanner').off()
     $('#closeDetail').on(Config.listenType, events.closeDetailPanel)
     $('#closeAbout').on(Config.listenType, that.closeAboutPage)
-    $('.detailPanelBanner').on(Config.listenType, detailPanelBannerClick)
+    if (that.SMALL) {
+      $('.detailPanelBanner').on(Config.listenType, detailPanelBannerClick)
+    }
   }
 
   that.slideDetailPanel = function (expand) {

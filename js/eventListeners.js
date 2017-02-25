@@ -35,11 +35,12 @@ var events = function (map) {
     $('#fpccSearchBack').on(Config.listenType, that.closeDetailPanel) // .click(readdSearchURL)
     $('#fpccMobileSearchButton').on(Config.listenType, that.closeDetailPanel)
     $('#fpccMobileCheckbox').on(Config.listenType, my.panel.showfpccMainContainer)
-    
     $('.offsetZoomControl').click(offsetZoomIn)
     $('.aboutLink').click(panel.openAboutPage)
-    $('.fpccMenu').click(panel.changeMenuDisplay)
-    $('.fpccMobileHamburger').click(panel.changeMenuDisplay)
+    $('.fpccMenu').on(Config.listenType, panel.changeMenuDisplay)
+    $('.fpccMenuList li').on(Config.listenType, panel.changeMenuDisplay)
+    // $('.fpccMenuList a').on(Config.listenType, panel.changeMenuDisplay)
+    $('.fpccMobileHamburger').on(Config.listenType, panel.changeMenuDisplay)
     // $('.usePoi').on(Config.listenType, that.testClick)
   }
 
