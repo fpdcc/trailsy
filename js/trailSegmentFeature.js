@@ -109,7 +109,7 @@ var trailSegmentFeature = function (map) {
       var segmentTrailSubsystem = invisLayer.feature.properties.trail_subsystem || null
       var segmentColor = invisLayer.feature.properties.trail_color || null
       var segmentType = invisLayer.feature.properties.trail_type || null
-      var segmentNameType = invisLayer.feature.properties.trail_name_type || null
+      var segmentNameType = invisLayer.feature.properties.segment_type || null
       var segmentDirection = invisLayer.feature.properties.direction || null
       var segmentOffFpcc = invisLayer.feature.properties.off_fpcc || null
       var segmentName = segmentColor + ' ' + segmentType
@@ -178,7 +178,7 @@ var trailSegmentFeature = function (map) {
   }
 
   var segmentStyle = function (feature) {
-    var thisColor = getColor(feature.properties.trail_color.toLowerCase(), feature.properties.off_fpdcc)
+    var thisColor = getColor(feature.properties.trail_color, feature.properties.off_fpdcc)
     var thisWeight = 3
     var thisOpacity = 1
     var thisClickable = false
@@ -189,6 +189,9 @@ var trailSegmentFeature = function (map) {
   }
 
   var getColor = function (color, offFpdcc) {
+    if (color) {
+      color = color.toLowerCase()
+    }
     if (offFpdcc === 'y') {
       return color === 'red' ? '#F8AD96'
           : color === 'orange' ? '#FDD09E'

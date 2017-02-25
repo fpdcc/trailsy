@@ -329,6 +329,32 @@ var panelFuncs = function (map) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-no-parking'><use xlink:href='icons/defs.svg#icon-no-parking'></use></svg> <span class='fpccAmenityTitle'>No Parking Lot</span></div>"
         }
 
+        // Building Bathrooms
+        if (poi.properties.bathroom_building_winter || poi.properties.bathroom_building_summer) {
+          if (poi.properties.bathroom_building_ada) {
+            fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-bathroom-building-ada'><use xlink:href='icons/defs.svg#icon-bathroom-building-ada'></use></svg> <span class='fpccAmenityTitle'>Accessible Indoor Bathroom"
+          } else {
+            fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-bathroom-building'><use xlink:href='icons/defs.svg#icon-bathroom-building'></use></svg> <span class='fpccAmenityTitle'>Indoor Bathroom"
+          }
+          if (!poi.properties.bathroom_building_winter) {
+            fpccAmenitiesString += '*'
+          }
+          fpccAmenitiesString += '</span></div>'
+        }
+
+        // Portable Bathrooms
+        if (poi.properties.bathroom_portable_winter || poi.properties.bathroom_portable_summer) {
+          if (poi.properties.bathroom_portable_ada) {
+            fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-bathroom-portable-ada'><use xlink:href='icons/defs.svg#icon-bathroom-portable-ada'></use></svg> <span class='fpccAmenityTitle'>Accessible Portable Bathroom"
+          } else {
+            fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-bathroom-portable'><use xlink:href='icons/defs.svg#icon-bathroom-portable'></use></svg> <span class='fpccAmenityTitle'>Portable Bathroom"
+          }
+          if ((!poi.properties.bathroom_portable_winter) || (!poi.properties.bathroom_portable_summer)) {
+            fpccAmenitiesString += '**'
+          }
+          fpccAmenitiesString += '</span></div>'
+        }
+
         // trailacces = Trail System Access
         if (poi.properties.tags[':panel'].indexOf('trailhead') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-trail-marker'><use xlink:href='icons/defs.svg#icon-trail-marker'></use></svg><span class='fpccAmenityTitle'>Trail Access</span></div>"
@@ -546,6 +572,16 @@ var panelFuncs = function (map) {
           tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/aquatic-centers/">Swimming</a></li>'
         }
       }
+      if ((!poi.properties.bathroom_building_winter) && (poi.properties.bathroom_building_summer)) {
+        fpccAmenitiesString += '*Indoor bathroom open April 1 to October 31 depending on weather conditions.'
+      }
+      if ((!poi.properties.bathroom_portable_winter) && (poi.properties.bathroom_portable_summer)) {
+        fpccAmenitiesString += '**Portable bathroom open May 1 to October 31 depending on weather conditions.'
+      }
+      if ((poi.properties.bathroom_portable_winter) && (!poi.properties.bathroom_portable_summer)) {
+        fpccAmenitiesString += '**Portable bathroom open November 1 to April 30 depending on weather conditions.'
+      }
+
       if (poi.properties.special_link) {
         fpccAmenitiesString += '<a href="' + poi.properties.special_link + '" class="fpccSpecialDesc" target="_blank"><span class="fpccSpecialBlurb">' + poi.properties.special_description + '</span><span class="fpccSpecialIcon"><svg class="icon icon-arrow-right"><use xlink:href="icons/defs.svg#icon-arrow-right"></use></svg></span></a>'
       }
@@ -727,7 +763,7 @@ var panelFuncs = function (map) {
   var buildTrailSegmentHTML = function (trailSegment) {
     var thisColor = trailSegment.trail_color
     var thisType = trailSegment.trail_type
-    var thisNameType = trailSegment.trail_name_type
+    var thisNameType = trailSegment.segment_type
     var thisDirection = trailSegment.direction
     var trailSegmentHTML = '<div class="fpccTrailSegment"><div class="fpccSegmentOverview '
     //console.log('[buildTrailSegmentHTML] trailSegment.off_fpdcc= ' + trailSegment.off_fpdcc)
