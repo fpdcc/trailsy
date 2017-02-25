@@ -398,8 +398,8 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 .z16 .picnic-grove-marker,.z17 .picnic-grove-marker,.z18 .picnic-grove-marker{width:3em;height:3em;display:inline-block}
 .icon-map.inactive{display:none} /* This needs to be after the zoom level changes so that this display:none; overrides the zoom level display attrivute */
 .icon.icon-map.icon-sign{padding:.8em 0 0;/* background-image:url(../../icons/defs.svg#icon-sign); */}
-.icon-map.selected{animation:animateEdge 2.5s forwards}
-.icon-sign.icon-map.selected{animation:animateEdge 2.5s forwards}
+.icon-map.selected{animation:animateEdge 2.5s forwards;-webkit-animation:animateEdge 2.5s forwards}
+.icon-sign.icon-map.selected{animation:animateEdge 2.5s forwards;-webkit-animation:animateEdge 2.5s forwards}
 .icon-activity.icon-map.selected{opacity:1}
 .leaflet-marker-icon.icon-map.picnic-grove-marker{display:none}
 .icon-map.picnic-grove-marker.selected{display:inline-block}
@@ -416,12 +416,13 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 66%{background:none;box-shadow:none}
 100%{background:rgba(126,144,57,.45);box-shadow:0 0 7px 5px rgba(126,144,57,.45);border-radius:3em}}
 
-.loader{z-index: 20000;position:absolute;top:0;left:0;width:100%;height:100%;background:#EEE;overflow:hidden}
-.loader-circle{margin:0 auto;border:16px solid #fff;border-top:16px solid #273719;border-radius:50%;width:100px;height:100px;animation:spin 2s linear infinite;z-index:20000;/*    transform:translate(-50%,-50%)*/}
+
+.loader{z-index: 20000;position:absolute;top:0;left:0;width:100%;height:100%;background:#EEE;overflow:hidden;opacity:.5}
+.loader-circle{margin:0 auto;border:16px solid #fff;border-top:16px solid #273719;border-radius:50%;width:100px;height:100px;animation:spin 2s linear infinite;-webkit-animation:spin 2s linear infinite;z-index:20000;/*    transform:translate(-50%,-50%)*/}
 #loader-text{text-align:center;font-weight:bold;font-size:1.25em;line-height:1;padding-top:.75em;overflow:visible;}
 .loader-position{width:180px;overflow:visible;text-align:center;margin:100px auto 0}
-#loader-text span.message-one {animation:fade-out 1s 4.5s 1 forwards;}
-#loader-text span.message-two {display:block;opacity:0;animation:fade-in 1s 5.25s 1 forwards;margin-top:-1em}
+#loader-text span.message-one {animation:fade-out 1s 4.5s 1 forwards;-webkit-animation:fade-out 1s 4.5s 1 forwards;}
+#loader-text span.message-two {display:block;opacity:0;animation:fade-in 1s 5.25s 1 forwards;margin-top:-1em;-webkit-animation:fade-in 1s 5.25s 1 forwards;margin-top:-1em}
 @keyframes fade-in {
 0% {opacity:0}
 100% {opacity:1}}
@@ -429,6 +430,16 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 0% {opacity:1}
 100% {opacity:0}}
 @keyframes spin{
+0%{transform:rotate(0deg);-webkit-transform:rotate(0deg)}
+100%{transform:rotate(360deg);-webkit-transform:rotate(360deg)}}
+
+@-webkit-keyframes fade-in {
+0% {opacity:0}
+100% {opacity:1}}
+@-webkit-keyframes fade-out {
+0% {opacity:1}
+100% {opacity:0}}
+@-webkit-keyframes spin{
 0%{transform:rotate(0deg);-webkit-transform:rotate(0deg)}
 100%{transform:rotate(360deg);-webkit-transform:rotate(360deg)}}
 
