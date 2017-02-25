@@ -97,6 +97,8 @@ var filterFunctions = function (map) {
         that.current.zipMuniFilter = normalizedValue
         removeIndex = key
       } else {
+        searchBoxValueArray[key] = value.replace('-popular', '')
+        normalizedValue = normalizedValue.replace('-popular', '')
         if (trailExcludes.list.indexOf(normalizedValue) > -1) {
           // console.log('trailExcludes list')
           that.current.trailInList = false
@@ -111,6 +113,7 @@ var filterFunctions = function (map) {
       searchBoxValueArray.splice(removeIndex, 1)
     }
     searchBoxValueArray = searchBoxValueArray.filter(Boolean)
+    console.log('searchBoxValueArray = ' + searchBoxValueArray)
     // console.log('trailInList = ' + that.current.trailInList)
     // console.log('trailonmap = ' + that.current.trailOnMap)
     that.current.search = searchBoxValueArray
