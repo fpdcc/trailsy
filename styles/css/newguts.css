@@ -337,9 +337,9 @@ ul.fpccMobileMenuList a:hover,ul.fpccMobileMenuList a:active{background:#666}
 .leaflet-control-container .leaflet-control-layers{border-radius:0}
 
 /* selectize override */
-.selectize-input{font-size:14px;padding:16px 0 0 20px;min-height:48px;border:none;display:inline-block;width:85%;overflow:hidden;float:left;position:relative;z-index:1;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-box-shadow:none;box-shadow:none;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
+.selectize-input{font-size:16px;padding:16px 0 0 20px;min-height:48px;border:none;display:inline-block;width:85%;overflow:hidden;float:left;position:relative;z-index:1;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-box-shadow:none;box-shadow:none;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
 .selectize-dropdown{font-size:14px}
-.selectize-input input{font-size:15px}
+.selectize-input input{font-size:16px}
 .selectize-input input::placeholder{color:#565656}
 .selectize-input input::-webkit-input-placeholder{color:#565656/*Chrome/Opera/Safari*/}
 .selectize-input input::-moz-placeholder{opacity:1;color:#565656/*Firefox 19+*/}
