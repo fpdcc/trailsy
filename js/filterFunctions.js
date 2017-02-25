@@ -98,11 +98,11 @@ var filterFunctions = function (map) {
         removeIndex = key
       } else {
         if (trailExcludes.list.indexOf(normalizedValue) > -1) {
-          console.log('trailExcludes list')
+          // console.log('trailExcludes list')
           that.current.trailInList = false
         }
         if (trailExcludes.map.indexOf(normalizedValue) > -1) {
-          console.log('trailExcludes map')
+          // console.log('trailExcludes map')
           that.current.trailOnMap = false
         }
       }
@@ -111,8 +111,8 @@ var filterFunctions = function (map) {
       searchBoxValueArray.splice(removeIndex, 1)
     }
     searchBoxValueArray = searchBoxValueArray.filter(Boolean)
-    console.log('trailInList = ' + that.current.trailInList)
-    console.log('trailonmap = ' + that.current.trailOnMap)
+    // console.log('trailInList = ' + that.current.trailInList)
+    // console.log('trailonmap = ' + that.current.trailOnMap)
     that.current.search = searchBoxValueArray
     console.log('[setCurrent that.current.search = ' + that.current.search)
   }

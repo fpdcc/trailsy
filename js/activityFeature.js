@@ -176,7 +176,6 @@ var activityFeature = function (map) {
         layer.setIcon(layer.selectedIcon)
       })
     }
-    // events.addEdgeEventHandlers()
     var t1 = performance.now()
     console.log('[[act.setSelected end] time', (t1-t0).toFixed(4), 'milliseconds')
     return that.selectedFG

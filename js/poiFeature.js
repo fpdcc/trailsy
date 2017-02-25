@@ -197,15 +197,24 @@ var poiFeature = function (map) {
         spiderfyOnMaxZoom: false,
         maxClusterRadius: 60,
         iconCreateFunction: function (cluster) {
-          return L.divIcon({
-            className: 'icon-sign icon-map icon-cluster cluster-count' + cluster.getChildCount(),
-            html: '<svg class="icon icon-map icon-sign icon-cluster" ><use class="usePoi" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>',
-            // iconAnchor: [13 * 0.60, 33 * 0.60],
-            iconAnchor: [15, 20],
-            popupAnchor: [15, 0],
-            iconSize: null
-            // iconSize: [52 * 0.60, 66 * 0.60] // size of the icon
-          })
+          if (Config.isEdge) {
+            return new L.Icon({
+              iconUrl: 'icons/sign-01.png',
+              iconAnchor: [15, 20],
+              popupAnchor: [15, 0],
+              iconSize: [30, 30] // size of the icon
+            })
+          } else {
+            return L.divIcon({
+              className: 'icon-sign icon-map icon-cluster cluster-count' + cluster.getChildCount(),
+              html: '<svg class="icon icon-map icon-sign icon-cluster" ><use class="usePoi" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-sign"></use></svg>',
+              // iconAnchor: [13 * 0.60, 33 * 0.60],
+              iconAnchor: [15, 20],
+              popupAnchor: [15, 0],
+              iconSize: null
+              // iconSize: [52 * 0.60, 66 * 0.60] // size of the icon
+            })
+          }
         }
       })
       that.filteredPoisFeatureGroup.addLayers(that.filteredPoisArray)
@@ -254,7 +263,6 @@ var poiFeature = function (map) {
       that.current = poi
       that.current.setIcon(that.current.selectedIcon)
     }
-    // events.addEdgeEventHandlers()
   }
 
   var filterResult = function (poi, filters) {
@@ -266,7 +274,7 @@ var poiFeature = function (map) {
     ]
     for (var i = 0; i < filters.current.search.length; i++) {
       var activity = filters.current.search[i]
-      console.log('[filterResult] activityFilter = ' + activity)
+      // console.log('[filterResult] activityFilter = ' + activity)
       term = 0
       var normalizedSearchFilter = filters.current.search[i].toLowerCase()
       var normalizedSearchArray = normalizedSearchFilter.split(' ')
