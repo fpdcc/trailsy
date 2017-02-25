@@ -136,7 +136,7 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
 .fpccDescription{padding:1.25em 1em .25em}
 a:link .fpccAmenityTitle,a:visited .fpccAmenityTitle{text-decoration:underline;color:#333}
 a:hover .fpccAmenityTitle,a:active .fpccAmenityTitle{text-decoration:none}
-.fpccEntranceAddress{display:block}
+.fpccEntranceAddress,span.fpccCloseParking{display:block}
 .fpccDirections a:link,.fpccDirections a:visited{display:block;width:100%}
 .fpccDirections a:hover,.fpccDirections a:active{}
 .fpccLinks ul{padding:0 0 0 1.5em;margin-bottom:0}
