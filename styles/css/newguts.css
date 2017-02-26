@@ -381,7 +381,7 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 .icon-sign{width:1.599609375em}
 .icon-map.active{display:inline-block} /* This needs to be before the zoom level changes so that the zoom level display attribute can override this. */
 .icon-map.icon-activity.active{opacity:.5}
-.icon.icon-map{padding:.4em;overflow:visible}
+.icon.icon-map{padding:.4em;overflow:visible;pointer-events: none}
 .icon.icon-map{width:2em;height:2em}
 /*.icon.icon-sign{width:2.0em;height:2.0em}
 */
