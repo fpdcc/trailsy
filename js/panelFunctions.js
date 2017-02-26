@@ -55,6 +55,16 @@ var panelFuncs = function (map) {
     }
   }
 
+  // Open/close fpccMenu list
+  that.changeMobileMenuDisplay = function () {
+    console.log('changeMobileMenuDisplay')
+    if ($('.fpccMobileMenuList').hasClass('hide')) {
+      $('.fpccMobileMenuList').removeClass('hide').addClass('show')
+    } else {
+      $('.fpccMobileMenuList').removeClass('show').addClass('hide')
+    }
+  }
+
   that.openAboutPage = function () {
     console.log('openAboutPage')
     that.populateDetailPanel(aboutHTML)

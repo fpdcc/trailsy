@@ -40,7 +40,7 @@ var events = function (map) {
     $('.fpccMenu').on(Config.listenType, panel.changeMenuDisplay)
     $('.fpccMenuList li').on(Config.listenType, panel.changeMenuDisplay)
     // $('.fpccMenuList a').on(Config.listenType, panel.changeMenuDisplay)
-    $('.fpccMobileHamburger').on(Config.listenType, panel.changeMenuDisplay)
+    $('.fpccMobileHamburger').on(Config.listenType, panel.changeMobileMenuDisplay)
     // $('.usePoi').on(Config.listenType, that.testClick)
   }
 
