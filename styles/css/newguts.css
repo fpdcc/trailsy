@@ -136,7 +136,7 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
 .fpccDescription{padding:1.25em 1em .25em}
 a:link .fpccAmenityTitle,a:visited .fpccAmenityTitle{text-decoration:underline;color:#333}
 a:hover .fpccAmenityTitle,a:active .fpccAmenityTitle{text-decoration:none}
-.fpccEntranceAddress{display:block}
+.fpccEntranceAddress,span.fpccCloseParking{display:block}
 .fpccDirections a:link,.fpccDirections a:visited{display:block;width:100%}
 .fpccDirections a:hover,.fpccDirections a:active{}
 .fpccLinks ul{padding:0 0 0 1.5em;margin-bottom:0}
@@ -173,6 +173,8 @@ a:hover.fpccSpecialDesc .icon-arrow-right,a:active.fpccSpecialDesc .icon-arrow-r
 .fpccSign .icon{width:1.75em;height:1.75em;margin-top:.05em;margin-right:.9em;vertical-align:top}
 .fpccAddress{display:inline-block;width:82%}
 .fpccDirections{width:28%;float:right;margin-bottom:.75em}
+.asterisk{padding:0 0 1em}
+.bathroom-season,.portable-bathroom-season{display: block;clear:both;font-style:italic;padding:.75em 0 0;font-size:.9125em;}
 
 /* panel - menu */
 .fpccMenu{float:right;margin-top:87px;width:auto;display:block;margin-right:-40px}
@@ -335,9 +337,9 @@ ul.fpccMobileMenuList a:hover,ul.fpccMobileMenuList a:active{background:#666}
 .leaflet-control-container .leaflet-control-layers{border-radius:0}
 
 /* selectize override */
-.selectize-input{font-size:14px;padding:16px 0 0 20px;min-height:48px;border:none;display:inline-block;width:85%;overflow:hidden;float:left;position:relative;z-index:1;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-box-shadow:none;box-shadow:none;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
+.selectize-input{font-size:16px;padding:16px 0 0 20px;min-height:48px;border:none;display:inline-block;width:85%;overflow:hidden;float:left;position:relative;z-index:1;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-box-shadow:none;box-shadow:none;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
 .selectize-dropdown{font-size:14px}
-.selectize-input input{font-size:15px}
+.selectize-input input{font-size:16px}
 .selectize-input input::placeholder{color:#565656}
 .selectize-input input::-webkit-input-placeholder{color:#565656/*Chrome/Opera/Safari*/}
 .selectize-input input::-moz-placeholder{opacity:1;color:#565656/*Firefox 19+*/}
@@ -417,7 +419,7 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 100%{background:rgba(126,144,57,.45);box-shadow:0 0 7px 5px rgba(126,144,57,.45);border-radius:3em}}
 
 
-.loader{z-index: 20000;position:absolute;top:0;left:0;width:100%;height:100%;background:#EEE;overflow:hidden;opacity:.5}
+.loader{z-index:20000;position:absolute;top:0;left:0;width:100%;height:100%;background:#EEE;overflow:hidden}
 .loader-circle{margin:0 auto;border:16px solid #fff;border-top:16px solid #273719;border-radius:50%;width:100px;height:100px;animation:spin 2s linear infinite;-webkit-animation:spin 2s linear infinite;z-index:20000;/*    transform:translate(-50%,-50%)*/}
 #loader-text{text-align:center;font-weight:bold;font-size:1.25em;line-height:1;padding-top:.75em;overflow:visible;}
 .loader-position{width:180px;overflow:visible;text-align:center;margin:100px auto 0}
@@ -443,6 +445,10 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 0%{transform:rotate(0deg);-webkit-transform:rotate(0deg)}
 100%{transform:rotate(360deg);-webkit-transform:rotate(360deg)}}
 
+.function-message-bg{z-index:21000;position:absolute;top:0;left:0;width:100%;height:100%;background:#666;overflow:hidden}
+.function-message{margin: 50px auto 0;width: 400px;background: #FFF;padding: 1em 1.5em;box-shadow: 0 1px 5px rgba(0,0,0,0.4);font-family:Georgia,"Times New Roman",serif;font-size: 1em;line-height: 1.5;}
+.function-message h2{font-size: 1.5em;margin: .5em 0 .5em;font-family: Helvetica,Arial,sans-serif;line-height: 1.5;font-weight:bold;color:#333;display:block;}
+.function-message ul{padding: 0 0 0 1.5em;margin-bottom: 1em;}
 
 /* Josh experiments */
 #fpccMainContainer,.trailListColumn{left:0;right:0;z-index:9000;}
@@ -556,6 +562,7 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
  /*popups*/
 .trail-popup .trail-popup-line-named,.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames,.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname{width:100%}
 .trail-popup .icon-arrow-right,.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .icon-arrow-right{display:none}
+.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .icon-arrow-right{display:initial}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames:active,.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname:active,.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .popupTrailNames:active,.trail-popup-line-named.trail-subsystem:active{color:#333}
     
 /*OVERRIDES------------------------------------*/

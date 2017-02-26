@@ -359,8 +359,15 @@ var panelFuncs = function (map) {
         if (poi.properties.tags[':panel'].indexOf('trailhead') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-trail-marker'><use xlink:href='icons/defs.svg#icon-trail-marker'></use></svg><span class='fpccAmenityTitle'>Trail Access</span></div>"
         }
+    
         // Activities/Amenities on map
-         // bike_rental = Bike Rental
+    
+        // recreation_center = Special Acitivty
+        if (poi.properties.tags[':panel'].indexOf('recreation_center') > -1) {
+          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-rec-center'><use xlink:href='icons/defs.svg#icon-rec-center'></use></svg><span class='fpccAmenityTitle'>Special Activity</span></div>"
+        }
+        
+        // bike_rental = Bike Rental
         if (poi.properties.tags[':panel'].indexOf('bike_rental') > -1 ) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-bike-rental'><use xlink:href='icons/defs.svg#icon-bike-rental'></use></svg><span class='fpccAmenityTitle'>Bike Rental</span></div>"
         }
