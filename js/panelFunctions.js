@@ -330,26 +330,27 @@ var panelFuncs = function (map) {
         }
 
         // Building Bathrooms
-        if (poi.properties.bathroom_building_winter || poi.properties.bathroom_building_summer) {
-          if (poi.properties.bathroom_building_ada) {
+        console.log('panel tags: ' + poi.properties.tags[':panel'])
+        if ((poi.properties.tags[':panel'].indexOf('bathroom_building_winter') > -1) || (poi.properties.tags[':panel'].indexOf('bathroom_building_summer') > -1)) {
+          if ((poi.properties.tags[':panel'].indexOf('bathroom_building_ada') > -1)) {
             fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-bathroom-building-ada'><use xlink:href='icons/defs.svg#icon-bathroom-building-ada'></use></svg> <span class='fpccAmenityTitle'>Accessible Indoor Bathroom"
           } else {
             fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-bathroom-building'><use xlink:href='icons/defs.svg#icon-bathroom-building'></use></svg> <span class='fpccAmenityTitle'>Indoor Bathroom"
           }
-          if (!poi.properties.bathroom_building_winter) {
+          if (!(poi.properties.tags[':panel'].indexOf('bathroom_building_winter') > -1)) {
             fpccAmenitiesString += '*'
           }
           fpccAmenitiesString += '</span></div>'
         }
 
         // Portable Bathrooms
-        if (poi.properties.bathroom_portable_winter || poi.properties.bathroom_portable_summer) {
-          if (poi.properties.bathroom_portable_ada) {
+        if ((poi.properties.tags[':panel'].indexOf('bathroom_portable_winter') > -1) || (poi.properties.tags[':panel'].indexOf('bathroom_portable_summer') > -1)) {
+          if ((poi.properties.tags[':panel'].indexOf('bathroom_portable_ada') > -1)) {
             fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-bathroom-portable-ada'><use xlink:href='icons/defs.svg#icon-bathroom-portable-ada'></use></svg> <span class='fpccAmenityTitle'>Accessible Portable Bathroom"
           } else {
             fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-bathroom-portable'><use xlink:href='icons/defs.svg#icon-bathroom-portable'></use></svg> <span class='fpccAmenityTitle'>Portable Bathroom"
           }
-          if ((!poi.properties.bathroom_portable_winter) || (!poi.properties.bathroom_portable_summer)) {
+          if ((!(poi.properties.tags[':panel'].indexOf('bathroom_portable_winter') > -1)) || (!(poi.properties.tags[':panel'].indexOf('bathroom_portable_summer') > -1))) {
             fpccAmenitiesString += '**'
           }
           fpccAmenitiesString += '</span></div>'
@@ -579,13 +580,13 @@ var panelFuncs = function (map) {
           tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/aquatic-centers/">Swimming</a></li>'
         }
       }
-      if ((!poi.properties.bathroom_building_winter) && (poi.properties.bathroom_building_summer)) {
+      if ((!(poi.properties.tags[':panel'].indexOf('bathroom_building_winter') > -1)) && (poi.properties.tags[':panel'].indexOf('bathroom_portable_summer') > -1)) {
         fpccAmenitiesString += '*Indoor bathroom open April 1 to October 31 depending on weather conditions.'
       }
-      if ((!poi.properties.bathroom_portable_winter) && (poi.properties.bathroom_portable_summer)) {
+      if ((!(poi.properties.tags[':panel'].indexOf('bathroom_portable_winter') > -1)) && (poi.properties.tags[':panel'].indexOf('bathroom_portable_summer') > -1)) {
         fpccAmenitiesString += '**Portable bathroom open May 1 to October 31 depending on weather conditions.'
       }
-      if ((poi.properties.bathroom_portable_winter) && (!poi.properties.bathroom_portable_summer)) {
+      if ((poi.properties.tags[':panel'].indexOf('bathroom_portable_winter') > -1) && (!(poi.properties.tags[':panel'].indexOf('bathroom_portable_summer') > -1))) {
         fpccAmenitiesString += '**Portable bathroom open November 1 to April 30 depending on weather conditions.'
       }
 
