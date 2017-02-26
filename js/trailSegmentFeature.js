@@ -130,6 +130,7 @@ var trailSegmentFeature = function (map) {
           "data-trailname='" + segmentTrailSubsystem + "'> " +
           segmentTrailSubsystem + // " Trail System" +
           '</div>'
+        trailPopupLineDiv += '<svg class="icon icon-arrow-right"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-arrow-right"></use></svg>'
         atLeastOne = true
         trailPopupLineDiv += "<div class='trail-popup-line trail-popup-line-named trail-segment' " +
           "data-trailsubsystem='" + segmentTrailSubsystem + "'>" +
