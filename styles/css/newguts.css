@@ -447,7 +447,7 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 
 .ie-message-bg{z-index:21000;position:absolute;top:0;left:0;width:100%;height:100%;background:#666;overflow:hidden}
 .ie-message{margin: 50px auto 0;width: 400px;background: #FFF;padding: 1em 1.5em;box-shadow: 0 1px 5px rgba(0,0,0,0.4);font-family:Georgia,"Times New Roman",serif;font-size: 1em;line-height: 1.5;}
-.ie-message h2{font-size: 1.5em;margin: .5em 0 .5em;font-family: Helvetica,Arial,sans-serif;line-height: 1.15;font-weight:bold;color:#333;display:block;}
+.ie-message h2{font-size: 1.5em;margin: .5em 0 .5em;font-family: Helvetica,Arial,sans-serif;line-height: 1.5;font-weight:bold;color:#333;display:block;}
 .ie-message ul{padding: 0 0 0 1.5em;margin-bottom: 1em;}
 
 /* Josh experiments */
