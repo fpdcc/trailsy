@@ -575,14 +575,23 @@ var panelFuncs = function (map) {
           tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/aquatic-centers/">Swimming</a></li>'
         }
       }
-      if ((!(poi.properties.tags[':panel'].indexOf('bathroom_building_winter') > -1)) && (poi.properties.tags[':panel'].indexOf('bathroom_portable_summer') > -1)) {
-        fpccAmenitiesString += '*Indoor bathroom open April 1 to October 31 depending on weather conditions.'
+      var bathroomDisclaimerString = '<div class="asterisk">'
+      var useBathroomDisclaimer = false
+      if ((!(poi.properties.tags[':panel'].indexOf('bathroom_building_winter') > -1)) && (poi.properties.tags[':panel'].indexOf('bathroom_building_summer') > -1)) {
+        bathroomDisclaimerString += '<div class="bathroom-season">*Indoor bathroom open April 1 to October 31 depending on weather conditions.</div>'
+        useBathroomDisclaimer = true
       }
       if ((!(poi.properties.tags[':panel'].indexOf('bathroom_portable_winter') > -1)) && (poi.properties.tags[':panel'].indexOf('bathroom_portable_summer') > -1)) {
-        fpccAmenitiesString += '**Portable bathroom open May 1 to October 31 depending on weather conditions.'
+        bathroomDisclaimerString += '<div class="portable-bathroom-season">**Portable bathroom open May 1 to October 31 depending on weather conditions.</div>'
+        useBathroomDisclaimer = true
       }
       if ((poi.properties.tags[':panel'].indexOf('bathroom_portable_winter') > -1) && (!(poi.properties.tags[':panel'].indexOf('bathroom_portable_summer') > -1))) {
-        fpccAmenitiesString += '**Portable bathroom open November 1 to April 30 depending on weather conditions.'
+        bathroomDisclaimerString += '<div class="portable-bathroom-season">**Portable bathroom open November 1 to April 30 depending on weather conditions.</div>'
+        useBathroomDisclaimer = true
+      }
+      if (useBathroomDisclaimer) {
+        bathroomDisclaimerString += '</div>'
+        fpccAmenitiesString += bathroomDisclaimerString
       }
 
       if (poi.properties.special_link) {
