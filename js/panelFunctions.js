@@ -449,11 +449,6 @@ var panelFuncs = function (map) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-aquatic-center'><use xlink:href='icons/defs.svg#icon-aquatic-center'></use></svg><span class='fpccAmenityTitle'>Aquatic Center</span></div>"
         }
 
-        // rec_center = Special Activity / Swallow Cliff Stairs, GoApe, Sullivan Barn
-        if (poi.properties.tags[':panel'].indexOf('recreation_center') > -1) {
-          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-rec-center'><use xlink:href='icons/defs.svg#icon-rec-center'></use></svg><span class='fpccAmenityTitle'>Special Activity</span></div>"
-        }
-
         // Activities/Amenities NOT on map
 
         // birding = Birding Hotspot
