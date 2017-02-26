@@ -82,13 +82,18 @@ var panelFuncs = function (map) {
     that.setHeights()
   }
 
-  that.setHeights = function () {
-    console.log('setHeights start')
+  that.setSmall = function () {
     if (window.innerWidth <= 900) {
       that.SMALL = true
     } else {
       that.SMALL = false
     }
+    return that.SMALL
+  }
+
+  that.setHeights = function () {
+    console.log('setHeights start')
+    that.setSmall()
     var h = window.innerHeight
     var k = document.getElementById('fpccBrand').offsetHeight
     var l = document.getElementById('fpccBrandMobile').offsetHeight
