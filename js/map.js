@@ -136,29 +136,33 @@ var trailMap = function () {
     poiSegmentsReady.done(function () {
       if (!searchTerm) {
         console.log('[externalChange] no searchTerm')
-        var fitToSearchResults = true
+        var fitToBounds = true
+        var whatBounds = 'all'
+        if (panel.setSmall()) {
+          whatBounds = ''
+        }
         var openResults = true
         geoFunctions.geoSetupDone.done(function () {
           if (filters.current.poi) {
             events.trailDivWork(null, filters.current.poi)
             panel.toggleDetailPanel('open')
-            fitToSearchResults = false
+            fitToBounds = false
             openResults = false
           } else if (filters.current.trail) {
             events.trailDivWork(filters.current.trail, null)
             panel.toggleDetailPanel('open')
-            fitToSearchResults = false
+            fitToBounds = false
             openResults = false
           }
           if (!poiFeat.filteredPoisFeatureGroup) {
-            filterAll(fitToSearchResults, openResults)
+            filterAll(fitToBounds, openResults, whatBounds)
           }
         })
       }
     })
   })
 
-  var filterAll = function (fitToSearchResults, openResults) {
+  var filterAll = function (fitToBounds, openResults, whatBounds) {
     console.log('[filterAll] start')
     $('.loader').show()
     poiSegmentsReady.done(function () {
@@ -173,18 +177,20 @@ var trailMap = function () {
         })
         // console.log('[filterAll] about to makeresults at ' + performance.now())
         if (poiFeat.filteredPoisFeatureGroup) {
-          if (fitToSearchResults) {
+          if (fitToBounds) {
             var zoomFeatureGroupBounds = poiFeat.filteredPoisFeatureGroup.getBounds()
             if (filters.current.searchLocation || filters.current.userLocation) {
-              var zoomFeatureArray = poiFeat.filteredPoisArray.slice(0,10)
-              // console.log('filterAll zoomFeatureArray.length = ' + zoomFeatureArray.length)
-              var zoomFeatureGroup = new L.FeatureGroup(zoomFeatureArray)
-              zoomFeatureGroupBounds = zoomFeatureGroup.getBounds()
+              if (whatBounds !== 'all') {
+                var zoomFeatureArray = poiFeat.filteredPoisArray.slice(0, 10)
+                // console.log('filterAll zoomFeatureArray.length = ' + zoomFeatureArray.length)
+                var zoomFeatureGroup = new L.FeatureGroup(zoomFeatureArray)
+                zoomFeatureGroupBounds = zoomFeatureGroup.getBounds()
+              }
             }
             map.fitBounds(zoomFeatureGroupBounds, {
-                // padding: allPadding
-                // paddingTopLeft: centerOffset
-              })
+              // padding: allPadding
+              // paddingTopLeft: centerOffset
+            })
           }
           poiFeat.filteredPoisFeatureGroup.addTo(map)
           // console.log('isEdge? = ' + Config.isEdge)
