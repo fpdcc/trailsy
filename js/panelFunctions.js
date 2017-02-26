@@ -333,25 +333,35 @@ var panelFuncs = function (map) {
         console.log('panel tags: ' + poi.properties.tags[':panel'])
         if ((poi.properties.tags[':panel'].indexOf('bathroom_building_winter') > -1) || (poi.properties.tags[':panel'].indexOf('bathroom_building_summer') > -1)) {
           if ((poi.properties.tags[':panel'].indexOf('bathroom_building_ada') > -1)) {
-            fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-bathroom-building-ada'><use xlink:href='icons/defs.svg#icon-bathroom-building-ada'></use></svg> <span class='fpccAmenityTitle'>Accessible Indoor Bathroom"
+            fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-bathroom-building-ada'><use xlink:href='icons/defs.svg#icon-bathroom-building-ada'></use></svg> <span class='fpccAmenityTitle'>"
+            if (!(poi.properties.tags[':panel'].indexOf('bathroom_building_winter') > -1)) {
+              fpccAmenitiesString += '*'
+            }
+            fpccAmenitiesString += 'Accessible Indoor Bathroom'
           } else {
-            fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-bathroom-building'><use xlink:href='icons/defs.svg#icon-bathroom-building'></use></svg> <span class='fpccAmenityTitle'>Indoor Bathroom"
-          }
-          if (!(poi.properties.tags[':panel'].indexOf('bathroom_building_winter') > -1)) {
-            fpccAmenitiesString += '*'
+            fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-bathroom-building'><use xlink:href='icons/defs.svg#icon-bathroom-building'></use></svg> <span class='fpccAmenityTitle'>"
+            if (!(poi.properties.tags[':panel'].indexOf('bathroom_building_winter') > -1)) {
+              fpccAmenitiesString += '*'
+            }
+            fpccAmenitiesString += 'Indoor Bathroom'
           }
           fpccAmenitiesString += '</span></div>'
         }
-
         // Portable Bathrooms
         if ((poi.properties.tags[':panel'].indexOf('bathroom_portable_winter') > -1) || (poi.properties.tags[':panel'].indexOf('bathroom_portable_summer') > -1)) {
+          
           if ((poi.properties.tags[':panel'].indexOf('bathroom_portable_ada') > -1)) {
-            fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-bathroom-portable-ada'><use xlink:href='icons/defs.svg#icon-bathroom-portable-ada'></use></svg> <span class='fpccAmenityTitle'>Accessible Portable Bathroom"
+            fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-bathroom-portable-ada'><use xlink:href='icons/defs.svg#icon-bathroom-portable-ada'></use></svg> <span class='fpccAmenityTitle'>"
+            if ((!(poi.properties.tags[':panel'].indexOf('bathroom_portable_winter') > -1)) || (!(poi.properties.tags[':panel'].indexOf('bathroom_portable_summer') > -1))) {
+              fpccAmenitiesString += '**'
+            }
+            fpccAmenitiesString += 'Accessible Portable Bathroom'
           } else {
-            fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-bathroom-portable'><use xlink:href='icons/defs.svg#icon-bathroom-portable'></use></svg> <span class='fpccAmenityTitle'>Portable Bathroom"
-          }
-          if ((!(poi.properties.tags[':panel'].indexOf('bathroom_portable_winter') > -1)) || (!(poi.properties.tags[':panel'].indexOf('bathroom_portable_summer') > -1))) {
-            fpccAmenitiesString += '**'
+            fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-bathroom-portable'><use xlink:href='icons/defs.svg#icon-bathroom-portable'></use></svg> <span class='fpccAmenityTitle'>"
+            if ((!(poi.properties.tags[':panel'].indexOf('bathroom_portable_winter') > -1)) || (!(poi.properties.tags[':panel'].indexOf('bathroom_portable_summer') > -1))) {
+              fpccAmenitiesString += '**'
+            }
+            fpccAmenitiesString += 'Portable Bathroom'
           }
           fpccAmenitiesString += '</span></div>'
         }
