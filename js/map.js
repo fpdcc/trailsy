@@ -175,17 +175,19 @@ var trailMap = function () {
         activitiesReady.done(function () {
           activityFeat.filterActivity(poiFeat.filteredPoisArray)
         })
-        // console.log('[filterAll] about to makeresults at ' + performance.now())
+        console.log('[filterAll] about to makeresults at ' + performance.now())
         if (poiFeat.filteredPoisFeatureGroup) {
           if (fitToBounds) {
             var zoomFeatureGroupBounds = poiFeat.filteredPoisFeatureGroup.getBounds()
             if (whatBounds !== 'all') {
               var zoomFeatureArray = poiFeat.filteredPoisArray.slice(0, 10)
-              if (filters.current.userLocation) {
+              if (filters.current.searchLocation) {
+                console.log('[filterAll] if filters.current.searchLocation = ' + filters.current.searchLocation)
+                zoomFeatureArray.push(new L.marker(filters.current.searchLocation))
                 var zoomFeatureGroup = new L.FeatureGroup(zoomFeatureArray)
                 zoomFeatureGroupBounds = zoomFeatureGroup.getBounds()
-              } else if (filters.current.searchLocation) {
-                zoomFeatureArray.push(filters.current.searchLocation)
+              } else if (filters.current.userLocation) {
+                console.log('[filterAll] if filters.current.userLocation')
                 var zoomFeatureGroup = new L.FeatureGroup(zoomFeatureArray)
                 zoomFeatureGroupBounds = zoomFeatureGroup.getBounds()
               }
