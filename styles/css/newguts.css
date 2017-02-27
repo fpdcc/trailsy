@@ -193,7 +193,7 @@ ul.fpccMobileMenuList.hide{display:none}
 ul.fpccMobileMenuList.show{display:block}
 ul.fpccMobileMenuList a,ul.fpccMobileMenuList a:visited{padding:.75em;color:#333;background:#FFF;border-bottom:1px dotted #AAA;text-decoration:none;display:block}
 ul.fpccMobileMenuList a.last,ul.fpccMobileMenuList a:visited.last{border:none}
-ul.fpccMobileMenuList a:hover,ul.fpccMobileMenuList a:active{background:#666}
+ul.fpccMobileMenuList a:hover,ul.fpccMobileMenuList a:active{background:#F1F1ED}
 
 /*panel - trail*/
 .fpccTrailMaps{margin-top:1.25em}
