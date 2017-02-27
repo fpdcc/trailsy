@@ -192,7 +192,7 @@ ul.fpccMobileMenuList{z-index:9100;position: absolute;margin: 0;top: 48px;right:
 ul.fpccMobileMenuList.hide{display:none}
 ul.fpccMobileMenuList.show{display:block}
 ul.fpccMobileMenuList a,ul.fpccMobileMenuList a:visited{padding:.75em;color:#FFF;background:#999;border-bottom:1px solid #FFF;text-decoration:none;display:block}
-ul.fpccMobileMenuList a .last,ul.fpccMobileMenuList a:visited.last{border:none}
+ul.fpccMobileMenuList a.last,ul.fpccMobileMenuList a:visited.last{border:none}
 ul.fpccMobileMenuList a:hover,ul.fpccMobileMenuList a:active{background:#666}
 
 /*panel - trail*/
