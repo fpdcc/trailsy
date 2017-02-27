@@ -111,7 +111,7 @@ var trailSegmentFeature = function (map) {
       var segmentType = invisLayer.feature.properties.trail_type || null
       var segmentNameType = invisLayer.feature.properties.segment_type || null
       var segmentDirection = invisLayer.feature.properties.direction || null
-      var segmentOffFpcc = invisLayer.feature.properties.off_fpcc || null
+      var segmentOffFpcc = invisLayer.feature.properties.off_fpdcc || null
       var segmentName = segmentColor + ' ' + segmentType
       if (segmentNameType) {
         segmentName += ' ' + segmentNameType
