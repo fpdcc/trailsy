@@ -188,7 +188,7 @@ ul.fpccMenuList.show{display:block;cursor: pointer;}
 ul.fpccMenuList a,ul.fpccMenuList a:visited{padding:.75em;color:#FFF;background:#999;border-bottom:1px solid #FFF;text-decoration:none;display:block}
 ul.fpccMenuList a .last,ul.fpccMenuList a:visited.last{border:none}
 ul.fpccMenuList a:hover,ul.fpccMenuList a:active{background:#666}
-ul.fpccMobileMenuList{z-index:9100;clear:both;margin:0;list-style-type:none;color:#333;font-weight:bold;font-size:.8125em;width:200px;padding-left:0;float:right;margin-right:-200px;box-shadow:0 4px 8px 0 rgba(0,0,0,0.2)}
+ul.fpccMobileMenuList{z-index:9100;position: absolute;margin: 0;top: 48px;right: 0;list-style-type: none;color: #333;font-weight: bold;font-size: .8125em;width: 200px;padding: 0;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);}
 ul.fpccMobileMenuList.hide{display:none}
 ul.fpccMobileMenuList.show{display:block}
 ul.fpccMobileMenuList a,ul.fpccMobileMenuList a:visited{padding:.75em;color:#FFF;background:#999;border-bottom:1px solid #FFF;text-decoration:none;display:block}
