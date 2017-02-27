@@ -15,7 +15,7 @@ table{border-collapse:collapse;border-spacing:0}
  * 2. Correct font size not being inherited in all browsers.
  * 3. Address margins set differently in Firefox 4+,Safari 5,and Chrome.
  */
-button,input,select,textarea{font-family:inherit;font-size:100%;margin:0;}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
 
 /**
  * Address inconsistent `text-transform` inheritance for `button` and `select`.
@@ -23,39 +23,39 @@ button,input,select,textarea{font-family:inherit;font-size:100%;margin:0;}
  * Correct `button` style inheritance in Chrome,Safari 5+,and IE 8+.
  * Correct `select` style inheritance in Firefox 4+ and Opera.
  */
-button,select{text-transform:none;}
+button,select{text-transform:none}
 
 /*Correct overflow displayed oddly in IE 9.*/
-svg:not(:root){overflow:hidden;}
+svg:not(:root){overflow:hidden}
 
-.clearfix{*zoom:1;}
-.clearfix:before{content:"";display:table;}
-.clearfix:after{content:"";display:table;clear:both;}
+.clearfix{*zoom:1}
+.clearfix:before{content:"";display:table}
+.clearfix:after{content:"";display:table;clear:both}
 
 @media only screen {
 #desktop{position:absolute;left:0;right:0;top:0;bottom:0}
-#main{position:relative; height:100%;width:100%;overflow:hidden}
+#main{position:relative;height:100%;width:100%;overflow:hidden}
 }
 
 @media only screen and (max-width:900px){
-body{height:100%;padding:0;margin:0;}
+body{height:100%;padding:0;margin:0}
 .title-row{position:relative;width:100%;height:3em;top:0;margin:0;z-index:9000;-webkit-transition:-webkit-transform 250ms;-moz-transition:-moz-transform 250ms;transition:transform 250ms}
 .title-row header{width:100%;margin:0;padding:0}
-.leaflet-left{display:none;}
+.leaflet-left{display:none}
 }
 
 #trailMapLarge{position:absolute;width:100%;height:100%;padding:0}
-.offsetZoomControl{cursor:pointer;position:absolute;top:25px;right:7px;display:block;width:35px;z-index:1000;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}
-.offsetZoomControl a{height:35px;width:35px;font:bold 22px 'Lucida Console',Monaco,monospace;text-align:center;background-color:white;color:#808285;display:inline-block;line-height:35px;margin-bottom:5px;}
-.offsetZoomControl a:hover{background-color:#e3e3e1;}
-.offsetZoomControl a:active{background-color:#bbbdbf;}
+.offsetZoomControl{cursor:pointer;position:absolute;top:25px;right:7px;display:block;width:35px;z-index:1000;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+.offsetZoomControl a{height:35px;width:35px;font:bold 22px 'Lucida Console',Monaco,monospace;text-align:center;background-color:white;color:#808285;display:inline-block;line-height:35px;margin-bottom:5px}
+.offsetZoomControl a:hover{background-color:#e3e3e1}
+.offsetZoomControl a:active{background-color:#bbbdbf}
 .offsetZoomControl .offsetGeolocate{background:url("../../img/target-black.png") #fff center center no-repeat;box-shadow:0 1px 5px rgba(0,0,0,0.4)}
 
 /*mobile top bar*/
 section.fpccMobile{overflow:hidden;z-index:10000;background:#273719;height:48px;width:100%;position:fixed;top:0;left:0;font-family:Helvetica,Arial,sans-serif;box-shadow:0 4px 8px 0 rgba(0,0,0,0.3)}
 a.fpccMobileBrand{color:#FFF;font-size:.75em;text-decoration:none;padding:10px;display:inline-block;text-transform:uppercase;float:left}
 a.fpccMobileBrand span{display:block;font-weight:bold}
-a.fpccMobileHamburger{height:48px;width:48px;padding:15px 12px 11px;float:right;display:inline-block;cursor:pointer;}
+a.fpccMobileHamburger{height:48px;width:48px;padding:15px 12px 11px;float:right;display:inline-block;cursor:pointer}
 a.fpccMobileHamburger span{height:4px;background:#FFF;margin-bottom:3px;display:block}
 a.fpccMobileHamburger span.last{margin-bottom:0}
 .fpccMobileSwitch{font-size:1em;color:#90a542;display:inline-block;float:left;text-transform:uppercase;font-weight:bold;margin-left:1.75em}
@@ -65,7 +65,7 @@ a.fpccMobileHamburger span.last{margin-bottom:0}
 .fpccFlipMap{color:#90a542;left:-40px}
 .fpccSwitch input{display:none}
 .fppcSwitchBackground{border-radius:50%;position:relative;display:inline-block;width:40px;height:20px;background:#90a542;margin:0 5px;vertical-align:middle}
-.fpccSlider{border-radius:34px;position:absolute;top:0;left:0;right:0; bottom:0;background-color:#90a542;-webkit-transition:.4s;transition:.4s}
+.fpccSlider{border-radius:34px;position:absolute;top:0;left:0;right:0;bottom:0;background-color:#90a542;-webkit-transition:.4s;transition:.4s}
 .fpccSlider:before{position:absolute;content:"";height:16px;width:16px;right:4px;bottom:2px;background-color:white;-webkit-transition:.4s;transition:.4s;border-radius:50%}
 input:checked ~ .fpccFlipList{color:#90a542}
 input:checked ~ .fpccFlipMap{color:white}
@@ -73,7 +73,7 @@ input:focus ~ .fpccSlider{box-shadow:0 0 1px #90a542}
 input:checked ~ .fpccSlider:before{-webkit-transform:translateX(-16px);-ms-transform:translateX(-16px);transform:translateX(-16px)}
 
 /*panel - general*/
-.detailPanel .detailPanelBanner{position:relative;width:100%;min-height:2em;}
+.detailPanel .detailPanelBanner{position:relative;width:100%;min-height:2em}
 .detailPanel .detailPanelBanner .trailName{font-family:Helvetica,Arial,sans-serif;font-weight:bold;line-height:24px;color:#fff;position:relative;display:inline-block;max-width:90%}
 .fpccContainer{font-family:Georgia,"Times New Roman",serif;font-size:.9125em;line-height:1.5;color:#333}
 .fpccUnit{padding:1.5em 1em}
@@ -89,7 +89,7 @@ a:link.fpccMore,a:visited.fpccMore{color:#424d1d}
 a:hover.fpccMore,a:active.fpccMore{text-decoration:none;color:#333}
 .fpccButton,.fpccButton:visited{text-align:center;background:#697730;font-family:Helvetica,Arial,sans-serif;border:none;border-bottom:2px solid #434c1e;padding:10px 15px;max-height:37px;color:#FFF;font-size:.9375em;line-height:1;text-decoration:none;vertical-align:top}
 .fpccButton:hover{background:#434c1e;border-bottom:2px solid #1c200c}
-.fpccButton:active{background:#434c1e;border-bottom:none;margin-top:2px;}
+.fpccButton:active{background:#434c1e;border-bottom:none;margin-top:2px}
 #fpccMainContainer{box-shadow:0 4px 8px 0 rgba(0,0,0,0.2)}
 #fpccPreserveName{box-shadow:0 -3px 10px 0 rgba(0,0,0,0.2)}
 #fpccBrand{display:none}
@@ -132,6 +132,7 @@ section.trailListColumn .accordion{/* display:none;*/border-top:8px solid #7E913
 section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overflow-y:scroll}
 
 /*panel - poi*/
+.fpccMobileMenuList{z-index:8050}
 .fpccEntrance{padding:1.5em 0;margin:0 1em;border-bottom:1px dotted #CCC}
 .fpccDescription{padding:1.25em 1em .25em}
 a:link .fpccAmenityTitle,a:visited .fpccAmenityTitle{text-decoration:underline;color:#333}
@@ -149,7 +150,7 @@ a:hover .fpccAmenityTitle,a:active .fpccAmenityTitle{text-decoration:none}
 .fpccHours,.fpccLinks{border-top:1px dotted #CCC;padding:1em 0;margin:-.75em 1em 1em}
 .fpccHours1,.fpccHours2,.fpccSpecialHours,.fpccPhone{display:block}
 .fpccPhone{margin-top:.5em}
-.fpccSpecialHours{font-style:italic;margin-top:.75em;}
+.fpccSpecialHours{font-style:italic;margin-top:.75em}
 a:link.fpccSpecialDesc,a:visited.fpccSpecialDesc{width:100%;clear:both;padding:.75em 1em;background:#FFEFBF;text-decoration:none;color:#333;margin:1em 0;font-size:.9125em;border:1px dotted #FFBF00}
 a:hover.fpccSpecialDesc,a:active.fpccSpecialDesc{background:#FFE9A4}
 a:hover.fpccSpecialDesc .icon-arrow-right,a:active.fpccSpecialDesc .icon-arrow-right{background:#E8AE00;border-bottom:2px solid #C19200;margin-right:0}
@@ -174,21 +175,21 @@ a:hover.fpccSpecialDesc .icon-arrow-right,a:active.fpccSpecialDesc .icon-arrow-r
 .fpccAddress{display:inline-block;width:82%}
 .fpccDirections{width:28%;float:right;margin-bottom:.75em}
 .asterisk{padding:0 0 1em}
-.bathroom-season,.portable-bathroom-season{display: block;clear:both;font-style:italic;padding:.75em 0 0;font-size:.9125em;}
+.bathroom-season,.portable-bathroom-season{display:block;clear:both;font-style:italic;padding:.75em 0 0;font-size:.9125em}
 
 /* panel - menu */
 .fpccMenu{float:right;margin-top:87px;width:auto;display:block;margin-right:-40px}
-.fpccMenu .hamburger,.fpccMenu .hamburger:visited{cursor:pointer;background: #999;font-size:.75em;float: left;color:#fff;text-decoration:none;font-weight:bold;box-shadow:inset 4px 0px 8px 0px rgba(0,0,0,0.3);padding: .75em .75em;width: 40px}
+.fpccMenu .hamburger,.fpccMenu .hamburger:visited{cursor:pointer;background:#999;font-size:.75em;float:left;color:#fff;text-decoration:none;font-weight:bold;box-shadow:inset 4px 0px 8px 0px rgba(0,0,0,0.3);padding:.75em .75em;width:40px}
 .fpccMenu .hamburger:hover,.fpccMenu .hamburger:active{background:#666}
 .fpccMenu .hamburger span{height:4px;background:#FFF;margin-bottom:3px;display:block}
 .fpccMenu .hamburger span.last{margin-bottom:0}
 ul.fpccMenuList{z-index:9100;clear:both;margin:0;list-style-type:none;color:#333;font-weight:bold;font-size:.8125em;width:200px;padding-left:0;float:right;margin-right:-200px;box-shadow:0 4px 8px 0 rgba(0,0,0,0.2)}
 ul.fpccMenuList.hide{display:none}
-ul.fpccMenuList.show{display:block;cursor: pointer}
+ul.fpccMenuList.show{display:block;cursor:pointer}
 ul.fpccMenuList a,ul.fpccMenuList a:visited{padding:.75em;color:#333;background:#FFF;border-bottom:1px dotted #AAA;text-decoration:none;display:block}
 ul.fpccMenuList a.last,ul.fpccMenuList a:visited.last{border:none}
 ul.fpccMenuList a:hover,ul.fpccMenuList a:active{background:#F1F1ED}
-ul.fpccMobileMenuList{z-index:9100;position:absolute;margin: 0;top: 48px;right: 0;list-style-type: none;color: #333;font-weight: bold;font-size: .8125em;width: 200px;padding: 0;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);}
+ul.fpccMobileMenuList{z-index:9100;position:absolute;margin:0;top:48px;right:0;list-style-type:none;color:#333;font-weight:bold;font-size:.8125em;width:200px;padding:0;box-shadow:0 4px 8px 0 rgba(0,0,0,0.2)}
 ul.fpccMobileMenuList.hide{display:none}
 ul.fpccMobileMenuList.show{display:block;cursor:pointer}
 ul.fpccMobileMenuList a,ul.fpccMobileMenuList a:visited{padding:.75em;color:#333;background:#FFF;border-bottom:1px dotted #AAA;text-decoration:none;display:block}
@@ -225,13 +226,12 @@ ul.fpccMobileMenuList a:hover,ul.fpccMobileMenuList a:active{background:#F1F1ED}
 .fpccSegmentOverview.grey,.fpccSegmentOverview.future{border-bottom-color:#58595B}
 .fpccSegmentOverview.yellow{border-bottom-color:#FFF450}
 .fpccSegmentOverview.green{border-bottom-color:#006129}
-.fpccSegmentOverview.olive, .fpccSegmentOverview.tan{border-bottom-color:#969161}
+.fpccSegmentOverview.olive,.fpccSegmentOverview.tan{border-bottom-color:#969161}
 .fpccSegmentOverview.brown{border-bottom-color:#6C503F}
 .fpccSegmentOverview.blue{border-bottom-color:#26B8EB}
 .fpccSegmentOverview.black{border-bottom-color:#333132}
 .fpccSegmentOverview.off{border-bottom-color:#C4D0DB}*/
 
-/*svg panel test*/
 /*make sure panel paved trails starts flush left*/
 .fpccSegmentOverview.paved .fpccTrailUse svg.icon{background:none}
 .fpccSegmentOverview.paved.red svg{background:#EE2D2F}
@@ -240,7 +240,7 @@ ul.fpccMobileMenuList a:hover,ul.fpccMobileMenuList a:active{background:#F1F1ED}
 .fpccSegmentOverview.paved.grey svg,.fpccSegmentOverview.paved.future svg{background:#9BB0C1}
 .fpccSegmentOverview.paved.yellow svg{background:#FFF450}
 .fpccSegmentOverview.paved.green svg{background:#006129}
-.fpccSegmentOverview.paved.olive  svg, .fpccSegmentOverview.pave.tan svg{background:#969161}
+.fpccSegmentOverview.paved.olive  svg,.fpccSegmentOverview.pave.tan svg{background:#969161}
 .fpccSegmentOverview.paved.brown svg{background:#6C503F}
 .fpccSegmentOverview.paved.blue svg{background:#26B8EB}
 .fpccSegmentOverview.paved.black svg{background:#333132}
@@ -253,7 +253,7 @@ ul.fpccMobileMenuList a:hover,ul.fpccMobileMenuList a:active{background:#F1F1ED}
 .fpccSegmentOverview.off.paved.grey svg,.fpccSegmentOverview.off.paved.future svg{background:#D2DAE3}
 .fpccSegmentOverview.off.paved.yellow svg{background:#FFF9BD}
 .fpccSegmentOverview.off.paved.green svg{background:#85AF90}
-.fpccSegmentOverview.off.paved.olive  svg, .fpccSegmentOverview.pave.tan svg{background:#D3D0B5}
+.fpccSegmentOverview.off.paved.olive  svg,.fpccSegmentOverview.pave.tan svg{background:#D3D0B5}
 .fpccSegmentOverview.off.paved.brown svg{background:#C0ADA1}
 .fpccSegmentOverview.off.paved.blue svg{background:#B4DDF5}
 .fpccSegmentOverview.off.paved.black svg{background:#ABADAF}
@@ -267,7 +267,7 @@ ul.fpccMobileMenuList a:hover,ul.fpccMobileMenuList a:active{background:#F1F1ED}
 .fpccSegmentOverview.grey line,.fpccSegmentOverview.future line{stroke:#58595B}
 .fpccSegmentOverview.yellow line{stroke:#FFF450}
 .fpccSegmentOverview.green line{stroke:#006129}
-.fpccSegmentOverview.olive line, .fpccSegmentOverview.tan line{stroke:#969161}
+.fpccSegmentOverview.olive line,.fpccSegmentOverview.tan line{stroke:#969161}
 .fpccSegmentOverview.brown line{stroke:#6C503F}
 .fpccSegmentOverview.blue line{stroke:#26B8EB}
 .fpccSegmentOverview.black line{stroke:#333132}
@@ -279,7 +279,7 @@ ul.fpccMobileMenuList a:hover,ul.fpccMobileMenuList a:active{background:#F1F1ED}
 .fpccSegmentOverview.off.grey line,.fpccSegmentOverview.future line{stroke:#58595B}
 .fpccSegmentOverview.off.yellow line{stroke:#FFF9BD}
 .fpccSegmentOverview.off.green line{stroke:#85AF90}
-.fpccSegmentOverview.off.olive line, .fpccSegmentOverview.tan line{stroke:#D3D0B5}
+.fpccSegmentOverview.off.olive line,.fpccSegmentOverview.tan line{stroke:#D3D0B5}
 .fpccSegmentOverview.off.brown line{stroke:#C0ADA1}
 .fpccSegmentOverview.off.blue line{stroke:#B4DDF5}
 .fpccSegmentOverview.off.black line{stroke:#ABADAF}
@@ -291,7 +291,7 @@ ul.fpccMobileMenuList a:hover,ul.fpccMobileMenuList a:active{background:#F1F1ED}
 #fpccAbout{margin:0 auto 1.5em;max-width:575px}
 .trailListColumn #fpccAbout.fpccContainer a:link,.trailListColumn #fpccAbout.fpccContainer a:visited{display:initial;color:#424d1d}
 .trailListColumn #fpccAbout.fpccContainer a:hover,.trailListColumn #fpccAbout.fpccContainer a:active{text-decoration:none;color:#333}
-#fpccAbout h2{font-size:1.25em;margin:1.5em 0 .5em;font-family: Helvetica,Arial,sans-serif;line-height: 1.15;font-weight: bold;color: #585747;display: block;text-transform: capitalize;}
+#fpccAbout h2{font-size:1.25em;margin:1.5em 0 .5em;font-family:Helvetica,Arial,sans-serif;line-height:1.15;font-weight:bold;color:#585747;display:block;text-transform:capitalize}
 #fpccAbout ul{padding:0 0 0 1.5em;margin-bottom:1em}
 #fpccAbout p{margin:0 0 1em 0}
 
@@ -304,12 +304,12 @@ ul.fpccMobileMenuList a:hover,ul.fpccMobileMenuList a:active{background:#F1F1ED}
 .title-row header .navbar-inner{padding:.35em 0 .5em 0;width:auto;margin:0 42px;position:inherit;border-left:15px solid #444;border-right:15px solid #444}
 #fpccPreserveName .trailName{font-size:20px}
 .detailPanel #fpccPreserveName.detailPanelBanner{background:#273719;padding:.5em 1.75em .5em 1em;min-height:48px}
-.detailPanel.contracted.detailPanel #fpccPreserveName.detailPanelBanner #fpccTrailName{padding-top:.15em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.detailPanel.contracted.detailPanel #fpccPreserveName.detailPanelBanner #fpccTrailName{padding-top:.15em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .icon-x.closeDetail{width:1.5em;height:1.5em;position:absolute;top:10px;right:10px}
 .icon-x.closeDetail:hover{opacity:1}
 .trailListColumn .fpccContainer a,.trailListColumn #fpccSearchBack a{display:inline-block}/* Needed to override the main stylesheet or it disappears POI panel links on mobile:*/
 .trailListColumn .fpccResults a{display:block}/* Needed to override the main stylesheet or it disappears search result links on mobile:*/
-.trailMapContainer{background:#ddd;position:absolute;top:48px;/* size of header */right:0;left:0;bottom:48px;/* size of footer/detail panel */z-index:8000;}
+.trailMapContainer{background:#ddd;position:absolute;top:48px;/* size of header */right:0;left:0;bottom:48px;/* size of footer/detail panel */z-index:8000}
 .trailMapContainer .offsetZoomControl .offsetZoomIn,.trailMapContainer .offsetZoomControl .offsetZoomOut{display:none}
 
 /*leaflet override*/
@@ -320,11 +320,11 @@ ul.fpccMobileMenuList a:hover,ul.fpccMobileMenuList a:active{background:#F1F1ED}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box{width:100%;position:relative;display:inline-block;height:auto}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .icon-arrow-right,.trail-popup .icon-arrow-right{float:right;.75em;margin:.75em .5em 0 0;fill:#273719;width:.75em}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .icon-arrow-right{margin:.25em -.25em 0 0;fill:#273719;width:.75em}
-.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames{position:relative;display:inline-block;background-color:#fff;height:auto;max-width:200px;overflow-y:hidden;min-width:12em;text-decoration:none;text-transform:capitalize; vertical-align:bottom;font-weight:bold;padding:.5em .75em;border:none;color:#333;width:85%;}
+.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames{position:relative;display:inline-block;background-color:#fff;height:auto;max-width:200px;overflow-y:hidden;min-width:12em;text-decoration:none;text-transform:capitalize;vertical-align:bottom;font-weight:bold;padding:.5em .75em;border:none;color:#333;width:85%}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames:active{color:#7E9039}
-.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname{cursor:pointer;min-width:12em;width:100%;border-top:1px solid #e3e3e1;padding:.5em .75em;color:#333;}
+.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname{cursor:pointer;min-width:12em;width:100%;border-top:1px solid #e3e3e1;padding:.5em .75em;color:#333}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname:active{color:#7E9039}
-.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .popupTrailNames{position:relative;height:auto;width:85%;max-width:200px;overflow-y:hidden;vertical-align:top;display:inline-block;font-weight:normal;line-height:1.5em;}
+.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .popupTrailNames{position:relative;height:auto;width:85%;max-width:200px;overflow-y:hidden;vertical-align:top;display:inline-block;font-weight:normal;line-height:1.5em}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .popupTrailNames:active{color:#7E9039}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname.selected{padding-bottom:0;color:#333}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname:hover{background:#E3EACC}
@@ -383,30 +383,29 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 .icon-sign{width:1.599609375em}
 .icon-map.active{display:inline-block} /* This needs to be before the zoom level changes so that the zoom level display attribute can override this. */
 .icon-map.icon-activity.active{opacity:.5}
-.icon.icon-map{padding:.4em;overflow:visible;pointer-events: none}
+.icon.icon-map{padding:.4em;overflow:visible;pointer-events:none}
 .icon.icon-map{width:2em;height:2em}
-/*.icon.icon-sign{width:2.0em;height:2.0em}
-*/
-.z1 .icon-sign,.z2 .icon-sign,.z3 .icon-sign,.z4 .icon-sign,.z5 .icon-sign,.z6 .icon-sign{display:none;}
+/*.icon.icon-sign{width:2.0em;height:2.0em}*/
+.z1 .icon-sign,.z2 .icon-sign,.z3 .icon-sign,.z4 .icon-sign,.z5 .icon-sign,.z6 .icon-sign{display:none}
 .z7 .icon-sign,.z8 .icon-sign,.z9 .icon-sign{width:2em;height:2em}
 .z10 .icon-sign,.z11 .icon-sign,.z12 .icon-sign,.z13 .icon-sign,.z14 .icon-sign{width:2.25em;height:2.25em}
 .z15 .icon-sign,.z16 .icon-sign,.z17 .icon-sign,.z18 .icon-sign{width:3em;height:3em}
-.z1 .icon-activity,.z2 .icon-activity,.z3 .icon-activity,.z4 .icon-activity,.z5 .icon-activity,.z6 .icon-activity,.z7 .icon-activity,.z8 .icon-activity,.z9 .icon-activity,.z10 .icon-activity,.z11 .icon-activity,.z12 .icon-activity{display: none}
+.z1 .icon-activity,.z2 .icon-activity,.z3 .icon-activity,.z4 .icon-activity,.z5 .icon-activity,.z6 .icon-activity,.z7 .icon-activity,.z8 .icon-activity,.z9 .icon-activity,.z10 .icon-activity,.z11 .icon-activity,.z12 .icon-activity{display:none}
 .z13 .icon-activity,.z14 .icon-activity{width:1.75em;height:1.75em;display:inline-block}
 .z15 .icon-activity{width:2.0em;height:2.0em;display:inline-block}
 .z16 .icon-activity,.z17 .icon-activity,.z18 .icon-activity{width:3em;height:3em;display:inline-block}
 .z1 .picnic-grove-marker,.z2 .picnic-grove-marker,.z3 .picnic-grove-marker,.z4 .picnic-grove-marker,.z5 .picnic-grove-marker,.z6 .picnic-grove-marker,.z7 .picnic-grove-marker,.z8 .picnic-grove-marker,.z9 .picnic-grove-marker,.z10 .picnic-grove-marker,.z11 .picnic-grove-marker,.z12 .picnic-grove-marker{display:none}
 .z13 .picnic-grove-marker,.z14 .picnic-grove-marker,.z15 .picnic-grove-marker{width:2.0em;height:2.0em;display:inline-block}
 .z16 .picnic-grove-marker,.z17 .picnic-grove-marker,.z18 .picnic-grove-marker{width:3em;height:3em;display:inline-block}
-.icon-map.inactive{display:none} /* This needs to be after the zoom level changes so that this display:none; overrides the zoom level display attrivute */
-.icon.icon-map.icon-sign{padding:.8em 0 0;/* background-image:url(../../icons/defs.svg#icon-sign); */}
+.icon-map.inactive{display:none} /* This needs to be after the zoom level changes so that this display:none;overrides the zoom level display attrivute */
+.icon.icon-map.icon-sign{padding:.8em 0 0;/* background-image:url(../../icons/defs.svg#icon-sign);*/}
 .icon-map.selected{animation:animateEdge 2.5s forwards;-webkit-animation:animateEdge 2.5s forwards}
 .icon-sign.icon-map.selected{animation:animateEdge 2.5s forwards;-webkit-animation:animateEdge 2.5s forwards}
 .icon-activity.icon-map.selected{opacity:1}
 .leaflet-marker-icon.icon-map.picnic-grove-marker{display:none}
 .icon-map.picnic-grove-marker.selected{display:inline-block}
 .icon-map.icon-sign.icon-cluster{width:3em;height:3em}
-.outofbounds{display:none;}
+.outofbounds{display:none}
 @keyframes animateEdge{
 0%{background:none;box-shadow:none}
 33%{background:rgba(126,144,57,.45);box-shadow:0 0 7px 5px rgba(126,144,57,.45);border-radius:3em}
@@ -418,12 +417,12 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 66%{background:none;box-shadow:none}
 100%{background:rgba(126,144,57,.45);box-shadow:0 0 7px 5px rgba(126,144,57,.45);border-radius:3em}}
 
-
+/* loader */
 .loader{z-index:20000;position:absolute;top:0;left:0;width:100%;height:100%;background:#EEE;overflow:hidden}
 .loader-circle{margin:0 auto;border:16px solid #fff;border-top:16px solid #273719;border-radius:50%;width:100px;height:100px;animation:spin 2s linear infinite;-webkit-animation:spin 2s linear infinite;z-index:20000;/*    transform:translate(-50%,-50%)*/}
-#loader-text{text-align:center;font-weight:bold;font-size:1.25em;line-height:1;padding-top:.75em;overflow:visible;}
+#loader-text{text-align:center;font-weight:bold;font-size:1.25em;line-height:1;padding-top:.75em;overflow:visible}
 .loader-position{width:180px;overflow:visible;text-align:center;margin:100px auto 0}
-#loader-text span.message-one {animation:fade-out 1s 4.5s 1 forwards;-webkit-animation:fade-out 1s 4.5s 1 forwards;}
+#loader-text span.message-one {animation:fade-out 1s 4.5s 1 forwards;-webkit-animation:fade-out 1s 4.5s 1 forwards}
 #loader-text span.message-two {display:block;opacity:0;animation:fade-in 1s 5.25s 1 forwards;margin-top:-1em;-webkit-animation:fade-in 1s 5.25s 1 forwards;margin-top:-1em}
 @keyframes fade-in {
 0% {opacity:0}
@@ -434,7 +433,6 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 @keyframes spin{
 0%{transform:rotate(0deg);-webkit-transform:rotate(0deg)}
 100%{transform:rotate(360deg);-webkit-transform:rotate(360deg)}}
-
 @-webkit-keyframes fade-in {
 0% {opacity:0}
 100% {opacity:1}}
@@ -445,39 +443,21 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 0%{transform:rotate(0deg);-webkit-transform:rotate(0deg)}
 100%{transform:rotate(360deg);-webkit-transform:rotate(360deg)}}
 
+/* IE & no-script */
 .function-message-bg{z-index:21000;position:absolute;top:0;left:0;width:100%;height:100%;background:#666;overflow:hidden}
-.function-message{margin: 50px auto 0;width: 400px;background: #FFF;padding: 1em 1.5em;box-shadow: 0 1px 5px rgba(0,0,0,0.4);font-family:Georgia,"Times New Roman",serif;font-size: 1em;line-height: 1.5;}
-.function-message h2{font-size: 1.5em;margin: .5em 0 .5em;font-family: Helvetica,Arial,sans-serif;line-height: 1.5;font-weight:bold;color:#333;display:block;}
-.function-message ul{padding: 0 0 0 1.5em;margin-bottom: 1em;}
+.function-message{margin:50px auto 0;width:400px;background:#FFF;padding:1em 1.5em;box-shadow:0 1px 5px rgba(0,0,0,0.4);font-family:Georgia,"Times New Roman",serif;font-size:1em;line-height:1.5}
+.function-message h2{font-size:1.5em;margin:.5em 0 .5em;font-family:Helvetica,Arial,sans-serif;line-height:1.5;font-weight:bold;color:#333;display:block}
+.function-message ul{padding:0 0 0 1.5em;margin-bottom:1em}
 
 /* Josh experiments */
-#fpccMainContainer,.trailListColumn{left:0;right:0;z-index:9000;}
-#fpccMainContainer.expanded,.trailListColumn.expanded,.detailPanel.expanded{position:absolute;top:3em;bottom:0;height:auto;overflow:visible;z-index:9000;}
-#fpccMainContainer.expanded,.detailPanel.expanded{position:relative;top:0;}
-
-#fpccMainContainer.contracted,.trailListColumn.contracted,.detailPanel.contracted{position:absolute;bottom:0px;height:48px;overflow:visible;-webkit-transition:-webkit-transform 250ms;   -moz-transition:-moz-transform 250ms;transition:transform 250ms;}
+#fpccMainContainer,.trailListColumn{left:0;right:0;z-index:9000}
+#fpccMainContainer.expanded,.trailListColumn.expanded,.detailPanel.expanded{position:absolute;top:3em;bottom:0;height:auto;overflow:visible;z-index:9000}
+#fpccMainContainer.expanded,.detailPanel.expanded{position:relative;top:0}
+#fpccMainContainer.contracted,.trailListColumn.contracted,.detailPanel.contracted{position:absolute;bottom:0px;height:48px;overflow:visible;-webkit-transition:-webkit-transform 250ms;-moz-transition:-moz-transform 250ms;transition:transform 250ms}
 .detailPanel.contracted{height:48px}
 .detailPanel.contracted #fpccPreserveName{min-height:48px}
-
-/*.detailPanel.expanded{
-    position:absolute;
-    top:3em;
-    bottom:0;
-    height:auto;
-    overflow:visible;
-  }
-
-.detailPanel.contracted{
-    position:absolute;
-    bottom:0px;
-    height:55px;
-    overflow:visible;
-    -webkit-transition:-webkit-transform 250ms;
-    -moz-transition:-moz-transform 250ms;
-    transition:transform 250ms;
-  }
-
-*/
+/*.detailPanel.expanded{position:absolute;top:3em;bottom:0;height:auto;overflow:visible}
+.detailPanel.contracted{position:absolute;bottom:0px;height:55px;overflow:visible;-webkit-transition:-webkit-transform 250ms;-moz-transition:-moz-transform 250ms;transition:transform 250ms}*/
 
 /*UNDER desktop panel width------------------------------------*/
 @media (max-width:384px){
@@ -486,12 +466,10 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 .fpccAmenity span.fpccAmenityTitle{font-size:1em;max-width:initial}
 .fpccAmenity{float:none;width:100%}
 }
-
 @media (max-width:370px){
 .fpccButton.fpccDirections{clear:both;float:left;margin-top:1em;margin-left:11%;width:auto}
 .fpccSign{width:100%;margin:0}
 }
-
 @media (max-width:350px){
 .fpccAmenity{width:100%;margin-right:0}  
 .fpccSegmentName{max-width:60%}  
@@ -504,23 +482,17 @@ a.fpccMobileBrand{font-size:.6875em}
 .trailListColumn .fpccUnit.fpccResults a span.fpccEntryName{width:100%}
 }
 
-.fpccMobileMenuList{z-index: 8050}
-
 /*SOMEWHERE IN THE MIDDLE ------------------------------------*/
-
 @media (min-width:575px) and (max-width:900px){
-    .fpccEntry .icon {width:1.25em;height: 1.25em;margin-right: .75em}
-    .fpccTop,.fpccTrails,.fpccSocial{max-width:575px;margin:0 auto}
-    .fpccSocial{background:#FFF}
+.fpccEntry .icon {width:1.25em;height:1.25em;margin-right:.75em}
+.fpccTop,.fpccTrails,.fpccSocial{max-width:575px;margin:0 auto}
+.fpccSocial{background:#FFF}
 }
-
     
 /*DESKTOP ------------------------------------*/
-
 @media (min-width:900px){
-  
 /* Josh experiments */
-#fpccMainContainer.expanded{position:initial;bottom:initial;}  
+#fpccMainContainer.expanded{position:initial;bottom:initial}  
 .trailMapContainer{top:0;bottom:0}
   
 /*mobile top bar*/
@@ -531,7 +503,7 @@ section.fpccMobile{display:none}
 section.trailListColumn{position:fixed;top:0;left:0;width:384px;max-height:100%;/*min-height:14em;*/padding:0;background:none;z-index:9000;height:100%;/* overflow:visible;*/}
 .fpccSocialIcon{width:27%;text-align:center;float:left;padding:.5em 0;margin:0 3%;border-radius:3px}
 #fpccBrand{display:inherit;padding-top:10px}
-#fpccMainContainer{box-shadow:0 4px 8px 0 rgba(0,0,0,0.2); z-index:1000;top:0}
+#fpccMainContainer{box-shadow:0 4px 8px 0 rgba(0,0,0,0.2);z-index:1000;top:0}
 
 /*panel - search*/
 .fpccEntry{background:#FFF}
@@ -569,7 +541,7 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
 /*OVERRIDES------------------------------------*/
 
 /*main.css override*/
-.offsetZoomControl{top:2em;right:2em;}
+.offsetZoomControl{top:2em;right:2em}
 .trailMapContainer .offsetZoomControl .offsetZoomIn,.trailMapContainer .offsetZoomControl .offsetZoomOut{display:block;box-shadow:0 1px 5px rgba(0,0,0,0.4)}
 .icon-x.closeDetail{width:1em;height:1em;top:10px;cursor:pointer}
 
@@ -583,7 +555,7 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
 
 /*SLIMMER PANEL------------------------------------*/
 @media (min-width:900px) and (max-width:1150px){
-#fpccMainContainer.expanded, .trailListColumn.expanded, .detailPanel.expanded{width:300px}    
+#fpccMainContainer.expanded,.trailListColumn.expanded,.detailPanel.expanded{width:300px}    
 .fpccDirections{display:block;float:none;width:100%}
 .fpccAmenity span.fpccAmenityTitle{font-size:1em;max-width:initial}
 .fpccAmenity{float:none;width:100%}
