@@ -43,15 +43,30 @@ var panelFuncs = function (map) {
                   '<p>Made possible with funding from the Centers for Disease Control and Prevention through the Healthy Hotspot initiative led by the Cook  County Department of Public Health. Learn more at <a href="http://healthyhotspot.org/">healthyhotspot.org</a>. Smart Chicago  provided in-kind services for this project.</p>' +
                   '</div></div>'
 
+  var checkOutsideMenu = function (e) {
+    var $info = $('.fpccMenuList');
+    if (!$info.is(e.target) && $info.has(e.target).length === 0) {
+      //$info.hide();
+      that.changeMenuDisplay()
+    }
+  }
+
   // Open/close fpccMenu list
   that.changeMenuDisplay = function () {
     console.log("changeMenuDisplay")
     if ($('.fpccMenuList').hasClass('hide')) {
-      $('.fpccMenuList').removeClass('hide')
-      $('.fpccMenuList').addClass('show')
+      $('.fpccMenuList').removeClass('hide').addClass('show')
+      $(document).on('mousedown touchstart', checkOutsideMenu)
     } else {
-      $('.fpccMenuList').removeClass('show')
-      $('.fpccMenuList').addClass('hide')
+      $('.fpccMenuList').removeClass('show').addClass('hide')
+      $(document).off('mousedown touchstart', checkOutsideMenu)
+    }
+  }
+
+  var checkOutsideMobileMenu = function (e) {
+    var $info = $('.fpccMobileMenuList');
+    if (!$info.is(e.target) && $info.has(e.target).length === 0) {
+      that.changeMobileMenuDisplay()
     }
   }
 
@@ -60,7 +75,9 @@ var panelFuncs = function (map) {
     console.log('changeMobileMenuDisplay')
     if ($('.fpccMobileMenuList').hasClass('hide')) {
       $('.fpccMobileMenuList').removeClass('hide').addClass('show')
+      $(document).on('mousedown touchstart', checkOutsideMobileMenu)
     } else {
+      $(document).off('mousedown touchstart', checkOutsideMobileMenu)
       $('.fpccMobileMenuList').removeClass('show').addClass('hide')
     }
   }

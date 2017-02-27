@@ -39,6 +39,7 @@ var events = function (map) {
     $('.aboutLink').click(panel.openAboutPage)
     $('.fpccMenu').on(Config.listenType, panel.changeMenuDisplay)
     $('.fpccMenuList li').on(Config.listenType, panel.changeMenuDisplay)
+    $('.fpccMobileMenuList li').on(Config.listenType, panel.changeMobileMenuDisplay)
     // $('.fpccMenuList a').on(Config.listenType, panel.changeMenuDisplay)
     $('.fpccMobileHamburger').on(Config.listenType, panel.changeMobileMenuDisplay)
     // $('.usePoi').on(Config.listenType, that.testClick)
