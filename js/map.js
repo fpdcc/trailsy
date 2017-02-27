@@ -42,7 +42,7 @@ var trailMap = function () {
   // var lastZoom = null
 
   var $select = $('.js-example-basic-multiple').selectize({
-    placeholder: 'Search by Location or Activity',
+    placeholder: 'Location or Activity',
     create: true,
     createOnBlur: true,
     persist: false,
