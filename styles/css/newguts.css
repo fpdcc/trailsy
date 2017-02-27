@@ -288,7 +288,7 @@ ul.fpccMobileMenuList a:hover,ul.fpccMobileMenuList a:active{background:#F1F1ED}
 .fpccTrails .fpccAccessTo .icon-trail-marker{width:1.5em;height:1.5em;margin-right:.5em;vertical-align:middle;margin-top:-5px}
 
 /* panel - about */
-#fpccAbout{margin-bottom:1.5em}
+#fpccAbout{margin-bottom:1.5em;max-width:575px}
 .trailListColumn #fpccAbout.fpccContainer a:link,.trailListColumn #fpccAbout.fpccContainer a:visited{display:initial;color:#424d1d}
 .trailListColumn #fpccAbout.fpccContainer a:hover,.trailListColumn #fpccAbout.fpccContainer a:active{text-decoration:none;color:#333}
 #fpccAbout h2{font-size:1.25em;margin:1.5em 0 .5em;font-family: Helvetica,Arial,sans-serif;line-height: 1.15;font-weight: bold;color: #585747;display: block;text-transform: capitalize;}
