@@ -87,7 +87,7 @@ a:link.fpccSocialIcon,a:visited.fpccSocialIcon{text-decoration:none;color:#333}
 a:hover.fpccSocialIcon,a:active.fpccSocialIcon{color:#333;background:#DDDDD5}
 a:link.fpccMore,a:visited.fpccMore{color:#424d1d}
 a:hover.fpccMore,a:active.fpccMore{text-decoration:none;color:#333}
-.fpccButton,.fpccButton:visited{text-align:center;background:#7E9039;font-family:Helvetica,Arial,sans-serif;border:none;border-bottom:2px solid #606D29;padding:10px 15px;max-height:37px;color:#FFF;font-size:.9375em;line-height:1;text-decoration:none;vertical-align:top}
+.fpccButton,.fpccButton:visited{text-align:center;background:#697730;font-family:Helvetica,Arial,sans-serif;border:none;border-bottom:2px solid #606D29;padding:10px 15px;max-height:37px;color:#FFF;font-size:.9375em;line-height:1;text-decoration:none;vertical-align:top}
 .fpccButton:hover{background:#606D29;border-bottom:2px solid #464F1E}
 .fpccButton:active{background:#606D29;border-bottom:none;margin-top:2px}
 #fpccMainContainer{box-shadow:0 4px 8px 0 rgba(0,0,0,0.2)}
@@ -185,13 +185,13 @@ a:hover.fpccSpecialDesc .icon-arrow-right,a:active.fpccSpecialDesc .icon-arrow-r
 ul.fpccMenuList{z-index:9100;clear:both;margin:0;list-style-type:none;color:#333;font-weight:bold;font-size:.8125em;width:200px;padding-left:0;float:right;margin-right:-200px;box-shadow:0 4px 8px 0 rgba(0,0,0,0.2)}
 ul.fpccMenuList.hide{display:none}
 ul.fpccMenuList.show{display:block;cursor: pointer;}
-ul.fpccMenuList a,ul.fpccMenuList a:visited{padding:.75em;color:#FFF;background:#999;border-bottom:1px solid #FFF;text-decoration:none;display:block}
-ul.fpccMenuList a .last,ul.fpccMenuList a:visited.last{border:none}
-ul.fpccMenuList a:hover,ul.fpccMenuList a:active{background:#666}
+ul.fpccMenuList a,ul.fpccMenuList a:visited{padding:.75em;color:#333;background:#FFF;border-bottom:1px dotted #AAA;text-decoration:none;display:block}
+ul.fpccMenuList a.last,ul.fpccMenuList a:visited.last{border:none}
+ul.fpccMenuList a:hover,ul.fpccMenuList a:active{background:#F1F1ED}
 ul.fpccMobileMenuList{display:none;z-index:9100;position:absolute;margin: 0;top: 48px;right: 0;list-style-type: none;color: #333;font-weight: bold;font-size: .8125em;width: 200px;padding: 0;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);}
 ul.fpccMobileMenuList.hide{display:none}
 ul.fpccMobileMenuList.show{display:block}
-ul.fpccMobileMenuList a,ul.fpccMobileMenuList a:visited{padding:.75em;color:#FFF;background:#999;border-bottom:1px solid #FFF;text-decoration:none;display:block}
+ul.fpccMobileMenuList a,ul.fpccMobileMenuList a:visited{padding:.75em;color:#333;background:#FFF;border-bottom:1px dotted #AAA;text-decoration:none;display:block}
 ul.fpccMobileMenuList a.last,ul.fpccMobileMenuList a:visited.last{border:none}
 ul.fpccMobileMenuList a:hover,ul.fpccMobileMenuList a:active{background:#666}
 
