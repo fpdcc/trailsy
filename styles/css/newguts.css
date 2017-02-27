@@ -42,6 +42,7 @@ body{height:100%;padding:0;margin:0}
 .title-row{position:relative;width:100%;height:3em;top:0;margin:0;z-index:9000;-webkit-transition:-webkit-transform 250ms;-moz-transition:-moz-transform 250ms;transition:transform 250ms}
 .title-row header{width:100%;margin:0;padding:0}
 .leaflet-left{display:none}
+.selectize-dropdown-content{max-height: 100px}
 }
 
 #trailMapLarge{position:absolute;width:100%;height:100%;padding:0}
@@ -550,7 +551,8 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
 
 /*selectize override*/
 .selectize-input{border:1px solid #d0d0d0;padding:9px 8px 8px;min-height:initial;width:75%}
-    .selectize-dropdown{z-index:10000}
+.selectize-dropdown{z-index:10000}
+
 }
 
 /*SLIMMER PANEL------------------------------------*/
