@@ -179,10 +179,13 @@ var trailMap = function () {
         if (poiFeat.filteredPoisFeatureGroup) {
           if (fitToBounds) {
             var zoomFeatureGroupBounds = poiFeat.filteredPoisFeatureGroup.getBounds()
-            if (filters.current.searchLocation || filters.current.userLocation) {
-              if (whatBounds !== 'all') {
-                var zoomFeatureArray = poiFeat.filteredPoisArray.slice(0, 10)
-                // console.log('filterAll zoomFeatureArray.length = ' + zoomFeatureArray.length)
+            if (whatBounds !== 'all') {
+              var zoomFeatureArray = poiFeat.filteredPoisArray.slice(0, 10)
+              if (filters.current.userLocation) {
+                var zoomFeatureGroup = new L.FeatureGroup(zoomFeatureArray)
+                zoomFeatureGroupBounds = zoomFeatureGroup.getBounds()
+              } else if (filters.current.searchLocation) {
+                zoomFeatureArray.push(filters.current.searchLocation)
                 var zoomFeatureGroup = new L.FeatureGroup(zoomFeatureArray)
                 zoomFeatureGroupBounds = zoomFeatureGroup.getBounds()
               }
