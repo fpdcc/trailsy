@@ -123,14 +123,13 @@ var trailSegmentFeature = function (map) {
       }
       invisLayer.feature.properties.segmentName = segmentName
       if (segmentTrailSubsystem) {
-        var trailPopupLineDiv
-        trailPopupLineDiv = "<div class='trail-popup-line trail-popup-line-named trail-subsystem' " +
+        var trailPopupLineDiv = '<svg class="icon icon-arrow-right"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-arrow-right"></use></svg>'
+        trailPopupLineDiv += "<div class='trail-popup-line trail-popup-line-named trail-subsystem' " +
           "data-trailsubsystem='" + segmentTrailSubsystem + "' " +
           "data-trailid='" + segmentTrailSubsystem + "' " +
           "data-trailname='" + segmentTrailSubsystem + "'> " +
           segmentTrailSubsystem + // " Trail System" +
           '</div>'
-        trailPopupLineDiv += '<svg class="icon icon-arrow-right"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-arrow-right"></use></svg>'
         atLeastOne = true
         trailPopupLineDiv += "<div class='trail-popup-line trail-popup-line-named trail-segment' " +
           "data-trailsubsystem='" + segmentTrailSubsystem + "'>" +
