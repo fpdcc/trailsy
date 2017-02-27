@@ -34,7 +34,7 @@ var events = function (map) {
     // that.setHeights()
     $('#fpccSearchBack').on(Config.listenType, that.closeDetailPanel) // .click(readdSearchURL)
     $('#fpccMobileSearchButton').on(Config.listenType, that.closeDetailPanel)
-    $('#fpccMobileCheckbox').on(Config.listenType, my.panel.showfpccMainContainer)
+    $('#fpccMobileCheckbox').on('click', panel.showfpccMainContainer)
     $('.offsetZoomControl').click(offsetZoomIn)
     $('.aboutLink').click(panel.openAboutPage)
     $('.fpccMenu').on(Config.listenType, panel.changeMenuDisplay)

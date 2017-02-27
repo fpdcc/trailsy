@@ -265,7 +265,7 @@ var panelFuncs = function (map) {
     $.address.parameter('search', null)
     $.address.update()
 
-    if (document.getElementById('fpccMobileCheckbox').checked) {
+    if ($('#fpccMobileCheckbox').is(':checked')) {
       that.slideDetailPanel(false)
     } else {
       console.log('showTrailDetails checked is false')
@@ -889,7 +889,7 @@ var panelFuncs = function (map) {
         console.log('[slideDetailPanel] expand = true')
         $('#fpccDetailPanel').addClass('expanded').removeClass('contracted')
         $('#fpccTrailListColumn').addClass('expanded').removeClass('contracted')
-        if (document.getElementById('fpccMobileCheckbox').checked) {
+        if ($('#fpccMobileCheckbox').is(':checked')) {
           document.getElementById('fpccSearchBack').innerHTML = '<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg> Back to Map</a>'
         } else {
           document.getElementById('fpccSearchBack').innerHTML = '<a><svg class="icon icon-arrow"><use xlink:href="icons/defs.svg#icon-arrow"></use></svg> Back to List</a>'
@@ -969,7 +969,7 @@ var panelFuncs = function (map) {
 
   that.showfpccMainContainer = function (e) {
     console.log('showfpccMainContainer')
-    var showMap = document.getElementById('fpccMobileCheckbox').checked
+    var showMap = $('#fpccMobileCheckbox').is(':checked')
     console.log('[showfpccMainContainer] show = ' + showMap)
     if (showMap) {
       $('#fpccMainContainer').addClass('contracted').removeClass('expanded')
