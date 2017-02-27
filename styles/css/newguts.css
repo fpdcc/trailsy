@@ -283,7 +283,6 @@ ul.fpccMobileMenuList a:hover,ul.fpccMobileMenuList a:active{background:#F1F1ED}
 .fpccSegmentOverview.off.brown line{stroke:#C0ADA1}
 .fpccSegmentOverview.off.blue line{stroke:#B4DDF5}
 .fpccSegmentOverview.off.black line{stroke:#ABADAF}
-
 .fpccSegmentDetails{margin-top:.35em}
 .fpccAccessTo{text-align:center;padding:1.15em 0 .25em;border-top:1px dotted #CCC}
 .fpccTrails .fpccAccessTo .icon-trail-marker{width:1.5em;height:1.5em;margin-right:.5em;vertical-align:middle;margin-top:-5px}
@@ -333,6 +332,7 @@ ul.fpccMobileMenuList a:hover,ul.fpccMobileMenuList a:active{background:#F1F1ED}
 .trail-popup-line-named.trail-subsystem:active{color:#7E9039}
 .trail-popup .trail-popup-line-named{border-top:none;padding:.5em .75em;width:80%}
 .trail-popup .trail-popup-line-named.trail-segment{border-top:1px solid #e3e3e1;width:100%}
+.trail-popup .trail-popup-line-named.trail-subsystem:hover,.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box:hover{cursor:pointer}
 .leaflet-popup-content-wrapper .leaflet-popup-content .activity-popup,.leaflet-popup-content-wrapper .leaflet-popup-content .picnicgrove-popup{border:0;padding:.5em .75em}
 .leaflet-control-container .leaflet-control-layers{border-radius:0}
 
@@ -564,6 +564,7 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
 .trail-popup .icon-arrow-right,.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .icon-arrow-right{display:none}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .icon-arrow-right{display:initial}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames:active,.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname:active,.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .popupTrailNames:active,.trail-popup-line-named.trail-subsystem:active{color:#333}
+.trail-popup .trail-popup-line-named.trail-subsystem:hover,.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box:hover{cursor:auto}
     
 /*OVERRIDES------------------------------------*/
 
