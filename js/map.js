@@ -193,7 +193,7 @@ var trailMap = function () {
               }
             }
             map.fitBounds(zoomFeatureGroupBounds, {
-              // padding: allPadding
+              padding: panel.padding
               // paddingTopLeft: centerOffset
             })
           }

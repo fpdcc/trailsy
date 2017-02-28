@@ -26,6 +26,7 @@ var setup = function (myMap, myFilters, myPoiFeature, myTrailSegmentFeature, myA
 var panelFuncs = function (map) {
   var that = {}
   that.SMALL = false
+  that.padding = new L.point(475, 25)
   var events = eL.events(map)
 
   that.currentDetailPanelHTML = ''
@@ -142,12 +143,14 @@ var panelFuncs = function (map) {
     var fpccPreserveInfoHeight = 0
     if (that.SMALL) {
       // console.log('[setHeights] yes small')
+      that.padding = new L.point(15, 15)
       fpccPreserveInfoHeight = (h - (l + m + o)).toString() + 'px'
       if (fpccPreserveInfo) {
         fpccPreserveInfo.style.minHeight = fpccPreserveInfoHeight
       }
       document.getElementById('fpccSearchResults').style.minHeight = fpccSearchResultsHeight
     } else {
+      that.padding = new L.point(465, 15)
       fpccPreserveInfoHeight = (h - (k + m + o + q)).toString() + 'px'
       // console.log('[setHeights] no small')
     }

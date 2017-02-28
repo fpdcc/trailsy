@@ -13,7 +13,6 @@ var my = {
   trailInfo: null
 }
 
-var allPadding = new L.point(100, 100)
 
 var setup = function (map, panel, filters, poiFeature, trailSegmentFeature, activityFeature, picnicgroveFeature, trailInfo) {
   my.map = map
@@ -155,7 +154,7 @@ var events = function (map) {
       }
       console.log('[trailDivWork] before fitbounds')
       map.fitBounds(zoomFeatureGroupBounds, {
-        padding: allPadding
+        padding: my.panel.padding
         // paddingTopLeft: centerOffset
       })
     }, 0)
@@ -178,12 +177,12 @@ var events = function (map) {
       my.map.fitBounds(zoomFeatureGroupBounds,
         {
           // paddingTopLeft: centerOffset
-          padding: allPadding
+          padding: my.panel.padding
         })
     } else {
       my.map.fitBounds(zoomFeatureGroupBounds, {
         maxZoom: my.map.getZoom(),
-        padding: allPadding
+        padding: my.panel.padding
         // paddingTopLeft: centerOffset
       })
     }
@@ -212,7 +211,7 @@ var events = function (map) {
         // map.panTo(zoomFeatureGroupBounds.getCenter()); // Temporary fix for fitBounds not properly refreshing canvas.
         my.map.fitBounds(zoomFeatureGroupBounds, {
           maxZoom: my.map.getZoom(),
-          padding: allPadding
+          padding: my.panel.padding
            // paddingTopLeft: centerOffset
         })
       }
@@ -265,7 +264,8 @@ var events = function (map) {
         console.log('[poiFeature highlight] create + open popup')
         var popup = new L.Popup({
           offset: [0, -12],
-          autoPanPadding: [10, 10]
+          autoPan: true,
+          autoPanPadding: [5, 5]
           // autoPan: SMALL ? false : true
         })
         .setContent(my.poiFeat.current.popupContent)
