@@ -259,7 +259,7 @@
 </symbol>
 <symbol id="icon-arrow-right" viewBox="0 0 32 32">
 <title>arrow-right</title>
-<path class="path1" fill="#333" d="M4.567 25.433l6.656 6.567 16.211-16-16.211-16-6.656 6.567 9.567 9.433z"></path>
+<path class="path1" fill="#000" d="M4.567 25.433l6.656 6.567 16.211-16-16.211-16-6.656 6.567 9.567 9.433z"></path>
 </symbol>	
 <symbol id="icon-x" viewBox="0 0 32 32">
 <title>x</title>
