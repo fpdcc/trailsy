@@ -338,7 +338,7 @@ ul.fpccMobileMenuList a:hover,ul.fpccMobileMenuList a:active{background:#F1F1ED}
 .leaflet-control-container .leaflet-control-layers{border-radius:0;box-shadow:0 1px 5px rgba(0,0,0,0.4);border:none}
 
 /* selectize override */
-.selectize-input{font-size:16px;line-height:1;padding:16px 0 0 20px;min-height:48px;border:none;display:inline-block;width:85%;overflow:hidden;float:left;position:relative;z-index:1;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-box-shadow:none;box-shadow:none;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
+.selectize-input{font-size:16px;padding:16px 0 0 20px;min-height:48px;border:none;display:inline-block;width:85%;overflow:hidden;float:left;position:relative;z-index:1;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-box-shadow:none;box-shadow:none;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
 .selectize-dropdown{font-size:16px}
 .selectize-input input{font-size:16px}
 .selectize-input input::placeholder{color:#565656}
