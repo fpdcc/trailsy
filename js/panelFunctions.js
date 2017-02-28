@@ -31,7 +31,7 @@ var panelFuncs = function (map) {
 
   that.currentDetailPanelHTML = ''
 
-  var aboutHTML = '<div id="fpccPreserveName" class="detailPanelBanner"><span id="fpccTrailName" class="trailName">About</span><svg id="closeAbout" class="icon icon-x closeDetail"><use xlink:href="icons/defs.svg#icon-x"></use></svg></div><div id="fpccPreserveInfo" class="detailPanelBody"><div id="fpccAbout" class="fpccUnit fpccContainer">' +
+  var aboutHTML = '<div id="fpccPreserveName" class="detailPanelBanner"><span id="fpccTrailName" class="trailName">About</span><svg id="closeAbout" class="icon icon-x closeDetail"><use id="useCloseAbout" xlink:href="icons/defs.svg#icon-x"></use></svg></div><div id="fpccPreserveInfo" class="detailPanelBody"><div id="fpccAbout" class="fpccUnit fpccContainer">' +
                   '<p>Welcome to the <a href="http://fpdcc.com/">Forest Preserves  of Cook County</a>. This web map is designed to help current and future  visitors:</p>' +
                   '<ul><li>Plan trips </li>' +
                   '<li>Navigate preserves, trails and other  amenities</li>' +
@@ -715,7 +715,7 @@ var panelFuncs = function (map) {
       }
     }
     var closeID = 'closeDetail'
-    fpccNameHTML += '</span><svg id="closeDetail" class="icon icon-x closeDetail"><use xlink:href="icons/defs.svg#icon-x"></use></svg></div>'
+    fpccNameHTML += '</span><svg id="closeDetail" class="icon icon-x closeDetail"><use id="useCloseDetail" xlink:href="icons/defs.svg#icon-x"></use></svg></div>'
     //Trails Section
     var trailsHTML = ""
     if (descriptionTrail) {
@@ -883,9 +883,16 @@ var panelFuncs = function (map) {
     that.setHeights()
     $('#closeDetail').off()
     $('#closeAbout').off()
+    $('#useCloseDetail').off()
+    $('#useCloseAbout').off()
     $('.detailPanelBanner').off()
-    $('#closeDetail').on(Config.listenType, events.closeDetailPanel)
-    $('#closeAbout').on(Config.listenType, that.closeAboutPage)
+    if (Config.isEdge) {
+      $('#useCloseDetail').on('mousedown touchstart', events.closeDetailPanel)
+      $('#useCloseAbout').on('mousedown touchstart', that.closeAboutPage)
+    } else {
+      $('#closeDetail').on(Config.listenType, events.closeDetailPanel)
+      $('#closeAbout').on(Config.listenType, that.closeAboutPage)
+    }
     if (that.SMALL) {
       $('.detailPanelBanner').on(Config.listenType, detailPanelBannerClick)
     }
