@@ -550,7 +550,7 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
 .leaflet-control-layers.leaflet-control-layers-expanded.leaflet-control{display:block;box-shadow:0 1px 5px rgba(0,0,0,0.4);border:none}
 
 /*selectize override*/
-.selectize-input{border:1px solid #d0d0d0;padding:9px 8px 8px;min-height:initial;width:75%}
+.selectize-input{border:1px solid #d0d0d0;padding:9px 8px 8px;min-height:37px;width:75%}
 .selectize-dropdown{z-index:10000}
 
 }
