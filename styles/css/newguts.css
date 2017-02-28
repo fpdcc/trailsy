@@ -127,7 +127,7 @@ section.trailListColumn .accordion{/* display:none;*/border-top:8px solid #7E913
 .fpccEntryNameText{display:inline-block;width:85%}
 .trailListColumn .fpccUnit.fpccResults a span.fpccEntryName{font-size:1em;font-weight:bold;float:left;width:70%}
 .fpccEntryDis{font-size:.9125em;font-family:Georgia,"Times New Roman",serif;float:right;width:30%;text-align:right}
-#fpccSearchContainer .fpccButton{width:15%;border-bottom:0;height:48px;float:right;display:inline;max-height:initial;border-radius:0}
+#fpccSearchContainer .fpccButton{width:15%;border-bottom:0;height:48px;float:right;display:inline;max-height:48px;border-radius:0}
 #fpccSearchButton.fpccButton:active{margin-top:0}
 #fpccSearchContainer select{border:1px solid #999;padding:5px;width:75%;height:37px;font-size:.9375em;line-height:1;box-sizing:border-box}
 section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overflow-y:scroll}
