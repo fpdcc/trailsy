@@ -419,7 +419,7 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 100%{background:rgba(126,144,57,.45);box-shadow:0 0 7px 5px rgba(126,144,57,.45);border-radius:3em}}
 
 /* loader */
-.loader{z-index:20000;position:absolute;top:0;left:0;width:100%;height:100%;background:#EEE;overflow:hidden}
+.loader{z-index:20000;position:absolute;top:0;left:0;width:100%;height:100%;background:#EEE;overflow:hidden;opacity:.4}
 .loader-circle{margin:0 auto;border:16px solid #fff;border-top:16px solid #273719;border-radius:50%;width:100px;height:100px;animation:spin 2s linear infinite;-webkit-animation:spin 2s linear infinite;z-index:20000;/*    transform:translate(-50%,-50%)*/}
 #loader-text{text-align:center;font-weight:bold;font-size:1.25em;line-height:1;padding-top:.75em;overflow:visible}
 .loader-position{width:180px;overflow:visible;text-align:center;margin:100px auto 0}
