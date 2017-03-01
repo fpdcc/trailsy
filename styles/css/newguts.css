@@ -451,8 +451,9 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 
 /* Josh experiments */
 #fpccMainContainer,.trailListColumn{left:0;right:0;z-index:9000}
-#fpccMainContainer.expanded,.trailListColumn.expanded,.detailPanel.expanded{position:absolute;top:3em;bottom:0;height:auto;overflow:visible;z-index:9000}
-#fpccMainContainer.expanded,.detailPanel.expanded{position:relative;top:0}
+#fpccMainContainer.expanded,.trailListColumn.expanded{position:absolute;top:3em;bottom:0;height:auto;overflow:visible;z-index:9000}
+.detailPanel.expanded{top:0;bottom:0;height:auto;overflow:visible;z-index:9000}
+#fpccMainContainer.expanded{position:relative;top:0}
 #fpccMainContainer.contracted,.trailListColumn.contracted,.detailPanel.contracted{position:absolute;bottom:0px;height:48px;overflow:visible;-webkit-transition:-webkit-transform 250ms;-moz-transition:-moz-transform 250ms;transition:transform 250ms}
 .detailPanel.contracted{height:48px}
 .detailPanel.contracted #fpccPreserveName{min-height:48px}
