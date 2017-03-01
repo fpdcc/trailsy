@@ -56,6 +56,7 @@ var panelFuncs = function (map) {
   that.changeMenuDisplay = function () {
     console.log("changeMenuDisplay")
     if ($('.fpccMenuList').hasClass('hide')) {
+      that.buildFeedbackLink()
       $('.fpccMenuList').removeClass('hide').addClass('show')
       $(document).on('mousedown touchstart', checkOutsideMenu)
     } else {
@@ -75,6 +76,7 @@ var panelFuncs = function (map) {
   that.changeMobileMenuDisplay = function () {
     console.log('changeMobileMenuDisplay')
     if ($('.fpccMobileMenuList').hasClass('hide')) {
+      that.buildFeedbackLink()
       $('.fpccMobileMenuList').removeClass('hide').addClass('show')
       $(document).on('mousedown touchstart', checkOutsideMobileMenu)
     } else {
@@ -97,6 +99,13 @@ var panelFuncs = function (map) {
     } else {
       that.toggleDetailPanel('close')
     }
+  }
+
+  that.buildFeedbackLink = function () {
+    console.log('goToFeedback')
+    var feedbackURL = 'https://smartchicago2012.wufoo.com/forms/q3z4lq60rq4ljf/def/' +
+    'Field8=' + $.address.baseURL() + '&Field2=' + $.address.queryString()
+    $('.menuFeedback').attr('href', feedbackURL)
   }
 
   window.onload = function () {
