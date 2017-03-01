@@ -551,7 +551,7 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
 /*selectize override*/
 .selectize-input{border:1px solid #d0d0d0;padding:9px 8px 8px;min-height:37px;width:75%}
 .selectize-dropdown{z-index:10000}
-
+.selectize-dropdown-content{z-index:10000;position:initial}
 }
 
 /*SLIMMER PANEL------------------------------------*/
