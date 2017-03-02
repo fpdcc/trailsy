@@ -71,7 +71,7 @@ a.fpccMobileHamburger span.last{margin-bottom:0}
 input:checked ~ .fpccFlipList{color:#90a542}
 input:checked ~ .fpccFlipMap{color:white}
 input:focus ~ .fpccSlider{box-shadow:0 0 1px #90a542}
-input:checked ~ .fpccSlider:before{-webkit-transform:translateX(-16px);-ms-transform:translateX(-16px);transform:translateX(-16px)}
+input:checked ~ .fpccSlider:before{-webkit-transform:translate(-16px);-ms-transform:translate(-16px);transform:translate(-16px)}
 
 /*panel - general*/
 .detailPanel .detailPanelBanner{position:relative;width:100%;min-height:2em}
