@@ -66,8 +66,8 @@ a.fpccMobileHamburger span.last{margin-bottom:0}
 .fpccFlipMap{color:#90a542;left:-40px}
 .fpccSwitch input{display:none}
 .fppcSwitchBackground{border-radius:50%;position:relative;display:inline-block;width:40px;height:20px;background:#90a542;margin:0 5px;vertical-align:middle}
-.fpccSlider{border-radius:34px;position:absolute;top:0;left:0;right:0;bottom:0;background-color:#90a542;-webkit-transition:.4s;transition:.4s}
-.fpccSlider:before{position:absolute;content:"";height:16px;width:16px;right:4px;bottom:2px;background-color:white;-webkit-transition:.4s;transition:.4s;border-radius:50%}
+.fpccSlider{border-radius:34px;position:absolute;top:0;left:0;right:0;bottom:0;background-color:#90a542;-webkit-transition:-webkit-transform .4s;transition:transform .4s}
+.fpccSlider:before{position:absolute;content:"";height:16px;width:16px;right:4px;bottom:2px;background-color:white;-webkit-transition:-webkit-transform .4s;transition:transform .4s;border-radius:50%}
 input:checked ~ .fpccFlipList{color:#90a542}
 input:checked ~ .fpccFlipMap{color:white}
 input:focus ~ .fpccSlider{box-shadow:0 0 1px #90a542}
