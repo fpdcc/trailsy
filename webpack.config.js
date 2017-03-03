@@ -4,7 +4,7 @@ module.exports = {
     output: {
         path: __dirname,
         sourceMapFilename: "bundle.js.map",
-        filename: "bundle.js"
+        filename: "bundle.[chunkhash].js"
     },
     devtool: 'source-map',
     plugins: [
