@@ -36,9 +36,9 @@ var panelFuncs = function (map) {
                   '<ul><li>Plan trips </li>' +
                   '<li>Navigate preserves, trails and other  amenities</li>' +
                   '<li>Discover new opportunities within the preserves</li></ul>' +
-                  '<p>Please consider <a href="https://script.google.com/macros/s/AKfycby6fEFxi92eh152A7x4iPy6tRjevGbpRgCUTTaKNMBfwqdDHVvZ/exec">leaving  us feedback</a> so we can continue to improve this map. Learn more about the  Forest Preserves of Cook County at <a href="http://fpdcc.com/">fpdcc.com</a>.</p>' +
+                  '<p>Please consider <a class="menuFeedback" href="https://smartchicago2012.wufoo.com/forms/q3z4lq60rq4ljf/def/" target="_blank">leaving  us feedback</a> so we can continue to improve this map. Learn more about the  Forest Preserves of Cook County at <a href="http://fpdcc.com/">fpdcc.com</a>.</p>' +
                   '<h2>Development</h2>' +
-                  '<p>This project is a partnership between the Forest Preserves of Cook County and <a href="http://www.smartchicagocollaborative.org/">Smart  Chicago</a>. The resulting web application is built on two pieces of source  code: <a href="https://github.com/codeforamerica/trailsy">Trailsy</a> and <a href="https://github.com/codeforamerica/trailsyserver">Trailsy Server</a>, both  pioneered by <a href="https://www.codeforamerica.org/">Code for America</a>.  All of the data used to power the site is open for all and conforms to the <a href="http://archive.codeforamerica.org/specifications/trails/">OpenTrails  specification</a>, modified for data types not in the existing specification.</p>' +
+                  '<p>This project is a partnership between the Forest Preserves of Cook County and <a href="http://www.smartchicagocollaborative.org/">Smart  Chicago</a>. The resulting web application is built on two pieces of source  code: <a href="https://github.com/codeforamerica/trailsy">Trailsy</a> and <a href="https://github.com/codeforamerica/trailsyserver">Trailsy Server</a>, both  pioneered by <a href="https://www.codeforamerica.org/">Code for America</a>.  All of the data used to power the site is open for all.</p>' +
                   '<p>Smart Chicago consultant <a href="http://www.smartchicagocollaborative.org/people/consultants/current-consultants/josh-kalov/">Josh  Kalov</a> is the main developer of this project. <a href="https://github.com/smartchicago/trailsy/">View the project&rsquo;s GitHub page here</a>.</p>' +
                   '<h2>Funding</h2>' +
                   '<p>Made possible with funding from the Centers for Disease Control and Prevention through the Healthy Hotspot initiative led by the Cook  County Department of Public Health. Learn more at <a href="http://healthyhotspot.org/">healthyhotspot.org</a>. Smart Chicago  provided in-kind services for this project.</p>' +
@@ -88,6 +88,7 @@ var panelFuncs = function (map) {
   that.openAboutPage = function () {
     console.log('openAboutPage')
     that.populateDetailPanel(aboutHTML)
+    that.buildFeedbackLink()
     that.toggleDetailPanel('open')
     that.setHeights()
   }
