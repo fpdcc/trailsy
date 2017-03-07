@@ -18,7 +18,7 @@ The Cook County version of Trailsy has deviated significantly from the current T
 ## Getting Involved
 ---
 ### Use it!
-* Please try the application at https://fpcc-staging.smartchicagoapps.org/ and send us feedback via [issues](https://github.com/smartchicago/trailsy/issues).
+* Please try the application at https://map.fpdcc.com/ and send us feedback via [issues](https://github.com/smartchicago/trailsy/issues).
  
 ### Get Familiar with the OpenTrails specification
 * Peruse the OpenTrails working draft specification at https://docs.google.com/document/d/1KF8KAio-SqGHhh9oFY_KjfwIi3PePOHg7KfTSPh27fc/edit
