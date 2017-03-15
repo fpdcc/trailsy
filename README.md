@@ -1,7 +1,7 @@
 Trailsy
 =======
 
-Trailsy is the front-end component for Cook County Forest Preserves Mapping Application developed by Cook County Forest Preserves and Smart Chicago Collaborative. It has been forked from the original Code for America 2013 Trailsy project found [here](https://github.com/codeforamerica/trailsy). It also borrows heavily from the [Code for Boulder fork of Trailsy](https://github.com/codeforboulder/trailsy).
+Trailsy is the front-end component for the Forest Preserves of Cook County (FPCC) Mapping Application developed by FPCC and Smart Chicago Collaborative. It has been forked from the original Code for America 2013 Trailsy project found [here](https://github.com/codeforamerica/trailsy). It also borrows heavily from the [Code for Boulder fork of Trailsy](https://github.com/codeforboulder/trailsy).
 
 In a nutshell it is a pure client side JavaScript browser app to show the trails, amenities, and activities for Cook County Forest Preserves.
 
@@ -18,7 +18,7 @@ The Cook County version of Trailsy has deviated significantly from the current T
 ## Getting Involved
 ---
 ### Use it!
-* Please try the application at https://fpcc-staging.smartchicagoapps.org/ and send us feedback via [issues](https://github.com/smartchicago/trailsy/issues).
+* Please try the application at https://map.fpdcc.com/ and send us feedback via [issues](https://github.com/smartchicago/trailsy/issues).
  
 ### Get Familiar with the OpenTrails specification
 * Peruse the OpenTrails working draft specification at https://docs.google.com/document/d/1KF8KAio-SqGHhh9oFY_KjfwIi3PePOHg7KfTSPh27fc/edit
