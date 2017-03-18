@@ -4,6 +4,7 @@ var $ = require('jquery')
 require('leaflet-boundsawarelayergroup')
 var Config = require('./config.js')
 var eL = require('./eventListeners.js')
+var analyticsCode = require('./analyticsCode.js')
 
 var activityFeature = function (map) {
   var that = {}
@@ -88,7 +89,11 @@ var activityFeature = function (map) {
 
   that.activityClickSetup = function (activity) {
     var poiId = activity.properties.poi_info_id
+    console.log('activity.properties.id = ' + activity.properties.id)
+    var markerId = activity.properties.id
+    analyticsCode.trackClickEventWithGA('Marker', 'activityClick', markerId)
     events.openPopup(activity.popupContent, activity.getLatLng())
+
     events.activityClick(poiId)
   }
 

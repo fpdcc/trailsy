@@ -6,7 +6,9 @@ var listenType = 'click'
 console.log('listenType = ' + listenType)
 var isEdge = ((navigator.userAgent.toLowerCase().indexOf('edge') !== -1) || (navigator.userAgent.toLowerCase().indexOf('trident') !== -1)) ? true : false
 // var appId = '6' // OuterSpatial assigns a unique id for each customer
-var url = 'https://fpcc-staging.smartchicagoapps.org'
+//var url = 'https://fpcc-staging.smartchicagoapps.org'
+var url = 'https://map.fpdcc.com'
+var gaCode = 'UA-92972430-2'
 // var trailsyBaseEndpoint = url + '/v0/applications/' + appId;
 var trailsyBaseEndpoint = url
 
@@ -23,5 +25,6 @@ module.exports = {
   mapCenter: mapCenter,
   defaultZoom: defaultZoom,
   listenType: listenType,
-  isEdge: isEdge
+  isEdge: isEdge,
+  gaCode: gaCode
 }

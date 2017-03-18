@@ -4,6 +4,7 @@ var $ = require('jquery')
 require('leaflet-boundsawarelayergroup')
 var Config = require('./config.js')
 var eL = require('./eventListeners.js')
+var analyticsCode = require('./analyticsCode.js')
 
 var picnicgroveFeature = function (map) {
   var that = {}
@@ -76,6 +77,7 @@ var picnicgroveFeature = function (map) {
   }
 
   that.pgClickSetup = function (picnicgrove) {
+    analyticsCode.trackClickEventWithGA('Marker', 'picnicgroveClick', picnicgrove.properties.id)
     events.openPopup(picnicgrove.popupContent, picnicgrove.getLatLng())
   }
 

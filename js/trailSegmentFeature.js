@@ -3,6 +3,7 @@ var L = require('leaflet')
 var $ = require('jquery')
 var Config = require('./config.js')
 var eL = require('./eventListeners.js')
+var analyticsCode = require('./analyticsCode.js')
 
 var trailSegmentFeature = function (map) {
   var that = {}
@@ -149,6 +150,8 @@ var trailSegmentFeature = function (map) {
               var trailSubsystem = invisLayer.feature.properties.trail_subsystem;
               console.log("[trail click] " + trailSubsystem)
               var trailSubsystemNormalizedName = trailSubsystem.replace(/[& ]/g, '+')
+              var analyticsName = trailSubsystem + ' ' + invisLayer.feature.properties.segmentName
+              analyticsCode.trackClickEventWithGA('Segment', 'Click', analyticsName)
               events.segmentClick(trailSubsystemNormalizedName)
               //var trail = originalTrailData[trailIDs];
 

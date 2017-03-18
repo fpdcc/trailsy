@@ -7,6 +7,7 @@ require('leaflet.markercluster')
 require('jquery-address')
 require('svgxuse')
 var Config = require('./config.js')
+var analyticsCode = require('./analyticsCode.js')
 var poiFeature = require('./poiFeature.js')
 var trailSegmentFeature = require('./trailSegmentFeature.js')
 var trailInfo = require('./trailInfo.js')
@@ -24,7 +25,7 @@ var trailMap = function () {
     renderer: L.canvas()
   }).setView(Config.mapCenter, Config.defaultZoom)
   map.removeControl(map.zoomControl)
-
+  var myAnalytics = analyticsCode.setup()
   // map.addControl(L.control.zoom({position: 'topright'}))
   var poiFeat = poiFeature(map)
   var tSegment = trailSegmentFeature(map)
@@ -83,6 +84,7 @@ var trailMap = function () {
   })
 
   map.on('moveend', function (e) {
+
     if (Config.isEdge) {
       // console.log('isEdge')
       $('.useMapIcon').off()
@@ -219,6 +221,7 @@ var trailMap = function () {
     var currentUIFilterState
     var searchKeyTimeout
     currentUIFilterState = $('#desktop .fpccSearchbox').val()
+    analyticsCode.trackClickEventWithGA('Search', 'Begin', currentUIFilterState)
     filters.setCurrent(currentUIFilterState)
     var openResults = true
     if (filters.current.fromURL && (filters.current.poi || filters.current.trail)) {
@@ -239,6 +242,18 @@ var trailMap = function () {
     picnicgroveFeat.fetchPicnicgroves()
     geoFunctions.setupGeolocation()
   }
+
+  $('a').click(function () {
+    var $a = $(this)
+    var href = $a.attr('href')
+    var datasource = $a.attr('data-source')
+    var datatrail = $a.attr('data-trailname')
+    var datapoi = $a.attr('data-trailheadName')
+    console.log('href = ' + href)
+    console.log('datasource = ' + datasource)
+    console.log('datatrail = ' + datatrail)
+    console.log('datapoi = ' + datapoi)
+  })
 
   return that
 }
