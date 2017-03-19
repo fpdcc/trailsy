@@ -2,6 +2,7 @@
 var L = require('leaflet')
 var $ = require('jquery')
 var Config = require('./config.js')
+var analyticsCode = require('./analyticsCode.js')
 
 var my = {
   map: null,
@@ -12,7 +13,6 @@ var my = {
   pgFeat: null,
   trailInfo: null
 }
-
 
 var setup = function (map, panel, filters, poiFeature, trailSegmentFeature, activityFeature, picnicgroveFeature, trailInfo) {
   my.map = map
@@ -69,7 +69,6 @@ var events = function (map) {
     // }
   }
 
-
   that.testClick = function (e) {
     console.log('edge test in event"')
   }
@@ -90,8 +89,6 @@ var events = function (map) {
   that.trailPopupNameClick = function () {
     my.panel.slideDetailPanel(true)
   }
-
-  
 
   that.closeDetailPanel = function () {
     console.log('events.closeDetailPanel')
@@ -116,15 +113,18 @@ var events = function (map) {
     var $myTarget = $(e.currentTarget)
     var divTrailID = $myTarget.attr('data-trailid')
     var divTrailName = $myTarget.attr('data-trailname')
+    var divPoiName = $myTarget.attr('data-trailheadName')
     console.log(divTrailID)
     var trailSubsystem = null
     var divPoiId = $myTarget.attr('data-trailheadid')
     console.log('trailDivClickHandler divPoiId = ' + divPoiId)
     if (divTrailName) {
       trailSubsystem = divTrailName
+      analyticsCode.trackClickEventWithGA('List', 'Click', trailSubsystem)
       that.trailDivWork(trailSubsystem, null)
     } else {
       console.log('trailDivClickHandler else divPoiId = ' + divPoiId)
+      analyticsCode.trackClickEventWithGA('List', 'Click', divPoiName)
       that.trailDivWork(null, divPoiId)
     }
   }
@@ -168,6 +168,7 @@ var events = function (map) {
 
   that.poiClick = function (poi) {
     console.log('[events poiClick] start')
+    analyticsCode.trackClickEventWithGA('Marker', 'poiClick', poi.properties.name)
     var zoomFeatureGroupBounds = that.highlightPoi(poi)
     // var poi = my.poiFeat.getPoiById(poiId)
     var trailSubsystem = poi.properties.trail_subsystem || null
