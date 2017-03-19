@@ -8,7 +8,8 @@ var isEdge = ((navigator.userAgent.toLowerCase().indexOf('edge') !== -1) || (nav
 // var appId = '6' // OuterSpatial assigns a unique id for each customer
 //var url = 'https://fpcc-staging.smartchicagoapps.org'
 var url = 'https://map.fpdcc.com'
-var gaCode = 'UA-92972430-2'
+var gaCode1 = 'UA-92972430-2'
+var gaCode2 = ''
 // var trailsyBaseEndpoint = url + '/v0/applications/' + appId;
 var trailsyBaseEndpoint = url
 
@@ -26,5 +27,6 @@ module.exports = {
   defaultZoom: defaultZoom,
   listenType: listenType,
   isEdge: isEdge,
-  gaCode: gaCode
+  gaCode1: gaCode1,
+  gaCode2: gaCode2
 }
