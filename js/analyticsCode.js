@@ -12,7 +12,7 @@ var setup = function () {
   ga('tracker1.set', 'anonymizeIp', true);
   ga('tracker1.send', 'pageview');
   if (Config.gaCode2) {
-    ga('create', Config.gaCode1, 'auto', 'tracker2')
+    ga('create', Config.gaCode2, 'auto', 'tracker2')
     ga('tracker2.set', 'anonymizeIp', true);
     ga('tracker2.send', 'pageview');
   }
