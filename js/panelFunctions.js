@@ -313,6 +313,19 @@ var panelFuncs = function (map) {
       // $('#fpccPreserveName .trailName').html(trailSubsystemName)
     }
 
+    var feedbackValues = 'Field112=' + $.address.baseURL() + '&Field113=' + $.address.queryString()
+    var feedbackHTML = '<div id="wufoo-wew07491davo5l">Fill out my <a href="https://jkalov.wufoo.com/forms/wew07491davo5l">online form</a>.</div>' +
+      // '<div id="wuf-adv" style="font-family:inherit;font-size: small;color:#a7a7a7;text-align:center;display:block;"></div>' +
+      "<script type='text/javascript'>var wew07491davo5l;(function(d, t) { var s = d.createElement(t), options = {'userName':'jkalov', 'formHash':'wew07491davo5l', 'autoResize':true, 'height':'386','async':true, 'host':'wufoo.com', " +
+      "'defaultValues':'" + feedbackValues + "', " +
+      "'header':'hide','ssl':true};" +
+      "s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'www.wufoo.com/scripts/embed/form.js';" +
+      "s.onload = s.onreadystatechange = function() {" +
+      "var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return;" +
+      "try { wew07491davo5l = new WufooForm();wew07491davo5l.initialize(options);wew07491davo5l.display(); } catch (e) {}};" +
+      "var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr);" +
+      "})(document, 'script');</script>"
+
     if (poi) {
       if (poi.properties.name) {
         displayName = poi.properties.name
@@ -825,7 +838,9 @@ var panelFuncs = function (map) {
                        + '" id="fpccSocialFacebook" class="fpccSocialIcon" target="_blank">'
                        + '<svg class="icon icon-facebook"><use xlink:href="icons/defs.svg#icon-facebook"></use></svg>'
                        + '<span>Facebook</span></a></div>'  
-    fpccContainerHTML += '</div></div>'
+    
+    fpccContainerHTML += feedbackHTML + '</div>'
+    fpccContainerHTML += '</div>'
     // var fpccDisplayPanelElement = document.getElementById('fpccDetailPanel')
 
     that.currentDetailPanelHTML = fpccNameHTML + fpccContainerHTML
