@@ -27,6 +27,7 @@ var panelFuncs = function (map) {
   var that = {}
   that.SMALL = false
   that.padding = new L.Point(400, 10)
+  that.paddingRight = new L.Point(10, 10)
   var events = eL.events(map)
 
   that.currentDetailPanelHTML = ''
@@ -174,6 +175,7 @@ var panelFuncs = function (map) {
       fpccPreserveInfo.style.maxHeight = fpccPreserveInfoHeight
     }
     console.log('[setHeights] #fpccPreserveInfoHeight= ' + fpccPreserveInfoHeight)
+    console.log('[setHeights] that.padding= ' + that.padding)
   }
 
   that.makeTrailDivs = function (poiFeat, filters, open) {

@@ -195,8 +195,8 @@ var trailMap = function () {
               }
             }
             map.fitBounds(zoomFeatureGroupBounds, {
-              padding: panel.padding
-              // paddingTopLeft: centerOffset
+              paddingTopLeft: panel.padding,
+              paddingBottomRight: panel.paddingRight
             })
           }
           poiFeat.filteredPoisFeatureGroup.addTo(map)
