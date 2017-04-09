@@ -120,11 +120,9 @@ var events = function (map) {
     console.log('trailDivClickHandler divPoiId = ' + divPoiId)
     if (divTrailName) {
       trailSubsystem = divTrailName
-      analyticsCode.trackClickEventWithGA('List', 'Click', trailSubsystem)
       that.trailDivWork(trailSubsystem, null)
     } else {
       console.log('trailDivClickHandler else divPoiId = ' + divPoiId)
-      analyticsCode.trackClickEventWithGA('List', 'Click', divPoiName)
       that.trailDivWork(null, divPoiId)
     }
   }

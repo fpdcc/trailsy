@@ -243,17 +243,17 @@ var trailMap = function () {
     geoFunctions.setupGeolocation()
   }
 
-  $('a').click(function () {
-    var $a = $(this)
-    var href = $a.attr('href')
-    var datasource = $a.attr('data-source')
-    var datatrail = $a.attr('data-trailname')
-    var datapoi = $a.attr('data-trailheadName')
-    console.log('href = ' + href)
-    console.log('datasource = ' + datasource)
-    console.log('datatrail = ' + datatrail)
-    console.log('datapoi = ' + datapoi)
-  })
+  // $('a').click(function () {
+  //   var $a = $(this)
+  //   var href = $a.attr('href')
+  //   var datasource = $a.attr('data-source')
+  //   var datatrail = $a.attr('data-trailname')
+  //   var datapoi = $a.attr('data-trailheadName')
+  //   console.log('href = ' + href)
+  //   console.log('datasource = ' + datasource)
+  //   console.log('datatrail = ' + datatrail)
+  //   console.log('datapoi = ' + datapoi)
+  // })
 
   return that
 }

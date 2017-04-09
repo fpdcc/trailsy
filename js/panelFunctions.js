@@ -214,6 +214,8 @@ var panelFuncs = function (map) {
         "data-trail-length='" + "' " +
         "data-trailheadName='" + poiName + "' " +
         "data-trailheadid='" + poiId + "' " +
+        "data-analyticstype='List' " +
+        "data-analyticsdescription='" + poiName + "' " +
         "data-index='" + 0 + "'>"
 
       var trailheadInfoText = "<span class='fpccEntryName'>" +
@@ -237,6 +239,8 @@ var panelFuncs = function (map) {
           "data-trail-length='" + trailLength + "' " +
           "data-trailheadName='" + null + "' " +
           "data-trailheadid='" + null + "' " +
+          "data-analyticstype='List' " +
+          "data-analyticsdescription='" + trailSubsystemName + "' " +
           "data-index='" + 0 + "'>"
         trailheadInfoText = "<span class='fpccEntryName'>" +
           '<svg class="icon icon-trail-marker"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-trail-marker"></use></svg>' +
@@ -359,7 +363,7 @@ var panelFuncs = function (map) {
       }
       directionsUrl += '&daddr=' + poi.geometry.coordinates[1] + ',' + poi.geometry.coordinates[0]
       fpccContainerHTML += '</div></div>' +
-                         '<a href="' + directionsUrl + '" target="_blank" id="entranceDirections" class="fpccButton fpccDirections">Directions</a></div>'
+                         '<a href="' + directionsUrl + '" target="_blank" id="entranceDirections" class="fpccButton fpccDirections" data-analyticstype="Directions" data-analyticsdescription="' + displayName + '">Directions</a></div>'
       if (poi.properties.description) {
         fpccContainerHTML += '<div class="fpccDescription fpccUnit">' + poi.properties.description + '</div>'
       }
