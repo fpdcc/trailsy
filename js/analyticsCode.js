@@ -38,6 +38,31 @@ var trackClickEventWithGA = function (category, action, label) {
   })
 }
 
+var trackLinkClicks = function (category, action, label) {
+  ga('tracker1.send', 'event', {
+    eventCategory: category,
+    eventAction: action,
+    eventLabel: label,
+    transport: 'beacon'
+  })
+}
+
+$(document).ready(function () {
+  $(document).on('click', 'a', function (e) {
+    // console.log('a clicked!')
+    var $myTarget = $(e.currentTarget)
+    var description = $myTarget.attr('data-analyticsdescription')
+    var type = $myTarget.attr('data-analyticstype')
+    var href = $myTarget.attr('href')
+    // console.log('type, description: ' + type + ', ' + description)
+    if (type) {
+      trackLinkClicks(type, 'Click', description)
+    } else if (href.match(/^http/i) && !href.match(document.domain)) {
+      trackLinkClicks('Outbound Link', 'Click', href)
+    }
+  })
+})
+
 module.exports = {
   setup: setup,
   trackClickEventWithGA: trackClickEventWithGA

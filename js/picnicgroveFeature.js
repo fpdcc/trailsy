@@ -77,7 +77,8 @@ var picnicgroveFeature = function (map) {
   }
 
   that.pgClickSetup = function (picnicgrove) {
-    analyticsCode.trackClickEventWithGA('Marker', 'picnicgroveClick', picnicgrove.properties.id)
+    var analyticsName = picnicgrove.properties.preserve_name + '-' + picnicgrove.properties.grove
+    analyticsCode.trackClickEventWithGA('Marker', 'picnicgroveClick', analyticsName)
     events.openPopup(picnicgrove.popupContent, picnicgrove.getLatLng())
   }
 

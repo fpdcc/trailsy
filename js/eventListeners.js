@@ -120,11 +120,9 @@ var events = function (map) {
     console.log('trailDivClickHandler divPoiId = ' + divPoiId)
     if (divTrailName) {
       trailSubsystem = divTrailName
-      analyticsCode.trackClickEventWithGA('List', 'Click', trailSubsystem)
       that.trailDivWork(trailSubsystem, null)
     } else {
       console.log('trailDivClickHandler else divPoiId = ' + divPoiId)
-      analyticsCode.trackClickEventWithGA('List', 'Click', divPoiName)
       that.trailDivWork(null, divPoiId)
     }
   }
@@ -153,9 +151,10 @@ var events = function (map) {
         zoomFeatureGroupBounds = trailsGroupBounds
       }
       console.log('[trailDivWork] before fitbounds')
+      console.log('[trailDivWork] my.panel.padding = ' + my.panel.padding)
       map.fitBounds(zoomFeatureGroupBounds, {
-        padding: my.panel.padding
-        // paddingTopLeft: centerOffset
+        paddingTopLeft: my.panel.padding,
+        paddingBottomRight: my.panel.paddingRight
       })
     }, 0)
     console.log('trailDivWork end')
@@ -170,21 +169,19 @@ var events = function (map) {
     console.log('[events poiClick] start')
     analyticsCode.trackClickEventWithGA('Marker', 'poiClick', poi.properties.name)
     var zoomFeatureGroupBounds = that.highlightPoi(poi)
-    // var poi = my.poiFeat.getPoiById(poiId)
     var trailSubsystem = poi.properties.trail_subsystem || null
     that.highlightSegmentsForSubsystem(trailSubsystem)
-    // my.map.panTo(zoomFeatureGroupBounds.getCenter()) // Temporary fix for fitBounds not properly refreshing canvas.
     if (my.map.getBoundsZoom(zoomFeatureGroupBounds) >= my.map.getZoom()) {
       my.map.fitBounds(zoomFeatureGroupBounds,
         {
-          // paddingTopLeft: centerOffset
-          padding: my.panel.padding
+          paddingTopLeft: my.panel.padding,
+          paddingBottomRight: my.panel.paddingRight
         })
     } else {
       my.map.fitBounds(zoomFeatureGroupBounds, {
         maxZoom: my.map.getZoom(),
-        padding: my.panel.padding
-        // paddingTopLeft: centerOffset
+        paddingTopLeft: my.panel.padding,
+        paddingBottomRight: my.panel.paddingRight
       })
     }
     my.panel.showDetails(my, null, poi)
@@ -209,11 +206,10 @@ var events = function (map) {
           trailSubsystem = trailSubsystem.replace(/[& ]/g, '+')
         }
         that.highlightSegmentsForSubsystem(trailSubsystem)
-        // map.panTo(zoomFeatureGroupBounds.getCenter()); // Temporary fix for fitBounds not properly refreshing canvas.
         my.map.fitBounds(zoomFeatureGroupBounds, {
           maxZoom: my.map.getZoom(),
-          padding: my.panel.padding
-           // paddingTopLeft: centerOffset
+          paddingTopLeft: my.panel.padding,
+          paddingBottomRight: my.panel.paddingRight
         })
       }
     }

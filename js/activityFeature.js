@@ -89,9 +89,10 @@ var activityFeature = function (map) {
 
   that.activityClickSetup = function (activity) {
     var poiId = activity.properties.poi_info_id
+    var activityName = activity.properties.name
     console.log('activity.properties.id = ' + activity.properties.id)
     var markerId = activity.properties.id
-    analyticsCode.trackClickEventWithGA('Marker', 'activityClick', markerId)
+    analyticsCode.trackClickEventWithGA('Marker', 'activityClick', activityName)
     events.openPopup(activity.popupContent, activity.getLatLng())
 
     events.activityClick(poiId)
