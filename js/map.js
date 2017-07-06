@@ -17,6 +17,7 @@ var geolocationFunctions = require('./geolocationFunctions.js')
 var filterFunctions = require('./filterFunctions.js')
 var eventListeners = require('./eventListeners.js')
 var panelFunctions = require('./panelFunctions.js')
+var alertFeature = require('./alertFeature.js')
 
 var trailMap = function () {
   var that = {}
@@ -32,11 +33,12 @@ var trailMap = function () {
   var activityFeat = activityFeature(map)
   var picnicgroveFeat = picnicgroveFeature(map)
   var tInfo = trailInfo(map)
+  var alertFeat = alertFeature(map)
   var filters = filterFunctions(map)
   // var geoFunctions = geolocationFunctions(map, filters, poiFeat)
-  var pSetup = panelFunctions.setup(map, filters, poiFeat, tSegment, activityFeat, picnicgroveFeat, tInfo)
+  var pSetup = panelFunctions.setup(map, filters, poiFeat, tSegment, activityFeat, picnicgroveFeat, tInfo, alertFeat)
   var panel = panelFunctions.panelFuncs(map)
-  var eSetup = eventListeners.setup(map, panel, filters, poiFeat, tSegment, activityFeat, picnicgroveFeat, tInfo)
+  var eSetup = eventListeners.setup(map, panel, filters, poiFeat, tSegment, activityFeat, picnicgroveFeat, tInfo, alertFeat)
   var events = eventListeners.events(map)
   var geoFunctions = geolocationFunctions(map, filters, poiFeat, events)
 
@@ -241,6 +243,7 @@ var trailMap = function () {
     activityFeat.fetchActivities()
     picnicgroveFeat.fetchPicnicgroves()
     geoFunctions.setupGeolocation()
+    alertFeat.fetchAlerts()
   }
 
   // $('a').click(function () {

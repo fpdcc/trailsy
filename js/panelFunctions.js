@@ -3,6 +3,7 @@ var L = require('leaflet')
 var $ = require('jquery')
 var Config = require('./config.js')
 var eL = require('./eventListeners.js')
+var autolink = require('autolink-js')
 var map
 var filters
 var panel
@@ -12,8 +13,9 @@ var actFeat
 var pgFeat
 var trailInfo
 var events
+var alertFeat
 
-var setup = function (myMap, myFilters, myPoiFeature, myTrailSegmentFeature, myActivityFeature, myPicnicgroveFeature, myTrailInfo) {
+var setup = function (myMap, myFilters, myPoiFeature, myTrailSegmentFeature, myActivityFeature, myPicnicgroveFeature, myTrailInfo, myAlertFeature) {
   map = myMap
   filters = myFilters
   poiFeat = myPoiFeature
@@ -21,6 +23,7 @@ var setup = function (myMap, myFilters, myPoiFeature, myTrailSegmentFeature, myA
   actFeat = myActivityFeature
   pgFeat = myPicnicgroveFeature
   trailInfo = myTrailInfo
+  alertFeat = myAlertFeature
 }
 
 var panelFuncs = function (map) {
@@ -302,6 +305,27 @@ var panelFuncs = function (map) {
     console.log('[panelFunctions showDetails end')
   }
 
+  that.buildAlertHTML = function (alerts) {
+    var alertsHTML = '<div class="fpccAlerts fpccUnit"><span class="fpccAlertIcon"><svg class="icon icon-alert"><use xlink:href="icons/defs.svg#icon-alert"></use></svg></span><span class="fpccAlertBlurb">'
+    $.each(alerts, function (i, alert) {
+      var alertHTML = '<span class="fpccSingleAlert"><strong>' +
+                      alert.start_date + ' - '
+      if (alert.end_date) {
+        alertHTML += alert.end_date
+      } else {
+        alertHTML += "No end date set"
+      }   
+      alertHTML += ':</strong> ' + alert.description.autoLink()
+      if (alert.link) {
+        alertHTML += ' <a href="' + alert.link + '">More information ></a>'
+      }
+      alertHTML += '</span>'
+      alertsHTML += alertHTML
+    })
+    alertsHTML += '</span></div>'
+    return alertsHTML
+  }
+
   that.buildDetailPanelHTML = function (myReferences, trailSubsystemNormalizedName, poi) {
     var directTrail = null
     var descriptionTrail = null
@@ -339,6 +363,12 @@ var panelFuncs = function (map) {
                            '</div>'
       }
       // ADD ALERTS INFO HERE
+      if (myReferences.alertFeat) {
+        var poiAlerts = myReferences.alertFeat.poiAlerts[poi.properties.id]
+        if (poiAlerts) {
+          fpccContainerHTML += that.buildAlertHTML(poiAlerts)
+        }
+      }
       fpccContainerHTML += '<div class="fpccEntrance fpccUnit clearfix">' +
                          '<div class="fpccSign clearfix">' +
                          '<svg class="icon icon-sign"><use xlink:href="icons/defs.svg#icon-sign"></use></svg>' +
@@ -734,6 +764,13 @@ var panelFuncs = function (map) {
     fpccNameHTML += '</span><svg id="closeDetail" class="icon icon-x closeDetail"><use id="useCloseDetail" xlink:href="icons/defs.svg#icon-x"></use></svg></div>'
     //Trails Section
     var trailsHTML = ""
+    trailSubsystemNormalizedName
+    if (myReferences.alertFeat) {
+      var trailAlerts = myReferences.alertFeat.trailSubsystemAlerts[trailSubsystemNormalizedName]
+      if (trailAlerts) {
+        trailsHTML += that.buildAlertHTML(trailAlerts)
+      }
+    }
     if (descriptionTrail) {
       // console.log('[decorateDetailPanelForTrailhead] system = ' + descriptionTrail.trail_subsystem)
       var subSystem = descriptionTrail.trail_subsystem

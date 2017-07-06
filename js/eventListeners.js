@@ -11,10 +11,11 @@ var my = {
   tsFeat: null,
   actFeat: null,
   pgFeat: null,
-  trailInfo: null
+  trailInfo: null,
+  alertFeat: null
 }
 
-var setup = function (map, panel, filters, poiFeature, trailSegmentFeature, activityFeature, picnicgroveFeature, trailInfo) {
+var setup = function (map, panel, filters, poiFeature, trailSegmentFeature, activityFeature, picnicgroveFeature, trailInfo, alertFeature) {
   my.map = map
   my.panel = panel
   my.filters = filters
@@ -23,6 +24,7 @@ var setup = function (map, panel, filters, poiFeature, trailSegmentFeature, acti
   my.actFeat = activityFeature
   my.pgFeat = picnicgroveFeature
   my.trailInfo = trailInfo
+  my.alertFeat = alertFeature
 }
 
 var events = function (map) {
