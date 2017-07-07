@@ -743,6 +743,11 @@ var panelFuncs = function (map) {
         extraLinksText += '<li><a class="fpccMore" href="' + poi.properties.picnic_link
         extraLinksText += '" target="_blank">Picnic Grove Map (PDF)</a></li>'
       }
+      if (poi.properties.fish_map) {
+        extraLinksExist = true
+        extraLinksText += '<li><a class="fpccMore" href="' + poi.properties.fish_map
+        extraLinksText += '" target="_blank">Fishing Lake Map (PDF)</a></li>'
+      }
       if (poi.properties.vol_link) {
         extraLinksExist = true
         extraLinksText += '<li><a class="fpccMore" href="' + poi.properties.vol_link
