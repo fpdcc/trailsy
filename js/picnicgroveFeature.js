@@ -41,6 +41,10 @@ var picnicgroveFeature = function (map) {
       popupContentMainDivHTML += currentFeature.properties.preserve_name
       popupContentMainDivHTML += ' Grove #' + currentFeature.properties.grove
       popupContentMainDivHTML += '</div>'
+      if (currentFeature.properties.capacity) {
+        popupContentMainDivHTML += '<div class="picnicgrove-capacity">Capacity: ' +
+                                    currentFeature.properties.capacity + '</div>'
+      }
       var iconName = 'icon-picnic-grove'
       if (currentFeature.properties.grove_type === 'shelter') {
         iconName = 'icon-picnic-grove-shelter'
