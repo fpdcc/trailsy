@@ -614,6 +614,9 @@ var panelFuncs = function (map) {
         if ((poi.properties.tags[':panel'].indexOf("cross_country") > -1)) {
           tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/cross-county-skiing/">Cross-Country Skiing</a></li>'
         }
+        if (poi.properties.tags[':panel'].indexOf("disc_golf") > -1) {
+          tagLinks += '<li><a class="fpccMore" href="http://fpdcc.com/disc-golf/" target="_blank">Disc Golf</a></li>'
+        }
         if ((poi.properties.tags[':panel'].indexOf("dog_leash") > -1) || (poi.properties.tags[':panel'].indexOf("dog_friendly") > -1)) {
           tagLinks += '<li><a class="fpccMore" target="_blank" href="http://fpdcc.com/dogs/">Dogs</a></li>'
         }
