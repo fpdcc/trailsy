@@ -128,6 +128,7 @@ var trailMap = function () {
   var poiSegmentsReady = $.when(poiFeat.originalPoiInfoAdded, tSegment.segmentsCreated)
   var activitiesReady = $.when(activityFeat.originalActivitiesCreated)
   var picnicgrovesReady = $.when(picnicgroveFeat.originalPicnicgrovesCreated)
+  var geoSetupAndAlertsReady = $.when(alertFeat.alertsCreated, geoFunctions.geoSetupDone)
   poiAndTrailInfoCreated.done(function () {
     poiFeat.addTrailInfo(tInfo.originalTrailInfo)
     console.log('filters.current = ' + filters.current)
@@ -146,7 +147,7 @@ var trailMap = function () {
           whatBounds = ''
         }
         var openResults = true
-        geoFunctions.geoSetupDone.done(function () {
+        geoSetupAndAlertsReady.done(function () {
           if (filters.current.poi) {
             events.trailDivWork(null, filters.current.poi)
             panel.toggleDetailPanel('open')

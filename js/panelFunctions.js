@@ -365,6 +365,7 @@ var panelFuncs = function (map) {
       // ADD ALERTS INFO HERE
       if (myReferences.alertFeat) {
         var poiAlerts = myReferences.alertFeat.poiAlerts[poi.properties.id]
+        console.log('poiAlerts = ' + poiAlerts)
         if (poiAlerts) {
           fpccContainerHTML += that.buildAlertHTML(poiAlerts)
         }
@@ -770,8 +771,8 @@ var panelFuncs = function (map) {
     }
     var closeID = 'closeDetail'
     fpccNameHTML += '</span><svg id="closeDetail" class="icon icon-x closeDetail"><use id="useCloseDetail" xlink:href="icons/defs.svg#icon-x"></use></svg></div>'
-    //Trails Section
-    var trailsHTML = ""
+    // Trails Section
+    var trailsHTML = ''
     trailSubsystemNormalizedName
     if (myReferences.alertFeat) {
       var trailAlerts = myReferences.alertFeat.trailSubsystemAlerts[trailSubsystemNormalizedName]
