@@ -166,7 +166,7 @@ a:hover.fpccSpecialDesc,a:active.fpccSpecialDesc{background:#FFE9A4}
 .fpccAlertBlurb {display:block;width:100%;clear:both;padding-top:0}
 .fpccAlertBlurb {display:none;}
 .fpccAlertIcon {vertical-align:top;width:2em;margin-right:1em;display:inline-block;text-align:left;float:left}
-.fpccAlertHead{font-weight:bold;text-transform:uppercase;font-family:Helvetica,Arial,sans-serif;color:#B70000}
+.fpccAlertHead{cursor:pointer;font-weight:bold;text-transform:uppercase;font-family:Helvetica,Arial,sans-serif;color:#B70000}
 .fpccAlertNumber{float:left;font-size:1.35em}
 .fpccAlertToggle{float:right;font-size:2em;line-height:1}
 .fpccAlertHead:hover,.fpccAlertHead:active{background:#FFCABB}
