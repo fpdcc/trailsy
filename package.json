@@ -12,9 +12,10 @@
     "jquery-address": "^1.6",
     "leaflet": "^1.0.3",
     "leaflet-boundsawarelayergroup": "^1.2.2",
-    "leaflet.markercluster": "^1.0.3",
     "leaflet-providers": "^1.1.0",
     "leaflet-usermarker": "^1.0.0",
+    "leaflet.markercluster": "^1.0.3",
+    "pluralize": "^6.0.0",
     "selectize": "^0.12.4",
     "svgxuse": "^1.2.1"
   },

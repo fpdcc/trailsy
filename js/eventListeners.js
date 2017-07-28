@@ -44,6 +44,7 @@ var events = function (map) {
     // $('.fpccMenuList a').on(Config.listenType, panel.changeMenuDisplay)
     $('.fpccMobileHamburger').on(Config.listenType, panel.changeMobileMenuDisplay)
     // $('.usePoi').on(Config.listenType, that.testClick)
+    $('body').on(Config.listenType, '.fpccAlertHead', panel.toggleAlerts)
   }
 
   var offsetZoomIn = function (e) {

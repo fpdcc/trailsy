@@ -1,6 +1,7 @@
 'use strict'
 var L = require('leaflet')
 var $ = require('jquery')
+var pluralize = require('pluralize')
 var Config = require('./config.js')
 var eL = require('./eventListeners.js')
 var autolink = require('autolink-js')
@@ -306,7 +307,9 @@ var panelFuncs = function (map) {
   }
 
   that.buildAlertHTML = function (alerts) {
-    var alertsHTML = '<div class="fpccAlerts fpccUnit"><span class="fpccAlertIcon"><svg class="icon icon-alert"><use xlink:href="icons/defs.svg#icon-alert"></use></svg></span><span class="fpccAlertBlurb">'
+    var alertCount = alerts.length
+    console.log("alertCount = " + alerts.length)
+    var alertsHTML = '<div class="fpccAlerts"><div class="fpccAlertHead clearfix fpccUnit"><span class="fpccAlertIcon"><svg class="icon icon-alert"><use xlink:href="icons/defs.svg#icon-alert"></use></svg></span><span class="fpccAlertNumber">' + alertCount + ' ' + pluralize('alert', alertCount) + '</span><span class="fpccAlertToggle">+</span></div><div class="fpccAlertBlurb fpccUnit">'
     $.each(alerts, function (i, alert) {
       var alertHTML = '<span class="fpccSingleAlert"><strong>' +
                       alert.start_date + ' - '
@@ -322,8 +325,20 @@ var panelFuncs = function (map) {
       alertHTML += '</span>'
       alertsHTML += alertHTML
     })
-    alertsHTML += '</span></div>'
+    alertsHTML += '</div></div>'
     return alertsHTML
+  }
+
+  that.toggleAlerts = function () {
+    // console.log('toggleAlerts')
+    $('.fpccAlertBlurb').toggle('slow', function () {
+      // console.log('toggle complete!')
+      if ($(this).is(':visible')) {
+        $('.fpccAlertToggle').text('-')
+      } else {
+        $('.fpccAlertToggle').text('+')
+      }
+    })
   }
 
   that.buildDetailPanelHTML = function (myReferences, trailSubsystemNormalizedName, poi) {
