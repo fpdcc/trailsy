@@ -36,6 +36,9 @@ var filterFunctions = function (map) {
   }
 
   that.addressChange = function () {
+    that.current.poi = null
+    that.current.trail = null
+    that.current.fromURL = false
     var search = decodeURIComponent($.address.parameter('search')).replace(/\+/g, ' ');
     var poi = decodeURIComponent($.address.parameter('poi'))
     var trail = decodeURIComponent($.address.parameter('trail'))
