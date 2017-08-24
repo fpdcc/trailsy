@@ -379,7 +379,10 @@ var panelFuncs = function (map) {
       }
       // ADD ALERTS INFO HERE
       if (myReferences.alertFeat) {
-        var poiAlerts = myReferences.alertFeat.poiAlerts[poi.properties.id]
+        console.log('globalAlerts.length = ' + myReferences.alertFeat.globalAlerts.length)
+        console.log('poiAlerts.length = ' + myReferences.alertFeat.poiAlerts.length)
+        var poiAlerts = myReferences.alertFeat.poiAlerts[poi.properties.id] || []
+        poiAlerts = myReferences.alertFeat.globalAlerts.concat(poiAlerts)
         console.log('poiAlerts = ' + poiAlerts)
         if (poiAlerts) {
           fpccContainerHTML += that.buildAlertHTML(poiAlerts)
@@ -790,7 +793,8 @@ var panelFuncs = function (map) {
     var trailsHTML = ''
     trailSubsystemNormalizedName
     if (myReferences.alertFeat) {
-      var trailAlerts = myReferences.alertFeat.trailSubsystemAlerts[trailSubsystemNormalizedName]
+      var trailAlerts = myReferences.alertFeat.trailSubsystemAlerts[trailSubsystemNormalizedName] || []
+      trailAlerts = myReferences.alertFeat.globalAlerts.concat(trailAlerts)
       if (trailAlerts) {
         trailsHTML += that.buildAlertHTML(trailAlerts)
       }
