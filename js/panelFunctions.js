@@ -306,10 +306,10 @@ var panelFuncs = function (map) {
     console.log('[panelFunctions showDetails end')
   }
 
-  that.buildAlertHTML = function (alerts) {
+  that.buildAlertHTML = function (alerts, sectionId) {
     var alertCount = alerts.length
     console.log("alertCount = " + alerts.length)
-    var alertsHTML = '<div class="fpccAlerts"><div class="fpccAlertHead clearfix fpccUnit"><span class="fpccAlertIcon"><svg class="icon icon-alert"><use xlink:href="icons/defs.svg#icon-alert"></use></svg></span><span class="fpccAlertNumber">' + alertCount + ' ' + pluralize('alert', alertCount) + '</span><span class="fpccAlertToggle">+</span></div><div class="fpccAlertBlurb fpccUnit">'
+    var alertsHTML = '<div class="fpccAlerts"><div class="fpccAlertHead clearfix fpccUnit" data-sectionid="' + sectionId + '"><span class="fpccAlertIcon"><svg class="icon icon-alert"><use xlink:href="icons/defs.svg#icon-alert"></use></svg></span><span class="fpccAlertNumber">' + alertCount + ' ' + pluralize('alert', alertCount) + '</span><span class="fpccAlertToggle" id="alertToggle-' + sectionId + '">+</span></div><div class="fpccAlertBlurb fpccUnit" id="alertBlurb-' + sectionId + '">'
     $.each(alerts, function (i, alert) {
       var alertHTML = '<span class="fpccSingleAlert"><strong>' +
                       alert.start_date + ' - '
@@ -329,14 +329,16 @@ var panelFuncs = function (map) {
     return alertsHTML
   }
 
-  that.toggleAlerts = function () {
-    // console.log('toggleAlerts')
-    $('.fpccAlertBlurb').toggle('slow', function () {
+  that.toggleAlerts = function (e) {
+    //console.log('toggleAlerts')
+    var $myTarget = $(e.currentTarget)
+    var sectionId = $myTarget.attr('data-sectionid')
+    $('#alertBlurb-' + sectionId).toggle('slow', function () {
       // console.log('toggle complete!')
       if ($(this).is(':visible')) {
-        $('.fpccAlertToggle').text('-')
+        $('#alertToggle-' + sectionId).text('-')
       } else {
-        $('.fpccAlertToggle').text('+')
+        $('#alertToggle-' + sectionId).text('+')
       }
     })
   }
@@ -385,7 +387,7 @@ var panelFuncs = function (map) {
         poiAlerts = myReferences.alertFeat.globalAlerts.concat(poiAlerts)
         console.log('poiAlerts = ' + poiAlerts)
         if (poiAlerts.length > 0) {
-          fpccContainerHTML += that.buildAlertHTML(poiAlerts)
+          fpccContainerHTML += that.buildAlertHTML(poiAlerts, "poi")
         }
       }
       fpccContainerHTML += '<div class="fpccEntrance fpccUnit clearfix">' +
@@ -796,7 +798,7 @@ var panelFuncs = function (map) {
       var trailAlerts = myReferences.alertFeat.trailSubsystemAlerts[trailSubsystemNormalizedName] || []
       trailAlerts = myReferences.alertFeat.globalAlerts.concat(trailAlerts)
       if (trailAlerts.length > 0) {
-        trailsHTML += that.buildAlertHTML(trailAlerts)
+        trailsHTML += that.buildAlertHTML(trailAlerts, "trail")
       }
     }
     if (descriptionTrail) {
