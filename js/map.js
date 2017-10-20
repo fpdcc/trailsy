@@ -28,17 +28,23 @@ var trailMap = function () {
   map.removeControl(map.zoomControl)
   var myAnalytics = analyticsCode.setup()
   // map.addControl(L.control.zoom({position: 'topright'}))
-  var poiFeat = poiFeature(map)
+  var alertFeat = alertFeature(map)
+  var poiSetup = poiFeature.setup(alertFeat)
+  var poiFeat = poiFeature.poiFeature(map)
+  
+  
   var tSegment = trailSegmentFeature(map)
   var activityFeat = activityFeature(map)
   var picnicgroveFeat = picnicgroveFeature(map)
   var tInfo = trailInfo(map)
-  var alertFeat = alertFeature(map)
+  
   var filters = filterFunctions(map)
   // var geoFunctions = geolocationFunctions(map, filters, poiFeat)
   var pSetup = panelFunctions.setup(map, filters, poiFeat, tSegment, activityFeat, picnicgroveFeat, tInfo, alertFeat)
   var panel = panelFunctions.panelFuncs(map)
   var eSetup = eventListeners.setup(map, panel, filters, poiFeat, tSegment, activityFeat, picnicgroveFeat, tInfo, alertFeat)
+  
+
   var events = eventListeners.events(map)
   var geoFunctions = geolocationFunctions(map, filters, poiFeat, events)
 
@@ -224,6 +230,7 @@ var trailMap = function () {
     var currentUIFilterState
     var searchKeyTimeout
     currentUIFilterState = $('#desktop .fpccSearchbox').val()
+    console.log('[processSearch] currentUIFilterState= ' + currentUIFilterState)
     analyticsCode.trackClickEventWithGA('Search', 'Begin', currentUIFilterState)
     filters.setCurrent(currentUIFilterState)
     var openResults = true

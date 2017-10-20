@@ -6,6 +6,12 @@ require('leaflet.markercluster')
 var Config = require('./config.js')
 var eL = require('./eventListeners.js')
 
+var alertFeat
+
+var setup = function (alertFeature) {
+  alertFeat = alertFeature
+}
+
 var poiFeature = function (map) {
   var that = {}
   var events = eL.events()
@@ -330,6 +336,13 @@ var poiFeature = function (map) {
       }
       filterScore = filterScore * term
     }
+    if (filters.current.hasAlerts) {
+      var poiAlerts = alertFeat.poiAlerts[poi.properties.id] || []
+      console.log('poiAlerts = ' + poiAlerts)
+      if (poiAlerts.length == 0) {
+        filterScore = 0
+      }
+    }
     poi.properties.filterScore = filterScore
     return filterScore
   }
@@ -350,4 +363,10 @@ var poiFeature = function (map) {
   return that
 }
 
-module.exports = poiFeature
+//module.exports = poiFeature
+
+
+module.exports = {
+  setup: setup,
+  poiFeature: poiFeature
+}
