@@ -5,6 +5,7 @@
   "license": "BSD-3-Clause",
   "private": true,
   "dependencies": {
+    "autolink-js": "^1.0.2",
     "async": "^1.2.1",
     "bootstrap": "^3.3.5",
     "bootstrap-drawer": "^1.0.4",
