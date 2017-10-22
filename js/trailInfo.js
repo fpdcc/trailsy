@@ -33,13 +33,10 @@ var trailInfo = function () {
 
   that.addFilterAlerts = function (filters, alertFeat) {
     that.hasAlerts = []
-    if (filters.current.hasAlerts) {
+    if (filters.current.hasAlerts && ((!Array.isArray(filters.current.search) || !filters.current.search.length))) {
       $.each(that.trailSubsystemMap, function (name, value) {
         var trailAlerts = alertFeat.trailSubsystemAlerts[name] || []
-        console.log('trailAlerts = ' + trailAlerts)
         if (trailAlerts.length > 0) {
-          console.log('filterPoi trailAlerts.length > 0 ' + name)
-          console.log('filterPoi trailAlerts= ' + trailAlerts)
           that.filteredSystemNames[name] = 1
         }
       })

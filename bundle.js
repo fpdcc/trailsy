@@ -10969,17 +10969,23 @@
 	  map.removeControl(map.zoomControl)
 	  var myAnalytics = analyticsCode.setup()
 	  // map.addControl(L.control.zoom({position: 'topright'}))
-	  var poiFeat = poiFeature(map)
+	  var alertFeat = alertFeature(map)
+	  //var poiSetup = poiFeature.setup(alertFeat)
+	  var poiFeat = poiFeature.poiFeature(map)
+	  
+	  
 	  var tSegment = trailSegmentFeature(map)
 	  var activityFeat = activityFeature(map)
 	  var picnicgroveFeat = picnicgroveFeature(map)
-	  var tInfo = trailInfo(map)
-	  var alertFeat = alertFeature(map)
+	  var tInfo = trailInfo.trailInfo(map)
+	  
 	  var filters = filterFunctions(map)
 	  // var geoFunctions = geolocationFunctions(map, filters, poiFeat)
 	  var pSetup = panelFunctions.setup(map, filters, poiFeat, tSegment, activityFeat, picnicgroveFeat, tInfo, alertFeat)
 	  var panel = panelFunctions.panelFuncs(map)
 	  var eSetup = eventListeners.setup(map, panel, filters, poiFeat, tSegment, activityFeat, picnicgroveFeat, tInfo, alertFeat)
+	  
+	
 	  var events = eventListeners.events(map)
 	  var geoFunctions = geolocationFunctions(map, filters, poiFeat, events)
 	
@@ -11115,9 +11121,10 @@
 	      // console.log('[$.when readyToFilter] start at: ' + performance.now())
 	      geoFunctions.geoSetupDone.done(function () {
 	        // console.log('[filterAll] geoSetupDone at ' + performance.now())
-	        poiFeat.filterPoi(filters)
-	        events.makeResults(openResults)
-	        tSegment.filterSegments(poiFeat.filteredTrailSubsystems)
+	        poiFeat.filterPoi(filters, tInfo, alertFeat)
+	        tInfo.addFilterAlerts(filters, alertFeat)
+	        events.makeResults(poiFeat, tInfo, filters, openResults)
+	        tSegment.filterSegments(tInfo.filteredSystemNames)
 	        activitiesReady.done(function () {
 	          activityFeat.filterActivity(poiFeat.filteredPoisArray)
 	        })
@@ -11165,6 +11172,7 @@
 	    var currentUIFilterState
 	    var searchKeyTimeout
 	    currentUIFilterState = $('#desktop .fpccSearchbox').val()
+	    console.log('[processSearch] currentUIFilterState= ' + currentUIFilterState)
 	    analyticsCode.trackClickEventWithGA('Search', 'Begin', currentUIFilterState)
 	    filters.setCurrent(currentUIFilterState)
 	    var openResults = true
@@ -25352,6 +25360,12 @@
 	var Config = __webpack_require__(9)
 	var eL = __webpack_require__(12)
 	
+	// var alertFeat
+	
+	// var setup = function (alertFeature) {
+	//   alertFeat = alertFeature
+	// }
+	
 	var poiFeature = function (map) {
 	  var that = {}
 	  var events = eL.events()
@@ -25514,11 +25528,11 @@
 	    console.log('[poiFeature.addTrailInfo] end at: ' + performance.now())
 	  }
 	
-	  that.filterPoi = function (filters) {
+	  that.filterPoi = function (filters, tInfo, alertFeat) {
 	    console.log('[filterPoi start] at: ' + performance.now())
 	    var poiArrayLength = that.originalPoisArray.length
 	    that.filteredPoisArray = []
-	    that.filteredTrailSubsystems = {}
+	    tInfo.filteredSystemNames = {}
 	    if (that.filteredPoisFeatureGroup) {
 	      map.removeLayer(that.filteredPoisFeatureGroup)
 	      that.filteredPoisFeatureGroup = null
@@ -25527,13 +25541,24 @@
 	
 	    for (var poiNum = 0; poiNum < poiArrayLength; poiNum++) {
 	      var poi = that.originalPoisArray[poiNum]
-	      var filterScore = filterResult(poi, filters)
+	      var filterScore = filterResult(poi, alertFeat, filters)
 	      if (filterScore > 0) {
 	        that.filteredPoisArray.push(that.originalPoisArray[poiNum])
 	        var thisTrailSubsystem = that.originalPoisArray[poiNum].properties.trail_subsystem
 	        if (thisTrailSubsystem) {
+	          var addTrail = 1
 	          thisTrailSubsystem = thisTrailSubsystem.replace(/[& ]/g, '+')
-	          that.filteredTrailSubsystems[thisTrailSubsystem] = 1
+	          if (filters.current.hasAlerts) {
+	            var trailAlerts = alertFeat.trailSubsystemAlerts[thisTrailSubsystem] || []
+	            console.log('trailAlerts = ' + trailAlerts)
+	            if (trailAlerts.length > 0) {
+	              console.log('filterPoi trailAlerts.length > 0 ' + thisTrailSubsystem)
+	              console.log('filterPoi trailAlerts= ' + trailAlerts)
+	              tInfo.filteredSystemNames[thisTrailSubsystem] = 1
+	            }
+	          } else {
+	            tInfo.filteredSystemNames[thisTrailSubsystem] = 1
+	          }
 	        }
 	      }
 	    }
@@ -25613,7 +25638,7 @@
 	    }
 	  }
 	
-	  var filterResult = function (poi, filters) {
+	  var filterResult = function (poi, alertFeat, filters) {
 	    var filterScore = 1
 	    var term = 1
 	    var equivalentWords = [
@@ -25676,6 +25701,13 @@
 	      }
 	      filterScore = filterScore * term
 	    }
+	    if (filters.current.hasAlerts) {
+	      var poiAlerts = alertFeat.poiAlerts[poi.properties.id] || []
+	      console.log('poiAlerts = ' + poiAlerts)
+	      if (poiAlerts.length == 0) {
+	        filterScore = 0
+	      }
+	    }
 	    poi.properties.filterScore = filterScore
 	    return filterScore
 	  }
@@ -25696,8 +25728,13 @@
 	  return that
 	}
 	
-	module.exports = poiFeature
-
+	//module.exports = poiFeature
+	
+	
+	module.exports = {
+	  //setup: setup,
+	  poiFeature: poiFeature
+	}
 
 /***/ }),
 /* 12 */
@@ -25809,8 +25846,8 @@
 	    }, 0)
 	  }
 	
-	  that.makeResults = function (open) {
-	    panel.makeTrailDivs(my.poiFeat, my.filters, open)
+	  that.makeResults = function (poiFeat, trailInfo, filters, open) {
+	    panel.makeTrailDivs(poiFeat, trailInfo, filters, open)
 	    $('.fpccEntry').on(Config.listenType, that.trailDivClickHandler)
 	  }
 	
@@ -26108,7 +26145,7 @@
 	    }
 	    var segmentArray = []
 	    $.each(trailSubsystems, function (index, value) {
-	      // console.log('[filterSegments] index = ' + index)
+	      console.log('[filterSegments] index = ' + index)
 	      var segmentFGs = that.segmentTrailSubsystemObject[index]
 	      if (segmentFGs) {
 	        // segmentArray.push(segmentFGs)
@@ -26329,10 +26366,18 @@
 	var $ = __webpack_require__(1)
 	var Config = __webpack_require__(9)
 	
+	// var alertFeat
+	
+	// var setup = function (alertFeature) {
+	//   alertFeat = alertFeature
+	// }
+	
 	var trailInfo = function () {
 	  var that = {}
 	  that.originalTrailInfo = {}
 	  that.trailSubsystemMap = {}
+	  that.filteredSystemNames = {}
+	  that.hasAlerts = []
 	  that.trailInfoCreated = $.Deferred()
 	
 	  that.fetchTrailInfo = function () {
@@ -26347,6 +26392,19 @@
 	    .fail(function () {
 	      console.log('error')
 	    })
+	  }
+	
+	  that.addFilterAlerts = function (filters, alertFeat) {
+	    that.hasAlerts = []
+	    if (filters.current.hasAlerts && ((!Array.isArray(filters.current.search) || !filters.current.search.length))) {
+	      $.each(that.trailSubsystemMap, function (name, value) {
+	        var trailAlerts = alertFeat.trailSubsystemAlerts[name] || []
+	        if (trailAlerts.length > 0) {
+	          that.filteredSystemNames[name] = 1
+	        }
+	      })
+	    }
+	    return that.filteredSystemNames
 	  }
 	
 	  var _makeTrailInfoObject = function (data) {
@@ -26370,10 +26428,16 @@
 	    }
 	    that.trailInfoCreated.resolve(that.originalTrailInfo)
 	  }
+	
+	  
 	  return that
 	}
 	
-	module.exports = trailInfo
+	//module.exports = trailInfo
+	module.exports = {
+	  //setup: setup,
+	  trailInfo: trailInfo
+	}
 
 
 /***/ }),
@@ -26978,6 +27042,7 @@
 	    search: [],
 	    poi: null,
 	    trail: null,
+	    hasAlerts: null,
 	    filter: [],
 	    userLocation: null,
 	    searchLocation: null,
@@ -27002,15 +27067,18 @@
 	  that.addressChange = function () {
 	    that.current.poi = null
 	    that.current.trail = null
+	    that.current.hasAlerts = false
 	    that.current.fromURL = false
 	    var search = decodeURIComponent($.address.parameter('search')).replace(/\+/g, ' ');
 	    var filter = decodeURIComponent($.address.parameter('filter')).replace(/\+/g, ' ');
 	    var poi = decodeURIComponent($.address.parameter('poi'))
 	    var trail = decodeURIComponent($.address.parameter('trail'))
+	    // var hasAlerts = decodeURIComponent($.address.parameter('hasAlerts'))
 	    console.log("[address.change] searchFilter = " + search)
 	    console.log("[address.change] filter = " + filter)
 	    console.log("[address.change] poi = " + poi)
 	    console.log("[address.change] trail = " + trail)
+	    // console.log("[address.change] hasAlerts = " + hasAlerts)
 	    if (search == 'undefined' || search == 'null') {
 	      search = ''
 	    }
@@ -27023,8 +27091,14 @@
 	    if (trail == 'undefined' || trail == 'null') {
 	      trail = ''
 	    }
+	    // if (hasAlerts == 'undefined' || hasAlerts == 'null') {
+	    //   that.current.hasAlerts = false
+	    // } else {
+	    //   that.current.hasAlerts = true
+	    // }
 	    console.log("[address.Change] searchFilter = " + search)
 	    var poiID = null
+	
 	    if (search) {
 	      that.current.fromURL = true
 	      console.log("[addressChange] IF searchFilter = " + that.current.search)
@@ -27050,24 +27124,29 @@
 	  }
 	
 	  that.setCurrent = function (searchBoxValue) {
-	    console.log('[setCurrent] start')
+	    console.log('[setCurrent] start searchBoxValue= ' + searchBoxValue)
 	    that.previous = $.extend(true, {}, that.current)
 	    that.resetCurrent()
 	    var searchBoxValueArray = String(searchBoxValue).split(',')
 	    searchBoxValueArray = searchBoxValueArray.filter(Boolean)
-	    var removeIndex = null
+	    var removeIndexs = []
 	    that.current.trailInList = true
 	    that.current.trailOnMap = true
 	    $.each(searchBoxValueArray, function (key, value) {
 	      var normalizedValue = value.toLowerCase()
+	      console.log('setCurrent normalizedValue= ' + normalizedValue)
+	      if (normalizedValue == "hasalerts") {
+	        that.current.hasAlerts = true
+	        removeIndexs.push(key)
+	      }
 	      if (!(locationsZipCode[normalizedValue] === undefined)) {
 	        that.current.searchLocation = new L.LatLng(locationsZipCode[normalizedValue]['latitude'], locationsZipCode[normalizedValue]['longitude'])
 	        that.current.zipMuniFilter = normalizedValue
-	        removeIndex = key
+	        removeIndexs.push(key)
 	      } else if (!(locationsMuni[normalizedValue] === undefined)) {
 	        that.current.searchLocation = new L.LatLng(locationsMuni[normalizedValue]['latitude'], locationsMuni[normalizedValue]['longitude'])
 	        that.current.zipMuniFilter = normalizedValue
-	        removeIndex = key
+	        removeIndexs.push(key)
 	      } else {
 	        searchBoxValueArray[key] = value.replace('-popular', '')
 	        normalizedValue = normalizedValue.replace('-popular', '')
@@ -27081,11 +27160,17 @@
 	        }
 	      }
 	    })
-	    if (!(removeIndex === null)) {
-	      searchBoxValueArray.splice(removeIndex, 1)
-	    }
+	    console.log('setCurrent removeIndexs = ' + removeIndexs)
+	    console.log('setCurrent removeIndexs = ' + removeIndexs)
+	    removeIndexs.sort( function (a, b) {
+	      return b - a
+	    })
+	    $.each(removeIndexs, function (key, value) {
+	      console.log('setCurrent searchBoxValueArray = ' + searchBoxValueArray)
+	      searchBoxValueArray.splice(value, 1)
+	    })
 	    searchBoxValueArray = searchBoxValueArray.filter(Boolean)
-	    console.log('searchBoxValueArray = ' + searchBoxValueArray)
+	    console.log('setCurrent searchBoxValueArray = ' + searchBoxValueArray)
 	    // console.log('trailInList = ' + that.current.trailInList)
 	    // console.log('trailonmap = ' + that.current.trailOnMap)
 	    that.current.search = searchBoxValueArray
@@ -27096,6 +27181,7 @@
 	    that.current.search = []
 	    that.current.poi = null
 	    that.current.trail = null
+	    that.current.hasAlerts = false
 	    that.current.searchLocation = null
 	    that.current.trailInList = true
 	    that.current.trailOnMap = true
@@ -28887,7 +28973,7 @@
 	    console.log('[setHeights] that.padding= ' + that.padding)
 	  }
 	
-	  that.makeTrailDivs = function (poiFeat, filters, open) {
+	  that.makeTrailDivs = function (poiFeat, tInfo, filters, open) {
 	    console.log('makeTrailDivs start')
 	    var trailList = {} // used to see if trail div has been built yet.
 	    var divCount = 0
@@ -28896,8 +28982,6 @@
 	      map.closePopup()
 	      that.toggleResultsList('open')
 	    }
-	    // var trailListElementList = document.getElementById(topLevelID).getElementsByClassName('fpccResults')
-	    // trailListElementList[0].innerHTML = ""
 	    var trailListContents = ''
 	    $.each(poiFeat.filteredPoisArray, function (i, el) {
 	      var poiTrailSubsystem = el.properties.trail_subsystem
@@ -28942,7 +29026,7 @@
 	      var trailDivComplete = trailDivText + trailheadInfoText
 	      trailListContents = trailListContents + trailDivComplete
 	      divCount++
-	      if ((!trailList[trailSubsystemNormalizedName]) && trailSubsystemNormalizedName && filters.current.trailInList) {
+	      if ((!trailList[trailSubsystemNormalizedName]) && tInfo.filteredSystemNames[trailSubsystemNormalizedName] && trailSubsystemNormalizedName && filters.current.trailInList) {
 	        trailDivText = "<a class='fpccEntry clearfix' " +
 	          "data-source='list' " +
 	          "data-trailid='" + trailSubsystemNormalizedName + "' " +
@@ -28959,6 +29043,32 @@
 	          '</div>'
 	        trailList[trailSubsystemNormalizedName] = 1
 	        trailDivComplete = trailDivText + trailheadInfoText
+	        trailListContents = trailListContents + trailDivComplete
+	        divCount++
+	      }
+	    })
+	    $.each(tInfo.filteredSystemNames, function (systemNormName, el) {
+	      if ((!trailList[systemNormName]) && filters.current.trailInList) {
+	        var trailSubsystemName = tInfo.trailSubsystemMap[systemNormName][0].trail_subsystem
+	        //console.log('makeTrailDivs systemNormName = ' + systemNormName)
+	        //console.log('makeTrailDivs tInfo.trailSubsystemMap[systemNormName] = ' + tInfo.trailSubsystemMap[systemNormName])
+	        //console.log('makeTrailDivs trailSubsystemName = ' + trailSubsystemName)
+	        var trailDivText = "<a class='fpccEntry clearfix' " +
+	          "data-source='list' " +
+	          "data-trailid='" + systemNormName + "' " +
+	          "data-trailname='" + systemNormName + "' " +
+	          //"data-trail-length='" + trailLength + "' " +
+	          "data-trailheadName='" + null + "' " +
+	          "data-trailheadid='" + null + "' " +
+	          "data-analyticstype='List' " +
+	          "data-analyticsdescription='" + trailSubsystemName + "' " +
+	          "data-index='" + 0 + "'>"
+	        var trailheadInfoText = "<span class='fpccEntryName'>" +
+	          '<svg class="icon icon-trail-marker"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-trail-marker"></use></svg>' +
+	          '<span class="fpccEntryNameText">' + trailSubsystemName + ' </span></span>' +
+	          '</div>'
+	        trailList[systemNormName] = 1
+	        var trailDivComplete = trailDivText + trailheadInfoText
 	        trailListContents = trailListContents + trailDivComplete
 	        divCount++
 	      }
@@ -29749,6 +29859,9 @@
 	    var searchValue = filters.current.search.slice(0)
 	    if (filters.current.zipMuniFilter) {
 	      searchValue.push(filters.current.zipMuniFilter)
+	    }
+	    if (filters.current.hasAlerts) {
+	      searchValue.push('hasAlerts')
 	    }
 	    console.log('[readdSearchURL] searchValue = ' + searchValue)
 	    var searchLink =  encodeURIComponent(searchValue)
