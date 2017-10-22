@@ -3,10 +3,18 @@ require('leaflet')
 var $ = require('jquery')
 var Config = require('./config.js')
 
+// var alertFeat
+
+// var setup = function (alertFeature) {
+//   alertFeat = alertFeature
+// }
+
 var trailInfo = function () {
   var that = {}
   that.originalTrailInfo = {}
   that.trailSubsystemMap = {}
+  that.filteredSystemNames = {}
+  that.hasAlerts = []
   that.trailInfoCreated = $.Deferred()
 
   that.fetchTrailInfo = function () {
@@ -21,6 +29,22 @@ var trailInfo = function () {
     .fail(function () {
       console.log('error')
     })
+  }
+
+  that.addFilterAlerts = function (filters, alertFeat) {
+    that.hasAlerts = []
+    if (filters.current.hasAlerts) {
+      $.each(that.trailSubsystemMap, function (name, value) {
+        var trailAlerts = alertFeat.trailSubsystemAlerts[name] || []
+        console.log('trailAlerts = ' + trailAlerts)
+        if (trailAlerts.length > 0) {
+          console.log('filterPoi trailAlerts.length > 0 ' + name)
+          console.log('filterPoi trailAlerts= ' + trailAlerts)
+          that.filteredSystemNames[name] = 1
+        }
+      })
+    }
+    return that.filteredSystemNames
   }
 
   var _makeTrailInfoObject = function (data) {
@@ -44,7 +68,13 @@ var trailInfo = function () {
     }
     that.trailInfoCreated.resolve(that.originalTrailInfo)
   }
+
+  
   return that
 }
 
-module.exports = trailInfo
+//module.exports = trailInfo
+module.exports = {
+  //setup: setup,
+  trailInfo: trailInfo
+}

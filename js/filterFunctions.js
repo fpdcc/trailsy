@@ -111,7 +111,8 @@ var filterFunctions = function (map) {
       if (normalizedValue == "hasalerts") {
         that.current.hasAlerts = true
         removeIndexs.push(key)
-      } else if (!(locationsZipCode[normalizedValue] === undefined)) {
+      }
+      if (!(locationsZipCode[normalizedValue] === undefined)) {
         that.current.searchLocation = new L.LatLng(locationsZipCode[normalizedValue]['latitude'], locationsZipCode[normalizedValue]['longitude'])
         that.current.zipMuniFilter = normalizedValue
         removeIndexs.push(key)
@@ -132,11 +133,17 @@ var filterFunctions = function (map) {
         }
       }
     })
+    console.log('setCurrent removeIndexs = ' + removeIndexs)
+    console.log('setCurrent removeIndexs = ' + removeIndexs)
+    removeIndexs.sort( function (a, b) {
+      return b - a
+    })
     $.each(removeIndexs, function (key, value) {
+      console.log('setCurrent searchBoxValueArray = ' + searchBoxValueArray)
       searchBoxValueArray.splice(value, 1)
     })
     searchBoxValueArray = searchBoxValueArray.filter(Boolean)
-    console.log('searchBoxValueArray = ' + searchBoxValueArray)
+    console.log('setCurrent searchBoxValueArray = ' + searchBoxValueArray)
     // console.log('trailInList = ' + that.current.trailInList)
     // console.log('trailonmap = ' + that.current.trailOnMap)
     that.current.search = searchBoxValueArray

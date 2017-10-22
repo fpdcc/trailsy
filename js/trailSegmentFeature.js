@@ -34,7 +34,7 @@ var trailSegmentFeature = function (map) {
     }
     var segmentArray = []
     $.each(trailSubsystems, function (index, value) {
-      // console.log('[filterSegments] index = ' + index)
+      console.log('[filterSegments] index = ' + index)
       var segmentFGs = that.segmentTrailSubsystemObject[index]
       if (segmentFGs) {
         // segmentArray.push(segmentFGs)

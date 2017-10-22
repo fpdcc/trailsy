@@ -29,14 +29,14 @@ var trailMap = function () {
   var myAnalytics = analyticsCode.setup()
   // map.addControl(L.control.zoom({position: 'topright'}))
   var alertFeat = alertFeature(map)
-  var poiSetup = poiFeature.setup(alertFeat)
+  //var poiSetup = poiFeature.setup(alertFeat)
   var poiFeat = poiFeature.poiFeature(map)
   
   
   var tSegment = trailSegmentFeature(map)
   var activityFeat = activityFeature(map)
   var picnicgroveFeat = picnicgroveFeature(map)
-  var tInfo = trailInfo(map)
+  var tInfo = trailInfo.trailInfo(map)
   
   var filters = filterFunctions(map)
   // var geoFunctions = geolocationFunctions(map, filters, poiFeat)
@@ -180,9 +180,10 @@ var trailMap = function () {
       // console.log('[$.when readyToFilter] start at: ' + performance.now())
       geoFunctions.geoSetupDone.done(function () {
         // console.log('[filterAll] geoSetupDone at ' + performance.now())
-        poiFeat.filterPoi(filters)
-        events.makeResults(openResults)
-        tSegment.filterSegments(poiFeat.filteredTrailSubsystems)
+        poiFeat.filterPoi(filters, tInfo, alertFeat)
+        tInfo.addFilterAlerts(filters, alertFeat)
+        events.makeResults(poiFeat, tInfo, filters, openResults)
+        tSegment.filterSegments(tInfo.filteredSystemNames)
         activitiesReady.done(function () {
           activityFeat.filterActivity(poiFeat.filteredPoisArray)
         })

@@ -104,8 +104,8 @@ var events = function (map) {
     }, 0)
   }
 
-  that.makeResults = function (open) {
-    panel.makeTrailDivs(my.poiFeat, my.filters, open)
+  that.makeResults = function (poiFeat, trailInfo, filters, open) {
+    panel.makeTrailDivs(poiFeat, trailInfo, filters, open)
     $('.fpccEntry').on(Config.listenType, that.trailDivClickHandler)
   }
 

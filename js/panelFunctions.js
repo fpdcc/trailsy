@@ -182,7 +182,7 @@ var panelFuncs = function (map) {
     console.log('[setHeights] that.padding= ' + that.padding)
   }
 
-  that.makeTrailDivs = function (poiFeat, filters, open) {
+  that.makeTrailDivs = function (poiFeat, tInfo, filters, open) {
     console.log('makeTrailDivs start')
     var trailList = {} // used to see if trail div has been built yet.
     var divCount = 0
@@ -191,8 +191,6 @@ var panelFuncs = function (map) {
       map.closePopup()
       that.toggleResultsList('open')
     }
-    // var trailListElementList = document.getElementById(topLevelID).getElementsByClassName('fpccResults')
-    // trailListElementList[0].innerHTML = ""
     var trailListContents = ''
     $.each(poiFeat.filteredPoisArray, function (i, el) {
       var poiTrailSubsystem = el.properties.trail_subsystem
@@ -237,7 +235,7 @@ var panelFuncs = function (map) {
       var trailDivComplete = trailDivText + trailheadInfoText
       trailListContents = trailListContents + trailDivComplete
       divCount++
-      if ((!trailList[trailSubsystemNormalizedName]) && trailSubsystemNormalizedName && filters.current.trailInList) {
+      if ((!trailList[trailSubsystemNormalizedName]) && tInfo.filteredSystemNames[trailSubsystemNormalizedName] && trailSubsystemNormalizedName && filters.current.trailInList) {
         trailDivText = "<a class='fpccEntry clearfix' " +
           "data-source='list' " +
           "data-trailid='" + trailSubsystemNormalizedName + "' " +
@@ -254,6 +252,32 @@ var panelFuncs = function (map) {
           '</div>'
         trailList[trailSubsystemNormalizedName] = 1
         trailDivComplete = trailDivText + trailheadInfoText
+        trailListContents = trailListContents + trailDivComplete
+        divCount++
+      }
+    })
+    $.each(tInfo.filteredSystemNames, function (systemNormName, el) {
+      if ((!trailList[systemNormName]) && filters.current.trailInList) {
+        var trailSubsystemName = tInfo.trailSubsystemMap[systemNormName][0].trail_subsystem
+        //console.log('makeTrailDivs systemNormName = ' + systemNormName)
+        //console.log('makeTrailDivs tInfo.trailSubsystemMap[systemNormName] = ' + tInfo.trailSubsystemMap[systemNormName])
+        //console.log('makeTrailDivs trailSubsystemName = ' + trailSubsystemName)
+        var trailDivText = "<a class='fpccEntry clearfix' " +
+          "data-source='list' " +
+          "data-trailid='" + systemNormName + "' " +
+          "data-trailname='" + systemNormName + "' " +
+          //"data-trail-length='" + trailLength + "' " +
+          "data-trailheadName='" + null + "' " +
+          "data-trailheadid='" + null + "' " +
+          "data-analyticstype='List' " +
+          "data-analyticsdescription='" + trailSubsystemName + "' " +
+          "data-index='" + 0 + "'>"
+        var trailheadInfoText = "<span class='fpccEntryName'>" +
+          '<svg class="icon icon-trail-marker"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-trail-marker"></use></svg>' +
+          '<span class="fpccEntryNameText">' + trailSubsystemName + ' </span></span>' +
+          '</div>'
+        trailList[systemNormName] = 1
+        var trailDivComplete = trailDivText + trailheadInfoText
         trailListContents = trailListContents + trailDivComplete
         divCount++
       }
@@ -1044,6 +1068,9 @@ var panelFuncs = function (map) {
     var searchValue = filters.current.search.slice(0)
     if (filters.current.zipMuniFilter) {
       searchValue.push(filters.current.zipMuniFilter)
+    }
+    if (filters.current.hasAlerts) {
+      searchValue.push('hasAlerts')
     }
     console.log('[readdSearchURL] searchValue = ' + searchValue)
     var searchLink =  encodeURIComponent(searchValue)
