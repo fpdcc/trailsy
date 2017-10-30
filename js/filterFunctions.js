@@ -15,6 +15,8 @@ var filterFunctions = function (map) {
     search: [],
     poi: null,
     trail: null,
+    hasAlerts: null,
+    filter: [],
     userLocation: null,
     searchLocation: null,
     zipMuniFilter: '',
@@ -36,14 +38,25 @@ var filterFunctions = function (map) {
   }
 
   that.addressChange = function () {
+    that.current.poi = null
+    that.current.trail = null
+    that.current.hasAlerts = false
+    that.current.fromURL = false
     var search = decodeURIComponent($.address.parameter('search')).replace(/\+/g, ' ');
+    var filter = decodeURIComponent($.address.parameter('filter')).replace(/\+/g, ' ');
     var poi = decodeURIComponent($.address.parameter('poi'))
     var trail = decodeURIComponent($.address.parameter('trail'))
+    // var hasAlerts = decodeURIComponent($.address.parameter('hasAlerts'))
     console.log("[address.change] searchFilter = " + search)
+    console.log("[address.change] filter = " + filter)
     console.log("[address.change] poi = " + poi)
     console.log("[address.change] trail = " + trail)
+    // console.log("[address.change] hasAlerts = " + hasAlerts)
     if (search == 'undefined' || search == 'null') {
       search = ''
+    }
+    if (filter == 'undefined' || filter == 'null') {
+      filter = ''
     }
     if (poi == 'undefined' || poi == 'null') {
       poi = ''
@@ -51,8 +64,14 @@ var filterFunctions = function (map) {
     if (trail == 'undefined' || trail == 'null') {
       trail = ''
     }
+    // if (hasAlerts == 'undefined' || hasAlerts == 'null') {
+    //   that.current.hasAlerts = false
+    // } else {
+    //   that.current.hasAlerts = true
+    // }
     console.log("[address.Change] searchFilter = " + search)
     var poiID = null
+
     if (search) {
       that.current.fromURL = true
       console.log("[addressChange] IF searchFilter = " + that.current.search)
@@ -78,24 +97,29 @@ var filterFunctions = function (map) {
   }
 
   that.setCurrent = function (searchBoxValue) {
-    console.log('[setCurrent] start')
+    console.log('[setCurrent] start searchBoxValue= ' + searchBoxValue)
     that.previous = $.extend(true, {}, that.current)
     that.resetCurrent()
     var searchBoxValueArray = String(searchBoxValue).split(',')
     searchBoxValueArray = searchBoxValueArray.filter(Boolean)
-    var removeIndex = null
+    var removeIndexs = []
     that.current.trailInList = true
     that.current.trailOnMap = true
     $.each(searchBoxValueArray, function (key, value) {
       var normalizedValue = value.toLowerCase()
+      console.log('setCurrent normalizedValue= ' + normalizedValue)
+      if (normalizedValue == "hasalerts") {
+        that.current.hasAlerts = true
+        removeIndexs.push(key)
+      }
       if (!(locationsZipCode[normalizedValue] === undefined)) {
         that.current.searchLocation = new L.LatLng(locationsZipCode[normalizedValue]['latitude'], locationsZipCode[normalizedValue]['longitude'])
         that.current.zipMuniFilter = normalizedValue
-        removeIndex = key
+        removeIndexs.push(key)
       } else if (!(locationsMuni[normalizedValue] === undefined)) {
         that.current.searchLocation = new L.LatLng(locationsMuni[normalizedValue]['latitude'], locationsMuni[normalizedValue]['longitude'])
         that.current.zipMuniFilter = normalizedValue
-        removeIndex = key
+        removeIndexs.push(key)
       } else {
         searchBoxValueArray[key] = value.replace('-popular', '')
         normalizedValue = normalizedValue.replace('-popular', '')
@@ -109,11 +133,17 @@ var filterFunctions = function (map) {
         }
       }
     })
-    if (!(removeIndex === null)) {
-      searchBoxValueArray.splice(removeIndex, 1)
-    }
+    console.log('setCurrent removeIndexs = ' + removeIndexs)
+    console.log('setCurrent removeIndexs = ' + removeIndexs)
+    removeIndexs.sort( function (a, b) {
+      return b - a
+    })
+    $.each(removeIndexs, function (key, value) {
+      console.log('setCurrent searchBoxValueArray = ' + searchBoxValueArray)
+      searchBoxValueArray.splice(value, 1)
+    })
     searchBoxValueArray = searchBoxValueArray.filter(Boolean)
-    console.log('searchBoxValueArray = ' + searchBoxValueArray)
+    console.log('setCurrent searchBoxValueArray = ' + searchBoxValueArray)
     // console.log('trailInList = ' + that.current.trailInList)
     // console.log('trailonmap = ' + that.current.trailOnMap)
     that.current.search = searchBoxValueArray
@@ -124,6 +154,7 @@ var filterFunctions = function (map) {
     that.current.search = []
     that.current.poi = null
     that.current.trail = null
+    that.current.hasAlerts = false
     that.current.searchLocation = null
     that.current.trailInList = true
     that.current.trailOnMap = true

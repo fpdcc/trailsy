@@ -5,6 +5,7 @@
   "license": "BSD-3-Clause",
   "private": true,
   "dependencies": {
+    "autolink-js": "^1.0.2",
     "async": "^1.2.1",
     "bootstrap": "^3.3.5",
     "bootstrap-drawer": "^1.0.4",
@@ -12,9 +13,10 @@
     "jquery-address": "^1.6",
     "leaflet": "^1.0.3",
     "leaflet-boundsawarelayergroup": "^1.2.2",
-    "leaflet.markercluster": "^1.0.3",
     "leaflet-providers": "^1.1.0",
     "leaflet-usermarker": "^1.0.0",
+    "leaflet.markercluster": "^1.0.3",
+    "pluralize": "^6.0.0",
     "selectize": "^0.12.4",
     "svgxuse": "^1.2.1"
   },
@@ -27,7 +29,7 @@
     "karma-requirejs": "^0.2.2",
     "requirejs": "^2.1.20",
     "script-loader": "^0.6.1",
-    "webpack": "^1.12.0",
+    "webpack": "^1.15.0",
     "webpack-dev-server": "^1.9.0"
   },
   "scripts": {

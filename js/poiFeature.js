@@ -6,6 +6,12 @@ require('leaflet.markercluster')
 var Config = require('./config.js')
 var eL = require('./eventListeners.js')
 
+// var alertFeat
+
+// var setup = function (alertFeature) {
+//   alertFeat = alertFeature
+// }
+
 var poiFeature = function (map) {
   var that = {}
   var events = eL.events()
@@ -168,11 +174,11 @@ var poiFeature = function (map) {
     console.log('[poiFeature.addTrailInfo] end at: ' + performance.now())
   }
 
-  that.filterPoi = function (filters) {
+  that.filterPoi = function (filters, tInfo, alertFeat) {
     console.log('[filterPoi start] at: ' + performance.now())
     var poiArrayLength = that.originalPoisArray.length
     that.filteredPoisArray = []
-    that.filteredTrailSubsystems = {}
+    tInfo.filteredSystemNames = {}
     if (that.filteredPoisFeatureGroup) {
       map.removeLayer(that.filteredPoisFeatureGroup)
       that.filteredPoisFeatureGroup = null
@@ -181,13 +187,24 @@ var poiFeature = function (map) {
 
     for (var poiNum = 0; poiNum < poiArrayLength; poiNum++) {
       var poi = that.originalPoisArray[poiNum]
-      var filterScore = filterResult(poi, filters)
+      var filterScore = filterResult(poi, alertFeat, filters)
       if (filterScore > 0) {
         that.filteredPoisArray.push(that.originalPoisArray[poiNum])
         var thisTrailSubsystem = that.originalPoisArray[poiNum].properties.trail_subsystem
         if (thisTrailSubsystem) {
+          var addTrail = 1
           thisTrailSubsystem = thisTrailSubsystem.replace(/[& ]/g, '+')
-          that.filteredTrailSubsystems[thisTrailSubsystem] = 1
+          if (filters.current.hasAlerts) {
+            var trailAlerts = alertFeat.trailSubsystemAlerts[thisTrailSubsystem] || []
+            console.log('trailAlerts = ' + trailAlerts)
+            if (trailAlerts.length > 0) {
+              console.log('filterPoi trailAlerts.length > 0 ' + thisTrailSubsystem)
+              console.log('filterPoi trailAlerts= ' + trailAlerts)
+              tInfo.filteredSystemNames[thisTrailSubsystem] = 1
+            }
+          } else {
+            tInfo.filteredSystemNames[thisTrailSubsystem] = 1
+          }
         }
       }
     }
@@ -267,7 +284,7 @@ var poiFeature = function (map) {
     }
   }
 
-  var filterResult = function (poi, filters) {
+  var filterResult = function (poi, alertFeat, filters) {
     var filterScore = 1
     var term = 1
     var equivalentWords = [
@@ -330,6 +347,13 @@ var poiFeature = function (map) {
       }
       filterScore = filterScore * term
     }
+    if (filters.current.hasAlerts) {
+      var poiAlerts = alertFeat.poiAlerts[poi.properties.id] || []
+      console.log('poiAlerts = ' + poiAlerts)
+      if (poiAlerts.length == 0) {
+        filterScore = 0
+      }
+    }
     poi.properties.filterScore = filterScore
     return filterScore
   }
@@ -350,4 +374,10 @@ var poiFeature = function (map) {
   return that
 }
 
-module.exports = poiFeature
+//module.exports = poiFeature
+
+
+module.exports = {
+  //setup: setup,
+  poiFeature: poiFeature
+}

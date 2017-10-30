@@ -19,6 +19,9 @@ The Cook County version of Trailsy has deviated significantly from the current T
 ---
 ### Use it!
 * Please try the application at https://map.fpdcc.com/ and send us feedback via [issues](https://github.com/smartchicago/trailsy/issues).
+
+### Download our data
+* All the Forest Preserves data used in this map is available here: https://github.com/fpdcc/webmap_data_updates
  
 ### Get Familiar with the OpenTrails specification
 * Peruse the OpenTrails working draft specification at https://docs.google.com/document/d/1KF8KAio-SqGHhh9oFY_KjfwIi3PePOHg7KfTSPh27fc/edit

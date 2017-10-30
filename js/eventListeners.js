@@ -11,10 +11,11 @@ var my = {
   tsFeat: null,
   actFeat: null,
   pgFeat: null,
-  trailInfo: null
+  trailInfo: null,
+  alertFeat: null
 }
 
-var setup = function (map, panel, filters, poiFeature, trailSegmentFeature, activityFeature, picnicgroveFeature, trailInfo) {
+var setup = function (map, panel, filters, poiFeature, trailSegmentFeature, activityFeature, picnicgroveFeature, trailInfo, alertFeature) {
   my.map = map
   my.panel = panel
   my.filters = filters
@@ -23,6 +24,7 @@ var setup = function (map, panel, filters, poiFeature, trailSegmentFeature, acti
   my.actFeat = activityFeature
   my.pgFeat = picnicgroveFeature
   my.trailInfo = trailInfo
+  my.alertFeat = alertFeature
 }
 
 var events = function (map) {
@@ -42,6 +44,7 @@ var events = function (map) {
     // $('.fpccMenuList a').on(Config.listenType, panel.changeMenuDisplay)
     $('.fpccMobileHamburger').on(Config.listenType, panel.changeMobileMenuDisplay)
     // $('.usePoi').on(Config.listenType, that.testClick)
+    $('body').on(Config.listenType, '.fpccAlertHead', panel.toggleAlerts)
   }
 
   var offsetZoomIn = function (e) {
@@ -101,8 +104,8 @@ var events = function (map) {
     }, 0)
   }
 
-  that.makeResults = function (open) {
-    panel.makeTrailDivs(my.poiFeat, my.filters, open)
+  that.makeResults = function (poiFeat, trailInfo, filters, open) {
+    panel.makeTrailDivs(poiFeat, trailInfo, filters, open)
     $('.fpccEntry').on(Config.listenType, that.trailDivClickHandler)
   }
 

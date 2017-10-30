@@ -157,14 +157,19 @@ a:hover.fpccSpecialDesc,a:active.fpccSpecialDesc{background:#FFE9A4}
 #fpccContainer a:link.fpccSpecialDesc .fpccSpecialIcon .icon-arrow-right,#fpccContainer a:visited.fpccSpecialDesc .fpccSpecialIcon .icon-arrow-right{height:1.25em;width:1.25em;vertical-align:middle;margin:0;padding:0}
 #fpccContainer a:hover.fpccSpecialDesc .fpccSpecialIcon .icon-arrow-right,#fpccContainer a:active.fpccSpecialDesc .fpccSpecialIcon .icon-arrow-right{margin-right:0}
 .fpccAlerts{width:100%;clear:both;background:#FFE2D9;text-decoration:none;color:#333;margin:0;font-size:.9125em;border-bottom:1px dotted #DF0000}
-.fpccAlerts .icon-alert{background:#DF0000;border-bottom:2px solid #B70000;height:2.5em;width:2.5em;vertical-align:middle;margin:0;padding:.5em;color:#FFE2D9}
-.fpccSingleAlert{display:block;margin-bottom:.75em}
+.fpccAlerts .icon-alert{background:#DF0000;border-bottom:2px solid #B70000;height:2em;width:2em;vertical-align:top;margin:0;padding:.5em;color:#FFE2D9}
+.fpccSingleAlert{display:block;padding:1em 0 0;margin:1em 0 0;border-top:1px dotted #DF0000}
 .fpccSingleAlert a:link,.fpccSingleAlert a:visited{color:#333}
 .fpccSingleAlert a:hover,.fpccSingleAlert a:active{text-decoration:none}
 .fpccSpecialBlurb{vertical-align:middle;display:inline-block;width:85%}
 .fpccSpecialIcon{vertical-align:middle;width:15%;display:inline-block;text-align:right}
-.fpccAlertBlurb{vertical-align:top;display:inline-block;width:85%}
-.fpccAlertIcon{vertical-align:top;width:12%;margin-right:3%;display:inline-block;text-align:left;float:left}
+.fpccAlertBlurb {display:block;width:100%;clear:both;padding-top:0}
+.fpccAlertBlurb {display:none;}
+.fpccAlertIcon {vertical-align:top;width:2em;margin-right:1em;display:inline-block;text-align:left;float:left}
+.fpccAlertHead{cursor:pointer;font-weight:bold;text-transform:uppercase;font-family:Helvetica,Arial,sans-serif;color:#B70000}
+.fpccAlertNumber{float:left;font-size:1.35em}
+.fpccAlertToggle{float:right;font-size:2em;line-height:1}
+.fpccAlertHead:hover,.fpccAlertHead:active{background:#FFCABB}
 .fpccPhoto{background:#EFEFEF;width:100%;text-align:center;line-height:0}
 .fpccPhoto img{max-height:195px;max-width:100%}
 .fpccAmenity{float:left;width:47%;margin:0 3% 1.25em 0;max-height:1.8em}

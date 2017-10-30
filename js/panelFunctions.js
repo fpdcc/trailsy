@@ -1,8 +1,10 @@
 'use strict'
 var L = require('leaflet')
 var $ = require('jquery')
+var pluralize = require('pluralize')
 var Config = require('./config.js')
 var eL = require('./eventListeners.js')
+var autolink = require('autolink-js')
 var map
 var filters
 var panel
@@ -12,8 +14,9 @@ var actFeat
 var pgFeat
 var trailInfo
 var events
+var alertFeat
 
-var setup = function (myMap, myFilters, myPoiFeature, myTrailSegmentFeature, myActivityFeature, myPicnicgroveFeature, myTrailInfo) {
+var setup = function (myMap, myFilters, myPoiFeature, myTrailSegmentFeature, myActivityFeature, myPicnicgroveFeature, myTrailInfo, myAlertFeature) {
   map = myMap
   filters = myFilters
   poiFeat = myPoiFeature
@@ -21,6 +24,7 @@ var setup = function (myMap, myFilters, myPoiFeature, myTrailSegmentFeature, myA
   actFeat = myActivityFeature
   pgFeat = myPicnicgroveFeature
   trailInfo = myTrailInfo
+  alertFeat = myAlertFeature
 }
 
 var panelFuncs = function (map) {
@@ -178,7 +182,7 @@ var panelFuncs = function (map) {
     console.log('[setHeights] that.padding= ' + that.padding)
   }
 
-  that.makeTrailDivs = function (poiFeat, filters, open) {
+  that.makeTrailDivs = function (poiFeat, tInfo, filters, open) {
     console.log('makeTrailDivs start')
     var trailList = {} // used to see if trail div has been built yet.
     var divCount = 0
@@ -187,8 +191,6 @@ var panelFuncs = function (map) {
       map.closePopup()
       that.toggleResultsList('open')
     }
-    // var trailListElementList = document.getElementById(topLevelID).getElementsByClassName('fpccResults')
-    // trailListElementList[0].innerHTML = ""
     var trailListContents = ''
     $.each(poiFeat.filteredPoisArray, function (i, el) {
       var poiTrailSubsystem = el.properties.trail_subsystem
@@ -233,7 +235,7 @@ var panelFuncs = function (map) {
       var trailDivComplete = trailDivText + trailheadInfoText
       trailListContents = trailListContents + trailDivComplete
       divCount++
-      if ((!trailList[trailSubsystemNormalizedName]) && trailSubsystemNormalizedName && filters.current.trailInList) {
+      if ((!trailList[trailSubsystemNormalizedName]) && tInfo.filteredSystemNames[trailSubsystemNormalizedName] && trailSubsystemNormalizedName && filters.current.trailInList) {
         trailDivText = "<a class='fpccEntry clearfix' " +
           "data-source='list' " +
           "data-trailid='" + trailSubsystemNormalizedName + "' " +
@@ -250,6 +252,32 @@ var panelFuncs = function (map) {
           '</div>'
         trailList[trailSubsystemNormalizedName] = 1
         trailDivComplete = trailDivText + trailheadInfoText
+        trailListContents = trailListContents + trailDivComplete
+        divCount++
+      }
+    })
+    $.each(tInfo.filteredSystemNames, function (systemNormName, el) {
+      if ((!trailList[systemNormName]) && filters.current.trailInList) {
+        var trailSubsystemName = tInfo.trailSubsystemMap[systemNormName][0].trail_subsystem
+        //console.log('makeTrailDivs systemNormName = ' + systemNormName)
+        //console.log('makeTrailDivs tInfo.trailSubsystemMap[systemNormName] = ' + tInfo.trailSubsystemMap[systemNormName])
+        //console.log('makeTrailDivs trailSubsystemName = ' + trailSubsystemName)
+        var trailDivText = "<a class='fpccEntry clearfix' " +
+          "data-source='list' " +
+          "data-trailid='" + systemNormName + "' " +
+          "data-trailname='" + systemNormName + "' " +
+          //"data-trail-length='" + trailLength + "' " +
+          "data-trailheadName='" + null + "' " +
+          "data-trailheadid='" + null + "' " +
+          "data-analyticstype='List' " +
+          "data-analyticsdescription='" + trailSubsystemName + "' " +
+          "data-index='" + 0 + "'>"
+        var trailheadInfoText = "<span class='fpccEntryName'>" +
+          '<svg class="icon icon-trail-marker"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-trail-marker"></use></svg>' +
+          '<span class="fpccEntryNameText">' + trailSubsystemName + ' </span></span>' +
+          '</div>'
+        trailList[systemNormName] = 1
+        var trailDivComplete = trailDivText + trailheadInfoText
         trailListContents = trailListContents + trailDivComplete
         divCount++
       }
@@ -302,6 +330,43 @@ var panelFuncs = function (map) {
     console.log('[panelFunctions showDetails end')
   }
 
+  that.buildAlertHTML = function (alerts, sectionId) {
+    var alertCount = alerts.length
+    console.log("alertCount = " + alerts.length)
+    var alertsHTML = '<div class="fpccAlerts"><div class="fpccAlertHead clearfix fpccUnit" data-sectionid="' + sectionId + '"><span class="fpccAlertIcon"><svg class="icon icon-alert"><use xlink:href="icons/defs.svg#icon-alert"></use></svg></span><span class="fpccAlertNumber">' + alertCount + ' ' + pluralize('alert', alertCount) + '</span><span class="fpccAlertToggle" id="alertToggle-' + sectionId + '">+</span></div><div class="fpccAlertBlurb fpccUnit" id="alertBlurb-' + sectionId + '">'
+    $.each(alerts, function (i, alert) {
+      var alertHTML = '<span class="fpccSingleAlert"><strong>' +
+                      alert.start_date + ' - '
+      if (alert.end_date) {
+        alertHTML += alert.end_date
+      } else {
+        alertHTML += "???"
+      }   
+      alertHTML += ':</strong> ' + alert.description.autoLink()
+      if (alert.link) {
+        alertHTML += ' <a href="' + alert.link + '">More information ></a>'
+      }
+      alertHTML += '</span>'
+      alertsHTML += alertHTML
+    })
+    alertsHTML += '</div></div>'
+    return alertsHTML
+  }
+
+  that.toggleAlerts = function (e) {
+    //console.log('toggleAlerts')
+    var $myTarget = $(e.currentTarget)
+    var sectionId = $myTarget.attr('data-sectionid')
+    $('#alertBlurb-' + sectionId).toggle('slow', function () {
+      // console.log('toggle complete!')
+      if ($(this).is(':visible')) {
+        $('#alertToggle-' + sectionId).text('-')
+      } else {
+        $('#alertToggle-' + sectionId).text('+')
+      }
+    })
+  }
+
   that.buildDetailPanelHTML = function (myReferences, trailSubsystemNormalizedName, poi) {
     var directTrail = null
     var descriptionTrail = null
@@ -339,6 +404,16 @@ var panelFuncs = function (map) {
                            '</div>'
       }
       // ADD ALERTS INFO HERE
+      if (myReferences.alertFeat) {
+        console.log('globalAlerts.length = ' + myReferences.alertFeat.globalAlerts.length)
+        console.log('poiAlerts.length = ' + myReferences.alertFeat.poiAlerts.length)
+        var poiAlerts = myReferences.alertFeat.poiAlerts[poi.properties.id] || []
+        poiAlerts = myReferences.alertFeat.globalAlerts.concat(poiAlerts)
+        console.log('poiAlerts = ' + poiAlerts)
+        if (poiAlerts.length > 0) {
+          fpccContainerHTML += that.buildAlertHTML(poiAlerts, "poi")
+        }
+      }
       fpccContainerHTML += '<div class="fpccEntrance fpccUnit clearfix">' +
                          '<div class="fpccSign clearfix">' +
                          '<svg class="icon icon-sign"><use xlink:href="icons/defs.svg#icon-sign"></use></svg>' +
@@ -740,8 +815,16 @@ var panelFuncs = function (map) {
     }
     var closeID = 'closeDetail'
     fpccNameHTML += '</span><svg id="closeDetail" class="icon icon-x closeDetail"><use id="useCloseDetail" xlink:href="icons/defs.svg#icon-x"></use></svg></div>'
-    //Trails Section
-    var trailsHTML = ""
+    // Trails Section
+    var trailsHTML = ''
+    trailSubsystemNormalizedName
+    if (myReferences.alertFeat) {
+      var trailAlerts = myReferences.alertFeat.trailSubsystemAlerts[trailSubsystemNormalizedName] || []
+      trailAlerts = myReferences.alertFeat.globalAlerts.concat(trailAlerts)
+      if (trailAlerts.length > 0) {
+        trailsHTML += that.buildAlertHTML(trailAlerts, "trail")
+      }
+    }
     if (descriptionTrail) {
       // console.log('[decorateDetailPanelForTrailhead] system = ' + descriptionTrail.trail_subsystem)
       var subSystem = descriptionTrail.trail_subsystem
@@ -985,6 +1068,9 @@ var panelFuncs = function (map) {
     var searchValue = filters.current.search.slice(0)
     if (filters.current.zipMuniFilter) {
       searchValue.push(filters.current.zipMuniFilter)
+    }
+    if (filters.current.hasAlerts) {
+      searchValue.push('hasAlerts')
     }
     console.log('[readdSearchURL] searchValue = ' + searchValue)
     var searchLink =  encodeURIComponent(searchValue)

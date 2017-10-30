@@ -17,6 +17,7 @@ var geolocationFunctions = require('./geolocationFunctions.js')
 var filterFunctions = require('./filterFunctions.js')
 var eventListeners = require('./eventListeners.js')
 var panelFunctions = require('./panelFunctions.js')
+var alertFeature = require('./alertFeature.js')
 
 var trailMap = function () {
   var that = {}
@@ -27,16 +28,23 @@ var trailMap = function () {
   map.removeControl(map.zoomControl)
   var myAnalytics = analyticsCode.setup()
   // map.addControl(L.control.zoom({position: 'topright'}))
-  var poiFeat = poiFeature(map)
+  var alertFeat = alertFeature(map)
+  //var poiSetup = poiFeature.setup(alertFeat)
+  var poiFeat = poiFeature.poiFeature(map)
+  
+  
   var tSegment = trailSegmentFeature(map)
   var activityFeat = activityFeature(map)
   var picnicgroveFeat = picnicgroveFeature(map)
-  var tInfo = trailInfo(map)
+  var tInfo = trailInfo.trailInfo(map)
+  
   var filters = filterFunctions(map)
   // var geoFunctions = geolocationFunctions(map, filters, poiFeat)
-  var pSetup = panelFunctions.setup(map, filters, poiFeat, tSegment, activityFeat, picnicgroveFeat, tInfo)
+  var pSetup = panelFunctions.setup(map, filters, poiFeat, tSegment, activityFeat, picnicgroveFeat, tInfo, alertFeat)
   var panel = panelFunctions.panelFuncs(map)
-  var eSetup = eventListeners.setup(map, panel, filters, poiFeat, tSegment, activityFeat, picnicgroveFeat, tInfo)
+  var eSetup = eventListeners.setup(map, panel, filters, poiFeat, tSegment, activityFeat, picnicgroveFeat, tInfo, alertFeat)
+  
+
   var events = eventListeners.events(map)
   var geoFunctions = geolocationFunctions(map, filters, poiFeat, events)
 
@@ -126,6 +134,7 @@ var trailMap = function () {
   var poiSegmentsReady = $.when(poiFeat.originalPoiInfoAdded, tSegment.segmentsCreated)
   var activitiesReady = $.when(activityFeat.originalActivitiesCreated)
   var picnicgrovesReady = $.when(picnicgroveFeat.originalPicnicgrovesCreated)
+  var geoSetupAndAlertsReady = $.when(alertFeat.alertsCreated, geoFunctions.geoSetupDone)
   poiAndTrailInfoCreated.done(function () {
     poiFeat.addTrailInfo(tInfo.originalTrailInfo)
     console.log('filters.current = ' + filters.current)
@@ -144,7 +153,7 @@ var trailMap = function () {
           whatBounds = ''
         }
         var openResults = true
-        geoFunctions.geoSetupDone.done(function () {
+        geoSetupAndAlertsReady.done(function () {
           if (filters.current.poi) {
             events.trailDivWork(null, filters.current.poi)
             panel.toggleDetailPanel('open')
@@ -171,9 +180,10 @@ var trailMap = function () {
       // console.log('[$.when readyToFilter] start at: ' + performance.now())
       geoFunctions.geoSetupDone.done(function () {
         // console.log('[filterAll] geoSetupDone at ' + performance.now())
-        poiFeat.filterPoi(filters)
-        events.makeResults(openResults)
-        tSegment.filterSegments(poiFeat.filteredTrailSubsystems)
+        poiFeat.filterPoi(filters, tInfo, alertFeat)
+        tInfo.addFilterAlerts(filters, alertFeat)
+        events.makeResults(poiFeat, tInfo, filters, openResults)
+        tSegment.filterSegments(tInfo.filteredSystemNames)
         activitiesReady.done(function () {
           activityFeat.filterActivity(poiFeat.filteredPoisArray)
         })
@@ -221,6 +231,7 @@ var trailMap = function () {
     var currentUIFilterState
     var searchKeyTimeout
     currentUIFilterState = $('#desktop .fpccSearchbox').val()
+    console.log('[processSearch] currentUIFilterState= ' + currentUIFilterState)
     analyticsCode.trackClickEventWithGA('Search', 'Begin', currentUIFilterState)
     filters.setCurrent(currentUIFilterState)
     var openResults = true
@@ -241,6 +252,7 @@ var trailMap = function () {
     activityFeat.fetchActivities()
     picnicgroveFeat.fetchPicnicgroves()
     geoFunctions.setupGeolocation()
+    alertFeat.fetchAlerts()
   }
 
   // $('a').click(function () {
