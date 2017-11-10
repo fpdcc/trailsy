@@ -340,7 +340,7 @@ var panelFuncs = function (map) {
       if (alert.end_date) {
         alertHTML += alert.end_date
       } else {
-        alertHTML += "???"
+        alertHTML += "?"
       }   
       alertHTML += ':</strong> ' + alert.description.autoLink()
       if (alert.link) {
