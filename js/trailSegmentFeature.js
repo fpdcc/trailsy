@@ -156,7 +156,8 @@ var trailSegmentFeature = function (map) {
               //var trail = originalTrailData[trailIDs];
 
               var popupHTML = invisLayer.feature.properties.popupHTML
-              new L.Popup({ // autoPan: SMALL ? false : true
+              new L.Popup({ 
+                closeButton: false
               }).setContent(popupHTML).setLatLng(originalEvent.latlng).openOn(map);
               // currentWeightedSegment = target;
             }

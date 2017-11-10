@@ -265,7 +265,8 @@ var events = function (map) {
         var popup = new L.Popup({
           offset: [0, -12],
           autoPan: true,
-          autoPanPadding: [5, 5]
+          autoPanPadding: [5, 5],
+          closeButton: false
           // autoPan: SMALL ? false : true
         })
         .setContent(my.poiFeat.current.popupContent)
@@ -295,7 +296,8 @@ var events = function (map) {
     if (popupContent && location) {
       var popup = new L.Popup({
         offset: [0, -12],
-        autoPanPadding: [10, 10]
+        autoPanPadding: [10, 10],
+        closeButton: false
         // autoPan: SMALL ? false : true
       })
       .setContent(popupContent)
