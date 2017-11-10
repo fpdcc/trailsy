@@ -624,7 +624,7 @@ var panelFuncs = function (map) {
 
         // equestrian = Equestrian
         if (poi.properties.tags[':panel'].indexOf('equestrian') > -1) {
-          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-equestrian'><use xlink:href='icons/defs.svg#icon-equestrian'></use></svg><span class='fpccAmenityTitle'>Equestrian</span></div>"
+          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-equestrian'><use xlink:href='icons/defs.svg#icon-equestrian'></use></svg><span class='fpccAmenityTitle'>Equestrian Parking</span></div>"
         }
 
         // fishing = Fishing
