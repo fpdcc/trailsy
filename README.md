@@ -3,7 +3,7 @@ Trailsy
 
 Trailsy is the front-end component for the Forest Preserves of Cook County (FPCC) Mapping Application developed by FPCC and Smart Chicago Collaborative. It has been forked from the original Code for America 2013 Trailsy project found [here](https://github.com/codeforamerica/trailsy). It also borrows heavily from the [Code for Boulder fork of Trailsy](https://github.com/codeforboulder/trailsy).
 
-In a nutshell it is a pure client side JavaScript browser app to show the trails, amenities, and activities for Cook County Forest Preserves.
+In a nutshell it is a pure client side JavaScript browser app to show the trails, amenities, and activities in the FPCC.
 
 **Q:** _What is OpenTrails data?_
 
@@ -12,7 +12,7 @@ In a nutshell it is a pure client side JavaScript browser app to show the trails
 The goal is to allow public agencies around the United States to publish their data in the same way so apps can be developed for the public to use to explore trails.
 Much much more may be found at the [OpenTrail Data Website](http://www.opentraildata.org/)
 
-The Cook County version of Trailsy has deviated significantly from the current Trailsy specification. "Trailheads" have been transformed into Points of Interest (POI). In most cases the POI location represents the entrance to the POI area. Two additional point layers, Activities and Picnic Groves, have been added. These points "belong" to a POI and provide specific amenity location.
+The FPCC version of Trailsy has deviated significantly from the current Trailsy specification. "Trailheads" have been transformed into Points of Interest (POI). In most cases the POI location represents the entrance to the POI area. Two additional point layers, Activities and Picnic Groves, have been added. These points "belong" to a POI and provide specific amenity location.
 
 
 ## Getting Involved
