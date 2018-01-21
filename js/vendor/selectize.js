@@ -2942,12 +2942,12 @@
 		setDropdownDirection: function (direction) {
 			var $control = this.$control;
 			var offset = this.settings.dropdownParent === 'body' ? $control.offset() : $control.position();
-			offset.top += $control.innerHeight();
+			offset.top += $control.outerHeight();
 	
 			this.$dropdown.css({
 				width : $control[0].getBoundingClientRect().width,
 				left  : offset.left,
-				top   : (direction === 'down') ?  (offset.top * .80) : 'auto',
+				top   : (direction === 'down') ?  (offset.top * 1.04) : 'auto',
 				bottom: (direction === 'down') ? 'auto'  : (offset.top * .08),
 			}).toggleClass('dropdown-up', (direction === 'down') ? false : true);
 		},
