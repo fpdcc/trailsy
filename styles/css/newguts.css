@@ -356,7 +356,8 @@ ul.fpccMobileMenuList a:hover,ul.fpccMobileMenuList a:active{background:#F1F1ED}
 .selectize-input.input-active{-webkit-border-radius:none;-moz-border-radius:0;border-radius:0}
 .selectize-control.multi .selectize-input.has-items{padding:6px 8px 4px}
 .selectize-dropdown .optgroup-header{font-weight:bold}
-.optgroup .option{padding:6px 8px 6px 20px}
+.selectize-dropdown .create{padding:5px 8px}
+.optgroup .option{padding:6px 8px 6px 20px;cursor: pointer}
 
 /*UNNEEDED? jquery mobile override */
 .fpccUnit .ui-content{padding:0}

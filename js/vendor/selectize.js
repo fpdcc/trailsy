@@ -2947,8 +2947,8 @@
 			this.$dropdown.css({
 				width : $control[0].getBoundingClientRect().width,
 				left  : offset.left,
-				top   : (direction === 'down') ?  (offset.top * 1.04) : 'auto',
-				bottom: (direction === 'down') ? 'auto'  : (offset.top * .04),
+				top   : (direction === 'down') ?  (offset.top * 1.02) : 'auto',
+				bottom: (direction === 'down') ? 'auto'  : (offset.top * .02),
 			}).toggleClass('dropdown-up', (direction === 'down') ? false : true);
 		},
 	
