@@ -24,7 +24,8 @@ var trailMap = function () {
   var that = {}
   var elementId = 'trailMapLarge'
   var map = L.map(elementId, {
-    renderer: L.canvas()
+    renderer: L.canvas(),
+    maxZoom: 18
   }).setView(Config.mapCenter, Config.defaultZoom)
   map.removeControl(map.zoomControl)
   var myAnalytics = analyticsCode.setup()
@@ -132,7 +133,10 @@ var trailMap = function () {
 
   var ccImagery = esri.imageMapLayer({
     url: 'https://gisimageserver.cookcountyil.gov/arcgis/rest/services/Cook2016/ImageServer',
-    attribution: 'Cook County GIS'
+    attribution: 'Cook County GIS',
+    //minZoom: 14,
+		maxZoom: 18,
+		compressionQuality: 45
   })
 
   var baseMaps = {
@@ -268,17 +272,6 @@ var trailMap = function () {
     alertFeat.fetchAlerts()
   }
 
-  // $('a').click(function () {
-  //   var $a = $(this)
-  //   var href = $a.attr('href')
-  //   var datasource = $a.attr('data-source')
-  //   var datatrail = $a.attr('data-trailname')
-  //   var datapoi = $a.attr('data-trailheadName')
-  //   console.log('href = ' + href)
-  //   console.log('datasource = ' + datasource)
-  //   console.log('datatrail = ' + datatrail)
-  //   console.log('datapoi = ' + datapoi)
-  // })
 
   return that
 }

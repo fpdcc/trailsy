@@ -154,7 +154,8 @@ var events = function (map) {
         zoomFeatureGroupBounds = trailsGroupBounds
       }
       console.log('[trailDivWork] before fitbounds')
-      console.log('[trailDivWork] my.panel.padding = ' + my.panel.padding)
+      zoomFeatureGroupBounds._northEast.lat += 0.000001;
+      zoomFeatureGroupBounds._northEast.lng += 0.000001;
       map.fitBounds(zoomFeatureGroupBounds, {
         paddingTopLeft: my.panel.padding,
         paddingBottomRight: my.panel.paddingRight
