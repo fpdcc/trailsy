@@ -136,7 +136,7 @@ var trailMap = function () {
     attribution: 'Cook County GIS',
     //minZoom: 14,
 		maxZoom: 18,
-		compressionQuality: 45
+		compressionQuality: 50
   })
 
   var baseMaps = {
