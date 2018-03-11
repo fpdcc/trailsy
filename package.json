@@ -5,10 +5,11 @@
   "license": "BSD-3-Clause",
   "private": true,
   "dependencies": {
-    "autolink-js": "^1.0.2",
     "async": "^1.2.1",
+    "autolink-js": "^1.0.2",
     "bootstrap": "^3.3.5",
     "bootstrap-drawer": "^1.0.4",
+    "esri-leaflet": "^2.1.4",
     "jquery": "^3.1.1",
     "jquery-address": "^1.6",
     "leaflet": "^1.0.3",
@@ -16,6 +17,7 @@
     "leaflet-providers": "^1.1.0",
     "leaflet-usermarker": "^1.0.0",
     "leaflet.markercluster": "^1.0.3",
+    "npm": "^5.7.1",
     "pluralize": "^6.0.0",
     "svgxuse": "^1.2.1"
   },

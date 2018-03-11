@@ -4,6 +4,7 @@ var $ = require('jquery')
 require('./vendor/leaflet.zoomcss.js')
 require('leaflet-boundsawarelayergroup')
 require('leaflet.markercluster')
+var esri = require('esri-leaflet')
 require('jquery-address')
 require('svgxuse')
 var Config = require('./config.js')
@@ -128,9 +129,16 @@ var trailMap = function () {
     id: 'mapbox.satellite',
     accessToken: mapboxAccessToken
   })
+
+  var ccImagery = esri.imageMapLayer({
+    url: 'https://gisimageserver.cookcountyil.gov/arcgis/rest/services/Cook2016/ImageServer',
+    attribution: 'Cook County GIS'
+  })
+
   var baseMaps = {
     'Streets': mainBase,
-    'Satellite': imageryBase
+    'Satellite': imageryBase,
+    'Imagery': ccImagery
   }
   L.control.scale({maxWidth: 300, position: 'bottomright'}).addTo(map)
   L.control.layers(baseMaps, null, {collapsed: false, position: 'bottomright'}).addTo(map)
