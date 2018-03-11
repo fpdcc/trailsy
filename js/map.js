@@ -107,6 +107,11 @@ var trailMap = function () {
     $('.trail-popup-line.trail-subsystem').on(Config.listenType, events.trailPopupNameClick)
   })
 
+  map.on('baselayerchange', function (event) {
+    console.log(event.name)
+    analyticsCode.trackClickEventWithGA('Layer', 'Change', event.name)
+ });
+
   var mapboxAttribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
       '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
       'Imagery © <a href="http://mapbox.com">Mapbox</a>'

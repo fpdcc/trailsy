@@ -14001,8 +14001,8 @@
 				this.$dropdown.css({
 					width : $control[0].getBoundingClientRect().width,
 					left  : offset.left,
-					top   : (direction === 'down') ?  (offset.top * 1.04) : 'auto',
-					bottom: (direction === 'down') ? 'auto'  : (offset.top * .04),
+					top   : (direction === 'down') ?  (offset.top * 1.02) : 'auto',
+					bottom: (direction === 'down') ? 'auto'  : (offset.top * .02),
 				}).toggleClass('dropdown-up', (direction === 'down') ? false : true);
 			},
 		
@@ -15067,6 +15067,11 @@
 	    $('.popupTrailheadNames').on(Config.listenType, events.poiPopupNameClick)
 	    $('.trail-popup-line.trail-subsystem').on(Config.listenType, events.trailPopupNameClick)
 	  })
+	
+	  map.on('baselayerchange', function (event) {
+	    console.log(event.name)
+	    analyticsCode.trackClickEventWithGA('Layer', 'Change', event.name)
+	 });
 	
 	  var mapboxAttribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
 	      '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
