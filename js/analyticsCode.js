@@ -57,7 +57,7 @@ $(document).ready(function () {
     // console.log('type, description: ' + type + ', ' + description)
     if (type) {
       trackLinkClicks(type, 'Click', description)
-    } else if (href.match(/^http/i) && !href.match(document.domain)) {
+    } else if ( (href) && (href.match(/^http/i)) && (!href.match(document.domain)) ) {
       trackLinkClicks('Outbound Link', 'Click', href)
     }
   })
