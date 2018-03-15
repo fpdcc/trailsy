@@ -251,12 +251,12 @@ var trailMap = function () {
   }
 
   that.fetchData = function () {
+    geoFunctions.setupGeolocation()
     tSegment.fetchTrailSegments()
     poiFeat.fetchPois()
     tInfo.fetchTrailInfo()
     activityFeat.fetchActivities()
     picnicgroveFeat.fetchPicnicgroves()
-    geoFunctions.setupGeolocation()
     alertFeat.fetchAlerts()
   }
 

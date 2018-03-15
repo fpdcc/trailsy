@@ -15212,12 +15212,12 @@
 	  }
 	
 	  that.fetchData = function () {
+	    geoFunctions.setupGeolocation()
 	    tSegment.fetchTrailSegments()
 	    poiFeat.fetchPois()
 	    tInfo.fetchTrailInfo()
 	    activityFeat.fetchActivities()
 	    picnicgroveFeat.fetchPicnicgroves()
-	    geoFunctions.setupGeolocation()
 	    alertFeat.fetchAlerts()
 	  }
 	
@@ -33685,20 +33685,20 @@
 	      // setup location monitoring
 	      var options = {
 	        enableHighAccuracy: true,
-	        timeout: 12000,
+	        timeout: 13000,
 	        maximumAge: 30000
 	      }
 	      geoWatchId = navigator.geolocation.watchPosition(
 	        function (position) {
-	          //console.log('[setupGeolocation] function position')
+	          console.log('[setupGeolocation] function success')
 	          that.handleGeoSuccess(position)
 	          geoSetupDone = true
 	          // console.log('[setupGeolocation] function position geoSetupDone= ' + geoSetupDone)
 	        },
 	        function (error) {
-	          // console.log('[setupGeolocation] error -> currentUserLocation = ' + that.currentUserLocation)
-	          // console.log('[setupGeolocation] function error.code = ' + error.code)
-	          // console.log('[setupGeolocation] function error.message = ' + error.message)
+	          console.log('[setupGeolocation] error -> currentUserLocation = ' + that.currentUserLocation)
+	          console.log('[setupGeolocation] function error.code = ' + error.code)
+	          console.log('[setupGeolocation] function error.message = ' + error.message)
 	          that.handleGeoError(error)
 	          //analyticsCode.trackClickEventWithGA('geoLocation', 'Error', error.message)
 	          geoSetupDone = true
