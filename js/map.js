@@ -5,6 +5,7 @@ require('./vendor/leaflet.zoomcss.js')
 require('leaflet-boundsawarelayergroup')
 require('leaflet.markercluster')
 var esri = require('esri-leaflet')
+require('leaflet.vectorgrid')
 require('jquery-address')
 require('svgxuse')
 var Config = require('./config.js')
@@ -19,6 +20,7 @@ var filterFunctions = require('./filterFunctions.js')
 var eventListeners = require('./eventListeners.js')
 var panelFunctions = require('./panelFunctions.js')
 var alertFeature = require('./alertFeature.js')
+var vt = require('./vectorTest.js')
 
 var trailMap = function () {
   var that = {}
@@ -121,7 +123,9 @@ var trailMap = function () {
     {
       updateWhenZooming: false,
       attribution: mapboxAttribution
-    }).addTo(map)
+    })//.addTo(map)
+
+    vt.nextzenTilesPbfLayer.addTo(map)
 
   var mapboxAccessToken = 'sk.eyJ1Ijoic21hcnRjaGljYWdvY29sbGFib3JhdGl2ZSIsImEiOiJjaWlqOGU2dmMwMTA2dWNrcHM0d21qNDhzIn0.2twD0eBu4UKHu-3JZ0vt0w'
   var imageryBase = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
@@ -142,7 +146,8 @@ var trailMap = function () {
   var baseMaps = {
     'Streets': mainBase,
     'Satellite': imageryBase,
-    'Imagery': ccImagery
+    'Imagery': ccImagery,
+    'nextzenTilesPbfLayer': vt.nextzenTilesPbfLayer
   }
   L.control.scale({maxWidth: 300, position: 'bottomright'}).addTo(map)
   L.control.layers(baseMaps, null, {collapsed: false, position: 'bottomright'}).addTo(map)
