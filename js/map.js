@@ -46,7 +46,7 @@ var trailMap = function () {
   
 
   var events = eventListeners.events(map)
-  var geoFunctions = geolocationFunctions(map, filters, poiFeat, events)
+  var geoFunctions = geolocationFunctions(map, filters, poiFeat, events, analyticsCode)
 
   // var lastZoom = null
 

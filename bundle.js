@@ -15007,7 +15007,7 @@
 	  
 	
 	  var events = eventListeners.events(map)
-	  var geoFunctions = geolocationFunctions(map, filters, poiFeat, events)
+	  var geoFunctions = geolocationFunctions(map, filters, poiFeat, events, analyticsCode)
 	
 	  // var lastZoom = null
 	
@@ -33669,7 +33669,7 @@
 	var Config = __webpack_require__(10)
 	__webpack_require__(19)
 	
-	var geolocationFunctions = function (map, filters, poiFeat, events) {
+	var geolocationFunctions = function (map, filters, poiFeat, events, analyticsCode) {
 	  var that = {}
 	
 	  that.currentUserLocation = null
@@ -33700,6 +33700,7 @@
 	          // console.log('[setupGeolocation] function error.code = ' + error.code)
 	          // console.log('[setupGeolocation] function error.message = ' + error.message)
 	          that.handleGeoError(error)
+	          //analyticsCode.trackClickEventWithGA('geoLocation', 'Error', error.message)
 	          geoSetupDone = true
 	          // console.log('[setupGeolocation] function error geoSetupDone= ' + geoSetupDone)
 	        },
@@ -33755,6 +33756,7 @@
 	    geoLocateAttempt = 1
 	    // console.log(currentUserLocation);
 	    userMarker.setLatLng(filters.current.userLocation)
+	    analyticsCode.trackClickEventWithGA('geoLocation', 'Success', distanceToMapCenterPoint)
 	    that.geoSetupDone.resolve()
 	    if (typeof callback === 'function') {
 	      callback()
@@ -33776,16 +33778,19 @@
 	      console.log('[setupGeolocation handleGeoError] currentUserLocation does not exist')
 	      //filters.current.userLocation = Config.mapCenter
 	      filters.current.showDistances = false
+	      analyticsCode.trackClickEventWithGA('geoLocation', 'Error', 'currentUserLocation does not exist')
 	      showGeoOverlay()
 	    }
 	    if (map && userMarker && error.code === 3) {
 	      console.log('[setupGeolocation handleGeoError] in If map+userMarker+error.code')
 	      map.removeLayer(userMarker)
+	      analyticsCode.trackClickEventWithGA('geoLocation', 'Error', 'map+userMarker+error.code')
 	      userMarker = null
 	    }
 	    that.geoSetupDone.resolve()
 	    if (typeof callback === 'function') {
 	      console.log('[setupGeolocation handleGeoError] in If callback = function statement')
+	      analyticsCode.trackClickEventWithGA('geoLocation', 'Error', 'callback = function statement')
 	      callback()
 	    }
 	    console.log('setupGeolocation handleGeoError DONE')
