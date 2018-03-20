@@ -1,6 +1,8 @@
 'use strict'
 var L = require('leaflet')
+//var Tangram = require('tangram')
 var $ = require('jquery')
+//var Tangram = require('./vendor/tangram.min.js')
 require('./vendor/leaflet.zoomcss.js')
 require('leaflet-boundsawarelayergroup')
 require('leaflet.markercluster')
@@ -20,7 +22,6 @@ var filterFunctions = require('./filterFunctions.js')
 var eventListeners = require('./eventListeners.js')
 var panelFunctions = require('./panelFunctions.js')
 var alertFeature = require('./alertFeature.js')
-var vt = require('./vectorTest.js')
 
 var trailMap = function () {
   var that = {}
@@ -125,8 +126,6 @@ var trailMap = function () {
       attribution: mapboxAttribution
     })//.addTo(map)
 
-    vt.nextzenTilesPbfLayer.addTo(map)
-
   var mapboxAccessToken = 'sk.eyJ1Ijoic21hcnRjaGljYWdvY29sbGFib3JhdGl2ZSIsImEiOiJjaWlqOGU2dmMwMTA2dWNrcHM0d21qNDhzIn0.2twD0eBu4UKHu-3JZ0vt0w'
   var imageryBase = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
     attribution: mapboxAttribution,
@@ -143,11 +142,16 @@ var trailMap = function () {
 		compressionQuality: 50
   })
 
+  var tangramLayer = Tangram.leafletLayer({
+    scene: 'https://raw.githubusercontent.com/fpdcc/webmap_styles/master/tangram/fpdcc_style.yaml',
+    attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors'
+  }).addTo(map)
+
   var baseMaps = {
     'Streets': mainBase,
+    'TangramLayer': tangramLayer,
     'Satellite': imageryBase,
-    'Imagery': ccImagery,
-    'nextzenTilesPbfLayer': vt.nextzenTilesPbfLayer
+    'Imagery': ccImagery
   }
   L.control.scale({maxWidth: 300, position: 'bottomright'}).addTo(map)
   L.control.layers(baseMaps, null, {collapsed: false, position: 'bottomright'}).addTo(map)
