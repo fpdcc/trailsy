@@ -119,7 +119,7 @@ var geolocationFunctions = function (map, filters, poiFeat, events, analyticsCod
     if (map && userMarker && error.code === 3) {
       console.log('[setupGeolocation handleGeoError] in If map+userMarker+error.code')
       map.removeLayer(userMarker)
-      analyticsCode.trackClickEventWithGA('geoLocation', 'Error', 'map+userMarker+error.code')
+      analyticsCode.trackClickEventWithGA('geoLocation', 'Error', error.code)
       userMarker = null
     }
     that.geoSetupDone.resolve()
