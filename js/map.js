@@ -28,7 +28,13 @@ var trailMap = function () {
   var elementId = 'trailMapLarge'
   var map = L.map(elementId, {
     renderer: L.canvas(),
-    maxZoom: 18
+    minZoom: 9,
+    maxZoom: 18,
+    zoomSnap: 1,
+    zoomDelta: 1,
+    zoomAnimation: false,
+    wheelPxPerZoomLevel: 200,
+    wheelDebounceTime: 80
   }).setView(Config.mapCenter, Config.defaultZoom)
   map.removeControl(map.zoomControl)
   var myAnalytics = analyticsCode.setup()
@@ -145,7 +151,8 @@ var trailMap = function () {
   var tangramLayer = Tangram.leafletLayer({
     scene: 'https://raw.githubusercontent.com/fpdcc/webmap_styles/master/tangram/fpdcc_style.yaml',
     attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors',
-    modifyScrollWheel: false
+    modifyScrollWheel: false,
+    maxZoom: 18
   }).addTo(map)
 
   var baseMaps = {
