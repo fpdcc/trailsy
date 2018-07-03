@@ -14993,7 +14993,7 @@
 	    maxZoom: 18,
 	    zoomSnap: 1,
 	    zoomDelta: 1,
-	    zoomAnimation: false,
+	    zoomAnimation: true,
 	    wheelPxPerZoomLevel: 200,
 	    wheelDebounceTime: 80
 	  }).setView(Config.mapCenter, Config.defaultZoom)
@@ -15112,7 +15112,7 @@
 	  var tangramLayer = Tangram.leafletLayer({
 	    scene: 'https://raw.githubusercontent.com/fpdcc/webmap_styles/master/tangram/fpdcc_style.yaml',
 	    attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors',
-	    modifyScrollWheel: false,
+	    modifyScrollWheel: true,
 	    maxZoom: 18
 	  }).addTo(map)
 	
@@ -29098,6 +29098,8 @@
 	        zoom = map.getZoom(),
 	        container = map.getContainer();
 	
+	        zoom = Math.round(zoom);
+	
 	    container.className = container.className.replace( /\sz[0-9]{1,2}/g, '' ) + ' z' + zoom;
 	
 	  }
@@ -36337,7 +36339,7 @@
 	var isEdge = ((navigator.userAgent.toLowerCase().indexOf('edge') !== -1) || (navigator.userAgent.toLowerCase().indexOf('trident') !== -1)) ? true : false
 	// var appId = '6' // OuterSpatial assigns a unique id for each customer
 	var url = 'https://fpcc-staging.smartchicagoapps.org'
-	//var url = 'https://map.fpdcc.com'
+	var url = 'https://map.fpdcc.com'
 	//url = 'http://localhost:8080'
 	var gaCode1 = 'UA-92972430-2'
 	var gaCode2 = ''
