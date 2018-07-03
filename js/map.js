@@ -32,7 +32,7 @@ var trailMap = function () {
     maxZoom: 18,
     zoomSnap: 1,
     zoomDelta: 1,
-    zoomAnimation: false,
+    zoomAnimation: true,
     wheelPxPerZoomLevel: 200,
     wheelDebounceTime: 80
   }).setView(Config.mapCenter, Config.defaultZoom)
@@ -151,7 +151,7 @@ var trailMap = function () {
   var tangramLayer = Tangram.leafletLayer({
     scene: 'https://raw.githubusercontent.com/fpdcc/webmap_styles/master/tangram/fpdcc_style.yaml',
     attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors',
-    modifyScrollWheel: false,
+    modifyScrollWheel: true,
     maxZoom: 18
   }).addTo(map)
 
