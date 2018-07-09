@@ -14970,33 +14970,39 @@
 	var esri = __webpack_require__(9)
 	__webpack_require__(10)
 	__webpack_require__(2)
-	__webpack_require__(11)
-	var Config = __webpack_require__(12)
-	var analyticsCode = __webpack_require__(13)
-	var poiFeature = __webpack_require__(14)
-	var trailSegmentFeature = __webpack_require__(16)
-	var trailInfo = __webpack_require__(17)
-	var activityFeature = __webpack_require__(18)
-	var picnicgroveFeature = __webpack_require__(19)
-	var geolocationFunctions = __webpack_require__(20)
-	var filterFunctions = __webpack_require__(22)
-	var eventListeners = __webpack_require__(15)
-	var panelFunctions = __webpack_require__(26)
-	var alertFeature = __webpack_require__(29)
+	// require('svgxuse')
+	var Config = __webpack_require__(11)
+	var analyticsCode = __webpack_require__(12)
+	var poiFeature = __webpack_require__(13)
+	var trailSegmentFeature = __webpack_require__(15)
+	var trailInfo = __webpack_require__(16)
+	var activityFeature = __webpack_require__(17)
+	var picnicgroveFeature = __webpack_require__(18)
+	var geolocationFunctions = __webpack_require__(19)
+	var filterFunctions = __webpack_require__(21)
+	var eventListeners = __webpack_require__(14)
+	var panelFunctions = __webpack_require__(25)
+	var alertFeature = __webpack_require__(28)
 	
 	var trailMap = function () {
 	  var that = {}
 	  var elementId = 'trailMapLarge'
 	  var map = L.map(elementId, {
-	    renderer: L.canvas(),
+	    //renderer: L.canvas(),
+	    preferCanvas: true,
 	    minZoom: 9,
 	    maxZoom: 18,
 	    zoomSnap: 1,
 	    zoomDelta: 1,
 	    zoomAnimation: true,
-	    wheelPxPerZoomLevel: 200,
-	    wheelDebounceTime: 80
-	  }).setView(Config.mapCenter, Config.defaultZoom)
+	    center: Config.mapCenter,
+	    zoom: Config.defaultZoom,
+	    //markerZoomAnimation: false,
+	    //zoomAnimationThreshold: 2,
+	    //wheelPxPerZoomLevel: 200,
+	    //wheelDebounceTime: 80,
+	    debounceMoveend: true
+	  }) //.setView(Config.mapCenter, Config.defaultZoom)
 	  map.removeControl(map.zoomControl)
 	  var myAnalytics = analyticsCode.setup()
 	  // map.addControl(L.control.zoom({position: 'topright'}))
@@ -15060,6 +15066,7 @@
 	    // console.log('zoomend start ' + map.getZoom())
 	    // var zoomLevel = map.getZoom()
 	    // lastZoom = zoomLevel
+	    //map.invalidateSize(false)
 	    console.log('zoomend end ' + map.getZoom())
 	  })
 	
@@ -15070,6 +15077,7 @@
 	      $('.useMapIcon').off()
 	      $('.useMapIcon').on(Config.listenType, events.edgeClick)
 	    }
+	    //map.invalidateSize(false)
 	    console.log('moveend end ')
 	  })
 	
@@ -15112,9 +15120,19 @@
 	  var tangramLayer = Tangram.leafletLayer({
 	    scene: 'https://raw.githubusercontent.com/fpdcc/webmap_styles/master/tangram/fpdcc_style.yaml',
 	    attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors',
-	    modifyScrollWheel: true,
+	    modifyScrollWheel: false,
+	    modifyZoomBehavior: false,
 	    maxZoom: 18
 	  }).addTo(map)
+	
+	  // tangramLayer.scene.subscribe({
+	  //   view_complete: function () {
+	  //       console.log('scene view complete');
+	  //       map.invalidateSize(true)
+	  //   }
+	  // })
+	
+	 
 	
 	  var baseMaps = {
 	    'Streets': mainBase,
@@ -15184,6 +15202,7 @@
 	        })
 	        console.log('[filterAll] about to makeresults at ' + performance.now())
 	        if (poiFeat.filteredPoisFeatureGroup) {
+	          poiFeat.filteredPoisFeatureGroup.addTo(map)
 	          if (fitToBounds) {
 	            var zoomFeatureGroupBounds = poiFeat.filteredPoisFeatureGroup.getBounds()
 	            if (whatBounds !== 'all') {
@@ -15199,12 +15218,13 @@
 	                zoomFeatureGroupBounds = zoomFeatureGroup.getBounds()
 	              }
 	            }
+	            console.log('[filterAll] about to fitbounds')
 	            map.fitBounds(zoomFeatureGroupBounds, {
 	              paddingTopLeft: panel.padding,
 	              paddingBottomRight: panel.paddingRight
 	            })
 	          }
-	          poiFeat.filteredPoisFeatureGroup.addTo(map)
+	          
 	          // console.log('isEdge? = ' + Config.isEdge)
 	        }
 	        if (activityFeat.filteredFG) {
@@ -36092,242 +36112,6 @@
 
 /***/ }),
 /* 11 */
-/***/ (function(module, exports) {
-
-	/*!
-	 * @copyright Copyright (c) 2017 IcoMoon.io
-	 * @license   Licensed under MIT license
-	 *            See https://github.com/Keyamoon/svgxuse
-	 * @version   1.2.6
-	 */
-	/*jslint browser: true */
-	/*global XDomainRequest, MutationObserver, window */
-	(function () {
-	    "use strict";
-	    if (typeof window !== "undefined" && window.addEventListener) {
-	        var cache = Object.create(null); // holds xhr objects to prevent multiple requests
-	        var checkUseElems;
-	        var tid; // timeout id
-	        var debouncedCheck = function () {
-	            clearTimeout(tid);
-	            tid = setTimeout(checkUseElems, 100);
-	        };
-	        var unobserveChanges = function () {
-	            return;
-	        };
-	        var observeChanges = function () {
-	            var observer;
-	            window.addEventListener("resize", debouncedCheck, false);
-	            window.addEventListener("orientationchange", debouncedCheck, false);
-	            if (window.MutationObserver) {
-	                observer = new MutationObserver(debouncedCheck);
-	                observer.observe(document.documentElement, {
-	                    childList: true,
-	                    subtree: true,
-	                    attributes: true
-	                });
-	                unobserveChanges = function () {
-	                    try {
-	                        observer.disconnect();
-	                        window.removeEventListener("resize", debouncedCheck, false);
-	                        window.removeEventListener("orientationchange", debouncedCheck, false);
-	                    } catch (ignore) {}
-	                };
-	            } else {
-	                document.documentElement.addEventListener("DOMSubtreeModified", debouncedCheck, false);
-	                unobserveChanges = function () {
-	                    document.documentElement.removeEventListener("DOMSubtreeModified", debouncedCheck, false);
-	                    window.removeEventListener("resize", debouncedCheck, false);
-	                    window.removeEventListener("orientationchange", debouncedCheck, false);
-	                };
-	            }
-	        };
-	        var createRequest = function (url) {
-	            // In IE 9, cross origin requests can only be sent using XDomainRequest.
-	            // XDomainRequest would fail if CORS headers are not set.
-	            // Therefore, XDomainRequest should only be used with cross origin requests.
-	            function getOrigin(loc) {
-	                var a;
-	                if (loc.protocol !== undefined) {
-	                    a = loc;
-	                } else {
-	                    a = document.createElement("a");
-	                    a.href = loc;
-	                }
-	                return a.protocol.replace(/:/g, "") + a.host;
-	            }
-	            var Request;
-	            var origin;
-	            var origin2;
-	            if (window.XMLHttpRequest) {
-	                Request = new XMLHttpRequest();
-	                origin = getOrigin(location);
-	                origin2 = getOrigin(url);
-	                if (Request.withCredentials === undefined && origin2 !== "" && origin2 !== origin) {
-	                    Request = XDomainRequest || undefined;
-	                } else {
-	                    Request = XMLHttpRequest;
-	                }
-	            }
-	            return Request;
-	        };
-	        var xlinkNS = "http://www.w3.org/1999/xlink";
-	        checkUseElems = function () {
-	            var base;
-	            var bcr;
-	            var fallback = ""; // optional fallback URL in case no base path to SVG file was given and no symbol definition was found.
-	            var hash;
-	            var href;
-	            var i;
-	            var inProgressCount = 0;
-	            var isHidden;
-	            var Request;
-	            var url;
-	            var uses;
-	            var xhr;
-	            function observeIfDone() {
-	                // If done with making changes, start watching for chagnes in DOM again
-	                inProgressCount -= 1;
-	                if (inProgressCount === 0) { // if all xhrs were resolved
-	                    unobserveChanges(); // make sure to remove old handlers
-	                    observeChanges(); // watch for changes to DOM
-	                }
-	            }
-	            function attrUpdateFunc(spec) {
-	                return function () {
-	                    if (cache[spec.base] !== true) {
-	                        spec.useEl.setAttributeNS(xlinkNS, "xlink:href", "#" + spec.hash);
-	                        if (spec.useEl.hasAttribute("href")) {
-	                            spec.useEl.setAttribute("href", "#" + spec.hash);
-	                        }
-	                    }
-	                };
-	            }
-	            function onloadFunc(xhr) {
-	                return function () {
-	                    var body = document.body;
-	                    var x = document.createElement("x");
-	                    var svg;
-	                    xhr.onload = null;
-	                    x.innerHTML = xhr.responseText;
-	                    svg = x.getElementsByTagName("svg")[0];
-	                    if (svg) {
-	                        svg.setAttribute("aria-hidden", "true");
-	                        svg.style.position = "absolute";
-	                        svg.style.width = 0;
-	                        svg.style.height = 0;
-	                        svg.style.overflow = "hidden";
-	                        body.insertBefore(svg, body.firstChild);
-	                    }
-	                    observeIfDone();
-	                };
-	            }
-	            function onErrorTimeout(xhr) {
-	                return function () {
-	                    xhr.onerror = null;
-	                    xhr.ontimeout = null;
-	                    observeIfDone();
-	                };
-	            }
-	            unobserveChanges(); // stop watching for changes to DOM
-	            // find all use elements
-	            uses = document.getElementsByTagName("use");
-	            for (i = 0; i < uses.length; i += 1) {
-	                try {
-	                    bcr = uses[i].getBoundingClientRect();
-	                } catch (ignore) {
-	                    // failed to get bounding rectangle of the use element
-	                    bcr = false;
-	                }
-	                href = uses[i].getAttribute("href")
-	                        || uses[i].getAttributeNS(xlinkNS, "href")
-	                        || uses[i].getAttribute("xlink:href");
-	                if (href && href.split) {
-	                    url = href.split("#");
-	                } else {
-	                    url = ["", ""];
-	                }
-	                base = url[0];
-	                hash = url[1];
-	                isHidden = bcr && bcr.left === 0 && bcr.right === 0 && bcr.top === 0 && bcr.bottom === 0;
-	                if (bcr && bcr.width === 0 && bcr.height === 0 && !isHidden) {
-	                    // the use element is empty
-	                    // if there is a reference to an external SVG, try to fetch it
-	                    // use the optional fallback URL if there is no reference to an external SVG
-	                    if (fallback && !base.length && hash && !document.getElementById(hash)) {
-	                        base = fallback;
-	                    }
-	                    if (uses[i].hasAttribute("href")) {
-	                        uses[i].setAttributeNS(xlinkNS, "xlink:href", href);
-	                    }
-	                    if (base.length) {
-	                        // schedule updating xlink:href
-	                        xhr = cache[base];
-	                        if (xhr !== true) {
-	                            // true signifies that prepending the SVG was not required
-	                            setTimeout(attrUpdateFunc({
-	                                useEl: uses[i],
-	                                base: base,
-	                                hash: hash
-	                            }), 0);
-	                        }
-	                        if (xhr === undefined) {
-	                            Request = createRequest(base);
-	                            if (Request !== undefined) {
-	                                xhr = new Request();
-	                                cache[base] = xhr;
-	                                xhr.onload = onloadFunc(xhr);
-	                                xhr.onerror = onErrorTimeout(xhr);
-	                                xhr.ontimeout = onErrorTimeout(xhr);
-	                                xhr.open("GET", base);
-	                                xhr.send();
-	                                inProgressCount += 1;
-	                            }
-	                        }
-	                    }
-	                } else {
-	                    if (!isHidden) {
-	                        if (cache[base] === undefined) {
-	                            // remember this URL if the use element was not empty and no request was sent
-	                            cache[base] = true;
-	                        } else if (cache[base].onload) {
-	                            // if it turns out that prepending the SVG is not necessary,
-	                            // abort the in-progress xhr.
-	                            cache[base].abort();
-	                            delete cache[base].onload;
-	                            cache[base] = true;
-	                        }
-	                    } else if (base.length && cache[base]) {
-	                        setTimeout(attrUpdateFunc({
-	                            useEl: uses[i],
-	                            base: base,
-	                            hash: hash
-	                        }), 0);
-	                    }
-	                }
-	            }
-	            uses = "";
-	            inProgressCount += 1;
-	            observeIfDone();
-	        };
-	        var winLoad;
-	        winLoad = function () {
-	            window.removeEventListener("load", winLoad, false); // to prevent memory leaks
-	            tid = setTimeout(checkUseElems, 0);
-	        };
-	        if (document.readyState !== "complete") {
-	            // The load event fires when all resources have finished loading, which allows detecting whether SVG use elements are empty.
-	            window.addEventListener("load", winLoad, false);
-	        } else {
-	            // No need to add a listener if the document is already loaded, initialize immediately.
-	            winLoad();
-	        }
-	    }
-	}());
-
-
-/***/ }),
-/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var L = __webpack_require__(5)
@@ -36367,12 +36151,12 @@
 
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict'
 	var $ = __webpack_require__(1)
-	var Config = __webpack_require__(12)
+	var Config = __webpack_require__(11)
 	__webpack_require__(2)
 	
 	var setup = function () {
@@ -36442,7 +36226,7 @@
 
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict'
@@ -36450,8 +36234,8 @@
 	var $ = __webpack_require__(1)
 	__webpack_require__(7)
 	__webpack_require__(8)
-	var Config = __webpack_require__(12)
-	var eL = __webpack_require__(15)
+	var Config = __webpack_require__(11)
+	var eL = __webpack_require__(14)
 	
 	// var alertFeat
 	
@@ -36657,11 +36441,13 @@
 	    }
 	    that.reorderPois(filters)
 	    if (that.filteredPoisArray.length !== 0) {
+	      //that.filteredPoisFeatureGroup = new L.FeatureGroup(that.filteredPoisArray)
 	      that.filteredPoisFeatureGroup = L.markerClusterGroup({
 	        showCoverageOnHover: false,
 	        disableClusteringAtZoom: 13,
 	        spiderfyOnMaxZoom: false,
 	        maxClusterRadius: 60,
+	        removeOutsideVisibleBounds: true,
 	        iconCreateFunction: function (cluster) {
 	          if (Config.isEdge) {
 	            return new L.Icon({
@@ -36806,7 +36592,7 @@
 	  }
 	
 	  that.getPoiById = function (poiID) {
-	    console.log('getPoiById start for poiID = ' + poiID)
+	    // console.log('getPoiById start for poiID = ' + poiID)
 	    var trailhead = null
 	    // console.log('[getPoiById] that.originalPoisArray.length = ' + that.originalPoisArray.length)
 	    for (var i = 0; i < that.originalPoisArray.length; i++) {
@@ -36830,14 +36616,14 @@
 	}
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict'
 	var L = __webpack_require__(5)
 	var $ = __webpack_require__(1)
-	var Config = __webpack_require__(12)
-	var analyticsCode = __webpack_require__(13)
+	var Config = __webpack_require__(11)
+	var analyticsCode = __webpack_require__(12)
 	
 	var my = {
 	  map: null,
@@ -36919,7 +36705,7 @@
 	    var $myTarget = $(e.currentTarget)
 	    var trailSubsystemName = $myTarget.attr('data-trailname')
 	    var trailSubsystemNormalizedName = trailSubsystemName.replace(/[& ]/g, '+')
-	    console.log('[poiPopupTrailClick] trailSubsystemNormalizedName = ' + trailSubsystemNormalizedName)
+	    // console.log('[poiPopupTrailClick] trailSubsystemNormalizedName = ' + trailSubsystemNormalizedName)
 	    that.segmentClick(trailSubsystemNormalizedName)
 	    my.panel.slideDetailPanel(true)
 	  }
@@ -36929,14 +36715,14 @@
 	  }
 	
 	  that.closeDetailPanel = function () {
-	    console.log('events.closeDetailPanel')
-	    console.log('events.closeDetailPanel Config.listenType = ' + Config.listenType)
+	    // console.log('events.closeDetailPanel')
+	    // console.log('events.closeDetailPanel Config.listenType = ' + Config.listenType)
 	    my.panel.toggleDetailPanel('close')
-	    setTimeout(function () {
+	    // setTimeout(function () {
 	      map.closePopup()
 	      that.highlightPoi(null)
 	      that.highlightSegmentsForSubsystem(null)
-	    }, 0)
+	    //}, 0)
 	  }
 	
 	  that.makeResults = function (poiFeat, trailInfo, filters, open) {
@@ -36945,22 +36731,22 @@
 	  }
 	
 	  that.trailDivClickHandler = function (e) {
-	    console.log('trailDivClickHandler start')
+	    // console.log('trailDivClickHandler start')
 	    // document.getElementById('fpccContainer').innerHTML = loaderDiv
 	    panel.toggleDetailPanel('open')
 	    var $myTarget = $(e.currentTarget)
 	    var divTrailID = $myTarget.attr('data-trailid')
 	    var divTrailName = $myTarget.attr('data-trailname')
 	    var divPoiName = $myTarget.attr('data-trailheadName')
-	    console.log(divTrailID)
+	    // console.log(divTrailID)
 	    var trailSubsystem = null
 	    var divPoiId = $myTarget.attr('data-trailheadid')
-	    console.log('trailDivClickHandler divPoiId = ' + divPoiId)
+	    // console.log('trailDivClickHandler divPoiId = ' + divPoiId)
 	    if (divTrailName) {
 	      trailSubsystem = divTrailName
 	      that.trailDivWork(trailSubsystem, null)
 	    } else {
-	      console.log('trailDivClickHandler else divPoiId = ' + divPoiId)
+	      // console.log('trailDivClickHandler else divPoiId = ' + divPoiId)
 	      that.trailDivWork(null, divPoiId)
 	    }
 	  }
@@ -36970,14 +36756,14 @@
 	      panel.showDetails(my, trailSubsystemName, null)
 	    } else {
 	      var divPoi = my.poiFeat.getPoiById(poiId)
-	      console.log('trailDivWork divPoi = ' + divPoi)
-	      console.log('[trailDivWork] about to showTrailDetails(divTrail, divTrailhead)')
+	      // console.log('trailDivWork divPoi = ' + divPoi)
+	      // console.log('[trailDivWork] about to showTrailDetails(divTrail, divTrailhead)')
 	      panel.showDetails(my, null, divPoi)
 	      if (divPoi.properties.direct_trail_id) {
 	        trailSubsystemName = my.trailInfo.originalTrailInfo[divPoi.properties.direct_trail_id].trail_subsystem.replace(/[& ]/g, '+')
 	      }
 	    }
-	    setTimeout(function () {
+	    //setTimeout(function () {
 	      console.log('trailDivWork setTimeout')
 	      var trailsGroupBounds = that.highlightSegmentsForSubsystem(trailSubsystemName)
 	      var trailheadGroupBounds = that.highlightPoi(divPoi)
@@ -36995,7 +36781,7 @@
 	        paddingTopLeft: my.panel.padding,
 	        paddingBottomRight: my.panel.paddingRight
 	      })
-	    }, 0)
+	    //}, 0)
 	    console.log('trailDivWork end')
 	  }
 	
@@ -37005,18 +36791,20 @@
 	  }
 	
 	  that.poiClick = function (poi) {
-	    console.log('[events poiClick] start')
+	    // console.log('[events poiClick] start')
 	    analyticsCode.trackClickEventWithGA('Marker', 'poiClick', poi.properties.name)
 	    var zoomFeatureGroupBounds = that.highlightPoi(poi)
 	    var trailSubsystem = poi.properties.trail_subsystem || null
 	    that.highlightSegmentsForSubsystem(trailSubsystem)
 	    if (my.map.getBoundsZoom(zoomFeatureGroupBounds) >= my.map.getZoom()) {
+	      console.log("[poiClick] about to fitbounds")
 	      my.map.fitBounds(zoomFeatureGroupBounds,
 	        {
 	          paddingTopLeft: my.panel.padding,
 	          paddingBottomRight: my.panel.paddingRight
 	        })
 	    } else {
+	      console.log("[poiClick] about to fitbounds")
 	      my.map.fitBounds(zoomFeatureGroupBounds, {
 	        maxZoom: my.map.getZoom(),
 	        paddingTopLeft: my.panel.padding,
@@ -37024,7 +36812,7 @@
 	      })
 	    }
 	    my.panel.showDetails(my, null, poi)
-	    console.log('[events poiClick] end')
+	    // console.log('[events poiClick] end')
 	  }
 	
 	  that.activityClick = function (poiId) {
@@ -37045,6 +36833,7 @@
 	          trailSubsystem = trailSubsystem.replace(/[& ]/g, '+')
 	        }
 	        that.highlightSegmentsForSubsystem(trailSubsystem)
+	        console.log("[activityClick] about to fitbounds")
 	        my.map.fitBounds(zoomFeatureGroupBounds, {
 	          maxZoom: my.map.getZoom(),
 	          paddingTopLeft: my.panel.padding,
@@ -37082,7 +36871,7 @@
 	  }
 	
 	  that.highlightPoi = function (poi, openPopup) {
-	    console.log('[events highlightPoi] start')
+	    // console.log('[events highlightPoi] start')
 	    if (openPopup === undefined) {
 	      openPopup = true
 	    }
@@ -37093,11 +36882,11 @@
 	    if (poi) {
 	      zoomArray.push(my.poiFeat.current)
 	      var myEntranceID = 'poi-' + my.poiFeat.current.properties.id
-	      console.log('[poiFeature highlight] new my.poiFeat.current = ' + myEntranceID)
+	      // console.log('[poiFeature highlight] new my.poiFeat.current = ' + myEntranceID)
 	      // $('.leaflet-marker-icon.' + myEntranceID).addClass('selected')
 	      if (openPopup) {
 	        my.map.closePopup()
-	        console.log('[poiFeature highlight] create + open popup')
+	        // console.log('[poiFeature highlight] create + open popup')
 	        var popup = new L.Popup({
 	          offset: [0, -12],
 	          autoPan: true,
@@ -37128,7 +36917,7 @@
 	
 	  that.openPopup = function (popupContent, location) {
 	    my.map.closePopup()
-	    console.log('[open Popup] create + open popup')
+	    // console.log('[open Popup] create + open popup')
 	    if (popupContent && location) {
 	      var popup = new L.Popup({
 	        offset: [0, -12],
@@ -37143,7 +36932,7 @@
 	  }
 	
 	  that.segmentClick = function (trailSubsystemNormalizedName) {
-	    console.log('[events segmentClick] start')
+	    // console.log('[events segmentClick] start')
 	    my.panel.showDetails(my, trailSubsystemNormalizedName, null)
 	    that.highlightSegmentsForSubsystem(trailSubsystemNormalizedName)
 	    that.highlightPoi(null)
@@ -37151,10 +36940,10 @@
 	
 	  that.highlightSegmentsForSubsystem = function (trailSubsystem) {
 	    var t0 = performance.now()
-	    console.log('[events highlightSegmentsForSubsystem] start trailSubsystem = ' + trailSubsystem)
+	    // console.log('[events highlightSegmentsForSubsystem] start trailSubsystem = ' + trailSubsystem)
 	    var zoomBounds = null
 	    if (my.tsFeat.currentHighlightedSubsystem) {
-	      console.log('[events highlightSegmentsForSubsystem] there is a current currentHighlightedSubsystem')
+	      // console.log('[events highlightSegmentsForSubsystem] there is a current currentHighlightedSubsystem')
 	      var oldSegments = my.tsFeat.segmentTrailSubsystemObject[my.tsFeat.currentHighlightedSubsystem]
 	      $.each(oldSegments, function (i, el) {
 	        el.eachLayer(function (layer) {
@@ -37188,7 +36977,7 @@
 	      my.tsFeat.currentHighlightedSubsystem = trailSubsystem
 	    }
 	    var t1 = performance.now()
-	    console.log('[events highlightSegmentsForSubsystem end] time', (t1-t0).toFixed(4), 'milliseconds');
+	    // console.log('[events highlightSegmentsForSubsystem end] time', (t1-t0).toFixed(4), 'milliseconds');
 	    return zoomBounds
 	  }
 	
@@ -37202,15 +36991,15 @@
 
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict'
 	var L = __webpack_require__(5)
 	var $ = __webpack_require__(1)
-	var Config = __webpack_require__(12)
-	var eL = __webpack_require__(15)
-	var analyticsCode = __webpack_require__(13)
+	var Config = __webpack_require__(11)
+	var eL = __webpack_require__(14)
+	var analyticsCode = __webpack_require__(12)
 	
 	var trailSegmentFeature = function (map) {
 	  var that = {}
@@ -37234,14 +37023,14 @@
 	  }
 	
 	  that.filterSegments = function (trailSubsystems) {
-	    console.log('[filterSegments] start')
+	    // console.log('[filterSegments] start')
 	    if (that.filteredFG) {
 	      map.removeLayer(that.filteredFG)
 	      that.filteredFG = null
 	    }
 	    var segmentArray = []
 	    $.each(trailSubsystems, function (index, value) {
-	      console.log('[filterSegments] index = ' + index)
+	      // console.log('[filterSegments] index = ' + index)
 	      var segmentFGs = that.segmentTrailSubsystemObject[index]
 	      if (segmentFGs) {
 	        // segmentArray.push(segmentFGs)
@@ -37249,10 +37038,10 @@
 	      }
 	    })
 	    if (segmentArray.length > 0) {
-	      console.log('[filterSegments] segmentArray.length = ' + segmentArray.length)
+	      // console.log('[filterSegments] segmentArray.length = ' + segmentArray.length)
 	      that.filteredFG = new L.FeatureGroup(segmentArray)
 	    }
-	    console.log('[filterSegments] end')
+	    // console.log('[filterSegments] end')
 	  }
 	
 	  var _makeSegmentTrailSubsystemObject = function (response) {
@@ -37455,13 +37244,13 @@
 
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict'
 	__webpack_require__(5)
 	var $ = __webpack_require__(1)
-	var Config = __webpack_require__(12)
+	var Config = __webpack_require__(11)
 	
 	// var alertFeat
 	
@@ -37538,16 +37327,16 @@
 
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict'
 	var L = __webpack_require__(5)
 	var $ = __webpack_require__(1)
 	__webpack_require__(7)
-	var Config = __webpack_require__(12)
-	var eL = __webpack_require__(15)
-	var analyticsCode = __webpack_require__(13)
+	var Config = __webpack_require__(11)
+	var eL = __webpack_require__(14)
+	var analyticsCode = __webpack_require__(12)
 	
 	var activityFeature = function (map) {
 	  var that = {}
@@ -37701,7 +37490,7 @@
 	      }
 	    })
 	    that.filteredFG = new L.FeatureGroup(that.filteredFGArray, {
-	      makeBoundsAware: true,
+	      makeBoundsAware: false,
 	      minZoom: 13
 	    }) // .addTo(map)
 	    console.log('[filterActivity] end at: ' + performance.now())
@@ -37736,16 +37525,16 @@
 
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict'
 	var L = __webpack_require__(5)
 	var $ = __webpack_require__(1)
 	__webpack_require__(7)
-	var Config = __webpack_require__(12)
-	var eL = __webpack_require__(15)
-	var analyticsCode = __webpack_require__(13)
+	var Config = __webpack_require__(11)
+	var eL = __webpack_require__(14)
+	var analyticsCode = __webpack_require__(12)
 	
 	var picnicgroveFeature = function (map) {
 	  var that = {}
@@ -37862,14 +37651,14 @@
 
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict'
 	var L = __webpack_require__(5)
 	var $ = __webpack_require__(1)
-	var Config = __webpack_require__(12)
-	__webpack_require__(21)
+	var Config = __webpack_require__(11)
+	__webpack_require__(20)
 	
 	var geolocationFunctions = function (map, filters, poiFeat, events) {
 	  var that = {}
@@ -38009,7 +37798,7 @@
 
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, exports) {
 
 	/**
@@ -38119,16 +37908,16 @@
 
 
 /***/ }),
-/* 22 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict'
 	var L = __webpack_require__(5)
 	var $ = __webpack_require__(1)
-	var Config = __webpack_require__(12)
-	var trailExcludes = __webpack_require__(23)
-	var locationsZipCode = __webpack_require__(24)
-	var locationsMuni = __webpack_require__(25)
+	var Config = __webpack_require__(11)
+	var trailExcludes = __webpack_require__(22)
+	var locationsZipCode = __webpack_require__(23)
+	var locationsMuni = __webpack_require__(24)
 	
 	var filterFunctions = function (map) {
 	  var that = {}
@@ -38171,10 +37960,10 @@
 	    var poi = decodeURIComponent($.address.parameter('poi'))
 	    var trail = decodeURIComponent($.address.parameter('trail'))
 	    // var hasAlerts = decodeURIComponent($.address.parameter('hasAlerts'))
-	    console.log("[address.change] searchFilter = " + search)
-	    console.log("[address.change] filter = " + filter)
-	    console.log("[address.change] poi = " + poi)
-	    console.log("[address.change] trail = " + trail)
+	    // console.log("[address.change] searchFilter = " + search)
+	    // console.log("[address.change] filter = " + filter)
+	    // console.log("[address.change] poi = " + poi)
+	    // console.log("[address.change] trail = " + trail)
 	    // console.log("[address.change] hasAlerts = " + hasAlerts)
 	    if (search == 'undefined' || search == 'null') {
 	      search = ''
@@ -38193,12 +37982,12 @@
 	    // } else {
 	    //   that.current.hasAlerts = true
 	    // }
-	    console.log("[address.Change] searchFilter = " + search)
+	    // console.log("[address.Change] searchFilter = " + search)
 	    var poiID = null
 	
 	    if (search) {
 	      that.current.fromURL = true
-	      console.log("[addressChange] IF searchFilter = " + that.current.search)
+	      // console.log("[addressChange] IF searchFilter = " + that.current.search)
 	      var $select = $('.js-example-basic-multiple')
 	      var selectize = $select[0].selectize
 	      selectize.clear(true)
@@ -38213,9 +38002,9 @@
 	    } else if (trail) {
 	      that.current.trail = trail
 	    }
-	    console.log('[address.change] searchFilter = ' + search)
-	    console.log('[address.change] poi = ' + that.current.poi)
-	    console.log('[address.change] trail = ' + that.current.trail)
+	    // console.log('[address.change] searchFilter = ' + search)
+	    // console.log('[address.change] poi = ' + that.current.poi)
+	    // console.log('[address.change] trail = ' + that.current.trail)
 	    // that.setCurrent()
 	    return search
 	  }
@@ -38291,7 +38080,7 @@
 
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, exports) {
 
 	// Which tags should NOT should up in the results list
@@ -38312,7 +38101,7 @@
 
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports) {
 
 	module.exports = {
@@ -39240,7 +39029,7 @@
 
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, exports) {
 
 	module.exports = {
@@ -39883,16 +39672,16 @@
 	}
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict'
 	var L = __webpack_require__(5)
 	var $ = __webpack_require__(1)
-	var pluralize = __webpack_require__(27)
-	var Config = __webpack_require__(12)
-	var eL = __webpack_require__(15)
-	var autolink = __webpack_require__(28)
+	var pluralize = __webpack_require__(26)
+	var Config = __webpack_require__(11)
+	var eL = __webpack_require__(14)
+	var autolink = __webpack_require__(27)
 	var map
 	var filters
 	var panel
@@ -41055,7 +40844,7 @@
 
 
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* global define */
@@ -41553,7 +41342,7 @@
 
 
 /***/ }),
-/* 28 */
+/* 27 */
 /***/ (function(module, exports) {
 
 	(function(){var h=[].slice;String.prototype.autoLink=function(){var b,f,d,a,e,g;a=1<=arguments.length?h.call(arguments,0):[];e=/(^|[\s\n]|<[A-Za-z]*\/?>)((?:https?|ftp):\/\/[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;if(!(0<a.length))return this.replace(e,"$1<a href='$2'>$2</a>");d=a[0];f=function(){var c;c=[];for(b in d)g=d[b],"callback"!==b&&c.push(" "+b+"='"+g+"'");return c}().join("");return this.replace(e,function(c,b,a){c=("function"===typeof d.callback?d.callback(a):
@@ -41561,15 +41350,15 @@
 
 
 /***/ }),
-/* 29 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict'
 	var L = __webpack_require__(5)
 	var $ = __webpack_require__(1)
-	var Config = __webpack_require__(12)
-	var eL = __webpack_require__(15)
-	var analyticsCode = __webpack_require__(13)
+	var Config = __webpack_require__(11)
+	var eL = __webpack_require__(14)
+	var analyticsCode = __webpack_require__(12)
 	
 	var alertFeature = function (map) {
 	  var that = {}
