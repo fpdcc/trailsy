@@ -9,7 +9,7 @@ require('leaflet.markercluster')
 var esri = require('esri-leaflet')
 require('leaflet.vectorgrid')
 require('jquery-address')
-require('svgxuse')
+// require('svgxuse')
 var Config = require('./config.js')
 var analyticsCode = require('./analyticsCode.js')
 var poiFeature = require('./poiFeature.js')
@@ -27,15 +27,21 @@ var trailMap = function () {
   var that = {}
   var elementId = 'trailMapLarge'
   var map = L.map(elementId, {
-    renderer: L.canvas(),
+    //renderer: L.canvas(),
+    preferCanvas: true,
     minZoom: 9,
     maxZoom: 18,
     zoomSnap: 1,
     zoomDelta: 1,
     zoomAnimation: true,
-    wheelPxPerZoomLevel: 200,
-    wheelDebounceTime: 80
-  }).setView(Config.mapCenter, Config.defaultZoom)
+    center: Config.mapCenter,
+    zoom: Config.defaultZoom,
+    //markerZoomAnimation: false,
+    //zoomAnimationThreshold: 2,
+    //wheelPxPerZoomLevel: 200,
+    //wheelDebounceTime: 80,
+    debounceMoveend: true
+  }) //.setView(Config.mapCenter, Config.defaultZoom)
   map.removeControl(map.zoomControl)
   var myAnalytics = analyticsCode.setup()
   // map.addControl(L.control.zoom({position: 'topright'}))
@@ -99,6 +105,7 @@ var trailMap = function () {
     // console.log('zoomend start ' + map.getZoom())
     // var zoomLevel = map.getZoom()
     // lastZoom = zoomLevel
+    //map.invalidateSize(false)
     console.log('zoomend end ' + map.getZoom())
   })
 
@@ -109,6 +116,7 @@ var trailMap = function () {
       $('.useMapIcon').off()
       $('.useMapIcon').on(Config.listenType, events.edgeClick)
     }
+    //map.invalidateSize(false)
     console.log('moveend end ')
   })
 
@@ -151,9 +159,19 @@ var trailMap = function () {
   var tangramLayer = Tangram.leafletLayer({
     scene: 'https://raw.githubusercontent.com/fpdcc/webmap_styles/master/tangram/fpdcc_style.yaml',
     attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors',
-    modifyScrollWheel: true,
+    modifyScrollWheel: false,
+    modifyZoomBehavior: false,
     maxZoom: 18
   }).addTo(map)
+
+  // tangramLayer.scene.subscribe({
+  //   view_complete: function () {
+  //       console.log('scene view complete');
+  //       map.invalidateSize(true)
+  //   }
+  // })
+
+ 
 
   var baseMaps = {
     'Streets': mainBase,
@@ -223,6 +241,7 @@ var trailMap = function () {
         })
         console.log('[filterAll] about to makeresults at ' + performance.now())
         if (poiFeat.filteredPoisFeatureGroup) {
+          poiFeat.filteredPoisFeatureGroup.addTo(map)
           if (fitToBounds) {
             var zoomFeatureGroupBounds = poiFeat.filteredPoisFeatureGroup.getBounds()
             if (whatBounds !== 'all') {
@@ -238,12 +257,13 @@ var trailMap = function () {
                 zoomFeatureGroupBounds = zoomFeatureGroup.getBounds()
               }
             }
+            console.log('[filterAll] about to fitbounds')
             map.fitBounds(zoomFeatureGroupBounds, {
               paddingTopLeft: panel.padding,
               paddingBottomRight: panel.paddingRight
             })
           }
-          poiFeat.filteredPoisFeatureGroup.addTo(map)
+          
           // console.log('isEdge? = ' + Config.isEdge)
         }
         if (activityFeat.filteredFG) {

@@ -210,11 +210,13 @@ var poiFeature = function (map) {
     }
     that.reorderPois(filters)
     if (that.filteredPoisArray.length !== 0) {
+      //that.filteredPoisFeatureGroup = new L.FeatureGroup(that.filteredPoisArray)
       that.filteredPoisFeatureGroup = L.markerClusterGroup({
         showCoverageOnHover: false,
         disableClusteringAtZoom: 13,
         spiderfyOnMaxZoom: false,
         maxClusterRadius: 60,
+        removeOutsideVisibleBounds: true,
         iconCreateFunction: function (cluster) {
           if (Config.isEdge) {
             return new L.Icon({
@@ -359,7 +361,7 @@ var poiFeature = function (map) {
   }
 
   that.getPoiById = function (poiID) {
-    console.log('getPoiById start for poiID = ' + poiID)
+    // console.log('getPoiById start for poiID = ' + poiID)
     var trailhead = null
     // console.log('[getPoiById] that.originalPoisArray.length = ' + that.originalPoisArray.length)
     for (var i = 0; i < that.originalPoisArray.length; i++) {

@@ -27,14 +27,14 @@ var trailSegmentFeature = function (map) {
   }
 
   that.filterSegments = function (trailSubsystems) {
-    console.log('[filterSegments] start')
+    // console.log('[filterSegments] start')
     if (that.filteredFG) {
       map.removeLayer(that.filteredFG)
       that.filteredFG = null
     }
     var segmentArray = []
     $.each(trailSubsystems, function (index, value) {
-      console.log('[filterSegments] index = ' + index)
+      // console.log('[filterSegments] index = ' + index)
       var segmentFGs = that.segmentTrailSubsystemObject[index]
       if (segmentFGs) {
         // segmentArray.push(segmentFGs)
@@ -42,10 +42,10 @@ var trailSegmentFeature = function (map) {
       }
     })
     if (segmentArray.length > 0) {
-      console.log('[filterSegments] segmentArray.length = ' + segmentArray.length)
+      // console.log('[filterSegments] segmentArray.length = ' + segmentArray.length)
       that.filteredFG = new L.FeatureGroup(segmentArray)
     }
-    console.log('[filterSegments] end')
+    // console.log('[filterSegments] end')
   }
 
   var _makeSegmentTrailSubsystemObject = function (response) {

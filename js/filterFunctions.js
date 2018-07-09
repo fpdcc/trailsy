@@ -47,10 +47,10 @@ var filterFunctions = function (map) {
     var poi = decodeURIComponent($.address.parameter('poi'))
     var trail = decodeURIComponent($.address.parameter('trail'))
     // var hasAlerts = decodeURIComponent($.address.parameter('hasAlerts'))
-    console.log("[address.change] searchFilter = " + search)
-    console.log("[address.change] filter = " + filter)
-    console.log("[address.change] poi = " + poi)
-    console.log("[address.change] trail = " + trail)
+    // console.log("[address.change] searchFilter = " + search)
+    // console.log("[address.change] filter = " + filter)
+    // console.log("[address.change] poi = " + poi)
+    // console.log("[address.change] trail = " + trail)
     // console.log("[address.change] hasAlerts = " + hasAlerts)
     if (search == 'undefined' || search == 'null') {
       search = ''
@@ -69,12 +69,12 @@ var filterFunctions = function (map) {
     // } else {
     //   that.current.hasAlerts = true
     // }
-    console.log("[address.Change] searchFilter = " + search)
+    // console.log("[address.Change] searchFilter = " + search)
     var poiID = null
 
     if (search) {
       that.current.fromURL = true
-      console.log("[addressChange] IF searchFilter = " + that.current.search)
+      // console.log("[addressChange] IF searchFilter = " + that.current.search)
       var $select = $('.js-example-basic-multiple')
       var selectize = $select[0].selectize
       selectize.clear(true)
@@ -89,9 +89,9 @@ var filterFunctions = function (map) {
     } else if (trail) {
       that.current.trail = trail
     }
-    console.log('[address.change] searchFilter = ' + search)
-    console.log('[address.change] poi = ' + that.current.poi)
-    console.log('[address.change] trail = ' + that.current.trail)
+    // console.log('[address.change] searchFilter = ' + search)
+    // console.log('[address.change] poi = ' + that.current.poi)
+    // console.log('[address.change] trail = ' + that.current.trail)
     // that.setCurrent()
     return search
   }

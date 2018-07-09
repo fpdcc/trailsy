@@ -84,7 +84,7 @@ var events = function (map) {
     var $myTarget = $(e.currentTarget)
     var trailSubsystemName = $myTarget.attr('data-trailname')
     var trailSubsystemNormalizedName = trailSubsystemName.replace(/[& ]/g, '+')
-    console.log('[poiPopupTrailClick] trailSubsystemNormalizedName = ' + trailSubsystemNormalizedName)
+    // console.log('[poiPopupTrailClick] trailSubsystemNormalizedName = ' + trailSubsystemNormalizedName)
     that.segmentClick(trailSubsystemNormalizedName)
     my.panel.slideDetailPanel(true)
   }
@@ -94,14 +94,14 @@ var events = function (map) {
   }
 
   that.closeDetailPanel = function () {
-    console.log('events.closeDetailPanel')
-    console.log('events.closeDetailPanel Config.listenType = ' + Config.listenType)
+    // console.log('events.closeDetailPanel')
+    // console.log('events.closeDetailPanel Config.listenType = ' + Config.listenType)
     my.panel.toggleDetailPanel('close')
-    setTimeout(function () {
+    // setTimeout(function () {
       map.closePopup()
       that.highlightPoi(null)
       that.highlightSegmentsForSubsystem(null)
-    }, 0)
+    //}, 0)
   }
 
   that.makeResults = function (poiFeat, trailInfo, filters, open) {
@@ -110,22 +110,22 @@ var events = function (map) {
   }
 
   that.trailDivClickHandler = function (e) {
-    console.log('trailDivClickHandler start')
+    // console.log('trailDivClickHandler start')
     // document.getElementById('fpccContainer').innerHTML = loaderDiv
     panel.toggleDetailPanel('open')
     var $myTarget = $(e.currentTarget)
     var divTrailID = $myTarget.attr('data-trailid')
     var divTrailName = $myTarget.attr('data-trailname')
     var divPoiName = $myTarget.attr('data-trailheadName')
-    console.log(divTrailID)
+    // console.log(divTrailID)
     var trailSubsystem = null
     var divPoiId = $myTarget.attr('data-trailheadid')
-    console.log('trailDivClickHandler divPoiId = ' + divPoiId)
+    // console.log('trailDivClickHandler divPoiId = ' + divPoiId)
     if (divTrailName) {
       trailSubsystem = divTrailName
       that.trailDivWork(trailSubsystem, null)
     } else {
-      console.log('trailDivClickHandler else divPoiId = ' + divPoiId)
+      // console.log('trailDivClickHandler else divPoiId = ' + divPoiId)
       that.trailDivWork(null, divPoiId)
     }
   }
@@ -135,14 +135,14 @@ var events = function (map) {
       panel.showDetails(my, trailSubsystemName, null)
     } else {
       var divPoi = my.poiFeat.getPoiById(poiId)
-      console.log('trailDivWork divPoi = ' + divPoi)
-      console.log('[trailDivWork] about to showTrailDetails(divTrail, divTrailhead)')
+      // console.log('trailDivWork divPoi = ' + divPoi)
+      // console.log('[trailDivWork] about to showTrailDetails(divTrail, divTrailhead)')
       panel.showDetails(my, null, divPoi)
       if (divPoi.properties.direct_trail_id) {
         trailSubsystemName = my.trailInfo.originalTrailInfo[divPoi.properties.direct_trail_id].trail_subsystem.replace(/[& ]/g, '+')
       }
     }
-    setTimeout(function () {
+    //setTimeout(function () {
       console.log('trailDivWork setTimeout')
       var trailsGroupBounds = that.highlightSegmentsForSubsystem(trailSubsystemName)
       var trailheadGroupBounds = that.highlightPoi(divPoi)
@@ -160,7 +160,7 @@ var events = function (map) {
         paddingTopLeft: my.panel.padding,
         paddingBottomRight: my.panel.paddingRight
       })
-    }, 0)
+    //}, 0)
     console.log('trailDivWork end')
   }
 
@@ -170,18 +170,20 @@ var events = function (map) {
   }
 
   that.poiClick = function (poi) {
-    console.log('[events poiClick] start')
+    // console.log('[events poiClick] start')
     analyticsCode.trackClickEventWithGA('Marker', 'poiClick', poi.properties.name)
     var zoomFeatureGroupBounds = that.highlightPoi(poi)
     var trailSubsystem = poi.properties.trail_subsystem || null
     that.highlightSegmentsForSubsystem(trailSubsystem)
     if (my.map.getBoundsZoom(zoomFeatureGroupBounds) >= my.map.getZoom()) {
+      console.log("[poiClick] about to fitbounds")
       my.map.fitBounds(zoomFeatureGroupBounds,
         {
           paddingTopLeft: my.panel.padding,
           paddingBottomRight: my.panel.paddingRight
         })
     } else {
+      console.log("[poiClick] about to fitbounds")
       my.map.fitBounds(zoomFeatureGroupBounds, {
         maxZoom: my.map.getZoom(),
         paddingTopLeft: my.panel.padding,
@@ -189,7 +191,7 @@ var events = function (map) {
       })
     }
     my.panel.showDetails(my, null, poi)
-    console.log('[events poiClick] end')
+    // console.log('[events poiClick] end')
   }
 
   that.activityClick = function (poiId) {
@@ -210,6 +212,7 @@ var events = function (map) {
           trailSubsystem = trailSubsystem.replace(/[& ]/g, '+')
         }
         that.highlightSegmentsForSubsystem(trailSubsystem)
+        console.log("[activityClick] about to fitbounds")
         my.map.fitBounds(zoomFeatureGroupBounds, {
           maxZoom: my.map.getZoom(),
           paddingTopLeft: my.panel.padding,
@@ -247,7 +250,7 @@ var events = function (map) {
   }
 
   that.highlightPoi = function (poi, openPopup) {
-    console.log('[events highlightPoi] start')
+    // console.log('[events highlightPoi] start')
     if (openPopup === undefined) {
       openPopup = true
     }
@@ -258,11 +261,11 @@ var events = function (map) {
     if (poi) {
       zoomArray.push(my.poiFeat.current)
       var myEntranceID = 'poi-' + my.poiFeat.current.properties.id
-      console.log('[poiFeature highlight] new my.poiFeat.current = ' + myEntranceID)
+      // console.log('[poiFeature highlight] new my.poiFeat.current = ' + myEntranceID)
       // $('.leaflet-marker-icon.' + myEntranceID).addClass('selected')
       if (openPopup) {
         my.map.closePopup()
-        console.log('[poiFeature highlight] create + open popup')
+        // console.log('[poiFeature highlight] create + open popup')
         var popup = new L.Popup({
           offset: [0, -12],
           autoPan: true,
@@ -293,7 +296,7 @@ var events = function (map) {
 
   that.openPopup = function (popupContent, location) {
     my.map.closePopup()
-    console.log('[open Popup] create + open popup')
+    // console.log('[open Popup] create + open popup')
     if (popupContent && location) {
       var popup = new L.Popup({
         offset: [0, -12],
@@ -308,7 +311,7 @@ var events = function (map) {
   }
 
   that.segmentClick = function (trailSubsystemNormalizedName) {
-    console.log('[events segmentClick] start')
+    // console.log('[events segmentClick] start')
     my.panel.showDetails(my, trailSubsystemNormalizedName, null)
     that.highlightSegmentsForSubsystem(trailSubsystemNormalizedName)
     that.highlightPoi(null)
@@ -316,10 +319,10 @@ var events = function (map) {
 
   that.highlightSegmentsForSubsystem = function (trailSubsystem) {
     var t0 = performance.now()
-    console.log('[events highlightSegmentsForSubsystem] start trailSubsystem = ' + trailSubsystem)
+    // console.log('[events highlightSegmentsForSubsystem] start trailSubsystem = ' + trailSubsystem)
     var zoomBounds = null
     if (my.tsFeat.currentHighlightedSubsystem) {
-      console.log('[events highlightSegmentsForSubsystem] there is a current currentHighlightedSubsystem')
+      // console.log('[events highlightSegmentsForSubsystem] there is a current currentHighlightedSubsystem')
       var oldSegments = my.tsFeat.segmentTrailSubsystemObject[my.tsFeat.currentHighlightedSubsystem]
       $.each(oldSegments, function (i, el) {
         el.eachLayer(function (layer) {
@@ -353,7 +356,7 @@ var events = function (map) {
       my.tsFeat.currentHighlightedSubsystem = trailSubsystem
     }
     var t1 = performance.now()
-    console.log('[events highlightSegmentsForSubsystem end] time', (t1-t0).toFixed(4), 'milliseconds');
+    // console.log('[events highlightSegmentsForSubsystem end] time', (t1-t0).toFixed(4), 'milliseconds');
     return zoomBounds
   }
 

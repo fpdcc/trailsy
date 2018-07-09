@@ -30470,8 +30470,10 @@ function extendLeaflet(options) {
                         }
 
                         if (map.options.scrollWheelZoom === 'center') {
+                            console.log("jktangram about to setZoomAroundNoMoveEnd(layer, map.getCenter(), zoom + delta)")
                             setZoomAroundNoMoveEnd(layer, map.getCenter(), zoom + delta);
                         } else {
+                          console.log("jktangram about to setZoomAroundNoMoveEnd(layer, this._lastMousePos, zoom + delta)")
                             setZoomAroundNoMoveEnd(layer, this._lastMousePos, zoom + delta);
                         }
                         debounceMoveEnd(map);
@@ -30515,8 +30517,10 @@ function extendLeaflet(options) {
                                 var center = from.add(to.subtract(from).multiplyBy(t));
                                 center = [center.x, center.y];
                                 center = _geo2.default.metersToLatLng(center);
+                                console.log("jktangram about to setZoomAroundNoMoveEnd(layer, targetCenter, startZoom + (targetZoom - startZoom) * t)")
                                 setZoomAroundNoMoveEnd(layer, targetCenter, startZoom + (targetZoom - startZoom) * t);
                             } else {
+                              console.log("jktangram about to setZoomAroundNoMoveEnd(layer, targetCenter, targetZoom)._moveEnd(true)")
                                 setZoomAroundNoMoveEnd(layer, targetCenter, targetZoom)._moveEnd(true);
                             }
                         }
@@ -30737,6 +30741,7 @@ function extendLeaflet(options) {
             if (scene) {
                 scene.view.markUserInput();
             }
+            console.log("jktangram about to map._move")
             return map._move(newCenter, zoom, { flyTo: true });
         };
 

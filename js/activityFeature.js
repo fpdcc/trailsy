@@ -158,7 +158,7 @@ var activityFeature = function (map) {
       }
     })
     that.filteredFG = new L.FeatureGroup(that.filteredFGArray, {
-      makeBoundsAware: true,
+      makeBoundsAware: false,
       minZoom: 13
     }) // .addTo(map)
     console.log('[filterActivity] end at: ' + performance.now())
