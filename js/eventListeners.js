@@ -97,11 +97,11 @@ var events = function (map) {
     // console.log('events.closeDetailPanel')
     // console.log('events.closeDetailPanel Config.listenType = ' + Config.listenType)
     my.panel.toggleDetailPanel('close')
-    // setTimeout(function () {
+    setTimeout(function () {
       map.closePopup()
       that.highlightPoi(null)
       that.highlightSegmentsForSubsystem(null)
-    //}, 0)
+    }, 0)
   }
 
   that.makeResults = function (poiFeat, trailInfo, filters, open) {
@@ -142,7 +142,7 @@ var events = function (map) {
         trailSubsystemName = my.trailInfo.originalTrailInfo[divPoi.properties.direct_trail_id].trail_subsystem.replace(/[& ]/g, '+')
       }
     }
-    //setTimeout(function () {
+    setTimeout(function () {
       console.log('trailDivWork setTimeout')
       var trailsGroupBounds = that.highlightSegmentsForSubsystem(trailSubsystemName)
       var trailheadGroupBounds = that.highlightPoi(divPoi)
@@ -160,7 +160,7 @@ var events = function (map) {
         paddingTopLeft: my.panel.padding,
         paddingBottomRight: my.panel.paddingRight
       })
-    //}, 0)
+    }, 0)
     console.log('trailDivWork end')
   }
 

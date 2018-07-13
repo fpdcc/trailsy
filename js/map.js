@@ -1,13 +1,12 @@
 'use strict'
 var L = require('leaflet')
-//var Tangram = require('tangram')
+var Tangram = require('tangram')
 var $ = require('jquery')
 //var Tangram = require('./vendor/tangram.min.js')
 require('./vendor/leaflet.zoomcss.js')
 require('leaflet-boundsawarelayergroup')
 require('leaflet.markercluster')
 var esri = require('esri-leaflet')
-require('leaflet.vectorgrid')
 require('jquery-address')
 // require('svgxuse')
 var Config = require('./config.js')
@@ -148,12 +147,20 @@ var trailMap = function () {
     accessToken: mapboxAccessToken
   })
 
-  var ccImagery = esri.imageMapLayer({
-    url: 'https://gisimageserver.cookcountyil.gov/arcgis/rest/services/Cook2016/ImageServer',
+  var ccImagery50 = esri.imageMapLayer({
+    url: 'https://gisimageserver.cookcountyil.gov/arcgis/rest/services/Cook2017/ImageServer/',
     attribution: 'Cook County GIS',
     //minZoom: 14,
 		maxZoom: 18,
 		compressionQuality: 50
+  })
+
+  var ccImagery25 = esri.imageMapLayer({
+    url: 'https://gisimageserver.cookcountyil.gov/arcgis/rest/services/Cook2017/ImageServer/',
+    attribution: 'Cook County GIS',
+    //minZoom: 14,
+		maxZoom: 18,
+		compressionQuality: 25
   })
 
   var tangramLayer = Tangram.leafletLayer({
@@ -177,7 +184,8 @@ var trailMap = function () {
     'Streets': mainBase,
     'TangramLayer': tangramLayer,
     'Satellite': imageryBase,
-    'Imagery': ccImagery
+    'Imagery50': ccImagery50,
+    'Imagery25': ccImagery25
   }
   L.control.scale({maxWidth: 300, position: 'bottomright'}).addTo(map)
   L.control.layers(baseMaps, null, {collapsed: false, position: 'bottomright'}).addTo(map)
