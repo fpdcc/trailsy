@@ -130,37 +130,12 @@ var trailMap = function () {
     analyticsCode.trackClickEventWithGA('Layer', 'Change', event.name)
  });
 
-  var mapboxAttribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-      '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-      'Imagery © <a href="http://mapbox.com">Mapbox</a>'
-  var mainBase = L.tileLayer('https://api.mapbox.com/styles/v1/smartchicagocollaborative/cizhbpfpi00042soz00tuiw83/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRjaGljYWdvY29sbGFib3JhdGl2ZSIsImEiOiI2MWF0czNFIn0.LMSCmp7IvfI9mB-_y1VgNQ',
-    {
-      updateWhenZooming: false,
-      attribution: mapboxAttribution
-    })//.addTo(map)
-
-  var mapboxAccessToken = 'sk.eyJ1Ijoic21hcnRjaGljYWdvY29sbGFib3JhdGl2ZSIsImEiOiJjaWlqOGU2dmMwMTA2dWNrcHM0d21qNDhzIn0.2twD0eBu4UKHu-3JZ0vt0w'
-  var imageryBase = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-    attribution: mapboxAttribution,
-    maxZoom: 18,
-    id: 'mapbox.satellite',
-    accessToken: mapboxAccessToken
-  })
-
   var ccImagery50 = esri.imageMapLayer({
     url: 'https://gisimageserver.cookcountyil.gov/arcgis/rest/services/Cook2017/ImageServer/',
     attribution: 'Cook County GIS',
     //minZoom: 14,
 		maxZoom: 18,
 		compressionQuality: 50
-  })
-
-  var ccImagery25 = esri.imageMapLayer({
-    url: 'https://gisimageserver.cookcountyil.gov/arcgis/rest/services/Cook2017/ImageServer/',
-    attribution: 'Cook County GIS',
-    //minZoom: 14,
-		maxZoom: 18,
-		compressionQuality: 25
   })
 
   var tangramLayer = Tangram.leafletLayer({
@@ -171,21 +146,11 @@ var trailMap = function () {
     maxZoom: 18
   }).addTo(map)
 
-  // tangramLayer.scene.subscribe({
-  //   view_complete: function () {
-  //       console.log('scene view complete');
-  //       map.invalidateSize(true)
-  //   }
-  // })
-
  
 
   var baseMaps = {
-    'Streets': mainBase,
-    'TangramLayer': tangramLayer,
-    'Satellite': imageryBase,
-    'Imagery50': ccImagery50,
-    'Imagery25': ccImagery25
+    'Streets': tangramLayer,
+    'Imagery': ccImagery50,
   }
   L.control.scale({maxWidth: 300, position: 'bottomright'}).addTo(map)
   L.control.layers(baseMaps, null, {collapsed: false, position: 'bottomright'}).addTo(map)
