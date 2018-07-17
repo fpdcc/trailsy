@@ -6,6 +6,9 @@ module.exports = {
         sourceMapFilename: "bundle.js.map",
         filename: "bundle.[chunkhash].js"
     },
+    module: {
+            noParse: /tangram\/dist\/tangram/
+        },
     devtool: 'source-map',
     plugins: [
         new webpack.ProvidePlugin({

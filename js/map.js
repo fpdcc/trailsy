@@ -1,9 +1,11 @@
 'use strict'
 var L = require('leaflet')
+var Tangram = require('tangram')
 var $ = require('jquery')
 require('./vendor/leaflet.zoomcss.js')
 require('leaflet-boundsawarelayergroup')
 require('leaflet.markercluster')
+var esri = require('esri-leaflet')
 require('jquery-address')
 require('svgxuse')
 var Config = require('./config.js')
@@ -23,8 +25,13 @@ var trailMap = function () {
   var that = {}
   var elementId = 'trailMapLarge'
   var map = L.map(elementId, {
-    renderer: L.canvas()
-  }).setView(Config.mapCenter, Config.defaultZoom)
+    preferCanvas: true,
+    minZoom: 9,
+    maxZoom: 18,
+    zoomAnimation: true,
+    center: Config.mapCenter,
+    zoom: Config.defaultZoom
+  })
   map.removeControl(map.zoomControl)
   var myAnalytics = analyticsCode.setup()
   // map.addControl(L.control.zoom({position: 'topright'}))
@@ -112,26 +119,27 @@ var trailMap = function () {
     analyticsCode.trackClickEventWithGA('Layer', 'Change', event.name)
  });
 
-  var mapboxAttribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-      '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-      'Imagery © <a href="http://mapbox.com">Mapbox</a>'
-  var mainBase = L.tileLayer('https://api.mapbox.com/styles/v1/smartchicagocollaborative/cizhbpfpi00042soz00tuiw83/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRjaGljYWdvY29sbGFib3JhdGl2ZSIsImEiOiI2MWF0czNFIn0.LMSCmp7IvfI9mB-_y1VgNQ',
-    {
-      updateWhenZooming: false,
-      attribution: mapboxAttribution
-    }).addTo(map)
-
-  var mapboxAccessToken = 'sk.eyJ1Ijoic21hcnRjaGljYWdvY29sbGFib3JhdGl2ZSIsImEiOiJjaWlqOGU2dmMwMTA2dWNrcHM0d21qNDhzIn0.2twD0eBu4UKHu-3JZ0vt0w'
-  var imageryBase = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-    attribution: mapboxAttribution,
+  var ccImagery = esri.imageMapLayer({
+    url: 'https://gisimageserver.cookcountyil.gov/arcgis/rest/services/Cook2017/ImageServer/',
+    attribution: 'Cook County GIS',
+    //minZoom: 14,
     maxZoom: 18,
-    id: 'mapbox.satellite',
-    accessToken: mapboxAccessToken
+    compressionQuality: 50
   })
+
+  var tangramLayer = Tangram.leafletLayer({
+    scene: 'https://map.fpdcc.com/basemap_styles/fpdcc_style.yaml',
+    attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors',
+    modifyScrollWheel: false,
+    modifyZoomBehavior: false,
+    maxZoom: 18
+  }).addTo(map)
+
   var baseMaps = {
-    'Streets': mainBase,
-    'Satellite': imageryBase
+    'Streets': tangramLayer,
+    'Imagery': ccImagery,
   }
+
   L.control.scale({maxWidth: 300, position: 'bottomright'}).addTo(map)
   L.control.layers(baseMaps, null, {collapsed: false, position: 'bottomright'}).addTo(map)
 
