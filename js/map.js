@@ -128,7 +128,7 @@ var trailMap = function () {
   })
 
   var tangramLayer = Tangram.leafletLayer({
-    scene: 'https://raw.githubusercontent.com/fpdcc/webmap_styles/master/tangram/fpdcc_style.yaml',
+    scene: 'https://map.fpdcc.com/basemap_styles/fpdcc_style.yaml',
     attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors',
     modifyScrollWheel: false,
     modifyZoomBehavior: false,
