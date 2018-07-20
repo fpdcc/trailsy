@@ -14994,6 +14994,17 @@
 	    zoom: Config.defaultZoom
 	  })
 	  map.removeControl(map.zoomControl)
+	
+	  var tangramLayer = Tangram.leafletLayer({
+	    scene: 'https://map.fpdcc.com/basemap_styles/fpdcc_style.yaml',
+	    attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors',
+	    modifyScrollWheel: false,
+	    modifyZoomBehavior: false,
+	    updateWhenIdle: true,
+	    updateWhenZooming: false,
+	    maxZoom: 18
+	  }).addTo(map)
+	
 	  var myAnalytics = analyticsCode.setup()
 	  // map.addControl(L.control.zoom({position: 'topright'}))
 	  var alertFeat = alertFeature(map)
@@ -15088,17 +15099,11 @@
 	    compressionQuality: 50
 	  })
 	
-	  var tangramLayer = Tangram.leafletLayer({
-	    scene: 'https://map.fpdcc.com/basemap_styles/fpdcc_style.yaml',
-	    attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors',
-	    modifyScrollWheel: false,
-	    modifyZoomBehavior: false,
-	    maxZoom: 18
-	  }).addTo(map)
+	  
 	
 	  var baseMaps = {
 	    'Streets': tangramLayer,
-	    'Imagery': ccImagery,
+	    'Satellite': ccImagery
 	  }
 	
 	  L.control.scale({maxWidth: 300, position: 'bottomright'}).addTo(map)
