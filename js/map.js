@@ -142,7 +142,7 @@ var trailMap = function () {
 
   var baseMaps = {
     'Streets': tangramLayer,
-    'Satellite': ccImagery,
+    'Satellite': ccImagery
   }
 
   L.control.scale({maxWidth: 300, position: 'bottomright'}).addTo(map)
