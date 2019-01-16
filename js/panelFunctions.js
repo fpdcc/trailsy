@@ -529,6 +529,26 @@ var panelFuncs = function (map) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-camp'><use xlink:href='icons/defs.svg#icon-camp'></use></svg><span class='fpccAmenityTitle'>Campground</span></div>"
         }
 
+        // shower = Shower
+        if (poi.properties.tags[':panel'].indexOf('shower') > -1) {
+          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-camp-shower'><use xlink:href='icons/defs.svg#icon-camp-shower'></use></svg><span class='fpccAmenityTitle'>Shower</span></div>"
+        }
+
+        // dining_hall = Dining Hall
+        if (poi.properties.tags[':panel'].indexOf('dining_hall') > -1) {
+          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-camp-dine'><use xlink:href='icons/defs.svg#icon-camp-dine'></use></svg><span class='fpccAmenityTitle'>Dining Hall</span></div>"
+        }
+
+        // sanitation_station = Sanitation Station
+        if (poi.properties.tags[':panel'].indexOf('sanitation_station') > -1) {
+          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-camp-sanitary'><use xlink:href='icons/defs.svg#icon-camp-sanitary'></use></svg><span class='fpccAmenityTitle'>Sanitation Station</span></div>"
+        }
+
+        // camp_store = Camp Store
+        if (poi.properties.tags[':panel'].indexOf('camp_store') > -1) {
+          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-camp-store'><use xlink:href='icons/defs.svg#icon-camp-store'></use></svg><span class='fpccAmenityTitle'>Camp Store</span></div>"
+        }
+
         // canoe = Canoe Landing
         if (poi.properties.tags[':panel'].indexOf('canoe') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-canoe-landing'><use xlink:href='icons/defs.svg#icon-canoe-landing'></use></svg><span class='fpccAmenityTitle'>Canoe Landing</span></div>"
@@ -564,6 +584,12 @@ var panelFuncs = function (map) {
         if (poi.properties.tags[':panel'].indexOf('nature_center') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-nature-center'><use xlink:href='icons/defs.svg#icon-nature-center'></use></svg><span class='fpccAmenityTitle'>Nature Center</span></div>"
         }
+
+        // natureplay = Nature Play
+        if (poi.properties.tags[':panel'].indexOf('natureplay') > -1) {
+          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-nature-play'><use xlink:href='icons/defs.svg#icon-nature-play'></use></svg><span class='fpccAmenityTitle'>Nature Play</span></div>"
+        }
+        
         // picnic_grove = Picnic Grove
         if (poi.properties.tags[':panel'].indexOf('picnic_grove') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity picnic-grove'><svg class='icon icon-picnic-grove'><use xlink:href='icons/defs.svg#icon-picnic-grove'></use></svg><span class='fpccAmenityTitle'>Picnic Grove</span></div>"
