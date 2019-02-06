@@ -636,7 +636,7 @@ var panelFuncs = function (map) {
 
         //  dog_leash = Dogs (with a leash)
         if (poi.properties.tags[':panel'].indexOf('dog_leash') > -1) {
-          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-dog-leash'><use xlink:href='icons/defs.svg#icon-dog-leash'></use></svg><span class='fpccAmenityTitle'>Dogs (with a leash)</span></div>"
+          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-dog-leash'><use xlink:href='icons/defs.svg#icon-dog-leash'></use></svg><span class='fpccAmenityTitle'>Dogs (on-leash only)</span></div>"
         }
 
         //  drone = Drone Flying
