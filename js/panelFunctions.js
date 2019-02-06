@@ -562,6 +562,7 @@ var panelFuncs = function (map) {
         if (poi.properties.tags[':panel'].indexOf('dog_friendly') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-off-leash-dog-area'><use xlink:href='icons/defs.svg#icon-off-leash-dog-area'></use></svg><span class='fpccAmenityTitle'>Off-Leash Dog Area</span></div>"
         }
+
         // golf = Golf
         if (poi.properties.tags[':panel'].indexOf('golf') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-golf-course-driving-range'><use xlink:href='icons/defs.svg#icon-golf-course-driving-range'></use></svg><span class='fpccAmenityTitle'>Golf</span></div>"
@@ -637,6 +638,11 @@ var panelFuncs = function (map) {
         //  dog_leash = Dogs (with a leash)
         if (poi.properties.tags[':panel'].indexOf('dog_leash') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-dog-leash'><use xlink:href='icons/defs.svg#icon-dog-leash'></use></svg><span class='fpccAmenityTitle'>Dogs (on-leash only)</span></div>"
+        }
+
+        // no_dogs = No Dogs
+        if (poi.properties.tags[':panel'].indexOf('no_dogs') > -1) {
+          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-no-dogs'><use xlink:href='icons/defs.svg#icon-no-dogs'></use></svg><span class='fpccAmenityTitle'>No Dogs</span></div>"
         }
 
         //  drone = Drone Flying
