@@ -323,7 +323,7 @@ ul.fpccMobileMenuList a:hover,ul.fpccMobileMenuList a:active{background:#F1F1ED}
 .leaflet-popup-content-wrapper .leaflet-popup-content{font-family:Helvetica,Arial,sans-serif;border-bottom:2px solid #606D29;color:#333;min-width:10em;width:auto;height:auto;margin:0;position:relative;background-color:#fff;font-size:13px;line-height:1.5;text-transform:capitalize}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup{width:auto;min-width:14em;position:relative}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box{width:100%;position:relative;display:inline-block;height:auto}
-.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .icon-arrow-right,.trail-popup .icon-arrow-right{float:right;.75em;margin:.75em .5em 0 0;fill:#273719;width:.75em}
+.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .icon-arrow-right,.trail-popup .icon-arrow-right{float:right;margin:.75em .5em 0 0;fill:#273719;width:.75em}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .icon-arrow-right{margin:.25em -.25em 0 0;fill:#273719;width:.75em}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames{position:relative;display:inline-block;background-color:#fff;height:auto;max-width:200px;overflow-y:hidden;min-width:12em;text-decoration:none;text-transform:capitalize;vertical-align:bottom;font-weight:bold;padding:.5em .75em;border:none;color:#333;width:85%}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames:active{color:#7E9039}
@@ -381,7 +381,7 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 #icon-camp .path1{fill:#922990}
 #icon-nature-center .path1{fill:#ed2124}
 #icon-rec-center .path1,#icon-off-leash-dog-area .path1{fill:#f15822}
-.path1,#icon-camp-store .path2,#icon-camp-dine .path2,#icon-camp-sanitary .path2,#icon-camp-shower .path2,#icon-nature-play .path2,#icon-stairs .path2,#icon-zip-line .path2,#icon-zip-line .path3,#icon-zip-line .path4{fill:#fff}
+#icon-camp-store .path2,#icon-camp-dine .path2,#icon-camp-sanitary .path2,#icon-camp-shower .path2,#icon-nature-play .path2,#icon-stairs .path2,#icon-zip-line .path2,#icon-zip-line .path3,#icon-zip-line .path4{fill:#fff}
 #icon-camp-store .path1,#icon-camp-dine .path1,#icon-camp-sanitary .path1,#icon-camp-shower .path1,#icon-nature-play .path1,#icon-stairs .path1,#icon-zip-line .path1{fill:#585747}
 #icon-no-dogs .path1{fill:#585747}
 #icon-no-dogs .path2,#icon-no-dogs .path3{fill:#fff}
