@@ -667,7 +667,7 @@ var panelFuncs = function (map) {
 
         // hiking = Hiking
         if (poi.properties.tags[':panel'].indexOf('hiking') > -1) {
-          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-hiking'><use xlink:href='icons/defs.svg#icon-hiking'></use></svg><span class='fpccAmenityTitle'>Hiking</span></div>"
+          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-hiking'><use xlink:href='icons/defs.svg#icon-hiking'></use></svg><span class='fpccAmenityTitle'>Hiking, Walking & Running</span></div>"
         }
 
         // ice_fishing = Ice Fishing
@@ -677,7 +677,7 @@ var panelFuncs = function (map) {
 
         // no_alcohol = No Alcohol
         if (poi.properties.tags[':panel'].indexOf('no_alcohol') > -1) {
-          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-no-alcohol'><use xlink:href='icons/defs.svg#icon-no-alcohol'></use></svg><span class='fpccAmenityTitle'>No Alcohol</span></div>"
+          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-no-alcohol'><use xlink:href='icons/defs.svg#icon-no-alcohol'></use></svg><span class='fpccAmenityTitle'>No Alcohol (without permit)</span></div>"
         }
         // no_fishing = No Fishing
         if (poi.properties.tags[':panel'].indexOf('no_fishing') > -1) {
