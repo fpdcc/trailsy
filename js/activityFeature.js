@@ -124,6 +124,7 @@ var activityFeature = function (map) {
           : activityType === 'dog park' ? 'icon-off-leash-dog-area'
           : activityType === 'drone' ? 'icon-drone'
           : activityType === 'equestrian center' ? 'icon-facility'
+          : activityType === 'fitness stairs' ? 'icon-stairs'
           : activityType === 'frisbee golf' ? 'icon-disc-golf'
           : activityType === 'golf course' ? 'icon-golf-course-driving-range'
           : activityType === 'golf driving range' ? 'icon-golf-course-driving-range'
@@ -131,7 +132,6 @@ var activityFeature = function (map) {
           : activityType === 'model airplane flying field' ? 'icon-model-airplane'
           : activityType === 'nature center' ? 'icon-nature-center'
           : activityType === 'pavilion' ? 'icon-facility'
-          : activityType === 'recreation center' ? 'icon-rec-center'
           : activityType === 'recreational waterbody' ? 'icon-waterbody'
           : activityType === 'sledding' ? 'icon-sledding'
           : activityType === 'snowmobiling' ? 'icon-snowmobiling'
@@ -140,7 +140,7 @@ var activityFeature = function (map) {
           : activityType === 'volunteer center' ? 'icon-facility'
           : activityType === 'warming shelter' ? 'icon-facility'
           : activityType === 'welcome center' ? 'icon-facility'
-          : activityType === 'zipline' ? 'icon-zip-line'
+          : activityType === 'zip line' ? 'icon-zip-line'
           : null
   }
 

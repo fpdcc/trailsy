@@ -505,11 +505,6 @@ var panelFuncs = function (map) {
         }
     
         // Activities/Amenities on map
-    
-        // recreation_center = Special Acitivty
-        if (poi.properties.tags[':panel'].indexOf('recreation_center') > -1) {
-          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-rec-center'><use xlink:href='icons/defs.svg#icon-rec-center'></use></svg><span class='fpccAmenityTitle'>Special Activity</span></div>"
-        }
         
         // bike_rental = Bike Rental
         if (poi.properties.tags[':panel'].indexOf('bike_rental') > -1 ) {
@@ -643,6 +638,16 @@ var panelFuncs = function (map) {
         // no_dogs = No Dogs
         if (poi.properties.tags[':panel'].indexOf('no_dogs') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-no-dogs'><use xlink:href='icons/defs.svg#icon-no-dogs'></use></svg><span class='fpccAmenityTitle'>No Dogs</span></div>"
+        }
+
+        // fitness_stairs = Fitness Stairs
+        if (poi.properties.tags[':panel'].indexOf('fitness_stairs') > -1) {
+          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-stairs'><use xlink:href='icons/defs.svg#icon-stairs'></use></svg><span class='fpccAmenityTitle'>Fitness Stairs</span></div>"
+        }
+
+        // zip_line = Zip Line
+        if (poi.properties.tags[':panel'].indexOf('zip_line') > -1) {
+          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-zip-line'><use xlink:href='icons/defs.svg#icon-zip-line'></use></svg><span class='fpccAmenityTitle'>Zip Line / Treetop Adventure</span></div>"
         }
 
         //  drone = Drone Flying

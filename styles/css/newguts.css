@@ -385,6 +385,8 @@ html body .ui-page-theme-a a.aboutLink{color:#FFF;font-weight:normal}
 #icon-camp-store .path1,#icon-camp-dine .path1,#icon-camp-sanitary .path1,#icon-camp-shower .path1,#icon-nature-play .path1,#icon-stairs .path1,#icon-zip-line .path1{fill:#585747}
 #icon-no-dogs .path1{fill:#585747}
 #icon-no-dogs .path2,#icon-no-dogs .path3{fill:#fff}
+#icon-stairs .path1,#icon-zip-line .path1{fill:#585747}
+#icon-stairs .path2,#icon-zip-line .path2,#icon-zip-line .path3,#icon-zip-line .path4{fill:#fff}
 #icon-email .path1{fill:#7e9137}
 #icon-twitter .path1{fill:#55acee}
 #icon-arrow .path1{fill:#273719}
