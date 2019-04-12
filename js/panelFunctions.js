@@ -921,13 +921,13 @@ var panelFuncs = function (map) {
           var thisTrail = trailSubsystemTrails[trailIndex]
           if (directTrail) {
             if (thisTrail.direct_trail_id != directTrail.direct_trail_id) {
-              if (thisTrail.subtrail_length_mi >= 1) {
+              if (thisTrail.subtrail_length_mi >= 1 || subSystem.includes("Center Trails")) {
                 useIndirect = true
                 indirectHTML += buildTrailSegmentHTML(thisTrail)
               }
             }
           } else {
-            if (thisTrail.subtrail_length_mi >= 1 || trailIndex == 0) {
+            if (thisTrail.subtrail_length_mi >= 1 || trailIndex == 0 || subSystem.includes("Center Trails")) {
               useIndirect = true
               indirectHTML += buildTrailSegmentHTML(thisTrail)
             }
