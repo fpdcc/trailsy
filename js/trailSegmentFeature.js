@@ -136,6 +136,9 @@ var trailSegmentFeature = function (map) {
           "data-trailsubsystem='" + segmentTrailSubsystem + "'>" +
           invisLayer.feature.properties.segmentName
         trailPopupLineDiv += '</div>'
+        trailPopupLineDiv += '<div class="trail-popup-line trail-popup-line-named fpccPopupData"><div class="fpccPopupDataCont clearfix"><div class="fpccPopupLength">' + '[segment length here]' + '</div>'
+        trailPopupLineDiv += '<div class="fpccPopupIcons">[activity icons here, include new dog_leash/no_dogs]</div>'
+        trailPopupLineDiv += '</div>'
         popupHTML = popupHTML + trailPopupLineDiv
       }
       popupHTML = popupHTML + '</div>'

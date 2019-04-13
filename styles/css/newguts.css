@@ -338,6 +338,10 @@ ul.fpccMobileMenuList a:hover,ul.fpccMobileMenuList a:active{background:#F1F1ED}
 .trail-popup .trail-popup-line-named,.picnicgrove-capacity{border-top:none;padding:.5em .75em;width:80%}
 .trail-popup .trail-popup-line-named.trail-segment,.picnicgrove-capacity{border-top:1px solid #e3e3e1;width:100%}
 .trail-popup .trail-popup-line-named.trail-subsystem:hover,.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box:hover{cursor:pointer}
+.trail-popup .trail-popup-line.fpccPopupData{padding-top:0}
+.fpccPopupData .fpccPopupDataCont{text-transform: none;border-top:1px dotted #CCC;padding:.65em 0 .5em;margin: 0;}
+.fpccPopupData .fpccPopupLength{margin-bottom: .65em}
+.fpccPopupData .fpccPopupIcons .icon{width: 16.5em;height: 1.65em;margin-right: .25em}
 .leaflet-popup-content-wrapper .leaflet-popup-content .activity-popup,.leaflet-popup-content-wrapper .leaflet-popup-content .picnicgrove-popup{border:0;padding:.5em .75em}
 .leaflet-control-container .leaflet-control-layers{border-radius:0;box-shadow:0 1px 5px rgba(0,0,0,0.4);border:none}
 
