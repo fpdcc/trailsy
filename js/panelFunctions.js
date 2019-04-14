@@ -1043,13 +1043,16 @@ var panelFuncs = function (map) {
     }
     trailSegmentHTML += '</span>';
     trailSegmentHTML += '<svg width="100%" height="8px"><line x1="4" x2="100%" y1="4" y2="4" stroke-width="8"/></svg>';
-    trailSegmentHTML += '</div>';
-    trailSegmentHTML += '<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>';
+    trailSegmentHTML += '</div><div class="fpccSegmentDetails clearfix">';
     if (trailSegment.subtrail_length_mi) {
-      //console.log('[buildTrailSegmentHTML] trailSegment.subtrail_length_mi= ' + trailSegment.subtrail_length_mi)
-      trailSegmentHTML += parseFloat(trailSegment.subtrail_length_mi).toFixed(1)
+      var length_mi = parseFloat(trailSegment.subtrail_length_mi).toFixed(1)
+      if (length_mi >= .1) {
+        trailSegmentHTML += '<span class="fpccLabel fpccLeft">Length<span>';
+        trailSegmentHTML += length_mi
+        trailSegmentHTML += ' mi</span></span>';
+      }
     }
-    trailSegmentHTML += ' mi</span></span>';
+    
     trailSegmentHTML += '<span class="fpccLabel fpccRight">Surface<span>';
     trailSegmentHTML += thisType;
     trailSegmentHTML += '</span></span></div></div>';
