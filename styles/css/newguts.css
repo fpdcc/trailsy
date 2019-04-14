@@ -149,6 +149,7 @@ a:hover .fpccAmenityTitle,a:active .fpccAmenityTitle{text-decoration:none}
 .fpccNP p{text-align:left;margin-top:.5em}
 .fpccTop{border-bottom:3px solid #CCC}
 .fpccHours,.fpccLinks{border-top:1px dotted #CCC;padding:1em 0;margin:-.75em 1em 1em}
+.fpccTrails .fpccHours{margin:0}
 .fpccHours1,.fpccHours2,.fpccSpecialHours,.fpccPhone{display:block}
 .fpccPhone{margin-top:.5em}
 .fpccSpecialHours{font-style:italic;margin-top:.75em}
