@@ -38,11 +38,11 @@ var trailSegmentFeature = function (map) {
     }
     var segmentArray = []
     $.each(trailSubsystems, function (index, value) {
-      console.log('[filterSegments] index = ' + index)
+      //console.log('[filterSegments] index = ' + index)
       var segmentFGs = that.segmentTrailSubsystemObject[index]
       if (segmentFGs) {
         // segmentArray.push(segmentFGs)
-        console.log('[filterSegments] segmentFGs = ' + segmentFGs[0])
+        //console.log('[filterSegments] segmentFGs = ' + segmentFGs[0])
         //console.log('[filterSegments] segmentFGs.length = ' + segmentFGs.length)
         segmentArray.push(new L.FeatureGroup(segmentFGs)) // .addTo(map)
       }
@@ -74,7 +74,7 @@ var trailSegmentFeature = function (map) {
       //console.log('makeSegmentTrailSubsystemObject thisTrailInfo.subtrail_id = ' + thisTrailInfo.subtrail_id)
       //console.log('makeSegmentTrailSubsystemObject thisTrailInfo.trail_color = ' + thisTrailInfo.trail_color)
       //console.log('makeSegmentTrailSubsystemObject thisTrailInfo.trail_type = ' + thisTrailInfo.trail_type)
-      console.log("[makeAllSegmentLayer] feature properties = " + feature.properties)
+      //console.log("[makeAllSegmentLayer] feature properties = " + feature.properties)
       that.rawData.features[key].properties = Object.assign({},feature.properties, thisTrailInfo)
       // feature.properties.trail_color = thisTrailInfo.trail_color
       // feature.properties.off_fpdcc = thisTrailInfo.off_fpdcc
@@ -169,12 +169,19 @@ var trailSegmentFeature = function (map) {
           "data-trailsubsystem='" + segmentTrailSubsystem + "'>" +
           invisLayer.feature.properties.segmentName
         trailPopupLineDiv += '</div>'
-        trailPopupLineDiv += '<div class="trail-popup-line trail-popup-line-named fpccPopupData"><div class="fpccPopupDataCont clearfix"><div class="fpccPopupLength">' + invisLayer.feature.properties.subtrail_length_mi + '</div>' 
+        var length_mi = null
+        if (invisLayer.feature.properties.subtrail_length_mi) {
+          length_mi = parseFloat(invisLayer.feature.properties.subtrail_length_mi).toFixed(2)
+        }
+        trailPopupLineDiv += '<div class="trail-popup-line trail-popup-line-named fpccPopupData"><div class="fpccPopupDataCont clearfix">'
+        if (length_mi) {
+          trailPopupLineDiv += '<div class="fpccPopupLength">Length: ' + length_mi + ' mi</div>' 
+        }
         trailPopupLineDiv += '<div class="fpccPopupIcons">'
         var trailSegment = invisLayer.feature.properties
         var trailSegmentHTML = ''
         if ((trailSegment.tags) && (trailSegment.tags.panel)) {
-          console.log('[buildTrailSegmentHTML] tags.panel = ' + trailSegment.tags.panel)
+          //console.log('[buildTrailSegmentHTML] tags.panel = ' + trailSegment.tags.panel)
           if (trailSegment.tags.panel.indexOf('hiking') > -1) {
             trailSegmentHTML += '<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>';
           }

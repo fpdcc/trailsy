@@ -130,7 +130,10 @@ var events = function (map) {
     }
   }
 
-  that.trailDivWork = function (trailSubsystemName, poiId) {
+  that.trailDivWork = function (trailSubsystemName, poiId, trailSubsystemId) {
+    // if (trailSubsystemId) {
+
+    // }
     if (trailSubsystemName) {
       panel.showDetails(my, trailSubsystemName, null)
     } else {

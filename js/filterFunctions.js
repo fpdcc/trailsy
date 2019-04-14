@@ -88,6 +88,11 @@ var filterFunctions = function (map) {
       that.current.poi = poi
     } else if (trail) {
       that.current.trail = trail
+      // trail_split = trail.split('-')
+      // if (trail_split.length > 1) {
+      //   that.current.trail = trail[0]
+      // }
+      
     }
     console.log('[address.change] searchFilter = ' + search)
     console.log('[address.change] poi = ' + that.current.poi)

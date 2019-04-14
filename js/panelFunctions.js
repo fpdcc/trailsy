@@ -296,11 +296,15 @@ var panelFuncs = function (map) {
     var trailSubsystemTrails = null
     var descriptionTrail = null
     var trailSubsystemName = null
+    var trailSubsystemId = null
     if (trailSubsystemNormalizedName) {
       trailSubsystemTrails = myReferences.trailInfo.trailSubsystemMap[trailSubsystemNormalizedName] || null
       descriptionTrail = trailSubsystemTrails[0] || null
+      console.log("[showDetails] descriptionTrail = " + descriptionTrail)
       if (descriptionTrail) {
         trailSubsystemName = descriptionTrail.trail_subsystem
+        trailSubsystemId = descriptionTrail.trail_subsystem_id
+        console.log("[showDetails] trailSubsystemId = " + trailSubsystemId)
       }
     }
     that.toggleDetailPanel('open')
@@ -309,6 +313,9 @@ var panelFuncs = function (map) {
     if (trailSubsystemName) {
       changePageTitle(trailSubsystemName)
       trailLink = encodeURIComponent(trailSubsystemNormalizedName)
+      // if (trailSubsystemId) {
+      //   trailLink = encodeURIComponent(trailSubsystemId + '-' + trailSubsystemNormalizedName)
+      // }
       trailLink = trailLink.replace(/%2B/g, '+')
     } else if (poi) {
       changePageTitle(poi.properties.name)
