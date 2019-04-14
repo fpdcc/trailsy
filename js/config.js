@@ -8,7 +8,7 @@ var isEdge = ((navigator.userAgent.toLowerCase().indexOf('edge') !== -1) || (nav
 // var appId = '6' // OuterSpatial assigns a unique id for each customer
 var url = 'https://map.fpdcc.com'
 url = 'https://map-staging.fpdcc.net'
-// url = 'http://localhost:8080'
+//url = 'http://localhost:3000'
 var gaCode1 = 'UA-92972430-2'
 var gaCode2 = ''
 // var trailsyBaseEndpoint = url + '/v0/applications/' + appId;
@@ -19,8 +19,8 @@ module.exports = {
   // trailheadEndpoint: baseEndpoint + "/cached_trailheads",
   trailheadEndpoint: trailsyBaseEndpoint + '/pointsofinterests.json',
   activityEndpoint: trailsyBaseEndpoint + '/activities.json',
-  trailInfoEndpoint: trailsyBaseEndpoint + '/trails_infos.json',
-  trailSegmentEndpoint: trailsyBaseEndpoint + '/new_trails.json',
+  trailInfoEndpoint: trailsyBaseEndpoint + '/trail_subtrails.json',
+  trailSegmentEndpoint: trailsyBaseEndpoint + '/trails_infos.json',
   picnicgroveEndpoint: trailsyBaseEndpoint + '/picnicgroves.json',
   alertEndpoint: trailsyBaseEndpoint + '/alerts.json',
 

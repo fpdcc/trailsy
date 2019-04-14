@@ -147,7 +147,6 @@ var events = function (map) {
       var trailsGroupBounds = that.highlightSegmentsForSubsystem(trailSubsystemName)
       var trailheadGroupBounds = that.highlightPoi(divPoi)
       var zoomFeatureGroupBounds = null
-
       if (divPoi) {
         zoomFeatureGroupBounds = trailheadGroupBounds
       } else {
@@ -155,6 +154,9 @@ var events = function (map) {
       }
       console.log('[trailDivWork] before fitbounds')
       console.log('[trailDivWork] my.panel.padding = ' + my.panel.padding)
+      console.log('[trailDivWork] zoomFeatureGroupBounds.isValid() = ' + zoomFeatureGroupBounds.isValid())
+      console.log('[trailDivWork] zoomFeatureGroupBounds.toBBoxString() = ' + zoomFeatureGroupBounds.toBBoxString())
+      
       map.fitBounds(zoomFeatureGroupBounds, {
         paddingTopLeft: my.panel.padding,
         paddingBottomRight: my.panel.paddingRight

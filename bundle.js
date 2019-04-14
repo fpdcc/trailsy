@@ -15109,11 +15109,17 @@
 	  L.control.scale({maxWidth: 300, position: 'bottomright'}).addTo(map)
 	  L.control.layers(baseMaps, null, {collapsed: false, position: 'bottomright'}).addTo(map)
 	
+	  var segmentsDownloadedAndInfoReady = $.when(tSegment.dataDownloaded, tInfo.trailInfoCreated)
 	  var poiAndTrailInfoCreated = $.when(poiFeat.originalPoisCreated, tInfo.trailInfoCreated)
 	  var poiSegmentsReady = $.when(poiFeat.originalPoiInfoAdded, tSegment.segmentsCreated)
 	  var activitiesReady = $.when(activityFeat.originalActivitiesCreated)
 	  var picnicgrovesReady = $.when(picnicgroveFeat.originalPicnicgrovesCreated)
 	  var geoSetupAndAlertsReady = $.when(alertFeat.alertsCreated, geoFunctions.geoSetupDone)
+	  segmentsDownloadedAndInfoReady.done(function () {
+	    console.log('filters.current = ' + filters.current)
+	    tSegment.makeSegmentTrailSubsystemObject(tInfo.originalTrailInfo)
+	    
+	  })
 	  poiAndTrailInfoCreated.done(function () {
 	    poiFeat.addTrailInfo(tInfo.originalTrailInfo)
 	    console.log('filters.current = ' + filters.current)
@@ -15195,6 +15201,7 @@
 	          activityFeat.filteredFG.addTo(map)
 	        }
 	        if (tSegment.filteredFG && filters.current.trailOnMap) {
+	          console.log("about to add segments to map")
 	          tSegment.filteredFG.addTo(map)
 	        }
 	        // events.addEdgeEventHandlers()
@@ -36479,7 +36486,7 @@
 	// var appId = '6' // OuterSpatial assigns a unique id for each customer
 	var url = 'https://map.fpdcc.com'
 	url = 'https://map-staging.fpdcc.net'
-	// url = 'http://localhost:8080'
+	//url = 'http://localhost:3000'
 	var gaCode1 = 'UA-92972430-2'
 	var gaCode2 = ''
 	// var trailsyBaseEndpoint = url + '/v0/applications/' + appId;
@@ -36490,8 +36497,8 @@
 	  // trailheadEndpoint: baseEndpoint + "/cached_trailheads",
 	  trailheadEndpoint: trailsyBaseEndpoint + '/pointsofinterests.json',
 	  activityEndpoint: trailsyBaseEndpoint + '/activities.json',
-	  trailInfoEndpoint: trailsyBaseEndpoint + '/trails_infos.json',
-	  trailSegmentEndpoint: trailsyBaseEndpoint + '/new_trails.json',
+	  trailInfoEndpoint: trailsyBaseEndpoint + '/trail_subtrails.json',
+	  trailSegmentEndpoint: trailsyBaseEndpoint + '/trails_infos.json',
 	  picnicgroveEndpoint: trailsyBaseEndpoint + '/picnicgroves.json',
 	  alertEndpoint: trailsyBaseEndpoint + '/alerts.json',
 	
@@ -37121,7 +37128,6 @@
 	      var trailsGroupBounds = that.highlightSegmentsForSubsystem(trailSubsystemName)
 	      var trailheadGroupBounds = that.highlightPoi(divPoi)
 	      var zoomFeatureGroupBounds = null
-	
 	      if (divPoi) {
 	        zoomFeatureGroupBounds = trailheadGroupBounds
 	      } else {
@@ -37129,6 +37135,9 @@
 	      }
 	      console.log('[trailDivWork] before fitbounds')
 	      console.log('[trailDivWork] my.panel.padding = ' + my.panel.padding)
+	      console.log('[trailDivWork] zoomFeatureGroupBounds.isValid() = ' + zoomFeatureGroupBounds.isValid())
+	      console.log('[trailDivWork] zoomFeatureGroupBounds.toBBoxString() = ' + zoomFeatureGroupBounds.toBBoxString())
+	      
 	      map.fitBounds(zoomFeatureGroupBounds, {
 	        paddingTopLeft: my.panel.padding,
 	        paddingBottomRight: my.panel.paddingRight
@@ -37353,9 +37362,11 @@
 	var trailSegmentFeature = function (map) {
 	  var that = {}
 	  var events = eL.events()
+	  that.rawData = null
 	  that.segmentTrailSubsystemObject = {}
 	  that.filteredFG = null
 	  that.currentHighlightedSubsystem = null
+	  that.dataDownloaded = $.Deferred()
 	  that.segmentsCreated = $.Deferred()
 	  that.fetchTrailSegments = function () {
 	    $.getJSON(Config.trailSegmentEndpoint, function () {
@@ -37363,7 +37374,9 @@
 	    })
 	    .done(function (data) {
 	      console.log('Successfully finished fetching trailSegments at ' + performance.now())
-	      _makeSegmentTrailSubsystemObject(data)
+	      that.rawData = data
+	      that.dataDownloaded.resolve(data)
+	      //_makeSegmentTrailSubsystemObject(data)
 	      // console.log("that.segmentTrailSubsystemObject.length = " + that.originalPoisArray.length);
 	    })
 	    .fail(function () {
@@ -37383,6 +37396,8 @@
 	      var segmentFGs = that.segmentTrailSubsystemObject[index]
 	      if (segmentFGs) {
 	        // segmentArray.push(segmentFGs)
+	        console.log('[filterSegments] segmentFGs = ' + segmentFGs[0])
+	        //console.log('[filterSegments] segmentFGs.length = ' + segmentFGs.length)
 	        segmentArray.push(new L.FeatureGroup(segmentFGs)) // .addTo(map)
 	      }
 	    })
@@ -37393,14 +37408,41 @@
 	    console.log('[filterSegments] end')
 	  }
 	
-	  var _makeSegmentTrailSubsystemObject = function (response) {
-	    console.log('makeAllSegmentLayer')
+	  that.makeSegmentTrailSubsystemObject = function (trailInfo) {
+	    console.log('[trailSegments] makeSegmentTrailSubsystemObject start')
 	    // make visible layers
 	    var allVisibleSegmentsArray = []
 	    var allInvisibleSegmentsArray = []
 	    // allSegmentLayer = new L.FeatureGroup();
 	    // allVisibleSegmentLayer = new L.FeatureGroup();
-	    console.log('visibleAllTrailLayer start')
+	    
+	    //if (that.rawData.features) {
+	
+	    for (const key in that.rawData.features) {
+	      let feature = that.rawData.features[key] 
+	      //console.log('makeSegmentTrailSubsystemObject feature = ' + feature)
+	      var direct_trail_id = feature.properties.direct_trail_id
+	      //console.log('makeSegmentTrailSubsystemObject feature.properties.direct_trail_id = ' + feature.properties.direct_trail_id)
+	      var thisTrailInfo = trailInfo[direct_trail_id]
+	      //console.log('makeSegmentTrailSubsystemObject thisTrailInfo = ' + thisTrailInfo)
+	      //console.log('makeSegmentTrailSubsystemObject thisTrailInfo.subtrail_id = ' + thisTrailInfo.subtrail_id)
+	      //console.log('makeSegmentTrailSubsystemObject thisTrailInfo.trail_color = ' + thisTrailInfo.trail_color)
+	      //console.log('makeSegmentTrailSubsystemObject thisTrailInfo.trail_type = ' + thisTrailInfo.trail_type)
+	      console.log("[makeAllSegmentLayer] feature properties = " + feature.properties)
+	      that.rawData.features[key].properties = Object.assign({},feature.properties, thisTrailInfo)
+	      // feature.properties.trail_color = thisTrailInfo.trail_color
+	      // feature.properties.off_fpdcc = thisTrailInfo.off_fpdcc
+	      // feature.properties.trail_subsystem = thisTrailInfo.trail_subsystem
+	      // feature.properties.trail_type = thisTrailInfo.trail_type
+	      // feature.properties.segment_type = thisTrailInfo.segment_type
+	      // feature.properties.direction = thisTrailInfo.direction
+	      //console.log("[makeAllSegmentLayer] feature type = " + feature.type)
+	      //console.log("[makeAllSegmentLayer] feature properties = " + feature.properties)
+	      //console.log("[makeAllSegmentLayer] feature geometry = " + feature.geometry)
+	      //console.log("[makeAllSegmentLayer] feature geometry.type = " + feature.geometry.type)
+	      //console.log("[makeAllSegmentLayer] feature geometry.coordinates = " + feature.geometry.coordinates)
+	    }
+	    var response = that.rawData
 	
 	    // make a normal visible layer for the segments, and add each of those layers to the allVisibleSegmentsArray
 	    var visibleAllTrailLayer = L.geoJson(response, {
@@ -37458,16 +37500,16 @@
 	      var segmentNameType = invisLayer.feature.properties.segment_type || null
 	      var segmentDirection = invisLayer.feature.properties.direction || null
 	      var segmentOffFpcc = invisLayer.feature.properties.off_fpdcc || null
-	      var segmentName = segmentColor + ' ' + segmentType
-	      if (segmentNameType) {
-	        segmentName += ' ' + segmentNameType
-	      }
-	      if (segmentOffFpcc === 'y') {
-	        segmentName += ' (Non-FPCC)'
-	      } else if (segmentDirection) {
-	        segmentName += ' (' + segmentDirection + ') '
-	      }
-	      invisLayer.feature.properties.segmentName = segmentName
+	      // var segmentName = segmentColor + ' ' + segmentType
+	      // if (segmentNameType) {
+	      //   segmentName += ' ' + segmentNameType
+	      // }
+	      // if (segmentOffFpcc === 'y') {
+	      //   segmentName += ' (Non-FPCC)'
+	      // } else if (segmentDirection) {
+	      //   segmentName += ' (' + segmentDirection + ') '
+	      // }
+	      invisLayer.feature.properties.segmentName = invisLayer.feature.properties.subtrail_name
 	      if (segmentTrailSubsystem) {
 	        var trailPopupLineDiv = '<svg class="icon icon-arrow-right"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-arrow-right"></use></svg>'
 	        trailPopupLineDiv += "<div class='trail-popup-line trail-popup-line-named trail-subsystem' " +
@@ -37481,6 +37523,33 @@
 	          "data-trailsubsystem='" + segmentTrailSubsystem + "'>" +
 	          invisLayer.feature.properties.segmentName
 	        trailPopupLineDiv += '</div>'
+	        trailPopupLineDiv += '<div class="trail-popup-line trail-popup-line-named fpccPopupData"><div class="fpccPopupDataCont clearfix"><div class="fpccPopupLength">' + invisLayer.feature.properties.subtrail_length_mi + '</div>' 
+	        trailPopupLineDiv += '<div class="fpccPopupIcons">'
+	        var trailSegment = invisLayer.feature.properties
+	        var trailSegmentHTML = ''
+	        if ((trailSegment.tags) && (trailSegment.tags.panel)) {
+	          console.log('[buildTrailSegmentHTML] tags.panel = ' + trailSegment.tags.panel)
+	          if (trailSegment.tags.panel.indexOf('hiking') > -1) {
+	            trailSegmentHTML += '<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>';
+	          }
+	          if (trailSegment.tags.panel.indexOf('biking') > -1) {
+	            trailSegmentHTML += '<svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg>';
+	          }
+	          if (trailSegment.tags.panel.indexOf('dog_leash') > -1) {
+	            trailSegmentHTML += '<svg class="icon icon-dog-leash"><use xlink:href="icons/defs.svg#icon-dog-leash"></use></svg>';
+	          }
+	          if (trailSegment.tags.panel.indexOf('cross_country') > -1) {
+	            trailSegmentHTML += '<svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg>';
+	          }
+	          if (trailSegment.tags.panel.indexOf('equestrian') > -1) {
+	            trailSegmentHTML += '<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>';
+	          }
+	          if (trailSegment.tags.panel.indexOf('no_dogs') > -1) {
+	            trailSegmentHTML += '<svg class="icon icon-no-dogs"><use xlink:href="icons/defs.svg#icon-no-dogs"></use></svg>';
+	          }
+	        }
+	        //[activity icons here, include new dog_leash/no_dogs]
+	        trailPopupLineDiv += trailSegmentHTML + '</div></div>'
 	        popupHTML = popupHTML + trailPopupLineDiv
 	      }
 	      popupHTML = popupHTML + '</div>'
@@ -37524,6 +37593,8 @@
 	    //   var newFG = new L.FeatureGroup(value).addTo(map)
 	    // })
 	    that.segmentsCreated.resolve(that.segmentTrailSubsystemObject)
+	
+	    
 	  }
 	
 	  var segmentStyle = function (feature) {
@@ -37645,22 +37716,31 @@
 	  var _makeTrailInfoObject = function (data) {
 	    that.originalTrailInfo = {}
 	    that.trailSubsystemMap = {}
-	    for (var i = 0; i < data.features.length; i++) {
-	      that.originalTrailInfo[data.features[i].properties.direct_trail_id] = data.features[i].properties
-	      var normalizedSubsystem = data.features[i].properties.trail_subsystem.replace(/[& ]/g, '+')
-	      var segmentName = data.features[i].properties.trail_color + ' ' + data.features[i].properties.trail_type
-	      if (data.features[i].properties.segment_type) {
-	        segmentName += ' ' + data.features[i].properties.segment_type
-	      }
-	      if (data.features[i].properties.off_fpdcc === 'y') {
-	        segmentName += ' (Non-FPCC)'
-	      } else if (data.features[i].properties.direction) {
-	        segmentName += ' (' + data.features[i].properties.direction + ') '
-	      }
-	      data.features[i].properties.segmentName = segmentName
+	    console.log("[trailInfo _makeTrailInfoObject] Begin")
+	    for (const key in data) {
+	      let subtrail = data[key] 
+	      
+	      var normalizedSubsystem = subtrail.trail_subsystem.replace(/[& ]/g, '+')
+	      var segmentName = subtrail.subtrail_name
+	      // if (subtrail.subtrail_name) {
+	      //   var segmentName = data.features[i].properties.trail_name
+	      // } else {
+	      //   var segmentName = data.features[i].properties.trail_color + ' ' + data.features[i].properties.trail_type
+	      //   if (data.features[i].properties.segment_type) {
+	      //     segmentName += ' ' + data.features[i].properties.segment_type
+	      //   }
+	      //   if (data.features[i].properties.off_fpdcc === 'y') {
+	      //     segmentName += ' (Non-FPCC)'
+	      //   } else if (data.features[i].properties.direction) {
+	      //     segmentName += ' (' + data.features[i].properties.direction + ') '
+	      //   }
+	      // }
+	      subtrail.segmentName = segmentName
+	      that.originalTrailInfo[subtrail.subtrail_id] = subtrail
 	      that.trailSubsystemMap[normalizedSubsystem] = that.trailSubsystemMap[normalizedSubsystem] || []
-	      that.trailSubsystemMap[normalizedSubsystem].push(data.features[i].properties)
+	      that.trailSubsystemMap[normalizedSubsystem].push(subtrail)
 	    }
+	    console.log("[trailInfo _makeTrailInfoObject] End")
 	    that.trailInfoCreated.resolve(that.originalTrailInfo)
 	  }
 	
@@ -37805,6 +37885,7 @@
 	          : activityType === 'dog park' ? 'icon-off-leash-dog-area'
 	          : activityType === 'drone' ? 'icon-drone'
 	          : activityType === 'equestrian center' ? 'icon-facility'
+	          : activityType === 'fitness stairs' ? 'icon-stairs'
 	          : activityType === 'frisbee golf' ? 'icon-disc-golf'
 	          : activityType === 'golf course' ? 'icon-golf-course-driving-range'
 	          : activityType === 'golf driving range' ? 'icon-golf-course-driving-range'
@@ -37812,7 +37893,6 @@
 	          : activityType === 'model airplane flying field' ? 'icon-model-airplane'
 	          : activityType === 'nature center' ? 'icon-nature-center'
 	          : activityType === 'pavilion' ? 'icon-facility'
-	          : activityType === 'recreation center' ? 'icon-rec-center'
 	          : activityType === 'recreational waterbody' ? 'icon-waterbody'
 	          : activityType === 'sledding' ? 'icon-sledding'
 	          : activityType === 'snowmobiling' ? 'icon-snowmobiling'
@@ -37821,7 +37901,7 @@
 	          : activityType === 'volunteer center' ? 'icon-facility'
 	          : activityType === 'warming shelter' ? 'icon-facility'
 	          : activityType === 'welcome center' ? 'icon-facility'
-	          : activityType === 'zipline' ? 'icon-zip-line'
+	          : activityType === 'zip line' ? 'icon-zip-line'
 	          : null
 	  }
 	
@@ -40074,8 +40154,8 @@
 	                  '<li>Discover new opportunities within the preserves</li></ul>' +
 	                  '<p>Please consider <a class="menuFeedback" href="https://fpdcc.wufoo.com/forms/znt02n10csdbi3/def/" target="_blank">leaving  us feedback</a> so we can continue to improve this map. Learn more about the  Forest Preserves of Cook County at <a href="http://fpdcc.com/">fpdcc.com</a>.</p>' +
 	                  '<h2>Development</h2>' +
-	                  '<p>This project is a partnership between the Forest Preserves of Cook County and <a href="http://www.smartchicagocollaborative.org/">Smart  Chicago</a>. The resulting web application is built on two pieces of source  code: <a href="https://github.com/codeforamerica/trailsy">Trailsy</a> and <a href="https://github.com/codeforamerica/trailsyserver">Trailsy Server</a>, both  pioneered by <a href="https://www.codeforamerica.org/">Code for America</a>.  All of the data used to power the site is open for all.</p>' +
-	                  '<p>Smart Chicago consultant <a href="http://www.smartchicagocollaborative.org/people/consultants/current-consultants/josh-kalov/">Josh Kalov</a> is the main developer of this project.</p>' +
+	                  '<p>This project is a partnership between the Forest Preserves of Cook County and Smart Chicago Collaborative. The resulting web application is built on two pieces of source  code: <a href="https://github.com/codeforamerica/trailsy">Trailsy</a> and <a href="https://github.com/codeforamerica/trailsyserver">Trailsy Server</a>, both  pioneered by <a href="https://www.codeforamerica.org/">Code for America</a>.  All of the data used to power the site is open for all.</p>' +
+	                  '<p>Smart Chicago consultant Josh Kalov is the main developer of this project.</p>' +
 	                  '<p><a href="https://github.com/fpdcc/trailsy/">View the project’s GitHub page</a> or <a href="https://github.com/fpdcc/webmap_data_updates">download Forest Preserves web map data</a>.</p>' +
 	                  '<h2>Funding</h2>' +
 	                  '<p>Made possible with funding from the Centers for Disease Control and Prevention through the Healthy Hotspot initiative led by the Cook  County Department of Public Health. Learn more at <a href="http://healthyhotspot.org/">healthyhotspot.org</a>. Smart Chicago  provided in-kind services for this project.</p>' +
@@ -40536,11 +40616,6 @@
 	        }
 	    
 	        // Activities/Amenities on map
-	    
-	        // recreation_center = Special Acitivty
-	        if (poi.properties.tags[':panel'].indexOf('recreation_center') > -1) {
-	          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-rec-center'><use xlink:href='icons/defs.svg#icon-rec-center'></use></svg><span class='fpccAmenityTitle'>Special Activity</span></div>"
-	        }
 	        
 	        // bike_rental = Bike Rental
 	        if (poi.properties.tags[':panel'].indexOf('bike_rental') > -1 ) {
@@ -40676,6 +40751,16 @@
 	          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-no-dogs'><use xlink:href='icons/defs.svg#icon-no-dogs'></use></svg><span class='fpccAmenityTitle'>No Dogs</span></div>"
 	        }
 	
+	        // fitness_stairs = Fitness Stairs
+	        if (poi.properties.tags[':panel'].indexOf('fitness_stairs') > -1) {
+	          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-stairs'><use xlink:href='icons/defs.svg#icon-stairs'></use></svg><span class='fpccAmenityTitle'>Fitness Stairs</span></div>"
+	        }
+	
+	        // zip_line = Zip Line
+	        if (poi.properties.tags[':panel'].indexOf('zip_line') > -1) {
+	          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-zip-line'><use xlink:href='icons/defs.svg#icon-zip-line'></use></svg><span class='fpccAmenityTitle'>Zip Line / Treetop Adventure</span></div>"
+	        }
+	
 	        //  drone = Drone Flying
 	        if (poi.properties.tags[':panel'].indexOf('drone') > -1) {
 	          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-drone'><use xlink:href='icons/defs.svg#icon-drone'></use></svg><span class='fpccAmenityTitle'>Drone Flying Area</span></div>"
@@ -40698,7 +40783,7 @@
 	
 	        // hiking = Hiking
 	        if (poi.properties.tags[':panel'].indexOf('hiking') > -1) {
-	          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-hiking'><use xlink:href='icons/defs.svg#icon-hiking'></use></svg><span class='fpccAmenityTitle'>Hiking</span></div>"
+	          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-hiking'><use xlink:href='icons/defs.svg#icon-hiking'></use></svg><span class='fpccAmenityTitle'>Hiking, Walking & Running</span></div>"
 	        }
 	
 	        // ice_fishing = Ice Fishing
@@ -40708,7 +40793,7 @@
 	
 	        // no_alcohol = No Alcohol
 	        if (poi.properties.tags[':panel'].indexOf('no_alcohol') > -1) {
-	          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-no-alcohol'><use xlink:href='icons/defs.svg#icon-no-alcohol'></use></svg><span class='fpccAmenityTitle'>No Alcohol</span></div>"
+	          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-no-alcohol'><use xlink:href='icons/defs.svg#icon-no-alcohol'></use></svg><span class='fpccAmenityTitle'>No Alcohol (without permit)</span></div>"
 	        }
 	        // no_fishing = No Fishing
 	        if (poi.properties.tags[':panel'].indexOf('no_fishing') > -1) {
@@ -40934,26 +41019,48 @@
 	      if (showDescription) {
 	        trailsHTML += trailDescriptionHTML
 	      }
+	      var hoursHTML = ''
+	      if (descriptionTrail.hours1) {
+	        hoursHTML += '<span class="fpccHours1"><strong>' + descriptionTrail.season1
+	        hoursHTML += ':</strong> ' + descriptionTrail.hours1 + '</span>'
+	      }
+	      if (descriptionTrail.hours2) {
+	        hoursHTML += '<span class="fpccHours2"><strong>' + descriptionTrail.season2
+	        hoursHTML += ':</strong> ' + descriptionTrail.hours2 + '</span>'
+	      }
+	      if (descriptionTrail.special_hours) {
+	        hoursHTML += '<span class="fpccSpecialHours">' + descriptionTrail.special_hours + '</span>'
+	      }
+	      if (hoursHTML != '') {
+	        trailsHTML += '<div class="fpccHours fpccUnit"><span class="fpccLabel">Hours</span>'
+	                           + hoursHTML + '</div>'
+	      }
 	      var trailSegmentsHTML = '<div class="fpccTrailSegments">'
 	      var indirectHTML = ""
 	      if (directTrail) {
+	        //console.log('[panelFunctions] directTrail? = ' + directTrail)
 	        var directTrailHTML = buildTrailSegmentHTML(directTrail)
 	        trailSegmentsHTML += directTrailHTML
 	        indirectHTML += '<div class="fpccAccessTo fpccLabel"><svg class="icon icon-trail-marker" style="display: inline-block"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-trail-marker"></use></svg>with access to:</div>'
 	      }
+	      //console.log('[panelFunctions] trailSubsystemTrails? = ' + trailSubsystemTrails)
 	      if (trailSubsystemTrails) {
+	        trailSubsystemTrails.sort((a, b) => (a.subtrail_length_mi > b.subtrail_length_mi) ? -1 : 1)
+	
 	        var useIndirect = false
 	        for (var trailIndex = 0; trailIndex < trailSubsystemTrails.length; trailIndex++) {
 	          var thisTrail = trailSubsystemTrails[trailIndex]
 	          if (directTrail) {
-	            if (thisTrail.direct_trail_id != directTrail.direct_trail_id) {
-	              if (thisTrail.subtrail_length_mi >= 1) {
+	            //console.log('[panelFunctions] thisTrail.direct_trail_id = ' + thisTrail.subtrail_id)
+	            //console.log('[panelFunctions] directTrail.direct_trail_id = ' + directTrail.subtrail_id)
+	            if (thisTrail.subtrail_id != directTrail.subtrail_id) {
+	              if (thisTrail.subtrail_length_mi >= 1 || subSystem.includes("Center Trails") || subSystem.includes("Trailside Museum")) {
 	                useIndirect = true
 	                indirectHTML += buildTrailSegmentHTML(thisTrail)
 	              }
 	            }
 	          } else {
-	            if (thisTrail.subtrail_length_mi >= 1 || trailIndex == 0) {
+	            if (thisTrail.subtrail_length_mi >= 1 || trailIndex == 0 || subSystem.includes("Center Trails") || subSystem.includes("Trailside Museum")) {
 	              useIndirect = true
 	              indirectHTML += buildTrailSegmentHTML(thisTrail)
 	            }
@@ -40999,6 +41106,7 @@
 	    var thisType = trailSegment.trail_type
 	    var thisNameType = trailSegment.segment_type
 	    var thisDirection = trailSegment.direction
+	    console.log('[buildTrailSegmentHTML] trailSegment = ' + trailSegment)
 	    var trailSegmentHTML = '<div class="fpccTrailSegment"><div class="fpccSegmentOverview '
 	    //console.log('[buildTrailSegmentHTML] trailSegment.off_fpdcc= ' + trailSegment.off_fpdcc)
 	    //console.log('[buildTrailSegmentHTML] trailSegment.trail_color= ' + trailSegment.trail_color)
@@ -41014,31 +41122,36 @@
 	    // }
 	    trailSegmentHTML += ' clearfix"><span class="fpccSegmentName">'
 	    trailSegmentHTML += trailSegment.segmentName
-	    // thisColor + ' ' + thisType
-	    // if (thisNameType) {
-	    //   trailSegmentHTML += ' ' + thisNameType
-	    // }
-	    // if (thisDirection) {
-	    //   trailSegmentHTML += ' ' + thisDirection
-	    // }
-	    // if (trailSegment.off_fpdcc === 'y') {
-	    //   trailSegmentHTML += ' (Non-FPCC)'
-	    // }
 	    trailSegmentHTML += '</span><span class="fpccTrailUse">';
-	    trailSegmentHTML += '<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>';
-	    if (thisType.toLowerCase() == "single track" || thisType.toLowerCase() == "unpaved" || thisType.toLowerCase() == "paved" || thisType == "") {
-	      trailSegmentHTML += '<svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg>';
-	      trailSegmentHTML += '<svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg>';
-	    }
-	    if (thisType.toLowerCase() == "single track" || thisType.toLowerCase() == "unpaved" || thisType == "") {
-	      trailSegmentHTML += '<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>';
+	    //console.log('[buildTrailSegmentHTML] trailSegment.tags = ' + trailSegment.tags)
+	    if ((trailSegment.tags) && (trailSegment.tags.panel)) {
+	      console.log('[buildTrailSegmentHTML] tags.panel = ' + trailSegment.tags.panel)
+	      if (trailSegment.tags.panel.indexOf('hiking') > -1) {
+	        trailSegmentHTML += '<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>';
+	      }
+	      if (trailSegment.tags.panel.indexOf('biking') > -1) {
+	        trailSegmentHTML += '<svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg>';
+	      }
+	      if (trailSegment.tags.panel.indexOf('dog_leash') > -1) {
+	        trailSegmentHTML += '<svg class="icon icon-dog-leash"><use xlink:href="icons/defs.svg#icon-dog-leash"></use></svg>';
+	      }
+	      if (trailSegment.tags.panel.indexOf('cross_country') > -1) {
+	        trailSegmentHTML += '<svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg>';
+	      }
+	      if (trailSegment.tags.panel.indexOf('equestrian') > -1) {
+	        trailSegmentHTML += '<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>';
+	      }
+	      if (trailSegment.tags.panel.indexOf('no_dogs') > -1) {
+	        trailSegmentHTML += '<svg class="icon icon-no-dogs"><use xlink:href="icons/defs.svg#icon-no-dogs"></use></svg>';
+	      }
 	    }
 	    trailSegmentHTML += '</span>';
 	    trailSegmentHTML += '<svg width="100%" height="8px"><line x1="4" x2="100%" y1="4" y2="4" stroke-width="8"/></svg>';
 	    trailSegmentHTML += '</div>';
 	    trailSegmentHTML += '<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>';
 	    if (trailSegment.subtrail_length_mi) {
-	      trailSegmentHTML += trailSegment.subtrail_length_mi.toFixed(1)
+	      //console.log('[buildTrailSegmentHTML] trailSegment.subtrail_length_mi= ' + trailSegment.subtrail_length_mi)
+	      trailSegmentHTML += parseFloat(trailSegment.subtrail_length_mi).toFixed(1)
 	    }
 	    trailSegmentHTML += ' mi</span></span>';
 	    trailSegmentHTML += '<span class="fpccLabel fpccRight">Surface<span>';
