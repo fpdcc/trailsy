@@ -972,8 +972,10 @@ var panelFuncs = function (map) {
           trailSegmentsHTML += indirectHTML
         }
       }
-      trailSegmentsHTML += '<span class="fpccOneMile">*Segments under 1 mile not shown.</span>'
+      if ( !(subSystem.includes("Center Trails") || subSystem.includes("Trailside Museum")) )  {
+        trailSegmentsHTML += '<span class="fpccOneMile">*Segments under 1 mile not shown.</span>'
                          + '</div>'
+      }
       trailsHTML += trailSegmentsHTML + '</div>'
       fpccContainerHTML += trailsHTML
     }
