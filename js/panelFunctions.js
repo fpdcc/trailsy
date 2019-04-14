@@ -950,13 +950,19 @@ var panelFuncs = function (map) {
             //console.log('[panelFunctions] thisTrail.direct_trail_id = ' + thisTrail.subtrail_id)
             //console.log('[panelFunctions] directTrail.direct_trail_id = ' + directTrail.subtrail_id)
             if (thisTrail.subtrail_id != directTrail.subtrail_id) {
-              if (thisTrail.subtrail_length_mi >= 1 || subSystem.includes("Center Trails") || subSystem.includes("Trailside Museum")) {
+              if (thisTrail.subtrail_length_mi >= 1) {
+                useIndirect = true
+                indirectHTML += buildTrailSegmentHTML(thisTrail)
+              } else if ( (subSystem.includes("Center Trails") || subSystem.includes("Trailside Museum")) && (thisTrail.subtrail_length_mi >= .1) ) {
                 useIndirect = true
                 indirectHTML += buildTrailSegmentHTML(thisTrail)
               }
             }
           } else {
-            if (thisTrail.subtrail_length_mi >= 1 || trailIndex == 0 || subSystem.includes("Center Trails") || subSystem.includes("Trailside Museum")) {
+            if (thisTrail.subtrail_length_mi >= 1 || trailIndex == 0) {
+              useIndirect = true
+              indirectHTML += buildTrailSegmentHTML(thisTrail)
+            } else if ( (subSystem.includes("Center Trails") || subSystem.includes("Trailside Museum")) && (thisTrail.subtrail_length_mi >= .1) ) {
               useIndirect = true
               indirectHTML += buildTrailSegmentHTML(thisTrail)
             }
@@ -1046,11 +1052,11 @@ var panelFuncs = function (map) {
     trailSegmentHTML += '</div><div class="fpccSegmentDetails clearfix">';
     if (trailSegment.subtrail_length_mi) {
       var length_mi = parseFloat(trailSegment.subtrail_length_mi).toFixed(1)
-      if (length_mi >= .1) {
+      //if (length_mi >= .1) {
         trailSegmentHTML += '<span class="fpccLabel fpccLeft">Length<span>';
         trailSegmentHTML += length_mi
         trailSegmentHTML += ' mi</span></span>';
-      }
+      //}
     }
     
     trailSegmentHTML += '<span class="fpccLabel fpccRight">Surface<span>';
