@@ -41042,13 +41042,19 @@
 	            //console.log('[panelFunctions] thisTrail.direct_trail_id = ' + thisTrail.subtrail_id)
 	            //console.log('[panelFunctions] directTrail.direct_trail_id = ' + directTrail.subtrail_id)
 	            if (thisTrail.subtrail_id != directTrail.subtrail_id) {
-	              if (thisTrail.subtrail_length_mi >= 1 || subSystem.includes("Center Trails") || subSystem.includes("Trailside Museum")) {
+	              if (thisTrail.subtrail_length_mi >= 1) {
+	                useIndirect = true
+	                indirectHTML += buildTrailSegmentHTML(thisTrail)
+	              } else if ( (subSystem.includes("Center Trails") || subSystem.includes("Trailside Museum")) && (thisTrail.subtrail_length_mi >= .1) ) {
 	                useIndirect = true
 	                indirectHTML += buildTrailSegmentHTML(thisTrail)
 	              }
 	            }
 	          } else {
-	            if (thisTrail.subtrail_length_mi >= 1 || trailIndex == 0 || subSystem.includes("Center Trails") || subSystem.includes("Trailside Museum")) {
+	            if (thisTrail.subtrail_length_mi >= 1 || trailIndex == 0) {
+	              useIndirect = true
+	              indirectHTML += buildTrailSegmentHTML(thisTrail)
+	            } else if ( (subSystem.includes("Center Trails") || subSystem.includes("Trailside Museum")) && (thisTrail.subtrail_length_mi >= .1) ) {
 	              useIndirect = true
 	              indirectHTML += buildTrailSegmentHTML(thisTrail)
 	            }
@@ -41058,8 +41064,10 @@
 	          trailSegmentsHTML += indirectHTML
 	        }
 	      }
-	      trailSegmentsHTML += '<span class="fpccOneMile">*Segments under 1 mile not shown.</span>'
+	      if ( !(subSystem.includes("Center Trails") || subSystem.includes("Trailside Museum")) )  {
+	        trailSegmentsHTML += '<span class="fpccOneMile">*Segments under 1 mile not shown.</span>'
 	                         + '</div>'
+	      }
 	      trailsHTML += trailSegmentsHTML + '</div>'
 	      fpccContainerHTML += trailsHTML
 	    }
@@ -41135,13 +41143,16 @@
 	    }
 	    trailSegmentHTML += '</span>';
 	    trailSegmentHTML += '<svg width="100%" height="8px"><line x1="4" x2="100%" y1="4" y2="4" stroke-width="8"/></svg>';
-	    trailSegmentHTML += '</div>';
-	    trailSegmentHTML += '<div class="fpccSegmentDetails clearfix"><span class="fpccLabel fpccLeft">Length<span>';
+	    trailSegmentHTML += '</div><div class="fpccSegmentDetails clearfix">';
 	    if (trailSegment.subtrail_length_mi) {
-	      //console.log('[buildTrailSegmentHTML] trailSegment.subtrail_length_mi= ' + trailSegment.subtrail_length_mi)
-	      trailSegmentHTML += parseFloat(trailSegment.subtrail_length_mi).toFixed(1)
+	      var length_mi = parseFloat(trailSegment.subtrail_length_mi).toFixed(1)
+	      //if (length_mi >= .1) {
+	        trailSegmentHTML += '<span class="fpccLabel fpccLeft">Length<span>';
+	        trailSegmentHTML += length_mi
+	        trailSegmentHTML += ' mi</span></span>';
+	      //}
 	    }
-	    trailSegmentHTML += ' mi</span></span>';
+	    
 	    trailSegmentHTML += '<span class="fpccLabel fpccRight">Surface<span>';
 	    trailSegmentHTML += thisType;
 	    trailSegmentHTML += '</span></span></div></div>';
