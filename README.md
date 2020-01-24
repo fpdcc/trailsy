@@ -10,7 +10,6 @@ In a nutshell it is a pure client side JavaScript browser app to show the trails
 **A:** OpenTrails data is a data specification that can be used to build apps to help people know about trails. 
 
 The goal is to allow public agencies around the United States to publish their data in the same way so apps can be developed for the public to use to explore trails.
-Much much more may be found at the [OpenTrail Data Website](http://www.opentraildata.org/)
 
 The FPCC version of Trailsy has deviated significantly from the current Trailsy specification. "Trailheads" have been transformed into Points of Interest (POI). In most cases the POI location represents the entrance to the POI area. Two additional point layers, Activities and Picnic Groves, have been added. These points "belong" to a POI and provide specific amenity location.
 
