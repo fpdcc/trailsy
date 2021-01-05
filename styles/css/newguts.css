@@ -178,15 +178,9 @@ a:hover .fpccAmenityTitle,a:active .fpccAmenityTitle{text-decoration:none}
 .fpccHours1,.fpccHours2{font-size:1.0875em}
 .fpccPhone{margin-top:.5em}
 .fpccSpecialHours{font-style:italic;margin-top:.75em}
-a:link.fpccSpecialDesc,a:visited.fpccSpecialDesc{width:100%;clear:both;padding:.75em 1em;background:#FFEFBF;text-decoration:none;margin:1em 0;font-size:.9125em;border:1px dotted #FFBF00}
-a:hover.fpccSpecialDesc,a:active.fpccSpecialDesc{background:#FFE9A4}
-#fpccContainer a:link.fpccSpecialDesc .fpccSpecialIcon .icon-arrow-right,#fpccContainer a:visited.fpccSpecialDesc .fpccSpecialIcon .icon-arrow-right{height:1.25em;width:1.25em;vertical-align:middle;margin:0;padding:0}
-#fpccContainer a:hover.fpccSpecialDesc .fpccSpecialIcon .icon-arrow-right,#fpccContainer a:active.fpccSpecialDesc .fpccSpecialIcon .icon-arrow-right{margin-right:0}
 .fpccAlerts{width:100%;clear:both;background:#fff4f4;text-decoration:none;margin:0;font-size:.9125em;border-bottom:2px solid #c00}
 .fpccAlerts .icon-alert{background:#c00;height:2em;width:2em;vertical-align:top;margin:0;padding:.5em;color:#FFE2D9}
 .fpccSingleAlert{display:block;padding:1em 0 0;margin:1em 0 0;border-top:1px solid #c00}
-.fpccSpecialBlurb{vertical-align:middle;display:inline-block;width:85%}
-.fpccSpecialIcon{vertical-align:middle;width:15%;display:inline-block;text-align:right}
 .fpccAlertBlurb {display:block;width:100%;clear:both;padding-top:0;font-size: 1.0875em}
 .fpccAlertBlurb {display:none}
 .fpccAlertIcon {vertical-align:top;width:2em;margin-right:1em;display:inline-block;text-align:left;float:left}
