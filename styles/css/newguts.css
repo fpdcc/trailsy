@@ -194,8 +194,6 @@ a:hover .fpccAmenityTitle,a:active .fpccAmenityTitle{text-decoration:none}
 .fpccAlertNumber{float:left;font-size:1.35em}
 .fpccAlertToggle{float:right;font-size:2em;line-height:1}
 .fpccAlertHead:hover,.fpccAlertHead:active{background:#FFD2D2}
-.fpccPhoto{background:#EFEFEF;width:100%;text-align:center;line-height:0}
-.fpccPhoto img{max-height:195px;max-width:100%}
 .fpccAmenity{float:left;width:47%;margin:0 3% 1.25em 0;max-height:1.8em}
 .fpccAmenity span.fpccAmenityTitle{line-height:1.2;display:inline-block;vertical-align:middle;max-width:8.5em;font-size:.9125em}
 .fpccAmenities .icon{width:2em;height:2em;margin-right:.65em;vertical-align:middle} 
