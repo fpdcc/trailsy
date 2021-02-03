@@ -10,6 +10,7 @@ a:visited{color:#666699}
 a:focus{outline:2px solid #CC0000;outline-offset:2px;color:#CC0000}
 a:hover{color:#CC0000;text-decoration:none;outline:0}
 a:active{color:#CC0000;text-decoration:underline;outline:0}
+.screen-reader-text{border:0;clip:rect(1px,1px,1px,1px);clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute !important;width:1px;word-wrap:normal !important}
 
 /*Correct `block` display not defined in IE 8/9.*/
 article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
