@@ -602,6 +602,10 @@ var panelFuncs = function (map) {
         if (poi.properties.tags[':panel'].indexOf('shelter') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-picnic-grove-shelter'><use xlink:href='icons/defs.svg#icon-picnic-grove-shelter'></use></svg><span class='fpccAmenityTitle'>Picnic Grove (with shelter)</span></div>"
         }
+        // accessible_shelter = Accessible Picnic Shelter
+        if (poi.properties.tags[':panel'].indexOf('accessible_shelter') > -1) {
+          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-accessible-picnic-grove'><use xlink:href='icons/defs.svg#icon-accessible-picnic-grove'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/permits/picnics-event-permits/'>Accessible Picnic Shelter</a></span></div>"
+        }
         // public_building = Public Building
         if (poi.properties.tags[':panel'].indexOf('public_building') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity public-building'><svg class='icon icon-facility'><use xlink:href='icons/defs.svg#icon-facility'></use></svg><span class='fpccAmenityTitle'>Public Building</span></div>"

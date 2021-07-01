@@ -45,9 +45,22 @@ var picnicgroveFeature = function (map) {
         popupContentMainDivHTML += '<div class="picnicgrove-capacity">Capacity: ' +
                                     currentFeature.properties.capacity + '</div>'
       }
+      if (currentFeature.properties.accessible == true) {
+        popupContentMainDivHTML += '<div class="picnicgrove-accessible-dates">Accessible May 1 to October 31.</div>'
+        if (currentFeature.properties.parking_to_shelter) { 
+          popupContentMainDivHTML += '<div class="picnicgrove-accessible-parking">Distance to parking: ' + currentFeature.properties.parking_to_shelter + ' ft </div>'
+        }
+        if (currentFeature.properties.bathroom_type && currentFeature.properties.shelter_to_bathroom) {
+          popupContentMainDivHTML += '<div class="picnicgrove-accessible-bathroom">Distance to accessible ' + currentFeature.properties.bathroom_type + ' bathroom: ' + currentFeature.properties.shelter_to_bathroom + ' ft</div>'
+        }
+      }
+
       var iconName = 'icon-picnic-grove'
       if (currentFeature.properties.grove_type === 'shelter') {
         iconName = 'icon-picnic-grove-shelter'
+      }
+      if (currentFeature.properties.accessible == true) {
+        iconName = 'icon-accessible-picnic-grove'
       }
       var picnicgroveIcon = L.divIcon({
         className: 'icon-map picnic-grove-marker selected ' + iconName + ' picnicgrove-' + currentFeature.properties.id + ' poi-' + currentFeature.properties.poi_info_id,
