@@ -406,11 +406,6 @@ var panelFuncs = function (map) {
         descriptionTrail = directTrail
       }
       fpccContainerHTML += '<div class="fpccTop">'
-      if (poi.properties.photo_link) {
-        fpccContainerHTML += '<div class="fpccPhoto">' +
-                           '<img src="images/poi-photos/' + poi.properties.photo_link + '">' +
-                           '</div>'
-      }
       // ADD ALERTS INFO HERE
       if (myReferences.alertFeat) {
         console.log('globalAlerts.length = ' + myReferences.alertFeat.globalAlerts.length)
