@@ -131,7 +131,7 @@ var trailMap = function () {
  });
 
   var ccImagery = esri.imageMapLayer({
-    url: 'https://gisimageserver.cookcountyil.gov/arcgis/rest/services/Cook2017/ImageServer/',
+    url: 'https://gis.cookcountyil.gov/imagery/rest/services/Basemap/CookImagery/ImageServer',
     attribution: 'Cook County GIS',
     //minZoom: 14,
     maxZoom: 18,
