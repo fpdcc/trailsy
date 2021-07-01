@@ -881,7 +881,9 @@ var panelFuncs = function (map) {
       }
       //console.log('[panelFunctions] trailSubsystemTrails? = ' + trailSubsystemTrails)
       if (trailSubsystemTrails) {
-        trailSubsystemTrails.sort((a, b) => (a.subtrail_length_mi > b.subtrail_length_mi) ? -1 : 1)
+        //console.log(trailSubsystemTrails)
+        trailSubsystemTrails.sort((a, b) => parseFloat(b.subtrail_length_mi) - parseFloat(a.subtrail_length_mi));
+
 
         var useIndirect = false
         for (var trailIndex = 0; trailIndex < trailSubsystemTrails.length; trailIndex++) {
