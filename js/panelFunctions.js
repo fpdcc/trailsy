@@ -653,7 +653,7 @@ var panelFuncs = function (map) {
 
         // zip_line = Zip Line
         if (poi.properties.tags[':panel'].indexOf('zip_line') > -1) {
-          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-zip-line'><use xlink:href='icons/defs.svg#icon-zip-line'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/zip-line/'>Treetop Adventure & Zip Line</a></span></div>"
+          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-zip-line'><use xlink:href='icons/defs.svg#icon-zip-line'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/zip-line/'>Zipline & Adventure Park</a></span></div>"
         }
 
         //  drone = Drone Flying
@@ -882,7 +882,7 @@ var panelFuncs = function (map) {
       //console.log('[panelFunctions] trailSubsystemTrails? = ' + trailSubsystemTrails)
       if (trailSubsystemTrails) {
         //console.log(trailSubsystemTrails)
-        trailSubsystemTrails.sort((a, b) => parseFloat(b.subtrail_length_mi) - parseFloat(a.subtrail_length_mi));
+        trailSubsystemTrails.sort((a, b) => parseFloat(b.subtrail_length_mi) - parseFloat(a.subtrail_length_mi))
 
 
         var useIndirect = false
