@@ -450,6 +450,7 @@ var panelFuncs = function (map) {
 
       var fpccAmenitiesString = ''
       var naturePreserveString = ''
+      var accessibleDescriptionString = ''
       if ((poi.properties.tags) && (poi.properties.tags[':panel'])) {
         console.log('tags.panel = ' + poi.properties.tags[':panel'])
         // want Parking and Trail Access at top
@@ -703,6 +704,13 @@ var panelFuncs = function (map) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-volunteer'><use xlink:href='icons/defs.svg#icon-volunteer'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/volunteer/'>Volunteer Opportunities</a></span></div>"
         }
 
+        // accessible and there is an accessible description
+        if ( (poi.properties.tags[':panel'].indexOf('accessible') > -1) && (poi.properties.accessiblity_description) ) {
+          accessibleDescriptionString += "<div class='fpccAD clearfix'><a href='https://fpdcc.com/about/accessibility/'><svg class='icon icon-accessible-amenities'><use xlink:href='icons/defs.svg#icon-icon-accessible-amenities'></use></svg></a><p>" + poi.properties.accessiblity_description + "</p>"
+          accessibleDescriptionString += "<p><strong>Learn more:</strong></p><ul>"
+          accessibleDescriptionString += "<li><a href='" + poi.properties.web_link + "'>" + poi.properties.name + " Webpage</a></li><li><a href='https://fpdcc.com/about/accessibility/'>Accessibility Webpage</a></li></ul></div>"
+        }
+
         // nature_preserve = Nature Preserve
         if (poi.properties.tags[':panel'].indexOf('nature_preserve') > -1) {
           naturePreserveString = '<div class="fpccNP clearfix"><a href="https://fpdcc.com/nature/illinois-nature-preserves/"><img src="images/idnr-np-logo.png" width="75" height="65" alt="Illinois Nature Preserves Commission Logo"></a><p> This land is designated as one of the highest quality natural areas in the state by the Illinois Nature Preserves Commission. This status includes increased levels of legal protection and management. Learn more on the <a href="https://fpdcc.com/nature/illinois-nature-preserves/">Illinois Nature Preserves Page</a></p></div>'
@@ -730,6 +738,9 @@ var panelFuncs = function (map) {
 
       if (fpccAmenitiesString.length > 0) {
         fpccContainerHTML += '<div class="fpccAmenities fpccUnit clearfix">' + fpccAmenitiesString + '</div>'
+      }
+      if (accessibleDescriptionString.length > 0) {
+        fpccContainerHTML += accessibleDescriptionString
       }
       if (naturePreserveString.length > 0) {
         fpccContainerHTML += naturePreserveString
