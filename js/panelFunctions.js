@@ -37,11 +37,11 @@ var panelFuncs = function (map) {
   that.currentDetailPanelHTML = ''
 
   var aboutHTML = '<div id="fpccPreserveName" class="detailPanelBanner"><span id="fpccTrailName" class="trailName">About</span><svg id="closeAbout" class="icon icon-x closeDetail"><use id="useCloseAbout" xlink:href="icons/defs.svg#icon-x"></use></svg></div><div id="fpccPreserveInfo" class="detailPanelBody"><div id="fpccAbout" class="fpccUnit fpccContainer">' +
-                  '<p>Welcome to the <a href="http://fpdcc.com/">Forest Preserves  of Cook County</a>. This web map is designed to help current and future  visitors:</p>' +
+                  '<p>Welcome to the <a href="https://fpdcc.com/">Forest Preserves  of Cook County</a>. This web map is designed to help current and future  visitors:</p>' +
                   '<ul><li>Plan trips </li>' +
                   '<li>Navigate preserves, trails and other  amenities</li>' +
                   '<li>Discover new opportunities within the preserves</li></ul>' +
-                  '<p>Please consider <a class="menuFeedback" href="https://fpdcc.wufoo.com/forms/znt02n10csdbi3/def/" target="_blank">leaving  us feedback</a> so we can continue to improve this map. Learn more about the  Forest Preserves of Cook County at <a href="http://fpdcc.com/">fpdcc.com</a>.</p>' +
+                  '<p>Please consider <a class="menuFeedback" href="https://fpdcc.wufoo.com/forms/znt02n10csdbi3/def/" target="_blank">leaving  us feedback</a> so we can continue to improve this map. Learn more about the  Forest Preserves of Cook County at <a href="https://fpdcc.com/">fpdcc.com</a>.</p>' +
                   '<h2>Development</h2>' +
                   '<p>This project is a partnership between the Forest Preserves of Cook County and Smart Chicago Collaborative. The resulting web application is built on two pieces of source  code: <a href="https://github.com/codeforamerica/trailsy">Trailsy</a> and <a href="https://github.com/codeforamerica/trailsyserver">Trailsy Server</a>, both  pioneered by <a href="https://www.codeforamerica.org/">Code for America</a>.  All of the data used to power the site is open for all.</p>' +
                   '<p>Smart Chicago consultant Josh Kalov is the main developer of this project.</p>' +
