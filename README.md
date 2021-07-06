@@ -17,7 +17,7 @@ The FPCC version of Trailsy has deviated significantly from the current Trailsy 
 ## Getting Involved
 ---
 ### Use it!
-* Please try the application at https://map.fpdcc.com/ and send us feedback via [issues](https://github.com/smartchicago/trailsy/issues).
+* Please try the application at https://map.fpdcc.com/ and send us feedback via [issues](https://github.com/fpdcc/trailsy/issues).
 
 ### Download our data
 * All the Forest Preserves data used in this map is available here: https://github.com/fpdcc/webmap_data_updates
