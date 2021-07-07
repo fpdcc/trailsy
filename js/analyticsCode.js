@@ -1,7 +1,7 @@
 'use strict'
 var $ = require('jquery')
 var Config = require('./config.js')
-require('jquery-address')
+require('./vendor/jquery.address.js')
 
 var setup = function () {
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

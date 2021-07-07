@@ -1,5 +1,9 @@
 var $ = require('jquery')
-require('jquery-address')
+if (__DEV__) {
+    require('jquery-migrate')
+}
+require('./vendor/jquery.address.js')
+
 //var selectize = require('selectize')
 require('./vendor/selectize.js')
 

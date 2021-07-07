@@ -6,7 +6,7 @@ require('./vendor/leaflet.zoomcss.js')
 require('leaflet-boundsawarelayergroup')
 require('leaflet.markercluster')
 var esri = require('esri-leaflet')
-require('jquery-address')
+require('./vendor/jquery.address.js')
 require('svgxuse')
 var Config = require('./config.js')
 var analyticsCode = require('./analyticsCode.js')
@@ -97,7 +97,7 @@ var trailMap = function () {
   })
 
   // $('.closeDetail').click(events.closeDetailPanel) // .click(readdSearchURL)
-  $('.fpccSearchbox').change(function (e) { that.processSearch(e) })
+  $('.fpccSearchbox').on( "change", function (e) { that.processSearch(e) })
   $('#fpccSearchButton').on(Config.listenType, that.processSearch)
 
   // $('.usePoi').on(Config.listenType, that.testClick)
