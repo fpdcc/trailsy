@@ -788,7 +788,7 @@ var panelFuncs = function (map) {
       if (poi.properties.web_link) {
         extraLinksExist = true
         extraLinksText += '<li><a class="fpccMore" href="' + poi.properties.web_link
-        extraLinksText += '>Location Webpage</a></li>'
+        extraLinksText += '">Location Webpage</a></li>'
       }
       if (poi.properties.map_link) {
         extraLinksExist = true
@@ -1035,7 +1035,7 @@ var panelFuncs = function (map) {
       }
     }
     trailSegmentHTML += '</span>';
-    trailSegmentHTML += '<svg width="100%" height="8px"><line x1="4" x2="100%" y1="4" y2="4" stroke-width="8"/></svg>';
+    trailSegmentHTML += '<svg width="100%" height="8px"><line x1="4" x2="100%" y1="4" y2="4" stroke-width="8"></line></svg>';
     trailSegmentHTML += '</div><div class="fpccSegmentDetails clearfix">';
     if (trailSegment.subtrail_length_mi) {
       var length_mi = parseFloat(trailSegment.subtrail_length_mi).toFixed(1)
