@@ -442,8 +442,16 @@ var panelFuncs = function (map) {
         directionsUrl += myReferences.filters.current.userLocation.lat + ',' + myReferences.filters.current.userLocation.lng
       }
       directionsUrl += '&daddr=' + poi.geometry.coordinates[1] + ',' + poi.geometry.coordinates[0]
-      fpccContainerHTML += '</div></div>' +
-                         '<a href="' + directionsUrl + '" target="_blank" id="entranceDirections" class="fpccButton fpccDirections" data-analyticstype="Directions" data-analyticsdescription="' + displayName + '">Directions</a></div>'
+      fpccContainerHTML += '</div></div><div class="fpccButtonContainer">' 
+      fpccContainerHTML += '<a href="' + directionsUrl + '" target="_blank" id="entranceDirections" class="fpccButton fpccDirections" data-analyticstype="Directions" data-analyticsdescription="' + displayName + '">Directions</a>'
+      
+      if (poi.properties.web_link) {
+         fpccContainerHTML += '<a href="' + poi.properties.web_link + '" id="entranceWebsite" class="fpccButton secondary" data-analyticstype="LocationWebpageButton" data-analyticsdescription="' + poi.properties.name +'">Location Webpage</a>'
+      }
+      fpccContainerHTML += '</div></div>' // Closing fpccButtonContainer div and fpccEntrance
+     
+
+
       if (poi.properties.description) {
         fpccContainerHTML += '<div class="fpccDescription fpccUnit">' + poi.properties.description + '</div>'
       }
