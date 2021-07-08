@@ -432,7 +432,7 @@ var panelFuncs = function (map) {
         fpccContainerHTML += '<span class="fpccEntranceZip">' + poi.properties.web_muni_addr + '</span>'
       }
       if (poi.closeParkingLink && !poi.properties.web_street_addr) {
-        fpccContainerHTML += '<span class="fpccCloseParking"><a class="fpccMore" href="#/?poi=' + poi.closeParkingLink + '">View closest parking area</a></span>'
+        fpccContainerHTML += '<span class="fpccCloseParking"><a class="" href="#/?poi=' + poi.closeParkingLink + '">View closest parking area</a></span>'
       }
       if (poi.properties.phone) {
         fpccContainerHTML += '<span class="fpccPhone">' + poi.properties.phone + '</span>'
@@ -442,8 +442,16 @@ var panelFuncs = function (map) {
         directionsUrl += myReferences.filters.current.userLocation.lat + ',' + myReferences.filters.current.userLocation.lng
       }
       directionsUrl += '&daddr=' + poi.geometry.coordinates[1] + ',' + poi.geometry.coordinates[0]
-      fpccContainerHTML += '</div></div>' +
-                         '<a href="' + directionsUrl + '" target="_blank" id="entranceDirections" class="fpccButton fpccDirections" data-analyticstype="Directions" data-analyticsdescription="' + displayName + '">Directions</a></div>'
+      fpccContainerHTML += '</div></div><div class="fpccButtonContainer">' 
+      fpccContainerHTML += '<a href="' + directionsUrl + '" target="_blank" id="entranceDirections" class="fpccButton fpccDirections" data-analyticstype="Directions" data-analyticsdescription="' + displayName + '">Directions</a>'
+      
+      if (poi.properties.web_link) {
+         fpccContainerHTML += '<a href="' + poi.properties.web_link + '" id="entranceWebsite" class="fpccButton secondary" data-analyticstype="LocationWebpageButton" data-analyticsdescription="' + poi.properties.name +'">Location Webpage</a>'
+      }
+      fpccContainerHTML += '</div></div>' // Closing fpccButtonContainer div and fpccEntrance
+     
+
+
       if (poi.properties.description) {
         fpccContainerHTML += '<div class="fpccDescription fpccUnit">' + poi.properties.description + '</div>'
       }
@@ -783,41 +791,41 @@ var panelFuncs = function (map) {
                            + hoursHTML + '</div>'
       }
 
-      var extraLinksText = '<span class="fpccLabel fpccMore">More Information</span><ul>'
+      var extraLinksText = '<span class="fpccLabel ">More Information</span><ul>'
       var extraLinksExist = true
       if (poi.properties.web_link) {
         extraLinksExist = true
-        extraLinksText += '<li><a class="fpccMore" href="' + poi.properties.web_link
+        extraLinksText += '<li><a class="" href="' + poi.properties.web_link
         extraLinksText += '">Location Webpage</a></li>'
       }
       if (poi.properties.map_link) {
         extraLinksExist = true
-        extraLinksText += '<li><a class="fpccMore" href="' + poi.properties.map_link
+        extraLinksText += '<li><a class="" href="' + poi.properties.map_link
         extraLinksText += '" target="_blank">English Map (PDF)</a></li>'
       }
       if (poi.properties.map_link_spanish) {
         extraLinksExist = true
-        extraLinksText += '<li><a class="fpccMore" href="' + poi.properties.map_link_spanish
+        extraLinksText += '<li><a class="" href="' + poi.properties.map_link_spanish
         extraLinksText += '" target="_blank">Mapa Español (PDF)</a></li>'
       }
       if (poi.properties.picnic_link) {
         extraLinksExist = true
-        extraLinksText += '<li><a class="fpccMore" href="' + poi.properties.picnic_link
+        extraLinksText += '<li><a class="" href="' + poi.properties.picnic_link
         extraLinksText += '" target="_blank">Picnic Grove Map (PDF)</a></li>'
       }
       if (poi.properties.fish_map) {
         extraLinksExist = true
-        extraLinksText += '<li><a class="fpccMore" href="' + poi.properties.fish_map
+        extraLinksText += '<li><a class="" href="' + poi.properties.fish_map
         extraLinksText += '" target="_blank">Fishing Lake Map (PDF)</a></li>'
       }
       if (poi.properties.vol_link) {
         extraLinksExist = true
-        extraLinksText += '<li><a class="fpccMore" href="' + poi.properties.vol_link
+        extraLinksText += '<li><a class="" href="' + poi.properties.vol_link
         extraLinksText += '" target="_blank">Volunteer Opportunity</a></li>'
       }
       if (poi.properties.vol_link2) {
         extraLinksExist = true
-        extraLinksText += '<li><a class="fpccMore" href="' + poi.properties.vol_link2
+        extraLinksText += '<li><a class="" href="' + poi.properties.vol_link2
         extraLinksText += '" target="_blank">Volunteer Opportunity</a></li>'
       }
       extraLinksText += '<li><a href="https://fpdcc.com/about/rules-regulations/">Rules &amp; Frequently Asked Questions</a></li>'
@@ -859,18 +867,17 @@ var panelFuncs = function (map) {
                               + '</div>'
       }
       var showMaps = false
-      var trailMapHTML = '<div class="fpccTrailMaps clearfix trailMaps"><span class="fpccLabel">PDF Trail Map:</span>'
+      var trailMapHTML = '<div class="fpccTrailMaps clearfix trailMaps">'
       console.log('[decorateDetailPanelForTrailhead2] showMaps = ' + showMaps)
       if (descriptionTrail.map_link != null && descriptionTrail.map_link != '') {
         // console.log('[decorateDetailPanelForTrailhead2] descriptionTrail.map_link is true? ' + descriptionTrail.map_link)
         trailMapHTML += '<a class="fpccButton" id="pdfEnglish" href="'
-                      + descriptionTrail.map_link + '" target="_blank">English</a>'
+                      + descriptionTrail.map_link + '" target="_blank">PDF Map</a>'
         showMaps = true
         showDescription = true
       }
-      if (descriptionTrail.map_link_spanish != null && descriptionTrail.map_link_spanish != '') {
-        trailMapHTML += ' <a class="fpccButton" id="pdfSpanish" href="'
-                      + descriptionTrail.map_link_spanish + '" target="_blank">Español</a>'
+      if (descriptionTrail.web_link != null && descriptionTrail.web_link != '') {
+        trailMapHTML += '<a class="fpccButton secondary" id="trailWebsite" href="' + descriptionTrail.web_link + '">Trail Webpage</a>'
         showMaps = true
         showDescription = true
       }
