@@ -520,15 +520,15 @@ var panelFuncs = function (map) {
         if (poi.properties.tags[':panel'].indexOf('bike_rental') > -1 ) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-bike-rental'><use xlink:href='icons/defs.svg#icon-bike-rental'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/bicycling/'>Bike Rental</a></span></div>"
         }
-          // boat_ramp = Boat Launch
-        if (poi.properties.tags[':panel'].indexOf('boat_ramp') > -1) {
-          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-boat-launch'><use xlink:href='icons/defs.svg#icon-boat-launch'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/boating-canoeing-kayaking/'>Boat Launch</a></span></div>"
-        }
+
         // accessible_boat = Accessible Boat
+        // If there is boat_ramp AND accessible_boat, only accessible_boat shows in the panel
         if (poi.properties.tags[':panel'].indexOf('accessible_boat') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-boat-launch-accessible'><use xlink:href='icons/defs.svg#icon-boat-launch-accessible'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/boating-canoeing-kayaking/'>Accessible Boat Launch</a></span></div>"
+        } else if (poi.properties.tags[':panel'].indexOf('boat_ramp') > -1) {
+          // boat_ramp = Boat Launch
+          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-boat-launch'><use xlink:href='icons/defs.svg#icon-boat-launch'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/boating-canoeing-kayaking/'>Boat Launch</a></span></div>"
         }
-
 
         // boat_rental = Boat Rental
         if (poi.properties.tags[':panel'].indexOf('boat_rental') > -1) {
@@ -563,15 +563,15 @@ var panelFuncs = function (map) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-camp-accessible'><use xlink:href='icons/defs.svg#icon-camp-accessible'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/camping/'>Accessible Campsites</a></span></div>"
         }
 
-
-        // canoe = Canoe Landing
-        if (poi.properties.tags[':panel'].indexOf('canoe') > -1) {
-          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-canoe-landing'><use xlink:href='icons/defs.svg#icon-canoe-landing'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/boating-canoeing-kayaking/'>Canoe Landing</a></span></div>"
-        }
         // accessible_canoe = Accessible Canoe
+        // If there is canoe AND accessible_canoe, only accessible_canoe shows in the panel
         if (poi.properties.tags[':panel'].indexOf('accessible_canoe') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-canoe-landing-accessible'><use xlink:href='icons/defs.svg#icon-canoe-landing-accessible'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/boating-canoeing-kayaking/'>Accessible Canoe Landing</a></span></div>"
+        } else if (poi.properties.tags[':panel'].indexOf('canoe') > -1) {
+          // canoe = Canoe Landing
+          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-canoe-landing'><use xlink:href='icons/defs.svg#icon-canoe-landing'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/boating-canoeing-kayaking/'>Canoe Landing</a></span></div>"
         }
+        
         // disc_golf = Disc Golf
         if (poi.properties.tags[':panel'].indexOf('disc_golf') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-disc-golf'><use xlink:href='icons/defs.svg#icon-disc-golf'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/disc-golf/'>Disc Golf</a></span></div>"
@@ -706,7 +706,7 @@ var panelFuncs = function (map) {
 
         // accessible_fishing = Accessible Fishing Area
         if (poi.properties.tags[':panel'].indexOf('accessible_fishing') > -1) {
-          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-fishing-accessible'><use xlink:href='icons/defs.svg#icon-fishing-accessible'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/fishing/'>Accessible Fishing Areas</a></span></div>"
+          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-fishing-accessible'><use xlink:href='icons/defs.svg#icon-fishing-accessible'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/fishing/'>Accessible Fishing Area</a></span></div>"
         }
 
 
