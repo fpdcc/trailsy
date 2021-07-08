@@ -867,18 +867,17 @@ var panelFuncs = function (map) {
                               + '</div>'
       }
       var showMaps = false
-      var trailMapHTML = '<div class="fpccTrailMaps clearfix trailMaps"><span class="fpccLabel">PDF Trail Map:</span>'
+      var trailMapHTML = '<div class="fpccTrailMaps clearfix trailMaps">'
       console.log('[decorateDetailPanelForTrailhead2] showMaps = ' + showMaps)
       if (descriptionTrail.map_link != null && descriptionTrail.map_link != '') {
         // console.log('[decorateDetailPanelForTrailhead2] descriptionTrail.map_link is true? ' + descriptionTrail.map_link)
         trailMapHTML += '<a class="fpccButton" id="pdfEnglish" href="'
-                      + descriptionTrail.map_link + '" target="_blank">English</a>'
+                      + descriptionTrail.map_link + '" target="_blank">PDF Map</a>'
         showMaps = true
         showDescription = true
       }
-      if (descriptionTrail.map_link_spanish != null && descriptionTrail.map_link_spanish != '') {
-        trailMapHTML += ' <a class="fpccButton" id="pdfSpanish" href="'
-                      + descriptionTrail.map_link_spanish + '" target="_blank">Español</a>'
+      if (descriptionTrail.web_link != null && descriptionTrail.web_link != '') {
+        trailMapHTML += '<a class="fpccButton secondary" id="trailWebsite" href="' + descriptionTrail.web_link + '">Trail Webpage</a>'
         showMaps = true
         showDescription = true
       }
