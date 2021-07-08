@@ -432,7 +432,7 @@ var panelFuncs = function (map) {
         fpccContainerHTML += '<span class="fpccEntranceZip">' + poi.properties.web_muni_addr + '</span>'
       }
       if (poi.closeParkingLink && !poi.properties.web_street_addr) {
-        fpccContainerHTML += '<span class="fpccCloseParking"><a class="fpccMore" href="#/?poi=' + poi.closeParkingLink + '">View closest parking area</a></span>'
+        fpccContainerHTML += '<span class="fpccCloseParking"><a class="" href="#/?poi=' + poi.closeParkingLink + '">View closest parking area</a></span>'
       }
       if (poi.properties.phone) {
         fpccContainerHTML += '<span class="fpccPhone">' + poi.properties.phone + '</span>'
@@ -783,41 +783,41 @@ var panelFuncs = function (map) {
                            + hoursHTML + '</div>'
       }
 
-      var extraLinksText = '<span class="fpccLabel fpccMore">More Information</span><ul>'
+      var extraLinksText = '<span class="fpccLabel ">More Information</span><ul>'
       var extraLinksExist = true
       if (poi.properties.web_link) {
         extraLinksExist = true
-        extraLinksText += '<li><a class="fpccMore" href="' + poi.properties.web_link
+        extraLinksText += '<li><a class="" href="' + poi.properties.web_link
         extraLinksText += '">Location Webpage</a></li>'
       }
       if (poi.properties.map_link) {
         extraLinksExist = true
-        extraLinksText += '<li><a class="fpccMore" href="' + poi.properties.map_link
+        extraLinksText += '<li><a class="" href="' + poi.properties.map_link
         extraLinksText += '" target="_blank">English Map (PDF)</a></li>'
       }
       if (poi.properties.map_link_spanish) {
         extraLinksExist = true
-        extraLinksText += '<li><a class="fpccMore" href="' + poi.properties.map_link_spanish
+        extraLinksText += '<li><a class="" href="' + poi.properties.map_link_spanish
         extraLinksText += '" target="_blank">Mapa Español (PDF)</a></li>'
       }
       if (poi.properties.picnic_link) {
         extraLinksExist = true
-        extraLinksText += '<li><a class="fpccMore" href="' + poi.properties.picnic_link
+        extraLinksText += '<li><a class="" href="' + poi.properties.picnic_link
         extraLinksText += '" target="_blank">Picnic Grove Map (PDF)</a></li>'
       }
       if (poi.properties.fish_map) {
         extraLinksExist = true
-        extraLinksText += '<li><a class="fpccMore" href="' + poi.properties.fish_map
+        extraLinksText += '<li><a class="" href="' + poi.properties.fish_map
         extraLinksText += '" target="_blank">Fishing Lake Map (PDF)</a></li>'
       }
       if (poi.properties.vol_link) {
         extraLinksExist = true
-        extraLinksText += '<li><a class="fpccMore" href="' + poi.properties.vol_link
+        extraLinksText += '<li><a class="" href="' + poi.properties.vol_link
         extraLinksText += '" target="_blank">Volunteer Opportunity</a></li>'
       }
       if (poi.properties.vol_link2) {
         extraLinksExist = true
-        extraLinksText += '<li><a class="fpccMore" href="' + poi.properties.vol_link2
+        extraLinksText += '<li><a class="" href="' + poi.properties.vol_link2
         extraLinksText += '" target="_blank">Volunteer Opportunity</a></li>'
       }
       extraLinksText += '<li><a href="https://fpdcc.com/about/rules-regulations/">Rules &amp; Frequently Asked Questions</a></li>'
