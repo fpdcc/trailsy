@@ -788,7 +788,7 @@ var panelFuncs = function (map) {
       if (poi.properties.web_link) {
         extraLinksExist = true
         extraLinksText += '<li><a class="fpccMore" href="' + poi.properties.web_link
-        extraLinksText += '>Location Webpage</a></li>'
+        extraLinksText += '">Location Webpage</a></li>'
       }
       if (poi.properties.map_link) {
         extraLinksExist = true
