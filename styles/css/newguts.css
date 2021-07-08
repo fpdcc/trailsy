@@ -86,7 +86,7 @@ input:checked ~ .fpccSlider:before{-webkit-transform:translateX(-16px);-ms-trans
 
 /*panel - general*/
 .detailPanel .detailPanelBanner{position:relative;width:100%;min-height:2em}
-.detailPanel .detailPanelBanner .trailName{font-weight:bold;line-height:1.375;color:#fff;position:relative;display:inline-block;max-width:90%}
+.detailPanel .detailPanelBanner .trailName{font-weight:bold;line-height:1.25;color:#fff;position:relative;display:inline-block;max-width:90%}
 .fpccContainer {font-size:.9125em;line-height:1.5}
 .fpccUnit{padding:1.5em 1em}
 .fpccLabel{font-size:.9125em;font-weight:bold;text-transform:uppercase} 
@@ -153,7 +153,7 @@ a:active.fpccEntry{background:#EEE}
 #fpccMobileSearchButton{z-index:8050;background:#999;display:block;position:absolute;bottom:48px;height:48px;margin-left:1em;text-align:center;padding:10px 15px}
 #fpccMobileSearchButton .icon-search{width:1.5em;height:1.5em}
 .fpccEntry .icon{width:7%;height:1.25em;vertical-align:top;margin-right:5%}
-.fpccEntryNameText{display:inline-block;width:88%}
+.fpccEntryNameText{display:inline-block;width:88%;vertical-align:middle}
 .trailListColumn .fpccUnit.fpccResults a span.fpccEntryName{font-size:1.0625em;font-weight:bold;width:100%}
 .fpccEntryDis{font-size:.9125em;float:right;width:30%;text-align:right}
 #fpccSearchContainer .fpccButton{width:15%;height:48px;float:right;display:inline;max-height:48px;border-radius:0;font-size:1em}
@@ -343,12 +343,12 @@ ul.fpccMobileMenuList a:hover,ul.fpccMobileMenuList a:active{background:#F1F1ED;
 /*leaflet override*/
 .leaflet-popup-tip{background:#606D29}
 .leaflet-popup-content-wrapper{border-radius:0px;width:auto;min-width:12em;height:auto;padding:0}
-.leaflet-popup-content-wrapper .leaflet-popup-content{border-bottom:2px solid #606D29;min-width:10em;width:auto;height:auto;margin:0;position:relative;background-color:#fff;font-size:13px;line-height:1.5;text-transform:capitalize;max-width:225px}
+.leaflet-popup-content-wrapper .leaflet-popup-content{border-bottom:2px solid #606D29;min-width:10em;width:auto;height:auto;margin:0;position:relative;background-color:#fff;font-size:13px;line-height:1.5;max-width:225px}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup{width:auto;min-width:14em;position:relative}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box{width:100%;position:relative;display:inline-block;height:auto}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .icon-arrow-right,.trail-popup .icon-arrow-right{float:right;margin:.75em .5em 0 0;fill:#273719;width:.75em}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .icon-arrow-right{margin:.25em -.25em 0 0;fill:#273719;width:.75em}
-.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames{position:relative;display:inline-block;background-color:#fff;height:auto;max-width:200px;overflow-y:hidden;min-width:12em;text-decoration:none;text-transform:capitalize;vertical-align:bottom;font-weight:bold;padding:.5em .75em;border:none;width:85%}
+.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames{position:relative;display:inline-block;background-color:#fff;height:auto;max-width:200px;overflow-y:hidden;min-width:12em;text-decoration:none;vertical-align:bottom;font-weight:bold;padding:.5em .75em;border:none;width:85%;font-size:14px}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames:active{color:#7E9039}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname{cursor:pointer;min-width:12em;width:100%;border-top: 2px solid #e3e3e1;padding:.5em .75em}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname:active{color:#7E9039}
@@ -356,7 +356,7 @@ ul.fpccMobileMenuList a:hover,ul.fpccMobileMenuList a:active{background:#F1F1ED;
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .popupTrailNames:active{color:#7E9039}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname.selected{padding-bottom:0}
 .leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname:hover{background:#E3EACC}
-.trail-popup-line-named.trail-subsystem{font-weight:bold;text-decoration:none}
+.trail-popup-line-named.trail-subsystem{font-weight:bold;text-decoration:none;font-size:14px}
 .trail-popup-line-named.trail-subsystem:active{color:#7E9039}
 .trail-popup .trail-popup-line-named,.picnicgrove-capacity{border-top:none;padding:.5em .75em;width:100%}
 .trail-popup .trail-popup-line-named.trail-segment,.picnicgrove-capacity{border-top:2px solid #e3e3e1;width:100%}
@@ -366,7 +366,7 @@ ul.fpccMobileMenuList a:hover,ul.fpccMobileMenuList a:active{background:#F1F1ED;
 .fpccPopupData .fpccPopupDataCont{text-transform: none;border-top:1px solid #DDD;padding:.65em 0 .5em;margin: 0}
 .fpccPopupData .fpccPopupLength{margin-bottom: .65em}
 .fpccPopupData .fpccPopupIcons .icon{width: 1.65em;height: 1.65em;margin-right: .25em}
-.leaflet-popup-content-wrapper .leaflet-popup-content .activity-popup,.leaflet-popup-content-wrapper .leaflet-popup-content .picnicgrove-popup{border:0;padding:.5em .75em;font-weight:bold}
+.leaflet-popup-content-wrapper .leaflet-popup-content .activity-popup,.leaflet-popup-content-wrapper .leaflet-popup-content .picnicgrove-popup{border:0;padding:.5em .75em;font-weight:bold;font-size:14px}
 .leaflet-control-container .leaflet-control-layers{border-radius:0;box-shadow:0 1px 5px rgba(0,0,0,0.4);border:none}
 
 /* selectize override */
@@ -579,8 +579,8 @@ section.trailListColumn .fpccResults.fpccUnit{padding:0;overflow-x:hidden;overfl
  /*popups*/
 .trail-popup .trail-popup-line-named,.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames,.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname{width:100%}
 .trail-popup .icon-arrow-right,.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .icon-arrow-right{display:none}
-/*.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .icon-arrow-right{display:initial}
-.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames:active,.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname:active,.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .popupTrailNames:active,.trail-popup-line-named.trail-subsystem:active{color:#333}*/
+.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .icon-arrow-right{display:initial}
+/*.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .popupTrailheadNames:active,.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname:active,.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box .trailhead-trailname .popupTrailNames:active,.trail-popup-line-named.trail-subsystem:active{color:#333}*/
 .trail-popup .trail-popup-line-named.trail-subsystem:hover,.leaflet-popup-content-wrapper .leaflet-popup-content .trailhead-popup .trailhead-box:hover{cursor:auto}
     
 /*OVERRIDES------------------------------------*/
