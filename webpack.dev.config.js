@@ -1,5 +1,6 @@
 var webpack = require("webpack");
 module.exports = {
+    mode: 'development',
     entry: "./js/app.js",
     output: {
         path: __dirname,
