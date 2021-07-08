@@ -725,8 +725,10 @@ var panelFuncs = function (map) {
         }
 
         // accessible and there is an accessible description
-        if ( (poi.properties.tags[':panel'].indexOf('accessible') > -1) && (poi.properties.accessiblity_description) ) {
-          accessibleDescriptionString += "<div class='fpccAD clearfix'><a href='https://fpdcc.com/about/accessibility/'><svg class='icon icon-accessible-amenities'><use xlink:href='icons/defs.svg#icon-icon-accessible-amenities'></use></svg></a><p>" + poi.properties.accessiblity_description + "</p>"
+        console.log("poi.properties.accessibility_description: " + poi.properties.accessibility_description)
+        if ( (poi.properties.tags[':panel'].indexOf('accessible') > -1) && (poi.properties.accessibility_description) ) {
+          console.log("In accesibility_description")
+          accessibleDescriptionString += "<div class='fpccAD clearfix'><a href='https://fpdcc.com/about/accessibility/'><svg class='icon icon-accessible-amenities'><use xlink:href='icons/defs.svg#icon-icon-accessible-amenities'></use></svg></a><p>" + poi.properties.accessibility_description + "</p>"
           accessibleDescriptionString += "<p><strong>Learn more:</strong></p><ul>"
           accessibleDescriptionString += "<li><a href='" + poi.properties.web_link + "'>" + poi.properties.name + " Webpage</a></li><li><a href='https://fpdcc.com/about/accessibility/'>Accessibility Webpage</a></li></ul></div>"
         }
