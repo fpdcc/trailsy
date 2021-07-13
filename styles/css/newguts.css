@@ -171,7 +171,7 @@ a:hover .fpccAmenityTitle,a:active .fpccAmenityTitle{text-decoration:none}
 .fpccNP{padding:0 1em;border:2px solid #148C14;margin:1.75em 1em 2.5em;text-align:center}
 .fpccNP img{width:75px;margin:-30px 0 0}
 .fpccNP p{text-align:left;margin-top:.5em}
-.fpccAD{padding:0 1em;border:2px solid #0C51A3;margin:1.75em 1em 2.5em;text-align:center;background:#F3F9FE}
+.fpccAD{padding:0 1em;border:2px solid #0C51A3;margin:1.5em 1em 2.5em;text-align:center;background:#F3F9FE}
 .fpccAD .icon.icon-accessible-amenities{width:3em;height:3em;margin-top:-1.5em}
 .fpccAD p{text-align:left;margin-top:.75em}
 .fpccAD ul{text-align:left;padding:0 0 1em 1.5em;margin-bottom:0}
@@ -334,8 +334,8 @@ ul.fpccMobileMenuList a:hover,ul.fpccMobileMenuList a:active{background:#F1F1ED;
 .detailPanel.contracted.detailPanel #fpccPreserveName.detailPanelBanner #fpccTrailName{padding-top:.15em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .icon-x.closeDetail{width:1.25em;height:1.25em;position:absolute;top:13px;right:13px}
 .icon-x.closeDetail:hover{opacity:1}
-.trailListColumn .fpccContainer a,.trailListColumn #fpccSearchBack a{display:inline-block}/* Needed to override the main stylesheet or it disappears POI panel links on mobile:*/
-.trailListColumn .fpccResults a{display:block}/* Needed to override the main stylesheet or it disappears search result links on mobile:*/
+/*.trailListColumn .fpccContainer a,.trailListColumn #fpccSearchBack a{display:inline-block} Needed to override the main stylesheet or it disappears POI panel links on mobile:*/
+/*.trailListColumn .fpccResults a{display:block} Needed to override the main stylesheet or it disappears search result links on mobile:*/
 .trailMapContainer{background:#ddd;position:absolute;top:48px;/* size of header */right:0;left:0;bottom:48px;/* size of footer/detail panel */z-index:8000}
 .trailMapContainer .offsetZoomControl .offsetZoomIn,.trailMapContainer .offsetZoomControl .offsetZoomOut{display:none}
 
