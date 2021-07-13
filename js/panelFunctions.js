@@ -229,7 +229,7 @@ var panelFuncs = function (map) {
       if (el.properties.distance) {
         if (filters.current.userLocation || filters.current.searchLocation) {
           var poiDistance = metersToMiles(el.properties.distance)
-          trailheadInfoText += '<span class="fpccEntryDis">' + poiDistance + ' mi away</span></a>'
+          trailheadInfoText += '<span class="fpccEntryDis">' + poiDistance + ' miles away</span></a>'
         }
       }
       trailheadInfoText += '</div>'
