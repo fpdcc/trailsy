@@ -776,12 +776,12 @@ var panelFuncs = function (map) {
 
       var hoursHTML = ''
       if (poi.properties.hours1) {
-        hoursHTML += '<span class="fpccHours1"><strong>' + poi.properties.season1
-        hoursHTML += ':</strong> ' + poi.properties.hours1 + '</span>'
+        hoursHTML += '<span class="fpccHours1"><span>' + poi.properties.season1
+        hoursHTML += ':</span> ' + poi.properties.hours1 + '</span>'
       }
       if (poi.properties.hours2) {
-        hoursHTML += '<span class="fpccHours2"><strong>' + poi.properties.season2
-        hoursHTML += ':</strong> ' + poi.properties.hours2 + '</span>'
+        hoursHTML += '<span class="fpccHours2"><span>' + poi.properties.season2
+        hoursHTML += ':</span> ' + poi.properties.hours2 + '</span>'
       }
       if (poi.properties.special_hours) {
         hoursHTML += '<span class="fpccSpecialHours">' + poi.properties.special_hours + '</span>'
@@ -1047,15 +1047,15 @@ var panelFuncs = function (map) {
     if (trailSegment.subtrail_length_mi) {
       var length_mi = parseFloat(trailSegment.subtrail_length_mi).toFixed(1)
       //if (length_mi >= .1) {
-        trailSegmentHTML += '<span class="fpccLabel fpccLeft">Length<span>';
+        trailSegmentHTML += '<span class="fpccLabel fpccLeft"><span>Length: </span>';
         trailSegmentHTML += length_mi
-        trailSegmentHTML += ' mi</span></span>';
+        trailSegmentHTML += ' mi</span>';
       //}
     }
     
-    trailSegmentHTML += '<span class="fpccLabel fpccRight">Surface<span>';
+    trailSegmentHTML += '<span class="fpccLabel fpccRight"><span>Surface: </span>';
     trailSegmentHTML += thisType;
-    trailSegmentHTML += '</span></span></div></div>';
+    trailSegmentHTML += '</span></div></div>';
     return trailSegmentHTML;
   }
 
