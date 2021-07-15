@@ -38,7 +38,8 @@ var activityFeature = function (map) {
       var currentGeoTwo = currentFeature.geometry.coordinates[0]
       var currentFeatureLatLng = new L.LatLng(currentGeoOne, currentGeoTwo)
       var activityType = currentFeature.properties.atype
-      var iconType = getIconName(activityType)
+      var accessible = currentFeature.properties.accessible || false
+      var iconType = getIconName(activityType, accessible)
       if (iconType) {
         var activityName = currentFeature.properties.name || currentFeature.properties.aname
         var mainIcon = L.divIcon({
@@ -112,18 +113,22 @@ var activityFeature = function (map) {
     return activity
   }
 
-  var getIconName = function (activityType) {
+  var getIconName = function (activityType, accessible) {
     return activityType === 'Fishing Lake' ? 'icon-fishing'
+          : activityType === 'accessible fishing' ? 'icon-fishing-accessible'
           : activityType === 'aquatic center' ? 'icon-aquatic-center'
           : activityType === 'bicycle rental' ? 'icon-bike-rental'
           : activityType === 'boating center' ? 'icon-boat-rental'
+          : accessible == true && activityType === 'boat launch' ? 'icon-boat-launch-accessible'
           : activityType === 'boat launch' ? 'icon-boat-launch'
           : activityType === 'boat rental' ? 'icon-boat-rental'
           : activityType === 'camp' ? 'icon-camp'
+          : accessible == true && activityType === 'canoe landing'? 'icon-canoe-landing-accessible'
           : activityType === 'canoe landing' ? 'icon-canoe-landing'
           : activityType === 'dog park' ? 'icon-off-leash-dog-area'
           : activityType === 'drone' ? 'icon-drone'
           : activityType === 'equestrian center' ? 'icon-facility'
+          : activityType === 'fitness stairs' ? 'icon-stairs'
           : activityType === 'frisbee golf' ? 'icon-disc-golf'
           : activityType === 'golf course' ? 'icon-golf-course-driving-range'
           : activityType === 'golf driving range' ? 'icon-golf-course-driving-range'
@@ -131,7 +136,6 @@ var activityFeature = function (map) {
           : activityType === 'model airplane flying field' ? 'icon-model-airplane'
           : activityType === 'nature center' ? 'icon-nature-center'
           : activityType === 'pavilion' ? 'icon-facility'
-          : activityType === 'recreation center' ? 'icon-rec-center'
           : activityType === 'recreational waterbody' ? 'icon-waterbody'
           : activityType === 'sledding' ? 'icon-sledding'
           : activityType === 'snowmobiling' ? 'icon-snowmobiling'
@@ -140,7 +144,7 @@ var activityFeature = function (map) {
           : activityType === 'volunteer center' ? 'icon-facility'
           : activityType === 'warming shelter' ? 'icon-facility'
           : activityType === 'welcome center' ? 'icon-facility'
-          : activityType === 'zipline' ? 'icon-zip-line'
+          : activityType === 'zip line' ? 'icon-zip-line'
           : null
   }
 

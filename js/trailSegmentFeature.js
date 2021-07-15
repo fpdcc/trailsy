@@ -8,9 +8,11 @@ var analyticsCode = require('./analyticsCode.js')
 var trailSegmentFeature = function (map) {
   var that = {}
   var events = eL.events()
+  that.rawData = null
   that.segmentTrailSubsystemObject = {}
   that.filteredFG = null
   that.currentHighlightedSubsystem = null
+  that.dataDownloaded = $.Deferred()
   that.segmentsCreated = $.Deferred()
   that.fetchTrailSegments = function () {
     $.getJSON(Config.trailSegmentEndpoint, function () {
@@ -18,7 +20,9 @@ var trailSegmentFeature = function (map) {
     })
     .done(function (data) {
       console.log('Successfully finished fetching trailSegments at ' + performance.now())
-      _makeSegmentTrailSubsystemObject(data)
+      that.rawData = data
+      that.dataDownloaded.resolve(data)
+      //_makeSegmentTrailSubsystemObject(data)
       // console.log("that.segmentTrailSubsystemObject.length = " + that.originalPoisArray.length);
     })
     .fail(function () {
@@ -34,10 +38,12 @@ var trailSegmentFeature = function (map) {
     }
     var segmentArray = []
     $.each(trailSubsystems, function (index, value) {
-      console.log('[filterSegments] index = ' + index)
+      //console.log('[filterSegments] index = ' + index)
       var segmentFGs = that.segmentTrailSubsystemObject[index]
       if (segmentFGs) {
         // segmentArray.push(segmentFGs)
+        //console.log('[filterSegments] segmentFGs = ' + segmentFGs[0])
+        //console.log('[filterSegments] segmentFGs.length = ' + segmentFGs.length)
         segmentArray.push(new L.FeatureGroup(segmentFGs)) // .addTo(map)
       }
     })
@@ -48,14 +54,41 @@ var trailSegmentFeature = function (map) {
     console.log('[filterSegments] end')
   }
 
-  var _makeSegmentTrailSubsystemObject = function (response) {
-    console.log('makeAllSegmentLayer')
+  that.makeSegmentTrailSubsystemObject = function (trailInfo) {
+    console.log('[trailSegments] makeSegmentTrailSubsystemObject start')
     // make visible layers
     var allVisibleSegmentsArray = []
     var allInvisibleSegmentsArray = []
     // allSegmentLayer = new L.FeatureGroup();
     // allVisibleSegmentLayer = new L.FeatureGroup();
-    console.log('visibleAllTrailLayer start')
+    
+    //if (that.rawData.features) {
+
+    for (const key in that.rawData.features) {
+      let feature = that.rawData.features[key] 
+      //console.log('makeSegmentTrailSubsystemObject feature = ' + feature)
+      var direct_trail_id = feature.properties.direct_trail_id
+      //console.log('makeSegmentTrailSubsystemObject feature.properties.direct_trail_id = ' + feature.properties.direct_trail_id)
+      var thisTrailInfo = trailInfo[direct_trail_id]
+      //console.log('makeSegmentTrailSubsystemObject thisTrailInfo = ' + thisTrailInfo)
+      //console.log('makeSegmentTrailSubsystemObject thisTrailInfo.subtrail_id = ' + thisTrailInfo.subtrail_id)
+      //console.log('makeSegmentTrailSubsystemObject thisTrailInfo.trail_color = ' + thisTrailInfo.trail_color)
+      //console.log('makeSegmentTrailSubsystemObject thisTrailInfo.trail_type = ' + thisTrailInfo.trail_type)
+      //console.log("[makeAllSegmentLayer] feature properties = " + feature.properties)
+      that.rawData.features[key].properties = Object.assign({},feature.properties, thisTrailInfo)
+      // feature.properties.trail_color = thisTrailInfo.trail_color
+      // feature.properties.off_fpdcc = thisTrailInfo.off_fpdcc
+      // feature.properties.trail_subsystem = thisTrailInfo.trail_subsystem
+      // feature.properties.trail_type = thisTrailInfo.trail_type
+      // feature.properties.segment_type = thisTrailInfo.segment_type
+      // feature.properties.direction = thisTrailInfo.direction
+      //console.log("[makeAllSegmentLayer] feature type = " + feature.type)
+      //console.log("[makeAllSegmentLayer] feature properties = " + feature.properties)
+      //console.log("[makeAllSegmentLayer] feature geometry = " + feature.geometry)
+      //console.log("[makeAllSegmentLayer] feature geometry.type = " + feature.geometry.type)
+      //console.log("[makeAllSegmentLayer] feature geometry.coordinates = " + feature.geometry.coordinates)
+    }
+    var response = that.rawData
 
     // make a normal visible layer for the segments, and add each of those layers to the allVisibleSegmentsArray
     var visibleAllTrailLayer = L.geoJson(response, {
@@ -113,16 +146,16 @@ var trailSegmentFeature = function (map) {
       var segmentNameType = invisLayer.feature.properties.segment_type || null
       var segmentDirection = invisLayer.feature.properties.direction || null
       var segmentOffFpcc = invisLayer.feature.properties.off_fpdcc || null
-      var segmentName = segmentColor + ' ' + segmentType
-      if (segmentNameType) {
-        segmentName += ' ' + segmentNameType
-      }
-      if (segmentOffFpcc === 'y') {
-        segmentName += ' (Non-FPCC)'
-      } else if (segmentDirection) {
-        segmentName += ' (' + segmentDirection + ') '
-      }
-      invisLayer.feature.properties.segmentName = segmentName
+      // var segmentName = segmentColor + ' ' + segmentType
+      // if (segmentNameType) {
+      //   segmentName += ' ' + segmentNameType
+      // }
+      // if (segmentOffFpcc === 'y') {
+      //   segmentName += ' (Non-FPCC)'
+      // } else if (segmentDirection) {
+      //   segmentName += ' (' + segmentDirection + ') '
+      // }
+      invisLayer.feature.properties.segmentName = invisLayer.feature.properties.subtrail_name
       if (segmentTrailSubsystem) {
         var trailPopupLineDiv = '<svg class="icon icon-arrow-right"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="icons/defs.svg#icon-arrow-right"></use></svg>'
         trailPopupLineDiv += "<div class='trail-popup-line trail-popup-line-named trail-subsystem' " +
@@ -136,6 +169,40 @@ var trailSegmentFeature = function (map) {
           "data-trailsubsystem='" + segmentTrailSubsystem + "'>" +
           invisLayer.feature.properties.segmentName
         trailPopupLineDiv += '</div>'
+        var length_mi = null
+        if (invisLayer.feature.properties.subtrail_length_mi) {
+          length_mi = parseFloat(invisLayer.feature.properties.subtrail_length_mi).toFixed(2)
+        }
+        trailPopupLineDiv += '<div class="trail-popup-line trail-popup-line-named fpccPopupData"><div class="fpccPopupDataCont clearfix">'
+        if (length_mi) {
+          trailPopupLineDiv += '<div class="fpccPopupLength">Length: ' + length_mi + ' mi</div>' 
+        }
+        trailPopupLineDiv += '<div class="fpccPopupIcons">'
+        var trailSegment = invisLayer.feature.properties
+        var trailSegmentHTML = ''
+        if ((trailSegment.tags) && (trailSegment.tags.panel)) {
+          //console.log('[buildTrailSegmentHTML] tags.panel = ' + trailSegment.tags.panel)
+          if (trailSegment.tags.panel.indexOf('hiking') > -1) {
+            trailSegmentHTML += '<svg class="icon icon-hiking"><use xlink:href="icons/defs.svg#icon-hiking"></use></svg>';
+          }
+          if (trailSegment.tags.panel.indexOf('biking') > -1) {
+            trailSegmentHTML += '<svg class="icon icon-bicycling"><use xlink:href="icons/defs.svg#icon-bicycling"></use></svg>';
+          }
+          if (trailSegment.tags.panel.indexOf('dog_leash') > -1) {
+            trailSegmentHTML += '<svg class="icon icon-dog-leash"><use xlink:href="icons/defs.svg#icon-dog-leash"></use></svg>';
+          }
+          if (trailSegment.tags.panel.indexOf('cross_country') > -1) {
+            trailSegmentHTML += '<svg class="icon icon-cross-country-skiing"><use xlink:href="icons/defs.svg#icon-cross-country-skiing"></use></svg>';
+          }
+          if (trailSegment.tags.panel.indexOf('equestrian') > -1) {
+            trailSegmentHTML += '<svg class="icon icon-equestrian"><use xlink:href="icons/defs.svg#icon-equestrian"></use></svg>';
+          }
+          if (trailSegment.tags.panel.indexOf('no_dogs') > -1) {
+            trailSegmentHTML += '<svg class="icon icon-no-dogs"><use xlink:href="icons/defs.svg#icon-no-dogs"></use></svg>';
+          }
+        }
+        //[activity icons here, include new dog_leash/no_dogs]
+        trailPopupLineDiv += trailSegmentHTML + '</div></div>'
         popupHTML = popupHTML + trailPopupLineDiv
       }
       popupHTML = popupHTML + '</div>'
@@ -179,6 +246,8 @@ var trailSegmentFeature = function (map) {
     //   var newFG = new L.FeatureGroup(value).addTo(map)
     // })
     that.segmentsCreated.resolve(that.segmentTrailSubsystemObject)
+
+    
   }
 
   var segmentStyle = function (feature) {

@@ -131,7 +131,7 @@ var trailMap = function () {
  });
 
   var ccImagery = esri.imageMapLayer({
-    url: 'https://gisimageserver.cookcountyil.gov/arcgis/rest/services/Cook2017/ImageServer/',
+    url: 'https://gis.cookcountyil.gov/imagery/rest/services/Basemap/CookImagery/ImageServer',
     attribution: 'Cook County GIS',
     //minZoom: 14,
     maxZoom: 18,
@@ -148,11 +148,17 @@ var trailMap = function () {
   L.control.scale({maxWidth: 300, position: 'bottomright'}).addTo(map)
   L.control.layers(baseMaps, null, {collapsed: false, position: 'bottomright'}).addTo(map)
 
+  var segmentsDownloadedAndInfoReady = $.when(tSegment.dataDownloaded, tInfo.trailInfoCreated)
   var poiAndTrailInfoCreated = $.when(poiFeat.originalPoisCreated, tInfo.trailInfoCreated)
   var poiSegmentsReady = $.when(poiFeat.originalPoiInfoAdded, tSegment.segmentsCreated)
   var activitiesReady = $.when(activityFeat.originalActivitiesCreated)
   var picnicgrovesReady = $.when(picnicgroveFeat.originalPicnicgrovesCreated)
   var geoSetupAndAlertsReady = $.when(alertFeat.alertsCreated, geoFunctions.geoSetupDone)
+  segmentsDownloadedAndInfoReady.done(function () {
+    console.log('filters.current = ' + filters.current)
+    tSegment.makeSegmentTrailSubsystemObject(tInfo.originalTrailInfo)
+    
+  })
   poiAndTrailInfoCreated.done(function () {
     poiFeat.addTrailInfo(tInfo.originalTrailInfo)
     console.log('filters.current = ' + filters.current)
@@ -234,6 +240,7 @@ var trailMap = function () {
           activityFeat.filteredFG.addTo(map)
         }
         if (tSegment.filteredFG && filters.current.trailOnMap) {
+          console.log("about to add segments to map")
           tSegment.filteredFG.addTo(map)
         }
         // events.addEdgeEventHandlers()

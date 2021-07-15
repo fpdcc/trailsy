@@ -15,8 +15,8 @@ module.exports = {
   // trailheadEndpoint: baseEndpoint + "/cached_trailheads",
   trailheadEndpoint: trailsyBaseEndpoint + '/pointsofinterests.json',
   activityEndpoint: trailsyBaseEndpoint + '/activities.json',
-  trailInfoEndpoint: trailsyBaseEndpoint + '/trails_infos.json',
-  trailSegmentEndpoint: trailsyBaseEndpoint + '/new_trails.json',
+  trailInfoEndpoint: trailsyBaseEndpoint + '/trail_subtrails.json',
+  trailSegmentEndpoint: trailsyBaseEndpoint + '/trails_infos.json',
   picnicgroveEndpoint: trailsyBaseEndpoint + '/picnicgroves.json',
   alertEndpoint: trailsyBaseEndpoint + '/alerts.json',
 

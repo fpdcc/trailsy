@@ -47,22 +47,31 @@ var trailInfo = function () {
   var _makeTrailInfoObject = function (data) {
     that.originalTrailInfo = {}
     that.trailSubsystemMap = {}
-    for (var i = 0; i < data.features.length; i++) {
-      that.originalTrailInfo[data.features[i].properties.direct_trail_id] = data.features[i].properties
-      var normalizedSubsystem = data.features[i].properties.trail_subsystem.replace(/[& ]/g, '+')
-      var segmentName = data.features[i].properties.trail_color + ' ' + data.features[i].properties.trail_type
-      if (data.features[i].properties.segment_type) {
-        segmentName += ' ' + data.features[i].properties.segment_type
-      }
-      if (data.features[i].properties.off_fpdcc === 'y') {
-        segmentName += ' (Non-FPCC)'
-      } else if (data.features[i].properties.direction) {
-        segmentName += ' (' + data.features[i].properties.direction + ') '
-      }
-      data.features[i].properties.segmentName = segmentName
+    console.log("[trailInfo _makeTrailInfoObject] Begin")
+    for (const key in data) {
+      let subtrail = data[key] 
+      
+      var normalizedSubsystem = subtrail.trail_subsystem.replace(/[& ]/g, '+')
+      var segmentName = subtrail.subtrail_name
+      // if (subtrail.subtrail_name) {
+      //   var segmentName = data.features[i].properties.trail_name
+      // } else {
+      //   var segmentName = data.features[i].properties.trail_color + ' ' + data.features[i].properties.trail_type
+      //   if (data.features[i].properties.segment_type) {
+      //     segmentName += ' ' + data.features[i].properties.segment_type
+      //   }
+      //   if (data.features[i].properties.off_fpdcc === 'y') {
+      //     segmentName += ' (Non-FPCC)'
+      //   } else if (data.features[i].properties.direction) {
+      //     segmentName += ' (' + data.features[i].properties.direction + ') '
+      //   }
+      // }
+      subtrail.segmentName = segmentName
+      that.originalTrailInfo[subtrail.subtrail_id] = subtrail
       that.trailSubsystemMap[normalizedSubsystem] = that.trailSubsystemMap[normalizedSubsystem] || []
-      that.trailSubsystemMap[normalizedSubsystem].push(data.features[i].properties)
+      that.trailSubsystemMap[normalizedSubsystem].push(subtrail)
     }
+    console.log("[trailInfo _makeTrailInfoObject] End")
     that.trailInfoCreated.resolve(that.originalTrailInfo)
   }
 
