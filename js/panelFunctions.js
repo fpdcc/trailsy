@@ -741,7 +741,7 @@ var panelFuncs = function (map) {
 
         // nature_preserve = Nature Preserve
         if (poi.properties.tags[':panel'].indexOf('nature_preserve') > -1) {
-          naturePreserveString = '<div class="fpccNP clearfix"><a href="https://fpdcc.com/nature/illinois-nature-preserves/"><img src="images/idnr-np-logo.png" width="75" height="65" alt="Illinois Nature Preserves Commission Logo"></a><p> This land is designated as one of the highest quality natural areas in the state by the Illinois Nature Preserves Commission. This status includes increased levels of legal protection and management. Learn more on the <a href="https://fpdcc.com/nature/illinois-nature-preserves/">Illinois Nature Preserves Page</a></p></div>'
+          naturePreserveString = '<div class="fpccNP clearfix"><a href="https://fpdcc.com/nature/illinois-nature-preserves/"><img src="images/idnr-np-logo.png" width="75" height="65" alt="Illinois Nature Preserves Commission Logo"></a><p> This land is designated as one of the highest quality natural areas in the state by the Illinois Nature Preserves Commission. This status includes increased levels of legal protection and management. Learn more on the <a href="https://fpdcc.com/nature/illinois-nature-preserves/">Illinois Nature Preserves Page</a>.</p></div>'
         }
 
       }
