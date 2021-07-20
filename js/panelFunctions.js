@@ -950,7 +950,7 @@ var panelFuncs = function (map) {
         }
       }
       if ( !(subSystem.includes("Center Trails") || subSystem.includes("Trailside Museum")) )  {
-        trailSegmentsHTML += '<span class="fpccOneMile">*Segments under 1 mile not shown.</span>'
+        trailSegmentsHTML += '<span class="fpccOneMile">*Segments under 1 mile not displayed here.</span>'
                          + '</div>'
       }
       trailsHTML += trailSegmentsHTML
