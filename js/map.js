@@ -34,15 +34,19 @@ var trailMap = function () {
   })
   map.removeControl(map.zoomControl)
 
-  var tangramLayer = Tangram.leafletLayer({
-    scene: 'https://map.fpdcc.com/basemap_styles/fpdcc_style.yaml',
-    attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors',
-    modifyScrollWheel: false,
-    modifyZoomBehavior: false,
-    updateWhenIdle: true,
-    updateWhenZooming: false,
-    maxZoom: 18
-  }).addTo(map)
+  // var tangramLayer = Tangram.leafletLayer({
+  //   scene: 'https://map.fpdcc.com/basemap_styles/fpdcc_style.yaml',
+  //   attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors',
+  //   modifyScrollWheel: false,
+  //   modifyZoomBehavior: false,
+  //   updateWhenIdle: true,
+  //   updateWhenZooming: false,
+  //   maxZoom: 18
+  // }).addTo(map)
+
+  const apiKey = "AAPK7f799a63c62d416fb5a10666dcb70732Hvz4rWgiUZbg5kmJEPB_NHVHwASpt20DIrB_bafEJM-M9VirlXtpNcFFi2U7Wie-"
+
+  var tangramLayer = esri.basemapLayer('Topographic', { apiKey: apiKey }).addTo(map);
 
   var myAnalytics = analyticsCode.setup()
   // map.addControl(L.control.zoom({position: 'topright'}))
