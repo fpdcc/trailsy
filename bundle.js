@@ -15007,8 +15007,15 @@
 	
 	  const apiKey = "AAPK7f799a63c62d416fb5a10666dcb70732Hvz4rWgiUZbg5kmJEPB_NHVHwASpt20DIrB_bafEJM-M9VirlXtpNcFFi2U7Wie-"
 	
-	  var tangramLayer = esri.basemapLayer('Topographic', { apiKey: apiKey }).addTo(map);
-	
+	  //var tangramLayer = esri.basemapLayer('Topographic', { apiKey: apiKey }).addTo(map);
+	  var Streets =  esri.basemapLayer('Streets', { apiKey: apiKey }).addTo(map);
+	  var Topographic =  esri.basemapLayer('Topographic', { apiKey: apiKey })
+	  var NationalGeographic =  esri.basemapLayer('NationalGeographic', { apiKey: apiKey })
+	  var Gray =  esri.basemapLayer('Gray', { apiKey: apiKey })
+	  var DarkGray =  esri.basemapLayer('DarkGray', { apiKey: apiKey })
+	  var ShadedRelief =  esri.basemapLayer('ShadedRelief', { apiKey: apiKey })
+	  var Terrain =  esri.basemapLayer('Terrain', { apiKey: apiKey })
+	 
 	  var myAnalytics = analyticsCode.setup()
 	  // map.addControl(L.control.zoom({position: 'topright'}))
 	  var alertFeat = alertFeature(map)
@@ -15106,8 +15113,16 @@
 	  
 	
 	  var baseMaps = {
-	    'Streets': tangramLayer,
-	    'Satellite': ccImagery
+	    // 'Streets': tangramLayer,
+	    'Satellite': ccImagery,
+	    'Streets': Streets,
+	    'Topographic': Topographic,
+	    'NationalGeographic': NationalGeographic,
+	    // 'Oceans': Oceans,
+	    'Gray': Gray,
+	    'DarkGray': DarkGray,
+	    'ShadedRelief': ShadedRelief,
+	    'Terrain': Terrain
 	  }
 	
 	  L.control.scale({maxWidth: 300, position: 'bottomright'}).addTo(map)
@@ -15175,6 +15190,9 @@
 	        tSegment.filterSegments(tInfo.filteredSystemNames)
 	        activitiesReady.done(function () {
 	          activityFeat.filterActivity(poiFeat.filteredPoisArray)
+	          if (activityFeat.filteredFG) {
+	            activityFeat.filteredFG.addTo(map)
+	          }
 	        })
 	        console.log('[filterAll] about to makeresults at ' + performance.now())
 	        if (poiFeat.filteredPoisFeatureGroup) {
@@ -15200,9 +15218,6 @@
 	          }
 	          poiFeat.filteredPoisFeatureGroup.addTo(map)
 	          // console.log('isEdge? = ' + Config.isEdge)
-	        }
-	        if (activityFeat.filteredFG) {
-	          activityFeat.filteredFG.addTo(map)
 	        }
 	        if (tSegment.filteredFG && filters.current.trailOnMap) {
 	          console.log("about to add segments to map")
