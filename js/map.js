@@ -210,6 +210,9 @@ var trailMap = function () {
         tSegment.filterSegments(tInfo.filteredSystemNames)
         activitiesReady.done(function () {
           activityFeat.filterActivity(poiFeat.filteredPoisArray)
+          if (activityFeat.filteredFG) {
+            activityFeat.filteredFG.addTo(map)
+          }
         })
         console.log('[filterAll] about to makeresults at ' + performance.now())
         if (poiFeat.filteredPoisFeatureGroup) {
@@ -236,9 +239,7 @@ var trailMap = function () {
           poiFeat.filteredPoisFeatureGroup.addTo(map)
           // console.log('isEdge? = ' + Config.isEdge)
         }
-        if (activityFeat.filteredFG) {
-          activityFeat.filteredFG.addTo(map)
-        }
+       
         if (tSegment.filteredFG && filters.current.trailOnMap) {
           console.log("about to add segments to map")
           tSegment.filteredFG.addTo(map)
