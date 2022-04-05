@@ -5,7 +5,7 @@ if (__DEV__) {
 require('./vendor/jquery.address.js')
 
 //var selectize = require('selectize')
-require('./vendor/selectize.js')
+require('./vendor/selectize-newmod.js')
 
 var trailMap = require('./map.js')
 window.trailMap = trailMap()
