@@ -229,7 +229,7 @@ var panelFuncs = function (map) {
       if (el.properties.distance) {
         if (filters.current.userLocation || filters.current.searchLocation) {
           var poiDistance = metersToMiles(el.properties.distance)
-          trailheadInfoText += '<span class="fpccEntryDis">' + poiDistance + ' mi away</span></a>'
+          trailheadInfoText += '<span class="fpccEntryDis">' + poiDistance + ' miles away</span></a>'
         }
       }
       trailheadInfoText += '</div>'
@@ -520,15 +520,15 @@ var panelFuncs = function (map) {
         if (poi.properties.tags[':panel'].indexOf('bike_rental') > -1 ) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-bike-rental'><use xlink:href='icons/defs.svg#icon-bike-rental'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/bicycling/'>Bike Rental</a></span></div>"
         }
-          // boat_ramp = Boat Launch
-        if (poi.properties.tags[':panel'].indexOf('boat_ramp') > -1) {
-          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-boat-launch'><use xlink:href='icons/defs.svg#icon-boat-launch'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/boating-canoeing-kayaking/'>Boat Launch</a></span></div>"
-        }
+
         // accessible_boat = Accessible Boat
+        // If there is boat_ramp AND accessible_boat, only accessible_boat shows in the panel
         if (poi.properties.tags[':panel'].indexOf('accessible_boat') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-boat-launch-accessible'><use xlink:href='icons/defs.svg#icon-boat-launch-accessible'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/boating-canoeing-kayaking/'>Accessible Boat Launch</a></span></div>"
+        } else if (poi.properties.tags[':panel'].indexOf('boat_ramp') > -1) {
+          // boat_ramp = Boat Launch
+          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-boat-launch'><use xlink:href='icons/defs.svg#icon-boat-launch'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/boating-canoeing-kayaking/'>Boat Launch</a></span></div>"
         }
-
 
         // boat_rental = Boat Rental
         if (poi.properties.tags[':panel'].indexOf('boat_rental') > -1) {
@@ -563,15 +563,15 @@ var panelFuncs = function (map) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-camp-accessible'><use xlink:href='icons/defs.svg#icon-camp-accessible'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/camping/'>Accessible Campsites</a></span></div>"
         }
 
-
-        // canoe = Canoe Landing
-        if (poi.properties.tags[':panel'].indexOf('canoe') > -1) {
-          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-canoe-landing'><use xlink:href='icons/defs.svg#icon-canoe-landing'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/boating-canoeing-kayaking/'>Canoe Landing</a></span></div>"
-        }
         // accessible_canoe = Accessible Canoe
+        // If there is canoe AND accessible_canoe, only accessible_canoe shows in the panel
         if (poi.properties.tags[':panel'].indexOf('accessible_canoe') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-canoe-landing-accessible'><use xlink:href='icons/defs.svg#icon-canoe-landing-accessible'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/boating-canoeing-kayaking/'>Accessible Canoe Landing</a></span></div>"
+        } else if (poi.properties.tags[':panel'].indexOf('canoe') > -1) {
+          // canoe = Canoe Landing
+          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-canoe-landing'><use xlink:href='icons/defs.svg#icon-canoe-landing'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/boating-canoeing-kayaking/'>Canoe Landing</a></span></div>"
         }
+        
         // disc_golf = Disc Golf
         if (poi.properties.tags[':panel'].indexOf('disc_golf') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-disc-golf'><use xlink:href='icons/defs.svg#icon-disc-golf'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/disc-golf/'>Disc Golf</a></span></div>"
@@ -706,7 +706,7 @@ var panelFuncs = function (map) {
 
         // accessible_fishing = Accessible Fishing Area
         if (poi.properties.tags[':panel'].indexOf('accessible_fishing') > -1) {
-          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-fishing-accessible'><use xlink:href='icons/defs.svg#icon-fishing-accessible'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/fishing/'>Accessible Fishing Areas</a></span></div>"
+          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-fishing-accessible'><use xlink:href='icons/defs.svg#icon-fishing-accessible'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/fishing/'>Accessible Fishing Area</a></span></div>"
         }
 
 
@@ -741,7 +741,7 @@ var panelFuncs = function (map) {
 
         // nature_preserve = Nature Preserve
         if (poi.properties.tags[':panel'].indexOf('nature_preserve') > -1) {
-          naturePreserveString = '<div class="fpccNP clearfix"><a href="https://fpdcc.com/nature/illinois-nature-preserves/"><img src="images/idnr-np-logo.png" width="75" height="65" alt="Illinois Nature Preserves Commission Logo"></a><p> This land is designated as one of the highest quality natural areas in the state by the Illinois Nature Preserves Commission. This status includes increased levels of legal protection and management. Learn more on the <a href="https://fpdcc.com/nature/illinois-nature-preserves/">Illinois Nature Preserves Page</a></p></div>'
+          naturePreserveString = '<div class="fpccNP clearfix"><a href="https://fpdcc.com/nature/illinois-nature-preserves/"><img src="images/idnr-np-logo.png" width="75" height="65" alt="Illinois Nature Preserves Commission Logo"></a><p> This land is designated as one of the highest quality natural areas in the state by the Illinois Nature Preserves Commission. This status includes increased levels of legal protection and management. Learn more on the <a href="https://fpdcc.com/nature/illinois-nature-preserves/">Illinois Nature Preserves Page</a>.</p></div>'
         }
 
       }
@@ -776,12 +776,12 @@ var panelFuncs = function (map) {
 
       var hoursHTML = ''
       if (poi.properties.hours1) {
-        hoursHTML += '<span class="fpccHours1"><strong>' + poi.properties.season1
-        hoursHTML += ':</strong> ' + poi.properties.hours1 + '</span>'
+        hoursHTML += '<span class="fpccHours1"><span>' + poi.properties.season1
+        hoursHTML += ':</span> ' + poi.properties.hours1 + '</span>'
       }
       if (poi.properties.hours2) {
-        hoursHTML += '<span class="fpccHours2"><strong>' + poi.properties.season2
-        hoursHTML += ':</strong> ' + poi.properties.hours2 + '</span>'
+        hoursHTML += '<span class="fpccHours2"><span>' + poi.properties.season2
+        hoursHTML += ':</span> ' + poi.properties.hours2 + '</span>'
       }
       if (poi.properties.special_hours) {
         hoursHTML += '<span class="fpccSpecialHours">' + poi.properties.special_hours + '</span>'
@@ -869,15 +869,15 @@ var panelFuncs = function (map) {
       var showMaps = false
       var trailMapHTML = '<div class="fpccTrailMaps clearfix trailMaps">'
       console.log('[decorateDetailPanelForTrailhead2] showMaps = ' + showMaps)
-      if (descriptionTrail.map_link != null && descriptionTrail.map_link != '') {
-        // console.log('[decorateDetailPanelForTrailhead2] descriptionTrail.map_link is true? ' + descriptionTrail.map_link)
-        trailMapHTML += '<a class="fpccButton" id="pdfEnglish" href="'
-                      + descriptionTrail.map_link + '" target="_blank">PDF Map</a>'
+      if (descriptionTrail.web_link != null && descriptionTrail.web_link != '') {
+        trailMapHTML += '<a class="fpccButton" id="trailWebsite" href="' + descriptionTrail.web_link + '">Trail Webpage</a>'
         showMaps = true
         showDescription = true
       }
-      if (descriptionTrail.web_link != null && descriptionTrail.web_link != '') {
-        trailMapHTML += '<a class="fpccButton secondary" id="trailWebsite" href="' + descriptionTrail.web_link + '">Trail Webpage</a>'
+      if (descriptionTrail.map_link != null && descriptionTrail.map_link != '') {
+        // console.log('[decorateDetailPanelForTrailhead2] descriptionTrail.map_link is true? ' + descriptionTrail.map_link)
+        trailMapHTML += '<a class="fpccButton secondary" id="pdfEnglish" href="'
+                      + descriptionTrail.map_link + '" target="_blank">PDF Map</a>'
         showMaps = true
         showDescription = true
       }
@@ -950,7 +950,7 @@ var panelFuncs = function (map) {
         }
       }
       if ( !(subSystem.includes("Center Trails") || subSystem.includes("Trailside Museum")) )  {
-        trailSegmentsHTML += '<span class="fpccOneMile">*Segments under 1 mile not shown.</span>'
+        trailSegmentsHTML += '<span class="fpccOneMile">*Segments under 1 mile not displayed here.</span>'
                          + '</div>'
       }
       trailsHTML += trailSegmentsHTML
@@ -1047,15 +1047,15 @@ var panelFuncs = function (map) {
     if (trailSegment.subtrail_length_mi) {
       var length_mi = parseFloat(trailSegment.subtrail_length_mi).toFixed(1)
       //if (length_mi >= .1) {
-        trailSegmentHTML += '<span class="fpccLabel fpccLeft">Length<span>';
+        trailSegmentHTML += '<span class="fpccLabel fpccLeft"><span>Length: </span>';
         trailSegmentHTML += length_mi
-        trailSegmentHTML += ' mi</span></span>';
+        trailSegmentHTML += ' mi</span>';
       //}
     }
     
-    trailSegmentHTML += '<span class="fpccLabel fpccRight">Surface<span>';
+    trailSegmentHTML += '<span class="fpccLabel fpccRight"><span>Surface: </span>';
     trailSegmentHTML += thisType;
-    trailSegmentHTML += '</span></span></div></div>';
+    trailSegmentHTML += '</span></div></div>';
     return trailSegmentHTML;
   }
 
