@@ -1,11 +1,19 @@
 'use strict'
 var L = require('leaflet')
-var Tangram = require('tangram')
+// var Tangram = require('tangram')
 var $ = require('jquery')
 require('./vendor/leaflet.zoomcss.js')
 require('leaflet-boundsawarelayergroup')
 require('leaflet.markercluster')
 var esri = require('esri-leaflet')
+const { elvVersion, VectorBasemapLayer, VectorTileLayer, vectorBasemapLayer, vectorTileLayer } = require('esri-leaflet-vector')
+
+// exports.VERSION = version;
+// exports.VectorBasemapLayer = VectorBasemapLayer;
+// exports.VectorTileLayer = VectorTileLayer;
+// exports.vectorBasemapLayer = vectorBasemapLayer;
+// exports.vectorTileLayer = vectorTileLayer;
+
 require('./vendor/jquery.address.js')
 require('svgxuse')
 var Config = require('./config.js')
@@ -34,15 +42,26 @@ var trailMap = function () {
   })
   map.removeControl(map.zoomControl)
 
-  var tangramLayer = Tangram.leafletLayer({
-    scene: 'https://map.fpdcc.com/basemap_styles/fpdcc_style.yaml',
-    attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors',
-    modifyScrollWheel: false,
-    modifyZoomBehavior: false,
-    updateWhenIdle: true,
-    updateWhenZooming: false,
-    maxZoom: 18
-  }).addTo(map)
+  // var tangramLayer = Tangram.leafletLayer({
+  //   scene: 'https://map.fpdcc.com/basemap_styles/fpdcc_style.yaml',
+  //   attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors',
+  //   modifyScrollWheel: false,
+  //   modifyZoomBehavior: false,
+  //   updateWhenIdle: true,
+  //   updateWhenZooming: false,
+  //   maxZoom: 18
+  // }).addTo(map)
+
+  const apiKey = "AAPK7f799a63c62d416fb5a10666dcb70732Hvz4rWgiUZbg5kmJEPB_NHVHwASpt20DIrB_bafEJM-M9VirlXtpNcFFi2U7Wie-";
+  const basemapEnum = "ArcGIS:LightGray";
+
+  var vectorESRI = new VectorBasemapLayer(basemapEnum, {
+    apiKey: apiKey
+  }).addTo(map);
+
+  var vectorOSMlightgray = new VectorBasemapLayer('OSM:LightGray', {
+    apiKey: apiKey
+  })
 
   var myAnalytics = analyticsCode.setup()
   // map.addControl(L.control.zoom({position: 'topright'}))
@@ -141,7 +160,8 @@ var trailMap = function () {
   
 
   var baseMaps = {
-    'Streets': tangramLayer,
+    'Streets': vectorESRI,
+    'OSM Light Gray': vectorOSMlightgray,
     'Satellite': ccImagery
   }
 
