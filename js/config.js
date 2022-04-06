@@ -6,8 +6,10 @@ var listenType = 'click'
 console.log('listenType = ' + listenType)
 var isEdge = ((navigator.userAgent.toLowerCase().indexOf('edge') !== -1) || (navigator.userAgent.toLowerCase().indexOf('trident') !== -1)) ? true : false
 var url = 'https://map.fpdcc.com'
-var gaCode1 = 'UA-92972430-1'
-var gaCode2 = 'UA-29985181-1'
+url = 'https://map-staging.fpdcc.net'
+//url = 'http://localhost:3000'
+var gaCode1 = 'UA-92972430-2'
+var gaCode2 = ''
 var trailsyBaseEndpoint = url
 
 module.exports = {
