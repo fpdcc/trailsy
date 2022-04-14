@@ -1,18 +1,20 @@
 'use strict'
-var L = require('leaflet')
-// var Tangram = require('tangram')
-var $ = require('jquery')
-require('./vendor/leaflet.zoomcss.js')
-require('leaflet-boundsawarelayergroup')
-require('leaflet.markercluster')
+import L from 'leaflet'
+import $ from 'jquery'
+
+import './vendor/leaflet.zoomcss.js'
+import 'leaflet-boundsawarelayergroup'
+import 'leaflet.markercluster'
+
 var esri = require('esri-leaflet')
+import { isEmpty} from 'lodash'
+if (isEmpty(L.esri)) {
+  L.esri = esri
+}
+
+
 const { elvVersion, VectorBasemapLayer, VectorTileLayer, vectorBasemapLayer, vectorTileLayer } = require('esri-leaflet-vector')
 
-// exports.VERSION = version;
-// exports.VectorBasemapLayer = VectorBasemapLayer;
-// exports.VectorTileLayer = VectorTileLayer;
-// exports.vectorBasemapLayer = vectorBasemapLayer;
-// exports.vectorTileLayer = vectorTileLayer;
 
 require('./vendor/jquery.address.js')
 require('svgxuse')
@@ -29,7 +31,9 @@ var eventListeners = require('./eventListeners.js')
 var panelFunctions = require('./panelFunctions.js')
 var alertFeature = require('./alertFeature.js')
 
-var trailMap = function () {
+
+export function trailMap(){
+  //export default trailMap = function () {
   var that = {}
   var elementId = 'trailMapLarge'
   var map = L.map(elementId, {
@@ -55,13 +59,9 @@ var trailMap = function () {
   const apiKey = "AAPK7f799a63c62d416fb5a10666dcb70732Hvz4rWgiUZbg5kmJEPB_NHVHwASpt20DIrB_bafEJM-M9VirlXtpNcFFi2U7Wie-";
   const basemapEnum = "ArcGIS:LightGray";
 
-  var vectorESRI = new VectorBasemapLayer(basemapEnum, {
+  var vectorOSMlightgray =  vectorBasemapLayer("dab6c0ec0c7a4cd98d2c4281bb7789c4", {
     apiKey: apiKey
   }).addTo(map);
-
-  var vectorOSMlightgray = new VectorBasemapLayer('OSM:LightGray', {
-    apiKey: apiKey
-  })
 
   var myAnalytics = analyticsCode.setup()
   // map.addControl(L.control.zoom({position: 'topright'}))
@@ -149,7 +149,7 @@ var trailMap = function () {
     analyticsCode.trackClickEventWithGA('Layer', 'Change', event.name)
  });
 
-  var ccImagery = esri.imageMapLayer({
+  var ccImagery = L.esri.imageMapLayer({
     url: 'https://gis.cookcountyil.gov/imagery/rest/services/Basemap/CookImagery/ImageServer',
     attribution: 'Cook County GIS',
     //minZoom: 14,
@@ -160,8 +160,7 @@ var trailMap = function () {
   
 
   var baseMaps = {
-    'Streets': vectorESRI,
-    'OSM Light Gray': vectorOSMlightgray,
+    'Streets': vectorOSMlightgray,
     'Satellite': ccImagery
   }
 
@@ -316,4 +315,5 @@ var trailMap = function () {
   return that
 }
 
-module.exports = trailMap
+//module.exports = trailMap
+//export default = trailMap
