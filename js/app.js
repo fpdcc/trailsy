@@ -7,6 +7,6 @@ require('./vendor/jquery.address.js')
 //var selectize = require('selectize')
 require('./vendor/selectize-newmod.js')
 
-var trailMap = require('./map.js')
+import {trailMap} from './map.js'
 window.trailMap = trailMap()
 window.trailMap.fetchData()
