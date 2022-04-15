@@ -64,6 +64,7 @@ export function trailMap(){
   .featureLayer({
     url: "https://services2.arcgis.com/I5Or36sMcO7Y9vQ3/arcgis/rest/services/FPCCmap_basemap_boundaries/FeatureServer/0",
     minZoom: 14,
+    interactive: false,
     //pane: "basemap",
     style: (feature) => {
       let style = {
@@ -80,6 +81,7 @@ export function trailMap(){
   .featureLayer({
     url: "https://services2.arcgis.com/I5Or36sMcO7Y9vQ3/arcgis/rest/services/FPCCmap_basemap_nature_preserves/FeatureServer/0",
     minZoom: 14,
+    interactive: false,
     //pane: "basemap",
     style: (feature) => {
       let style = {
@@ -97,6 +99,7 @@ export function trailMap(){
   .featureLayer({
     url: "https://services2.arcgis.com/I5Or36sMcO7Y9vQ3/arcgis/rest/services/FPCCmap_basemap_parking_geometry/FeatureServer/0",
     minZoom: 15,
+    interactive: false,
     //pane: "basemap",
     style: (feature) => {
       let style = {
@@ -117,6 +120,7 @@ export function trailMap(){
     .featureLayer({
       url: "https://services2.arcgis.com/I5Or36sMcO7Y9vQ3/arcgis/rest/services/FPCCmap_basemap_parking_icons/FeatureServer/0",
       minZoom: 15,
+      interactive: false,
       pointToLayer: (geojson, latlng) => {
         return L.marker(latlng, {
           icon: icon
