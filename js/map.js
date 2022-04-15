@@ -37,7 +37,7 @@ export function trailMap(){
   var that = {}
   var elementId = 'trailMapLarge'
   var map = L.map(elementId, {
-    preferCanvas: true,
+    //preferCanvas: true,
     minZoom: 9,
     maxZoom: 18,
     zoomAnimation: true,
@@ -45,23 +45,89 @@ export function trailMap(){
     zoom: Config.defaultZoom
   })
   map.removeControl(map.zoomControl)
+  map.createPane('trailSegments');
+  map.getPane("trailSegments").style.zIndex = "410";
 
-  // var tangramLayer = Tangram.leafletLayer({
-  //   scene: 'https://map.fpdcc.com/basemap_styles/fpdcc_style.yaml',
-  //   attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors',
-  //   modifyScrollWheel: false,
-  //   modifyZoomBehavior: false,
-  //   updateWhenIdle: true,
-  //   updateWhenZooming: false,
-  //   maxZoom: 18
-  // }).addTo(map)
+  map.createPane('poi');
+  map.getPane("poi").style.zIndex = "415";
+
 
   const apiKey = "AAPK7f799a63c62d416fb5a10666dcb70732Hvz4rWgiUZbg5kmJEPB_NHVHwASpt20DIrB_bafEJM-M9VirlXtpNcFFi2U7Wie-";
   const basemapEnum = "ArcGIS:LightGray";
 
   var vectorOSMlightgray =  vectorBasemapLayer("dab6c0ec0c7a4cd98d2c4281bb7789c4", {
     apiKey: apiKey
-  }).addTo(map);
+  })
+
+  // Forest Preserve Boundaries (polygons)
+  var forestPreserveBoundaries = esri
+  .featureLayer({
+    url: "https://services2.arcgis.com/I5Or36sMcO7Y9vQ3/arcgis/rest/services/FPCCmap_basemap_boundaries/FeatureServer/0",
+    minZoom: 14,
+    //pane: "basemap",
+    style: (feature) => {
+      let style = {
+        color: null, // no outline color
+        fillColor: "#C4EDC7",
+        fillOpacity: .2
+      };
+      return style;
+    }
+  })
+
+  // Nature Preserve areas (polygons)
+  var naturePreserveAreas = esri
+  .featureLayer({
+    url: "https://services2.arcgis.com/I5Or36sMcO7Y9vQ3/arcgis/rest/services/FPCCmap_basemap_nature_preserves/FeatureServer/0",
+    minZoom: 14,
+    //pane: "basemap",
+    style: (feature) => {
+      let style = {
+        color: null, // no outline color
+        fillColor: "#92DC97",
+        fillOpacity: 1
+      };
+      return style;
+    }
+  })
+
+
+  // Parking areas (polygons)
+  var parkingAreas = esri
+  .featureLayer({
+    url: "https://services2.arcgis.com/I5Or36sMcO7Y9vQ3/arcgis/rest/services/FPCCmap_basemap_parking_geometry/FeatureServer/0",
+    minZoom: 15,
+    //pane: "basemap",
+    style: (feature) => {
+      let style = {
+        color: "#D9D9D9", // no outline color
+        fillOpacity: 1
+      };
+      return style;
+    }
+  })
+
+  // Style parking (points)
+  const icon = L.icon({
+    iconUrl: "img/parking-gray.png",
+    iconSize: [16, 16]
+  });
+
+  const parkingIcons = esri
+    .featureLayer({
+      url: "https://services2.arcgis.com/I5Or36sMcO7Y9vQ3/arcgis/rest/services/FPCCmap_basemap_parking_icons/FeatureServer/0",
+      minZoom: 15,
+      pointToLayer: (geojson, latlng) => {
+        return L.marker(latlng, {
+          icon: icon
+        });
+      }
+    })
+
+  
+
+  var streets = L.featureGroup([vectorOSMlightgray, forestPreserveBoundaries, naturePreserveAreas, parkingAreas, parkingIcons],
+    ).addTo(map)//.setZIndex(-1000)
 
   var myAnalytics = analyticsCode.setup()
   // map.addControl(L.control.zoom({position: 'topright'}))
@@ -160,7 +226,7 @@ export function trailMap(){
   
 
   var baseMaps = {
-    'Streets': vectorOSMlightgray,
+    'Streets': streets,
     'Satellite': ccImagery
   }
 
@@ -262,6 +328,7 @@ export function trailMap(){
         if (tSegment.filteredFG && filters.current.trailOnMap) {
           console.log("about to add segments to map")
           tSegment.filteredFG.addTo(map)
+          tSegment.filteredFG.bringToFront()
         }
         // events.addEdgeEventHandlers()
       })

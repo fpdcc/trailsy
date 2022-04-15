@@ -44,12 +44,12 @@ var trailSegmentFeature = function (map) {
         // segmentArray.push(segmentFGs)
         //console.log('[filterSegments] segmentFGs = ' + segmentFGs[0])
         //console.log('[filterSegments] segmentFGs.length = ' + segmentFGs.length)
-        segmentArray.push(new L.FeatureGroup(segmentFGs)) // .addTo(map)
+        segmentArray.push(new L.FeatureGroup(segmentFGs,  {pane: 'trailSegments'})) // .addTo(map)
       }
     })
     if (segmentArray.length > 0) {
       console.log('[filterSegments] segmentArray.length = ' + segmentArray.length)
-      that.filteredFG = new L.FeatureGroup(segmentArray)
+      that.filteredFG = new L.FeatureGroup(segmentArray, {pane: 'trailSegments'})
     }
     console.log('[filterSegments] end')
   }
@@ -93,6 +93,7 @@ var trailSegmentFeature = function (map) {
     // make a normal visible layer for the segments, and add each of those layers to the allVisibleSegmentsArray
     var visibleAllTrailLayer = L.geoJson(response, {
       style: segmentStyle,
+      pane: "trailSegments",
       onEachFeature: function visibleOnEachFeature (feature, layer) {
         // console.log("visibleAllTrailLayer onEachFeature");
         allVisibleSegmentsArray.push(layer)
@@ -116,6 +117,7 @@ var trailSegmentFeature = function (map) {
           clickable: true,
           smoothFactor: 10 }
       },
+      pane: "trailSegments",
       onEachFeature: function invisibleOnEachFeature (feature, layer) {
         // console.log("invisibleAllTrailLayer onEachFeature");
         allInvisibleSegmentsArray.push(layer)
@@ -133,7 +135,7 @@ var trailSegmentFeature = function (map) {
       // make a FeatureGroup including both visible and invisible components
       // var newTrailFeatureGroup = new L.FeatureGroup([allVisibleSegmentsArray[i]]);
 
-      var newTrailFeatureGroup = new L.FeatureGroup([allInvisibleSegmentsArray[i], allVisibleSegmentsArray[i]])
+      var newTrailFeatureGroup = new L.FeatureGroup([allInvisibleSegmentsArray[i], allVisibleSegmentsArray[i]],  {pane: 'trailSegments'})
 
       // var $popupHTML = $("<div class='trail-popup'>");
 
