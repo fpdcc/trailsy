@@ -1,13 +1,6 @@
 var webpack = require("webpack");
 module.exports = {
-    mode: 'development',
-    optimization: {
-        //usedExports: true,
-        // splitChunks: {
-        //     // include all types of chunks
-        //     chunks: 'all',
-        // },
-    },
+    mode: 'production',
     entry: "./js/app.js",
     output: {
         path: __dirname,

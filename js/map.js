@@ -1,10 +1,12 @@
 'use strict'
 import L from 'leaflet'
+
 import $ from 'jquery'
 
-import './vendor/leaflet.zoomcss.js'
-import 'leaflet-boundsawarelayergroup'
-import 'leaflet.markercluster'
+require('./vendor/leaflet.zoomcss.js')
+require('leaflet-boundsawarelayergroup')
+require('leaflet.markercluster')
+
 
 var esri = require('esri-leaflet')
 import { isEmpty} from 'lodash'
@@ -37,7 +39,7 @@ export function trailMap(){
   var that = {}
   var elementId = 'trailMapLarge'
   var map = L.map(elementId, {
-    //preferCanvas: true,
+    preferCanvas: true,
     minZoom: 9,
     maxZoom: 18,
     zoomAnimation: true,
@@ -51,86 +53,121 @@ export function trailMap(){
   map.createPane('poi');
   map.getPane("poi").style.zIndex = "415";
 
+  map.createPane('basemapTop');
+  map.getPane("basemapTop").style.zIndex = "405";
+
 
   const apiKey = "AAPK7f799a63c62d416fb5a10666dcb70732Hvz4rWgiUZbg5kmJEPB_NHVHwASpt20DIrB_bafEJM-M9VirlXtpNcFFi2U7Wie-";
   const basemapEnum = "ArcGIS:LightGray";
 
-  var vectorOSMlightgray =  vectorBasemapLayer("dab6c0ec0c7a4cd98d2c4281bb7789c4", {
+  var vectorOSMlightgrayBottom =  vectorBasemapLayer("dab6c0ec0c7a4cd98d2c4281bb7789c4", {
     apiKey: apiKey
   })
 
+  var vectorOSMlightgrayTop=  vectorBasemapLayer("6a2be69457e5489394f6b5f6b1ddeb06", {
+    apiKey: apiKey,
+    pane: "basemapTop"
+  })
+
+  var forestPreserveBoundaries=  vectorTileLayer("0d387585d8f54b83b5c9f5b52f45455c", {
+    //apiKey: apiKey,
+    //pane: "basemapTop"
+  })
+
+  var naturePreserveAreas=  vectorTileLayer("447cf938f7c042a0bc713e9ae392e2f9", {
+    //apiKey: apiKey,
+    //pane: "basemapTop"
+  })
+
+  var parkingAreas=  vectorTileLayer("96254c289cda4dbba7b90e38e894427e", {
+    //apiKey: apiKey,
+    //pane: "basemapTop"
+  })
+
+  var parkingIcons=  vectorTileLayer("c92f2b6e850347db81e1ff6b9340b46b", {
+    //apiKey: apiKey,
+    pane: "basemapTop"
+  })
+
   // Forest Preserve Boundaries (polygons)
-  var forestPreserveBoundaries = esri
-  .featureLayer({
-    url: "https://services2.arcgis.com/I5Or36sMcO7Y9vQ3/arcgis/rest/services/FPCCmap_basemap_boundaries/FeatureServer/0",
-    minZoom: 14,
-    interactive: false,
-    //pane: "basemap",
-    style: (feature) => {
-      let style = {
-        color: null, // no outline color
-        fillColor: "#C4EDC7",
-        fillOpacity: .2
-      };
-      return style;
-    }
-  })
+  // var forestPreserveBoundaries = esri
+  // .featureLayer({
+  //   url: "https://services2.arcgis.com/I5Or36sMcO7Y9vQ3/arcgis/rest/services/FPCCmap_basemap_boundaries/FeatureServer/0",
+  //   minZoom: 14,
+  //   interactive: false,
+  //   simplifyFactor: 0.4,
+  //   precision: 5,
+  //   //pane: "basemap",
+  //   style: (feature) => {
+  //     let style = {
+  //       color: "#c4edc7", // no outline color
+  //       fillColor: "#c4edc7",
+  //       fillOpacity: 1
+  //     };
+  //     return style;
+  //   }
+  // })
 
-  // Nature Preserve areas (polygons)
-  var naturePreserveAreas = esri
-  .featureLayer({
-    url: "https://services2.arcgis.com/I5Or36sMcO7Y9vQ3/arcgis/rest/services/FPCCmap_basemap_nature_preserves/FeatureServer/0",
-    minZoom: 14,
-    interactive: false,
-    //pane: "basemap",
-    style: (feature) => {
-      let style = {
-        color: null, // no outline color
-        fillColor: "#92DC97",
-        fillOpacity: 1
-      };
-      return style;
-    }
-  })
+  // // Nature Preserve areas (polygons)
+  // var naturePreserveAreas = esri
+  // .featureLayer({
+  //   url: "https://services2.arcgis.com/I5Or36sMcO7Y9vQ3/arcgis/rest/services/FPCCmap_basemap_nature_preserves/FeatureServer/0",
+  //   minZoom: 14,
+  //   interactive: false,
+  //   simplifyFactor: 0.4,
+  //   precision: 5,
+  //   //pane: "basemap",
+  //   style: (feature) => {
+  //     let style = {
+  //       color: null, // no outline color
+  //       fillColor: "#92dc97",
+  //       fillOpacity: 1
+  //     };
+  //     return style;
+  //   }
+  // })
 
 
-  // Parking areas (polygons)
-  var parkingAreas = esri
-  .featureLayer({
-    url: "https://services2.arcgis.com/I5Or36sMcO7Y9vQ3/arcgis/rest/services/FPCCmap_basemap_parking_geometry/FeatureServer/0",
-    minZoom: 15,
-    interactive: false,
-    //pane: "basemap",
-    style: (feature) => {
-      let style = {
-        color: "#D9D9D9", // no outline color
-        fillOpacity: 1
-      };
-      return style;
-    }
-  })
+  // // Parking areas (polygons)
+  // var parkingAreas = esri
+  // .featureLayer({
+  //   url: "https://services2.arcgis.com/I5Or36sMcO7Y9vQ3/arcgis/rest/services/FPCCmap_basemap_parking_geometry/FeatureServer/0",
+  //   minZoom: 15,
+  //   interactive: false,
+  //   simplifyFactor: 0.35,
+  //   precision: 5,
+  //   //pane: "basemap",
+  //   style: (feature) => {
+  //     let style = {
+  //       color: "#D9D9D9", // no outline color
+  //       fillOpacity: 1
+  //     };
+  //     return style;
+  //   }
+  // })
 
-  // Style parking (points)
-  const icon = L.icon({
-    iconUrl: "img/parking-gray.png",
-    iconSize: [16, 16]
-  });
+  // // Style parking (points)
+  // const icon = L.icon({
+  //   iconUrl: "img/parking-gray.png",
+  //   iconSize: [16, 16]
+  // });
 
-  const parkingIcons = esri
-    .featureLayer({
-      url: "https://services2.arcgis.com/I5Or36sMcO7Y9vQ3/arcgis/rest/services/FPCCmap_basemap_parking_icons/FeatureServer/0",
-      minZoom: 15,
-      interactive: false,
-      pointToLayer: (geojson, latlng) => {
-        return L.marker(latlng, {
-          icon: icon
-        });
-      }
-    })
+  // const parkingIcons = esri
+  //   .featureLayer({
+  //     url: "https://services2.arcgis.com/I5Or36sMcO7Y9vQ3/arcgis/rest/services/FPCCmap_basemap_parking_icons/FeatureServer/0",
+  //     minZoom: 15,
+  //     interactive: false,
+  //     pointToLayer: (geojson, latlng) => {
+  //       return L.marker(latlng, {
+  //         icon: icon,
+  //         interactive: false
+  //       });
+  //     }
+  //   })
 
   
 
-  var streets = L.featureGroup([vectorOSMlightgray, forestPreserveBoundaries, naturePreserveAreas, parkingAreas, parkingIcons],
+  var streets = L.featureGroup([ vectorOSMlightgrayBottom, forestPreserveBoundaries, naturePreserveAreas, parkingAreas, parkingIcons, vectorOSMlightgrayTop],
     ).addTo(map)//.setZIndex(-1000)
 
   var myAnalytics = analyticsCode.setup()

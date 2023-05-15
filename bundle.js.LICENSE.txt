@@ -4,9 +4,9 @@
  */
 
 /* @preserve
-* @terraformer/arcgis - v2.0.6 - MIT
-* Copyright (c) 2012-2020 Environmental Systems Research Institute, Inc.
-* Mon May 18 2020 14:30:35 GMT-0700 (Pacific Daylight Time)
+* @terraformer/arcgis - v2.0.7 - MIT
+* Copyright (c) 2012-2021 Environmental Systems Research Institute, Inc.
+* Thu Jul 22 2021 13:58:30 GMT-0700 (Pacific Daylight Time)
 */
 
 /*!
@@ -42,10 +42,19 @@
  */
 
 /*!
- * jQuery Migrate - v3.3.2 - 2020-11-17T23:22Z
+ * jQuery Migrate - v3.4.0 - 2022-03-24T16:30Z
  * Copyright OpenJS Foundation and other contributors
  */
 
 /*!  Modified 7/7/2021 for jQuery 3.6: Replaced .bind/unbind with .on/.off; replace isfunction with typeof */
 
 /*! jQuery Address v${version} | (c) 2009, 2013 Rostislav Hristov | jquery.org/license */
+
+/**
+ * @license
+ * Lodash <https://lodash.com/>
+ * Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
+ * Released under MIT license <https://lodash.com/license>
+ * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+ * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ */
