@@ -48,7 +48,10 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'G-YTZ5TSGLY9');
+      gtag('config', 'G-YTZ5TSGLY9', {
+      'page_path': location.pathname + location.search + location.hash,
+      'page_title': document.title
+      });
     </script>
 
 </head>
