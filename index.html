@@ -42,17 +42,37 @@
     <![endif]-->
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YTZ5TSGLY9"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+    <!-- Google tag (gtag.js) -->
+<script async src=https://www.googletagmanager.com/gtag/js?id=G-YTZ5TSGLY9></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-YTZ5TSGLY9');
 
-      gtag('config', 'G-YTZ5TSGLY9', {
-      'page_path': location.pathname + location.search + location.hash,
-      'page_title': document.title
-      });
-    </script>
+  // Replace the page_view event code
+  function trackPageview() {
+    // Get the full URL and path
+    let url = window.location.href;
+    let path = window.location.pathname + window.location.search;
+
+    // Remove hash fragment if present
+    if (window.location.hash) {
+      path = path.replace(window.location.hash, '');
+      url = url.split("#")[0];
+    }
+
+    // Send the page_view event to GA4
+    gtag('event', 'page_view', {
+      'page_title': document.title,
+      'page_location': url,
+      'page_path': path
+    });
+  }
+
+  // Call trackPageview when user navigates to a new page
+  trackPageview();
+</script>
 
 </head>
 <body>
