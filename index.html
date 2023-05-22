@@ -44,22 +44,29 @@
     <!-- Google tag (gtag.js) -->
     <!-- Google tag (gtag.js) -->
 <script async src=https://www.googletagmanager.com/gtag/js?id=G-YTZ5TSGLY9></script>
+<!-- Google tag (gtag.js) -->
+<script async src=https://www.googletagmanager.com/gtag/js?id=G-YTZ5TSGLY9></script>
 <script>
+  // Initialize the Google Analytics tag
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-YTZ5TSGLY9');
 
-  // Replace the page_view event code
+  // Function to track page view
   function trackPageview() {
-    // Get the full URL and path
+    // Get the full URL
     let url = window.location.href;
-    let path = window.location.pathname + window.location.search;
 
-    // Remove hash fragment if present
-    if (window.location.hash) {
-      path = path.replace(window.location.hash, '');
-      url = url.split("#")[0];
+    // Get the page path including the hash fragment
+    let path = window.location.hash ? decodeURIComponent(window.location.hash.substr(2)) : '/';
+
+    // Get the query string
+    let queryString = window.location.search;
+
+    // Append the query string to the page path
+    if (queryString) {
+      path += queryString;
     }
 
     // Send the page_view event to GA4
@@ -70,9 +77,22 @@
     });
   }
 
-  // Call trackPageview when user navigates to a new page
+  // Function to track hash changes and update page view
+  function trackHashChange() {
+    // Listen for hash change events
+    window.addEventListener('hashchange', function() {
+      // Call the trackPageview function on hash change
+      trackPageview();
+    });
+  }
+
+  // Call trackPageview when web map initially loads
   trackPageview();
+
+  // Call the trackHashChange function to start tracking hash changes
+  trackHashChange();
 </script>
+
 
 </head>
 <body>
