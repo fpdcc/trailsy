@@ -3691,6 +3691,10 @@ var panelFuncs = function (map) {
         if (poi.properties.tags[':panel'].indexOf('birding') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-birding-hotspot'><use xlink:href='icons/defs.svg#icon-birding-hotspot'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/birding/'>Birding Hotspot</a></span></div>"
         }
+        // fall_colors = Fall Colors Hotspot
+        if (poi.properties.tags[':panel'].indexOf('fall_colors') > -1) {
+          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-fall-colors'><use xlink:href='icons/defs.svg#icon-fall-colors'></use></svg><span class='fpccAmenityTitle'>Fall Colors Hotspots</span></div>"
+        }
         // cycling = Bicycling
         if (poi.properties.tags[':panel'].indexOf('cycling') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-bicycling'><use xlink:href='icons/defs.svg#icon-bicycling'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/bicycling/'>Bicycling</a></span></div>"
@@ -11507,17 +11511,6 @@ void 0)||"<a href='"+a+"'"+f+">"+a+"</a>";return""+b+c})}}).call(this);
 
 /***/ }),
 
-/***/ "./node_modules/esri-leaflet/package.json":
-/*!************************************************!*\
-  !*** ./node_modules/esri-leaflet/package.json ***!
-  \************************************************/
-/***/ ((module) => {
-
-"use strict";
-module.exports = JSON.parse('{"name":"esri-leaflet","description":"Leaflet plugins for consuming ArcGIS Online and ArcGIS Server services.","version":"3.0.7","author":"Patrick Arlt <parlt@esri.com> (http://patrickarlt.com)","bugs":{"url":"https://github.com/esri/esri-leaflet/issues"},"contributors":["Patrick Arlt <parlt@esri.com> (http://patrickarlt.com)","John Gravois <jgravois@esri.com> (https://johngravois.com)","Gavin Rehkemper <grehkemper@esri.com> (https://gavinr.com)","Jacob Wasilkowski <jwasilkowski@esri.com> (https://jwasilgeo.github.io)"],"dependencies":{"@terraformer/arcgis":"^2.1.0","tiny-binary-search":"^1.0.3"},"devDependencies":{"@rollup/plugin-json":"^4.1.0","@rollup/plugin-node-resolve":"^13.1.3","chai":"4.3.6","gh-release":"^6.0.1","highlight.js":"^11.4.0","http-server":"^14.1.0","husky":"^1.1.1","karma":"^6.3.16","karma-chai-sinon":"^0.1.5","karma-chrome-launcher":"^3.1.0","karma-coverage":"^2.2.0","karma-mocha":"^2.0.1","karma-mocha-reporter":"^2.2.5","karma-sourcemap-loader":"^0.3.8","leaflet":"^1.6.0","mkdirp":"^1.0.4","mocha":"^9.2.0","npm-run-all":"^4.1.5","rollup":"^2.67.2","rollup-plugin-terser":"^7.0.2","semistandard":"^9.0.0","sinon":"^13.0.1","sinon-chai":"3.7.0","snazzy":"^9.0.0","uglify-js":"^3.15.1","watch":"^1.0.2"},"files":["src/**/*.js","dist/esri-leaflet.js","dist/esri-leaflet.js.map","dist/esri-leaflet-debug.js.map","dist/siteData.json","profiles/*.js"],"homepage":"http://esri.github.io/esri-leaflet","module":"src/EsriLeaflet.js","jsnext:main":"src/EsriLeaflet.js","jspm":{"registry":"npm","format":"es6","main":"src/EsriLeaflet.js"},"keywords":["arcgis","esri","esri leaflet","gis","leaflet plugin","mapping"],"license":"Apache-2.0","main":"dist/esri-leaflet-debug.js","peerDependencies":{"leaflet":"^1.0.0"},"readmeFilename":"README.md","repository":{"type":"git","url":"git@github.com:Esri/esri-leaflet.git"},"scripts":{"build":"rollup -c profiles/debug.js & rollup -c profiles/production.js","lint":"semistandard | snazzy","prebuild":"mkdirp dist","pretest":"npm run build","precommit":"npm run lint","fix":"semistandard --fix","release":"./scripts/release.sh","start-watch":"watch \\"npm run build\\" src","start":"run-p start-watch serve","serve":"http-server -p 5000 -c-1 -o","test":"npm run lint && karma start","test:ci":"npm run lint && karma start --browsers Chrome_travis_ci"},"semistandard":{"globals":["expect","L","XMLHttpRequest","sinon","xhr","proj4"]},"unpkg":"dist/esri-leaflet-debug.js"}');
-
-/***/ }),
-
 /***/ "./node_modules/esri-leaflet/src/EsriLeaflet.js":
 /*!******************************************************!*\
   !*** ./node_modules/esri-leaflet/src/EsriLeaflet.js ***!
@@ -11527,45 +11520,45 @@ module.exports = JSON.parse('{"name":"esri-leaflet","description":"Leaflet plugi
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "VERSION": () => (/* binding */ version),
-/* harmony export */   "Support": () => (/* reexport safe */ _Support__WEBPACK_IMPORTED_MODULE_1__.Support),
-/* harmony export */   "options": () => (/* reexport safe */ _Options__WEBPACK_IMPORTED_MODULE_2__.options),
-/* harmony export */   "Util": () => (/* reexport safe */ _Util__WEBPACK_IMPORTED_MODULE_3__.EsriUtil),
-/* harmony export */   "get": () => (/* reexport safe */ _Request__WEBPACK_IMPORTED_MODULE_4__.get),
-/* harmony export */   "post": () => (/* reexport safe */ _Request__WEBPACK_IMPORTED_MODULE_4__.post),
-/* harmony export */   "request": () => (/* reexport safe */ _Request__WEBPACK_IMPORTED_MODULE_4__.request),
-/* harmony export */   "Task": () => (/* reexport safe */ _Tasks_Task__WEBPACK_IMPORTED_MODULE_5__.Task),
-/* harmony export */   "task": () => (/* reexport safe */ _Tasks_Task__WEBPACK_IMPORTED_MODULE_5__.task),
-/* harmony export */   "Query": () => (/* reexport safe */ _Tasks_Query__WEBPACK_IMPORTED_MODULE_6__.Query),
-/* harmony export */   "query": () => (/* reexport safe */ _Tasks_Query__WEBPACK_IMPORTED_MODULE_6__.query),
-/* harmony export */   "Find": () => (/* reexport safe */ _Tasks_Find__WEBPACK_IMPORTED_MODULE_7__.Find),
-/* harmony export */   "find": () => (/* reexport safe */ _Tasks_Find__WEBPACK_IMPORTED_MODULE_7__.find),
-/* harmony export */   "Identify": () => (/* reexport safe */ _Tasks_Identify__WEBPACK_IMPORTED_MODULE_8__.Identify),
-/* harmony export */   "identify": () => (/* reexport safe */ _Tasks_Identify__WEBPACK_IMPORTED_MODULE_8__.identify),
-/* harmony export */   "IdentifyFeatures": () => (/* reexport safe */ _Tasks_IdentifyFeatures__WEBPACK_IMPORTED_MODULE_9__.IdentifyFeatures),
-/* harmony export */   "identifyFeatures": () => (/* reexport safe */ _Tasks_IdentifyFeatures__WEBPACK_IMPORTED_MODULE_9__.identifyFeatures),
-/* harmony export */   "IdentifyImage": () => (/* reexport safe */ _Tasks_IdentifyImage__WEBPACK_IMPORTED_MODULE_10__.IdentifyImage),
-/* harmony export */   "identifyImage": () => (/* reexport safe */ _Tasks_IdentifyImage__WEBPACK_IMPORTED_MODULE_10__.identifyImage),
-/* harmony export */   "Service": () => (/* reexport safe */ _Services_Service__WEBPACK_IMPORTED_MODULE_11__.Service),
-/* harmony export */   "service": () => (/* reexport safe */ _Services_Service__WEBPACK_IMPORTED_MODULE_11__.service),
-/* harmony export */   "MapService": () => (/* reexport safe */ _Services_MapService__WEBPACK_IMPORTED_MODULE_12__.MapService),
-/* harmony export */   "mapService": () => (/* reexport safe */ _Services_MapService__WEBPACK_IMPORTED_MODULE_12__.mapService),
-/* harmony export */   "ImageService": () => (/* reexport safe */ _Services_ImageService__WEBPACK_IMPORTED_MODULE_13__.ImageService),
-/* harmony export */   "imageService": () => (/* reexport safe */ _Services_ImageService__WEBPACK_IMPORTED_MODULE_13__.imageService),
-/* harmony export */   "FeatureLayerService": () => (/* reexport safe */ _Services_FeatureLayerService__WEBPACK_IMPORTED_MODULE_14__.FeatureLayerService),
-/* harmony export */   "featureLayerService": () => (/* reexport safe */ _Services_FeatureLayerService__WEBPACK_IMPORTED_MODULE_14__.featureLayerService),
 /* harmony export */   "BasemapLayer": () => (/* reexport safe */ _Layers_BasemapLayer__WEBPACK_IMPORTED_MODULE_15__.BasemapLayer),
-/* harmony export */   "basemapLayer": () => (/* reexport safe */ _Layers_BasemapLayer__WEBPACK_IMPORTED_MODULE_15__.basemapLayer),
-/* harmony export */   "TiledMapLayer": () => (/* reexport safe */ _Layers_TiledMapLayer__WEBPACK_IMPORTED_MODULE_16__.TiledMapLayer),
-/* harmony export */   "tiledMapLayer": () => (/* reexport safe */ _Layers_TiledMapLayer__WEBPACK_IMPORTED_MODULE_16__.tiledMapLayer),
-/* harmony export */   "RasterLayer": () => (/* reexport safe */ _Layers_RasterLayer__WEBPACK_IMPORTED_MODULE_17__.RasterLayer),
-/* harmony export */   "ImageMapLayer": () => (/* reexport safe */ _Layers_ImageMapLayer__WEBPACK_IMPORTED_MODULE_18__.ImageMapLayer),
-/* harmony export */   "imageMapLayer": () => (/* reexport safe */ _Layers_ImageMapLayer__WEBPACK_IMPORTED_MODULE_18__.imageMapLayer),
 /* harmony export */   "DynamicMapLayer": () => (/* reexport safe */ _Layers_DynamicMapLayer__WEBPACK_IMPORTED_MODULE_19__.DynamicMapLayer),
-/* harmony export */   "dynamicMapLayer": () => (/* reexport safe */ _Layers_DynamicMapLayer__WEBPACK_IMPORTED_MODULE_19__.dynamicMapLayer),
-/* harmony export */   "FeatureManager": () => (/* reexport safe */ _Layers_FeatureLayer_FeatureManager__WEBPACK_IMPORTED_MODULE_20__.FeatureManager),
 /* harmony export */   "FeatureLayer": () => (/* reexport safe */ _Layers_FeatureLayer_FeatureLayer__WEBPACK_IMPORTED_MODULE_21__.FeatureLayer),
-/* harmony export */   "featureLayer": () => (/* reexport safe */ _Layers_FeatureLayer_FeatureLayer__WEBPACK_IMPORTED_MODULE_21__.featureLayer)
+/* harmony export */   "FeatureLayerService": () => (/* reexport safe */ _Services_FeatureLayerService__WEBPACK_IMPORTED_MODULE_14__.FeatureLayerService),
+/* harmony export */   "FeatureManager": () => (/* reexport safe */ _Layers_FeatureLayer_FeatureManager__WEBPACK_IMPORTED_MODULE_20__.FeatureManager),
+/* harmony export */   "Find": () => (/* reexport safe */ _Tasks_Find__WEBPACK_IMPORTED_MODULE_7__.Find),
+/* harmony export */   "Identify": () => (/* reexport safe */ _Tasks_Identify__WEBPACK_IMPORTED_MODULE_8__.Identify),
+/* harmony export */   "IdentifyFeatures": () => (/* reexport safe */ _Tasks_IdentifyFeatures__WEBPACK_IMPORTED_MODULE_9__.IdentifyFeatures),
+/* harmony export */   "IdentifyImage": () => (/* reexport safe */ _Tasks_IdentifyImage__WEBPACK_IMPORTED_MODULE_10__.IdentifyImage),
+/* harmony export */   "ImageMapLayer": () => (/* reexport safe */ _Layers_ImageMapLayer__WEBPACK_IMPORTED_MODULE_18__.ImageMapLayer),
+/* harmony export */   "ImageService": () => (/* reexport safe */ _Services_ImageService__WEBPACK_IMPORTED_MODULE_13__.ImageService),
+/* harmony export */   "MapService": () => (/* reexport safe */ _Services_MapService__WEBPACK_IMPORTED_MODULE_12__.MapService),
+/* harmony export */   "Query": () => (/* reexport safe */ _Tasks_Query__WEBPACK_IMPORTED_MODULE_6__.Query),
+/* harmony export */   "RasterLayer": () => (/* reexport safe */ _Layers_RasterLayer__WEBPACK_IMPORTED_MODULE_17__.RasterLayer),
+/* harmony export */   "Service": () => (/* reexport safe */ _Services_Service__WEBPACK_IMPORTED_MODULE_11__.Service),
+/* harmony export */   "Support": () => (/* reexport safe */ _Support__WEBPACK_IMPORTED_MODULE_1__.Support),
+/* harmony export */   "Task": () => (/* reexport safe */ _Tasks_Task__WEBPACK_IMPORTED_MODULE_5__.Task),
+/* harmony export */   "TiledMapLayer": () => (/* reexport safe */ _Layers_TiledMapLayer__WEBPACK_IMPORTED_MODULE_16__.TiledMapLayer),
+/* harmony export */   "Util": () => (/* reexport safe */ _Util__WEBPACK_IMPORTED_MODULE_3__.EsriUtil),
+/* harmony export */   "VERSION": () => (/* binding */ version),
+/* harmony export */   "basemapLayer": () => (/* reexport safe */ _Layers_BasemapLayer__WEBPACK_IMPORTED_MODULE_15__.basemapLayer),
+/* harmony export */   "dynamicMapLayer": () => (/* reexport safe */ _Layers_DynamicMapLayer__WEBPACK_IMPORTED_MODULE_19__.dynamicMapLayer),
+/* harmony export */   "featureLayer": () => (/* reexport safe */ _Layers_FeatureLayer_FeatureLayer__WEBPACK_IMPORTED_MODULE_21__.featureLayer),
+/* harmony export */   "featureLayerService": () => (/* reexport safe */ _Services_FeatureLayerService__WEBPACK_IMPORTED_MODULE_14__.featureLayerService),
+/* harmony export */   "find": () => (/* reexport safe */ _Tasks_Find__WEBPACK_IMPORTED_MODULE_7__.find),
+/* harmony export */   "get": () => (/* reexport safe */ _Request__WEBPACK_IMPORTED_MODULE_4__.get),
+/* harmony export */   "identify": () => (/* reexport safe */ _Tasks_Identify__WEBPACK_IMPORTED_MODULE_8__.identify),
+/* harmony export */   "identifyFeatures": () => (/* reexport safe */ _Tasks_IdentifyFeatures__WEBPACK_IMPORTED_MODULE_9__.identifyFeatures),
+/* harmony export */   "identifyImage": () => (/* reexport safe */ _Tasks_IdentifyImage__WEBPACK_IMPORTED_MODULE_10__.identifyImage),
+/* harmony export */   "imageMapLayer": () => (/* reexport safe */ _Layers_ImageMapLayer__WEBPACK_IMPORTED_MODULE_18__.imageMapLayer),
+/* harmony export */   "imageService": () => (/* reexport safe */ _Services_ImageService__WEBPACK_IMPORTED_MODULE_13__.imageService),
+/* harmony export */   "mapService": () => (/* reexport safe */ _Services_MapService__WEBPACK_IMPORTED_MODULE_12__.mapService),
+/* harmony export */   "options": () => (/* reexport safe */ _Options__WEBPACK_IMPORTED_MODULE_2__.options),
+/* harmony export */   "post": () => (/* reexport safe */ _Request__WEBPACK_IMPORTED_MODULE_4__.post),
+/* harmony export */   "query": () => (/* reexport safe */ _Tasks_Query__WEBPACK_IMPORTED_MODULE_6__.query),
+/* harmony export */   "request": () => (/* reexport safe */ _Request__WEBPACK_IMPORTED_MODULE_4__.request),
+/* harmony export */   "service": () => (/* reexport safe */ _Services_Service__WEBPACK_IMPORTED_MODULE_11__.service),
+/* harmony export */   "task": () => (/* reexport safe */ _Tasks_Task__WEBPACK_IMPORTED_MODULE_5__.task),
+/* harmony export */   "tiledMapLayer": () => (/* reexport safe */ _Layers_TiledMapLayer__WEBPACK_IMPORTED_MODULE_16__.tiledMapLayer)
 /* harmony export */ });
 /* harmony import */ var _package_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../package.json */ "./node_modules/esri-leaflet/package.json");
 /* harmony import */ var _Support__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Support */ "./node_modules/esri-leaflet/src/Support.js");
@@ -11939,8 +11932,8 @@ function basemapLayer (key, options) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "DynamicMapLayer": () => (/* binding */ DynamicMapLayer),
-/* harmony export */   "dynamicMapLayer": () => (/* binding */ dynamicMapLayer),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "dynamicMapLayer": () => (/* binding */ dynamicMapLayer)
 /* harmony export */ });
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_0__);
@@ -11966,7 +11959,7 @@ var DynamicMapLayer = _RasterLayer__WEBPACK_IMPORTED_MODULE_1__.RasterLayer.exte
 
   initialize: function (options) {
     options = (0,_Util__WEBPACK_IMPORTED_MODULE_2__.getUrlParams)(options);
-    this.service = (0,_Services_MapService__WEBPACK_IMPORTED_MODULE_3__.default)(options);
+    this.service = (0,_Services_MapService__WEBPACK_IMPORTED_MODULE_3__["default"])(options);
     this.service.addEventParent(this);
 
     leaflet__WEBPACK_IMPORTED_MODULE_0__.Util.setOptions(this, options);
@@ -12741,8 +12734,8 @@ var FeatureGrid = leaflet__WEBPACK_IMPORTED_MODULE_0__.Layer.extend({
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "FeatureLayer": () => (/* binding */ FeatureLayer),
-/* harmony export */   "featureLayer": () => (/* binding */ featureLayer),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "featureLayer": () => (/* binding */ featureLayer)
 /* harmony export */ });
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_0__);
@@ -13222,7 +13215,7 @@ var FeatureManager = _FeatureGrid__WEBPACK_IMPORTED_MODULE_3__.FeatureGrid.exten
     options = (0,_Util__WEBPACK_IMPORTED_MODULE_2__.getUrlParams)(options);
     options = leaflet__WEBPACK_IMPORTED_MODULE_0__.Util.setOptions(this, options);
 
-    this.service = (0,_Services_FeatureLayerService__WEBPACK_IMPORTED_MODULE_1__.default)(options);
+    this.service = (0,_Services_FeatureLayerService__WEBPACK_IMPORTED_MODULE_1__["default"])(options);
     this.service.addEventParent(this);
 
     // use case insensitive regex to look for common fieldnames used for indexing
@@ -13241,10 +13234,10 @@ var FeatureManager = _FeatureGrid__WEBPACK_IMPORTED_MODULE_3__.FeatureGrid.exten
     }
 
     if (this.options.timeField.start && this.options.timeField.end) {
-      this._startTimeIndex = new tiny_binary_search__WEBPACK_IMPORTED_MODULE_4__.default();
-      this._endTimeIndex = new tiny_binary_search__WEBPACK_IMPORTED_MODULE_4__.default();
+      this._startTimeIndex = new tiny_binary_search__WEBPACK_IMPORTED_MODULE_4__["default"]();
+      this._endTimeIndex = new tiny_binary_search__WEBPACK_IMPORTED_MODULE_4__["default"]();
     } else if (this.options.timeField) {
-      this._timeIndex = new tiny_binary_search__WEBPACK_IMPORTED_MODULE_4__.default();
+      this._timeIndex = new tiny_binary_search__WEBPACK_IMPORTED_MODULE_4__["default"]();
     }
 
     this._cache = {};
@@ -13860,8 +13853,8 @@ var FeatureManager = _FeatureGrid__WEBPACK_IMPORTED_MODULE_3__.FeatureGrid.exten
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ImageMapLayer": () => (/* binding */ ImageMapLayer),
-/* harmony export */   "imageMapLayer": () => (/* binding */ imageMapLayer),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "imageMapLayer": () => (/* binding */ imageMapLayer)
 /* harmony export */ });
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_0__);
@@ -13892,7 +13885,7 @@ var ImageMapLayer = _RasterLayer__WEBPACK_IMPORTED_MODULE_1__.RasterLayer.extend
 
   initialize: function (options) {
     options = (0,_Util__WEBPACK_IMPORTED_MODULE_2__.getUrlParams)(options);
-    this.service = (0,_Services_ImageService__WEBPACK_IMPORTED_MODULE_3__.default)(options);
+    this.service = (0,_Services_ImageService__WEBPACK_IMPORTED_MODULE_3__["default"])(options);
     this.service.addEventParent(this);
 
     leaflet__WEBPACK_IMPORTED_MODULE_0__.Util.setOptions(this, options);
@@ -14466,8 +14459,8 @@ var RasterLayer = leaflet__WEBPACK_IMPORTED_MODULE_0__.Layer.extend({
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "TiledMapLayer": () => (/* binding */ TiledMapLayer),
-/* harmony export */   "tiledMapLayer": () => (/* binding */ tiledMapLayer),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "tiledMapLayer": () => (/* binding */ tiledMapLayer)
 /* harmony export */ });
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_0__);
@@ -14523,7 +14516,7 @@ var TiledMapLayer = leaflet__WEBPACK_IMPORTED_MODULE_0__.TileLayer.extend({
     if (options.url.indexOf('{s}') !== -1 && options.subdomains) {
       options.url = options.url.replace('{s}', options.subdomains[0]);
     }
-    this.service = (0,_Services_MapService__WEBPACK_IMPORTED_MODULE_2__.default)(options);
+    this.service = (0,_Services_MapService__WEBPACK_IMPORTED_MODULE_2__["default"])(options);
     this.service.addEventParent(this);
 
     var arcgisonline = new RegExp(/tiles.arcgis(online)?\.com/g);
@@ -14683,8 +14676,8 @@ function tiledMapLayer (url, options) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "options": () => (/* binding */ options),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "options": () => (/* binding */ options)
 /* harmony export */ });
 var options = {
   attributionWidthOffset: 55
@@ -14704,13 +14697,13 @@ var options = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "request": () => (/* binding */ request),
-/* harmony export */   "jsonp": () => (/* binding */ jsonp),
-/* harmony export */   "warn": () => (/* binding */ warn),
-/* harmony export */   "get": () => (/* binding */ get),
-/* harmony export */   "post": () => (/* binding */ xmlHttpPost),
 /* harmony export */   "Request": () => (/* binding */ Request),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "get": () => (/* binding */ get),
+/* harmony export */   "jsonp": () => (/* binding */ jsonp),
+/* harmony export */   "post": () => (/* binding */ xmlHttpPost),
+/* harmony export */   "request": () => (/* binding */ request),
+/* harmony export */   "warn": () => (/* binding */ warn)
 /* harmony export */ });
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_0__);
@@ -14977,8 +14970,8 @@ var Request = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "FeatureLayerService": () => (/* binding */ FeatureLayerService),
-/* harmony export */   "featureLayerService": () => (/* binding */ featureLayerService),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "featureLayerService": () => (/* binding */ featureLayerService)
 /* harmony export */ });
 /* harmony import */ var _Service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Service */ "./node_modules/esri-leaflet/src/Services/Service.js");
 /* harmony import */ var _Tasks_Query__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Tasks/Query */ "./node_modules/esri-leaflet/src/Tasks/Query.js");
@@ -14994,7 +14987,7 @@ var FeatureLayerService = _Service__WEBPACK_IMPORTED_MODULE_0__.Service.extend({
   },
 
   query: function () {
-    return (0,_Tasks_Query__WEBPACK_IMPORTED_MODULE_1__.default)(this);
+    return (0,_Tasks_Query__WEBPACK_IMPORTED_MODULE_1__["default"])(this);
   },
 
   addFeature: function (feature, callback, context) {
@@ -15078,8 +15071,8 @@ function featureLayerService (options) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ImageService": () => (/* binding */ ImageService),
-/* harmony export */   "imageService": () => (/* binding */ imageService),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "imageService": () => (/* binding */ imageService)
 /* harmony export */ });
 /* harmony import */ var _Service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Service */ "./node_modules/esri-leaflet/src/Services/Service.js");
 /* harmony import */ var _Tasks_IdentifyImage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Tasks/IdentifyImage */ "./node_modules/esri-leaflet/src/Tasks/IdentifyImage.js");
@@ -15091,11 +15084,11 @@ __webpack_require__.r(__webpack_exports__);
 var ImageService = _Service__WEBPACK_IMPORTED_MODULE_0__.Service.extend({
 
   query: function () {
-    return (0,_Tasks_Query__WEBPACK_IMPORTED_MODULE_2__.default)(this);
+    return (0,_Tasks_Query__WEBPACK_IMPORTED_MODULE_2__["default"])(this);
   },
 
   identify: function () {
-    return (0,_Tasks_IdentifyImage__WEBPACK_IMPORTED_MODULE_1__.default)(this);
+    return (0,_Tasks_IdentifyImage__WEBPACK_IMPORTED_MODULE_1__["default"])(this);
   }
 });
 
@@ -15118,8 +15111,8 @@ function imageService (options) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "MapService": () => (/* binding */ MapService),
-/* harmony export */   "mapService": () => (/* binding */ mapService),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "mapService": () => (/* binding */ mapService)
 /* harmony export */ });
 /* harmony import */ var _Service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Service */ "./node_modules/esri-leaflet/src/Services/Service.js");
 /* harmony import */ var _Tasks_IdentifyFeatures__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Tasks/IdentifyFeatures */ "./node_modules/esri-leaflet/src/Tasks/IdentifyFeatures.js");
@@ -15133,15 +15126,15 @@ __webpack_require__.r(__webpack_exports__);
 var MapService = _Service__WEBPACK_IMPORTED_MODULE_0__.Service.extend({
 
   identify: function () {
-    return (0,_Tasks_IdentifyFeatures__WEBPACK_IMPORTED_MODULE_1__.default)(this);
+    return (0,_Tasks_IdentifyFeatures__WEBPACK_IMPORTED_MODULE_1__["default"])(this);
   },
 
   find: function () {
-    return (0,_Tasks_Find__WEBPACK_IMPORTED_MODULE_3__.default)(this);
+    return (0,_Tasks_Find__WEBPACK_IMPORTED_MODULE_3__["default"])(this);
   },
 
   query: function () {
-    return (0,_Tasks_Query__WEBPACK_IMPORTED_MODULE_2__.default)(this);
+    return (0,_Tasks_Query__WEBPACK_IMPORTED_MODULE_2__["default"])(this);
   }
 
 });
@@ -15165,8 +15158,8 @@ function mapService (options) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Service": () => (/* binding */ Service),
-/* harmony export */   "service": () => (/* binding */ service),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "service": () => (/* binding */ service)
 /* harmony export */ });
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_0__);
@@ -15247,9 +15240,9 @@ var Service = leaflet__WEBPACK_IMPORTED_MODULE_0__.Evented.extend({
       var url = (this.options.proxy) ? this.options.proxy + '?' + this.options.url + path : this.options.url + path;
 
       if ((method === 'get' || method === 'request') && !this.options.useCors) {
-        return _Request__WEBPACK_IMPORTED_MODULE_3__.default.get.JSONP(url, params, wrappedCallback, context);
+        return _Request__WEBPACK_IMPORTED_MODULE_3__["default"].get.JSONP(url, params, wrappedCallback, context);
       } else {
-        return _Request__WEBPACK_IMPORTED_MODULE_3__.default[method](url, params, wrappedCallback, context);
+        return _Request__WEBPACK_IMPORTED_MODULE_3__["default"][method](url, params, wrappedCallback, context);
       }
     }
   },
@@ -15326,10 +15319,10 @@ function service (options) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "cors": () => (/* binding */ cors),
-/* harmony export */   "pointerEvents": () => (/* binding */ pointerEvents),
 /* harmony export */   "Support": () => (/* binding */ Support),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "cors": () => (/* binding */ cors),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "pointerEvents": () => (/* binding */ pointerEvents)
 /* harmony export */ });
 var cors = ((window.XMLHttpRequest && 'withCredentials' in new window.XMLHttpRequest()));
 var pointerEvents = document.documentElement.style.pointerEvents === '';
@@ -15354,8 +15347,8 @@ var Support = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Find": () => (/* binding */ Find),
-/* harmony export */   "find": () => (/* binding */ find),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "find": () => (/* binding */ find)
 /* harmony export */ });
 /* harmony import */ var _Task__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Task */ "./node_modules/esri-leaflet/src/Tasks/Task.js");
 /* harmony import */ var _Util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Util */ "./node_modules/esri-leaflet/src/Util.js");
@@ -15431,8 +15424,8 @@ function find (options) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Identify": () => (/* binding */ Identify),
-/* harmony export */   "identify": () => (/* binding */ identify),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "identify": () => (/* binding */ identify)
 /* harmony export */ });
 /* harmony import */ var _Task__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Task */ "./node_modules/esri-leaflet/src/Tasks/Task.js");
 
@@ -15465,8 +15458,8 @@ function identify (options) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "IdentifyFeatures": () => (/* binding */ IdentifyFeatures),
-/* harmony export */   "identifyFeatures": () => (/* binding */ identifyFeatures),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "identifyFeatures": () => (/* binding */ identifyFeatures)
 /* harmony export */ });
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_0__);
@@ -15568,8 +15561,8 @@ function identifyFeatures (options) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "IdentifyImage": () => (/* binding */ IdentifyImage),
-/* harmony export */   "identifyImage": () => (/* binding */ identifyImage),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "identifyImage": () => (/* binding */ identifyImage)
 /* harmony export */ });
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_0__);
@@ -15688,8 +15681,8 @@ function identifyImage (params) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Query": () => (/* binding */ Query),
-/* harmony export */   "query": () => (/* binding */ query),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "query": () => (/* binding */ query)
 /* harmony export */ });
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_0__);
@@ -15928,8 +15921,8 @@ function query (options) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Task": () => (/* binding */ Task),
-/* harmony export */   "task": () => (/* binding */ task),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "task": () => (/* binding */ task)
 /* harmony export */ });
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_0__);
@@ -16013,10 +16006,10 @@ var Task = leaflet__WEBPACK_IMPORTED_MODULE_0__.Class.extend({
     var url = (this.options.proxy) ? this.options.proxy + '?' + this.options.url + path : this.options.url + path;
 
     if ((method === 'get' || method === 'request') && !this.options.useCors) {
-      return _Request__WEBPACK_IMPORTED_MODULE_3__.default.get.JSONP(url, params, callback, context);
+      return _Request__WEBPACK_IMPORTED_MODULE_3__["default"].get.JSONP(url, params, callback, context);
     }
 
-    return _Request__WEBPACK_IMPORTED_MODULE_3__.default[method](url, params, callback, context);
+    return _Request__WEBPACK_IMPORTED_MODULE_3__["default"][method](url, params, callback, context);
   }
 });
 
@@ -16039,26 +16032,26 @@ function task (options) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "geojsonToArcGIS": () => (/* binding */ geojsonToArcGIS),
-/* harmony export */   "arcgisToGeoJSON": () => (/* binding */ arcgisToGeoJSON),
-/* harmony export */   "extentToBounds": () => (/* binding */ extentToBounds),
-/* harmony export */   "boundsToExtent": () => (/* binding */ boundsToExtent),
-/* harmony export */   "_findIdAttributeFromResponse": () => (/* binding */ _findIdAttributeFromResponse),
+/* harmony export */   "EsriUtil": () => (/* binding */ EsriUtil),
 /* harmony export */   "_findIdAttributeFromFeature": () => (/* binding */ _findIdAttributeFromFeature),
-/* harmony export */   "responseToFeatureCollection": () => (/* binding */ responseToFeatureCollection),
+/* harmony export */   "_findIdAttributeFromResponse": () => (/* binding */ _findIdAttributeFromResponse),
+/* harmony export */   "_getAttributionData": () => (/* binding */ _getAttributionData),
+/* harmony export */   "_setGeometry": () => (/* binding */ _setGeometry),
+/* harmony export */   "_updateMapAttribution": () => (/* binding */ _updateMapAttribution),
+/* harmony export */   "arcgisToGeoJSON": () => (/* binding */ arcgisToGeoJSON),
+/* harmony export */   "boundsToExtent": () => (/* binding */ boundsToExtent),
+/* harmony export */   "calcAttributionWidth": () => (/* binding */ calcAttributionWidth),
 /* harmony export */   "cleanUrl": () => (/* binding */ cleanUrl),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "extentToBounds": () => (/* binding */ extentToBounds),
+/* harmony export */   "geojsonToArcGIS": () => (/* binding */ geojsonToArcGIS),
+/* harmony export */   "geojsonTypeToArcGIS": () => (/* binding */ geojsonTypeToArcGIS),
 /* harmony export */   "getUrlParams": () => (/* binding */ getUrlParams),
 /* harmony export */   "isArcgisOnline": () => (/* binding */ isArcgisOnline),
-/* harmony export */   "geojsonTypeToArcGIS": () => (/* binding */ geojsonTypeToArcGIS),
-/* harmony export */   "calcAttributionWidth": () => (/* binding */ calcAttributionWidth),
-/* harmony export */   "setEsriAttribution": () => (/* binding */ setEsriAttribution),
 /* harmony export */   "removeEsriAttribution": () => (/* binding */ removeEsriAttribution),
-/* harmony export */   "_setGeometry": () => (/* binding */ _setGeometry),
-/* harmony export */   "_getAttributionData": () => (/* binding */ _getAttributionData),
-/* harmony export */   "_updateMapAttribution": () => (/* binding */ _updateMapAttribution),
-/* harmony export */   "warn": () => (/* reexport safe */ _Request__WEBPACK_IMPORTED_MODULE_1__.warn),
-/* harmony export */   "EsriUtil": () => (/* binding */ EsriUtil),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "responseToFeatureCollection": () => (/* binding */ responseToFeatureCollection),
+/* harmony export */   "setEsriAttribution": () => (/* binding */ setEsriAttribution),
+/* harmony export */   "warn": () => (/* reexport safe */ _Request__WEBPACK_IMPORTED_MODULE_1__.warn)
 /* harmony export */ });
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_0__);
@@ -46252,6 +46245,17 @@ BinarySearchIndex.prototype.sort = function sort () {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BinarySearchIndex);
 
+
+/***/ }),
+
+/***/ "./node_modules/esri-leaflet/package.json":
+/*!************************************************!*\
+  !*** ./node_modules/esri-leaflet/package.json ***!
+  \************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"name":"esri-leaflet","description":"Leaflet plugins for consuming ArcGIS Online and ArcGIS Server services.","version":"3.0.7","author":"Patrick Arlt <parlt@esri.com> (http://patrickarlt.com)","bugs":{"url":"https://github.com/esri/esri-leaflet/issues"},"contributors":["Patrick Arlt <parlt@esri.com> (http://patrickarlt.com)","John Gravois <jgravois@esri.com> (https://johngravois.com)","Gavin Rehkemper <grehkemper@esri.com> (https://gavinr.com)","Jacob Wasilkowski <jwasilkowski@esri.com> (https://jwasilgeo.github.io)"],"dependencies":{"@terraformer/arcgis":"^2.1.0","tiny-binary-search":"^1.0.3"},"devDependencies":{"@rollup/plugin-json":"^4.1.0","@rollup/plugin-node-resolve":"^13.1.3","chai":"4.3.6","gh-release":"^6.0.1","highlight.js":"^11.4.0","http-server":"^14.1.0","husky":"^1.1.1","karma":"^6.3.16","karma-chai-sinon":"^0.1.5","karma-chrome-launcher":"^3.1.0","karma-coverage":"^2.2.0","karma-mocha":"^2.0.1","karma-mocha-reporter":"^2.2.5","karma-sourcemap-loader":"^0.3.8","leaflet":"^1.6.0","mkdirp":"^1.0.4","mocha":"^9.2.0","npm-run-all":"^4.1.5","rollup":"^2.67.2","rollup-plugin-terser":"^7.0.2","semistandard":"^9.0.0","sinon":"^13.0.1","sinon-chai":"3.7.0","snazzy":"^9.0.0","uglify-js":"^3.15.1","watch":"^1.0.2"},"files":["src/**/*.js","dist/esri-leaflet.js","dist/esri-leaflet.js.map","dist/esri-leaflet-debug.js.map","dist/siteData.json","profiles/*.js"],"homepage":"http://esri.github.io/esri-leaflet","module":"src/EsriLeaflet.js","jsnext:main":"src/EsriLeaflet.js","jspm":{"registry":"npm","format":"es6","main":"src/EsriLeaflet.js"},"keywords":["arcgis","esri","esri leaflet","gis","leaflet plugin","mapping"],"license":"Apache-2.0","main":"dist/esri-leaflet-debug.js","peerDependencies":{"leaflet":"^1.0.0"},"readmeFilename":"README.md","repository":{"type":"git","url":"git@github.com:Esri/esri-leaflet.git"},"scripts":{"build":"rollup -c profiles/debug.js & rollup -c profiles/production.js","lint":"semistandard | snazzy","prebuild":"mkdirp dist","pretest":"npm run build","precommit":"npm run lint","fix":"semistandard --fix","release":"./scripts/release.sh","start-watch":"watch \\"npm run build\\" src","start":"run-p start-watch serve","serve":"http-server -p 5000 -c-1 -o","test":"npm run lint && karma start","test:ci":"npm run lint && karma start --browsers Chrome_travis_ci"},"semistandard":{"globals":["expect","L","XMLHttpRequest","sinon","xhr","proj4"]},"unpkg":"dist/esri-leaflet-debug.js"}');
 
 /***/ })
 
