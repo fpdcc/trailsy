@@ -25,7 +25,14 @@
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#606d29">
     <meta name="theme-color" content="#eeeeee">
     <title>Map: Forest Preserves of Cook County</title>
-
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-T7WWG85');</script>
+    <!-- End Google Tag Manager -->
+  
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin=""/>
     <link rel="stylesheet" href="styles/css/vendor/leaflet.usermarker.css"/>
     <link rel="stylesheet" href="styles/css/vendor/MarkerCluster.css"/>
@@ -41,61 +48,14 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <!-- Google tag (gtag.js) -->
-    <!-- Google tag (gtag.js) -->
-<script async src=https://www.googletagmanager.com/gtag/js?id=G-YTZ5TSGLY9></script>
-<!-- Google tag (gtag.js) -->
-<script async src=https://www.googletagmanager.com/gtag/js?id=G-YTZ5TSGLY9></script>
-<script>
-  // Initialize the Google Analytics tag
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-YTZ5TSGLY9');
-
-  // Function to track page view
-  function trackPageview() {
-    // Get the full URL
-    let url = window.location.href;
-
-    // Get the page path including the hash fragment
-    let path = window.location.hash ? decodeURIComponent(window.location.hash.substr(2)) : '/';
-
-    // Get the query string
-    let queryString = window.location.search;
-
-    // Append the query string to the page path
-    if (queryString) {
-      path += queryString;
-    }
-
-    // Send the page_view event to GA4
-    gtag('event', 'page_view', {
-      'page_title': document.title,
-      'page_location': url,
-      'page_path': path
-    });
-  }
-
-  // Function to track hash changes and update page view
-  function trackHashChange() {
-    // Listen for hash change events
-    window.addEventListener('hashchange', function() {
-      // Call the trackPageview function on hash change
-      trackPageview();
-    });
-  }
-
-  // Call trackPageview when web map initially loads
-  trackPageview();
-
-  // Call the trackHashChange function to start tracking hash changes
-  trackHashChange();
-</script>
-
 
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src=https://www.googletagmanager.com/ns.html?id=GTM-T7WWG85
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  
 <!--[if lt IE 11]>
   <div class="function-message-bg">
     <div class="function-message">
