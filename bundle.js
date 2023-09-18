@@ -3691,9 +3691,9 @@ var panelFuncs = function (map) {
         if (poi.properties.tags[':panel'].indexOf('birding') > -1) {
           fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-birding-hotspot'><use xlink:href='icons/defs.svg#icon-birding-hotspot'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/birding/'>Birding Hotspot</a></span></div>"
         }
-        // fall_colors = Fall Colors Hotspot
+        // fall_colors = Fall Color Hotspots
         if (poi.properties.tags[':panel'].indexOf('fall_colors') > -1) {
-          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-fall-colors'><use xlink:href='icons/defs.svg#icon-fall-colors'></use></svg><span class='fpccAmenityTitle'>Fall Colors Hotspots</span></div>"
+          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-fall-colors'><use xlink:href='icons/defs.svg#icon-fall-colors'></use></svg><span class='fpccAmenityTitle'>Fall Color Hotspots</span></div>"
         }
         // cycling = Bicycling
         if (poi.properties.tags[':panel'].indexOf('cycling') > -1) {
@@ -4834,7 +4834,7 @@ module.exports = {
 
 // Which tags should NOT should up in the results list
 var tagsExcludeTrailsList = []
-tagsExcludeTrailsList = tagsExcludeTrailsList.concat(['accessible', 'boat rental', 'canoe rental', 'kayak rental', 'boating center', 'boat_rental', 'camping', 'camp', 'campground', 'canoeing', 'kayaking', 'boating', 'canoe', 'kayak', 'boat', 'boat_ramp', 'disc golf', 'frisbee', 'disc_golf', 'dog park', 'off-leash dog', 'dog_friendly', 'drone flying', 'drone', 'fishing', 'golfing', 'golf', 'ice fishing', 'ice_fishing', 'ice skating', 'ice skate', 'skating_ice', 'indoor event space', 'wedding', 'meeting', 'indoor_rental', 'model airplane flying', 'm_airplane', 'model boat ', 'm_boat', 'nature center', 'museum', 'education', 'nature_center', 'picnic / event space', 'grove', 'bbq', 'grill', 'picnic_grove + shelter', 'sled', 'coasting', 'sledding', 'snowmobiling', 'snowmobile', 'snowmachine', 'pool', 'aquatic', 'swimming', 'volunteering', 'restoration', 'volunteer', 'zip line / treetop adventure', 'zip_line'])
+tagsExcludeTrailsList = tagsExcludeTrailsList.concat(['accessible', 'boat rental', 'canoe rental', 'kayak rental', 'boating center', 'boat_rental', 'camping', 'camp', 'campground', 'canoeing', 'kayaking', 'boating', 'canoe', 'kayak', 'boat', 'boat_ramp', 'disc golf', 'frisbee', 'disc_golf', 'dog park', 'off-leash dog', 'dog_friendly', 'drone flying', 'drone', 'fall_color', 'fall_colors', 'fishing', 'golfing', 'golf', 'ice fishing', 'ice_fishing', 'ice skating', 'ice skate', 'skating_ice', 'indoor event space', 'wedding', 'meeting', 'indoor_rental', 'model airplane flying', 'm_airplane', 'model boat ', 'm_boat', 'nature center', 'museum', 'education', 'nature_center', 'picnic / event space', 'grove', 'bbq', 'grill', 'picnic_grove + shelter', 'sled', 'coasting', 'sledding', 'snowmobiling', 'snowmobile', 'snowmachine', 'pool', 'aquatic', 'swimming', 'volunteering', 'restoration', 'volunteer', 'zip line / treetop adventure', 'zip_line'])
 
 // Which tags should NOT should up on map
 var tagsExcludeTrailsMap = []
@@ -4842,7 +4842,7 @@ tagsExcludeTrailsMap = tagsExcludeTrailsMap.concat(['drone'])
 tagsExcludeTrailsMap = tagsExcludeTrailsMap.concat(['m_airplane'])
 tagsExcludeTrailsMap = tagsExcludeTrailsMap.concat(['snowmobile', 'snowmachine'])
 tagsExcludeTrailsMap = tagsExcludeTrailsMap.concat(['swimming', 'swim', 'pool', 'aquatic'])
-
+tagsExcludeTrailsMap = tagsExcludeTrailsMap.concat(['fall_color', 'fall_colors'])
 
 
 module.exports = {
