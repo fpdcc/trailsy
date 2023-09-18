@@ -651,7 +651,7 @@ var panelFuncs = function (map) {
         }
         // fall_colors = Fall Color Hotspots
         if (poi.properties.tags[':panel'].indexOf('fall_colors') > -1) {
-          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-fall-colors'><use xlink:href='icons/defs.svg#icon-fall-colors'></use></svg><span class='fpccAmenityTitle'>Fall Color Hotspots</span></div>"
+          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-fall-colors'><use xlink:href='icons/defs.svg#icon-fall-colors'></use></svg><span class='fpccAmenityTitle'>Fall Color Hotspot</span></div>"
         }
         // cycling = Bicycling
         if (poi.properties.tags[':panel'].indexOf('cycling') > -1) {
