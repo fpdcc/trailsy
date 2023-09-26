@@ -647,7 +647,7 @@ var panelFuncs = function (map) {
 
         // birding = Birding Hotspot
         if (poi.properties.tags[':panel'].indexOf('birding') > -1) {
-          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-birding-hotspot'><use xlink:href='icons/defs.svg#icon-birding-hotspot'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/birding/'>Birding Hotspot testing</a></span></div>"
+          fpccAmenitiesString += "<div class='fpccAmenity'><svg class='icon icon-birding-hotspot'><use xlink:href='icons/defs.svg#icon-birding-hotspot'></use></svg><span class='fpccAmenityTitle'><a href='https://fpdcc.com/things-to-do/birding/'>Birding Hotspot</a></span></div>"
         }
         // fall_colors = Fall Color Hotspots
         if (poi.properties.tags[':panel'].indexOf('fall_colors') > -1) {
