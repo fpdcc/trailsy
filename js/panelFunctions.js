@@ -752,17 +752,17 @@ var panelFuncs = function (map) {
       var bathroomDisclaimerString = '<div class="asterisk">'
       var useBathroomDisclaimer = false
       if ((!(poi.properties.tags[':panel'].indexOf('bathroom_building_winter') > -1)) && (poi.properties.tags[':panel'].indexOf('bathroom_building_summer') > -1)) {
-        bathroomDisclaimerString += '<div class="bathroom-season">*Indoor bathroom open April 1 to October 31 depending on weather conditions.</div>'
+        bathroomDisclaimerString += '<div class="bathroom-season">*Indoor bathroom(s) open by Memorial Day in spring through Labor Day in fall, weather permitting. For planned gatherings, it is recommended to call and confirm availability with staff by calling 800-870-3666, option 1.</div>'
         useBathroomDisclaimer = true
       }
       if ((!(poi.properties.tags[':panel'].indexOf('bathroom_portable_winter') > -1)) && (poi.properties.tags[':panel'].indexOf('bathroom_portable_summer') > -1)) {
-        bathroomDisclaimerString += '<div class="portable-bathroom-season">**Portable bathroom open May 1 to October 31 depending on weather conditions.</div>'
+        bathroomDisclaimerString += '<div class="portable-bathroom-season">**Portable bathroom(s) open by Memorial Day in spring through Labor Day in fall, weather permitting. For planned gatherings, it is recommended to call and confirm availability with staff by calling 800-870-3666, option 1</div>'
         useBathroomDisclaimer = true
       }
       if ((poi.properties.tags[':panel'].indexOf('bathroom_portable_winter') > -1) && (!(poi.properties.tags[':panel'].indexOf('bathroom_portable_summer') > -1))) {
-        bathroomDisclaimerString += '<div class="portable-bathroom-season">**Portable bathroom open November 1 to April 30 depending on weather conditions.</div>'
+        bathroomDisclaimerString += '<div class="portable-bathroom-season">**Portable bathroom(s) open throughout winter, subject to weather conditions.</div>'
         useBathroomDisclaimer = true
-      }
+      }}
       if (useBathroomDisclaimer) {
         bathroomDisclaimerString += '</div>'
         fpccAmenitiesString += bathroomDisclaimerString
